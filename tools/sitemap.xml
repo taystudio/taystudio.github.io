@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://taehyuklee.github.io/Archive/tools/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
 
-  <url><loc>https://taehyuklee.github.io/Archive/tools/brokerage/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/property-tax/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/comp-property/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/capgain/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/brokerage/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/property-tax/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/comp-property/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/capgain/</loc><changefreq>monthly</changefreq><priority>0.95</priority></url>
 
-  <url><loc>https://taehyuklee.github.io/Archive/tools/salary/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/year-end/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/comprehensive/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/vat/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/inheritance/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/insurance/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/loan/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/savings/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/compound/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/salary/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/year-end/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/comprehensive/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/vat/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/inheritance/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/insurance/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/loan/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/savings/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/compound/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <url><loc>https://taehyuklee.github.io/Archive/tools/hourly/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/weekly-pay/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/annual-leave/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/severance/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/unemployment/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/parental-leave/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/hourly/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/weekly-pay/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/annual-leave/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/severance/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/unemployment/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/parental-leave/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
 
-  <url><loc>https://taehyuklee.github.io/Archive/tools/pregnancy/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/ovulation/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/baby-formula/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/baby-clothes/</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/growth/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/pregnancy/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/ovulation/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/baby-formula/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/baby-clothes/</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/growth/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <url><loc>https://taehyuklee.github.io/Archive/tools/cartax/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/cartax-yearly/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/cartax/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/cartax-yearly/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
-  <url><loc>https://taehyuklee.github.io/Archive/tools/bmi/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/calorie/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/bmi/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/calorie/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
-  <url><loc>https://taehyuklee.github.io/Archive/tools/age/</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/dday/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/age/</loc><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/dday/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
-  <url><loc>https://taehyuklee.github.io/Archive/tools/privacy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://taehyuklee.github.io/Archive/tools/terms/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/privacy/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://taystudio.github.io/studio/tools/terms/</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

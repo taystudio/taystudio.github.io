@@ -8,16 +8,16 @@
   <link rel="icon" type="image/svg+xml" href="./tools/favicon.svg">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:site_name" content="TAYLEE">
-  <meta property="og:title" content="TAYLEE — 실용 도구 · 블로그 · 포트폴리오">
+  <meta property="og:site_name" content="TAYSTUDIO">
+  <meta property="og:title" content="TAYSTUDIO 계산기 — 한국 실생활 계산기 30선">
   <meta property="og:description" content="한국에서 자주 쓰는 실생활 계산기 30선과 블로그·포트폴리오를 한곳에. 가입·설치 없이 즉시 사용.">
   <meta property="og:url" content="https://taystudio.github.io/studio/">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="TAYLEE — 실용 도구 · 블로그 · 포트폴리오">
+  <meta name="twitter:title" content="TAYSTUDIO 계산기 — 한국 실생활 계산기 30선">
   <meta name="twitter:description" content="한국에서 자주 쓰는 실생활 계산기 30선과 블로그·포트폴리오를 한곳에. 가입·설치 없이 즉시 사용.">
-  <title>TAYLEE — 실용 도구 · 블로그 · 포트폴리오</title>
-  <meta name="description" content="한국에서 자주 쓰는 실생활 계산기 30선(TAYLEE Tools)과 블로그·포트폴리오를 한곳에. 가입·설치 없이 즉시 사용, 입력값은 브라우저 안에서만 처리.">
-  <meta name="keywords" content="TAYLEE, 실용 계산기, 세금 계산기, 부동산 계산기, 한국 계산기, 블로그, 포트폴리오">
+  <title>TAYSTUDIO 계산기 — 한국 실생활 계산기 30선</title>
+  <meta name="description" content="한국에서 자주 쓰는 실생활 계산기 30선(TAYSTUDIO 계산기)과 블로그·포트폴리오를 한곳에. 가입·설치 없이 즉시 사용, 입력값은 브라우저 안에서만 처리.">
+  <meta name="keywords" content="TAYSTUDIO, 실용 계산기, 세금 계산기, 부동산 계산기, 한국 계산기, 블로그, 포트폴리오">
   <link rel="canonical" href="https://taystudio.github.io/studio/">
   <script type="application/ld+json">
 {
@@ -25,14 +25,14 @@
   "@graph": [
     {
       "@type": "WebSite",
-      "name": "TAYLEE",
+      "name": "TAYSTUDIO",
       "url": "https://taystudio.github.io/studio/",
-      "description": "한국에서 자주 쓰는 실생활 계산기 30선(TAYLEE Tools)과 블로그·포트폴리오를 한곳에.",
+      "description": "한국에서 자주 쓰는 실생활 계산기 30선(TAYSTUDIO 계산기)과 블로그·포트폴리오를 한곳에.",
       "inLanguage": "ko-KR",
       "hasPart": [
         {
           "@type": "WebSite",
-          "name": "TAYLEE Tools",
+          "name": "TAYSTUDIO 계산기",
           "url": "https://taystudio.github.io/studio/tools/",
           "description": "실생활 계산기 30선 — 연봉·세금·부동산·임신·육아·건강."
         }
@@ -44,7 +44,7 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "TAYLEE",
+          "name": "TAYSTUDIO",
           "item": "https://taystudio.github.io/studio/"
         }
       ]
@@ -243,11 +243,7 @@
 <body>
   <div class="hub-bg" aria-hidden="true"></div>
 
-  <header class="site-header">
-    <a href="./" class="logo">TAYLEE</a>
-    <nav><a href="./tools/">Tools</a></nav>
-  </header>
-
+  <site-header></site-header>
   <main class="container">
     <section class="hub-hero fade-up">
       <p class="hub-eyebrow">TAYSTUDIO · EST. 2026</p>
@@ -303,13 +299,7 @@
     </section>
   </main>
 
-  <footer style="margin-top:88px;padding:32px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
-    <div style="margin-bottom:12px">
-      <a href="./tools/privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
-      ·
-      <a href="./tools/terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
-    </div>
-    <div class="sig">© 2026 TAYLEE · MADE IN SEOUL</div>
-  </footer>
+  <site-footer></site-footer>
+  <script src="/studio/common/site-chrome.js" defer></script>
 </body>
 </html>

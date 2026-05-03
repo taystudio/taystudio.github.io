@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:site_name" content="TAYSTUDIO 계산기">
   <meta property="og:title" content="출산 예정일 계산기 | 임신 주수·D-day 즉시 확인">
   <meta property="og:description" content="마지막 생리일과 주기로 출산예정일과 현재 임신 주수를 즉시 계산. 1·2·3 삼분기 진입일까지 안내.">
   <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   <title>출산 예정일 계산기 | 임신 주수·D-day 즉시 확인</title>
   <meta name="description" content="마지막 생리일과 주기로 출산예정일과 현재 임신 주수를 즉시 계산. 1·2·3 삼분기 진입일까지 안내.">
   <meta name="keywords" content="출산예정일 계산기, 임신 주수, 임신 D-day, 임신주기">
-  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/pregnancy/">
+  <link rel="canonical" href="https://taystudio.github.io/studio/tools/pregnancy/">
   <link rel="manifest" href="../manifest.webmanifest">
   <script>
     if ('serviceWorker' in navigator) {
@@ -33,7 +33,7 @@
       "@type": "WebApplication",
       "name": "출산 예정일 계산기 | 임신 주수·D-day 즉시 확인",
       "description": "마지막 생리일과 주기로 출산예정일과 현재 임신 주수를 즉시 계산. 1·2·3 삼분기 진입일까지 안내.",
-      "url": "https://taehyuklee.github.io/Archive/tools/pregnancy/",
+      "url": "https://taystudio.github.io/studio/tools/pregnancy/",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
@@ -52,19 +52,19 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Tools",
-          "item": "https://taehyuklee.github.io/Archive/tools/"
+          "item": "https://taystudio.github.io/studio/tools/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "임신·육아",
-          "item": "https://taehyuklee.github.io/Archive/tools/"
+          "item": "https://taystudio.github.io/studio/tools/"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "출산 예정일 계산기",
-          "item": "https://taehyuklee.github.io/Archive/tools/pregnancy/"
+          "item": "https://taystudio.github.io/studio/tools/pregnancy/"
         }
       ]
     }
@@ -74,10 +74,7 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <a href="../../index.html" class="logo">TAYLEE</a>
-    <nav><a href="../index.html">← 모든 도구</a></nav>
-  </header>
+  <site-header></site-header>
   <main class="container">
     <div class="breadcrumb"><a href="../index.html">도구</a> · 임신·육아 · 출산예정일 계산기</div>
     <h1>출산 예정일 계산기 <span class="basis-badge">Naegele 공식</span></h1>
@@ -125,13 +122,7 @@
     </nav>
   </main>
   <script src="./pregnancy.js" defer></script>
-  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
-    <div style="margin-bottom:8px">
-      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
-      ·
-      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
-    </div>
-    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
-  </footer>
+  <site-footer></site-footer>
+  <script src="/studio/common/site-chrome.js" defer></script>
 </body>
 </html>

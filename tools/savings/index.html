@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:site_name" content="TAYSTUDIO 계산기">
   <meta property="og:title" content="적금 이자 계산기 | 단리·복리 만기금 즉시">
   <meta property="og:description" content="월 적립금, 금리, 기간으로 적금 만기 수령액을 즉시 계산. 단리·복리 비교 가능, 이자소득세 15.4% 자동 차감.">
   <meta name="twitter:card" content="summary">
@@ -18,7 +18,7 @@
   <title>적금 이자 계산기 | 단리·복리 만기금 즉시</title>
   <meta name="description" content="월 적립금, 금리, 기간으로 적금 만기 수령액을 즉시 계산. 단리·복리 비교 가능, 이자소득세 15.4% 자동 차감.">
   <meta name="keywords" content="적금 계산기, 적금 이자, 단리 복리, 만기 수령액">
-  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/savings/">
+  <link rel="canonical" href="https://taystudio.github.io/studio/tools/savings/">
   <link rel="manifest" href="../manifest.webmanifest">
   <script>
     if ('serviceWorker' in navigator) {
@@ -33,7 +33,7 @@
       "@type": "WebApplication",
       "name": "적금 이자 계산기 | 단리·복리 만기금 즉시",
       "description": "월 적립금, 금리, 기간으로 적금 만기 수령액을 즉시 계산. 단리·복리 비교 가능, 이자소득세 15.4% 자동 차감.",
-      "url": "https://taehyuklee.github.io/Archive/tools/savings/",
+      "url": "https://taystudio.github.io/studio/tools/savings/",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
@@ -52,19 +52,19 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Tools",
-          "item": "https://taehyuklee.github.io/Archive/tools/"
+          "item": "https://taystudio.github.io/studio/tools/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "금융·세금",
-          "item": "https://taehyuklee.github.io/Archive/tools/"
+          "item": "https://taystudio.github.io/studio/tools/"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "적금 이자 계산기",
-          "item": "https://taehyuklee.github.io/Archive/tools/savings/"
+          "item": "https://taystudio.github.io/studio/tools/savings/"
         }
       ]
     }
@@ -74,10 +74,7 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <a href="../../index.html" class="logo">TAYLEE</a>
-    <nav><a href="../index.html">← 모든 도구</a></nav>
-  </header>
+  <site-header></site-header>
   <main class="container">
     <div class="breadcrumb"><a href="../index.html">도구</a> · 금융·세금 · 적금 계산기</div>
     <h1>적금 이자 계산기</h1>
@@ -141,13 +138,7 @@
     </nav>
   </main>
   <script src="./savings.js" defer></script>
-  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
-    <div style="margin-bottom:8px">
-      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
-      ·
-      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
-    </div>
-    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
-  </footer>
+  <site-footer></site-footer>
+  <script src="/studio/common/site-chrome.js" defer></script>
 </body>
 </html>
