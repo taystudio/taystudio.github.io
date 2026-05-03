@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:title" content="BMI 계산기 | 체질량지수·정상체중 한 번에">
+  <meta property="og:description" content="키와 체중으로 BMI(체질량지수)를 즉시 계산. 한국 비만학회 기준 6단계 분류와 정상체중 범위 표시.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="BMI 계산기 | 체질량지수·정상체중 한 번에">
+  <meta name="twitter:description" content="키와 체중으로 BMI(체질량지수)를 즉시 계산. 한국 비만학회 기준 6단계 분류와 정상체중 범위 표시.">
+  <title>BMI 계산기 | 체질량지수·정상체중 한 번에</title>
+  <meta name="description" content="키와 체중으로 BMI(체질량지수)를 즉시 계산. 한국 비만학회 기준 6단계 분류와 정상체중 범위 표시.">
+  <meta name="keywords" content="BMI 계산기, 체질량지수, 정상체중, 비만도">
+  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/bmi/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "BMI 계산기 | 체질량지수·정상체중 한 번에",
+      "description": "키와 체중으로 BMI(체질량지수)를 즉시 계산. 한국 비만학회 기준 6단계 분류와 정상체중 범위 표시.",
+      "url": "https://taehyuklee.github.io/Archive/tools/bmi/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "건강",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "BMI 계산기",
+          "item": "https://taehyuklee.github.io/Archive/tools/bmi/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../index.html" class="logo">TAYLEE</a>
+    <nav><a href="../index.html">← 모든 도구</a></nav>
+  </header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 건강 · BMI</div>
+    <h1>BMI 계산기 <span class="basis-badge">한국 기준 2018</span></h1>
+    <p class="subtitle">체질량지수와 정상 체중 범위를 즉시 표시.</p>
+
+    <form id="form" class="card">
+      <div class="row">
+        <div class="field">
+          <label for="height">키 (cm)</label>
+          <input type="number" id="height" placeholder="예: 175" min="50" step="0.1" required>
+        </div>
+        <div class="field">
+          <label for="weight">체중 (kg)</label>
+          <input type="number" id="weight" placeholder="예: 70" min="10" step="0.1" required>
+        </div>
+      </div>
+      <button type="submit">BMI 계산</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">체질량지수 (BMI)</div>
+        <div id="bmi" class="result-value">-</div>
+        <div id="category" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">정상 체중 범위 (BMI 18.5~22.9)</span><span id="idealRange" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">이상 체중</span><span id="ideal" class="value">-</span></div>
+        <div class="breakdown-row total"><span class="label">현재 차이</span><span id="diff" class="value">-</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ BMI는 근육량을 반영하지 못하므로 운동선수·근육질 체형은 실제보다 비만으로 분류될 수 있습니다. 정확한 체성분은 인바디 측정 권장.
+    </div>
+
+    <section class="sources">
+      <h2>출처</h2>
+      <div class="updated">최종 검증: 2026-04-29</div>
+      <ul>
+        <li><b>한국 BMI 기준</b> — 대한비만학회 2018 비만 진료지침 (저체중/정상/과체중/1·2·3단계 비만)</li>
+        <li><b>WHO 분류</b> (참고) — WHO는 25/30/35 기준으로 분류 (한국 기준이 더 엄격)</li>
+      </ul>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 30개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./bmi.js" defer></script>
+  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
+    <div style="margin-bottom:8px">
+      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
+      ·
+      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
+    </div>
+    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
+  </footer>
+</body>
+</html>

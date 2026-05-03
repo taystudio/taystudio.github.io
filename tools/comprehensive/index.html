@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:title" content="종합소득세 계산기 2026 | 사업·근로·기타소득 통합">
+  <meta property="og:description" content="2026년 종합소득세를 즉시 추정. 누진세율과 인적공제, 지방소득세까지 한 번에 계산합니다.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="종합소득세 계산기 2026 | 사업·근로·기타소득 통합">
+  <meta name="twitter:description" content="2026년 종합소득세를 즉시 추정. 누진세율과 인적공제, 지방소득세까지 한 번에 계산합니다.">
+  <title>종합소득세 계산기 2026 | 사업·근로·기타소득 통합</title>
+  <meta name="description" content="2026년 종합소득세를 즉시 추정. 누진세율과 인적공제, 지방소득세까지 한 번에 계산합니다.">
+  <meta name="keywords" content="종합소득세 계산기, 소득세 계산, 종소세, 누진세율">
+  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/comprehensive/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "종합소득세 계산기 2026 | 사업·근로·기타소득 통합",
+      "description": "2026년 종합소득세를 즉시 추정. 누진세율과 인적공제, 지방소득세까지 한 번에 계산합니다.",
+      "url": "https://taehyuklee.github.io/Archive/tools/comprehensive/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "금융·세금",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "종합소득세 계산기 2026",
+          "item": "https://taehyuklee.github.io/Archive/tools/comprehensive/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../index.html" class="logo">TAYLEE</a>
+    <nav><a href="../index.html">← 모든 도구</a></nav>
+  </header>
+
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 금융·세금 · 종합소득세 계산기</div>
+    <h1>종합소득세 계산기 <span class="basis-badge">2026년 기준</span></h1>
+    <p class="subtitle">누진세율 단순 추정. 5월 종소세 신고 전 빠른 점검용.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label for="income">총수입금액 <span class="hint">만원 단위 / 사업·근로·기타 합산</span></label>
+        <input type="number" id="income" placeholder="예: 8000" min="0" step="10" required>
+      </div>
+      <div class="field">
+        <label for="expense">필요경비 (사업소득 등) <span class="hint">없으면 0</span></label>
+        <input type="number" id="expense" placeholder="0" min="0" step="10" value="0">
+      </div>
+      <div class="field">
+        <label for="personal">부양가족 수 <span class="hint">본인 제외</span></label>
+        <input type="number" id="personal" placeholder="0" min="0" step="1" value="0">
+      </div>
+      <button type="submit">계산하기</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">예상 세액 (소득세 + 지방세)</div>
+        <div id="totalTax" class="result-value">0원</div>
+        <div id="rateLabel" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">소득금액 (수입 - 경비)</span><span id="incomeAfter" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">인적공제</span><span id="personalDed" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">과세표준</span><span id="taxBase" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">산출세액</span><span id="calcTax" class="value">0원</span></div>
+        <div class="breakdown-row total"><span class="label">지방소득세 (10%)</span><span id="localTax" class="value">0원</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 실제 종소세는 표준세액공제, 의료비/교육비/기부금 등 세액공제, 가산세 등 변수가 많습니다.
+      홈택스 모의계산이나 세무사 상담을 권장해요.
+    </div>
+
+    <section class="sources">
+      <h2>적용된 법령·고시 및 출처</h2>
+      <div class="updated">최종 검증: 2026-04-29 / 적용 기준: 2026년 (2025년 귀속분 신고 포함)</div>
+      <ul>
+        <li><b>종합소득세 누진세율 6~45%</b> — 소득세법 제55조. 2023년 개정 후 동일 (1400만 / 5000만 / 8800만 / 1.5억 / 3억 / 5억 / 10억). <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%86%8C%EB%93%9D%EC%84%B8%EB%B2%95/%EC%A0%9C55%EC%A1%B0" target="_blank" rel="noopener">국가법령정보센터</a></li>
+        <li><b>인적공제 1인당 150만원</b> — 소득세법 제50조</li>
+        <li><b>지방소득세 10%</b> (소득세의) — 지방세법 제85조</li>
+        <li><b>홈택스 모의계산 (정확 계산용)</b> — <a href="https://www.hometax.go.kr/" target="_blank" rel="noopener">국세청 홈택스</a></li>
+      </ul>
+      <div class="note">
+        ⚠️ 본 계산기는 표준세액공제·특별세액공제 등 사용자별 변동 항목을 미반영한 추정치입니다. 실제 신고는 홈택스 또는 세무사 상담 권장.
+      </div>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 30개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./comprehensive.js" defer></script>
+  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
+    <div style="margin-bottom:8px">
+      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
+      ·
+      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
+    </div>
+    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
+  </footer>
+</body>
+</html>

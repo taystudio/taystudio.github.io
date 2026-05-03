@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:title" content="배란일·가임기 계산기 | 생리주기 3주기 한눈에">
+  <meta property="og:description" content="마지막 생리일과 주기로 배란일과 가임기를 자동 계산. 3주기 분량 한 번에 확인.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="배란일·가임기 계산기 | 생리주기 3주기 한눈에">
+  <meta name="twitter:description" content="마지막 생리일과 주기로 배란일과 가임기를 자동 계산. 3주기 분량 한 번에 확인.">
+  <title>배란일·가임기 계산기 | 생리주기 3주기 한눈에</title>
+  <meta name="description" content="마지막 생리일과 주기로 배란일과 가임기를 자동 계산. 3주기 분량 한 번에 확인.">
+  <meta name="keywords" content="배란일 계산기, 가임기 계산기, 생리주기, 임신 준비">
+  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/ovulation/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "배란일·가임기 계산기 | 생리주기 3주기 한눈에",
+      "description": "마지막 생리일과 주기로 배란일과 가임기를 자동 계산. 3주기 분량 한 번에 확인.",
+      "url": "https://taehyuklee.github.io/Archive/tools/ovulation/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "임신·육아",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "배란일·가임기 계산기",
+          "item": "https://taehyuklee.github.io/Archive/tools/ovulation/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../index.html" class="logo">TAYLEE</a>
+    <nav><a href="../index.html">← 모든 도구</a></nav>
+  </header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 임신·육아 · 배란일·가임기</div>
+    <h1>배란일·가임기 계산기</h1>
+    <p class="subtitle">생리 시작일 + 주기 기반. 3주기 분량 한 번에.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label for="lmp">마지막 생리 시작일</label>
+        <input type="date" id="lmp" required>
+      </div>
+      <div class="field">
+        <label for="cycle">평균 생리주기 (일) <span class="hint">보통 28일, 정상 범위 21~35일</span></label>
+        <input type="number" id="cycle" placeholder="28" min="20" max="40" step="1" value="28">
+      </div>
+      <button type="submit">계산하기</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div id="cycleList"></div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 본 계산은 표준 28일 주기·황체기 14일 가정 기반 추정입니다. 개인차(주기 불규칙·다낭성난소 등)로 실제 배란일은 차이날 수 있어요. 정확한 임신 준비는 배란테스트지·기초체온 측정 병행을 권장.
+    </div>
+
+    <div class="coupang-banner">
+      <div class="label">파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다</div>
+      <a href="#" rel="nofollow sponsored noopener" target="_blank">[ 쿠팡 배란테스트기·임신테스트기 자리 ]</a>
+    </div>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 30개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./ovulation.js" defer></script>
+  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
+    <div style="margin-bottom:8px">
+      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
+      ·
+      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
+    </div>
+    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
+  </footer>
+</body>
+</html>

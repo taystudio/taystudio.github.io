@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:title" content="부가가치세 계산기 | 공급가액·부가세 양방향 분리">
+  <meta property="og:description" content="공급가액에서 부가세 계산 또는 합계금액에서 부가세 분리. 일반과세자 10% 즉시 자동 계산.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="부가가치세 계산기 | 공급가액·부가세 양방향 분리">
+  <meta name="twitter:description" content="공급가액에서 부가세 계산 또는 합계금액에서 부가세 분리. 일반과세자 10% 즉시 자동 계산.">
+  <title>부가가치세 계산기 | 공급가액·부가세 양방향 분리</title>
+  <meta name="description" content="공급가액에서 부가세 계산 또는 합계금액에서 부가세 분리. 일반과세자 10% 즉시 자동 계산.">
+  <meta name="keywords" content="부가가치세 계산기, 부가세 계산, VAT 계산, 공급가액 분리">
+  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/vat/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "부가가치세 계산기 | 공급가액·부가세 양방향 분리",
+      "description": "공급가액에서 부가세 계산 또는 합계금액에서 부가세 분리. 일반과세자 10% 즉시 자동 계산.",
+      "url": "https://taehyuklee.github.io/Archive/tools/vat/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "금융·세금",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "부가가치세 계산기",
+          "item": "https://taehyuklee.github.io/Archive/tools/vat/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../index.html" class="logo">TAYLEE</a>
+    <nav><a href="../index.html">← 모든 도구</a></nav>
+  </header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 금융·세금 · 부가세 계산기</div>
+    <h1>부가가치세 계산기 <span class="basis-badge">일반과세 10%</span></h1>
+    <p class="subtitle">공급가액 → 합계 / 합계 → 공급가액 양방향 변환.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label>계산 방식</label>
+        <div class="radio-group">
+          <label><input type="radio" name="mode" value="add" checked>공급가액 → 부가세 더하기</label>
+          <label><input type="radio" name="mode" value="extract">합계 → 부가세 분리</label>
+        </div>
+      </div>
+      <div class="field">
+        <label for="amount">금액 <span class="hint">원 단위</span></label>
+        <input type="number" id="amount" placeholder="예: 1000000" min="0" step="100" required>
+      </div>
+      <button type="submit">계산</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense — 사업자 카테고리 ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div id="modeLabel" class="result-label">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">공급가액</span><span id="supply" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">부가세 (10%)</span><span id="vat" class="value">0원</span></div>
+        <div class="breakdown-row total"><span class="label">합계 (공급가 + 부가세)</span><span id="total" class="value">0원</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 본 계산기는 일반과세자 기준 10% 세율입니다. 간이과세자는 업종별 1.5~4% 세율과 가산공제·납부의무 면제 등 별도 계산식 적용. 영세율(수출), 면세 항목은 0%.
+    </div>
+
+    <section class="sources">
+      <h2>적용된 법령·고시 및 출처</h2>
+      <div class="updated">최종 검증: 2026-04-29</div>
+      <ul>
+        <li><b>부가가치세 10%</b> — 부가가치세법 제30조. <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EB%B6%80%EA%B0%80%EA%B0%80%EC%B9%98%EC%84%B8%EB%B2%95/%EC%A0%9C30%EC%A1%B0" target="_blank" rel="noopener">국가법령정보센터</a></li>
+        <li><b>간이과세 업종별 부가가치율</b> — 부가가치세법 시행령 제111조</li>
+        <li><b>홈택스 부가세 신고</b> — <a href="https://www.hometax.go.kr/" target="_blank" rel="noopener">국세청 홈택스</a></li>
+      </ul>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 30개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./vat.js" defer></script>
+  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
+    <div style="margin-bottom:8px">
+      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
+      ·
+      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
+    </div>
+    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
+  </footer>
+</body>
+</html>

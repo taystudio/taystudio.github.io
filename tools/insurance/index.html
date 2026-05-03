@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:title" content="4대보험료 계산기 2026 | 근로자·사업주 부담">
+  <meta property="og:description" content="국민연금·건강보험·장기요양·고용보험·산재보험. 월 급여만 넣으면 근로자/사업주 부담 금액 즉시 계산.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="4대보험료 계산기 2026 | 근로자·사업주 부담">
+  <meta name="twitter:description" content="국민연금·건강보험·장기요양·고용보험·산재보험. 월 급여만 넣으면 근로자/사업주 부담 금액 즉시 계산.">
+  <title>4대보험료 계산기 2026 | 근로자·사업주 부담</title>
+  <meta name="description" content="국민연금·건강보험·장기요양·고용보험·산재보험. 월 급여만 넣으면 근로자/사업주 부담 금액 즉시 계산.">
+  <meta name="keywords" content="4대보험 계산기, 4대보험료, 국민연금, 건강보험, 고용보험">
+  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/insurance/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "4대보험료 계산기 2026 | 근로자·사업주 부담",
+      "description": "국민연금·건강보험·장기요양·고용보험·산재보험. 월 급여만 넣으면 근로자/사업주 부담 금액 즉시 계산.",
+      "url": "https://taehyuklee.github.io/Archive/tools/insurance/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "금융·세금",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "4대보험료 계산기 2026",
+          "item": "https://taehyuklee.github.io/Archive/tools/insurance/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../index.html" class="logo">TAYLEE</a>
+    <nav><a href="../index.html">← 모든 도구</a></nav>
+  </header>
+
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 금융·세금 · 4대보험료 계산기</div>
+    <h1>4대보험료 계산기 <span class="basis-badge">2026년 기준</span></h1>
+    <p class="subtitle">근로자/사업주 부담을 분리해 보여줍니다.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label for="monthly">월 급여 (세전) <span class="hint">원 단위</span></label>
+        <input type="number" id="monthly" placeholder="예: 4000000" min="0" step="10000" required>
+      </div>
+      <button type="submit">계산하기</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">근로자 월 부담액</div>
+        <div id="workerTotal" class="result-value">0원</div>
+        <div id="workerSub" class="result-sub">-</div>
+      </div>
+
+      <div class="section-title" style="margin-top:8px">근로자 부담</div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">국민연금 (4.75%)</span><span id="np_w" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">건강보험 (3.595%)</span><span id="hi_w" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">장기요양 (보수월액 0.4724%)</span><span id="ltc_w" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">고용보험 (0.9%)</span><span id="ei_w" class="value">0원</span></div>
+      </div>
+
+      <div class="section-title">사업주 부담</div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">국민연금</span><span id="np_e" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">건강보험</span><span id="hi_e" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">장기요양</span><span id="ltc_e" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">고용보험 (1.25%)</span><span id="ei_e" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">산재보험 (업종 평균 1.2%)</span><span id="wc_e" class="value">0원</span></div>
+        <div class="breakdown-row total"><span class="label">사업주 합계</span><span id="employerTotal" class="value">0원</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 산재보험료율은 업종마다 다릅니다 (0.7%~18.6%). 본 계산기는 평균값(1.2%) 기준 추정치예요.
+    </div>
+
+    <section class="sources">
+      <h2>적용된 법령·고시 및 출처</h2>
+      <div class="updated">최종 검증: 2026-04-29 / 적용 기준: 2026년 1월 (각 출처를 직접 확인하여 수치 갱신 완료)</div>
+      <ul>
+        <li><b>국민연금 9.5%</b> (각 4.75%) — 2026년부터 8년간 매년 0.5%p 인상. 월상한 637만원(2025.7~2026.6). <a href="https://www.korea.kr/news/policyNewsView.do?newsId=148957270" target="_blank" rel="noopener">정책브리핑</a> · <a href="https://www.nps.or.kr/pnsinfo/ntpsklg/getOHAF0038M0.do" target="_blank" rel="noopener">국민연금공단</a></li>
+        <li><b>건강보험 7.19%</b> (각 3.595%, 2026년 시행) — <a href="https://www.nhis.or.kr/nhis/together/wbhaea01000m01.do?mode=view&articleNo=11008009" target="_blank" rel="noopener">NHIS 2026년도 보험료 기준 안내</a></li>
+        <li><b>장기요양보험 0.9448%</b> (보수월액 대비, 2026년) — 산정식: 보수월액 × 0.9448% (또는 건강보험료의 약 13.14%)</li>
+        <li><b>고용보험</b> — 근로자 0.9%, 사업주 0.9%+고용안정·직업능력개발사업 0.25~0.85%. <a href="https://www.ei.go.kr" target="_blank" rel="noopener">고용보험</a></li>
+        <li><b>산재보험</b> — 산업재해보상보험법 제14조. 업종별 0.7~18.6%, 2025년 전 업종 평균 약 1.47%. <a href="https://www.kcomwel.or.kr" target="_blank" rel="noopener">근로복지공단</a></li>
+      </ul>
+      <div class="note">
+        ⚠️ 산재보험료는 업종에 따라 26배 차이가 납니다(사무직 0.7% vs 광업 18.6%). 정확한 본인 사업장 요율은 근로복지공단에서 확인하세요.<br>
+        ⚠️ 국민연금 보험료율은 2026년부터 8년간 매년 0.5%p씩 인상됩니다. 본 계산기는 매년 1월 갱신 예정.
+      </div>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 30개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./insurance.js" defer></script>
+  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
+    <div style="margin-bottom:8px">
+      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
+      ·
+      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
+    </div>
+    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
+  </footer>
+</body>
+</html>

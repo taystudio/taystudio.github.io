@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:title" content="자동차 취득세 계산기 2026 | 경차·전기차·하이브리드 감면">
+  <meta property="og:description" content="차량 가격과 종류만 입력하면 취득세, 공채매입 비용까지 즉시 계산. 친환경차 감면 자동 적용.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="자동차 취득세 계산기 2026 | 경차·전기차·하이브리드 감면">
+  <meta name="twitter:description" content="차량 가격과 종류만 입력하면 취득세, 공채매입 비용까지 즉시 계산. 친환경차 감면 자동 적용.">
+  <title>자동차 취득세 계산기 2026 | 경차·전기차·하이브리드 감면</title>
+  <meta name="description" content="차량 가격과 종류만 입력하면 취득세, 공채매입 비용까지 즉시 계산. 친환경차 감면 자동 적용.">
+  <meta name="keywords" content="자동차 취득세 계산기, 차량 등록비용, 공채매입, 전기차 감면">
+  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/cartax/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "자동차 취득세 계산기 2026 | 경차·전기차·하이브리드 감면",
+      "description": "차량 가격과 종류만 입력하면 취득세, 공채매입 비용까지 즉시 계산. 친환경차 감면 자동 적용.",
+      "url": "https://taehyuklee.github.io/Archive/tools/cartax/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "자동차",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "자동차 취득세 계산기 2026",
+          "item": "https://taehyuklee.github.io/Archive/tools/cartax/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../index.html" class="logo">TAYLEE</a>
+    <nav><a href="../index.html">← 모든 도구</a></nav>
+  </header>
+
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 금융·세금 · 자동차 취득세 계산기</div>
+    <h1>자동차 취득세 계산기 <span class="basis-badge">2026년 기준</span></h1>
+    <p class="subtitle">일반·경차·전기차·하이브리드 모두 지원.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label for="price">차량 가격 (부가세 포함) <span class="hint">만원 단위</span></label>
+        <input type="number" id="price" placeholder="예: 3500" min="0" step="10" required>
+      </div>
+
+      <div class="field">
+        <label>차량 종류</label>
+        <div class="radio-group">
+          <label><input type="radio" name="type" value="sedan" checked>일반 승용</label>
+          <label><input type="radio" name="type" value="compact">경차</label>
+          <label><input type="radio" name="type" value="ev">전기·수소</label>
+          <label><input type="radio" name="type" value="hybrid">하이브리드</label>
+          <label><input type="radio" name="type" value="van">승합·화물</label>
+        </div>
+      </div>
+
+      <button type="submit">계산하기</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">총 등록 비용</div>
+        <div id="totalCost" class="result-value">0원</div>
+        <div id="typeLabel" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">취득세</span><span id="acqTax" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label" id="acqRate" style="font-size:12px"></span><span></span></div>
+        <div class="breakdown-row"><span class="label">공채 액면금액 (참고)</span><span id="bondFace" class="value">0원</span></div>
+        <div class="breakdown-row total"><span class="label">공채 즉시할인 실부담</span><span id="bondActual" class="value">0원</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 본 계산기는 표준 세율 기준 추정치입니다. 인지대(약 1만원), 번호판 비용(약 4만원),
+      보험료, 탁송료는 별도. 공채는 즉시할인 매입 시 약 5~7% 할인되며 시도별 차이가 있어요.
+    </div>
+
+    <div class="coupang-banner">
+      <div class="label">파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다</div>
+      <a href="#" rel="nofollow sponsored noopener" target="_blank">[ 쿠팡 자동차 용품 추천 자리 ]</a>
+    </div>
+
+    <section class="sources">
+      <h2>적용된 법령·고시 및 출처</h2>
+      <div class="updated">최종 검증: 2026-04-29 / 적용 기준: 2026년 1월</div>
+      <ul>
+        <li><b>일반 승용차 7%</b> — 지방세법 제12조 제1항. <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A7%80%EB%B0%A9%EC%84%B8%EB%B2%95/%EC%A0%9C12%EC%A1%B0" target="_blank" rel="noopener">국가법령정보센터</a></li>
+        <li><b>경차 4%</b> (배기량 1000cc 이하) — 지방세법 제12조</li>
+        <li><b>전기·수소차 감면 (한도 140만원)</b> — 조세특례제한법 제66조의4. <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A1%B0%EC%84%B8%ED%8A%B9%EB%A1%80%EC%A0%9C%ED%95%9C%EB%B2%95" target="_blank" rel="noopener">국가법령정보센터</a></li>
+        <li><b>하이브리드차 감면 (한도 40만원)</b> — 조세특례제한법 제66조의4</li>
+        <li><b>도시철도채권 등 공채 매입 의무</b> — 시·도별 조례 (서울특별시 도시철도공채 조례 등)</li>
+        <li><b>위택스 지방세 미리계산 (정확 계산용)</b> — <a href="https://www.wetax.go.kr/tcp/loi/J030801M01.do" target="_blank" rel="noopener">위택스 (행정안전부)</a></li>
+      </ul>
+      <div class="note">
+        ⚠️ 친환경차 감면은 일몰 조항입니다(현행 2025년 말 종료, 통상 연장됨). 2026년 연장 여부는 국세청·행정안전부 고시 확인 필요. 공채 매입 비율은 시·도마다 다르며 본 계산기는 서울 기준입니다.
+      </div>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 30개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./cartax.js" defer></script>
+  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
+    <div style="margin-bottom:8px">
+      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
+      ·
+      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
+    </div>
+    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
+  </footer>
+</body>
+</html>

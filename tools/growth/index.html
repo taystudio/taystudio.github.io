@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:title" content="영유아 성장 백분위 계산기 | 키·몸무게 백분위">
+  <meta property="og:description" content="2017 한국 소아청소년 성장도표 기준. 0~36개월 영유아 키·몸무게 백분위를 즉시 추정.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="영유아 성장 백분위 계산기 | 키·몸무게 백분위">
+  <meta name="twitter:description" content="2017 한국 소아청소년 성장도표 기준. 0~36개월 영유아 키·몸무게 백분위를 즉시 추정.">
+  <title>영유아 성장 백분위 계산기 | 키·몸무게 백분위</title>
+  <meta name="description" content="2017 한국 소아청소년 성장도표 기준. 0~36개월 영유아 키·몸무게 백분위를 즉시 추정.">
+  <meta name="keywords" content="성장 백분위, 영유아 성장, 아기 키 백분위, 몸무게 백분위">
+  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/growth/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "영유아 성장 백분위 계산기 | 키·몸무게 백분위",
+      "description": "2017 한국 소아청소년 성장도표 기준. 0~36개월 영유아 키·몸무게 백분위를 즉시 추정.",
+      "url": "https://taehyuklee.github.io/Archive/tools/growth/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "임신·육아",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "영유아 성장 백분위 계산기",
+          "item": "https://taehyuklee.github.io/Archive/tools/growth/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../index.html" class="logo">TAYLEE</a>
+    <nav><a href="../index.html">← 모든 도구</a></nav>
+  </header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 임신·육아 · 성장 백분위</div>
+    <h1>영유아 성장 백분위 계산기 <span class="basis-badge">2017 한국 성장도표</span></h1>
+    <p class="subtitle">0~36개월 키·몸무게 백분위 추정.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label>성별</label>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="boy" checked>남아</label>
+          <label><input type="radio" name="gender" value="girl">여아</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="months">개월수</label>
+          <input type="number" id="months" placeholder="예: 12" min="0" max="36" step="0.5" required>
+        </div>
+        <div class="field">
+          <label for="height">키 (cm)</label>
+          <input type="number" id="height" placeholder="예: 75" min="0" step="0.1" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="weight">몸무게 (kg)</label>
+        <input type="number" id="weight" placeholder="예: 9.5" min="0" step="0.1" required>
+      </div>
+      <button type="submit">백분위 계산</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="row" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div>
+          <div class="result-label" style="text-align:center">키 백분위</div>
+          <div id="heightP" class="result-value" style="text-align:center;font-size:28px">-</div>
+          <div id="heightStatus" class="result-sub" style="text-align:center">-</div>
+        </div>
+        <div>
+          <div class="result-label" style="text-align:center">몸무게 백분위</div>
+          <div id="weightP" class="result-value" style="text-align:center;font-size:28px">-</div>
+          <div id="weightStatus" class="result-sub" style="text-align:center">-</div>
+        </div>
+      </div>
+      <div class="breakdown" style="margin-top:16px">
+        <div class="breakdown-row"><span class="label">또래 평균 키</span><span id="avgH" class="value">-</span></div>
+        <div class="breakdown-row total"><span class="label">또래 평균 몸무게</span><span id="avgW" class="value">-</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 본 계산은 2017 한국 성장도표 50백분위 + 표준편차 근사 기반 추정입니다. 정확한 백분위는 소아과 의무기록(LMS 방식)이 정확. 3~10백분위, 90~97백분위는 정상 범위 끝자락이며 극단(<3 또는 >97)은 의사 상담 권장.
+    </div>
+
+    <section class="sources">
+      <h2>출처</h2>
+      <div class="updated">최종 검증: 2026-04-29</div>
+      <ul>
+        <li><b>2017 한국 소아청소년 성장도표</b> — 대한소아청소년과학회 / 질병관리청 / <a href="https://knhanes.kdca.go.kr" target="_blank" rel="noopener">국민건강영양조사</a></li>
+        <li><b>WHO 표준 성장도표</b> (참고) — <a href="https://www.who.int/childgrowth/standards/" target="_blank" rel="noopener">WHO Child Growth Standards</a></li>
+      </ul>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 30개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./growth.js" defer></script>
+  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
+    <div style="margin-bottom:8px">
+      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
+      ·
+      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
+    </div>
+    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
+  </footer>
+</body>
+</html>

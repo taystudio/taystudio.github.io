@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:title" content="복리 계산기 | 일시투자·월적립 미래가치 즉시">
+  <meta property="og:description" content="원금과 월 적립금에 복리를 적용해 미래가치를 즉시 계산. 총 투자금 대비 수익 배수 표시.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="복리 계산기 | 일시투자·월적립 미래가치 즉시">
+  <meta name="twitter:description" content="원금과 월 적립금에 복리를 적용해 미래가치를 즉시 계산. 총 투자금 대비 수익 배수 표시.">
+  <title>복리 계산기 | 일시투자·월적립 미래가치 즉시</title>
+  <meta name="description" content="원금과 월 적립금에 복리를 적용해 미래가치를 즉시 계산. 총 투자금 대비 수익 배수 표시.">
+  <meta name="keywords" content="복리 계산기, 미래가치, 월 적립, 투자 시뮬레이션">
+  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/compound/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "복리 계산기 | 일시투자·월적립 미래가치 즉시",
+      "description": "원금과 월 적립금에 복리를 적용해 미래가치를 즉시 계산. 총 투자금 대비 수익 배수 표시.",
+      "url": "https://taehyuklee.github.io/Archive/tools/compound/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "금융·세금",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "복리 계산기",
+          "item": "https://taehyuklee.github.io/Archive/tools/compound/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../index.html" class="logo">TAYLEE</a>
+    <nav><a href="../index.html">← 모든 도구</a></nav>
+  </header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 금융·세금 · 복리 계산기</div>
+    <h1>복리 계산기</h1>
+    <p class="subtitle">일시 투자 + 매월 적립 동시 계산. 미래 가치 한눈에.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label for="principal">초기 원금 <span class="hint">만원 / 없으면 0</span></label>
+        <input type="number" id="principal" placeholder="0" min="0" step="100" value="0">
+      </div>
+      <div class="field">
+        <label for="monthly">매월 적립금 <span class="hint">만원</span></label>
+        <input type="number" id="monthly" placeholder="예: 50" min="0" step="10" value="0">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="rate">연 수익률 (%)</label>
+          <input type="number" id="rate" placeholder="예: 7" min="0" step="0.1" required>
+        </div>
+        <div class="field">
+          <label for="years">기간 (년)</label>
+          <input type="number" id="years" placeholder="예: 20" min="1" step="1" required>
+        </div>
+      </div>
+      <button type="submit">미래가치 계산</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense — 재테크 카테고리 ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">미래가치 (FV)</div>
+        <div id="totalFV" class="result-value">0원</div>
+        <div id="multiple" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">총 투자 원금</span><span id="invested" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">— 일시 투자분 미래가치</span><span id="principalPart" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">— 월 적립분 미래가치</span><span id="monthlyPart" class="value">0원</span></div>
+        <div class="breakdown-row total"><span class="label">총 수익</span><span id="profit" class="value">0원</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 세전·인플레이션 무시 단순 추정. 실제 투자는 세금(이자/배당 15.4%, 양도세 등)과 인플레이션이 적용됩니다. ETF·주식 투자 시 변동성 고려.
+    </div>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 30개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./compound.js" defer></script>
+  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
+    <div style="margin-bottom:8px">
+      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
+      ·
+      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
+    </div>
+    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
+  </footer>
+</body>
+</html>

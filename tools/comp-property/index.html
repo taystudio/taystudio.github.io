@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:title" content="종합부동산세 계산기 2026 | 1주택·다주택 자동 적용">
+  <meta property="og:description" content="공시가격 합계로 종부세를 즉시 추정. 1세대 1주택 12억 공제, 다주택 중과세율 자동 적용. 농어촌특별세 포함.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="종합부동산세 계산기 2026 | 1주택·다주택 자동 적용">
+  <meta name="twitter:description" content="공시가격 합계로 종부세를 즉시 추정. 1세대 1주택 12억 공제, 다주택 중과세율 자동 적용. 농어촌특별세 포함.">
+  <title>종합부동산세 계산기 2026 | 1주택·다주택 자동 적용</title>
+  <meta name="description" content="공시가격 합계로 종부세를 즉시 추정. 1세대 1주택 12억 공제, 다주택 중과세율 자동 적용. 농어촌특별세 포함.">
+  <meta name="keywords" content="종합부동산세 계산기, 종부세, 1주택 12억, 다주택 중과">
+  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/comp-property/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "종합부동산세 계산기 2026 | 1주택·다주택 자동 적용",
+      "description": "공시가격 합계로 종부세를 즉시 추정. 1세대 1주택 12억 공제, 다주택 중과세율 자동 적용. 농어촌특별세 포함.",
+      "url": "https://taehyuklee.github.io/Archive/tools/comp-property/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "부동산",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "종합부동산세 계산기 2026",
+          "item": "https://taehyuklee.github.io/Archive/tools/comp-property/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../index.html" class="logo">TAYLEE</a>
+    <nav><a href="../index.html">← 모든 도구</a></nav>
+  </header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 부동산 · 종합부동산세 계산기</div>
+    <h1>종합부동산세 계산기 <span class="basis-badge">2026년 기준</span></h1>
+    <p class="subtitle">공시가 합계로 종부세 추정. 1주택 12억 공제·다주택 중과세율 자동.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label for="totalPrice">보유 주택 공시가격 합계 <span class="hint">억원 단위</span></label>
+        <input type="number" id="totalPrice" placeholder="예: 15" min="0" step="0.01" required>
+      </div>
+      <div class="field">
+        <label>보유 상황</label>
+        <div class="radio-group">
+          <label><input type="radio" name="own" value="single" checked>1세대 1주택 단독명의</label>
+          <label><input type="radio" name="own" value="general">일반 (1주택 부부공동 등)</label>
+          <label><input type="radio" name="own" value="multi">2주택 이상 중과</label>
+        </div>
+      </div>
+      <button type="submit">종부세 계산</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense — 부동산 시즌(11~12월) CPM 폭발 ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">예상 종합부동산세</div>
+        <div id="total" class="result-value">0원</div>
+        <div id="rateLabel" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">기본공제</span><span id="dedAmt" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">과세표준 (공제후 × 60%)</span><span id="base" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">산출세액</span><span id="calc" class="value">0원</span></div>
+        <div class="breakdown-row total"><span class="label">농어촌특별세 (산출의 20%)</span><span id="rural" class="value">0원</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 본 계산기는 단순 추정치로, 세액공제(연령별·보유기간별), 공시가격 변동분, 부부공동명의 12억·9억 선택 등 변수가 많습니다. 12월 정기고지 전 홈택스 모의계산 권장.
+    </div>
+
+    <section class="sources">
+      <h2>적용된 법령·고시 및 출처</h2>
+      <div class="updated">최종 검증: 2026-04-29 / 적용 기준: 2026년 1월</div>
+      <ul>
+        <li><b>1세대 1주택 단독명의 12억 공제</b> — 종합부동산세법 제8조 제1항. <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A2%85%ED%95%A9%EB%B6%80%EB%8F%99%EC%82%B0%EC%84%B8%EB%B2%95" target="_blank" rel="noopener">국가법령정보센터</a></li>
+        <li><b>일반·다주택 9억 공제</b> — 종부세법 제8조 제1항</li>
+        <li><b>1주택 세율 0.5~2.7%</b> — 종부세법 제9조 제1항 (3억/6억/12억/25억/50억/94억 구간)</li>
+        <li><b>2주택+ 세율 0.5~5.0%</b> — 종부세법 제9조 제2항</li>
+        <li><b>공정시장가액비율 60%</b> — 종부세법 시행령 제2조의4</li>
+        <li><b>농어촌특별세 20%</b> (종부세의) — 농어촌특별세법 제5조</li>
+        <li><b>홈택스 종부세 모의계산</b> — <a href="https://www.hometax.go.kr/" target="_blank" rel="noopener">국세청 홈택스</a></li>
+      </ul>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 30개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./comp-property.js" defer></script>
+  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
+    <div style="margin-bottom:8px">
+      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
+      ·
+      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
+    </div>
+    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
+  </footer>
+</body>
+</html>

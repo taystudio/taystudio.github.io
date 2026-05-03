@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:title" content="아기 분유량 계산기 | 체중·개월별 권장 수유량">
+  <meta property="og:description" content="아기 체중과 개월수로 1일 분유량을 즉시 계산. 1회 수유량과 횟수 가이드까지.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="아기 분유량 계산기 | 체중·개월별 권장 수유량">
+  <meta name="twitter:description" content="아기 체중과 개월수로 1일 분유량을 즉시 계산. 1회 수유량과 횟수 가이드까지.">
+  <title>아기 분유량 계산기 | 체중·개월별 권장 수유량</title>
+  <meta name="description" content="아기 체중과 개월수로 1일 분유량을 즉시 계산. 1회 수유량과 횟수 가이드까지.">
+  <meta name="keywords" content="분유량 계산기, 아기 분유, 수유량, 신생아 수유">
+  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/baby-formula/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "아기 분유량 계산기 | 체중·개월별 권장 수유량",
+      "description": "아기 체중과 개월수로 1일 분유량을 즉시 계산. 1회 수유량과 횟수 가이드까지.",
+      "url": "https://taehyuklee.github.io/Archive/tools/baby-formula/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "임신·육아",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "아기 분유량 계산기",
+          "item": "https://taehyuklee.github.io/Archive/tools/baby-formula/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../index.html" class="logo">TAYLEE</a>
+    <nav><a href="../index.html">← 모든 도구</a></nav>
+  </header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 임신·육아 · 분유량 계산기</div>
+    <h1>아기 분유량 계산기</h1>
+    <p class="subtitle">체중과 개월수로 권장 수유량을 즉시 안내.</p>
+
+    <form id="form" class="card">
+      <div class="row">
+        <div class="field">
+          <label for="weight">아기 체중 (kg)</label>
+          <input type="number" id="weight" placeholder="예: 4.5" min="1" step="0.1" required>
+        </div>
+        <div class="field">
+          <label for="months">개월수</label>
+          <input type="number" id="months" placeholder="예: 2" min="0" step="0.5" required>
+        </div>
+      </div>
+      <button type="submit">분유량 계산</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">1일 권장 분유량 (체중 기준)</div>
+        <div id="dailyTotal" class="result-value">0ml</div>
+        <div id="guideNote" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">1회 수유량</span><span id="perFeed" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">권장 횟수</span><span id="times" class="value">-</span></div>
+        <div class="breakdown-row total"><span class="label">평균 1일 합계</span><span id="perFeedAvg" class="value">-</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 본 권장량은 체중 1kg당 150~180ml/일 기준 일반적 가이드입니다. 모유수유·혼합수유 여부, 아기 개별 식욕에 따라 ±20% 차이 정상. 체중 증가 추이가 정상이면 식욕에 맞춰 조절. 의문점은 소아과 상담.
+    </div>
+
+    <div class="coupang-banner">
+      <div class="label">파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다</div>
+      <a href="#" rel="nofollow sponsored noopener" target="_blank">[ 쿠팡 분유·젖병·소독기 자리 ]</a>
+    </div>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 30개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./baby-formula.js" defer></script>
+  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
+    <div style="margin-bottom:8px">
+      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
+      ·
+      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
+    </div>
+    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:title" content="주휴수당 계산기 2026 | 시급·근로시간 입력만으로 즉시">
+  <meta property="og:description" content="시급과 주 근로시간 입력만으로 주휴수당을 즉시 계산. 15시간 미달 여부 자동 판정.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="주휴수당 계산기 2026 | 시급·근로시간 입력만으로 즉시">
+  <meta name="twitter:description" content="시급과 주 근로시간 입력만으로 주휴수당을 즉시 계산. 15시간 미달 여부 자동 판정.">
+  <title>주휴수당 계산기 2026 | 시급·근로시간 입력만으로 즉시</title>
+  <meta name="description" content="시급과 주 근로시간 입력만으로 주휴수당을 즉시 계산. 15시간 미달 여부 자동 판정.">
+  <meta name="keywords" content="주휴수당 계산기, 주휴수당, 알바 주휴, 15시간">
+  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/weekly-pay/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "주휴수당 계산기 2026 | 시급·근로시간 입력만으로 즉시",
+      "description": "시급과 주 근로시간 입력만으로 주휴수당을 즉시 계산. 15시간 미달 여부 자동 판정.",
+      "url": "https://taehyuklee.github.io/Archive/tools/weekly-pay/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "근로·고용",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "주휴수당 계산기 2026",
+          "item": "https://taehyuklee.github.io/Archive/tools/weekly-pay/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../index.html" class="logo">TAYLEE</a>
+    <nav><a href="../index.html">← 모든 도구</a></nav>
+  </header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 근로·고용 · 주휴수당 계산기</div>
+    <h1>주휴수당 계산기 <span class="basis-badge">근로기준법 §55</span></h1>
+    <p class="subtitle">알바·단기근로 주휴수당 자동 계산. 15시간 기준선 자동 판정.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label for="hourly">시급 (원)</label>
+        <input type="number" id="hourly" placeholder="예: 10030" min="0" step="10" required>
+      </div>
+      <div class="field">
+        <label for="weekly">1주 소정근로시간 <span class="hint">시간</span></label>
+        <input type="number" id="weekly" placeholder="예: 30" min="0" step="0.5" required>
+      </div>
+      <button type="submit">주휴수당 계산</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">주휴수당</div>
+        <div id="total" class="result-value">0원</div>
+        <div id="eligibility" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">1일 소정근로시간 (주÷5, 8h 한도)</span><span id="dailyHours" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">1주 총 임금 (주휴 포함)</span><span id="weeklyTotal" class="value">-</span></div>
+        <div class="breakdown-row total"><span class="label">월 주휴수당 (4.345주)</span><span id="monthlyTotal" class="value">-</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 주휴수당은 (1) 1주 소정근로시간 15시간 이상 (2) 약속된 근로일 만근 두 조건을 모두 충족해야 발생합니다. 결근 시 그 주 주휴수당 미발생.
+    </div>
+
+    <section class="sources">
+      <h2>적용된 법령·고시 및 출처</h2>
+      <div class="updated">최종 검증: 2026-04-29</div>
+      <ul>
+        <li><b>주휴일</b> — 근로기준법 제55조 / 시행령 제30조. <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B7%BC%EB%A1%9C%EA%B8%B0%EC%A4%80%EB%B2%95/%EC%A0%9C55%EC%A1%B0" target="_blank" rel="noopener">국가법령정보센터</a></li>
+        <li><b>15시간 기준선</b> — 근로기준법 제18조 제3항</li>
+      </ul>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 30개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./weekly-pay.js" defer></script>
+  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
+    <div style="margin-bottom:8px">
+      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
+      ·
+      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
+    </div>
+    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
+  </footer>
+</body>
+</html>

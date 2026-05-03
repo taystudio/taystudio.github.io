@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYLEE Tools">
+  <meta property="og:title" content="칼로리·BMR·TDEE 계산기 | 다이어트 권장 칼로리">
+  <meta property="og:description" content="Mifflin-St Jeor 공식으로 기초대사량(BMR)과 일일 권장 칼로리(TDEE) 계산. 다이어트·증량 권장 칼로리까지.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="칼로리·BMR·TDEE 계산기 | 다이어트 권장 칼로리">
+  <meta name="twitter:description" content="Mifflin-St Jeor 공식으로 기초대사량(BMR)과 일일 권장 칼로리(TDEE) 계산. 다이어트·증량 권장 칼로리까지.">
+  <title>칼로리·BMR·TDEE 계산기 | 다이어트 권장 칼로리</title>
+  <meta name="description" content="Mifflin-St Jeor 공식으로 기초대사량(BMR)과 일일 권장 칼로리(TDEE) 계산. 다이어트·증량 권장 칼로리까지.">
+  <meta name="keywords" content="칼로리 계산기, BMR, TDEE, 기초대사량, 다이어트 칼로리">
+  <link rel="canonical" href="https://taehyuklee.github.io/Archive/tools/calorie/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "칼로리·BMR·TDEE 계산기 | 다이어트 권장 칼로리",
+      "description": "Mifflin-St Jeor 공식으로 기초대사량(BMR)과 일일 권장 칼로리(TDEE) 계산. 다이어트·증량 권장 칼로리까지.",
+      "url": "https://taehyuklee.github.io/Archive/tools/calorie/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "건강",
+          "item": "https://taehyuklee.github.io/Archive/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "칼로리·BMR·TDEE 계산기",
+          "item": "https://taehyuklee.github.io/Archive/tools/calorie/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../../index.html" class="logo">TAYLEE</a>
+    <nav><a href="../index.html">← 모든 도구</a></nav>
+  </header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 건강 · 칼로리(BMR/TDEE)</div>
+    <h1>칼로리·BMR·TDEE 계산기 <span class="basis-badge">Mifflin-St Jeor</span></h1>
+    <p class="subtitle">기초대사량 + 일일 소모 칼로리 + 다이어트·증량 권장량까지.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label>성별</label>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="male" checked>남성</label>
+          <label><input type="radio" name="gender" value="female">여성</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="age">나이</label>
+          <input type="number" id="age" placeholder="예: 30" min="10" step="1" required>
+        </div>
+        <div class="field">
+          <label for="height">키 (cm)</label>
+          <input type="number" id="height" placeholder="예: 175" min="50" step="0.1" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="weight">체중 (kg)</label>
+        <input type="number" id="weight" placeholder="예: 70" min="10" step="0.1" required>
+      </div>
+      <div class="field">
+        <label for="activity">활동량</label>
+        <select id="activity">
+          <option value="sedentary">좌식 (운동 거의 안 함) × 1.2</option>
+          <option value="light">가벼운 운동 (주 1~3회) × 1.375</option>
+          <option value="moderate" selected>보통 운동 (주 3~5회) × 1.55</option>
+          <option value="active">활동적 (주 6~7회) × 1.725</option>
+          <option value="veryActive">매우 활동적 (육체노동) × 1.9</option>
+        </select>
+      </div>
+      <button type="submit">칼로리 계산</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">일일 권장 칼로리 (TDEE)</div>
+        <div id="tdee" class="result-value">- kcal</div>
+        <div id="activityLabel" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">기초대사량 (BMR)</span><span id="bmr" class="value">- kcal</span></div>
+        <div class="breakdown-row"><span class="label">다이어트 권장 (-500)</span><span id="loseCal" class="value">-</span></div>
+        <div class="breakdown-row total"><span class="label">증량 권장 (+500)</span><span id="gainCal" class="value">-</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ -500 kcal/일은 주당 약 0.5kg 감량 페이스의 일반적 가이드입니다. 극단적 감량(-1000+)은 건강 해칠 수 있고 요요 위험 ↑. 단백질 섭취량(체중 × 1.5~2g)은 별도 관리 권장.
+    </div>
+
+    <section class="sources">
+      <h2>출처</h2>
+      <div class="updated">최종 검증: 2026-04-29</div>
+      <ul>
+        <li><b>Mifflin-St Jeor 공식 (1990)</b> — Mifflin et al., American Journal of Clinical Nutrition</li>
+        <li><b>활동지수</b> — Harris-Benedict equation activity multipliers (보편적 사용)</li>
+      </ul>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 30개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./calorie.js" defer></script>
+  <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
+    <div style="margin-bottom:8px">
+      <a href="../privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
+      ·
+      <a href="../terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
+    </div>
+    <div>© 2026 TAYLEE Tools · 입력값은 브라우저 안에서만 처리됩니다</div>
+  </footer>
+</body>
+</html>
