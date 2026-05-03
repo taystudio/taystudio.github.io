@@ -125,34 +125,298 @@ example-adnetwork.com, 12345, RESELLER, abc123def456
 
 ### Step 7. AdSense 콘솔에서 사이트 추가
 
-**왜**: AdSense 측에 "이 도메인의 트래픽을 광고로 monetize 하겠다" 등록.
+**왜 필요한가**
 
-**방법**:
-1. https://adsense.google.com → 사이트 → 사이트 추가
-2. URL: `taystudio.github.io` (https:// 없이 도메인만)
-3. 검토 신청
+AdSense는 "특정 publisher 계정이 특정 도메인을 monetize 할 권한이 있다" 를 명시적으로 등록해야 광고를 송출함. 등록 없으면:
+- 광고 코드 페이지에 박아도 광고 안 뜸
+- 어쩌다 떠도 정책 위반으로 차단·계정 정지 위험
+- 수익 0
 
-검토 기간: 며칠 ~ 몇 주 (Google 수동 심사). 그동안 user가 할 일 없음.
+ads.txt는 "publisher가 이 도메인 권한이 있다" 외부 선언, 사이트 추가는 "AdSense 내부 시스템에 그 매핑을 등록" 이다. 둘 다 필요.
 
-- [ ] AdSense에 사이트 추가
-- [ ] 검토 신청 완료
+#### Step 7-1. 검증 메커니즘 (먼저 이해)
+
+AdSense가 사이트 소유권을 확인하는 방법 세 가지. **하나만 충족하면 통과**:
+
+| 방법 | 위치·형태 | 장단점 |
+|---|---|---|
+| **A. ads.txt** | 루트 `/ads.txt` 에 한 줄: `google.com, pub-XXX, DIRECT, f08c47fec0942fa0` | 한 곳에서 끝남. 정적 사이트에 가장 간단 |
+| **B. 메타 태그** | 모든 페이지 `<head>` 에 `<meta name="google-adsense-account" content="ca-pub-XXX">` | 사이트 코드 수정 필요. 페이지 추가될 때마다 신경 |
+| **C. AdSense 스니펫** | 모든 페이지 `<head>` 에 `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXX" crossorigin="anonymous"></script>` | 검증 + 광고 라이브러리 로드를 한 번에. 승인 후 곧장 광고 송출 가능 |
+
+세 방법은 **동등** (어느 거든 통과하면 검증 OK). 정적 사이트 + GitHub Pages 환경에선 일반적으로:
+- A가 가장 깔끔 (한 파일, 한 줄)
+- C는 "어차피 승인 후엔 깔아야 하니까 미리 넣자" 전략 — 단, 미승인 사이트에 박아두면 정책 위반 가능성 있어서 권장 안 됨
+- B는 티스토리 같은 호스팅 플랫폼에서 자주 보였던 옛 방식
+
+**우리 선택**: A (ads.txt). 이미 Step 4에서 작성·배포함.
+
+#### Step 7-2. AdSense 콘솔 절차
+
+1. https://adsense.google.com 접속 (티스토리 운영하던 동일 계정)
+2. 좌측 메뉴 → **사이트** → 우측 상단 **사이트 추가**
+3. **사이트 URL** 입력:
+   ```
+   taystudio.github.io
+   ```
+   `https://` 없이, 끝에 `/` 없이, 도메인만
+4. AdSense가 다음 단계로 안내:
+   - "ads.txt에 다음 한 줄을 추가하세요" 같은 안내 → 우리는 이미 했음. "확인" 클릭
+   - 또는 메타 태그 / 스니펫 옵션을 보여줄 수 있음 → ads.txt가 이미 fetch 가능하면 그대로 통과
+5. **검토 요청** 클릭
+
+#### Step 7-3. 검토 메커니즘
+
+신청 후 AdSense는:
+1. **자동 크롤** — Google 봇이 사이트 전체 크롤링 (`taystudio.github.io` + 모든 도구 페이지)
+2. **검증 fetch** — `/ads.txt` 요청해서 publisher ID 매칭 확인
+3. **수동 검토** — 사람이 콘텐츠 품질·정책 준수 확인 (광고 부합 여부)
+
+검토 기간: 며칠 ~ 몇 주 (사이트 규모·기존 신청량에 따라 변동). 한국에선 보통 1~3주.
+
+#### Step 7-4. 검토 중 user가 하지 말아야 할 것
+
+- 사이트를 죽이지 말 것 (도메인 만료, 502 에러, robots.txt로 전체 차단 등)
+- 광고 코드 박지 말 것 (승인 전 광고 송출 = 정책 위반)
+- 콘텐츠를 갑자기 비우거나 외설·도박·해적 콘텐츠 추가하지 말 것
+
+#### Step 7-5. 자주 막히는 포인트와 원인
+
+| 증상 | 원인 | 대처 |
+|---|---|---|
+| "ads.txt에서 publisher ID를 찾을 수 없음" | 캐시·전파 지연. 또는 ads.txt 형식 오타 | https://taystudio.github.io/ads.txt 직접 열어서 확인. 안 보이면 push 미반영, 보이면 1~2분 더 대기 후 재시도 |
+| "이미 등록된 도메인" | 같은 도메인이 다른 계정에 한 번이라도 등록됐을 때 | 전 계정에서 사이트 제거 또는 Google 지원에 문의 |
+| "사이트가 정책 위반 우려" | 콘텐츠 부족·UX 문제·개인정보처리방침 누락 | 우리 사이트엔 `/tools/privacy/`·`/tools/terms/` 있음. 도구 30개 = 콘텐츠 충분. 보통 통과 |
+| "사이트가 비어있다" | 봇이 JS 렌더링 못해서 빈 HTML로 인식 | 우리 사이트는 SSG 형태(HTML 직접 작성)라 해당 없음 |
+| 검토가 4주+ 무응답 | 트래픽 너무 적거나 신규 사이트 큐 적체 | Search Console 등록·인덱싱·소량 트래픽 유입 후 재신청 |
+
+#### Step 7-6. 실제 진행 흐름 (2026-05-03 기록)
+
+User가 콘솔에서 거친 단계, 화면 표시 그대로:
+
+1. AdSense → 사이트 → 사이트 추가 → URL `taystudio.github.io` 입력
+2. AdSense가 화면에 안내 표시:
+   ```
+   다음 한 줄을 ads.txt에 추가하세요:
+   google.com, pub-3553250610781349, DIRECT, f08c47fec0942fa0
+   ```
+   → 우리는 Step 4에서 이미 했음 (push까지 완료 상태)
+3. 화면 하단 **"ads.txt 파일을 게시함"** 버튼 클릭
+   - 이 버튼의 의미: "내가 ads.txt 등록 끝냈으니 지금 검증해줘" 신호
+   - 클릭 시 AdSense가 즉시 `https://taystudio.github.io/ads.txt` fetch → publisher ID 매칭 확인
+4. 결과: **"사이트 확인됨"** 표시 → 검토 큐 진입
+
+이 시점부터:
+- AdSense가 백그라운드에서 사이트 자동 크롤링 시작
+- 수동 검토 큐 대기
+- user가 할 일 = 사이트 정상 유지
+
+#### Step 7-7. 자주 막히는 포인트와 원인
+
+| 증상 | 원인 | 대처 |
+|---|---|---|
+| "ads.txt에서 publisher ID를 찾을 수 없음" | 캐시·전파 지연. 또는 ads.txt 형식 오타 | https://taystudio.github.io/ads.txt 직접 열어서 확인. 안 보이면 push 미반영, 보이면 1~2분 더 대기 후 재시도 |
+| "이미 등록된 도메인" | 같은 도메인이 다른 계정에 한 번이라도 등록됐을 때 | 전 계정에서 사이트 제거 또는 Google 지원에 문의 |
+| "사이트가 정책 위반 우려" | 콘텐츠 부족·UX 문제·개인정보처리방침 누락 | 우리 사이트엔 `/tools/privacy/`·`/tools/terms/` 있음. 도구 30개 = 콘텐츠 충분. 보통 통과 |
+| "사이트가 비어있다" | 봇이 JS 렌더링 못해서 빈 HTML로 인식 | 우리 사이트는 SSG 형태(HTML 직접 작성)라 해당 없음 |
+| 검토가 4주+ 무응답 | 트래픽 너무 적거나 신규 사이트 큐 적체 | Search Console 등록·인덱싱·소량 트래픽 유입 후 재신청 |
+
+- [x] AdSense에 사이트 추가
+- [x] 검증 통과 (사이트 확인됨)
+- [ ] 수동 검토 통과 대기 중
+
+#### Step 7-8. CMP (사용자 동의 메시지) 설정
+
+사이트 추가 마법사가 검증 통과 직후 보여주는 필수 셋업. 화면에 "사이트에 사용할 동의 메시지 만들기" 항목으로 노출됨.
+
+**왜 필요한가 — 법적 배경**
+
+- **EU GDPR** (2018), **EU Digital Services Act / DMA** (2023~), **IAB TCF v2.2** (2023): 광고 추적·맞춤형 광고를 EEA·영국·스위스 사용자에게 보여주려면 **명시적 동의** 필수
+- 동의 안 받고 광고 띄우면 → 광고주 입찰 거부 + 법적 과징금 위험 + AdSense 자체 정책 위반
+- AdSense는 publisher가 적절한 CMP (Consent Management Platform) 를 셋업했는지 확인하기 전에는 EEA 트래픽에 광고 안 띄움 (= 그 지역 트래픽 수익 0)
+- 한국이 주 시장이어도 EEA에서 들어오는 일부 사용자가 있으면 그 부분 수익이 묶임 → 한 번 셋업해두면 영원히 신경 안 써도 됨
+
+**CMP가 하는 일 (메커니즘)**
+
+1. EEA·영국·스위스 IP의 사용자가 사이트 첫 방문 시 **동의 배너** 자동 표시
+2. 사용자가 "동의" / "거부" / "관리" 중 선택
+3. 선택 결과를 IAB TCF 표준 string 형태로 쿠키에 저장
+4. AdSense 라이브러리가 매 요청마다 그 string 읽어서 광고 거래소에 전달
+5. 광고 거래소는 string 값에 따라 맞춤 광고 / 비맞춤 광고 / 광고 없음 분기
+
+이 모든 게 AdSense 라이브러리(`adsbygoogle.js`)에 내장됨 — **user 사이트 코드에 별도 작업 없음**. 콘솔에서 메시지 만들기만 하면 자동으로 EEA 트래픽에 노출됨.
+
+**옵션 세 가지 비교**
+
+| 옵션 | 표시 버튼 | 특징 | 평가 |
+|---|---|---|---|
+| **A. Google CMP — 2가지 선택** | 동의 / 광고 관리 | 거부 버튼 없음. "광고 관리"에서 거부 가능하지만 한 단계 들어가야 함 | TCF v2.2 / DSA 권장사항 미달. 규정 위반 가능성. **비추** |
+| **B. Google CMP — 3가지 선택** ← **선택함** | 동의 / 동의하지 않음 / 옵션 관리 | "거부"가 "동의"와 같은 화면 같은 위계에 노출. 규정 100% 충족 | TCF v2.2 표준. 무료. AdSense 라이브러리 자동 통합. **추천** |
+| **C. Google 인증 제3자 CMP** | (외부 솔루션) | OneTrust, Didomi 등 외부 CMP 가입 후 연동. 추가 기능·다양한 동의 흐름 | 별도 계약·결제·연동 코드 작업 필요. 대형 사이트 / 복합 추적 환경에서만 가치. **비추** (지금 단계) |
+
+**왜 B를 선택했나**
+
+1. **법적 안전마진**: TCF v2.2의 핵심은 "거부 버튼을 동의 버튼만큼 prominent하게" — A는 이걸 못 맞춤
+2. **무료 + 통합**: Google CMP는 AdSense 라이브러리에 빌트인. 별도 스크립트 안 깔아도 됨
+3. **유지보수 0**: 규정 바뀌면 Google이 알아서 업데이트
+4. **확장성**: 나중에 사이트 더 추가해도 같은 CMP가 모든 사이트에 적용 가능 ("내 사이트 및 향후 사이트" 옵션)
+5. **C가 의미 있는 케이스**: GA4 외 다른 추적 도구 다수 운영, 동의 카테고리 세분화 필요, 다국어 메시지 커스텀 강하게 필요. 우리 사이트에는 과함
+
+**제출 후 절차**
+
+1. **가운데 옵션 (3가지)** 선택 → **제출** 클릭
+2. 다음 화면: 메시지 외관 커스터마이즈
+   - **언어**: 기본 자동감지 (브라우저 언어 기준). 그대로 둬도 됨
+   - **테마/색상**: 사이트 톤(파란색 `#2563eb`)과 맞추면 깔끔. 기본값도 무방
+   - **로고**: TAYSTUDIO 로고 추가하면 신뢰감 ↑. 선택사항
+   - **텍스트**: Google 기본 문구로 충분. 직접 쓸 수도 있음 (한국어/영어 자동 노출)
+3. **활성화 범위 선택**:
+   - 보통 "EEA, 영국, 스위스 사용자에게만" 이 자동 권장됨 → 그대로 두기
+   - "전 세계" 로 하면 한국 사용자한테도 배너 떠서 UX 손상. 비추
+4. **게시** 클릭 → 즉시 활성화. EEA 트래픽 들어오면 그때부터 자동 노출
+5. AdSense 콘솔의 마법사 화면에서 ⚠️ 가 ✅ 로 바뀜
+
+**검증 방법** (게시 후 즉시 확인 가능):
+- VPN으로 EEA 국가(독일, 프랑스 등) IP로 접속 → 첫 방문 시 동의 배너 떠야 정상
+- 또는 Chrome DevTools → Network conditions → User-Agent를 EU 브라우저로 설정 후 incognito 접속
+
+**자주 막히는 포인트**
+
+| 증상 | 원인 | 대처 |
+|---|---|---|
+| 한국 IP로 접속해도 배너가 뜸 | "전 세계" 활성화로 설정함 | 콘솔 → 프라이버시 및 메시지 → 메시지 편집 → 적용 위치 변경 |
+| EEA IP로 접속해도 배너 안 뜸 | 게시 안 했거나 활성화 안 함 | 콘솔에서 메시지 상태 "게시됨" 확인 |
+| 한국어 메시지 깨짐 | 폰트·인코딩 문제 거의 없음 | 직접 한국어 텍스트 작성 또는 자동감지 유지 |
+
+- [ ] 가운데 옵션(3가지) 선택 후 제출
+- [ ] 메시지 외관·언어 커스텀 (또는 기본값 유지)
+- [ ] 적용 위치 = EEA·영국·스위스만
+- [ ] 게시
+- [ ] AdSense 콘솔 마법사에서 "동의 메시지 만들기" 항목 ✅ 로 변경 확인
+
+**참고 링크 (공식)**:
+- AdSense ads.txt 정책: https://support.google.com/adsense/answer/7532444
+- AdSense 사이트 등록·관리: https://support.google.com/adsense/answer/9276288
+- AdSense 정책 가이드 (콘텐츠 기준): https://support.google.com/adsense/answer/48182
+- IAB ads.txt 표준 명세 (기술적 배경): https://iabtechlab.com/ads-txt/
+- Google 사용자 동의 정책 (EU): https://www.google.com/about/company/user-consent-policy/
+- IAB TCF v2.2 명세: https://iabeurope.eu/transparency-consent-framework/
+- AdSense CMP 도움말: https://support.google.com/adsense/answer/13554116
 
 ### Step 8. 검토 대기 중 — 광고 코드 슬롯 준비
 
-**왜**: 승인 받자마자 바로 광고 송출하려면 미리 코드 자리를 만들어둬야 함.
+**왜**: 승인 받자마자 바로 광고 송출하려면 자리·구조가 미리 준비돼 있어야 함. 승인 후엔 광고 단위 ID 끼우는 일만 남도록 설계.
 
-작업:
-- AdSense 메인 스크립트 (`adsbygoogle.js`) 부트스트랩을 `common/site-chrome.js` 에 추가 (GA처럼 한 파일로 33페이지 커버)
-- 도구 페이지의 기존 placeholder (`<div class="ad-slot">`) 위치 확인
-- 단, **승인 전엔 placeholder를 실제 광고 태그로 교체하지 않음** — 미승인 사이트가 광고 코드 박으면 정책 위반 위험
+#### Step 8-1. 광고 송출 메커니즘 (먼저 이해)
 
-- [ ] `adsbygoogle.js` 부트스트랩 코드 작성
-- [ ] placeholder 위치 매핑 표 작성
+AdSense 광고가 페이지에 뜨려면 **세 요소**가 모두 있어야 함:
+
+1. **AdSense 라이브러리** (페이지당 한 번 로드)
+   ```html
+   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+   ```
+   이 한 줄을 모든 페이지 `<head>`에 깔아야 함. 33페이지 직접 박는 대신 `common/site-chrome.js` 에서 동적으로 inject (GA와 동일 전략).
+
+2. **광고 슬롯** (광고 띄울 자리)
+   ```html
+   <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-3553250610781349"
+        data-ad-slot="<광고-단위-ID>"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+   ```
+   `data-ad-slot` 값은 AdSense 콘솔에서 광고 단위 만들 때 발급받음.
+
+3. **푸시 호출** (라이브러리에 슬롯을 등록)
+   ```html
+   <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+   ```
+   슬롯마다 한 번씩 push.
+
+이 세 개가 다 갖춰져야 광고가 실제 송출됨.
+
+#### Step 8-2. 미승인 상태에서 무엇을 미리 작성할 수 있나
+
+- ✅ 광고 슬롯이 들어갈 **placeholder 위치 확정** (현재 `<div class="ad-slot">` 들이 어디 있는지 매핑)
+- ✅ AdSense 라이브러리 로드 코드를 `common/site-chrome.js` 에 미리 작성 — **단, 승인 전엔 활성화하지 않음** (주석 처리 또는 ENABLED 플래그로 토글)
+- ❌ 실제 `<ins class="adsbygoogle">` 슬롯을 placeholder 자리에 넣는 것 → 정책 위반 위험. 승인 후에만 교체.
+
+#### Step 8-3. 작업 목록
+
+- [ ] `tools/` 아래 모든 페이지에서 기존 `.ad-slot` placeholder 위치 grep으로 매핑 (몇 개, 어디에)
+- [ ] `common/site-chrome.js` 에 AdSense 라이브러리 로드 코드 추가 (비활성화 상태로)
+- [ ] 광고 단위 종류 결정: 디스플레이 / 인피드 / 인아티클 / 자동 광고 — 각 도구 페이지 특성에 맞게
+- [ ] (승인 후) placeholder를 실제 `<ins>` 코드로 교체
 
 ### Step 9. 승인 후 — 광고 게재
-- [ ] AdSense에서 광고 단위 생성
-- [ ] placeholder를 실제 광고 코드로 교체
-- [ ] 라이브 확인
+
+**전제**: AdSense에서 "사이트 승인됨" 알림 받은 후 진행. 그 전에 실제 광고 태그 박지 말 것.
+
+#### Step 9-1. AdSense 라이브러리 활성화
+
+`common/site-chrome.js` 의 비활성 상태였던 AdSense 라이브러리 로드 코드를 활성화 (또는 `ENABLED = true` 플래그 토글).
+
+```javascript
+const ADSENSE_CLIENT = 'ca-pub-3553250610781349';
+const ADSENSE_ENABLED = true;  // 승인 후 켜기
+if (ADSENSE_ENABLED) {
+  const ad = document.createElement('script');
+  ad.async = true;
+  ad.crossOrigin = 'anonymous';
+  ad.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + ADSENSE_CLIENT;
+  document.head.appendChild(ad);
+}
+```
+
+이게 모든 페이지 `<head>`에 라이브러리 깔리는 부분.
+
+#### Step 9-2. 광고 단위 생성
+
+AdSense 콘솔 → 광고 → 광고 단위 → 새 광고 단위:
+- **디스플레이 광고**: 가장 일반적. 사각형, 띠, 자동 크기
+- **인피드**: 콘텐츠 사이 자연스럽게 (도구 목록에 끼우기 좋음)
+- **인아티클**: 본문 안 (계산 결과 페이지 같은 곳)
+- **자동 광고**: AdSense가 자동으로 위치 결정. 가장 쉬움. 단 통제권 적음
+
+각 광고 단위 생성 시 발급되는 **slot ID** 를 받아서 placeholder에 끼움.
+
+#### Step 9-3. Placeholder를 실제 슬롯으로 교체
+
+기존 코드 (placeholder):
+```html
+<div class="ad-slot">[ AdSense 광고 자리 ]</div>
+```
+
+교체 후:
+```html
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3553250610781349"
+     data-ad-slot="<발급받은-slot-ID>"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+```
+
+위치별로 다른 광고 단위 (= 다른 slot ID) 만들면 광고 성과를 위치별로 분석 가능.
+
+#### Step 9-4. 검수
+
+- 라이브 사이트에서 광고 영역에 실제 광고 표시되는지 확인
+  - 처음엔 빈칸 보일 수 있음 (광고 매칭 알고리즘 학습 중). 보통 24-48시간 내 채워짐
+- 자기 클릭 절대 금지 (정책 위반 → 계정 정지)
+- 모바일·데스크탑 양쪽에서 레이아웃 깨짐 없나 확인
+- Core Web Vitals (LCP, CLS) 측정 — 광고 때문에 사이트 느려지면 SEO·UX 손해
+- 첫 수익은 보통 광고 게재 시작 후 며칠~몇 주 내 누적
+
+#### Step 9-5. 작업 체크리스트
+
+- [ ] AdSense 라이브러리 로드 활성화 (`common/site-chrome.js`)
+- [ ] AdSense 콘솔에서 광고 단위 생성 (위치·형태별로)
+- [ ] 각 도구 페이지 placeholder를 실제 `<ins>` 태그로 교체
+- [ ] 라이브 검증 (광고 노출, 레이아웃, 페이지 속도)
+- [ ] AdSense 콘솔에서 노출·클릭·수익 모니터링 시작
 
 ---
 
@@ -161,3 +425,6 @@ example-adnetwork.com, 12345, RESELLER, abc123def456
 - 2026-05-03 (1): 문서 생성. Step 1 완료.
 - 2026-05-03 (2): dual-repo 전략으로 빈 `taystudio.github.io` repo 생성·README 추가까지 진행.
 - 2026-05-03 (3): User 결정으로 단일-repo 전략 전환 — 빈 repo 삭제, `studio` → `taystudio.github.io` rename. 로컬 코드 일괄 치환 완료. GA4 스트림 URL 갱신 완료. 다음: ads.txt 작성 + push.
+- 2026-05-03 (4): `ads.txt` 작성·commit·push 완료. https://taystudio.github.io/ads.txt 한 줄 응답 확인.
+- 2026-05-03 (5): AdSense 콘솔에서 사이트 추가 (`taystudio.github.io`) → "ads.txt 파일을 게시함" 클릭 → **사이트 확인됨** 통과. 현재 수동 검토 큐 대기 중.
+- 2026-05-03 (6): 사이트 추가 마법사가 마지막 단계로 CMP(동의 메시지) 설정 요구 → 가운데 옵션(3가지 선택, TCF v2.2 표준) 채택 진행 중.

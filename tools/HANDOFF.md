@@ -47,22 +47,29 @@
 ## 3. 파일 구조
 
 ```
-tools/
-├── README.md                    ← 운영 매뉴얼 (이거 다음에 보세요)
-├── MONETIZATION.md              ← AdSense·쿠팡 통합 가이드
-├── HANDOFF.md                   ← 이 문서
-├── index.html                   ← 허브 (검색·추천·시즌·카테고리)
-├── 404.html
-├── favicon.svg
-├── manifest.webmanifest         ← PWA
-├── sw.js                        ← Service Worker (캐싱 전략 포함)
-├── sitemap.xml
-├── css/
-│   └── style.css                ← 공통 스타일 (다크모드·반응형)
-├── privacy/index.html           ← 개인정보처리방침 (AdSense 필수)
-├── terms/index.html             ← 이용약관 (AdSense 필수)
-└── [30개 도구 디렉토리]
-    각각: index.html + <slug>.js
+<repo-root>/
+├── sitemap.xml                  ← 2026-05-03 root로 이동 (이전: tools/sitemap.xml)
+├── robots.txt                   ← 2026-05-03 신규
+├── ads.txt                      ← AdSense 신청용
+├── scripts/
+│   └── build-sitemap.sh         ← 2026-05-03 신규. sitemap.xml 자동 생성
+└── tools/
+    ├── README.md                ← 운영 매뉴얼 (이거 다음에 보세요)
+    ├── MONETIZATION.md          ← AdSense·쿠팡 통합 가이드
+    ├── HANDOFF.md               ← 이 문서
+    ├── SEO_SETUP.md             ← 2026-05-03 신규. SEO 작업 개념·체크리스트·로그
+    ├── ADSENSE_SETUP.md         ← AdSense 진행 기록
+    ├── index.html               ← 허브 (검색·추천·시즌·카테고리)
+    ├── 404.html
+    ├── favicon.svg
+    ├── manifest.webmanifest     ← PWA
+    ├── sw.js                    ← Service Worker (캐싱 전략 포함)
+    ├── css/
+    │   └── style.css            ← 공통 스타일 (다크모드·반응형)
+    ├── privacy/index.html       ← 개인정보처리방침 (AdSense 필수)
+    ├── terms/index.html         ← 이용약관 (AdSense 필수)
+    └── [30개 도구 디렉토리]
+        각각: index.html + <slug>.js
 ```
 
 **도구 카테고리:**
@@ -306,7 +313,7 @@ const RATES = {
 2. `index.html` 작성 — §5의 표준 구조 따라
 3. `<new-slug>.js` 작성 — 헤더 주석에 출처 + 갱신 메모
 4. `tools/index.html` 허브 카드 추가 (해당 카테고리 섹션)
-5. `tools/sitemap.xml` URL 추가
+5. `bash scripts/build-sitemap.sh` 실행 → `sitemap.xml` 자동 갱신 (root)
 6. `README.md` 도구 목록에 추가
 
 ### 세율 갱신
@@ -364,3 +371,61 @@ const RATES = {
 
 **행운을 빌어요. 모든 컨벤션·검증·정책은 이 문서에 다 있어요.**
 **불명확한 점 있으면 사용자에게 직접 물어보세요 — 답을 추측하면 신뢰성 깨집니다.**
+
+---
+
+## 14. 세션 로그
+
+### 2026-05-03 (SEO Phase 1)
+
+**완료한 작업** (전부 uncommitted, 사용자 commit 요청 대기 중):
+
+1. **sitemap.xml 위치 표준화**
+   - 이전: `tools/sitemap.xml` (잘못된 위치 — 도메인 root여야 검색엔진이 자동 발견)
+   - 변경: `sitemap.xml` (repo root). `tools/sitemap.xml` 삭제됨
+   - 현재 34 URL 등록 (root 1 + tools hub 1 + 도구 32개)
+   - `tools/css/`는 `index.html`이 없는 자산 폴더라 자동 제외 (정상)
+
+2. **`scripts/build-sitemap.sh` 신규 생성** — sitemap 자동 빌드 스크립트
+   - 동작: root `index.html` + `tools/index.html` + `tools/*/index.html` 스캔 → 각 파일의 `<link rel="canonical">` 추출 → `git log -1 --format=%cs`로 파일별 lastmod 채움 → priority/changefreq URL 패턴별 분류
+   - 사용: `bash scripts/build-sitemap.sh`
+   - **재생성 정책 = 수동**. CI hook 안 씀 (30 페이지 규모엔 오버킬). 새 도구 추가/큰 변경 후 사용자가 직접 실행 → commit
+
+3. **`robots.txt` 신규 생성** (repo root)
+   ```
+   User-agent: *
+   Allow: /
+
+   Sitemap: https://taystudio.github.io/sitemap.xml
+   ```
+   - **AI 봇 차단 안 함** — 사용자 결정. 수익화 사이트라 트래픽·노출 극대화 우선. ChatGPT/Claude/Gemini 검색 결과에서도 우리 도구 노출되도록.
+   - 향후 입장 바뀌면 `GPTBot`, `ClaudeBot`, `CCBot`, `Google-Extended`에 `Disallow: /` 추가
+
+4. **`tools/SEO_SETUP.md` 신규** — SEO 작업 전체 개념·체크리스트·진행 로그 통합 문서. Phase 1~5 플랜 포함 (Phase 1 진행 중).
+
+5. **`tools/ADSENSE_SETUP.md` 수정** — 직전 작업의 연속.
+
+**사용자 결정 사항 (메모)**:
+- robots.txt: AI 봇 차단 X (수익 우선)
+- sitemap 재생성: 수동 (`bash scripts/build-sitemap.sh`)
+- 다음 SEO 작업 후보 = `og:image` 공통 카드 1장 추가 (가성비 최고)
+
+**보류·미결정**:
+- og:image 추가 작업 (33 페이지 일괄 수정 + 1200×630 이미지 자산 1개 생성 필요) — 사용자 디자인 검토 대기
+- 현재 변경분 commit — 사용자 명시 요청 대기 (HANDOFF §11 정책)
+- Google Search Console / Naver Search Advisor 등록 — 사용자 직접 작업 (외부 계정 필요)
+
+**현재 git status (이번 세션 시작 시점)**:
+```
+M tools/ADSENSE_SETUP.md
+D tools/sitemap.xml
+?? scripts/             (build-sitemap.sh)
+?? sitemap.xml          (root 신규)
+?? robots.txt           (root 신규, 본 로그 기록 후)
+?? tools/SEO_SETUP.md
+```
+
+**다음 세션 인계 사항**:
+- 사용자가 og:image 작업 진행 여부 결정 필요 — A(커밋+og:image), B(커밋만), C(둘 다 자동) 중 선택
+- og:image 진행 시: SVG → PNG 변환(macOS `qlmanage`/`rsvg-convert`) → `og/cover.png` 배치 → 33 페이지 head에 4줄 메타 자동 삽입 + 기존 `twitter:card` summary → summary_large_image 교체
+- 검증: 페북 디버거 + 카카오톡 미리보기
