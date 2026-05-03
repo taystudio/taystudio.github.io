@@ -43,6 +43,89 @@
 
 ---
 
+## 1. 광고 시스템 — 작동 메커니즘 (개념 정리)
+
+### 1-1. AdSense 광고 두 종류
+
+| | 자동광고 (Auto Ads) | 광고 단위 (Ad Unit) |
+|---|---|---|
+| 박는 방식 | `<head>` 라이브러리 한 줄 | 라이브러리 + placeholder 자리에 `<ins>` 코드 |
+| 광고 위치 결정 | AdSense AI가 페이지 분석 → 자동 | 우리가 정한 자리에 강제 노출 |
+| 우리 `ad-slot` div와의 관계 | **무시함**. 별개 동작 | placeholder 자리에 코드 박아야 거기 노출 |
+| 통제권 | 거의 없음 (AI 위임) | 100% (위치·크기 다 우리 결정) |
+| 설정 난이도 | 쉬움 — 한 줄 박으면 끝 | 위치마다 광고 단위 ID 발급·삽입 |
+| 추천 시점 | 심사 + 초기 운영 | 매출 최적화 단계 |
+
+**둘의 관계**: 병행 가능 (자동광고 + 광고 단위 동시 운영), 또는 한쪽만 운영. 둘 다 공통으로 `adsbygoogle.js` 라이브러리에 의존.
+
+### 1-2. `adsbygoogle.js` — AdSense의 부트로더
+
+```html
+<script async
+  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX"
+  crossorigin="anonymous"></script>
+```
+
+**각 부분의 의미**:
+
+| 부분 | 의미 |
+|---|---|
+| `pagead2.googlesyndication.com` | Google AdSense 광고 서빙 CDN |
+| `adsbygoogle.js` | AdSense 클라이언트 라이브러리 본체 (~100KB JS) |
+| `?client=ca-pub-...` | publisher 식별. "이 사이트는 누구 거다" |
+| `async` | HTML 파싱 막지 않고 백그라운드 다운로드 |
+| `crossorigin="anonymous"` | CORS 정책 — 다른 도메인 자원 안전 모드 |
+
+**로딩 후 동작 흐름**:
+1. 브라우저가 `adsbygoogle.js` 다운
+2. 라이브러리가 페이지 DOM 전체 스캔
+3. 자동광고 ON이면 → AI가 적당한 자리에 광고 자동 삽입
+4. `<ins class="adsbygoogle">` 태그 있으면 → 그 안에 광고 렌더링
+5. 사용자 행동 추적 (노출·클릭·스크롤) → AdSense 콘솔 보고
+
+**핵심 사실**: 이 한 줄이 **자동광고·광고 단위 둘 다의 전제 조건**. 없으면 둘 다 동작 0.
+
+```
+    adsbygoogle.js (head 한 줄)
+         ↑ 이게 없으면 아래 둘 다 0%
+    ┌────┴────┐
+자동광고     광고 단위
+```
+
+비유 (백엔드 시각): Google Analytics `gtag.js`와 동일 패턴. 라이브러리 한 줄 등록 = 사이트 전체에 광고/추적 활성화 스위치.
+
+### 1-3. 페이지 커버리지 룰
+
+**박아야 할 페이지**: 광고 노출 원하는 일반 콘텐츠 페이지 (도구·기사 등)
+
+**박지 말아야 할 페이지**:
+- 404·에러 페이지 (AdSense 정책 위반)
+- 결제·로그인 트랜잭션 페이지
+- 콘텐츠 부족한 진입 허브 (광고 가치 낮음 + 첫인상 손상)
+
+**페이지당 1번만**: 두 번 박으면 "duplicate ad client" 경고. 정확히 1회.
+
+### 1-4. 자동광고 vs `ad-slot` placeholder 관계
+
+우리 도구 페이지엔 `<div class="ad-slot">[ AdSense 광고 자리 ]</div>` placeholder가 미리 박혀있음. 자주 헷갈리는 포인트:
+
+- **자동광고는 이 placeholder를 인식하지 않음**. AdSense AI가 자체 분석해서 자기가 판단한 자리에 광고 삽입
+- placeholder 자리에 광고를 박으려면 → `<ins class="adsbygoogle">` 광고 단위 코드로 교체 (Step 9-3)
+- 자동광고만 켠 상태에서도 placeholder 텍스트(`[ AdSense 광고 자리 ]`)는 그대로 보임 → 거슬리면 CSS로 숨기거나 제거
+
+### 1-5. 우리 사이트 결정 (2026-05-03)
+
+- **publisher ID**: `ca-pub-3553250610781349` (단일)
+- **박은 페이지 (33개)**: `tools/index.html` 허브 + 30 도구 + `tools/privacy/` + `tools/terms/`
+- **박지 않은 페이지**:
+  - 루트 `index.html` — 진입 허브, 본문 716자로 콘텐츠 부족, AdSense AI도 광고 거의 안 뿌릴 위치. 첫인상 깔끔 유지 우선
+  - `tools/404.html` — AdSense 정책상 권장 안 함
+- **박은 위치**: 각 페이지 `<head>` 내 `<link rel="preconnect" href="https://pagead2.googlesyndication.com">` 직후
+- **방식**: 정적 `<script>` 태그 직접 삽입 (당초 계획됐던 `common/site-chrome.js` JS 동적 로드 방식 미사용)
+- **시점**: AdSense 검토 대기 중에 미리 박음. 광고는 승인 후에야 노출됨 (지금은 라이브러리만 로드되고 광고 0)
+
+---
+
 ## 단계
 
 ### Step 1. 사전 확인 ✅
@@ -355,6 +438,10 @@ AdSense 광고가 페이지에 뜨려면 **세 요소**가 모두 있어야 함:
 
 #### Step 9-1. AdSense 라이브러리 활성화
 
+> **2026-05-03 갱신**: 이 단계는 검토 대기 중에 이미 처리됨 (진행 기록 (6) 참고). 정적 `<script>` 태그 방식으로 33 페이지에 일괄 삽입 완료. 아래 JS 동적 로드 안 사용. 검토 통과되면 별도 활성화 작업 없이 바로 광고 송출 시작.
+
+(참고용 — 원래 계획됐던 JS 동적 로드 방식)
+
 `common/site-chrome.js` 의 비활성 상태였던 AdSense 라이브러리 로드 코드를 활성화 (또는 `ENABLED = true` 플래그 토글).
 
 ```javascript
@@ -427,4 +514,5 @@ AdSense 콘솔 → 광고 → 광고 단위 → 새 광고 단위:
 - 2026-05-03 (3): User 결정으로 단일-repo 전략 전환 — 빈 repo 삭제, `studio` → `taystudio.github.io` rename. 로컬 코드 일괄 치환 완료. GA4 스트림 URL 갱신 완료. 다음: ads.txt 작성 + push.
 - 2026-05-03 (4): `ads.txt` 작성·commit·push 완료. https://taystudio.github.io/ads.txt 한 줄 응답 확인.
 - 2026-05-03 (5): AdSense 콘솔에서 사이트 추가 (`taystudio.github.io`) → "ads.txt 파일을 게시함" 클릭 → **사이트 확인됨** 통과. 현재 수동 검토 큐 대기 중.
+- 2026-05-03 (6): 자동광고 라이브러리(`adsbygoogle.js`) 33개 페이지 `<head>`에 정적 `<script>` 태그로 일괄 삽입 (Python 스크립트로 처리). 위치: `preconnect` 라인 직후. 루트 `index.html`은 진입 허브 + 콘텐츠 부족(본문 716자)으로 제외 결정. publisher ID 일관성 검증 통과 (`ca-pub-3553250610781349` 단일). 검토 대기 중에 미리 박은 것 — 승인 후에야 광고 노출. 자세한 개념·결정 근거는 §1.
 - 2026-05-03 (6): 사이트 추가 마법사가 마지막 단계로 CMP(동의 메시지) 설정 요구 → 가운데 옵션(3가지 선택, TCF v2.2 표준) 채택 진행 중.
