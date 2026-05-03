@@ -1,6 +1,18 @@
 // TAYSTUDIO common chrome — header & footer web components.
 // Uses absolute paths under /studio/ so depth-agnostic across all pages.
 
+(function () {
+  const GA_ID = 'G-79C40NJRYT';
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag('js', new Date());
+  window.gtag('config', GA_ID);
+})();
+
 const BASE = '/studio';
 
 class SiteHeader extends HTMLElement {
