@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1115"/>
+      <stop offset="1" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="title-grad" x1="0" y1="0" x2="1" y2="0.4">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.55" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.18" cy="0.22" r="0.55">
+      <stop offset="0" stop-color="#6366f1" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#6366f1" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.86" cy="0.7" r="0.55">
+      <stop offset="0" stop-color="#2563eb" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#2563eb" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="0.5" cy="1.05" r="0.5">
+      <stop offset="0" stop-color="#ec4899" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#ec4899" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.4" fill="rgba(255,255,255,0.05)"/>
+    </pattern>
+  </defs>
+
+  <!-- Layered backgrounds -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#glow1)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+  <rect width="1200" height="630" fill="url(#glow3)"/>
+
+  <!-- Eyebrow -->
+  <text x="600" y="148" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="20" font-weight="600" letter-spacing="6" fill="#94a3b8" text-anchor="middle">TAYSTUDIO · EST. 2026</text>
+
+  <!-- Main brand -->
+  <text x="600" y="280" font-family="-apple-system, 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif" font-size="124" font-weight="800" letter-spacing="-3" fill="url(#title-grad)" text-anchor="middle">쓸모 있는 것들<tspan fill="#3b82f6">.</tspan></text>
+
+  <!-- Subtitle -->
+  <text x="600" y="360" font-family="-apple-system, 'Pretendard', 'Noto Sans KR', sans-serif" font-size="30" font-weight="500" fill="#cbd5e1" text-anchor="middle">자주 쓰는 무료 도구 모음</text>
+
+  <!-- Categories pill row -->
+  <g font-family="-apple-system, 'Pretendard', 'Noto Sans KR', sans-serif" font-size="24" font-weight="600">
+    <g transform="translate(370, 440)">
+      <rect x="0" y="0" width="140" height="64" rx="32" fill="rgba(37,99,235,0.18)" stroke="rgba(99,102,241,0.4)"/>
+      <text x="70" y="42" fill="#e0e7ff" text-anchor="middle">🧮 계산기</text>
+    </g>
+    <g transform="translate(530, 440)">
+      <rect x="0" y="0" width="140" height="64" rx="32" fill="rgba(37,99,235,0.18)" stroke="rgba(99,102,241,0.4)"/>
+      <text x="70" y="42" fill="#e0e7ff" text-anchor="middle">📝 텍스트</text>
+    </g>
+    <g transform="translate(690, 440)">
+      <rect x="0" y="0" width="140" height="64" rx="32" fill="rgba(37,99,235,0.18)" stroke="rgba(99,102,241,0.4)"/>
+      <text x="70" y="42" fill="#e0e7ff" text-anchor="middle">📸 이미지</text>
+    </g>
+  </g>
+
+  <!-- URL footer -->
+  <text x="600" y="582" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="22" font-weight="600" letter-spacing="2" fill="#64748b" text-anchor="middle">taystudio.github.io</text>
+</svg>

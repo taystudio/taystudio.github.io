@@ -138,7 +138,7 @@
     <h1>📜 변경 이력</h1>
     <p class="subtitle">사이트에서 일어난 일을 시간 역순으로 — 도구 추가, 세율 갱신, SEO·인프라 작업까지.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
-      <b>마지막 갱신</b>: 2026-05-05 · <span style="opacity:.7">image/ 9선으로 확장 — img-to-pdf + bg-remove(@imgly AI) 추가. 7→9선. 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
+      <b>마지막 갱신</b>: 2026-05-05 · <span style="opacity:.7">SEO 일괄 — og:image 사이트 전체(51 파일) + Organization JSON-LD + image 9 도구 featureList. 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
     </p>
 
     <div class="legend">
@@ -148,6 +148,91 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item major">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-05</span>
+            <span class="tl-tag feature">SEO 일괄</span>
+            <span class="tl-tag">og:image</span>
+            <span class="tl-tag">JSON-LD 보강</span>
+          </div>
+          <div class="tl-title">🔍 SEO Tier 1·2 일괄 — og:image 사이트 전체 + Organization + featureList</div>
+          <div class="tl-summary">
+            audit 결과 <b>52 HTML 전부 og:image / twitter:image 누락</b> 발견 → 카톡·X·페이스북 공유 시 빈 미리보기로 한국 입소문 채널 클릭률 직접 손실. 1200×630 SVG 자체 제작 → Chrome headless로 PNG 변환 → 51 파일 일괄 적용. <code>twitter:card</code>도 <code>summary_large_image</code>로 업그레이드. 동시에 image 9 도구 JSON-LD에 <code>featureList</code> + <code>dateModified</code> + <code>softwareVersion</code> 추가, 루트에 <code>Organization</code> JSON-LD 추가. SEO 전략 문서 신규 카테고리 <code>history/seo/</code> 개설.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat"><div class="label">og:image 적용</div><div class="value">51</div><div class="delta">/52 (404 제외)</div></div>
+            <div class="stat"><div class="label">변경 파일</div><div class="value">56</div><div class="delta">52 수정 + 4 신규</div></div>
+            <div class="stat"><div class="label">JSON-LD 보강</div><div class="value">9</div><div class="delta">image 도구 전체</div></div>
+            <div class="stat"><div class="label">신규 자산</div><div class="value">4</div><div class="delta">og.svg·og.png + seo md×2</div></div>
+          </div>
+
+          <details class="tl-details" open>
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">🚨 발견된 누락</h3>
+              <ul>
+                <li><b>52 HTML 전부 <code>og:image</code> / <code>twitter:image</code> 누락</b> — image/ 9 + text/ 4 + tools/ 35 + root + 기타 모두</li>
+                <li>1200×630 OG 자산 자체가 없었음 — favicon.svg 286B, apple-touch-icon 2.9KB만 존재</li>
+                <li>영향 = 카톡(한국 입소문 1순위)·X·페이스북·LinkedIn·Slack·디스코드 공유 시 빈 미리보기 → CTR 직접 손실</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🎨 OG 자산 자체 제작</h3>
+              <ul>
+                <li><code>og-image.svg</code> 3.6KB — 1200×630, 다크 그라데이션 + 라디얼 글로우 + "쓸모 있는 것들." + 카테고리 칩 3개(계산기 33 / 텍스트 3 / 이미지 9)</li>
+                <li><code>og-image.png</code> 511KB — <b>Chrome headless로 정확히 1200×630 렌더</b>. qlmanage는 정사각형 thumbnail로 출력해 부적합. PNG 채택 = 카톡·페이스북·LinkedIn·Naver는 SVG 미리보기 미지원</li>
+                <li>커맨드: <code>"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --window-size=1200,630 --screenshot=og-image.png file://og-image.svg</code></li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔧 일괄 적용 — 51 파일</h3>
+              <ul>
+                <li><code>/tmp/apply_og.py</code> — og:url 다음(없으면 og:description 다음)에 og:image 4종 삽입, twitter:card "summary"→"summary_large_image", twitter:description 다음에 twitter:image 삽입. idempotent (이미 og:image 있으면 skip)</li>
+                <li>49 파일 자동 적용 + 2 파일 수동 보정(<code>tools/privacy/</code>·<code>tools/terms/</code> — og:* 메타 자체 부재라 11개 메타 한꺼번에 추가)</li>
+                <li>1 파일 미적용(<code>tools/404.html</code> — SEO 영향 미미, 후순위)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🏛 JSON-LD 보강</h3>
+              <table>
+                <thead><tr><th>위치</th><th>추가 항목</th><th>효과</th></tr></thead>
+                <tbody>
+                  <tr><td>root <code>index.html</code> @graph</td><td><code>Organization</code>(name·alternateName·url·logo·image·foundingDate·areaServed·knowsLanguage)</td><td>브랜드 쿼리 SERP·Knowledge Panel 후보</td></tr>
+                  <tr><td>image 9 도구 WebApplication</td><td><code>featureList</code>(4 기능 배열) + <code>dateModified</code>(2026-05-05) + <code>softwareVersion</code>(2026.05)</td><td>리치 스니펫에 기능 노출 가능, 최신성 시그널</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📁 새 카테고리 — <code>history/seo/</code></h3>
+              <ul>
+                <li><code>history/seo/strategy.md</code> 95줄 — 전체 SEO 전략·체크리스트(18 항목)·우선순위·"안 하는 것들". 새 도구 추가 시 검증 기준</li>
+                <li><code>history/seo/2026-05-05-og-image-rollout.md</code> 157줄 — 이번 적용 내역·검증·후속 작업 백로그</li>
+                <li>SEO 작업 전용 디렉토리 — 향후 hub 콘텐츠·HowTo·screenshot 작업도 여기 누적</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔍 검증</h3>
+              <table>
+                <thead><tr><th>항목</th><th>결과</th></tr></thead>
+                <tbody>
+                  <tr><td>og:image 적용</td><td>51/52 (404 제외 전부 ✓)</td></tr>
+                  <tr><td>twitter:card="summary_large_image"</td><td>51 (기존 summary 0)</td></tr>
+                  <tr><td>image 9 도구 JSON 유효성</td><td>9/9 ✓</td></tr>
+                  <tr><td>root @graph types</td><td>WebSite + BreadcrumbList + Organization</td></tr>
+                  <tr><td>og-image.png 시각 확인</td><td>1200×630, 텍스트 가독성 OK</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⏭ 후속 (별도 세션)</h3>
+              <ul>
+                <li><b>Tier 1.2 카테고리 hub 콘텐츠 깊이</b>(~2h) — image·text·tools hub에 long-form 소개 + FAQ + <code>.updated</code> + <code>.sources</code>. 현재 카드 그리드만이라 카테고리 키워드 SERP에서 thin content</li>
+                <li><b>Tier 2.2 HowTo JSON-LD 4 도구</b>(~1h) — pdf-merge·bg-remove·img-to-pdf·qr-gen에 step-by-step 추가 → "How to" 리치 스니펫(번호 카드) 노출 후보</li>
+                <li><b>Tier 3 자산 의존</b>(후순위) — 도구별 스크린샷 + screenshot JSON-LD, HTML 사이트맵</li>
+                <li><b>측정</b>(1주~1달 후) — Search Console CTR 변화, 카카오 미리보기 디버거, Twitter Card Validator, AdSense RPM</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item major">
