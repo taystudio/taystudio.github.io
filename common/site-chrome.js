@@ -16,8 +16,10 @@
 const BASE = '';
 
 function isToolsPage() {
-  // 루트(/)·홈은 면책 banner 비표시. /tools/ 하위(또는 file:// 로컬)에서만 표시.
-  return window.location.pathname.includes('/tools/');
+  // 면책 banner = "모든 계산은 참고용 추정치". 계산기(/tools/)에서만 노출.
+  // text/는 변환·카운트라 정확 — banner 부적절. image/test 등은 카테고리별로 별도 결정.
+  const path = window.location.pathname;
+  return path.includes('/tools/');
 }
 
 class SiteHeader extends HTMLElement {

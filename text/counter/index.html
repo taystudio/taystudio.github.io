@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Text">
+  <meta property="og:title" content="글자수 카운터 | 공백 포함·제외, 바이트, SNS·자소서 한도">
+  <meta property="og:description" content="실시간 글자수·단어·줄·바이트 카운트. 트위터·인스타·자소서 한도까지 한눈에. 무료, 가입 없음, 입력값 외부 전송 없음.">
+  <meta property="og:url" content="https://taystudio.github.io/text/counter/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="글자수 카운터 | 공백 포함·제외, 바이트, SNS·자소서 한도">
+  <meta name="twitter:description" content="실시간 글자수·단어·줄·바이트 카운트. 트위터·인스타·자소서 한도까지 한눈에.">
+  <title>글자수 카운터 | 공백 포함·제외, 바이트, SNS·자소서 한도</title>
+  <meta name="description" content="실시간 글자수 카운터. 공백 포함·제외, 단어수, 줄수, UTF-8 바이트, 한글·영문 분리. 트위터·인스타·자소서 한도 자동 비교.">
+  <meta name="keywords" content="글자수 세기, 글자수 카운터, 자소서 글자수, 트위터 글자수, 바이트 계산, 공백 포함 제외">
+  <link rel="canonical" href="https://taystudio.github.io/text/counter/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "글자수 카운터 | 공백 포함·제외, 바이트, SNS·자소서 한도",
+      "description": "실시간 글자수 카운터. 공백 포함·제외, 단어수, 줄수, UTF-8 바이트, 한글·영문 분리. 트위터·인스타·자소서 한도 자동 비교.",
+      "url": "https://taystudio.github.io/text/counter/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Text", "item": "https://taystudio.github.io/text/" },
+        { "@type": "ListItem", "position": 3, "name": "글자수 카운터", "item": "https://taystudio.github.io/text/counter/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "공백 포함과 공백 제외 글자수는 어떻게 다른가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "공백 포함은 띄어쓰기·탭·줄바꿈을 모두 1자로 셉니다. 공백 제외는 그 모든 공백 문자를 빼고 셉니다. 자소서·논술은 보통 '공백 포함' 기준이지만 항목별로 다릅니다 — 모집 공고에 명시돼 있으니 꼭 확인하세요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "바이트수는 왜 글자수보다 큰가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "UTF-8 인코딩에서 한글 1자는 3바이트, 영문·숫자는 1바이트, 이모지는 4바이트입니다. 예: '안녕'은 2자 6바이트, 'Hi'는 2자 2바이트. DB 컬럼·SMS 한도 등에서 글자수 대신 바이트로 제한하는 경우 이 값을 보세요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "자소서 글자수는 보통 어떤 기준인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "대부분 공백 포함 기준이며 항목당 500·1000·1500·2000자가 가장 흔합니다. 단 일부 공기업·금융권은 공백 제외 또는 바이트(EUC-KR) 기준을 쓰기도 합니다. 모집 공고의 '글자수 안내' 문구를 그대로 따르세요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "이모지나 한자는 몇 자로 세나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "본 카운터는 유니코드 코드포인트 단위로 셉니다. 즉 '👨‍👩‍👧' 같은 합성 이모지(ZWJ로 묶인 것)는 여러 코드포인트(보통 5)로 카운트되며, 트위터 등 일부 서비스의 1자 카운팅과 차이날 수 있습니다. 한자·일본어는 1자로 셉니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "줄바꿈도 글자수에 포함되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "공백 포함 기준에서는 포함됩니다(개행 문자 \\n도 1자). 공백 제외 기준에서는 빠집니다. 워드·한글 프로그램의 글자수 통계와 약간 다를 수 있는데, 그 도구들은 보통 줄바꿈을 빼고 세기 때문입니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "입력한 글이 외부로 전송되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. 모든 계산은 브라우저 안에서 처리되며 서버로 보내지 않습니다. 자소서·계약서 등 민감한 글도 안심하고 붙여넣어도 됩니다."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/tools/css/style.css">
+  <style>
+    .counter-input {
+      width: 100%;
+      min-height: 220px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--card);
+      color: var(--text);
+      font-size: 16px; /* 16px 이상: iOS Safari 포커스 시 자동 줌 방지 */
+      font-family: inherit;
+      line-height: 1.6;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    .counter-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    }
+    .counter-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .counter-actions button {
+      width: auto;
+      flex: 0 0 auto;
+      padding: 8px 14px;
+      font-size: 14px;
+      font-weight: 500;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .counter-actions button:hover {
+      background: var(--border);
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .stat-cell {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+    }
+    .stat-cell .num {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+    .stat-cell .lab {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .limit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .limit-row {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .limit-row.over { border-color: #dc2626; }
+    .limit-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .limit-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .limit-count {
+      font-size: 13px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .limit-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .limit-fill {
+      height: 100%;
+      background: var(--primary);
+      transition: width 0.15s ease;
+    }
+    .limit-row.over .limit-fill { background: #dc2626; }
+    .limit-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 4px 8px;
+      margin-top: 6px;
+      font-size: 12px;
+    }
+    .limit-status { color: var(--muted); font-weight: 500; flex: 0 0 auto; }
+    .limit-row.over .limit-status { color: #dc2626; }
+    .limit-hint { color: var(--muted); text-align: right; flex: 1 1 auto; min-width: 0; }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">텍스트</a> · 글자수 카운터</div>
+    <h1>글자수 카운터</h1>
+    <p class="subtitle">공백 포함·제외, 단어·줄·바이트, SNS·자소서 한도까지 실시간으로.</p>
+
+    <div class="card">
+      <div class="field">
+        <label for="input">텍스트 입력</label>
+        <textarea id="input" class="counter-input" placeholder="여기에 글을 붙여넣거나 입력하세요. 입력값은 외부로 전송되지 않습니다."></textarea>
+        <div class="counter-actions">
+          <button type="button" id="copyBtn">복사</button>
+          <button type="button" id="clearBtn">지우기</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result">
+      <div class="result-headline">
+        <div class="result-label">공백 포함</div>
+        <div id="charsWithSpace" class="result-value">0</div>
+        <div class="result-sub">자</div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-cell"><div id="charsNoSpace" class="num">0</div><div class="lab">공백 제외</div></div>
+        <div class="stat-cell"><div id="words" class="num">0</div><div class="lab">단어수</div></div>
+        <div class="stat-cell"><div id="lines" class="num">0</div><div class="lab">줄수</div></div>
+        <div class="stat-cell"><div id="bytesUtf8" class="num">0</div><div class="lab">바이트 (UTF-8)</div></div>
+        <div class="stat-cell"><div id="korean" class="num">0</div><div class="lab">한글</div></div>
+        <div class="stat-cell"><div id="english" class="num">0</div><div class="lab">영문</div></div>
+        <div class="stat-cell"><div id="digit" class="num">0</div><div class="lab">숫자</div></div>
+        <div class="stat-cell"><div id="other" class="num">0</div><div class="lab">기타·특수</div></div>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>SNS·자소서 한도 비교</h2>
+      <p class="small">현재 입력된 텍스트의 공백 포함 글자수가 각 한도에 어떻게 걸리는지 표시. 한도는 2026-05 기준.</p>
+      <div id="limits" class="limit-list"></div>
+    </section>
+
+    <section class="tool-article">
+      <h2>글자수 vs 바이트 — 인코딩별 차이</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>예시</th><th>글자수</th><th>UTF-8 바이트</th><th>EUC-KR 바이트</th></tr></thead>
+          <tbody>
+            <tr><td>안녕</td><td>2</td><td>6</td><td>4</td></tr>
+            <tr><td>Hi</td><td>2</td><td>2</td><td>2</td></tr>
+            <tr><td>안녕 Hi</td><td>5(공백 포함)</td><td>9</td><td>7</td></tr>
+            <tr><td>👋</td><td>1</td><td>4</td><td>—</td></tr>
+            <tr><td>한자(漢)</td><td>1</td><td>3</td><td>2</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">본 카운터는 UTF-8 기준. 일부 공기업·금융 시스템은 EUC-KR 바이트로 제한하니, 모집 공고 안내 문구를 그대로 따르세요.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../">텍스트 도구 모음<span class="desc">한↔영 변환·마크다운·JSON 등</span></a>
+        <a href="/tools/age/">만 나이 계산기<span class="desc">자소서·이력서 작성 시</span></a>
+        <a href="/tools/salary/">연봉 실수령액<span class="desc">이력서 희망연봉 산정</span></a>
+        <a href="/tools/dday/">D-day 계산기<span class="desc">제출 마감일 카운트</span></a>
+        <a href="/tools/hourly/">시급 계산기<span class="desc">알바·인턴 자소서</span></a>
+        <a href="/tools/">33개 계산기 모두 보기<span class="desc">세금·금융·생활</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>공백 포함과 공백 제외 글자수는 어떻게 다른가요?</summary>
+        <div class="answer">
+          공백 포함은 띄어쓰기·탭·줄바꿈을 모두 1자로 셉니다. 공백 제외는 그 모든 공백 문자를 빼고 셉니다.
+          자소서·논술은 보통 <b>공백 포함</b> 기준이지만 항목별로 다릅니다 — 모집 공고에 명시돼 있으니 꼭 확인하세요.
+        </div>
+      </details>
+
+      <details>
+        <summary>바이트수는 왜 글자수보다 큰가요?</summary>
+        <div class="answer">
+          UTF-8 인코딩에서 <b>한글 1자는 3바이트</b>, 영문·숫자는 1바이트, 이모지는 4바이트입니다.
+          예: '안녕'은 2자 6바이트, 'Hi'는 2자 2바이트. DB 컬럼·SMS 한도 등에서 글자수 대신 바이트로 제한하는 경우 이 값을 보세요.
+        </div>
+      </details>
+
+      <details>
+        <summary>자소서 글자수는 보통 어떤 기준인가요?</summary>
+        <div class="answer">
+          대부분 <b>공백 포함</b> 기준이며 항목당 500·1000·1500·2000자가 가장 흔합니다.
+          단 일부 공기업·금융권은 공백 제외 또는 바이트(EUC-KR) 기준을 쓰기도 합니다.
+          모집 공고의 '글자수 안내' 문구를 그대로 따르세요.
+        </div>
+      </details>
+
+      <details>
+        <summary>이모지나 한자는 몇 자로 세나요?</summary>
+        <div class="answer">
+          본 카운터는 <b>유니코드 코드포인트 단위</b>로 셉니다.
+          즉 <code>👨‍👩‍👧</code> 같은 합성 이모지(ZWJ로 묶인 것)는 여러 코드포인트(보통 5)로 카운트되며,
+          트위터 등 일부 서비스의 1자 카운팅과 차이날 수 있습니다. 한자·일본어는 1자로 셉니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>줄바꿈도 글자수에 포함되나요?</summary>
+        <div class="answer">
+          공백 포함 기준에서는 포함됩니다(개행 문자 <code>\n</code>도 1자).
+          공백 제외 기준에서는 빠집니다. 워드·한글 프로그램의 글자수 통계와 약간 다를 수 있는데,
+          그 도구들은 보통 줄바꿈을 빼고 세기 때문입니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>입력한 글이 외부로 전송되나요?</summary>
+        <div class="answer">
+          전송되지 않습니다. 모든 계산은 <b>브라우저 안에서 처리</b>되며 서버로 보내지 않습니다.
+          자소서·계약서 등 민감한 글도 안심하고 붙여넣어도 됩니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-04 / SNS·자소서 한도는 각 서비스 공식 가이드 기준.</div>
+      <ul>
+        <li>UTF-8 인코딩 규격 — <a href="https://datatracker.ietf.org/doc/html/rfc3629" rel="nofollow noopener" target="_blank">RFC 3629</a></li>
+        <li>유니코드 한글 음절 블록 (가-힣, U+AC00–U+D7A3) — Unicode 표준</li>
+        <li>X(트위터) 280자 — <a href="https://help.twitter.com/en/using-x/how-to-tweet" rel="nofollow noopener" target="_blank">X Help</a></li>
+        <li>인스타그램 캡션 2200자 — <a href="https://help.instagram.com/" rel="nofollow noopener" target="_blank">Instagram Help</a></li>
+      </ul>
+      <div class="note">⚠️ 각 서비스의 한도는 정책에 따라 변경될 수 있습니다. 중요 게시 전에는 해당 서비스에서 직접 확인하세요.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 텍스트 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="./counter.js" defer></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

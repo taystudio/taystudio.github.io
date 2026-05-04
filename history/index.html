@@ -138,7 +138,7 @@
     <h1>📜 변경 이력</h1>
     <p class="subtitle">사이트에서 일어난 일을 시간 역순으로 — 도구 추가, 세율 갱신, SEO·인프라 작업까지.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
-      <b>마지막 갱신</b>: 2026-05-04 18:01 KST · <span style="opacity:.7">개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
+      <b>마지막 갱신</b>: 2026-05-04 · <span style="opacity:.7">text 카테고리 신설 + plan.md 의도·전략 문서화 정리. 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
     </p>
 
     <div class="legend">
@@ -148,6 +148,202 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-04</span>
+            <span class="tl-tag fix">UX fix</span>
+            <span class="tl-tag">정책 정교화</span>
+          </div>
+          <div class="tl-title">🛠 text/ 출시 후 UX 점검 — banner 정책 정교화 + 버튼 CSS 충돌 fix</div>
+          <div class="tl-summary">
+            text 카테고리 출시 직후 사용자 피드백 반영 — ① 면책 banner를 카테고리별 정확도 성격에 따라 분기(text는 변환·카운트라 정확 → 표시 X), ② 글로벌 <code>button { width: 100% }</code> (form submit 용) 스타일이 inline 액션 버튼까지 적용돼 폭이 깨진 문제 fix.
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">① 면책 banner 정책 정교화</h3>
+              <p>사용자 피드백: <i>"text 도구는 변환·카운트라 정확한데 '추정치' 문구는 부적절하지 않냐."</i></p>
+              <p>결정 흐름:</p>
+              <ol>
+                <li>text 카테고리 출시 시 일반화된 정규식 도입 — <code>/(tools|text|image|test|...)/</code>로 모든 카테고리 매치</li>
+                <li>사용자 지적 반영 → 다시 단순화: <code>path.includes('/tools/')</code> — 계산기에서만 노출</li>
+              </ol>
+              <p style="margin-top:8px">카테고리별 banner 정책 (plan.md §7.2):</p>
+              <table>
+                <thead><tr><th>카테고리</th><th>정확도 성격</th><th>banner</th></tr></thead>
+                <tbody>
+                  <tr><td><code>tools/</code></td><td>세율·법령 기반 추정</td><td>✓ 표시</td></tr>
+                  <tr><td><code>text/</code></td><td>결정론적 변환·카운트</td><td>✗ 미표시</td></tr>
+                  <tr><td><code>image/</code></td><td>정확(압축·QR·PDF) vs 부정확(OCR) 혼재</td><td>도구별 분기 필요 (보류)</td></tr>
+                  <tr><td><code>test/</code></td><td>의료 진단 대체 X</td><td>별도 면책 필요 (보류)</td></tr>
+                </tbody>
+              </table>
+              <p><code>tools/sw.js</code> CACHE_VERSION <code>v6 → v7</code> — banner 정책 변경 전파.</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">② 글로벌 button 스타일 충돌</h3>
+              <p>원인: <code>tools/css/style.css</code>의 <code>button { width: 100%; padding: 13px 20px; ... }</code>는 계산기 form submit 버튼용. 그런데 text 도구의 inline 액션 버튼(복사·지우기)에도 적용돼 폭이 100%로 늘어나며 깨짐.</p>
+              <p>fix: 각 도구의 액션 버튼 클래스에 <code>width: auto</code> 명시.</p>
+              <ul>
+                <li><code>text/counter/</code> <code>.counter-actions button</code></li>
+                <li><code>text/kbd-convert/</code> <code>.kbd-actions button</code> + <code>.kbd-out-head button</code></li>
+                <li><code>text/sns-format/</code> <code>.sns-actions button</code> + inline copy 버튼</li>
+              </ul>
+              <p style="font-size:13px;color:var(--muted)">대안 검토: 글로벌 CSS에 <code>button.action</code> modifier 추가 → 일관성↑이지만 33개 form submit 버튼 영향 가능 → 보류. 도구별 <code>width: auto</code> 명시가 안전.</p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-04</span>
+            <span class="tl-tag feature">UX</span>
+            <span class="tl-tag">한국어 직관성</span>
+          </div>
+          <div class="tl-title">🏠 루트 hub 다중 카테고리화 — "Tools" → "계산기" 한국어 이름 + 텍스트 카드 추가</div>
+          <div class="tl-summary">
+            루트 <code>index.html</code>이 단일 카테고리 hub였던 걸 다중으로 확장. 카드 이름을 영어("Tools") → 한국어("계산기")로 직관성 강화. preview 섹션도 <code>"— FROM TOOLS"</code> → <code>"— 계산기 미리보기"</code> 한국어로 통일하고, 텍스트 도구 3선 미리보기 신설.
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">변경 전 → 후</h3>
+              <table>
+                <thead><tr><th>요소</th><th>변경 전</th><th>변경 후</th></tr></thead>
+                <tbody>
+                  <tr><td>hub-grid 카드</td><td>Tools (1개, 영어 이름)</td><td>계산기 + 텍스트 도구 (2개, 한국어)</td></tr>
+                  <tr><td>hero tagline</td><td>"한국 실생활 계산기 33선"</td><td>"한국에서 자주 쓰는 무료 도구"</td></tr>
+                  <tr><td>preview 제목</td><td>"— FROM TOOLS"</td><td>"— 계산기 미리보기"</td></tr>
+                  <tr><td>preview 섹션 수</td><td>1</td><td>2 (계산기 6 + 텍스트 3)</td></tr>
+                  <tr><td>JSON-LD <code>hasPart</code></td><td>tools 1개</td><td>tools + text 2개</td></tr>
+                  <tr><td>meta title</td><td>"한국 실생활 계산기 33선"</td><td>"한국 실생활 계산기·텍스트 도구"</td></tr>
+                </tbody>
+              </table>
+              <p>LIVE 뱃지에 <code>"33선"</code>·<code>"3선"</code> 부가 정보 표기 — 사용자가 카테고리 진입 전 도구 수 인지.</p>
+              <p style="font-size:13px;color:var(--muted)">의도: 카테고리가 늘어남에 따라 루트는 모든 진입점을 균등하게 노출하는 hub 역할 강화. SEO·UX 양쪽 모두 카테고리 발견 친화.</p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item major">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-04</span>
+            <span class="tl-tag feature">+1 카테고리</span>
+            <span class="tl-tag feature">+3 도구</span>
+            <span class="tl-tag">전략 문서화</span>
+          </div>
+          <div class="tl-title">🆕 text/ 카테고리 신설 (1단계) + plan.md 의도·전략 명시화</div>
+          <div class="tl-summary">
+            tools/(33선 계산기) 외 <b>첫 신규 카테고리 = text/</b> (글자·문자 도구). 단일 카테고리 → 멀티 카테고리 사이트 확장의 시작점. 동시에 plan.md를 다시 작성해 본질 motivation·인프라 전략·도구 평가 기준을 명시 — 다음 세션이 같은 의사결정을 일관되게 내릴 수 있도록.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat"><div class="label">신규 카테고리</div><div class="value">1</div><div class="delta">text/</div></div>
+            <div class="stat"><div class="label">신규 도구</div><div class="value">3</div><div class="delta">Tier 1 출시</div></div>
+            <div class="stat"><div class="label">스킵 결정</div><div class="value">4</div><div class="delta">Tier 2 — 개발자 도구 ROI 낮음</div></div>
+            <div class="stat"><div class="label">총 도구 수</div><div class="value">36</div><div class="delta">+3</div></div>
+          </div>
+
+          <details class="tl-details" open>
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">📜 plan.md — 의도·전략 명시화</h3>
+              <p>다음 세션이 plan.md만 봐도 "왜 만드는지·무엇 우선인지"를 알 수 있도록 문서 최상단(§0)에 박아둠:</p>
+              <ul>
+                <li><b>본질 motivation</b>: 광고 수익. 우선순위 = <b>돈 &gt; 트래픽 &gt; 사용자 가치</b></li>
+                <li><b>인프라 전략</b>: GitHub Pages 정적 사이트로 한계까지 끌어모은 후 막히면 백엔드. <b>백엔드는 fallback이지 default 아님</b>. 백엔드 도입 명분 신호 = 사용자별 데이터·SSR 필수·API 키 보호 필수</li>
+                <li><b>도구 평가 3 질문</b>: ① 검색 트래픽 큰가 ② 광고 친화(일반인&gt;개발자, 체류시간 ↑ 우선) ③ 정적으로 가능한가</li>
+                <li><b>부적합 패턴</b>: 개발자 전용·단발 사용·이미 클론 천지·"있으면 좋은데 수익 약함" 카테고리 채우기용</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🆕 신규 도구 3종 (Tier 1)</h3>
+              <table>
+                <thead><tr><th>도구</th><th>슬러그</th><th>핵심 기능</th><th>차별화</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>🔤 글자수 카운터</td>
+                    <td><code>text/counter/</code></td>
+                    <td>공백 포함/제외 글자수, 단어·줄·UTF-8 바이트, 한글/영문/숫자 분리</td>
+                    <td>SNS·자소서 한도 11종 실시간 progress bar (트위터 280 / 인스타 2200 / 자소서 500·1000·1500·2000자 등)</td>
+                  </tr>
+                  <tr>
+                    <td>⌨️ 한↔영 키보드 변환</td>
+                    <td><code>text/kbd-convert/</code></td>
+                    <td>두벌식 표준 매핑, 자모 합성/분해 상태 머신, 양방향 동시 출력</td>
+                    <td>복합 종성(ㄳ ㄵ ㄶ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅄ) + 복합 모음(ㅘ ㅙ ㅚ ㅝ ㅞ ㅟ ㅢ) 정확 처리</td>
+                  </tr>
+                  <tr>
+                    <td>#️⃣ SNS 글 정리</td>
+                    <td><code>text/sns-format/</code></td>
+                    <td>인스타 줄바꿈 보존, 해시태그 추출·중복 제거·정리, Unicode fancy 글씨 7종</td>
+                    <td>U+3164(한글 채움 문자)로 인스타 빈 줄 압축 우회. Bold·Italic·Script·Fraktur·Double-struck·Mono</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🚫 Tier 2 — 스킵 결정 (4개)</h3>
+              <p>plan.md §0.4 "부적합 패턴" 적용 — 개발자 전용 도구는 <b>광고 차단률 ↑·단가 낮음</b>으로 ROI 약함:</p>
+              <ul>
+                <li><b>markdown 미리보기</b> — 개발자·블로거</li>
+                <li><b>JSON·XML 포맷터</b> — 개발자, 광고 차단률 가장 높음</li>
+                <li><b>URL 인코더·디코더</b> — 개발자</li>
+                <li><b>대소문자·snake·camel·kebab</b> — 개발자</li>
+              </ul>
+              <p>카테고리 풍성도(7개) 대신 <b>ROI(3개)</b> 우선. 후속 보강 백로그(plan §9.3)로 별도 관리. 수익 검증 후 재진입 가능.</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔍 검증 결과</h3>
+              <table>
+                <thead><tr><th>도구</th><th>FAQ DOM ↔ JSON-LD</th><th>태그 밸런스</th><th>로직 sanity</th></tr></thead>
+                <tbody>
+                  <tr><td>counter</td><td>6 / 6 ✓</td><td>135 / 135</td><td>한글 5자 = UTF-8 15B / 이모지 4B / 빈 입력 0</td></tr>
+                  <tr><td>kbd-convert</td><td>6 / 6 ✓</td><td>139 / 139</td><td>한→영→한 라운드트립 ✓ — 안녕하세요·한글날·닭·값·왔다·의자·괜찮아</td></tr>
+                  <tr><td>sns-format</td><td>6 / 6 ✓</td><td>177 / 177</td><td>Unicode 매핑 — Script ℋ·Fraktur ℭ·Double-struck ℂ 예외까지 정확</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🏗 인프라 변경</h3>
+              <ul>
+                <li><code>common/site-chrome.js</code> banner — 처음 카테고리 일반화 → 다시 <code>/tools/</code> 한정으로 회귀 (위 "UX fix" article 참조)</li>
+                <li><code>tools/sw.js</code> CACHE_VERSION <code>v6 → v7</code></li>
+                <li>각 도구 페이지 패턴 = tools/ 컨벤션 일관 — head meta·canonical·JSON-LD(WebApp+Breadcrumb+FAQ)·tool-article·related-calc·sources·SiteHeader/SiteFooter</li>
+                <li>CSS는 단일 <code>tools/css/style.css</code> 재사용 (절대경로 import). 도구별 미세 스타일은 <code>&lt;head&gt;</code> 인라인</li>
+                <li>각 도구 디렉토리: <code>text/&lt;slug&gt;/index.html</code> + <code>text/&lt;slug&gt;/&lt;slug&gt;.js</code></li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📈 트래픽 기대 (각 도구별)</h3>
+              <ul>
+                <li><b>counter</b>: 시즌성 큼 — 상·하반기 공채 자소서 시즌에 burst. "글자수 세기"·"자소서 글자수" 키워드</li>
+                <li><b>kbd-convert</b>: 검색량 안정·일상 — "한영 변환"·"키보드 잘못 친 거"·"dkssudgktpdy" 등 long-tail</li>
+                <li><b>sns-format</b>: SNS 운영자·일반인 — "인스타 줄바꿈"·"특수문자 글씨"·"해시태그 정리"</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⏭ 다음 단계 (plan.md §4)</h3>
+              <p>2단계 = <b>image/ 카테고리</b>. 7개 도구 후보 모두 Tier 1 (일반인·큰 트래픽·광고 친화 ✓):</p>
+              <ul>
+                <li><b>compress·resize</b> — canvas API (라이브러리 0)</li>
+                <li><b>pdf-merge·pdf-split</b> — pdf-lib (~700KB lazy)</li>
+                <li><b>qr-gen·qr-scan</b> — qrcode.js / jsQR</li>
+                <li><b>ocr</b> — Tesseract.js (~5MB lazy, WASM)</li>
+              </ul>
+              <p style="margin-top:8px">차별화 핵심 = <b>모든 처리 브라우저 안에서 = 파일 외부 전송 X</b>. 이력서·신분증 같은 민감 자료 사용자를 끌어들이는 프라이버시 마케팅. 정적 한계까지 시도해본 후, 막히면 백엔드 검토(plan §0.2 전략 적용).</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📂 관련 문서</h3>
+              <ul>
+                <li><code>plan.md</code> (repo 루트) — 카테고리 확장 로드맵 + 의도·전략·평가 기준</li>
+                <li><code>tools/HANDOFF.md</code> — 코드 컨벤션·SEO·정책 (text/도 동일 패턴)</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item major">

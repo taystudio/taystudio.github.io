@@ -34,16 +34,22 @@ canonical_of() {
   fi
 }
 
+# 카테고리 목록 — 새 카테고리(image/, test/ 등) 추가 시 여기 갱신
+CATEGORIES=("tools" "text")
+
 # Default priority and changefreq based on URL path conventions.
 classify() {
   local url="$1"
   case "$url" in
-    "${DOMAIN}/")          echo "1.0 weekly" ;;
-    "${DOMAIN}/tools/")    echo "1.0 weekly" ;;
-    *"/tools/privacy/"*)   echo "0.3 yearly" ;;
-    *"/tools/terms/"*)     echo "0.3 yearly" ;;
-    *"/tools/")            echo "0.95 monthly" ;;  # individual tool pages
-    *)                     echo "0.5 monthly" ;;
+    "${DOMAIN}/")              echo "1.0 weekly" ;;
+    *"/privacy/"*)             echo "0.3 yearly" ;;
+    *"/terms/"*)               echo "0.3 yearly" ;;
+    # 카테고리 허브 (/tools/, /text/, ...) — 깊이 4 = "${DOMAIN}/<cat>/"
+    "${DOMAIN}/tools/")        echo "1.0 weekly" ;;
+    "${DOMAIN}/text/")         echo "1.0 weekly" ;;
+    # 개별 도구 상세 페이지 — 깊이 5+
+    *"/tools/"*|*"/text/"*)    echo "0.95 monthly" ;;
+    *)                         echo "0.5 monthly" ;;
   esac
 }
 
@@ -75,20 +81,22 @@ emit_url() {
     emit_url "$URL" "$(last_mod index.html)"
   fi
 
-  # tools/index.html (hub)
-  if [ -f "tools/index.html" ]; then
-    URL=$(canonical_of "tools/index.html" "${DOMAIN}/tools/")
-    emit_url "$URL" "$(last_mod tools/index.html)"
-  fi
+  # 각 카테고리 — 허브(<cat>/index.html) + 도구별 상세(<cat>/<slug>/index.html)
+  for cat in "${CATEGORIES[@]}"; do
+    hub="${cat}/index.html"
+    if [ -f "$hub" ]; then
+      URL=$(canonical_of "$hub" "${DOMAIN}/${cat}/")
+      emit_url "$URL" "$(last_mod "$hub")"
+    fi
 
-  # Each tool subdirectory
-  for dir in tools/*/; do
-    file="${dir}index.html"
-    [ -f "$file" ] || continue
-    name=$(basename "$dir")
-    fallback="${DOMAIN}/tools/${name}/"
-    URL=$(canonical_of "$file" "$fallback")
-    emit_url "$URL" "$(last_mod "$file")"
+    for dir in "${cat}"/*/; do
+      file="${dir}index.html"
+      [ -f "$file" ] || continue
+      name=$(basename "$dir")
+      fallback="${DOMAIN}/${cat}/${name}/"
+      URL=$(canonical_of "$file" "$fallback")
+      emit_url "$URL" "$(last_mod "$file")"
+    done
   done
 
   echo '</urlset>'

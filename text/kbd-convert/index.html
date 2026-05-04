@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Text">
+  <meta property="og:title" content="한↔영 키보드 변환 | 잘못 친 한영키 즉시 복구">
+  <meta property="og:description" content="dkssudgktpdy → 안녕하세요. 한영키 안 누르고 친 글, 양방향 자동 변환. 두벌식 표준, 받침·복합 자모까지 정확.">
+  <meta property="og:url" content="https://taystudio.github.io/text/kbd-convert/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="한↔영 키보드 변환 | 잘못 친 한영키 즉시 복구">
+  <meta name="twitter:description" content="dkssudgktpdy → 안녕하세요. 한영키 안 누르고 친 글, 양방향 자동 변환.">
+  <title>한↔영 키보드 변환 | 잘못 친 한영키 즉시 복구</title>
+  <meta name="description" content="한영키 안 누르고 친 글을 한글·영문 양방향 자동 변환. 두벌식 표준 매핑. 받침·복합 자모(ㅘ·ㅙ·ㄺ·ㅄ 등)까지 정확.">
+  <meta name="keywords" content="한영 변환, 키보드 변환, 한영키 안 누르고, dkssudgktpdy, 한글 영문 변환, 두벌식">
+  <link rel="canonical" href="https://taystudio.github.io/text/kbd-convert/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "한↔영 키보드 변환 | 잘못 친 한영키 즉시 복구",
+      "description": "한영키 안 누르고 친 글을 한글·영문 양방향 자동 변환. 두벌식 표준 매핑.",
+      "url": "https://taystudio.github.io/text/kbd-convert/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Text", "item": "https://taystudio.github.io/text/" },
+        { "@type": "ListItem", "position": 3, "name": "한↔영 키보드 변환", "item": "https://taystudio.github.io/text/kbd-convert/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "어떤 키보드 자판 기준인가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "두벌식(2-Set) 표준 자판입니다. Microsoft IME·macOS 한글 자판·삼성 키보드 등 한국에서 쓰는 거의 모든 PC·모바일 한글 자판이 두벌식이며 매핑이 동일합니다. 세벌식·천지인 등은 지원하지 않습니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "받침이나 복합 자모도 정확한가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "예. 단일 받침(ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅅ ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ + ㄲ ㅆ)뿐만 아니라 복합 받침(ㄳ ㄵ ㄶ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅄ)과 복합 모음(ㅘ ㅙ ㅚ ㅝ ㅞ ㅟ ㅢ)도 정확히 처리합니다. '닭·값·왔다·의자' 같은 단어가 모두 양방향 라운드트립 OK." }
+        },
+        {
+          "@type": "Question",
+          "name": "양방향이 모두 표시되는데 어떻게 쓰나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "사용자가 키보드 모드를 어디 두고 쳤는지 모를 때를 위해 '한글로 변환'·'영문으로 변환' 두 결과를 동시에 보여줍니다. 둘 중 의미 있는 쪽을 골라서 복사 버튼으로 복사하세요. 한·영 섞여 있는 글에서도 의도한 방향만 골라 활용 가능." }
+        },
+        {
+          "@type": "Question",
+          "name": "특수문자·숫자·이모지는 어떻게 처리되나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "키보드 매핑에 없는 문자(숫자·기호·이모지·공백)는 그대로 출력됩니다. 변환은 자모 매핑 가능한 문자에만 적용됩니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "한·영 섞인 글도 변환되나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "네. 두 결과를 동시 출력하기 때문에 'Hello dkssud' 같은 글도 'Hello 안녕(영→한)' / 'ㅗ디ㅣㅐ 안녕(한→영, 한글은 영문으로 변환)'이 동시에 보입니다. 다만 '한·영 자동 감지 + 부분만 변환' 모드는 의도가 모호해 지원하지 않습니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "입력한 글이 외부로 전송되나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "전송되지 않습니다. 모든 변환은 브라우저 안에서 처리되며 서버로 보내지 않습니다." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/tools/css/style.css">
+  <style>
+    .kbd-input, .kbd-output {
+      width: 100%;
+      min-height: 120px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--card);
+      color: var(--text);
+      font-size: 16px; /* 16px 이상: iOS Safari 포커스 시 자동 줌 방지 */
+      font-family: inherit;
+      line-height: 1.6;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    .kbd-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+    .kbd-output { background: var(--bg); cursor: text; }
+    .kbd-out-block { margin-bottom: 16px; }
+    .kbd-out-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 6px; gap: 10px;
+    }
+    .kbd-out-label { font-size: 13px; font-weight: 600; color: var(--muted); }
+    .kbd-out-label strong { color: var(--primary); font-size: 14px; }
+    .kbd-actions { display: flex; gap: 8px; margin-top: 10px; }
+    .kbd-actions button, .kbd-out-head button {
+      width: auto;
+      padding: 6px 12px; font-size: 13px; font-weight: 500;
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border); border-radius: 6px; cursor: pointer;
+    }
+    .kbd-actions button:hover, .kbd-out-head button:hover { background: var(--border); }
+    .example-chips {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+    }
+    .example-chips a {
+      padding: 6px 12px; font-size: 12px;
+      background: var(--bg); color: var(--text);
+      border: 1px solid var(--border); border-radius: 999px;
+      text-decoration: none; cursor: pointer;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+    }
+    .example-chips a:hover { background: var(--primary); color: white; border-color: var(--primary); }
+    .keymap-table { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+    .keymap-table td:first-child { font-weight: 700; color: var(--primary); }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">텍스트</a> · 한↔영 키보드 변환</div>
+    <h1>한↔영 키보드 변환</h1>
+    <p class="subtitle">한영키 안 누르고 친 글을 양방향 자동 변환. <code>dkssudgktpdy → 안녕하세요</code></p>
+
+    <div class="card">
+      <div class="field">
+        <label for="input">변환할 글</label>
+        <textarea id="input" class="kbd-input" placeholder="여기에 한글이든 영문이든 붙여넣으세요. 두 결과를 동시에 보여줍니다."></textarea>
+        <div class="kbd-actions">
+          <button type="button" id="clearBtn">지우기</button>
+        </div>
+        <div class="example-chips">
+          <span style="font-size:12px;color:var(--muted);align-self:center;margin-right:4px">예시:</span>
+          <a href="#" data-example="dkssudgktpdy">dkssudgktpdy</a>
+          <a href="#" data-example="안녕하세요">안녕하세요</a>
+          <a href="#" data-example="rkqtdmf wnTdjdy">rkqtdmf wnTdjdy</a>
+          <a href="#" data-example="ㅗ디ㅣㅐ ㅈㅐ갿">ㅗ디ㅣㅐ ㅈㅐ갿</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result">
+      <div class="kbd-out-block">
+        <div class="kbd-out-head">
+          <div class="kbd-out-label"><strong>한글로 변환</strong> (영문 → 한글)</div>
+          <button type="button" id="copyKor">복사</button>
+        </div>
+        <textarea id="toKor" class="kbd-output" readonly></textarea>
+      </div>
+      <div class="kbd-out-block">
+        <div class="kbd-out-head">
+          <div class="kbd-out-label"><strong>영문으로 변환</strong> (한글 → 영문)</div>
+          <button type="button" id="copyEng">복사</button>
+        </div>
+        <textarea id="toEng" class="kbd-output" readonly></textarea>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>두벌식 키보드 매핑 표</h2>
+      <p class="small">PC·모바일 한국어 자판 표준. <code>Shift</code>를 누르면 쌍자음·쌍모음(ㄲ ㄸ ㅃ ㅆ ㅉ / ㅒ ㅖ)이 입력됩니다.</p>
+      <div class="ref-table">
+        <table class="keymap-table">
+          <thead><tr><th>분류</th><th>매핑</th></tr></thead>
+          <tbody>
+            <tr><td>자음</td><td>r·R=ㄱ·ㄲ / s=ㄴ / e·E=ㄷ·ㄸ / f=ㄹ / a=ㅁ / q·Q=ㅂ·ㅃ / t·T=ㅅ·ㅆ / d=ㅇ / w·W=ㅈ·ㅉ / c=ㅊ / z=ㅋ / x=ㅌ / v=ㅍ / g=ㅎ</td></tr>
+            <tr><td>모음</td><td>k=ㅏ / o·O=ㅐ·ㅒ / i=ㅑ / j=ㅓ / p·P=ㅔ·ㅖ / u=ㅕ / h=ㅗ / y=ㅛ / n=ㅜ / b=ㅠ / m=ㅡ / l=ㅣ</td></tr>
+            <tr><td>복합 모음</td><td>ㅘ=hk / ㅙ=ho / ㅚ=hl / ㅝ=nj / ㅞ=np / ㅟ=nl / ㅢ=ml</td></tr>
+            <tr><td>복합 받침</td><td>ㄳ=rt / ㄵ=sw / ㄶ=sg / ㄺ=fr / ㄻ=fa / ㄼ=fq / ㄽ=ft / ㄾ=fx / ㄿ=fv / ㅀ=fg / ㅄ=qt</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>변환 예시</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>영문 입력</th><th>한글 변환</th><th>의도</th></tr></thead>
+          <tbody>
+            <tr><td><code>dkssudgktpdy</code></td><td>안녕하세요</td><td>인사말</td></tr>
+            <tr><td><code>rkqtdmf wnTdjdy</code></td><td>값을 줬어요</td><td>받침 ㅄ + ㅆ</td></tr>
+            <tr><td><code>dkfrh dlTek</code></td><td>알고 있다</td><td>받침 ㄺ + 복합 모음 ㅢ→ㅣ단독</td></tr>
+            <tr><td><code>rhoscksdk</code></td><td>괜찮아</td><td>복합 모음 ㅙ + 복합 받침 ㄶ</td></tr>
+            <tr><td><code>gksrmf skf</code></td><td>한글 날</td><td>받침 ㄴ + ㄴ</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../">텍스트 도구 모음<span class="desc">글자수·SNS 정리 등</span></a>
+        <a href="../counter/">글자수 카운터<span class="desc">자소서·SNS 한도</span></a>
+        <a href="/tools/age/">만 나이 계산기<span class="desc">자소서·이력서</span></a>
+        <a href="/tools/salary/">연봉 실수령액<span class="desc">희망연봉 산정</span></a>
+        <a href="/tools/dday/">D-day 계산기<span class="desc">제출 마감일</span></a>
+        <a href="/tools/">33개 계산기 모두 보기<span class="desc">세금·금융·생활</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>어떤 키보드 자판 기준인가요?</summary>
+        <div class="answer">
+          <b>두벌식(2-Set) 표준 자판</b>입니다. Microsoft IME·macOS 한글 자판·삼성 키보드 등 한국에서 쓰는 거의 모든 PC·모바일 한글 자판이 두벌식이며 매핑이 동일합니다.
+          세벌식·천지인 등은 지원하지 않습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>받침이나 복합 자모도 정확한가요?</summary>
+        <div class="answer">
+          예. 단일 받침뿐만 아니라 <b>복합 받침</b>(ㄳ ㄵ ㄶ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅄ)과 <b>복합 모음</b>(ㅘ ㅙ ㅚ ㅝ ㅞ ㅟ ㅢ)도 정확히 처리합니다.
+          '닭·값·왔다·의자·괜찮아' 같은 단어가 모두 양방향 라운드트립 OK.
+        </div>
+      </details>
+
+      <details>
+        <summary>양방향이 모두 표시되는데 어떻게 쓰나요?</summary>
+        <div class="answer">
+          사용자가 키보드 모드를 어디 두고 쳤는지 모를 때를 위해 <b>두 결과를 동시</b>에 보여줍니다.
+          둘 중 의미 있는 쪽을 골라서 복사 버튼으로 복사하세요. 한·영 섞여 있는 글에서도 의도한 방향만 골라 활용 가능.
+        </div>
+      </details>
+
+      <details>
+        <summary>특수문자·숫자·이모지는 어떻게 처리되나요?</summary>
+        <div class="answer">
+          키보드 매핑에 없는 문자(숫자·기호·이모지·공백)는 <b>그대로 출력</b>됩니다. 변환은 자모 매핑 가능한 문자에만 적용됩니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>한·영 섞인 글도 변환되나요?</summary>
+        <div class="answer">
+          네. 두 결과를 동시 출력하기 때문에 'Hello dkssud' 같은 글도 'Hello 안녕(영→한)' / 'ㅗ디ㅣㅐ 안녕(한→영, 한글은 영문으로 변환)'이 동시에 보입니다.
+          다만 '한·영 자동 감지 + 부분만 변환' 모드는 의도가 모호해 지원하지 않습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>입력한 글이 외부로 전송되나요?</summary>
+        <div class="answer">
+          전송되지 않습니다. 모든 변환은 <b>브라우저 안에서 처리</b>되며 서버로 보내지 않습니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-04 / 두벌식 표준 매핑 (KS X 5002 기반)</div>
+      <ul>
+        <li>유니코드 한글 음절 블록 (가-힣, U+AC00–U+D7A3) — Unicode 표준</li>
+        <li>두벌식 자판 — KS X 5002 / Microsoft IME·macOS 한글 자판 기본</li>
+      </ul>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 텍스트 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="./kbd-convert.js" defer></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

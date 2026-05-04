@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Text">
+  <meta property="og:title" content="SNS 글 정리 | 인스타 줄바꿈·해시태그·특수 글씨">
+  <meta property="og:description" content="인스타 줄바꿈 보존, 해시태그 자동 정리, 𝐁𝐨𝐥𝐝·𝓢𝓬𝓻𝓲𝓹𝓽 등 특수 글씨 변환. 인스타·트위터·블로그용 SNS 작성 도구.">
+  <meta property="og:url" content="https://taystudio.github.io/text/sns-format/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SNS 글 정리 | 인스타 줄바꿈·해시태그·특수 글씨">
+  <meta name="twitter:description" content="인스타 줄바꿈 보존, 해시태그 자동 정리, 특수 글씨 7종 변환.">
+  <title>SNS 글 정리 | 인스타 줄바꿈·해시태그·특수 글씨</title>
+  <meta name="description" content="인스타 줄바꿈 보존, 해시태그 중복 제거·끝으로 모으기, Bold·Italic·Script 등 특수 글씨 변환. 인스타·트위터·블로그 작성 도구.">
+  <meta name="keywords" content="SNS 글 정리, 인스타 줄바꿈, 해시태그 정리, 특수 글씨, 인스타 글씨체, 트위터 글씨">
+  <link rel="canonical" href="https://taystudio.github.io/text/sns-format/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "SNS 글 정리 | 인스타 줄바꿈·해시태그·특수 글씨",
+      "description": "인스타 줄바꿈 보존, 해시태그 자동 정리, 특수 글씨 7종 변환.",
+      "url": "https://taystudio.github.io/text/sns-format/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Text", "item": "https://taystudio.github.io/text/" },
+        { "@type": "ListItem", "position": 3, "name": "SNS 글 정리", "item": "https://taystudio.github.io/text/sns-format/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "인스타에서 줄바꿈이 왜 사라지나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "인스타그램은 캡션·댓글에서 연속된 빈 줄을 자동으로 압축합니다. '줄바꿈 보존' 옵션을 켜면 빈 줄에 보이지 않는 한글 채움 문자(U+3164)를 삽입해 압축을 우회합니다. 결과를 그대로 인스타 입력창에 붙여넣으면 줄바꿈이 유지됩니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "특수 글씨가 검색·접근성에 영향이 있나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "있습니다. 𝐁𝐨𝐥𝐝·𝓢𝓬𝓻𝓲𝓹𝓽 같은 특수 글씨는 일반 영문(B·o·l·d)이 아닌 별개 유니코드 문자라 SNS 검색·해시태그 매칭이 안 되고, 스크린리더가 글자를 제대로 읽지 못할 수 있습니다. 시각적 강조용으로만 사용하고, 본문이나 해시태그에는 일반 글씨를 권장합니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "한글도 특수 글씨로 변환되나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "변환되지 않습니다. 유니코드 Mathematical Alphanumeric Symbols 블록은 라틴 영문(A-Z, a-z)과 숫자(0-9)에만 정의됩니다. 한글·한자·일본어는 fancy 글씨가 존재하지 않아 그대로 출력됩니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "해시태그를 끝으로 모으면 검색에 불리한가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "위치는 검색 노출에 영향이 적습니다. 본문 중간에 있든 끝에 있든 인스타·트위터는 동일하게 인덱싱합니다. 다만 본문 가독성을 위해 끝에 모으는 게 미관상 보편적입니다. 인스타는 캡션 해시태그 30개까지 허용하며, 첫 줄에 점·기호로 구분된 빈 줄 후 해시태그를 두는 패턴이 흔합니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "보이지 않는 문자(U+3164)는 무엇인가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "한글 채움 문자(Hangul Filler)로, 너비를 가진 보이지 않는 문자입니다. 인스타·페이스북이 빈 줄로 인식하지 않아 줄바꿈 압축을 우회할 수 있습니다. 닉네임·프로필에 '빈 칸'으로 입력하는 용도로도 쓰입니다. 단 검색·인덱싱 회피 목적의 남용은 권장하지 않습니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "입력한 글이 외부로 전송되나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "전송되지 않습니다. 모든 변환은 브라우저 안에서 처리되며 서버로 보내지 않습니다." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/tools/css/style.css">
+  <style>
+    .sns-input, .sns-output {
+      width: 100%; min-height: 180px; padding: 14px;
+      border: 1px solid var(--border); border-radius: 8px;
+      background: var(--card); color: var(--text);
+      font-size: 16px; /* 16px 이상: iOS Safari 포커스 시 자동 줌 방지 */
+      font-family: inherit; line-height: 1.6;
+      resize: vertical; box-sizing: border-box;
+    }
+    .sns-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+    .sns-output { background: var(--bg); }
+    .sns-options {
+      display: flex; flex-direction: column; gap: 12px; margin-top: 14px;
+      padding: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    }
+    .sns-options label.toggle {
+      display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;
+    }
+    .sns-options input[type="checkbox"] {
+      width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer;
+    }
+    .sns-options .opt-desc { font-size: 12px; color: var(--muted); margin-left: 28px; }
+    .style-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .style-row label { font-size: 14px; font-weight: 500; }
+    .style-row select {
+      padding: 8px 12px; font-size: 14px;
+      background: var(--card); color: var(--text);
+      border: 1px solid var(--border); border-radius: 6px;
+      cursor: pointer; min-width: 180px;
+    }
+    .style-preview {
+      flex: 1; min-width: 200px; font-size: 15px;
+      padding: 6px 10px; background: var(--card); border: 1px solid var(--border);
+      border-radius: 6px; color: var(--muted);
+    }
+    .sns-actions { display: flex; gap: 8px; margin-top: 12px; align-items: center; }
+    .sns-actions button {
+      width: auto;
+      padding: 8px 14px; font-size: 14px; font-weight: 500;
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border); border-radius: 6px; cursor: pointer;
+    }
+    .sns-actions button:hover { background: var(--border); }
+    .tag-count { font-size: 12px; color: var(--muted); margin-left: auto; }
+    .example-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .example-chips a {
+      padding: 6px 12px; font-size: 12px;
+      background: var(--bg); color: var(--text);
+      border: 1px solid var(--border); border-radius: 999px;
+      text-decoration: none; cursor: pointer;
+    }
+    .example-chips a:hover { background: var(--primary); color: white; border-color: var(--primary); }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">텍스트</a> · SNS 글 정리</div>
+    <h1>SNS 글 정리</h1>
+    <p class="subtitle">인스타 줄바꿈 보존 + 해시태그 정리 + 특수 글씨 변환. 인스타·트위터·블로그용.</p>
+
+    <div class="card">
+      <div class="field">
+        <label for="input">SNS 글 입력</label>
+        <textarea id="input" class="sns-input" placeholder="여기에 글을 붙여넣으세요. 옵션을 켜면 즉시 변환됩니다."></textarea>
+
+        <div class="sns-options">
+          <label class="toggle"><input type="checkbox" id="optLineBreaks" checked> 인스타 줄바꿈 보존 (빈 줄 압축 우회)</label>
+          <div class="opt-desc">빈 줄에 보이지 않는 채움 문자(U+3164) 삽입. 인스타가 빈 줄을 압축하는 걸 막음.</div>
+
+          <label class="toggle"><input type="checkbox" id="optTags"> 해시태그 끝으로 모으기 (중복 제거)</label>
+          <div class="opt-desc">본문 안의 #해시태그를 추출 → 중복 제거 → 글 끝에 정렬해 붙임.</div>
+
+          <div class="style-row">
+            <label for="style">특수 글씨:</label>
+            <select id="style">
+              <option value="none">원본 유지</option>
+              <option value="bold">𝐁𝐨𝐥𝐝 (굵게)</option>
+              <option value="italic">𝐼𝑡𝑎𝑙𝑖𝑐 (이탤릭)</option>
+              <option value="boldItalic">𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄</option>
+              <option value="script">𝒮𝒸𝓇𝒾𝓅𝓉 (필기체)</option>
+              <option value="fraktur">𝔉𝔯𝔞𝔨𝔱𝔲𝔯 (고딕)</option>
+              <option value="double">𝔻𝕠𝕦𝕓𝕝𝕖 (중첩)</option>
+              <option value="monospace">𝙼𝚘𝚗𝚘 (고정폭)</option>
+            </select>
+            <div class="style-preview" id="stylePreview">Sample 한글 ABC abc 123</div>
+          </div>
+          <div class="opt-desc">⚠️ 영문·숫자만 변환됨 (한글은 그대로). 검색·해시태그 매칭이 안 되니 강조용으로만.</div>
+        </div>
+
+        <div class="sns-actions">
+          <button type="button" id="clearBtn">지우기</button>
+          <span class="tag-count" id="tagCount">해시태그 0개</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:10px">
+        <div style="font-size:13px;font-weight:600;color:var(--muted)"><strong style="color:var(--primary);font-size:14px">변환 결과</strong></div>
+        <button type="button" id="copyBtn" style="width:auto;padding:6px 12px;font-size:13px;font-weight:500;background:transparent;color:var(--text);border:1px solid var(--border);border-radius:6px;cursor:pointer">복사</button>
+      </div>
+      <textarea id="output" class="sns-output" readonly></textarea>
+      <div class="example-chips">
+        <span style="font-size:12px;color:var(--muted);align-self:center;margin-right:4px">예시:</span>
+        <a href="#" data-example="오늘 카페 너무 좋았다 ☕&#10;&#10;여기 분위기 진짜 최고 #카페투어 #홍대 #일상&#10;&#10;다음에 또 가야지 #카페추천 #일상기록 #홍대카페">인스타 캡션</a>
+        <a href="#" data-example="오늘은 좋은 날입니다 #일상&#10;&#10;새로운 시작 #일상 #도전">짧은 글 + 중복 태그</a>
+        <a href="#" data-example="Hello World This Is My Bio">영문(스타일 적용)</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>특수 글씨 7종 미리보기</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>스타일</th><th>예시 (Hello ABC 123)</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td>Bold</td><td>𝐇𝐞𝐥𝐥𝐨 𝐀𝐁𝐂 𝟏𝟐𝟑</td><td>가장 호환성 좋음</td></tr>
+            <tr><td>Italic</td><td>𝐻𝑒𝑙𝑙𝑜 𝐴𝐵𝐶 123</td><td>숫자 미지원</td></tr>
+            <tr><td>Bold Italic</td><td>𝑯𝒆𝒍𝒍𝒐 𝑨𝑩𝑪 123</td><td>숫자 미지원</td></tr>
+            <tr><td>Script (필기체)</td><td>ℋℯ𝓁𝓁ℴ 𝒜ℬ𝒞 123</td><td>인스타 닉네임에 인기</td></tr>
+            <tr><td>Fraktur (고딕)</td><td>ℌ𝔢𝔩𝔩𝔬 𝔄𝔅ℭ 123</td><td>중세 느낌</td></tr>
+            <tr><td>Double-struck (중첩)</td><td>ℍ𝕖𝕝𝕝𝕠 𝔸𝔹ℂ 𝟙𝟚𝟛</td><td>수학 칠판 느낌</td></tr>
+            <tr><td>Monospace (고정폭)</td><td>𝙷𝚎𝚕𝚕𝚘 𝙰𝙱𝙲 𝟷𝟸𝟹</td><td>코드 블록 느낌</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">유니코드 Mathematical Alphanumeric Symbols (U+1D400 블록) 기반. 영문·숫자만 변환되며 한글·한자는 그대로 유지됩니다.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>플랫폼별 글자수·해시태그 한도</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>플랫폼</th><th>본문 글자</th><th>해시태그</th><th>줄바꿈 압축</th></tr></thead>
+          <tbody>
+            <tr><td>인스타그램 (캡션)</td><td>2,200</td><td>30개</td><td>O (보존 옵션 필요)</td></tr>
+            <tr><td>인스타그램 (댓글)</td><td>2,200</td><td>30개</td><td>O</td></tr>
+            <tr><td>X(트위터)</td><td>280</td><td>제한 X (3개 이하 권장)</td><td>X</td></tr>
+            <tr><td>스레드(Threads)</td><td>500</td><td>1개</td><td>X</td></tr>
+            <tr><td>페이스북</td><td>63,206</td><td>제한 X</td><td>X</td></tr>
+            <tr><td>네이버 블로그 제목</td><td>100</td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">글자수 한도 자세히 보기: <a href="../counter/">글자수 카운터</a>에서 11종 SNS 한도와 실시간 비교.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../">텍스트 도구 모음<span class="desc">한↔영 변환·글자수 등</span></a>
+        <a href="../counter/">글자수 카운터<span class="desc">SNS·자소서 한도 11종</span></a>
+        <a href="../kbd-convert/">한↔영 키보드 변환<span class="desc">잘못 친 한영키 복구</span></a>
+        <a href="/tools/age/">만 나이 계산기<span class="desc">프로필·소개</span></a>
+        <a href="/tools/dday/">D-day 계산기<span class="desc">기념일 SNS 글</span></a>
+        <a href="/tools/">33개 계산기 모두 보기<span class="desc">세금·금융·생활</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>인스타에서 줄바꿈이 왜 사라지나요?</summary>
+        <div class="answer">
+          인스타그램은 캡션·댓글에서 연속된 빈 줄을 자동으로 압축합니다.
+          <b>'줄바꿈 보존' 옵션</b>을 켜면 빈 줄에 보이지 않는 한글 채움 문자(U+3164)를 삽입해 압축을 우회합니다.
+          결과를 그대로 인스타 입력창에 붙여넣으면 줄바꿈이 유지됩니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>특수 글씨가 검색·접근성에 영향이 있나요?</summary>
+        <div class="answer">
+          있습니다. <code>𝐁𝐨𝐥𝐝</code>·<code>𝓢𝓬𝓻𝓲𝓹𝓽</code> 같은 특수 글씨는 일반 영문(B·o·l·d)이 아닌 별개 유니코드 문자라
+          <b>SNS 검색·해시태그 매칭이 안 되고</b>, 스크린리더가 글자를 제대로 읽지 못할 수 있습니다.
+          시각적 강조용으로만 사용하고, 본문이나 해시태그에는 일반 글씨를 권장합니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>한글도 특수 글씨로 변환되나요?</summary>
+        <div class="answer">
+          변환되지 않습니다. 유니코드 Mathematical Alphanumeric Symbols 블록은 <b>라틴 영문(A-Z, a-z)과 숫자(0-9)</b>에만 정의됩니다.
+          한글·한자·일본어는 fancy 글씨가 존재하지 않아 그대로 출력됩니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>해시태그를 끝으로 모으면 검색에 불리한가요?</summary>
+        <div class="answer">
+          위치는 검색 노출에 영향이 적습니다. 본문 중간에 있든 끝에 있든 인스타·트위터는 동일하게 인덱싱합니다.
+          다만 본문 가독성을 위해 <b>끝에 모으는 게 미관상 보편적</b>입니다.
+          인스타는 캡션 해시태그 30개까지 허용하며, 첫 줄에 점·기호로 구분된 빈 줄 후 해시태그를 두는 패턴이 흔합니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>보이지 않는 문자(U+3164)는 무엇인가요?</summary>
+        <div class="answer">
+          <b>한글 채움 문자(Hangul Filler)</b>로, 너비를 가진 보이지 않는 문자입니다.
+          인스타·페이스북이 빈 줄로 인식하지 않아 줄바꿈 압축을 우회할 수 있습니다.
+          닉네임·프로필에 '빈 칸'으로 입력하는 용도로도 쓰입니다.
+          단 검색·인덱싱 회피 목적의 남용은 권장하지 않습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>입력한 글이 외부로 전송되나요?</summary>
+        <div class="answer">
+          전송되지 않습니다. 모든 변환은 <b>브라우저 안에서 처리</b>되며 서버로 보내지 않습니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-04 / 플랫폼 한도는 각 서비스 공식 가이드 기준</div>
+      <ul>
+        <li>유니코드 Mathematical Alphanumeric Symbols (U+1D400 ~ U+1D7FF) — Unicode 표준</li>
+        <li>한글 채움 문자 U+3164 (Hangul Filler) — Unicode 표준</li>
+        <li>인스타그램 캡션 한도 — Instagram Help</li>
+      </ul>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 텍스트 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="./sns-format.js" defer></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>
