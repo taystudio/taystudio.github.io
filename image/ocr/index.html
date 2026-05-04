@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://tessdata.projectnaptha.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="이미지 글자 추출 (OCR) | 한국어·영어 무료">
+  <meta property="og:description" content="이미지·스크린샷에서 한국어·영어 텍스트를 추출. Tesseract.js WASM 기반, 모든 처리는 브라우저 안에서.">
+  <meta property="og:url" content="https://taystudio.github.io/image/ocr/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="이미지 글자 추출 (OCR) | 한국어·영어 무료">
+  <meta name="twitter:description" content="이미지에서 텍스트 추출. Tesseract.js WASM, 브라우저 안에서 처리.">
+  <title>이미지 글자 추출 (OCR) | 한국어·영어 무료, 브라우저 처리</title>
+  <meta name="description" content="이미지·스크린샷·사진에서 한국어·영어 글자를 텍스트로 추출. Tesseract.js WASM 기반 브라우저 OCR. 모든 처리는 사용자 기기에서, 이미지 외부 전송 없음.">
+  <meta name="keywords" content="이미지 글자 추출, OCR 한국어, 사진 텍스트 변환, 스크린샷 OCR, 이미지 텍스트 추출">
+  <link rel="canonical" href="https://taystudio.github.io/image/ocr/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "이미지 글자 추출 (OCR) | 한국어·영어",
+      "description": "이미지에서 한국어·영어 텍스트를 추출. Tesseract.js WASM 기반, 브라우저 안에서 처리.",
+      "url": "https://taystudio.github.io/image/ocr/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudio.github.io/image/" },
+        { "@type": "ListItem", "position": 3, "name": "이미지 글자 추출 (OCR)", "item": "https://taystudio.github.io/image/ocr/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "이미지가 외부 서버로 전송되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "이미지는 전송되지 않습니다. OCR 처리는 사용자 브라우저 안의 Tesseract.js WASM 엔진에서 100% 로컬로 수행됩니다. 단 OCR 엔진의 worker 코드와 한국어 학습 데이터(약 13MB)는 첫 사용 시 jsdelivr CDN에서 1회 다운로드되며, 이후는 브라우저 IndexedDB에 캐시되어 오프라인에서도 사용 가능합니다. 사이트 운영자도 이미지 내용을 볼 수 없습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "처음 실행할 때 왜 오래 걸리나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "첫 실행 시 OCR 엔진 코어(WASM)와 한국어 학습 데이터(약 13MB)를 다운로드합니다. 이후 같은 브라우저에서는 IndexedDB에 캐시되어 즉시 시작됩니다. 모바일 데이터로는 첫 사용을 피하고 Wi-Fi 환경에서 한 번 실행해두는 것을 권장."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "정확도가 100%인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "OCR은 이미지 품질·폰트·배치·언어에 따라 정확도가 달라지는 통계적 추론 작업이며 100%를 보장하지 않습니다. 본 도구는 Tesseract.js로 일반적인 인쇄·디지털 텍스트는 80~95% 수준의 정확도를 보입니다. 손글씨·세로쓰기·왜곡된 문서는 정확도가 크게 떨어집니다. 결과는 반드시 사람이 검토하고 중요한 문서는 수기 입력하세요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "어떤 언어를 지원하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "현재 한국어, 영어, 한국어+영어 혼합을 지원합니다. 혼합 모드는 두 언어 데이터를 모두 다운로드하므로 첫 실행 시 시간이 더 걸립니다. 일본어·중국어 등 추가 언어는 향후 검토 항목."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "결과가 이상하게 깨져요.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "① 사진이 흐릿하거나 기울어진 경우 → 똑바로·선명하게 다시 촬영 ② 배경에 다른 텍스트·노이즈가 많으면 추출 도구로 텍스트 영역만 잘라서 ③ 폰트 크기가 너무 작으면 이미지를 확대해서 ④ 한국어 본문에 영문이 섞여있으면 '한국어+영어' 모드를 사용하세요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "PDF에서 글자 추출도 가능한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "현재 도구는 이미지(JPG·PNG·WebP)만 지원합니다. PDF에서 텍스트가 이미 디지털로 들어있다면 PDF 뷰어에서 그냥 복사하면 됩니다. PDF가 스캔본이라 OCR이 필요하다면 페이지를 이미지로 추출(스크린샷 등)한 후 본 도구에 올리세요."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .ocr-disclaimer { padding:12px 14px; margin:14px 0; background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.32); border-radius:8px; font-size:13px; line-height:1.55; }
+    .ocr-disclaimer .label { color:#b45309; font-weight:700; }
+    @media (prefers-color-scheme: dark) { .ocr-disclaimer .label { color:#fbbf24; } }
+    .progress-wrap { margin:14px 0; }
+    .progress-bar { height:8px; background:var(--border); border-radius:4px; overflow:hidden; }
+    .progress-fill { height:100%; background:var(--primary); transition:width .25s; width:0; }
+    .progress-text { font-size:12.5px; color:var(--muted); margin-top:6px; }
+    .ocr-result-text { width:100%; min-height:200px; padding:14px; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--text); font-size:14px; font-family:inherit; line-height:1.7; box-sizing:border-box; resize:vertical; }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">이미지</a> · 이미지 글자 추출</div>
+    <h1>이미지 글자 추출 (OCR)</h1>
+    <p class="subtitle">사진·스크린샷의 한국어·영어 → 텍스트로. 브라우저에서 Tesseract.js WASM 실행.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>이미지가 외부 서버로 전송되지 않습니다.</b> OCR 처리는 브라우저 내부의 WASM 엔진에서 수행됩니다. 단 엔진과 학습 데이터(~13MB)는 첫 사용 시 CDN에서 1회 다운로드 후 IndexedDB 캐시.</div>
+    </div>
+
+    <div class="ocr-disclaimer">
+      <span class="label">⚠️ 정확도 안내</span> — OCR은 이미지 품질·폰트·언어에 따라 인식률이 달라집니다(보통 80~95%). 결과는 <b>반드시 사람이 검토</b>하고, 계약서·법적 문서·정확한 수치가 필요한 자료는 수기 확인하세요.
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">🔡</div>
+        <div class="drop-title" id="dropTitle">이미지 파일을 드래그하거나 클릭해서 선택</div>
+        <div class="drop-hint">JPG · PNG · WebP — 1장씩 처리</div>
+        <input type="file" id="fileInput" accept="image/*">
+      </label>
+
+      <div class="image-preview" id="previewBox" hidden>
+        <img id="previewImg" alt="입력 이미지">
+      </div>
+
+      <div class="field" style="margin-top:14px">
+        <label for="lang">인식 언어</label>
+        <select id="lang">
+          <option value="kor" selected>한국어</option>
+          <option value="eng">영어</option>
+          <option value="kor+eng">한국어 + 영어 (혼합)</option>
+        </select>
+        <p class="small" style="color:var(--muted);margin-top:6px">첫 실행 시 학습 데이터 다운로드 — 한국어 ~13MB, 영어 ~10MB. Wi-Fi 권장.</p>
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="ocrBtn" disabled>글자 추출하기</button>
+        <button type="button" id="clearBtn">초기화</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText">준비 중...</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="image-meta">
+        <span>인식 신뢰도 <b id="confValue">—</b></span>
+        <span>추출 글자 수 <b id="charCount">—</b></span>
+      </div>
+      <textarea id="ocrText" class="ocr-result-text" placeholder="—"></textarea>
+      <div class="image-actions">
+        <button type="button" id="copyBtn">📋 텍스트 복사</button>
+        <a id="downloadBtn" class="download-btn" download>⬇ TXT 다운로드</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>OCR 정확도 영향 요인</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>요인</th><th>좋음</th><th>나쁨</th></tr></thead>
+          <tbody>
+            <tr><td>해상도</td><td>가로 1000px 이상</td><td>500px 이하</td></tr>
+            <tr><td>대비</td><td>흰 배경 + 검은 글자</td><td>색상 배경 + 옅은 글자</td></tr>
+            <tr><td>각도</td><td>정면, 수평</td><td>기울어짐, 원근</td></tr>
+            <tr><td>폰트</td><td>고딕·명조 등 인쇄체</td><td>손글씨, 흘림체</td></tr>
+            <tr><td>레이아웃</td><td>가로쓰기 1단</td><td>세로쓰기, 다단, 표</td></tr>
+            <tr><td>잡음</td><td>없음</td><td>줄·얼룩·반사·그림자</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../qr-scan/">QR 코드 인식<span class="desc">QR 전용 디코딩</span></a>
+        <a href="../compress/">이미지 압축<span class="desc">OCR 전 용량 줄이기</span></a>
+        <a href="../resize/">이미지 리사이즈<span class="desc">큰 사진 작게</span></a>
+        <a href="/text/counter/">글자수 카운터<span class="desc">추출 텍스트 분량 측정</span></a>
+        <a href="/text/sns-format/">SNS 글 정리<span class="desc">추출 텍스트 정리</span></a>
+        <a href="/tools/">33개 계산기 모두 보기<span class="desc">세금·금융·생활</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>Tesseract.js 라이브러리</summary>
+        <div class="answer">
+          <a href="https://github.com/naptha/tesseract.js" rel="nofollow noopener" target="_blank">Tesseract.js</a>는 Google이 공개한 Tesseract OCR 엔진을 WebAssembly로 컴파일한 브라우저 라이브러리. Apache-2.0 라이선스. 클라이언트 100% 동작.
+        </div>
+      </details>
+      <details>
+        <summary>학습 데이터(traineddata)란?</summary>
+        <div class="answer">
+          각 언어의 글자 모양·자형 통계를 학습한 모델 파일. 한국어 모델은 약 13MB, 영어는 약 10MB. 본 도구는 jsdelivr CDN(<code>tessdata.projectnaptha.com</code>)에서 자동 다운로드 후 IndexedDB에 캐시 — 두 번째 실행부터는 즉시 시작.
+        </div>
+      </details>
+      <details>
+        <summary>오프라인에서 사용 가능한가요?</summary>
+        <div class="answer">
+          한 번 학습 데이터가 캐시된 후에는 오프라인에서 사용 가능합니다. 단 IndexedDB는 일정 기간 미사용 시 또는 사용자가 브라우저 데이터를 삭제하면 비워집니다. 그러면 다음 사용 시 다시 다운로드.
+        </div>
+      </details>
+      <details>
+        <summary>대용량 이미지 처리 시간</summary>
+        <div class="answer">
+          이미지 해상도가 클수록 시간이 오래 걸립니다. 4000×3000 이상은 분 단위 소요 가능. 추출 정확도와 시간의 균형은 가로 1500~2000px 정도가 적절합니다. 본 도구의 이미지 리사이즈 도구로 미리 줄이고 OCR 하면 빠릅니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>이미지가 외부 서버로 전송되나요?</summary>
+        <div class="answer">
+          <b>이미지는 전송되지 않습니다.</b> OCR 처리는 사용자 브라우저 안의 Tesseract.js WASM 엔진에서 100% 로컬로 수행됩니다.
+          단 OCR 엔진의 worker 코드와 한국어 학습 데이터(약 13MB)는 첫 사용 시 jsdelivr CDN에서 1회 다운로드되며, 이후는 브라우저 IndexedDB에 캐시되어 오프라인에서도 사용 가능합니다.
+          사이트 운영자도 이미지 내용을 볼 수 없습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>처음 실행할 때 왜 오래 걸리나요?</summary>
+        <div class="answer">
+          첫 실행 시 <b>OCR 엔진 코어(WASM)와 한국어 학습 데이터(약 13MB)</b>를 다운로드합니다.
+          이후 같은 브라우저에서는 IndexedDB에 캐시되어 즉시 시작됩니다.
+          모바일 데이터로는 첫 사용을 피하고 Wi-Fi 환경에서 한 번 실행해두는 것을 권장.
+        </div>
+      </details>
+
+      <details>
+        <summary>정확도가 100%인가요?</summary>
+        <div class="answer">
+          OCR은 이미지 품질·폰트·배치·언어에 따라 정확도가 달라지는 <b>통계적 추론</b> 작업이며 100%를 보장하지 않습니다.
+          본 도구는 Tesseract.js로 일반적인 인쇄·디지털 텍스트는 80~95% 수준의 정확도를 보입니다.
+          손글씨·세로쓰기·왜곡된 문서는 정확도가 크게 떨어집니다.
+          <b>결과는 반드시 사람이 검토</b>하고 중요한 문서는 수기 입력하세요.
+        </div>
+      </details>
+
+      <details>
+        <summary>어떤 언어를 지원하나요?</summary>
+        <div class="answer">
+          현재 <b>한국어, 영어, 한국어+영어 혼합</b>을 지원합니다.
+          혼합 모드는 두 언어 데이터를 모두 다운로드하므로 첫 실행 시 시간이 더 걸립니다.
+          일본어·중국어 등 추가 언어는 향후 검토 항목.
+        </div>
+      </details>
+
+      <details>
+        <summary>결과가 이상하게 깨져요.</summary>
+        <div class="answer">
+          ① 사진이 흐릿하거나 기울어진 경우 → 똑바로·선명하게 다시 촬영
+          ② 배경에 다른 텍스트·노이즈가 많으면 추출 도구로 텍스트 영역만 잘라서
+          ③ 폰트 크기가 너무 작으면 이미지를 확대해서
+          ④ 한국어 본문에 영문이 섞여있으면 '한국어+영어' 모드를 사용하세요.
+        </div>
+      </details>
+
+      <details>
+        <summary>PDF에서 글자 추출도 가능한가요?</summary>
+        <div class="answer">
+          현재 도구는 <b>이미지(JPG·PNG·WebP)만</b> 지원합니다. PDF에서 텍스트가 이미 디지털로 들어있다면 PDF 뷰어에서 그냥 복사하면 됩니다.
+          PDF가 스캔본이라 OCR이 필요하다면 페이지를 이미지로 추출(스크린샷 등)한 후 본 도구에 올리세요.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-05 / Tesseract.js (Apache-2.0) WASM 엔진 사용.</div>
+      <ul>
+        <li>Tesseract.js (Apache-2.0) — <a href="https://github.com/naptha/tesseract.js" rel="nofollow noopener" target="_blank">GitHub</a></li>
+        <li>Tesseract OCR 엔진 — <a href="https://github.com/tesseract-ocr/tesseract" rel="nofollow noopener" target="_blank">GitHub</a> (Google, Apache-2.0)</li>
+        <li>한국어 학습 데이터 — <a href="https://github.com/tesseract-ocr/tessdata" rel="nofollow noopener" target="_blank">tessdata</a></li>
+      </ul>
+      <div class="note">⚠️ 인식 결과는 본 도구의 책임 범위가 아니며, 사용자가 검토·정정해 사용해야 합니다.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 이미지 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="/image/vendor/tesseract.min.js" defer></script>
+  <script src="./ocr.js" defer></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="PDF 자르기 | 페이지 범위 추출, 분할 무료">
+  <meta property="og:description" content="PDF에서 원하는 페이지 범위만 추출. 1-3,5,7-10 같은 형식. 모든 처리는 브라우저 안에서, 워터마크·가입 없음.">
+  <meta property="og:url" content="https://taystudio.github.io/image/pdf-split/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PDF 자르기 | 페이지 범위 추출 무료">
+  <meta name="twitter:description" content="PDF 페이지 범위 추출. 브라우저 안에서 처리, 외부 전송 없음.">
+  <title>PDF 자르기 | 페이지 범위 추출, PDF 분할 무료</title>
+  <meta name="description" content="PDF에서 원하는 페이지만 골라 추출. '1-3,5,7-10' 같은 범위 표기 지원. 모든 처리는 브라우저 안에서, 워터마크·가입·설치 없음.">
+  <meta name="keywords" content="PDF 자르기, PDF 분할, PDF 페이지 분리, PDF 페이지 추출">
+  <link rel="canonical" href="https://taystudio.github.io/image/pdf-split/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "PDF 자르기 | 페이지 범위 추출",
+      "description": "PDF에서 원하는 페이지만 추출. 범위 표기('1-3,5,7-10') 지원. 브라우저 안에서 처리.",
+      "url": "https://taystudio.github.io/image/pdf-split/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudio.github.io/image/" },
+        { "@type": "ListItem", "position": 3, "name": "PDF 자르기", "item": "https://taystudio.github.io/image/pdf-split/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "페이지 범위는 어떻게 입력하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "1쪽부터 시작합니다. 단일 페이지는 그냥 숫자(예: 5), 연속 범위는 하이픈(예: 3-7), 여러 묶음은 콤마(예: 1-3,5,8-10)로 구분합니다. 공백은 무시됩니다. 입력 순서대로 결과 PDF에 페이지가 배치됩니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "전체 페이지를 1쪽씩 분리할 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "현재는 1개의 결과 PDF로 추출합니다. 1쪽씩 N개 파일로 자동 분리하는 기능은 향후 검토 중. 지금은 페이지마다 따로 추출(예: '1' 입력 → 다운로드 → '2' 입력 → 다운로드)하시거나, 운영체제 인쇄 → 'PDF로 저장' 옵션에서 페이지 범위를 매번 다르게 지정해 분할할 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "원본 PDF가 외부 서버로 업로드되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. PDF 처리는 브라우저 내부의 pdf-lib 라이브러리에서 수행되며, 사이트 운영자도 파일 내용을 볼 수 없습니다. 계약서·이력서·민감 문서 안전합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "암호 걸린 PDF도 자르기 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "암호가 걸린 PDF는 처리되지 않을 수 있습니다. PDF 뷰어에서 암호 해제 후 다시 업로드하세요. 본 도구는 암호 해제 기능을 제공하지 않습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "페이지 순서를 바꿀 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네. 입력 순서대로 결과 PDF에 페이지가 배치됩니다. 예: '5,1-3'을 입력하면 결과는 '5쪽 → 1쪽 → 2쪽 → 3쪽' 순서로 4쪽짜리 PDF가 됩니다. 같은 페이지를 두 번 넣을 수도 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "결과 파일이 원본보다 용량이 크게 줄지 않는데?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "pdf-lib는 페이지 객체를 그대로 복사하므로 일부 페이지만 추출해도 폰트·이미지 등 내부 자원이 포함되어 용량이 비례적으로 줄지 않을 수 있습니다. 추출 후 별도 PDF 압축 도구를 추가로 사용하면 더 줄일 수 있습니다."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .pages-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:8px; margin-top:6px; }
+    .pages-grid .stat-cell { padding:10px; }
+    .pages-grid .num { font-size:18px; }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">이미지</a> · PDF 자르기</div>
+    <h1>PDF 자르기</h1>
+    <p class="subtitle">원하는 페이지 범위만 추출 — '1-3,5,7-10' 같은 형식으로.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>PDF 파일이 외부 서버로 전송되지 않습니다.</b> 모든 처리는 사용자 브라우저 안에서 이루어집니다.</div>
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">📑</div>
+        <div class="drop-title" id="dropTitle">PDF 파일을 드래그하거나 클릭해서 선택</div>
+        <div class="drop-hint">PDF 형식만 — 1개 파일</div>
+        <input type="file" id="fileInput" accept="application/pdf">
+      </label>
+
+      <div id="pdfMeta" class="pages-grid" hidden>
+        <div class="stat-cell"><div id="origPages" class="num">—</div><div class="lab">총 페이지</div></div>
+        <div class="stat-cell"><div id="origSize" class="num">—</div><div class="lab">원본 용량</div></div>
+      </div>
+
+      <div class="field" id="rangeField" hidden>
+        <label for="rangeIn">추출할 페이지 범위</label>
+        <input type="text" id="rangeIn" placeholder="예: 1-3,5,7-10">
+        <p class="small" style="color:var(--muted);margin-top:6px">1쪽부터 시작. 단일=숫자 / 연속=<code>1-3</code> / 여러 묶음=<code>1-3,5,8-10</code></p>
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="splitBtn" disabled>추출하기</button>
+        <button type="button" id="clearBtn">초기화</button>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="image-meta">
+        <span>추출 페이지 수 <b id="newPages">—</b></span>
+        <span>결과 용량 <b id="newSize">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ 추출된 PDF 다운로드</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>범위 입력 예시</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>입력</th><th>결과 페이지</th><th>설명</th></tr></thead>
+          <tbody>
+            <tr><td><code>3</code></td><td>3쪽 (1쪽)</td><td>단일 페이지</td></tr>
+            <tr><td><code>1-5</code></td><td>1·2·3·4·5쪽 (5쪽)</td><td>연속 범위</td></tr>
+            <tr><td><code>1,3,5</code></td><td>1·3·5쪽 (3쪽)</td><td>특정 페이지만</td></tr>
+            <tr><td><code>1-3,7,10-12</code></td><td>1·2·3·7·10·11·12쪽 (7쪽)</td><td>섞어서</td></tr>
+            <tr><td><code>5-1</code></td><td>5·4·3·2·1쪽 (5쪽)</td><td>역순 (시작&gt;끝일 때)</td></tr>
+            <tr><td><code>5,1-3</code></td><td>5·1·2·3쪽 (4쪽)</td><td>입력 순서 그대로</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../pdf-merge/">PDF 합치기<span class="desc">여러 PDF 1개로 병합</span></a>
+        <a href="../compress/">이미지 압축<span class="desc">PDF에 들어갈 사진 용량 줄이기</span></a>
+        <a href="../">이미지 도구 모음<span class="desc">QR·PDF·OCR</span></a>
+        <a href="/text/counter/">글자수 카운터<span class="desc">자소서·논문 분량</span></a>
+        <a href="/tools/age/">만 나이 계산기<span class="desc">이력서 작성 시</span></a>
+        <a href="/tools/">33개 계산기 모두 보기<span class="desc">세금·금융·생활</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>유효하지 않은 페이지 입력</summary>
+        <div class="answer">
+          존재하지 않는 페이지 번호(예: 100쪽 PDF에 '120') 또는 잘못된 형식은 추출 시 오류 메시지로 표시됩니다. 0이나 음수는 허용되지 않으며, 공백은 자동 제거됩니다.
+        </div>
+      </details>
+      <details>
+        <summary>역순 추출 작동 방식</summary>
+        <div class="answer">
+          시작이 끝보다 큰 범위(예: <code>5-1</code>)는 역순으로 인식되어 5,4,3,2,1 순서가 됩니다. 마지막 몇 페이지를 표지로 옮기는 등의 작업에 유용.
+        </div>
+      </details>
+      <details>
+        <summary>PDF 페이지 미리보기는 안 되나요?</summary>
+        <div class="answer">
+          현재 도구는 페이지 미리보기를 제공하지 않습니다(렌더링 라이브러리 추가 ~2MB 필요). 원본 PDF를 PDF 뷰어로 먼저 열어 페이지 번호를 확인한 후 범위 입력하시기 바랍니다.
+        </div>
+      </details>
+      <details>
+        <summary>pdf-lib 라이브러리</summary>
+        <div class="answer">
+          <a href="https://github.com/Hopding/pdf-lib" rel="nofollow noopener" target="_blank">pdf-lib</a> (Andrew Dillon, MIT). 약 700KB, 클라이언트 100% 동작. PDF 합치기·자르기 모두 같은 라이브러리.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>페이지 범위는 어떻게 입력하나요?</summary>
+        <div class="answer">
+          <b>1쪽부터 시작</b>합니다. 단일 페이지는 그냥 숫자(예: <code>5</code>), 연속 범위는 하이픈(예: <code>3-7</code>), 여러 묶음은 콤마(예: <code>1-3,5,8-10</code>)로 구분합니다.
+          공백은 무시됩니다. 입력 순서대로 결과 PDF에 페이지가 배치됩니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>전체 페이지를 1쪽씩 분리할 수 있나요?</summary>
+        <div class="answer">
+          현재는 <b>1개의 결과 PDF</b>로 추출합니다. 1쪽씩 N개 파일로 자동 분리하는 기능은 향후 검토 중.
+          지금은 페이지마다 따로 추출(예: '1' 입력 → 다운로드 → '2' 입력 → 다운로드)하시거나,
+          운영체제 인쇄 → 'PDF로 저장' 옵션에서 페이지 범위를 매번 다르게 지정해 분할할 수 있습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>원본 PDF가 외부 서버로 업로드되나요?</summary>
+        <div class="answer">
+          전송되지 않습니다. PDF 처리는 <b>브라우저 내부의 pdf-lib 라이브러리</b>에서 수행되며, 사이트 운영자도 파일 내용을 볼 수 없습니다.
+          계약서·이력서·민감 문서 안전합니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>암호 걸린 PDF도 자르기 되나요?</summary>
+        <div class="answer">
+          <b>암호가 걸린 PDF는 처리되지 않을 수 있습니다.</b> PDF 뷰어에서 암호 해제 후 다시 업로드하세요.
+          본 도구는 암호 해제 기능을 제공하지 않습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>페이지 순서를 바꿀 수 있나요?</summary>
+        <div class="answer">
+          네. <b>입력 순서대로 결과 PDF에 페이지가 배치</b>됩니다. 예: <code>5,1-3</code>을 입력하면 결과는 '5쪽 → 1쪽 → 2쪽 → 3쪽' 순서로 4쪽짜리 PDF가 됩니다.
+          같은 페이지를 두 번 넣을 수도 있습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>결과 파일이 원본보다 용량이 크게 줄지 않는데?</summary>
+        <div class="answer">
+          pdf-lib는 페이지 객체를 그대로 복사하므로 <b>일부 페이지만 추출해도 폰트·이미지 등 내부 자원이 포함</b>되어 용량이 비례적으로 줄지 않을 수 있습니다.
+          추출 후 별도 PDF 압축 도구를 추가로 사용하면 더 줄일 수 있습니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-05 / pdf-lib (MIT) 라이브러리 사용.</div>
+      <ul>
+        <li>pdf-lib (MIT) — <a href="https://github.com/Hopding/pdf-lib" rel="nofollow noopener" target="_blank">GitHub</a></li>
+        <li>PDF 사양 — ISO 32000-1 / ISO 32000-2</li>
+      </ul>
+      <div class="note">⚠️ 추출 후 결과 PDF를 다운로드해 PDF 뷰어에서 페이지가 의도한 대로 들어갔는지 확인.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 이미지 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="/image/vendor/pdf-lib.min.js" defer></script>
+  <script src="./pdf-split.js" defer></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

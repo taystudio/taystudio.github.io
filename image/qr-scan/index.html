@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="QR 코드 인식 | 카메라·이미지에서 텍스트 추출">
+  <meta property="og:description" content="QR 코드 이미지를 업로드하거나 카메라로 비추면 텍스트·URL·Wi-Fi 정보 자동 추출. 모든 처리는 브라우저 안에서.">
+  <meta property="og:url" content="https://taystudio.github.io/image/qr-scan/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="QR 코드 인식 | 카메라·이미지에서 텍스트 추출">
+  <meta name="twitter:description" content="QR 이미지·카메라로 비춤 → 텍스트·URL·Wi-Fi 자동 추출. 브라우저 안에서 처리.">
+  <title>QR 코드 인식 | 카메라·이미지에서 텍스트 추출</title>
+  <meta name="description" content="QR 코드 이미지를 업로드하거나 웹캠·스마트폰 카메라로 비추면 즉시 디코딩. URL은 클릭 한 번으로 열기. 모든 처리는 브라우저 안에서, 입력 외부 전송 없음.">
+  <meta name="keywords" content="QR 인식, QR 스캔, QR 디코딩, QR 이미지 읽기, 웹캠 QR">
+  <link rel="canonical" href="https://taystudio.github.io/image/qr-scan/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "QR 코드 인식 | 카메라·이미지에서 텍스트 추출",
+      "description": "QR 이미지를 업로드하거나 카메라로 비추면 즉시 디코딩. URL·Wi-Fi 자동 인식. 브라우저 안에서 처리.",
+      "url": "https://taystudio.github.io/image/qr-scan/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudio.github.io/image/" },
+        { "@type": "ListItem", "position": 3, "name": "QR 코드 인식", "item": "https://taystudio.github.io/image/qr-scan/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "카메라가 안 켜져요.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "카메라 권한 요청을 허용했는지 확인하세요. 또한 HTTPS 페이지(taystudio.github.io는 HTTPS)에서만 카메라 접근이 가능합니다. iOS Safari는 ⓘ 자물쇠 아이콘에서 카메라 권한을 다시 켤 수 있습니다. 권한이 막혔다면 브라우저 사이트 설정에서 카메라 차단 해제."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "QR 이미지가 인식이 안 돼요.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "① QR 영역이 화면에 충분히 크게 보이도록 자르거나 확대 ② 명도 대비가 충분한지 확인(흐릿하거나 너무 작으면 실패) ③ 회전·기울어짐은 보통 OK이지만 심한 원근 왜곡은 인식 어려움 ④ 폰으로 촬영한 경우 흔들림 줄이고 다시 찍어보세요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "이미지·카메라 영상이 외부 서버로 전송되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. 모든 디코딩은 브라우저의 jsQR 라이브러리에서 로컬 처리되며, 카메라 영상도 화면에만 표시되고 어떤 서버로도 보내지 않습니다. 카메라 사용을 멈추면 즉시 스트림이 종료됩니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "여러 QR이 같이 있는 이미지도 처리되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "현재는 가장 먼저 인식되는 1개 QR만 디코딩합니다. 여러 개를 인식하려면 각 QR 영역을 잘라 1장씩 업로드하세요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "결과가 URL인지 텍스트인지 어떻게 알 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "본 도구는 디코딩 결과를 자동 분류 표시합니다 — URL(http/https), 전화번호(tel:), SMS, 이메일(mailto:), Wi-Fi(WIFI:), 지도(geo:), 일반 텍스트. URL이면 '열기' 버튼이 활성화됩니다. 단 외부 URL 클릭은 사용자 본인 책임 — 신뢰 가능한 출처인지 확인 후 여세요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wi-Fi QR을 인식했는데 자동 연결이 안 돼요.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "본 도구는 텍스트만 디코딩합니다. Wi-Fi 자동 연결은 운영체제 카메라 앱(스마트폰 기본 카메라)에서만 작동. PC·웹브라우저는 OS API 권한이 없어 자동 연결 불가 — 디코딩된 SSID·비번을 복사해 수동 연결하세요."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .scan-tabs { display:flex; gap:4px; margin-bottom:10px; background:var(--border); padding:4px; border-radius:10px; }
+    .scan-tabs button { width:auto; flex:1; padding:8px 10px; background:transparent; color:var(--muted); border:0; border-radius:7px; font-size:13px; font-weight:500; cursor:pointer; }
+    .scan-tabs button.active { background:var(--card); color:var(--text); box-shadow:var(--shadow); }
+    .video-wrap { position:relative; background:#000; border-radius:10px; overflow:hidden; aspect-ratio:1/1; max-width:480px; margin:0 auto; }
+    .video-wrap video { width:100%; height:100%; object-fit:cover; display:block; }
+    .video-wrap .scan-overlay { position:absolute; inset:0; pointer-events:none; box-shadow: inset 0 0 0 3px rgba(255,255,255,.25); }
+    .scan-result { padding:14px; border-radius:10px; background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.28); margin-top:14px; word-break:break-all; line-height:1.6; }
+    .scan-result.error { background:rgba(220,38,38,0.06); border-color:rgba(220,38,38,0.3); }
+    .scan-type { display:inline-block; padding:2px 8px; border-radius:4px; background:var(--primary); color:#fff; font-size:11px; font-weight:600; letter-spacing:.04em; margin-bottom:8px; }
+    .scan-content { font-family: ui-monospace, SFMono-Regular, monospace; font-size:13.5px; }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">이미지</a> · QR 코드 인식</div>
+    <h1>QR 코드 인식</h1>
+    <p class="subtitle">카메라로 비추거나 이미지를 업로드하면 텍스트·URL·Wi-Fi 정보를 즉시 추출.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>이미지·카메라 영상이 외부 서버로 전송되지 않습니다.</b> 모든 디코딩은 사용자 브라우저 안에서 처리됩니다.</div>
+    </div>
+
+    <div class="card">
+      <div class="scan-tabs" role="tablist">
+        <button type="button" class="active" data-mode="image" role="tab">📁 이미지 업로드</button>
+        <button type="button" data-mode="camera" role="tab">📷 카메라</button>
+      </div>
+
+      <div id="imagePanel">
+        <label class="file-drop-zone" id="dropZone">
+          <div class="drop-icon" aria-hidden="true">📁</div>
+          <div class="drop-title" id="dropTitle">QR 코드 이미지를 드래그하거나 클릭해서 선택</div>
+          <div class="drop-hint">JPG · PNG · WebP — 1장씩 처리</div>
+          <input type="file" id="fileInput" accept="image/*">
+        </label>
+      </div>
+
+      <div id="cameraPanel" hidden>
+        <div class="video-wrap">
+          <video id="video" playsinline muted></video>
+          <div class="scan-overlay" aria-hidden="true"></div>
+        </div>
+        <p class="small" style="text-align:center;color:var(--muted);margin-top:10px">QR 코드를 카메라에 비추세요. 자동 인식됩니다.</p>
+        <div class="image-actions" style="justify-content:center">
+          <button type="button" id="startCam">카메라 시작</button>
+          <button type="button" id="stopCam" disabled>중지</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" hidden>
+      <div id="scanResult" class="scan-result">
+        <div id="scanType" class="scan-type">텍스트</div>
+        <div id="scanContent" class="scan-content">—</div>
+      </div>
+      <div class="image-actions">
+        <button type="button" id="copyBtn">📋 복사</button>
+        <a id="openBtn" class="download-btn" target="_blank" rel="noopener" style="display:none">🔗 열기</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>QR 인식 결과 유형</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>유형</th><th>접두사·패턴</th><th>동작</th></tr></thead>
+          <tbody>
+            <tr><td>URL</td><td><code>http://</code> · <code>https://</code></td><td>'열기' 버튼으로 새 탭에서 열기</td></tr>
+            <tr><td>전화번호</td><td><code>tel:</code></td><td>'열기' 클릭 시 전화 앱(모바일)</td></tr>
+            <tr><td>SMS</td><td><code>sms:</code></td><td>'열기' 클릭 시 메시지 앱(모바일)</td></tr>
+            <tr><td>이메일</td><td><code>mailto:</code></td><td>'열기' 클릭 시 메일 앱</td></tr>
+            <tr><td>Wi-Fi</td><td><code>WIFI:</code></td><td>SSID·비번 복사 후 수동 연결 권장</td></tr>
+            <tr><td>지도</td><td><code>geo:</code></td><td>'열기' 클릭 시 지도 앱(모바일)</td></tr>
+            <tr><td>일반 텍스트</td><td>그 외</td><td>복사 버튼만 활성</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../qr-gen/">QR 코드 생성<span class="desc">URL·Wi-Fi → PNG·SVG</span></a>
+        <a href="../ocr/">이미지 글자 추출<span class="desc">QR 외 일반 텍스트 OCR</span></a>
+        <a href="../compress/">이미지 압축<span class="desc">QR 캡처 사진 용량 줄이기</span></a>
+        <a href="../">이미지 도구 모음<span class="desc">QR·PDF·OCR</span></a>
+        <a href="/text/sns-format/">SNS 글 정리<span class="desc">매장·이벤트 안내</span></a>
+        <a href="/tools/">33개 계산기 모두 보기<span class="desc">세금·금융·생활</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>외부 URL을 클릭할 때 주의사항</summary>
+        <div class="answer">
+          QR로 받은 URL은 <b>피싱·악성 사이트일 수 있습니다</b>. 결과 페이지에 나타난 도메인이 신뢰 가능한지 확인 후 '열기'. 의심되면 모바일 백신·VirusTotal 같은 서비스로 URL 검사 후 방문 권장.
+        </div>
+      </details>
+      <details>
+        <summary>인식이 잘 안 될 때</summary>
+        <div class="answer">
+          ① 사진 흐릿하면 다시 촬영 ② QR 영역이 화면 60% 이상 차도록 가까이 ③ 명도 대비 부족 시 조명 밝은 곳에서 ④ 화면 캡처 QR이라면 픽셀 크기를 키워서 업로드 ⑤ 카메라 모드는 자동 초점이 맞을 때까지 잠시 대기.
+        </div>
+      </details>
+      <details>
+        <summary>카메라 권한과 프라이버시</summary>
+        <div class="answer">
+          카메라 사용 시 브라우저가 권한을 요청합니다. 허용해도 영상은 <b>화면에만 표시</b>되고 외부로 전송되지 않습니다. '중지' 버튼을 누르거나 페이지를 닫으면 즉시 카메라 스트림이 종료됩니다. 백그라운드 녹화·전송 없음.
+        </div>
+      </details>
+      <details>
+        <summary>jsQR 라이브러리란?</summary>
+        <div class="answer">
+          순수 JavaScript로 작성된 오픈소스 QR 디코더(Cosmo Wolfe, Apache-2.0). 50KB 정도이며 모든 처리가 클라이언트에서 진행. 일반적인 QR(버전 1~40, 모든 오류복구 레벨) 인식 가능.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>카메라가 안 켜져요.</summary>
+        <div class="answer">
+          카메라 권한 요청을 허용했는지 확인하세요. 또한 <b>HTTPS 페이지</b>(taystudio.github.io는 HTTPS)에서만 카메라 접근이 가능합니다.
+          iOS Safari는 ⓘ 자물쇠 아이콘에서 카메라 권한을 다시 켤 수 있습니다. 권한이 막혔다면 브라우저 사이트 설정에서 카메라 차단 해제.
+        </div>
+      </details>
+
+      <details>
+        <summary>QR 이미지가 인식이 안 돼요.</summary>
+        <div class="answer">
+          ① QR 영역이 화면에 충분히 크게 보이도록 자르거나 확대 ② 명도 대비가 충분한지 확인(흐릿하거나 너무 작으면 실패) ③ 회전·기울어짐은 보통 OK이지만 심한 원근 왜곡은 인식 어려움
+          ④ 폰으로 촬영한 경우 흔들림 줄이고 다시 찍어보세요.
+        </div>
+      </details>
+
+      <details>
+        <summary>이미지·카메라 영상이 외부 서버로 전송되나요?</summary>
+        <div class="answer">
+          전송되지 않습니다. 모든 디코딩은 브라우저의 <b>jsQR 라이브러리</b>에서 로컬 처리되며, 카메라 영상도 화면에만 표시되고 어떤 서버로도 보내지 않습니다.
+          카메라 사용을 멈추면 즉시 스트림이 종료됩니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>여러 QR이 같이 있는 이미지도 처리되나요?</summary>
+        <div class="answer">
+          현재는 가장 먼저 인식되는 <b>1개 QR만</b> 디코딩합니다. 여러 개를 인식하려면 각 QR 영역을 잘라 1장씩 업로드하세요.
+        </div>
+      </details>
+
+      <details>
+        <summary>결과가 URL인지 텍스트인지 어떻게 알 수 있나요?</summary>
+        <div class="answer">
+          본 도구는 디코딩 결과를 자동 분류 표시합니다 — URL(http/https), 전화번호(tel:), SMS, 이메일(mailto:), Wi-Fi(WIFI:), 지도(geo:), 일반 텍스트.
+          URL이면 '열기' 버튼이 활성화됩니다. <b>단 외부 URL 클릭은 사용자 본인 책임</b> — 신뢰 가능한 출처인지 확인 후 여세요.
+        </div>
+      </details>
+
+      <details>
+        <summary>Wi-Fi QR을 인식했는데 자동 연결이 안 돼요.</summary>
+        <div class="answer">
+          본 도구는 <b>텍스트만 디코딩</b>합니다. Wi-Fi 자동 연결은 운영체제 카메라 앱(스마트폰 기본 카메라)에서만 작동.
+          PC·웹브라우저는 OS API 권한이 없어 자동 연결 불가 — 디코딩된 SSID·비번을 복사해 수동 연결하세요.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-05 / jsQR (Cosmo Wolfe, Apache-2.0) 라이브러리 사용.</div>
+      <ul>
+        <li>jsQR (Apache-2.0) — <a href="https://github.com/cozmo/jsQR" rel="nofollow noopener" target="_blank">GitHub</a></li>
+        <li>QR Code 표준 — ISO/IEC 18004</li>
+        <li>MediaDevices.getUserMedia() — <a href="https://developer.mozilla.org/ko/docs/Web/API/MediaDevices/getUserMedia" rel="nofollow noopener" target="_blank">MDN</a></li>
+      </ul>
+      <div class="note">⚠️ QR로 받은 URL을 클릭할 때 항상 도메인 확인. 모르는 출처의 링크는 열지 않는 게 안전합니다.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 이미지 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="/image/vendor/jsQR.min.js" defer></script>
+  <script src="./qr-scan.js" defer></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

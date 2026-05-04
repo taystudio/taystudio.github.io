@@ -46,7 +46,12 @@
       "name": "이미지·PDF 도구",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "이미지 압축", "url": "https://taystudio.github.io/image/compress/" },
-        { "@type": "ListItem", "position": 2, "name": "이미지 리사이즈", "url": "https://taystudio.github.io/image/resize/" }
+        { "@type": "ListItem", "position": 2, "name": "이미지 리사이즈", "url": "https://taystudio.github.io/image/resize/" },
+        { "@type": "ListItem", "position": 3, "name": "QR 코드 생성", "url": "https://taystudio.github.io/image/qr-gen/" },
+        { "@type": "ListItem", "position": 4, "name": "QR 코드 인식", "url": "https://taystudio.github.io/image/qr-scan/" },
+        { "@type": "ListItem", "position": 5, "name": "PDF 합치기", "url": "https://taystudio.github.io/image/pdf-merge/" },
+        { "@type": "ListItem", "position": 6, "name": "PDF 자르기", "url": "https://taystudio.github.io/image/pdf-split/" },
+        { "@type": "ListItem", "position": 7, "name": "이미지 글자 추출 (OCR)", "url": "https://taystudio.github.io/image/ocr/" }
       ]
     }
   ]
@@ -72,16 +77,16 @@
     <section class="category-section">
       <div class="header">
         <div class="title">📸 이미지·PDF 도구</div>
-        <div class="count">2 / 7</div>
+        <div class="count">7</div>
       </div>
       <div class="tool-grid">
         <a class="tool-card" href="./compress/" data-keywords="이미지 압축 사진 용량 줄이기 카톡 5MB"><div class="icon">🗜️</div><div class="name">이미지 압축</div><div class="desc">화질 슬라이더로 용량 줄이기 — 카톡·이메일 첨부 한도</div></a>
         <a class="tool-card" href="./resize/" data-keywords="이미지 리사이즈 사진 크기 변경 px JPG PNG WebP"><div class="icon">📐</div><div class="name">이미지 리사이즈</div><div class="desc">px·% 크기 변경 + JPG/PNG/WebP 포맷 변환</div></a>
-        <span class="tool-card disabled" aria-disabled="true"><div class="icon">▣</div><div class="name">QR 코드 생성</div><div class="desc">준비 중 — URL·텍스트·Wi-Fi → PNG·SVG</div></span>
-        <span class="tool-card disabled" aria-disabled="true"><div class="icon">🔍</div><div class="name">QR 코드 인식</div><div class="desc">준비 중 — 카메라·이미지에서 QR 디코딩</div></span>
-        <span class="tool-card disabled" aria-disabled="true"><div class="icon">📑</div><div class="name">PDF 합치기</div><div class="desc">준비 중 — 여러 PDF 한 파일로 병합</div></span>
-        <span class="tool-card disabled" aria-disabled="true"><div class="icon">✂️</div><div class="name">PDF 자르기</div><div class="desc">준비 중 — 페이지 범위 추출</div></span>
-        <span class="tool-card disabled" aria-disabled="true"><div class="icon">🔡</div><div class="name">이미지 글자 추출 (OCR)</div><div class="desc">준비 중 — 한국어·영어 텍스트 인식</div></span>
+        <a class="tool-card" href="./qr-gen/" data-keywords="QR코드 만들기 무료 URL Wi-Fi PNG SVG"><div class="icon">▣</div><div class="name">QR 코드 생성</div><div class="desc">URL·텍스트·Wi-Fi → PNG·SVG 다운로드</div></a>
+        <a class="tool-card" href="./qr-scan/" data-keywords="QR 인식 디코딩 카메라 이미지 스캔"><div class="icon">🔍</div><div class="name">QR 코드 인식</div><div class="desc">카메라·이미지에서 텍스트·URL·Wi-Fi 추출</div></a>
+        <a class="tool-card" href="./pdf-merge/" data-keywords="PDF 합치기 무료 병합 머지"><div class="icon">📑</div><div class="name">PDF 합치기</div><div class="desc">여러 PDF를 1개로 병합 — 워터마크·가입 없음</div></a>
+        <a class="tool-card" href="./pdf-split/" data-keywords="PDF 자르기 분할 페이지 추출"><div class="icon">✂️</div><div class="name">PDF 자르기</div><div class="desc">페이지 범위(1-3,5,7-10) 추출 → 새 PDF</div></a>
+        <a class="tool-card" href="./ocr/" data-keywords="이미지 글자 추출 OCR 한국어 텍스트 변환"><div class="icon">🔡</div><div class="name">이미지 글자 추출 (OCR)</div><div class="desc">한국어·영어 OCR — Tesseract.js WASM, 브라우저 내</div></a>
       </div>
     </section>
 

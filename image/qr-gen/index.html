@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="QR 코드 생성 | URL·텍스트·Wi-Fi → PNG·SVG 무료">
+  <meta property="og:description" content="URL·텍스트·Wi-Fi 비밀번호를 QR 코드 PNG·SVG로 생성. 모든 처리는 브라우저 안에서. 가입·설치 불필요, 광고 없는 다운로드.">
+  <meta property="og:url" content="https://taystudio.github.io/image/qr-gen/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="QR 코드 생성 | URL·텍스트·Wi-Fi 무료">
+  <meta name="twitter:description" content="URL·텍스트·Wi-Fi를 QR 코드 PNG·SVG로 생성. 브라우저 안에서 처리.">
+  <title>QR 코드 생성 | URL·텍스트·Wi-Fi → PNG·SVG 무료</title>
+  <meta name="description" content="URL·텍스트·Wi-Fi 비밀번호를 QR 코드로 변환. PNG 또는 SVG 다운로드. 크기·오류복구 레벨·여백 조절. 모든 처리는 브라우저 안에서, 가입·설치 불필요.">
+  <meta name="keywords" content="QR코드 만들기, QR 생성 무료, URL QR, Wi-Fi QR, QR 다운로드 PNG SVG">
+  <link rel="canonical" href="https://taystudio.github.io/image/qr-gen/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "QR 코드 생성 | URL·텍스트·Wi-Fi",
+      "description": "URL·텍스트·Wi-Fi 비밀번호를 QR 코드 PNG·SVG로 생성. 크기·오류복구·여백 조절. 브라우저 안에서 처리.",
+      "url": "https://taystudio.github.io/image/qr-gen/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudio.github.io/image/" },
+        { "@type": "ListItem", "position": 3, "name": "QR 코드 생성", "item": "https://taystudio.github.io/image/qr-gen/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "오류복구(에러 정정) 레벨은 뭘 선택해야 하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "L(7%)·M(15%)·Q(25%)·H(30%) 중 일반적으로는 M이 무난합니다. QR 위에 로고를 올리거나 인쇄물에 노출돼 일부 손상될 가능성이 있다면 H를 권장. 단 레벨이 높을수록 모듈(점) 수가 많아져 화면이 복잡해집니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wi-Fi QR은 어떻게 만드나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "유형을 'Wi-Fi'로 선택하면 SSID·암호화 방식(WPA/WPA2)·비밀번호 입력 폼이 나옵니다. 입력값이 자동으로 'WIFI:T:WPA;S:이름;P:비번;;' 형태로 인코딩되어 QR로 만들어집니다. 스마트폰 카메라로 비추면 Wi-Fi 자동 연결 메뉴가 뜹니다(iOS·Android 모두 지원)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "PNG와 SVG 중 뭘 다운받아야 하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "인쇄용·확대해도 깨지지 않게 하려면 SVG, 카카오톡·이메일·블로그 첨부에는 PNG를 권장합니다. SVG는 벡터라 무한 확대해도 또렷하지만 일부 메신저는 SVG 미지원. PNG는 호환성 최강."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "입력한 URL이나 비밀번호가 외부 서버로 전송되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. QR 코드 인코딩은 모두 브라우저 안에서 처리되며, 입력값(Wi-Fi 비번 포함)은 외부 서버로 보내지 않습니다. 사이트 운영자도 입력값을 볼 수 없습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "QR 코드에 글자 수 제한이 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "QR 버전(크기) 별로 다릅니다. 영문·숫자만이면 약 4,000자, 한글·일본어 등 멀티바이트 문자는 약 1,800자까지. 입력이 길수록 QR 모듈 수가 많아져 인식 거리도 짧아지므로, URL이라면 단축 URL(bit.ly 등) 사용을 권장합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "검은색 말고 다른 색으로 만들 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "현재 도구는 흑백 QR만 지원합니다. 색상 커스터마이징은 향후 검토 항목. 인쇄·디자인 시 색을 바꾸려면 SVG로 다운받은 후 그래픽 도구(Figma·Illustrator·Inkscape)에서 fill 색을 변경하면 됩니다. 단 명도 대비가 낮으면 인식률이 떨어지니 주의."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .qr-type-tabs { display:flex; gap:4px; margin-bottom:10px; background:var(--border); padding:4px; border-radius:10px; }
+    .qr-type-tabs button { width:auto; flex:1; padding:8px 10px; background:transparent; color:var(--muted); border:0; border-radius:7px; font-size:13px; font-weight:500; cursor:pointer; }
+    .qr-type-tabs button.active { background:var(--card); color:var(--text); box-shadow:var(--shadow); }
+    .qr-canvas-wrap { display:flex; justify-content:center; padding:20px; background:#fff; border-radius:10px; }
+    .qr-canvas-wrap canvas { max-width:100%; height:auto; image-rendering:pixelated; }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">이미지</a> · QR 코드 생성</div>
+    <h1>QR 코드 생성</h1>
+    <p class="subtitle">URL·텍스트·Wi-Fi 비밀번호 → PNG·SVG. 인쇄·전단지·명함·매장 메뉴판에.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>입력값이 외부 서버로 전송되지 않습니다.</b> Wi-Fi 비밀번호 등 민감한 텍스트도 안심하고 입력하세요.</div>
+    </div>
+
+    <div class="card">
+      <div class="qr-type-tabs" role="tablist">
+        <button type="button" class="active" data-type="text" role="tab">텍스트·URL</button>
+        <button type="button" data-type="wifi" role="tab">Wi-Fi</button>
+      </div>
+
+      <div id="textPanel">
+        <div class="field">
+          <label for="textIn">URL 또는 텍스트</label>
+          <input type="text" id="textIn" placeholder="https://taystudio.github.io 또는 임의 텍스트">
+        </div>
+      </div>
+
+      <div id="wifiPanel" hidden>
+        <div class="field">
+          <label for="wifiSsid">Wi-Fi 이름 (SSID)</label>
+          <input type="text" id="wifiSsid" placeholder="MyWiFi">
+        </div>
+        <div class="field">
+          <label for="wifiPwd">비밀번호</label>
+          <input type="text" id="wifiPwd" placeholder="비밀번호 (없으면 비워두기)">
+        </div>
+        <div class="field">
+          <label for="wifiAuth">암호화 방식</label>
+          <select id="wifiAuth">
+            <option value="WPA" selected>WPA / WPA2 / WPA3</option>
+            <option value="WEP">WEP</option>
+            <option value="nopass">암호 없음 (개방)</option>
+          </select>
+        </div>
+        <div class="field" style="display:flex;align-items:center;gap:8px">
+          <input type="checkbox" id="wifiHidden" style="width:auto">
+          <label for="wifiHidden" style="margin:0;font-weight:400;font-size:14px">숨김 네트워크 (hidden SSID)</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="ecLevel">오류복구 레벨</label>
+        <select id="ecLevel">
+          <option value="L">L (7% — 최소, 가장 작음)</option>
+          <option value="M" selected>M (15% — 권장)</option>
+          <option value="Q">Q (25%)</option>
+          <option value="H">H (30% — 로고 올림 등 가려짐 가정)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="cellSize">크기 <span class="range-value" id="cellSizeValue">8</span> px/모듈</label>
+        <input type="range" id="cellSize" min="2" max="20" step="1" value="8">
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="genBtn">QR 만들기</button>
+        <button type="button" id="clearBtn">초기화</button>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="qr-canvas-wrap">
+        <canvas id="qrCanvas"></canvas>
+      </div>
+      <div class="image-meta">
+        <span>QR 버전 <b id="qrVersion">—</b></span>
+        <span>모듈 <b id="qrModules">—</b></span>
+        <span>인코딩 길이 <b id="qrLen">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadPng" class="download-btn" download>⬇ PNG 다운로드</a>
+        <a id="downloadSvg" class="download-btn" download style="background:var(--primary);border-color:var(--primary)">⬇ SVG 다운로드</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>QR 유형별 인코딩 형식</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>유형</th><th>인코딩 텍스트</th><th>예시</th></tr></thead>
+          <tbody>
+            <tr><td>URL</td><td>URL 그대로</td><td><code>https://taystudio.github.io</code></td></tr>
+            <tr><td>전화번호</td><td><code>tel:번호</code></td><td><code>tel:+82-10-1234-5678</code></td></tr>
+            <tr><td>SMS</td><td><code>sms:번호?body=내용</code></td><td><code>sms:+821012345678?body=Hello</code></td></tr>
+            <tr><td>이메일</td><td><code>mailto:주소</code></td><td><code>mailto:hello@example.com</code></td></tr>
+            <tr><td>Wi-Fi</td><td><code>WIFI:T:WPA;S:이름;P:비번;;</code></td><td>본 도구에서 자동 인코딩</td></tr>
+            <tr><td>지도</td><td><code>geo:위도,경도</code></td><td><code>geo:37.5665,126.9780</code></td></tr>
+            <tr><td>일반 텍스트</td><td>그대로</td><td><code>Hello world</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small" style="margin-top:8px;color:var(--muted)">전화·SMS·이메일·지도는 텍스트 입력 모드에 위 형식으로 직접 입력하면 동작합니다.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../qr-scan/">QR 코드 인식<span class="desc">카메라·이미지 → 텍스트</span></a>
+        <a href="../compress/">이미지 압축<span class="desc">QR PNG 파일 용량 줄이기</span></a>
+        <a href="../resize/">이미지 리사이즈<span class="desc">QR 인쇄 크기 맞추기</span></a>
+        <a href="../">이미지 도구 모음<span class="desc">QR·PDF·OCR</span></a>
+        <a href="/text/sns-format/">SNS 글 정리<span class="desc">매장·이벤트 안내문</span></a>
+        <a href="/tools/">33개 계산기 모두 보기<span class="desc">세금·금융·생활</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>QR 버전(version)이란?</summary>
+        <div class="answer">
+          QR 코드의 크기를 1~40으로 표현. 버전 1은 21×21 모듈, 버전 40은 177×177 모듈. 데이터가 길고 오류복구 레벨이 높을수록 자동으로 큰 버전이 선택됩니다. 본 도구는 데이터에 맞춰 자동 결정.
+        </div>
+      </details>
+      <details>
+        <summary>모듈(module)이란?</summary>
+        <div class="answer">
+          QR 코드를 구성하는 검은/흰 정사각형 한 칸을 모듈이라 부릅니다. "크기" 슬라이더는 모듈 1칸을 화면에서 몇 px로 그릴지 결정. 인쇄 시 1모듈 ≥ 0.5mm 권장(0.4mm 이하는 인식률 급감).
+        </div>
+      </details>
+      <details>
+        <summary>인쇄용으로 만들 때 권장 설정</summary>
+        <div class="answer">
+          ① 오류복구 H 권장 (인쇄 후 일부 손상·로고 가림 대비) ② SVG 다운로드 (벡터, 무한 확대) ③ 모듈 1칸 최소 0.5~1mm 보장. 명함·전단지는 가로 세로 2cm 이상 권장.
+        </div>
+      </details>
+      <details>
+        <summary>QR 코드 사용에 라이선스 비용이 있나요?</summary>
+        <div class="answer">
+          QR 코드 규격 자체는 ISO/IEC 18004 표준이며 Denso Wave가 특허는 갖고 있지만 사용은 무료(라이선스 프리)로 공개했습니다. 상업·인쇄·앱·매장 어디든 자유롭게 사용 가능합니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>오류복구(에러 정정) 레벨은 뭘 선택해야 하나요?</summary>
+        <div class="answer">
+          L(7%)·M(15%)·Q(25%)·H(30%) 중 일반적으로는 <b>M</b>이 무난합니다.
+          QR 위에 로고를 올리거나 인쇄물에 노출돼 일부 손상될 가능성이 있다면 <b>H</b>를 권장.
+          단 레벨이 높을수록 모듈(점) 수가 많아져 화면이 복잡해집니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>Wi-Fi QR은 어떻게 만드나요?</summary>
+        <div class="answer">
+          유형을 <b>Wi-Fi</b>로 선택하면 SSID·암호화 방식(WPA/WPA2)·비밀번호 입력 폼이 나옵니다.
+          입력값이 자동으로 <code>WIFI:T:WPA;S:이름;P:비번;;</code> 형태로 인코딩되어 QR로 만들어집니다.
+          스마트폰 카메라로 비추면 Wi-Fi 자동 연결 메뉴가 뜹니다(iOS·Android 모두 지원).
+        </div>
+      </details>
+
+      <details>
+        <summary>PNG와 SVG 중 뭘 다운받아야 하나요?</summary>
+        <div class="answer">
+          인쇄용·확대해도 깨지지 않게 하려면 <b>SVG</b>, 카카오톡·이메일·블로그 첨부에는 <b>PNG</b>를 권장합니다.
+          SVG는 벡터라 무한 확대해도 또렷하지만 일부 메신저는 SVG 미지원. PNG는 호환성 최강.
+        </div>
+      </details>
+
+      <details>
+        <summary>입력한 URL이나 비밀번호가 외부 서버로 전송되나요?</summary>
+        <div class="answer">
+          전송되지 않습니다. QR 코드 인코딩은 모두 <b>브라우저 안에서</b> 처리되며, 입력값(Wi-Fi 비번 포함)은 외부 서버로 보내지 않습니다.
+          사이트 운영자도 입력값을 볼 수 없습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>QR 코드에 글자 수 제한이 있나요?</summary>
+        <div class="answer">
+          QR 버전(크기) 별로 다릅니다. 영문·숫자만이면 약 4,000자, 한글·일본어 등 멀티바이트 문자는 약 1,800자까지.
+          입력이 길수록 QR 모듈 수가 많아져 인식 거리도 짧아지므로, URL이라면 단축 URL(bit.ly 등) 사용을 권장합니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>검은색 말고 다른 색으로 만들 수 있나요?</summary>
+        <div class="answer">
+          현재 도구는 흑백 QR만 지원합니다. 색상 커스터마이징은 향후 검토 항목.
+          인쇄·디자인 시 색을 바꾸려면 SVG로 다운받은 후 그래픽 도구(Figma·Illustrator·Inkscape)에서 fill 색을 변경하면 됩니다.
+          단 명도 대비가 낮으면 인식률이 떨어지니 주의.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-05 / qrcode-generator (kazuhikoarase) 라이브러리 사용.</div>
+      <ul>
+        <li>QR Code 표준 — ISO/IEC 18004</li>
+        <li>Wi-Fi QR 인코딩 사양 — <a href="https://en.wikipedia.org/wiki/QR_code#Joining_a_Wi-Fi_network" rel="nofollow noopener" target="_blank">Wikipedia</a></li>
+        <li>qrcode-generator (MIT) — <a href="https://github.com/kazuhikoarase/qrcode-generator" rel="nofollow noopener" target="_blank">GitHub</a></li>
+      </ul>
+      <div class="note">⚠️ 인쇄 후 반드시 본인 스마트폰으로 1회 스캔 테스트 — 인쇄 색·크기에 따라 인식률 차이 큼.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 이미지 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="/image/vendor/qrcode.min.js" defer></script>
+  <script src="./qr-gen.js" defer></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>
