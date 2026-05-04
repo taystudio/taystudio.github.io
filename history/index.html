@@ -98,6 +98,34 @@
     .legend .dot.major { border-color: var(--accent); }
     .legend .dot.feature { border-color: var(--primary); }
     .legend .dot.minor { border-color: var(--muted); }
+    /* flow diagram (크롤러 동작 가시화 등) */
+    .flow-diagram {
+      display: flex; flex-direction: column; gap: 6px;
+      margin: 14px 0; padding: 16px;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    }
+    .flow-step {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+      font-size: 13px; line-height: 1.5;
+    }
+    .flow-step.alt { background: #2563eb0d; border-color: #2563eb33; }
+    .flow-step.term { background: #10b9810d; border-color: #10b98133; }
+    .flow-step-num {
+      flex-shrink: 0; width: 26px; height: 26px;
+      border-radius: 50%; background: var(--primary); color: white;
+      font-weight: 700; font-size: 12px;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .flow-step.alt .flow-step-num { background: #f59e0b; }
+    .flow-step.term .flow-step-num { background: #10b981; }
+    .flow-step-body { flex: 1; }
+    .flow-step-body code { font-size: 12px; }
+    .flow-arrow {
+      text-align: center; color: var(--muted);
+      font-size: 16px; line-height: 1; padding: 0;
+    }
   </style>
 </head>
 <body>
@@ -117,6 +145,235 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item major">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-04</span>
+            <span class="tl-tag fix">진단·해결</span>
+            <span class="tl-tag feature">AdSense</span>
+          </div>
+          <div class="tl-title">🛡️ 푸터 정적 fallback 38 페이지 적용 (privacy/terms 링크 JS 의존 위험 해결)</div>
+          <div class="tl-summary">
+            AdSense 신청 직후 라이브 검증 중 발견: 도구 페이지 푸터의 privacy·terms 링크가 <code>&lt;site-footer&gt;</code> 빈 web component + <code>site-chrome.js</code>로 JS hydrate되는 구조. AdSense 심사 봇은 JS 실행 보장 안 됨 → "privacy 없는 사이트"로 판정될 거절 위험 1순위. <b>옵션 A 채택</b> — light DOM에 정적 <code>&lt;footer&gt;</code> 박기. 38 페이지 일괄 적용·검증 완료.
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">🔍 위험 진단 흐름</h3>
+              <ol style="line-height:1.9;padding-left:20px">
+                <li>AdSense 신청 직후 <code>curl -s https://taystudio.github.io/tools/privacy/</code> 등 라이브 검증 시작</li>
+                <li>privacy/terms 자체 페이지는 정상 (HTTP 200, 8섹션, canonical, last-modified 최신)</li>
+                <li>도구 페이지(예: gifttax)의 정적 HTML 응답에서 <code>&lt;site-footer&gt;&lt;/site-footer&gt;</code> 빈 태그 확인</li>
+                <li><code>common/site-chrome.js</code> 코드 검증 → <code>this.innerHTML = ...</code> 완전 교체 패턴</li>
+                <li>판정: light DOM에 정적 fallback 박으면 봇·사용자 모두 cover 가능 (옵션 A 안전성 확인)</li>
+              </ol>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⚠️ 왜 critical 위험이었나</h3>
+              <table>
+                <thead><tr><th>크롤러 종류</th><th>JS 실행</th><th>privacy 링크 인식</th></tr></thead>
+                <tbody>
+                  <tr><td>Googlebot 메인 인덱싱</td><td>✅ 지원</td><td>✅ OK (SERP 영향 없음)</td></tr>
+                  <tr><td><b>AdSense 심사 봇</b></td><td>❌ 보장 안 됨</td><td>❌ <b>"privacy 없는 사이트" 판정 위험</b></td></tr>
+                </tbody>
+              </table>
+              <p style="margin:8px 0 0;font-size:13px;color:var(--muted)">
+                AdSense 정책: "Sites must provide a clear and easily accessible link to a privacy policy from any page where ads appear." → 거절 사유 1순위.
+              </p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🛠 해결 옵션 비교</h3>
+              <table>
+                <thead><tr><th>옵션</th><th>방식</th><th>채택 여부</th></tr></thead>
+                <tbody>
+                  <tr><td><b>A. 정적 fallback</b></td><td><code>&lt;site-footer&gt;</code> 안에 정적 <code>&lt;footer&gt;</code> 박기</td><td>✅ <b>채택</b></td></tr>
+                  <tr><td>B. <code>&lt;noscript&gt;</code></td><td>비-JS 환경에서만 보이는 fallback</td><td>❌ 봇 인식 불확실</td></tr>
+                  <tr><td>C. 그대로 대기</td><td>거절 시 적용</td><td>❌ 거절 위험 ↑</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📦 적용 범위 — 38 페이지</h3>
+              <ul>
+                <li>도구 페이지: 33개 (모든 계산기)</li>
+                <li>tools/index.html · tools/404.html · tools/privacy/index.html · tools/terms/index.html</li>
+                <li>index.html (root 랜딩)</li>
+                <li>제외: history/index.html (별도 구조 + noindex)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔧 적용 코드 (변경 후)</h3>
+              <pre style="background:var(--card);border:1px solid var(--border);padding:12px;border-radius:6px;overflow-x:auto;font-size:12px;line-height:1.6"><code>&lt;site-footer&gt;
+  &lt;footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);..."&gt;
+    &lt;div style="margin-bottom:12px"&gt;
+      &lt;a href="/tools/privacy/"&gt;개인정보처리방침&lt;/a&gt; · &lt;a href="/tools/terms/"&gt;이용약관&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div&gt;© 2026 TAYSTUDIO · 입력값은 브라우저 안에서만 처리됩니다&lt;/div&gt;
+  &lt;/footer&gt;
+&lt;/site-footer&gt;
+&lt;script src="/common/site-chrome.js" defer&gt;&lt;/script&gt;</code></pre>
+              <p style="margin:8px 0 0;font-size:13px;color:var(--muted)">
+                inline style 사용 이유: tools/css/style.css 미로드 환경에서도 봇이 footer 정상 읽도록.
+              </p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">✅ 검증</h3>
+              <pre style="background:var(--card);border:1px solid var(--border);padding:12px;border-radius:6px;overflow-x:auto;font-size:12px;line-height:1.6"><code>$ grep -rl "&lt;site-footer&gt;" tools/ index.html | wc -l
+38
+
+$ for f in $(grep -rl "&lt;site-footer&gt;" tools/ index.html); do
+    grep -q "개인정보처리방침&lt;/a&gt;" "$f" || echo "MISSING: $f"
+  done
+# (출력 없음 — 38개 모두 적용됨)</code></pre>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📂 관련 문서</h3>
+              <ul>
+                <li><a href="../adsense/APPROVAL.md">adsense/APPROVAL.md</a> — AdSense 승인 준비 전체 활동 기록</li>
+                <li><a href="../adsense/FOOTER_FIX.md">adsense/FOOTER_FIX.md</a> — 이번 fix 자세한 기록 (옵션 비교·검증·후속 작업)</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-04</span>
+            <span class="tl-tag seo">SEO 학습</span>
+            <span class="tl-tag">개념 정리</span>
+          </div>
+          <div class="tl-title">🤖 검색엔진 크롤러 동작 메커니즘</div>
+          <div class="tl-summary">
+            Googlebot 등 크롤러가 도메인을 처음 만났을 때 어떤 순서로 사이트를 발견·인덱싱하는지. <code>robots.txt</code> → <code>sitemap.xml</code> → 페이지 크롤 → 인덱스 DB → SERP. <b>favicon은 별도 파이프라인으로 동작</b>.
+          </div>
+          <details class="tl-details" open>
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">파이프라인 1 — 메인 인덱싱 (URL 발견·크롤·인덱스)</h3>
+              <div class="flow-diagram">
+                <div class="flow-step">
+                  <div class="flow-step-num">1</div>
+                  <div class="flow-step-body">크롤러가 도메인 처음 만남: <code>taystudio.github.io</code></div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">
+                  <div class="flow-step-num">2</div>
+                  <div class="flow-step-body"><code>GET /robots.txt</code> — 모든 크롤러의 첫 요청 (well-known 표준 위치)</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">
+                  <div class="flow-step-num">3</div>
+                  <div class="flow-step-body">robots.txt 파싱: <code>Allow</code>/<code>Disallow</code> 정책 + <code>Sitemap:</code> URL 추출</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">
+                  <div class="flow-step-num">4</div>
+                  <div class="flow-step-body"><code>GET /sitemap.xml</code> — Sitemap 라인이 있으면 그 URL fetch</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">
+                  <div class="flow-step-num">5</div>
+                  <div class="flow-step-body">sitemap에서 URL 목록 추출 (현재 <b>37개</b>) + <code>&lt;lastmod&gt;</code>·<code>&lt;priority&gt;</code> 활용</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">
+                  <div class="flow-step-num">6</div>
+                  <div class="flow-step-body">각 URL HTML fetch → <code>&lt;head&gt;</code> 메타 추출 (canonical, og:*, JSON-LD)</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step">
+                  <div class="flow-step-num">7</div>
+                  <div class="flow-step-body">JS 렌더링 (Googlebot은 두 번째 패스에서) → 동적 콘텐츠 추출</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step term">
+                  <div class="flow-step-num">8</div>
+                  <div class="flow-step-body">인덱스 DB 저장 → <b>SERP 노출 후보</b> (랭킹은 별도 알고리즘)</div>
+                </div>
+              </div>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">파이프라인 2 — favicon 워커 (별도 스케줄)</h3>
+              <p style="color:var(--muted);font-size:13px">메인 인덱싱과 <b>독립적</b>으로 동작 → 페이지 인덱싱 끝나도 SERP에 favicon 즉시 안 뜨는 이유.</p>
+              <div class="flow-diagram">
+                <div class="flow-step alt">
+                  <div class="flow-step-num">A</div>
+                  <div class="flow-step-body">favicon 전용 워커가 별도 스케줄로 동작</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step alt">
+                  <div class="flow-step-num">B</div>
+                  <div class="flow-step-body"><code>GET /favicon.ico</code> 시도 → 없으면 HTML의 <code>&lt;link rel="icon"&gt;</code> 추출</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step alt">
+                  <div class="flow-step-num">C</div>
+                  <div class="flow-step-body">이미지 fetch → 며칠 동안 <b>동일 이미지 유지 검증</b> (악성·낚시 fav 거름)</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-step term">
+                  <div class="flow-step-num">D</div>
+                  <div class="flow-step-body">SERP에 favicon 노출 — 페이지 인덱싱과 <b>며칠~몇 주 시차</b> 발생</div>
+                </div>
+              </div>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⚡ 인덱싱 가속 옵션 (fast track)</h3>
+              <table>
+                <thead><tr><th>방법</th><th>대상</th><th>효과</th><th>비고</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>robots.txt에 <code>Sitemap:</code> 라인</td>
+                    <td>모든 크롤러</td>
+                    <td>자동 발견</td>
+                    <td>필수 베이스 (며칠~몇 주)</td>
+                  </tr>
+                  <tr>
+                    <td>Search Console sitemap 제출</td>
+                    <td>Google</td>
+                    <td>즉시 알림</td>
+                    <td>1~3일 가속</td>
+                  </tr>
+                  <tr>
+                    <td>네이버 Search Advisor sitemap</td>
+                    <td>네이버</td>
+                    <td>즉시 알림</td>
+                    <td>한국 시장 필수</td>
+                  </tr>
+                  <tr>
+                    <td>URL Inspection &gt; Request Indexing</td>
+                    <td>Google (URL 단위)</td>
+                    <td>페이지 단위 즉시 트리거</td>
+                    <td>하루 10~20회 한도</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📋 핵심 파일·헤더 역할</h3>
+              <table>
+                <thead><tr><th>요소</th><th>위치</th><th>역할</th></tr></thead>
+                <tbody>
+                  <tr><td><code>/robots.txt</code></td><td>도메인 root</td><td>크롤 정책 + sitemap 위치 안내</td></tr>
+                  <tr><td><code>/sitemap.xml</code></td><td>도메인 root</td><td>전체 URL 목록·우선순위·lastmod</td></tr>
+                  <tr><td><code>&lt;link rel="canonical"&gt;</code></td><td>각 페이지 head</td><td>중복 페이지의 정규 URL 지정</td></tr>
+                  <tr><td><code>&lt;meta name="robots"&gt;</code></td><td>각 페이지 head</td><td>페이지 단위 색인 정책 (<code>noindex</code> 등)</td></tr>
+                  <tr><td><code>&lt;link rel="icon"&gt;</code></td><td>각 페이지 head</td><td>favicon 위치 (브라우저·크롤러 fallback)</td></tr>
+                  <tr><td><code>/favicon.ico</code></td><td>도메인 root</td><td>favicon 표준 위치 (크롤러 baseline)</td></tr>
+                  <tr><td><code>Last-Modified</code></td><td>HTTP 응답 헤더</td><td>변경 시각 — 조건부 GET 활용</td></tr>
+                  <tr><td><code>ETag</code></td><td>HTTP 응답 헤더</td><td>콘텐츠 해시 — 304 Not Modified 응답용</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">현재 사이트 인프라 상태 (2026-05-04 기준)</h3>
+              <ul>
+                <li>✅ <code>robots.txt</code> 배치 완료 (<code>Sitemap:</code> 라인 포함)</li>
+                <li>✅ <code>sitemap.xml</code> 배치 완료 (37 URL, 자동 빌드 스크립트 <code>scripts/build-sitemap.sh</code>)</li>
+                <li>✅ Google Search Console sitemap 제출</li>
+                <li>✅ 네이버 Search Advisor sitemap 제출</li>
+                <li>✅ favicon root 자산 4종 배치 (SVG + 96·192·180 PNG)</li>
+                <li>⏳ 페이지 단위 Request Indexing 진행 중 (3일 분할, <a href="../INDEXING_CHECKLIST.md">INDEXING_CHECKLIST.md</a> 참고)</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item">
