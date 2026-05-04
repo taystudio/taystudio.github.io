@@ -54,6 +54,7 @@ body {
   padding: 20px 24px;
   background: var(--card);
   border-bottom: 1px solid var(--border);
+  gap: 12px;
 }
 
 .site-header a {
@@ -64,6 +65,66 @@ body {
 
 .site-header .logo {
   font-size: 18px;
+  letter-spacing: -0.01em;
+  flex-shrink: 0;
+}
+
+.site-nav {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.site-nav .nav-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: color .15s, background .15s;
+  white-space: nowrap;
+}
+
+.site-nav .nav-link:hover {
+  color: var(--text);
+  background: var(--bg);
+}
+
+.site-nav .nav-link.active {
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.08);
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .site-header {
+    padding: 14px 14px;
+    gap: 8px;
+  }
+  .site-header .logo {
+    font-size: 16px;
+  }
+  .site-nav {
+    gap: 2px;
+  }
+  .site-nav .nav-link {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-header {
+    padding: 12px 10px;
+  }
+  .site-header .logo {
+    font-size: 15px;
+  }
+  .site-nav .nav-link {
+    font-size: 12px;
+    padding: 5px 6px;
+  }
 }
 
 .breadcrumb {

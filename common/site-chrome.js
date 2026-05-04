@@ -24,10 +24,17 @@ function isToolsPage() {
 
 class SiteHeader extends HTMLElement {
   connectedCallback() {
+    const path = window.location.pathname;
+    const isCat = (slug) => path === '/' + slug + '/' || path.startsWith('/' + slug + '/');
+    const cls = (slug) => 'nav-link' + (isCat(slug) ? ' active' : '');
     const headerHTML = `
       <header class="site-header">
         <a href="${BASE}/" class="logo">TAYSTUDIO</a>
-        <nav><a href="${BASE}/tools/">Tools</a></nav>
+        <nav class="site-nav">
+          <a href="${BASE}/tools/" class="${cls('tools')}">계산기</a>
+          <a href="${BASE}/text/" class="${cls('text')}">텍스트</a>
+          <a href="${BASE}/image/" class="${cls('image')}">이미지</a>
+        </nav>
       </header>
     `;
     const disclaimerHTML = !isToolsPage() ? '' : `
@@ -51,14 +58,14 @@ class SiteHeader extends HTMLElement {
 class SiteFooter extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-      <footer style="margin-top:48px;padding:24px 20px;border-top:1px solid var(--border);text-align:center;font-size:13px;color:var(--muted)">
-        <div style="margin-bottom:12px">
+      <footer style="margin-top:48px;padding:32px 20px;border-top:1px solid var(--border);text-align:center;color:var(--muted)">
+        <div style="font-size:13px;margin-bottom:18px">
           <a href="${BASE}/tools/privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
           ·
           <a href="${BASE}/tools/terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
         </div>
-        <div>© 2026 TAYSTUDIO · 입력값은 브라우저 안에서만 처리됩니다</div>
-        <div class="sig" style="margin-top:8px;font-family:var(--mono,ui-monospace,monospace);font-size:11px;letter-spacing:.18em;opacity:.55">MADE IN SEOUL</div>
+        <div style="font-size:13px">입력값은 브라우저 안에서만 처리됩니다</div>
+        <div style="font-size:12px;margin-top:10px;opacity:.7">© 2026 TAYSTUDIO. All Rights Reserved.</div>
       </footer>
     `;
   }

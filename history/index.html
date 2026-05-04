@@ -138,7 +138,7 @@
     <h1>📜 변경 이력</h1>
     <p class="subtitle">사이트에서 일어난 일을 시간 역순으로 — 도구 추가, 세율 갱신, SEO·인프라 작업까지.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
-      <b>마지막 갱신</b>: 2026-05-05 · <span style="opacity:.7">SEO 일괄 — og:image 사이트 전체(51 파일) + Organization JSON-LD + image 9 도구 featureList. 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
+      <b>마지막 갱신</b>: 2026-05-05 · <span style="opacity:.7">SEO Tier 1.1 후속 — OG 카피 일반화(숫자 제외·`한국에서` 제거) + 51 파일 메타 보강(<code>og:image:type</code> · <code>secure_url</code> · <code>twitter:image:alt</code>). 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
     </p>
 
     <div class="legend">
@@ -148,6 +148,231 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-05</span>
+            <span class="tl-tag feature">site chrome</span>
+            <span class="tl-tag">header 다중 카테고리</span>
+            <span class="tl-tag">약관 갱신</span>
+            <span class="tl-tag infra">SW v10</span>
+          </div>
+          <div class="tl-title">🧭 Site chrome 일괄 정리 — Header nav · Footer · 모바일 + 약관 페이지 최신화</div>
+          <div class="tl-summary">
+            세션 끝 정리 묶음. ① <b>Header nav 다중 카테고리화</b> — 영어 단일 <code>Tools</code> → 한국어 3 카테고리(계산기·텍스트·이미지), 현재 위치 active 강조 ② <b>모바일 대응</b> — <code>.site-nav</code> + <code>&lt;480px</code>·<code>&lt;360px</code> 미디어 쿼리 신설 ③ <b>Footer 4→3줄 시각 정리</b> — 시그니처 <code>MADE IN SEOUL</code> 제거, 차별화 메시지(메인) + ARR(보조) 위계 ④ <b>tools/privacy·terms 최신화</b> — 시행일, 카테고리 33→45선 반영, 외부 CDN 명시, 면책 보강.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat"><div class="label">변경 묶음</div><div class="value">4</div><div class="delta">header · 모바일 · footer · 약관</div></div>
+            <div class="stat"><div class="label">신규 nav 카테고리</div><div class="value">3</div><div class="delta">계산기·텍스트·이미지</div></div>
+            <div class="stat"><div class="label">SW</div><div class="value">v10</div><div class="delta">v9 → v10</div></div>
+            <div class="stat"><div class="label">영향 페이지</div><div class="value">51</div><div class="delta">common/* 변경 = 일괄 적용</div></div>
+          </div>
+
+          <details class="tl-details" open>
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">🧭 Header nav 다중 카테고리화</h3>
+              <table>
+                <thead><tr><th>요소</th><th>이전</th><th>이후</th></tr></thead>
+                <tbody>
+                  <tr><td>nav 항목</td><td>Tools (영어 단일)</td><td>계산기 · 텍스트 · 이미지 (한국어 3개)</td></tr>
+                  <tr><td>active 표시</td><td>없음</td><td>현재 카테고리 강조 (<code>.nav-link.active</code> = primary 색·반투명 배경)</td></tr>
+                  <tr><td>active 판정</td><td>—</td><td>JS에서 <code>path.startsWith('/' + slug + '/')</code> — depth 무관</td></tr>
+                </tbody>
+              </table>
+              <p style="font-size:13px;color:var(--muted);margin-top:6px">의도: 카테고리 발견성 + 한국어 톤 일관(plan §0 사용자 프로필) + footer/privacy/terms 네비 갱신과 일관</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📱 모바일 대응</h3>
+              <ul>
+                <li><code>.site-nav</code> 신규 — flex·gap·white-space:nowrap (좁아도 wrap 안 됨)</li>
+                <li><code>@media (max-width:480px)</code> — header padding 14px, logo 16px, nav 13px·padding 8px</li>
+                <li><code>@media (max-width:360px)</code> — header padding 10px, logo 15px, nav 12px·padding 6px (작은 갤럭시·아이폰 미니 대응)</li>
+                <li><code>.site-header</code> gap 추가로 logo·nav 사이 최소 간격 보장</li>
+                <li><code>.logo</code> <code>flex-shrink:0</code> — 좁은 화면에서 nav가 logo 압축하지 못하게</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔖 Footer 4→3줄 시각 정리</h3>
+              <table>
+                <thead><tr><th>요소</th><th>이전 (4줄)</th><th>이후 (3줄 + 위계)</th></tr></thead>
+                <tbody>
+                  <tr><td>1행</td><td>개인정보·이용약관 링크</td><td>개인정보·이용약관 링크 (margin-bottom 18)</td></tr>
+                  <tr><td>2행</td><td>© 2026 TAYSTUDIO. All Rights Reserved.</td><td><b>입력값은 브라우저 안에서만 처리됩니다</b> (메인·13px·100%)</td></tr>
+                  <tr><td>3행</td><td>입력값은 브라우저 안에서만 처리됩니다 (12px·85%)</td><td>© 2026 TAYSTUDIO. All Rights Reserved. (보조·12px·70%)</td></tr>
+                  <tr><td>4행</td><td>MADE IN SEOUL (시그니처)</td><td><b>제거</b></td></tr>
+                </tbody>
+              </table>
+              <p style="font-size:13px;color:var(--muted);margin-top:6px">의도: ① 차별화 메시지(plan §4.2 핵심)를 메인 위계로 복원 — 직전 ARR 추가 시 우발적으로 보조로 약화된 부분 정정 ② <code>MADE IN SEOUL</code>은 광고 수익에 기여 0이고 시각 노이즈라 제거</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📜 tools/privacy/ 갱신</h3>
+              <ul>
+                <li>시행일 / 최종 개정 → <b>2026-05-05</b></li>
+                <li>2조 (제3자 도구)에 <b>외부 CDN 다운로드 항목 추가</b> — OCR(jsdelivr Tesseract 학습 데이터) + bg-remove(staticimgly.com AI 모델·ONNX Runtime). <b>사용자 이미지·PDF는 미전송, 모델 파일만 inbound</b> 명시. plan §4.3 정책 투명성 보강</li>
+                <li>하단 네비 "→ 33개 계산기 모두 보기" → 4 링크(홈·계산기·텍스트·이미지·PDF) 일반화</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📜 tools/terms/ 갱신</h3>
+              <ul>
+                <li>최종 개정 2026-04-30 → <b>2026-05-05</b> (text·image 카테고리 신설 후 outdated 정정)</li>
+                <li>1조 "한국에서 자주 쓰이는 33가지 실용 계산기" → "한국에서 자주 쓰이는 무료 도구 모음 (계산기 33 / 텍스트 3 / 이미지·PDF 9)" — 카테고리 확장 반영</li>
+                <li>2조 정확성 면책에 <b>이미지 도구(OCR·bg-remove) 정확도 변수</b> 한 줄 추가 — AI 결과 100% 아님, 사용자 검토 필수</li>
+                <li>하단 네비 동일 갱신</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🏗 인프라 변경</h3>
+              <ul>
+                <li><code>common/site-chrome.js</code> — SiteHeader nav 다중 카테고리 + active 동적, SiteFooter 4→3줄</li>
+                <li><code>common/css/style.css</code> — <code>.site-nav</code>, <code>.nav-link</code>, <code>.nav-link.active</code> 스타일 + 모바일 미디어 쿼리 2단(<code>&lt;480px</code>, <code>&lt;360px</code>)</li>
+                <li><code>tools/sw.js</code> CACHE_VERSION v9 → v10 (§7.4 — common/* 변경)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔍 검증</h3>
+              <table>
+                <thead><tr><th>항목</th><th>결과</th></tr></thead>
+                <tbody>
+                  <tr><td>active class 판정</td><td><code>/tools/salary/</code> → 계산기 active / <code>/image/bg-remove/</code> → 이미지 active / <code>/</code> → 모두 비활성 ✓</td></tr>
+                  <tr><td>모바일 360px 시뮬</td><td>logo 15px + nav 12px·6px padding = 한 줄 wrap 없음 ✓</td></tr>
+                  <tr><td>privacy/terms 시행일</td><td>둘 다 2026-05-05 ✓</td></tr>
+                  <tr><td>terms 1조 도구 수</td><td>33 / 3 / 9 명시 ✓</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item minor">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-05</span>
+            <span class="tl-tag">footer</span>
+            <span class="tl-tag">저작권 표기</span>
+            <span class="tl-tag infra">SW v9</span>
+          </div>
+          <div class="tl-title">🔖 Footer에 © All Rights Reserved 표기 추가</div>
+          <div class="tl-summary">
+            <code>common/site-chrome.js</code> <code>&lt;site-footer&gt;</code> 컴포넌트에 <code>© 2026 TAYSTUDIO. All Rights Reserved.</code> 라인 추가. 51 페이지 일괄 적용 (web component 단일 소스). 의도 = DMCA 근거 강화 + 한국 사용자 대상 신뢰 시그널. <b>SEO 영향 0</b> — 저작권 표기는 Google 랭킹 시그널 아님. SW <code>CACHE_VERSION</code> v8 → v9 bump (§7.4 정책 — common/* 변경 시 캐시 invalidate).
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">변경 전 → 후</h3>
+              <table>
+                <thead><tr><th>위치</th><th>이전</th><th>이후</th></tr></thead>
+                <tbody>
+                  <tr><td>footer 라인</td><td>© 2026 TAYSTUDIO · 입력값은 브라우저 안에서만 처리됩니다 (한 줄)</td><td>① <b>© 2026 TAYSTUDIO. All Rights Reserved.</b> ② 입력값은 브라우저 안에서만 처리됩니다 (보조 라인)</td></tr>
+                  <tr><td><code>tools/sw.js</code> CACHE_VERSION</td><td>tayleetools-v8</td><td>tayleetools-v9</td></tr>
+                </tbody>
+              </table>
+              <h3 style="font-size:15px;margin:18px 0 8px">의도</h3>
+              <ul>
+                <li><b>DMCA 근거 강화</b> — 명시 안 해도 ARR이 기본값이지만, 명시 시 분쟁 처리 빠름. 도용 방어 약하게 보강</li>
+                <li><b>AdSense 신뢰 시그널</b> — 콘텐츠 소유권 명확. 승인 심사 시 미세하게 유리</li>
+                <li><b>한국 사용자 신뢰감</b> — footer ARR이 "정식 운영 사이트" 인식 강화</li>
+              </ul>
+              <h3 style="font-size:15px;margin:18px 0 8px">SEO 영향 검토</h3>
+              <ul>
+                <li>저작권 표기는 Google 랭킹 시그널 아님 (공식 가이드 무관)</li>
+                <li><code>&lt;meta name="copyright"&gt;</code>는 Google 무시 — 추가 안 함</li>
+                <li>JSON-LD <code>copyrightHolder</code>도 SEO 효과 미미 — 추가 안 함</li>
+                <li>Google Image Search "Creative Commons" 필터에서 제외되긴 하지만 image search가 핵심 트래픽 채널 아님 — 무시 가능</li>
+              </ul>
+              <h3 style="font-size:15px;margin:18px 0 8px">관련 결정</h3>
+              <ul>
+                <li><code>LICENSE</code> 파일은 <b>추가 안 함</b> — 부재 = ARR 기본값. contributor 받을 의향 생기면 그때 박는 결정</li>
+                <li>plan §9.1 결정 항목에 기록</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-05</span>
+            <span class="tl-tag feature">SEO Tier 1.1 후속</span>
+            <span class="tl-tag">og:image 카피</span>
+            <span class="tl-tag">메타 보강</span>
+          </div>
+          <div class="tl-title">🔧 OG 이미지 카피 일반화 + 51 파일 메타 보강</div>
+          <div class="tl-summary">
+            전 작업 OG rollout(Tier 1.1) 후속 정리. ① OG 이미지 카피 일반화 — "한국에서 자주 쓰는" → "자주 쓰는", 카테고리 칩 숫자 제거(<code>계산기 33</code>·<code>텍스트 3</code>·<code>이미지 9</code> → <code>계산기</code>·<code>텍스트</code>·<code>이미지</code>). 도구 추가 시 OG 자산 재생성 부담 제거. ② 51 파일 OG 메타 audit 결과 누락 항목 일괄 보강 — <code>og:image:type</code>, <code>og:image:secure_url</code>, <code>twitter:image:alt</code> 모두 0/51 → 51/51. iMessage·Outlook 호환성 + 트위터 접근성 보강.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat"><div class="label">메타 보강</div><div class="value">51</div><div class="delta">파일 일괄</div></div>
+            <div class="stat"><div class="label">신규 메타</div><div class="value">3</div><div class="delta">type · secure_url · twitter alt</div></div>
+            <div class="stat"><div class="label">OG 이미지 갱신</div><div class="value">2</div><div class="delta">svg + png</div></div>
+            <div class="stat"><div class="label">의도적 제외</div><div class="value">2</div><div class="delta">history · 404</div></div>
+          </div>
+
+          <details class="tl-details" open>
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">🎨 OG 이미지 카피 변경</h3>
+              <table>
+                <thead><tr><th>요소</th><th>변경 전</th><th>변경 후</th></tr></thead>
+                <tbody>
+                  <tr><td>서브타이틀</td><td>한국에서 자주 쓰는 무료 도구 모음</td><td><b>자주 쓰는 무료 도구 모음</b></td></tr>
+                  <tr><td>카테고리 칩 1</td><td>🧮 계산기 33</td><td>🧮 계산기</td></tr>
+                  <tr><td>카테고리 칩 2</td><td>📝 텍스트 3</td><td>📝 텍스트</td></tr>
+                  <tr><td>카테고리 칩 3</td><td>📸 이미지 9</td><td>📸 이미지</td></tr>
+                  <tr><td>칩 폭</td><td>160·140·140 (불균일)</td><td>140 균일 (한글 3자 통일)</td></tr>
+                </tbody>
+              </table>
+              <p style="font-size:13px;color:var(--muted);margin-top:6px">의도: ① 도구 수 늘 때마다 OG 자산 재생성 부담 제거 ② 톤 일반화 — <code>한국에서</code> 제외로 한국 외 검색 유입에도 무난</p>
+              <p>새 PNG 519KB (1200×630 RGBA, Chrome headless 재렌더). 카톡 5MB · 페이스북 8MB · X 5MB 한계 전부 통과.</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔧 51 파일 메타 보강</h3>
+              <table>
+                <thead><tr><th>메타</th><th>이전</th><th>이후</th><th>효과</th></tr></thead>
+                <tbody>
+                  <tr><td><code>og:image:type</code></td><td>0/51</td><td>51/51 = <code>image/png</code></td><td>iMessage·일부 슬랙 봇 미리보기 안정성</td></tr>
+                  <tr><td><code>og:image:secure_url</code></td><td>0/51</td><td>51/51 = https URL</td><td>iMessage 일부 버전·Outlook 까다로운 클라이언트 호환</td></tr>
+                  <tr><td><code>twitter:image:alt</code></td><td>0/51</td><td>51/51 = 기존 og:image:alt 재사용</td><td>트위터 접근성·SEO 시그널</td></tr>
+                </tbody>
+              </table>
+              <p style="font-size:13px;color:var(--muted);margin-top:6px"><code>/tmp/apply_og_meta.py</code> idempotent 스크립트 — og:image 라인 다음에 secure_url+type 삽입, twitter:image 라인 다음에 alt 삽입. 이미 있는 메타는 skip. <code>EXCLUDE = {"history/index.html", "tools/404.html"}</code></p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🚫 의도적 제외 (결정 기록)</h3>
+              <ul>
+                <li><code>history/index.html</code> — <b>운영자 전용 페이지로 결정.</b> <code>noindex, follow</code>이라 SERP 영향 X, SNS 공유도 의도하지 않음. 향후 OG audit 대상에서도 제외</li>
+                <li><code>tools/404.html</code> — SNS 공유 의미 없음. 기존 결정 유지</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">✅ 잔존 작업 마무리 (2026-05-05 추가)</h3>
+              <ul>
+                <li>✅ <code>og:image:alt</code> + <code>twitter:image:alt</code> 텍스트 톤 일치 51 파일 일괄 — "TAYSTUDIO — 한국 실생활 도구 모음" → "TAYSTUDIO — 자주 쓰는 무료 도구 모음". OG 이미지 카피와 일관 (※ 단순 sed replace 시 본 article의 OLD 인용도 같이 매치돼 history도 1번 변경 — 의도된 영향)</li>
+                <li>🟡 카톡 미리보기 캐시 수동 flush — <a href="https://developers.kakao.com/tool/clear/og">developers.kakao.com/tool/clear/og</a> (사용자 직접 액션, 자동화 불가)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔍 검증</h3>
+              <table>
+                <thead><tr><th>항목</th><th>결과</th></tr></thead>
+                <tbody>
+                  <tr><td><code>og:image:type</code> count</td><td>51/51 ✓</td></tr>
+                  <tr><td><code>og:image:secure_url</code> count</td><td>51/51 ✓</td></tr>
+                  <tr><td><code>twitter:image:alt</code> count</td><td>51/51 ✓</td></tr>
+                  <tr><td>og-image.png 사양</td><td>1200×630 RGBA, 519KB ✓</td></tr>
+                  <tr><td>의도적 제외 확인</td><td><code>history/index.html</code> · <code>tools/404.html</code> ✓</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📁 관련 파일</h3>
+              <ul>
+                <li><code>og-image.svg</code> · <code>og-image.png</code> — 카피 갱신 + 폭 균일화</li>
+                <li><code>history/seo/2026-05-05-og-meta-followup.md</code> — 상세 기록</li>
+                <li><code>plan.md</code> §9.1 (결정 기록) · §9.4-1 (잔존 작업 추적)</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item major">
