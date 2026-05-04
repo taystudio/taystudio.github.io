@@ -138,7 +138,7 @@
     <h1>📜 변경 이력</h1>
     <p class="subtitle">사이트에서 일어난 일을 시간 역순으로 — 도구 추가, 세율 갱신, SEO·인프라 작업까지.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
-      <b>마지막 갱신</b>: 2026-05-05 · <span style="opacity:.7">image/ 카테고리 7개 도구 모두 출시 (batch 2 + batch 3 동시) — qr-gen·qr-scan·pdf-merge·pdf-split·ocr 추가. 라이브러리 4종 vendoring 완료. 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
+      <b>마지막 갱신</b>: 2026-05-05 · <span style="opacity:.7">image/ 9선으로 확장 — img-to-pdf + bg-remove(@imgly AI) 추가. 7→9선. 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
     </p>
 
     <div class="legend">
@@ -148,6 +148,120 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item major">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-05</span>
+            <span class="tl-tag feature">+2 도구</span>
+            <span class="tl-tag feature">9선</span>
+            <span class="tl-tag">AI 첫 도입</span>
+            <span class="tl-tag">ESM 첫 도입</span>
+          </div>
+          <div class="tl-title">🤖 image/ 9선 — 이미지→PDF + 배경 제거(AI 누끼) 추가</div>
+          <div class="tl-summary">
+            사용자 요청으로 image/에 도구 2개 추가. <code>img-to-pdf</code>는 pdf-lib 재사용해 다중 이미지를 1 PDF로(A4·Letter·원본 크기 옵션). <code>bg-remove</code>는 <b>@imgly/background-removal AI</b>를 사용한 자동 배경 제거 → 투명 PNG 다운로드. ONNX Runtime Web(WASM)으로 브라우저 내에서 추론, 사이트의 <b>첫 AI 도구</b>. image/ 카테고리는 7선 → 9선으로 확장.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat"><div class="label">신규 도구</div><div class="value">2</div><div class="delta">img-to-pdf · bg-remove</div></div>
+            <div class="stat"><div class="label">image/ 총 도구</div><div class="value">9</div><div class="delta">7 → 9</div></div>
+            <div class="stat"><div class="label">사이트 총 도구</div><div class="value">45</div><div class="delta">계산기 33 + 텍스트 3 + 이미지 9</div></div>
+            <div class="stat"><div class="label">sitemap URL</div><div class="value">51</div><div class="delta">+2</div></div>
+          </div>
+
+          <details class="tl-details" open>
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">🆕 신규 도구</h3>
+              <table>
+                <thead><tr><th>도구</th><th>슬러그</th><th>핵심 기능</th><th>라이브러리</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>🖼️ 이미지 → PDF</td>
+                    <td><code>image/img-to-pdf/</code></td>
+                    <td>다중 이미지 누적·정렬(↑·↓·✕) → 페이지 크기(A4·Letter·원본) + 방향 + 여백 → 1 PDF. JPG는 embedJpg, PNG는 embedPng, WebP/GIF/BMP는 canvas 경유 PNG 변환</td>
+                    <td>pdf-lib 재사용 (vendor에서 공유)</td>
+                  </tr>
+                  <tr>
+                    <td>✂️ 배경 제거 (누끼)</td>
+                    <td><code>image/bg-remove/</code></td>
+                    <td>이미지 업로드 → AI 자동 배경 제거 → 투명 PNG 다운로드. 진행률 UI(다운로드/추론). 원본·결과 좌우 비교(체커보드 배경)</td>
+                    <td>@imgly/background-removal v1.7 (small=isnet_quint8 ~43MB, AGPL/Commercial)</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📦 @imgly vendoring 결정 (사이트 첫 ESM)</h3>
+              <p>패키지가 <b>ESM-only</b>(CJS·UMD 미제공)라 일반 <code>&lt;script&gt;</code> 태그로 불러올 수 없음. 결정한 패턴:</p>
+              <ul>
+                <li><b>esm.sh의 self-contained bundle</b>(<code>?bundle</code> 플래그)로 dependency까지 1 파일로 합친 후 vendoring</li>
+                <li><code>image/vendor/imgly-bg-remove.mjs</code> 82KB (ESM, exports: <code>removeBackground</code> · <code>preload</code> · <code>segmentForeground</code> 등)</li>
+                <li>HTML에 <code>&lt;script type="module" src="./bg-remove.js"&gt;</code> 사용 — <b>사이트 첫 ESM module 로딩</b>. 도구 JS 안에서 <code>import { removeBackground } from '/image/vendor/imgly-bg-remove.mjs'</code></li>
+                <li>모델·ONNX Runtime WASM(~43MB+)은 <code>staticimgly.com</code> CDN에서 첫 사용 시 다운로드 → 브라우저 IndexedDB·HTTP 캐시</li>
+                <li>Tesseract.js(OCR)와 동일 패턴 — <b>사용자 이미지는 외부로 안 나감</b>, 모델만 inbound</li>
+              </ul>
+              <p style="font-size:13px;color:var(--muted);margin-top:6px">기존 도구는 모두 UMD/IIFE를 <code>defer</code> script로 로딩했는데, ESM-only 패키지가 늘어나는 추세라 이 패턴이 향후 표준이 될 가능성. 다만 ESM은 정적 분석이 안 돼 SW 캐시·preload 처리에 추가 작업 필요(현재는 deferred 처리).</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⚠️ 사용자 안내 정책</h3>
+              <ul>
+                <li><b>OCR과 같은 패턴</b> 페이지 내부 inline disclaimer 박스 — "첫 사용 시 ~43MB 다운로드, Wi-Fi 권장"</li>
+                <li>결과 품질 한계 명시 — 머리카락·털 미세 디테일은 small 모델 한계, medium·large 옵션은 후속 검토</li>
+                <li>privacy-box: 모델·런타임이 staticimgly.com에서 받아진다는 사실 명시 (사용자 이미지는 미전송)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📁 img-to-pdf 디테일</h3>
+              <ul>
+                <li>페이지 크기: A4(210×297mm) / Letter(8.5×11in) / 원본 크기(픽셀=pt)</li>
+                <li>방향: 자동(이미지 비율 추론) / 세로 / 가로</li>
+                <li>여백: 0~30mm 슬라이더 (mm→pt 변환 = 72/25.4)</li>
+                <li>비율 유지 + 중앙 배치 (고정 페이지 크기일 때)</li>
+                <li>일부 JPEG가 embedJpg 거부할 때 PNG 변환 fallback</li>
+                <li>총 페이지 = 입력 이미지 수 (1 이미지 = 1 페이지)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔍 검증</h3>
+              <table>
+                <thead><tr><th>도구</th><th>JS 문법</th><th>JSON-LD</th><th>FAQ DOM ↔ JSON-LD</th><th>태그 밸런스</th></tr></thead>
+                <tbody>
+                  <tr><td>img-to-pdf</td><td>node --check ✓</td><td>parse ✓</td><td>6=6</td><td>109/109</td></tr>
+                  <tr><td>bg-remove</td><td>ESM check ✓</td><td>✓</td><td>6=6</td><td>113/113</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🏗 인프라 변경</h3>
+              <ul>
+                <li><code>image/index.html</code> — 7카드 → 9카드, ItemList JSON-LD 9 entry, 카운트 "7" → "9"</li>
+                <li>루트 <code>index.html</code> — image hub "LIVE · 7선" → "9선", hasPart description, meta·OG·title, 미리보기 6 카드(bg-remove·img-to-pdf 우선 노출)</li>
+                <li>sitemap.xml 재빌드 — 49 → <b>51 URL</b></li>
+                <li><code>image/vendor/imgly-bg-remove.mjs</code> 신규 (ESM, 82KB)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📈 트래픽 기대</h3>
+              <ul>
+                <li><b>img-to-pdf</b>: "사진 PDF 변환"·"이미지 PDF 만들기"·"JPG PDF" — pdf-merge 검색 카니발 흡수 가능</li>
+                <li><b>bg-remove</b>: "배경 제거 무료"·"누끼 따기"·"투명 PNG" — remove.bg/photoroom 클론 시장. 차별화 = 외부 전송 X + 무료 무제한</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📊 사이트 누적 (2026-05-05 종료 시점)</h3>
+              <ul>
+                <li><b>도구 총 45선</b> = 계산기 33 + 텍스트 3 + 이미지 9</li>
+                <li><b>sitemap 51 URL</b> = 루트 1 + tools/ 35 + text/ 4 + image/ 10 (hub 1 + 도구 9) + 기타</li>
+                <li><b>vendor 5종</b> = qrcode-generator·jsQR·pdf-lib·tesseract·imgly-bg-remove (총 ~931KB repo, 모델·WASM lazy)</li>
+                <li><b>외부 CDN 의존</b>(런타임 lazy) = jsdelivr(Tesseract 학습 데이터) + staticimgly.com(@imgly 모델·ONNX WASM). 모두 IndexedDB·HTTP 캐시</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⏭ 후속</h3>
+              <ul>
+                <li>실기기 manual test — 특히 bg-remove의 첫 모델 다운로드 흐름·메모리·iOS Safari WASM 동작</li>
+                <li>medium/large 모델 옵션 토글 (사용자 피드백 봐서)</li>
+                <li>다음 카테고리 = test/ (plan §5) 또는 PWA 통합 (A안 — 루트 manifest)</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item major">
