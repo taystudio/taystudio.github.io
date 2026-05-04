@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../tools/favicon.svg">
+  <title>변경 이력 — TAYSTUDIO</title>
+  <meta name="description" content="TAYSTUDIO 사이트 변경 이력 — 도구 추가, 세율 갱신, SEO 작업, 인프라 변경을 시간 역순으로 가시화.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://taystudio.github.io/history/">
+  <link rel="stylesheet" href="../tools/css/style.css">
+  <style>
+    .timeline { position: relative; margin-top: 32px; padding-left: 28px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px;
+      width: 2px; background: var(--border);
+    }
+    .tl-item { position: relative; margin-bottom: 28px; }
+    .tl-item::before {
+      content: ''; position: absolute; left: -28px; top: 18px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--card); border: 3px solid var(--primary);
+      box-shadow: 0 0 0 4px var(--bg);
+    }
+    .tl-item.minor::before { border-color: var(--muted); }
+    .tl-item.major::before { border-color: var(--accent); width: 16px; height: 16px; left: -29px; top: 17px; }
+    .tl-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px; box-shadow: var(--shadow);
+    }
+    .tl-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
+    .tl-date { font-size: 13px; color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
+    .tl-tag {
+      display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px;
+      background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+      font-weight: 500;
+    }
+    .tl-tag.feature { background: #2563eb1a; color: var(--primary); border-color: #2563eb33; }
+    .tl-tag.infra { background: #f59e0b1a; color: #b45309; border-color: #f59e0b33; }
+    .tl-tag.seo { background: #10b9811a; color: #047857; border-color: #10b98133; }
+    .tl-tag.fix { background: #ef44441a; color: #b91c1c; border-color: #ef444433; }
+    @media (prefers-color-scheme: dark) {
+      .tl-tag.feature { color: #93c5fd; }
+      .tl-tag.infra { color: #fbbf24; }
+      .tl-tag.seo { color: #6ee7b7; }
+      .tl-tag.fix { color: #fca5a5; }
+    }
+    .tl-title { font-size: 17px; font-weight: 700; flex: 1; min-width: 200px; }
+    .tl-summary { color: var(--text); margin-bottom: 10px; }
+    .tl-details { margin-top: 10px; }
+    .tl-details summary {
+      cursor: pointer; color: var(--muted); font-size: 13px; padding: 6px 0;
+      list-style: none; user-select: none;
+    }
+    .tl-details summary::before { content: '▸ '; transition: transform .2s; display: inline-block; }
+    .tl-details[open] summary::before { content: '▾ '; }
+    .tl-details summary:hover { color: var(--primary); }
+    .tl-body { padding: 12px 0 4px; font-size: 14px; line-height: 1.7; }
+    .tl-body table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+    .tl-body th, .tl-body td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+    .tl-body th { font-weight: 600; color: var(--muted); background: var(--bg); }
+    .tl-body td.num, .tl-body th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .tl-body code {
+      background: var(--bg); padding: 1px 6px; border-radius: 4px;
+      font-size: 12px; font-family: ui-monospace, SFMono-Regular, monospace;
+    }
+    .tl-body pre {
+      background: var(--bg); padding: 12px 14px; border-radius: 8px;
+      overflow-x: auto; font-size: 12px; line-height: 1.5;
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      border: 1px solid var(--border);
+    }
+    .tl-body ul { padding-left: 22px; margin: 8px 0; }
+    .tl-body li { margin: 4px 0; }
+    .tl-body a { color: var(--primary); }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px; margin: 16px 0;
+    }
+    .stat {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 14px; text-align: center;
+    }
+    .stat .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat .value { font-size: 22px; font-weight: 700; color: var(--text); margin-top: 4px; }
+    .stat .delta { font-size: 12px; color: var(--success); margin-top: 2px; }
+    .legend {
+      display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px;
+      color: var(--muted); margin: 16px 0 24px;
+    }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .legend .dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid; background: var(--card); }
+    .legend .dot.major { border-color: var(--accent); }
+    .legend .dot.feature { border-color: var(--primary); }
+    .legend .dot.minor { border-color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="../" class="logo">TAYSTUDIO</a>
+    <nav><a href="../tools/" style="margin-right:16px">Tools</a><a href="./" style="color:var(--primary)">History</a></nav>
+  </header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../">Home</a> · 변경 이력</div>
+    <h1>📜 변경 이력</h1>
+    <p class="subtitle">사이트에서 일어난 일을 시간 역순으로 — 도구 추가, 세율 갱신, SEO·인프라 작업까지.</p>
+
+    <div class="legend">
+      <span><span class="dot major"></span> 주요 마일스톤</span>
+      <span><span class="dot feature"></span> 기능·도구 변경</span>
+      <span><span class="dot minor"></span> 세부 변경</span>
+    </div>
+
+    <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item major">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-04</span>
+            <span class="tl-tag feature">+3 도구</span>
+            <span class="tl-tag">부동산</span>
+            <span class="tl-tag">금융·세금</span>
+          </div>
+          <div class="tl-title">🆕 부동산·세금 카테고리 확장 (30선 → 33선)</div>
+          <div class="tl-summary">
+            한국에서 검색량 큰 누락 항목 3가지를 추가. 기존 양도세·재산세·종부세·상속세에 짝꿍이 되는 도구들로, 카테고리 권위(authority) 강화를 노림.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat"><div class="label">총 도구</div><div class="value">33</div><div class="delta">+3</div></div>
+            <div class="stat"><div class="label">부동산</div><div class="value">6</div><div class="delta">+2</div></div>
+            <div class="stat"><div class="label">금융·세금</div><div class="value">10</div><div class="delta">+1</div></div>
+            <div class="stat"><div class="label">sitemap URL</div><div class="value">37</div><div class="delta">+3</div></div>
+          </div>
+
+          <details class="tl-details" open>
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">신규 도구 3종</h3>
+              <table>
+                <thead><tr><th>도구</th><th>슬러그</th><th>핵심 법령</th><th>검증일</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>🧾 부동산 취득세</td>
+                    <td><code>tools/acqtax/</code></td>
+                    <td>지방세법 제11조·제13조의2·제150조·제151조 / 농특세법 제5조</td>
+                    <td>2026-05-04</td>
+                  </tr>
+                  <tr>
+                    <td>🎁 증여세</td>
+                    <td><code>tools/gifttax/</code></td>
+                    <td>상증법 제53조·제53조의2·제56조·제57조·제69조</td>
+                    <td>2026-05-04</td>
+                  </tr>
+                  <tr>
+                    <td>🔁 전월세 전환</td>
+                    <td><code>tools/rent-convert/</code></td>
+                    <td>주임법 제7조의2 + 시행령 제9조 / 상임법 제12조 + 시행령 제5조</td>
+                    <td>2026-05-04</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">핵심 산식</h3>
+<pre>주택 1주택 매매 (지방세법 제11조 제1항 제8호):
+  ≤ 6억:        1.0%
+  6억~9억:     (가액 × 2/3억 − 3) × 1/100   (선형 1.01% ~ 2.99%)
+  > 9억:        3.0%
+다주택 중과 (제13조의2):  조정 2주택·법인 → 8% / 조정 3주택+ → 12%
+
+증여세 (상증법 제56조) — 1억(10%) → 5억(20%) → 10억(30%) → 30억(40%) → 50%
+공제 (제53조)         — 배우자 6억 / 직계 5천(미성년 2천) / 친족 1천
+혼인·출산 공제 (제53조의2, 2024 신설) — 직계존속 → 자녀 1억 (혼인+출산 합산)
+
+전월세 전환 (주임법 제7조의2 + 시행령 제9조):
+  법정 상한 = min(기준금리 + 2%,  기준금리 × 4)
+  기준금리 2.50% → min(4.5%, 10%) = 4.5% 한도</pre>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">변경된 파일 (총 41개)</h3>
+              <ul>
+                <li><b>신규 6 files</b> — <code>tools/acqtax/</code> · <code>tools/gifttax/</code> · <code>tools/rent-convert/</code> 각 디렉토리에 <code>index.html</code> + <code>&lt;slug&gt;.js</code></li>
+                <li><b>허브·메타 갱신</b> — <code>tools/index.html</code> (카드 추가, 카운트 4→6 / 9→10), <code>index.html</code> (루트 hub), <code>tools/manifest.webmanifest</code>, <code>tools/404.html</code>, <code>tools/README.md</code></li>
+                <li><b>SW 캐시</b> — <code>tools/sw.js</code> CACHE_VERSION v4 → v5</li>
+                <li><b>Sitemap</b> — <code>sitemap.xml</code> 자동 재빌드 (34 → 37 URL)</li>
+                <li><b>일괄 갱신</b> — 33개 도구 페이지 푸터 "→ 33개 계산기 모두 보기" sed 일괄</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">출처 검증 정책 준수</h3>
+              <ul>
+                <li><b>증여세</b> — 국세청 <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=6532&cntntsId=7960" target="_blank" rel="noopener">개인신고안내·증여세</a> 페이지 직접 확인 (세율표·공제 한도)</li>
+                <li><b>혼인·출산 공제 1억</b> — 상증법 제53조의2 (2024.1.1 시행), 국세상담센터 Q&amp;A 확인</li>
+                <li><b>한국은행 기준금리 2.50%</b> — <a href="https://www.bok.or.kr/portal/singl/baseRate/list.do?dataSeCd=01&menuNo=200643" target="_blank" rel="noopener">기준금리 추이</a> 페이지 (2026-04-10 통화정책방향 결정회의 동결)</li>
+                <li><b>취득세</b> — 지방세법 제11조·제13조의2 + <a href="https://www.wetax.go.kr/tcp/loi/J030801M01.do" target="_blank" rel="noopener">위택스 미리계산</a> 권장 (다주택 중과 인하안 모니터링)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⚠️ 모니터링 중인 정책 변동</h3>
+              <table>
+                <thead><tr><th>사안</th><th>현재 적용</th><th>주의</th></tr></thead>
+                <tbody>
+                  <tr><td>다주택 취득세 한시 인하 (8→6%, 12→8%)</td><td>현행 8/12%</td><td>법 개정 확인 시까지 보수적</td></tr>
+                  <tr><td>증여세 자녀공제 5천→5억 / 최고세율 50→40%</td><td>현행 유지</td><td>국세청 공식 페이지 미반영</td></tr>
+                  <tr><td>한국은행 기준금리</td><td>2.50% (2026-04-10)</td><td>회의마다 변동, 사용자 입력으로 즉시 반영</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item major">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-03</span>
+            <span class="tl-tag seo">SEO Phase 1</span>
+            <span class="tl-tag infra">인프라</span>
+          </div>
+          <div class="tl-title">🔍 검색엔진 발견 가능성 확보</div>
+          <div class="tl-summary">
+            sitemap·robots.txt 표준화 + Google Search Console·네이버 Search Advisor 등록. 신규 사이트의 <em>발견·크롤링·색인</em> 파이프라인 완성.
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <ul>
+                <li><b>sitemap.xml 위치 표준화</b> — <code>tools/sitemap.xml</code> (오류 위치) → <code>/sitemap.xml</code> (도메인 root). 검색엔진 자동 발견을 위해 root 필수</li>
+                <li><b>robots.txt 신규</b> — repo root에 신설. 모든 크롤러 허용 + sitemap 위치 안내. AI 봇 차단 X (수익 우선 결정)</li>
+                <li><b>scripts/build-sitemap.sh 신규</b> — 모든 <code>index.html</code>에서 canonical URL 추출 + git log lastmod 자동 채움. 새 도구 추가 시 <code>bash scripts/build-sitemap.sh</code> 한 번이면 됨</li>
+                <li><b>Google Search Console 등록</b> — 도메인 소유권 확인 + sitemap 제출</li>
+                <li><b>네이버 Search Advisor 등록</b> — 한국 시장 노출 (네이버는 별도 색인)</li>
+                <li><b>tools/SEO_SETUP.md 신규</b> — Phase 1~5 플랜 + 개념 정리 + 진행 로그</li>
+              </ul>
+              <p style="color:var(--muted);font-size:13px;margin-top:12px">관련 commit: <code>094e734</code> (seo) · <code>5c9dfc4</code> (naver, google site)</p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-03</span>
+            <span class="tl-tag infra">AdSense 준비</span>
+          </div>
+          <div class="tl-title">💰 ads.txt + 광고 placeholder 셋업</div>
+          <div class="tl-summary">
+            AdSense 신청을 위한 인프라 정비. 33개 도구 페이지에 광고 자리만 마련 (publisher ID는 승인 후 적용).
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <ul>
+                <li><b>ads.txt</b> — repo root에 생성 (AdSense 도메인 소유권 검증용)</li>
+                <li><b>광고 placeholder</b> — 모든 도구 페이지의 <code>&lt;div class="ad-slot"&gt;[ AdSense 광고 자리 ]&lt;/div&gt;</code></li>
+                <li><b>head 주석 처리된 AdSense 스크립트</b> — publisher ID 승인 후 풀어서 활성화</li>
+                <li><b>tools/ADSENSE_SETUP.md</b> — 의사결정 근거·체크리스트 통합 문서</li>
+              </ul>
+              <p style="color:var(--muted);font-size:13px;margin-top:12px">현재 상태: <b>승인 대기 중</b> (사이트 배포 + 트래픽 누적 후 신청 예정). 관련 commit: <code>59b967b</code> (ads.txt) · <code>bfba301</code> (ad)</p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item major">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-03</span>
+            <span class="tl-tag infra">도메인 이전</span>
+            <span class="tl-tag fix">대규모 갱신</span>
+          </div>
+          <div class="tl-title">🏠 단일 repo 통합 (taystudio.github.io)</div>
+          <div class="tl-summary">
+            기존 <code>taehyuklee.github.io/Archive/tools/</code> Project Pages → <code>taystudio.github.io/tools/</code> User Pages로 이전. URL이 짧아지고 ads.txt가 같은 repo 루트에 들어감.
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <p><b>이전 전</b>: <code>taystudio.github.io/studio/tools/salary/</code> (Project Pages, dual-repo plan)</p>
+              <p><b>이전 후</b>: <code>taystudio.github.io/tools/salary/</code> (User Pages, 단일 repo)</p>
+              <p style="margin-top:8px"><b>비용</b>:</p>
+              <ul>
+                <li>모든 절대경로 (<code>/studio/...</code>) + canonical URL을 <code>/</code> 기준으로 일괄 치환 (37 파일, ~230곳)</li>
+                <li><code>BASE = '/studio'</code> 상수 → <code>BASE = ''</code></li>
+                <li>Service Worker 캐시 버전 업 (옛 경로 캐시 무효화)</li>
+              </ul>
+              <p style="margin-top:8px"><b>이득</b>:</p>
+              <ul>
+                <li>더 짧고 깔끔한 URL (CTR·기억성에 유리)</li>
+                <li>ads.txt가 같은 repo 루트에 들어감 → repo 한 개로 통합 운영</li>
+                <li>외부 도구(AdSense·Search Console)에 등록할 도메인이 사이트 그 자체</li>
+              </ul>
+              <p style="color:var(--muted);font-size:13px;margin-top:12px">관련 commit: <code>9a95ea9</code> (change of dir name) · <code>363d6f1</code> (change of dir)</p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-03</span>
+            <span class="tl-tag seo">분석</span>
+          </div>
+          <div class="tl-title">📊 Google Analytics 4 셋업</div>
+          <div class="tl-summary">
+            방문자 행동·페이지별 트래픽 추적용 GA4 측정 코드 삽입. 어떤 도구가 트래픽이 잘 나오는지 데이터로 판단할 수 있게 됨.
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <p>관련 commit: <code>6687c16</code> (google analytics)</p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item major">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-04-30</span>
+            <span class="tl-tag feature">최초 구축</span>
+          </div>
+          <div class="tl-title">🚀 사이트 초기 구축 (30개 도구)</div>
+          <div class="tl-summary">
+            한국에서 자주 검색되는 세금·금융·근로·육아·건강 계산기 30개를 정적 HTML/CSS/JS로 구축. 100% 클라이언트 사이드, 입력값 외부 전송 없음.
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat"><div class="label">초기 도구</div><div class="value">30</div></div>
+            <div class="stat"><div class="label">카테고리</div><div class="value">7</div></div>
+            <div class="stat"><div class="label">백엔드</div><div class="value">0</div></div>
+          </div>
+
+          <details class="tl-details">
+            <summary>카테고리 구성 보기</summary>
+            <div class="tl-body">
+              <table>
+                <thead><tr><th>카테고리</th><th class="num">개수</th><th>도구</th></tr></thead>
+                <tbody>
+                  <tr><td>🏠 부동산</td><td class="num">4</td><td>중개수수료, 재산세, 종부세, 양도세</td></tr>
+                  <tr><td>💰 금융·세금</td><td class="num">9</td><td>연봉, 연말정산, 종합소득세, 부가세, 상속세, 4대보험, 대출, 적금, 복리</td></tr>
+                  <tr><td>👔 근로·고용</td><td class="num">6</td><td>시급↔월급, 주휴수당, 연차수당, 퇴직금, 실업급여, 육아휴직</td></tr>
+                  <tr><td>👶 임신·육아</td><td class="num">5</td><td>출산예정일, 배란일, 분유량, 아기옷, 성장백분위</td></tr>
+                  <tr><td>🚗 자동차</td><td class="num">2</td><td>취득세, 자동차세</td></tr>
+                  <tr><td>⚖️ 건강</td><td class="num">2</td><td>BMI, 칼로리(BMR/TDEE)</td></tr>
+                  <tr><td>📅 생활</td><td class="num">2</td><td>만 나이, D-day</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">기술 스택</h3>
+              <ul>
+                <li><b>순수 HTML/CSS/JS</b> — 백엔드·DB·서드파티 라이브러리 없음</li>
+                <li><b>PWA</b> — manifest.webmanifest + Service Worker (오프라인 지원)</li>
+                <li><b>다크모드 자동</b> — <code>prefers-color-scheme</code></li>
+                <li><b>공통 CSS 1개</b> — <code>tools/css/style.css</code></li>
+                <li><b>JSON-LD 구조화 데이터</b> — WebApplication + BreadcrumbList + FAQPage</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">정확성 정책</h3>
+              <ul>
+                <li>각 도구 HTML 하단 <code>&lt;section class="sources"&gt;</code> 필수 — 적용 법령 조문 + 공식 출처 링크</li>
+                <li>각 JS 파일 헤더 주석에 출처 명시 — 미래 갱신 시 검증 경로 보전</li>
+                <li>수치 변경 시 공식 페이지 직접 확인 (블로그·언론 인용 금지)</li>
+                <li><code>updated</code> 일자 기록</li>
+              </ul>
+
+              <p style="color:var(--muted);font-size:13px;margin-top:12px">관련 commit: <code>181312f</code> (Initial commit) · <code>4188a0a</code> (let's go)</p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+    </div>
+
+    <hr style="margin:48px 0 24px;border:none;border-top:1px solid var(--border)">
+
+    <h2 style="font-size:18px;margin-bottom:12px">📂 관련 문서</h2>
+    <ul style="padding-left:22px;line-height:2">
+      <li><a href="../tools/HANDOFF.md">tools/HANDOFF.md</a> — 다른 Claude 세션 인계용 종합 문서</li>
+      <li><a href="../tools/README.md">tools/README.md</a> — 운영 매뉴얼·도구 목록·갱신 체크리스트</li>
+      <li><a href="../tools/SEO_SETUP.md">tools/SEO_SETUP.md</a> — SEO 작업 개념·진행 로그</li>
+      <li><a href="../tools/ADSENSE_SETUP.md">tools/ADSENSE_SETUP.md</a> — AdSense 의사결정·체크리스트</li>
+      <li><a href="../tools/MONETIZATION.md">tools/MONETIZATION.md</a> — 수익화 통합 가이드</li>
+    </ul>
+
+    <h2 style="font-size:18px;margin:32px 0 12px">📝 다음 변경 시 기록 양식</h2>
+    <p style="color:var(--muted);font-size:14px">새 변경이 생기면 이 페이지 timeline 최상단에 <code>&lt;article class="tl-item"&gt;</code> 블록을 추가하세요.</p>
+<pre style="background:var(--bg);padding:14px;border-radius:8px;font-size:12px;font-family:ui-monospace,monospace;border:1px solid var(--border);overflow-x:auto;margin-top:8px">&lt;article class="tl-item"&gt;          &lt;!-- minor: 일반 / major: 마일스톤 --&gt;
+  &lt;div class="tl-card"&gt;
+    &lt;div class="tl-head"&gt;
+      &lt;span class="tl-date"&gt;YYYY-MM-DD&lt;/span&gt;
+      &lt;span class="tl-tag feature"&gt;변경 종류&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="tl-title"&gt;한 줄 요약&lt;/div&gt;
+    &lt;div class="tl-summary"&gt;변경의 why · 영향 범위&lt;/div&gt;
+    &lt;details class="tl-details"&gt;
+      &lt;summary&gt;상세 보기&lt;/summary&gt;
+      &lt;div class="tl-body"&gt; ... &lt;/div&gt;
+    &lt;/details&gt;
+  &lt;/div&gt;
+&lt;/article&gt;</pre>
+
+    <nav style="text-align:center;margin-top:48px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px;margin-right:24px">← 홈으로</a>
+      <a href="../tools/" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 33개 계산기 모두 보기</a>
+    </nav>
+  </main>
+</body>
+</html>

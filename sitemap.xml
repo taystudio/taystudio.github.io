@@ -13,6 +13,11 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://taystudio.github.io/tools/acqtax/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://taystudio.github.io/tools/age/</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -97,6 +102,11 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://taystudio.github.io/tools/gifttax/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://taystudio.github.io/tools/growth/</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -153,6 +163,11 @@
   <url>
     <loc>https://taystudio.github.io/tools/property-tax/</loc>
     <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://taystudio.github.io/tools/rent-convert/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

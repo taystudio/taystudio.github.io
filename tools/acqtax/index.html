@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO 계산기">
+  <meta property="og:title" content="부동산 취득세 계산기 2026 | 1주택·다주택·농특세·교육세 자동">
+  <meta property="og:description" content="주택 매매 취득세를 즉시 계산. 1주택 1~3% 누진(6억/9억), 다주택 중과 8·12%, 농어촌특별세·지방교육세까지 자동 합산.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="부동산 취득세 계산기 2026 | 1주택·다주택·농특세·교육세 자동">
+  <meta name="twitter:description" content="주택 매매 취득세를 즉시 계산. 1주택 1~3% 누진(6억/9억), 다주택 중과 8·12%, 농어촌특별세·지방교육세까지 자동 합산.">
+  <title>부동산 취득세 계산기 2026 | 1주택·다주택·농특세·교육세 자동</title>
+  <meta name="description" content="주택 매매 취득세를 즉시 계산. 1주택 1~3% 누진(6억/9억), 다주택 중과 8·12%, 농어촌특별세·지방교육세까지 자동 합산.">
+  <meta name="keywords" content="부동산 취득세, 취득세 계산기, 주택 취득세, 다주택 취득세, 농어촌특별세, 지방교육세">
+  <link rel="canonical" href="https://taystudio.github.io/tools/acqtax/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "부동산 취득세 계산기 2026 | 1주택·다주택·농특세·교육세 자동",
+      "description": "주택 매매 취득세를 즉시 계산. 1주택 1~3% 누진(6억/9억), 다주택 중과 8·12%, 농어촌특별세·지방교육세까지 자동 합산.",
+      "url": "https://taystudio.github.io/tools/acqtax/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taystudio.github.io/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "부동산",
+          "item": "https://taystudio.github.io/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "부동산 취득세 계산기 2026",
+          "item": "https://taystudio.github.io/tools/acqtax/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 부동산 · 취득세 계산기</div>
+    <h1>부동산 취득세 계산기 <span class="basis-badge">2026년 기준</span></h1>
+    <p class="subtitle">지방세법 제11조·제13조의2 기준. 농어촌특별세·지방교육세까지 자동 합산.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label for="price">취득가액 <span class="hint">만원 단위</span></label>
+        <input type="number" id="price" placeholder="예: 80000" min="0" step="100" required>
+      </div>
+      <div class="field">
+        <label>취득 유형</label>
+        <div class="radio-group">
+          <label><input type="radio" name="kind" value="house1" checked>1주택 매매 (1세대 1주택)</label>
+          <label><input type="radio" name="kind" value="multi8">다주택 중과 8% (조정 2주택 / 비조정 3주택 / 법인)</label>
+          <label><input type="radio" name="kind" value="multi12">다주택 중과 12% (조정 3주택+ / 비조정 4주택+ / 법인)</label>
+          <label><input type="radio" name="kind" value="other">주택 외 부동산 매매 (4%)</label>
+          <label><input type="radio" name="kind" value="gift">증여 취득 (3.5%)</label>
+          <label><input type="radio" name="kind" value="inherit">상속 취득 (2.8%)</label>
+        </div>
+      </div>
+      <div class="field" id="sizeField">
+        <label>전용면적 <span class="hint">주택 매매 시 농특세 영향</span></label>
+        <div class="radio-group">
+          <label><input type="radio" name="size" value="small" checked>85㎡ 이하 (농특세 비과세)</label>
+          <label><input type="radio" name="size" value="large">85㎡ 초과 (농특세 부과)</label>
+        </div>
+      </div>
+      <button type="submit">계산하기</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense 광고 자리 — 부동산 카테고리 CPM 매우 높음 ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">예상 취득세 합계 (취득세 + 농특세 + 교육세)</div>
+        <div id="totalTax" class="result-value">0원</div>
+        <div id="rateLabel" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">취득가액</span><span id="priceShow" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">취득세 (본세)</span><span id="mainTax" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">농어촌특별세</span><span id="ruralTax" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">지방교육세</span><span id="eduTax" class="value">0원</span></div>
+        <div class="breakdown-row total"><span class="label">합계</span><span id="totalShow" class="value">0원</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 본 계산은 표준세율 기준 추정치입니다. 생애최초 주택 200만원 감면, 신혼부부, 일시적 2주택, 임대주택 등록사업자 감면, 지방 저가주택(공시 1억 이하) 주택수 제외 특례 등은 미반영입니다. 정확한 세액은 <a href="https://www.wetax.go.kr/" target="_blank" rel="noopener">위택스</a>의 미리계산 또는 관할 시·군·구청에 확인하세요.
+    </div>
+
+    <section class="sources">
+      <h2>적용된 법령·고시 및 출처</h2>
+      <div class="updated">최종 검증: 2026-05-04 / 적용 기준: 현행 지방세법 (행정안전부)</div>
+      <ul>
+        <li><b>주택 유상거래 취득세 1~3% (6억·9억 누진)</b> — 지방세법 제11조 제1항 제8호. <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A7%80%EB%B0%A9%EC%84%B8%EB%B2%95/%EC%A0%9C11%EC%A1%B0" target="_blank" rel="noopener">국가법령정보센터 제11조</a><br>· 6억 이하: 1.0% / 6억~9억: (취득가액 × 2/3억 − 3) × 1/100 / 9억 초과: 3.0%</li>
+        <li><b>다주택자 중과세율 8%·12%</b> — 지방세법 제13조의2. <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A7%80%EB%B0%A9%EC%84%B8%EB%B2%95/%EC%A0%9C13%EC%A1%B0%EC%9D%982" target="_blank" rel="noopener">국가법령정보센터 제13조의2</a><br>· 조정대상지역 2주택·비조정 3주택·법인: 8% / 조정 3주택+·비조정 4주택+: 12%</li>
+        <li><b>주택 외 부동산 매매 4%, 증여 3.5%, 상속 2.8%</b> — 지방세법 제11조 제1항 각 호</li>
+        <li><b>농어촌특별세 0.2%·0.6%·1.0%</b> — 농어촌특별세법 제5조 (전용 85㎡ 이하 주택은 비과세)</li>
+        <li><b>지방교육세 0.1~0.4%</b> — 지방세법 제150조·제151조 (취득세 표준세율에서 2%를 뺀 세율의 20%)</li>
+        <li><b>위택스 취득세 미리계산</b> — <a href="https://www.wetax.go.kr/tcp/loi/J030801M01.do" target="_blank" rel="noopener">위택스 지방세 미리계산</a></li>
+      </ul>
+      <div class="note">
+        ⚠️ <b>다주택 중과 한시 인하 정책 모니터링</b> — 행정안전부가 다주택 중과세율 인하(8%→6%, 12%→8%) 추진을 발표한 이력이 있으나, 본 계산기는 <b>현행 지방세법(8%/12%)</b>을 기준으로 합니다. 시행령/법 개정안 통과 확인 시 즉시 갱신합니다. 거래일 기준 위택스 또는 관할청 확인을 권장합니다.
+      </div>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 33개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./acqtax.js" defer></script>
+  <site-footer></site-footer>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

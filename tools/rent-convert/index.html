@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO 계산기">
+  <meta property="og:title" content="전월세 전환 계산기 2026 | 보증금↔월세 법정 전환율 자동">
+  <meta property="og:description" content="주택임대차보호법 제7조의2 기준 전월세 전환율(기준금리 + 2% / 기준금리 × 4% 중 낮은 것)로 보증금↔월세 즉시 환산.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="전월세 전환 계산기 2026 | 보증금↔월세 법정 전환율 자동">
+  <meta name="twitter:description" content="주택임대차보호법 제7조의2 기준 전월세 전환율(기준금리 + 2% / 기준금리 × 4% 중 낮은 것)로 보증금↔월세 즉시 환산.">
+  <title>전월세 전환 계산기 2026 | 보증금↔월세 법정 전환율 자동</title>
+  <meta name="description" content="주택임대차보호법 제7조의2 기준 전월세 전환율(기준금리 + 2% / 기준금리 × 4% 중 낮은 것)로 보증금↔월세 즉시 환산.">
+  <meta name="keywords" content="전월세 전환율, 전월세 전환 계산기, 월세 보증금 환산, 전세 월세 전환, 주택임대차보호법">
+  <link rel="canonical" href="https://taystudio.github.io/tools/rent-convert/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "전월세 전환 계산기 2026 | 보증금↔월세 법정 전환율 자동",
+      "description": "주택임대차보호법 제7조의2 기준 전월세 전환율로 보증금과 월세를 즉시 환산. 한국은행 기준금리 입력 가능.",
+      "url": "https://taystudio.github.io/tools/rent-convert/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taystudio.github.io/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "부동산",
+          "item": "https://taystudio.github.io/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "전월세 전환 계산기 2026",
+          "item": "https://taystudio.github.io/tools/rent-convert/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 부동산 · 전월세 전환 계산기</div>
+    <h1>전월세 전환 계산기 <span class="basis-badge">2026년 기준</span></h1>
+    <p class="subtitle">주택임대차보호법 제7조의2 기준 — 기준금리 + 2% 또는 기준금리 × 4% 중 낮은 비율 자동 적용.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label>전환 방향</label>
+        <div class="radio-group">
+          <label><input type="radio" name="dir" value="d2m" checked>전세 → 월세 (보증금 일부를 월세로)</label>
+          <label><input type="radio" name="dir" value="m2d">월세 → 전세 (월세를 전세 보증금으로)</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="origDeposit">현재 전세 보증금 <span class="hint">만원</span></label>
+          <input type="number" id="origDeposit" placeholder="예: 50000" min="0" step="100">
+        </div>
+        <div class="field" id="newDepositField">
+          <label for="newDeposit">전환 후 보증금 <span class="hint">만원 / 전세→월세 시</span></label>
+          <input type="number" id="newDeposit" placeholder="예: 30000" min="0" step="100">
+        </div>
+      </div>
+      <div class="field" id="rentField" style="display:none">
+        <label for="rent">월세 <span class="hint">만원 / 월세→전세 시</span></label>
+        <input type="number" id="rent" placeholder="예: 100" min="0" step="1">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="rate">한국은행 기준금리 <span class="hint">% / 한국은행 발표 기준</span></label>
+          <input type="number" id="rate" value="2.50" min="0" max="20" step="0.05">
+        </div>
+        <div class="field">
+          <label>주택 / 상가 구분</label>
+          <div class="radio-group">
+            <label><input type="radio" name="kind" value="house" checked>주택 (주임법 제7조의2)</label>
+            <label><input type="radio" name="kind" value="shop">상가 (상임법 제12조)</label>
+          </div>
+        </div>
+      </div>
+      <button type="submit">계산하기</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense 광고 자리 — 부동산 카테고리 CPM 매우 높음 ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label" id="resultLabel">전환 결과</div>
+        <div id="totalValue" class="result-value">0원</div>
+        <div id="rateLabel" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">기준금리 + 2.0%</span><span id="formula1" class="value">0%</span></div>
+        <div class="breakdown-row"><span class="label">기준금리 × 4.0%</span><span id="formula2" class="value">0%</span></div>
+        <div class="breakdown-row"><span class="label">법정 최대 전환율 (둘 중 낮은 비율)</span><span id="appliedRate" class="value">0%</span></div>
+        <div class="breakdown-row"><span class="label">감액(또는 환산) 보증금</span><span id="diffDeposit" class="value">0원</span></div>
+        <div class="breakdown-row total"><span class="label" id="resultBottomLabel">월세 환산액</span><span id="resultMain" class="value">0원</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 본 계산은 <b>법정 상한선</b>입니다. 실제 시장 전환율은 통상 이보다 높게 협의됩니다(보증금↔월세 환산: 보증금 1억 = 월 30~50만원 수준이 시장 관행). 주임법 제7조의2의 법정 상한은 <b>계약갱신 청구</b> 또는 <b>임대인 요구로 전환할 때</b> 임차인이 거부할 수 있는 기준선이며, 신규 자유계약에는 강제 적용되지 않습니다.
+    </div>
+
+    <section class="sources">
+      <h2>적용된 법령·고시 및 출처</h2>
+      <div class="updated">최종 검증: 2026-05-04 / 적용 기준: 한국은행 기준금리 2.50% (2026-04-10 동결)</div>
+      <ul>
+        <li><b>주택 전월세 전환율 상한</b> — 주택임대차보호법 제7조의2 + 동법 시행령 제9조<br>· 「대통령령으로 정하는 비율(2.0%)을 한국은행 기준금리에 더한 비율」 또는 「한국은행 기준금리 × 4.0%」 중 낮은 비율<br>· 예: 기준금리 2.5% → min(4.5%, 10%) = <b>4.5% 한도</b></li>
+        <li><b>상가 전월세 전환율 상한 12%</b> — 상가건물임대차보호법 제12조 + 시행령 제5조<br>· 「12%」 또는 「한국은행 기준금리 × 4.5배」 중 낮은 비율</li>
+        <li><b>한국은행 기준금리 2.50%</b> (2026-04-10 동결) — <a href="https://www.bok.or.kr/portal/singl/baseRate/list.do?dataSeCd=01&menuNo=200643" target="_blank" rel="noopener">한국은행 기준금리 추이</a></li>
+        <li><b>국가법령정보센터 — 주택임대차보호법</b> — <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A3%BC%ED%83%9D%EC%9E%84%EB%8C%80%EC%B0%A8%EB%B3%B4%ED%98%B8%EB%B2%95" target="_blank" rel="noopener">law.go.kr</a></li>
+      </ul>
+      <div class="note">
+        ⚠️ 한국은행 기준금리는 통화정책방향 결정회의에 따라 변동됩니다. 변경 시 입력값을 갱신해 사용하세요. 본 계산기 기본값은 2026-04-10 기준 2.50%입니다.
+      </div>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 33개 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./rent-convert.js" defer></script>
+  <site-footer></site-footer>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>
