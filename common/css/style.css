@@ -975,3 +975,180 @@ button:hover {
   color: var(--muted);
   font-weight: 400;
 }
+
+/* ====== image/ 카테고리 공용 ====== */
+
+.privacy-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  margin: 16px 0;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.privacy-box .icon {
+  font-size: 18px;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.privacy-box b {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.file-drop-zone {
+  display: block;
+  position: relative;
+  padding: 32px 20px;
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s;
+}
+
+.file-drop-zone:hover,
+.file-drop-zone.dragover {
+  border-color: var(--primary);
+  background: rgba(37, 99, 235, 0.04);
+}
+
+.file-drop-zone .drop-icon {
+  font-size: 32px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.file-drop-zone .drop-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.file-drop-zone .drop-hint {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.file-drop-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-preview {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px;
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-align: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  .image-preview { background: rgba(255, 255, 255, 0.03); }
+}
+
+.image-preview img,
+.image-preview canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 480px;
+  margin: 0 auto;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.image-meta {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.image-meta b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.image-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.image-actions button,
+.image-actions .download-btn {
+  width: auto;
+  flex: 0 0 auto;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
+}
+
+.image-actions .download-btn {
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
+}
+
+.image-actions .download-btn:hover { filter: brightness(1.05); }
+
+.image-actions button:hover { background: var(--border); }
+
+.image-actions button[disabled],
+.image-actions .download-btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.range-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.range-row input[type="range"] {
+  flex: 1 1 auto;
+  width: auto;
+}
+
+.range-row .range-value {
+  flex: 0 0 auto;
+  min-width: 56px;
+  text-align: right;
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 14px;
+}

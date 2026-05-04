@@ -34,8 +34,8 @@ canonical_of() {
   fi
 }
 
-# 카테고리 목록 — 새 카테고리(image/, test/ 등) 추가 시 여기 갱신
-CATEGORIES=("tools" "text")
+# 카테고리 목록 — 새 카테고리(test/ 등) 추가 시 여기 갱신
+CATEGORIES=("tools" "text" "image")
 
 # Default priority and changefreq based on URL path conventions.
 classify() {
@@ -44,11 +44,12 @@ classify() {
     "${DOMAIN}/")              echo "1.0 weekly" ;;
     *"/privacy/"*)             echo "0.3 yearly" ;;
     *"/terms/"*)               echo "0.3 yearly" ;;
-    # 카테고리 허브 (/tools/, /text/, ...) — 깊이 4 = "${DOMAIN}/<cat>/"
-    "${DOMAIN}/tools/")        echo "1.0 weekly" ;;
-    "${DOMAIN}/text/")         echo "1.0 weekly" ;;
+    # 카테고리 허브 (/tools/, /text/, /image/, ...) — 깊이 4 = "${DOMAIN}/<cat>/"
+    "${DOMAIN}/tools/")               echo "1.0 weekly" ;;
+    "${DOMAIN}/text/")                echo "1.0 weekly" ;;
+    "${DOMAIN}/image/")               echo "1.0 weekly" ;;
     # 개별 도구 상세 페이지 — 깊이 5+
-    *"/tools/"*|*"/text/"*)    echo "0.95 monthly" ;;
+    *"/tools/"*|*"/text/"*|*"/image/"*) echo "0.95 monthly" ;;
     *)                         echo "0.5 monthly" ;;
   esac
 }

@@ -14,15 +14,15 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="TAYSTUDIO">
-  <meta property="og:title" content="TAYSTUDIO — 한국 실생활 계산기·텍스트 도구">
-  <meta property="og:description" content="계산기 33선(연봉·세금·부동산·임신·육아·건강) + 텍스트 도구 3선(글자수·한↔영 키보드·SNS 정리). 가입·설치 없이 즉시 사용.">
+  <meta property="og:title" content="TAYSTUDIO — 한국 실생활 계산기·텍스트·이미지 도구">
+  <meta property="og:description" content="계산기 33선(연봉·세금·부동산·임신·육아·건강) + 텍스트 도구 3선 + 이미지 도구(압축·리사이즈). 가입·설치 없이 즉시 사용.">
   <meta property="og:url" content="https://taystudio.github.io/">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="TAYSTUDIO — 한국 실생활 계산기·텍스트 도구">
-  <meta name="twitter:description" content="계산기 33선 + 텍스트 도구 3선. 가입·설치 없이 즉시 사용.">
-  <title>TAYSTUDIO — 한국 실생활 계산기·텍스트 도구</title>
-  <meta name="description" content="한국에서 자주 쓰는 무료 도구 — 계산기 33선(연봉·세금·부동산·임신·육아·건강) + 텍스트 도구 3선(글자수·한↔영 키보드·SNS 정리). 가입·설치 없이 즉시 사용.">
-  <meta name="keywords" content="한국 계산기, 연봉 실수령액, 양도세, 종합부동산세, 4대보험, 글자수 세기, 한영 변환, SNS 글, TAYSTUDIO">
+  <meta name="twitter:title" content="TAYSTUDIO — 한국 실생활 계산기·텍스트·이미지 도구">
+  <meta name="twitter:description" content="계산기 33선 + 텍스트 도구 3선 + 이미지 도구. 가입·설치 없이 즉시 사용.">
+  <title>TAYSTUDIO — 한국 실생활 계산기·텍스트·이미지 도구</title>
+  <meta name="description" content="한국에서 자주 쓰는 무료 도구 — 계산기 33선(연봉·세금·부동산·임신·육아·건강) + 텍스트 도구 3선(글자수·한↔영 키보드·SNS 정리) + 이미지 도구(압축·리사이즈). 모든 처리는 브라우저 안에서, 파일·입력값 외부 전송 없음.">
+  <meta name="keywords" content="한국 계산기, 연봉 실수령액, 양도세, 종합부동산세, 4대보험, 글자수 세기, 한영 변환, SNS 글, 이미지 압축, 사진 용량 줄이기, 이미지 리사이즈, TAYSTUDIO">
   <link rel="canonical" href="https://taystudio.github.io/">
   <script type="application/ld+json">
 {
@@ -32,7 +32,7 @@
       "@type": "WebSite",
       "name": "TAYSTUDIO",
       "url": "https://taystudio.github.io/",
-      "description": "한국에서 자주 쓰는 무료 도구 — 계산기 33선 + 텍스트 도구 3선. 가입·설치 없이 즉시 사용.",
+      "description": "한국에서 자주 쓰는 무료 도구 — 계산기 33선 + 텍스트 도구 3선 + 이미지 도구. 모든 처리 브라우저 내.",
       "inLanguage": "ko-KR",
       "hasPart": [
         {
@@ -46,6 +46,12 @@
           "name": "TAYSTUDIO 텍스트 도구",
           "url": "https://taystudio.github.io/text/",
           "description": "텍스트 도구 3선 — 글자수 카운터·한↔영 키보드 변환·SNS 글 정리."
+        },
+        {
+          "@type": "WebSite",
+          "name": "TAYSTUDIO 이미지 도구",
+          "url": "https://taystudio.github.io/image/",
+          "description": "이미지·PDF 도구 — 압축·리사이즈, QR·PDF·OCR(준비 중). 모든 처리 브라우저 내."
         }
       ]
     },
@@ -63,7 +69,7 @@
   ]
 }
 </script>
-  <link rel="stylesheet" href="./tools/css/style.css">
+  <link rel="stylesheet" href="/common/css/style.css">
   <style>
     :root {
       --hub-grid: rgba(15, 23, 42, .045);
@@ -229,6 +235,8 @@
     .d2 { animation-delay: .16s; }
     .d3 { animation-delay: .24s; }
     .d4 { animation-delay: .36s; }
+    .d5 { animation-delay: .44s; }
+    .d6 { animation-delay: .52s; }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: none; }
@@ -281,9 +289,18 @@
         <h2 class="hub-name">텍스트 도구</h2>
         <p class="hub-desc">자소서·인스타·블로그용 — 글자수 카운터·한↔영 키보드 변환·SNS 글 정리</p>
       </a>
+      <a class="hub-card fade-up d3" href="./image/">
+        <div class="hub-meta">
+          <span class="hub-status live"><span class="live-dot" aria-hidden="true"></span>LIVE · 2 / 7</span>
+          <span class="hub-arrow" aria-hidden="true">→</span>
+        </div>
+        <div class="hub-icon">📸</div>
+        <h2 class="hub-name">이미지·PDF 도구</h2>
+        <p class="hub-desc">파일은 외부 전송 X, 브라우저 내 처리 — 압축·리사이즈 (QR·PDF·OCR 준비 중)</p>
+      </a>
     </section>
 
-    <section class="preview-section fade-up d3">
+    <section class="preview-section fade-up d4">
       <div class="header">
         <div class="title">— 계산기 미리보기</div>
         <a class="all-link" href="./tools/">전체 33개 보기 <span aria-hidden="true">→</span></a>
@@ -298,7 +315,7 @@
       </div>
     </section>
 
-    <section class="preview-section fade-up d4">
+    <section class="preview-section fade-up d5">
       <div class="header">
         <div class="title">— 텍스트 도구 미리보기</div>
         <a class="all-link" href="./text/">전체 3개 보기 <span aria-hidden="true">→</span></a>
@@ -307,6 +324,17 @@
         <a class="tool-card" href="./text/counter/"><div class="icon">🔤</div><div class="name">글자수 카운터</div><div class="desc">SNS·자소서 한도 11종</div></a>
         <a class="tool-card" href="./text/kbd-convert/"><div class="icon">⌨️</div><div class="name">한↔영 키보드 변환</div><div class="desc">한영키 안 누르고 친 글</div></a>
         <a class="tool-card" href="./text/sns-format/"><div class="icon">#️⃣</div><div class="name">SNS 글 정리</div><div class="desc">인스타 줄바꿈·해시태그</div></a>
+      </div>
+    </section>
+
+    <section class="preview-section fade-up d6">
+      <div class="header">
+        <div class="title">— 이미지 도구 미리보기</div>
+        <a class="all-link" href="./image/">전체 보기 <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="tool-grid">
+        <a class="tool-card" href="./image/compress/"><div class="icon">🗜️</div><div class="name">이미지 압축</div><div class="desc">화질 슬라이더로 용량 줄이기</div></a>
+        <a class="tool-card" href="./image/resize/"><div class="icon">📐</div><div class="name">이미지 리사이즈</div><div class="desc">px·% 크기 변경 + 포맷 변환</div></a>
       </div>
     </section>
   </main>

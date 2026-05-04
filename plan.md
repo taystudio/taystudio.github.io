@@ -1,6 +1,6 @@
 # Plan — 카테고리 확장 로드맵
 
-> **작성**: 2026-05-04 / 다음 세션이 이 문서 보고 이어서 작업.
+> **작성**: 2026-05-04 / **최종 갱신**: 2026-05-05 (image/ batch 1 + 공통 CSS common/ 이관) / 다음 세션이 이 문서 보고 이어서 작업.
 
 ---
 
@@ -167,41 +167,58 @@ CSS는 `tools/css/style.css` 재사용 (절대 경로 `/tools/css/style.css`로 
 - [ ] 면책 banner 정상 노출
 - [ ] PWA 캐시 (sw.js 버전 올림 — 1단계 완료 시 한 번)
 - [ ] sitemap에 추가
-- [ ] tools/css/style.css 재사용 (디자인 일관)
+- [ ] common/css/style.css 재사용 (디자인 일관 — 2026-05-05 이관 완료, 모든 카테고리 공유)
 
 ---
 
 ## 4. 2단계 — `image/` 카테고리 (이미지·PDF)
 
-### 4.1 ROI 평가
+### 4.1 ROI 평가 + Batch 분할 (3-way)
 
-**모든 도구 Tier 1 — 일반인 + 큰 트래픽 + 광고 친화 ✓**
+**모든 도구 Tier 1 — 일반인 + 큰 트래픽 + 광고 친화 ✓**. 작업량과 라이브러리 종류 차이로 **3분할 batch**로 출시:
 
-| 도구 | 검색 트래픽 | 정적 가능 | 라이브러리 |
-|---|---|---|---|
-| **compress** — 이미지 압축 | ★★★ | ✓ | canvas API (네이티브) |
-| **resize** — 이미지 리사이즈·포맷 변환 | ★★★ | ✓ | canvas API |
-| **pdf-merge** — PDF 합치기 | ★★★ | ✓ | pdf-lib (~700KB lazy) |
-| **pdf-split** — PDF 자르기 | ★★★ | ✓ | pdf-lib |
-| **qr-gen** — QR 코드 생성 | ★★★ | ✓ | qrcode.js (~25KB) |
-| **qr-scan** — QR 코드 스캐너 | ★★ | ✓ | jsQR (~50KB) |
-| **ocr** — 이미지 OCR | ★★ | ✓ (WASM) | Tesseract.js (~5MB lazy) |
+| 도구 | 검색 트래픽 | 정적 가능 | 라이브러리 | Batch | 상태 |
+|---|---|---|---|---|---|
+| **compress** — 이미지 압축 | ★★★ | ✓ | canvas API (네이티브) | 1 | ✅ 출시 (2026-05-05) |
+| **resize** — 이미지 리사이즈·포맷 변환 | ★★★ | ✓ | canvas API | 1 | ✅ 출시 (2026-05-05) |
+| **qr-gen** — QR 코드 생성 | ★★★ | ✓ | qrcode.js (~25KB) | 2 | 예정 |
+| **qr-scan** — QR 코드 스캐너 | ★★ | ✓ | jsQR (~50KB) | 2 | 예정 |
+| **pdf-merge** — PDF 합치기 | ★★★ | ✓ | pdf-lib (~700KB lazy) | 3 | 예정 |
+| **pdf-split** — PDF 자르기 | ★★★ | ✓ | pdf-lib | 3 | 예정 |
+| **ocr** — 이미지 OCR | ★★ | ✓ (WASM) | Tesseract.js (~5MB lazy) | 3 | 예정 |
+
+**Batch 정책**:
+- Batch 1 = 라이브러리 0KB 도구로 image/ 카테고리 패턴(파일 입력·드래그/드롭·Blob·다운로드 URL·드롭존 UI) 검증
+- Batch 2 = 작은 라이브러리(qr 2종, ~75KB)로 vendoring 패턴 도입 — `image/vendor/` 디렉토리 신설
+- Batch 3 = 무거운 라이브러리(pdf-lib 700KB·Tesseract 5MB) + lazy import + IndexedDB 모델 캐시(OCR 한국어 ~25MB)
 
 ### 4.2 차별화 핵심
 
-**모든 처리는 브라우저 안에서** — 파일 업로드 X. 각 페이지 disclaimer에 "**파일이 외부 서버로 전송되지 않습니다**" 강조. 프라이버시 민감한 사용자(이력서·개인 PDF·신분증 등)를 끌어들인다. 이게 클론 도구들 대비 가장 강한 차별점이며 광고 친화도도 높임 (체류 시간↑, 신뢰↑).
+**모든 처리는 브라우저 안에서** — 파일 업로드 X. 각 페이지 프라이버시 박스에 "**파일이 외부 서버로 전송되지 않습니다**" 강조. 프라이버시 민감한 사용자(이력서·개인 PDF·신분증 등)를 끌어들인다. 이게 클론 도구들 대비 가장 강한 차별점이며 광고 친화도도 높임 (체류 시간↑, 신뢰↑).
 
 ### 4.3 라이브러리 메모
 
 | 도구 | 라이브러리 | 크기 |
 |---|---|---|
 | compress, resize | canvas API (네이티브) | 0 |
-| pdf-merge, pdf-split | pdf-lib | ~700KB (lazy load) |
 | qr-gen | qrcode.js | ~25KB |
 | qr-scan | jsQR | ~50KB |
-| ocr | Tesseract.js | ~5MB (lazy load, WASM, 한국어 학습 데이터 별도) |
+| pdf-merge, pdf-split | pdf-lib | ~700KB (lazy load) |
+| ocr | Tesseract.js | ~5MB (lazy load, WASM, 한국어 학습 데이터 ~25MB CDN+IndexedDB 캐시) |
 
-CDN보단 같은 repo에 vendoring 권장 (의존성·캐시 통제).
+CDN보단 같은 repo에 vendoring 권장 (의존성·캐시 통제). 단 OCR 한국어 모델은 25MB라 repo 비대 방지로 jsdelivr CDN fetch + IndexedDB 캐시 (1회 다운로드 후 offline 가능).
+
+### 4.4 Batch 1 진행 기록 (2026-05-05)
+
+- [x] `common/css/style.css` 신규 클래스 — `.privacy-box`, `.file-drop-zone`, `.image-preview`, `.image-meta`, `.image-actions`, `.range-row`
+- [x] `image/index.html` 허브 — 7카드 (compress·resize 활성 + 5 disabled "준비 중")
+- [x] `image/compress/index.html` + `compress.js` — 화질 슬라이더 + JPEG/PNG/WebP 출력 + 용량 감소율 표시
+- [x] `image/resize/index.html` + `resize.js` — px·% 단위 토글 + 비율 유지 + 포맷 변환
+- [x] 루트 `index.html` — hub-grid 3번째 카드 + JSON-LD hasPart + 미리보기 섹션 + meta 갱신
+- [x] `scripts/build-sitemap.sh` `CATEGORIES`에 `"image"` 추가 → 41 → 44 URL
+- [x] `tools/privacy/index.html` 카테고리별 데이터 처리 명시 (계산기/텍스트/이미지·PDF)
+- [x] `history/index.html` timeline article 2개 (image batch 1 + CSS 이관)
+- [x] HTML 태그 밸런스 / FAQ DOM 6 = JSON-LD 6 / JS 문법 / 로컬 서버 200 응답 검증
 
 ---
 
@@ -272,7 +289,7 @@ CDN보단 같은 repo에 vendoring 권장 (의존성·캐시 통제).
 
 ### 7.4 SW 캐시
 
-`common/site-chrome.js` 또는 `tools/css/style.css` 변경 시 `tools/sw.js`의 `CACHE_VERSION` 한 단계 올림. 새 카테고리는 sw.js 등록 안 함 (현재는 tools/ 전용). **카테고리 별 SW 분리 vs 단일 SW 확장 — 결정 필요**.
+`common/site-chrome.js` 또는 `common/css/style.css` 변경 시 `tools/sw.js`의 `CACHE_VERSION` 한 단계 올림. 현재 v8 (2026-05-05, CSS 이관 시 bump). 새 카테고리(text/·image/)는 sw.js 등록 안 함 — PWA 통합은 후속 백로그(§9.3 A안) 시점에 일괄 처리.
 
 ### 7.5 AdSense·쿠팡
 
@@ -306,18 +323,19 @@ CDN보단 같은 repo에 vendoring 권장 (의존성·캐시 통제).
 - **도구 후보 평가**: 3 질문 통과해야 진행 (0.3)
 - **text 카테고리**: Tier 1 3개로 마감, Tier 2(개발자 도구) 스킵 (3.1)
 - **면책 banner 일반화**: 카테고리 정규식 (7.2)
+- **공통 CSS 위치**: `common/css/style.css` (2026-05-05 결정 — `tools/css/`에서 이관). 카테고리는 `<link href="/common/css/style.css">` import. 카테고리·도구별 좁은 override만 인라인 `<style>`. 카테고리별 CSS 복제 X
+- **image/ batch 분할**: 7개를 3-way batch (canvas 2 → QR 2 → PDF 2 + OCR 1)로 출시 (4.1)
 
 ### 9.2 보류 (사용자 결정 필요)
 
 - [ ] **PWA(앱) 통합 정책** — 현재 `/tools/`만 manifest+SW. 카테고리 늘면 어떻게?
   - **A안**: 루트 통합 manifest (`/manifest.webmanifest`, scope `/`) — 사이트 전체 PWA. 가장 깔끔하지만 기존 `tools/manifest.webmanifest`와 정리·일괄 head 갱신 필요
   - **B안**: 카테고리별 manifest 분리 — 독립적이지만 사용자 가치 X (text·image 도구는 자주 재방문 X)
-  - **C안 (현 상태)**: text/는 PWA 미지원, 모바일 웹만. text 도구는 검색→1회 사용 패턴이라 PWA 수익 기여 약함
-  - **추천**: 단기 C 유지(ROI). image/까지 출시한 후 한 번에 A로 정리하는 게 효율적
-- [ ] sitemap.xml 단일 vs 카테고리별 분리 (현재 단일 root, 41 URL — 카테고리 더 늘어나면 분리 검토)
+  - **C안 (현 상태)**: text/·image/는 PWA 미지원, 모바일 웹만. text·image 도구는 검색→1회 사용 패턴이라 PWA 수익 기여 약함
+  - **추천**: 단기 C 유지(ROI). image/ 7개 모두 끝난 후 한 번에 A로 정리하는 게 효율적
+- [ ] sitemap.xml 단일 vs 카테고리별 분리 (현재 단일 root, 44 URL — 카테고리 4번째 추가 시점에 분리 검토)
 - [ ] sw.js 단일 vs 카테고리별 분리 (현재 tools/ 전용 — PWA 통합 정책과 함께 결정)
-- [ ] CSS 단일(`/tools/css/style.css`) vs 카테고리별 분리 (현재 단일, 충분히 동작)
-- [ ] image/를 1단계로 격상할지 — text 출시 후 데이터 보고 결정 (지금은 2단계 유지)
+- [ ] OCR 한국어 모델 vendoring vs CDN+IndexedDB 캐시 — image batch 3 진입 시 확정 (현재 추천 = CDN+IndexedDB)
 
 ### 9.3 후속 백로그 (수익 검증 후 재진입)
 

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="이미지 압축 | 사진 용량 줄이기, 카톡·이메일 첨부 한도">
+  <meta property="og:description" content="JPG·PNG·WebP 이미지 화질 슬라이더로 용량 줄이기. 모든 처리는 브라우저 안에서. 파일 외부 전송 없음.">
+  <meta property="og:url" content="https://taystudio.github.io/image/compress/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="이미지 압축 | 사진 용량 줄이기">
+  <meta name="twitter:description" content="JPG·PNG·WebP 이미지 화질 슬라이더로 용량 줄이기. 브라우저 안에서 처리.">
+  <title>이미지 압축 | 사진 용량 줄이기 — 카톡·이메일 첨부 한도</title>
+  <meta name="description" content="JPG·PNG·WebP 이미지 화질 조정으로 용량 줄이기. 카톡 5MB·이메일 25MB 한도에 맞춰 압축. 모든 처리는 브라우저 안에서, 파일 외부 전송 없음.">
+  <meta name="keywords" content="이미지 압축, 사진 용량 줄이기, 카톡 사진 5MB, JPG 압축 무료, WebP 변환, 이미지 용량 줄이기">
+  <link rel="canonical" href="https://taystudio.github.io/image/compress/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "이미지 압축 | 사진 용량 줄이기",
+      "description": "JPG·PNG·WebP 이미지 화질 조정으로 용량 줄이기. 카톡·이메일 첨부 한도에 맞춰 압축. 브라우저 안에서 처리.",
+      "url": "https://taystudio.github.io/image/compress/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudio.github.io/image/" },
+        { "@type": "ListItem", "position": 3, "name": "이미지 압축", "item": "https://taystudio.github.io/image/compress/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "압축한 사진을 어디에 사용할 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "카카오톡 1장 5MB 한도, 네이버 메일·Gmail 25MB 첨부 한도, 인스타·블로그 업로드 권장 용량(보통 1~2MB) 등에 맞출 때 자주 씁니다. 화질 0.7~0.8이면 시각적 차이는 거의 없으면서 용량은 30~60% 줄어듭니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "원본 파일이 서버로 업로드되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. 모든 처리는 브라우저 안의 canvas API로 이루어지며, 사이트 운영자도 파일을 볼 수 없습니다. 신분증·이력서 사진처럼 민감한 이미지도 안심하고 사용하세요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "PNG도 압축되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PNG는 무손실 포맷이라 화질 슬라이더로 용량을 줄일 수 없습니다. PNG 용량을 크게 줄이려면 출력 포맷을 JPEG 또는 WebP로 바꾸세요. 투명 배경이 필요 없는 사진이라면 JPEG, 투명도까지 보존하면서 더 작게는 WebP를 추천합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "압축 후 화질이 너무 떨어졌어요.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "화질 슬라이더를 0.8 이상으로 올려보세요. 0.7~0.85가 시각적 손실 없이 용량을 줄이는 sweet spot입니다. 0.5 이하부터는 블록·노이즈가 보이기 시작합니다. 인쇄용·확대 보기용은 0.9 이상 권장."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "여러 장을 한 번에 압축할 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "현재는 한 번에 1장씩 처리합니다. 여러 장은 다음 batch에서 검토 예정입니다. 대량 압축이 필요하면 화질·포맷을 결정한 후 같은 설정으로 한 장씩 빠르게 반복 처리하시면 됩니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "WebP는 어디서 안 열리나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "최신 브라우저(Chrome·Edge·Firefox·Safari 14+)와 최근 윈도우·맥OS는 모두 지원합니다. 단 카카오톡·일부 메신저·구버전 윈도우 사진 뷰어에서는 미지원일 수 있습니다. 호환성이 중요하면 JPEG, 용량이 중요하면 WebP를 선택하세요."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">이미지</a> · 이미지 압축</div>
+    <h1>이미지 압축</h1>
+    <p class="subtitle">화질 슬라이더로 사진 용량 줄이기 — 카톡 5MB·이메일 25MB 첨부 한도에 맞춰.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>파일이 외부 서버로 전송되지 않습니다.</b> 모든 처리는 사용자 브라우저 안에서만 이루어집니다.</div>
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">📁</div>
+        <div class="drop-title" id="dropTitle">이미지 파일을 드래그하거나 클릭해서 선택</div>
+        <div class="drop-hint">JPG · PNG · WebP · GIF · BMP — 1장씩 처리</div>
+        <input type="file" id="fileInput" accept="image/*">
+      </label>
+
+      <div class="field" style="margin-top:16px">
+        <label for="format">출력 포맷</label>
+        <select id="format">
+          <option value="image/jpeg" selected>JPEG (.jpg, 사진 권장)</option>
+          <option value="image/webp">WebP (.webp, 가장 작음)</option>
+          <option value="image/png">PNG (.png, 무손실)</option>
+        </select>
+      </div>
+
+      <div class="field" id="qualityField">
+        <label for="quality">화질 (0.1 ~ 1.0)</label>
+        <div class="range-row">
+          <input type="range" id="quality" min="0.1" max="1.0" step="0.05" value="0.8">
+          <span class="range-value" id="qualityValue">0.80</span>
+        </div>
+        <p class="small" style="color:var(--muted);margin-top:6px">권장: 0.7~0.85 (시각적 손실 없이 용량 30~60% 감소)</p>
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="compressBtn" disabled>압축하기</button>
+        <button type="button" id="clearBtn">초기화</button>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="image-preview">
+        <img id="previewImg" alt="압축 결과 미리보기">
+      </div>
+      <div class="image-meta">
+        <span>원본 <b id="origSize">—</b></span>
+        <span>압축 <b id="compSize">—</b></span>
+        <span>감소율 <b id="reduceRate">—</b></span>
+        <span>해상도 <b id="dimText">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ 다운로드</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>화질·포맷별 용량 가이드</h2>
+      <p class="small">3000×2000 px 풍경 사진(원본 JPEG ~4MB) 기준 추정. 실제 용량은 사진 복잡도에 따라 다름.</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>포맷</th><th>화질</th><th>용량 추정</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr><td>JPEG</td><td>0.95</td><td>2.5~3MB</td><td>거의 무손실, 인쇄 OK</td></tr>
+            <tr><td>JPEG</td><td>0.80</td><td>1~1.5MB</td><td>웹 권장, 시각 손실 X</td></tr>
+            <tr><td>JPEG</td><td>0.60</td><td>500~800KB</td><td>SNS·메신저 충분</td></tr>
+            <tr><td>JPEG</td><td>0.40</td><td>300~500KB</td><td>썸네일·미리보기</td></tr>
+            <tr><td>WebP</td><td>0.80</td><td>500~800KB</td><td>JPEG 대비 30% 작음</td></tr>
+            <tr><td>PNG</td><td>—</td><td>5~10MB+</td><td>무손실, 투명 지원, 큼</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../resize/">이미지 리사이즈<span class="desc">px·% 크기 변경 + 포맷 변환</span></a>
+        <a href="../">이미지 도구 모음<span class="desc">QR·PDF·OCR (준비 중)</span></a>
+        <a href="/text/counter/">글자수 카운터<span class="desc">자소서·SNS 글자수</span></a>
+        <a href="/tools/dday/">D-day 계산기<span class="desc">제출 마감일 카운트</span></a>
+        <a href="/tools/age/">만 나이 계산기<span class="desc">이력서 작성 시</span></a>
+        <a href="/tools/">33개 계산기 모두 보기<span class="desc">세금·금융·생활</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>EXIF 정보(촬영 위치·시각)는 어떻게 되나요?</summary>
+        <div class="answer">
+          canvas API로 다시 그리는 과정에서 <b>EXIF 메타데이터는 자동으로 제거</b>됩니다. 위치 정보가 포함된 사진을 SNS·블로그에 올릴 때 프라이버시 보호 효과가 있습니다. 단 촬영 시각·카메라 모델 정보가 필요하면 원본을 별도 보관하세요.
+        </div>
+      </details>
+      <details>
+        <summary>큰 파일(20MB+)도 처리되나요?</summary>
+        <div class="answer">
+          기술적으로는 가능하지만 브라우저 메모리 제약 때문에 모바일에서는 30~50MB 이상 사진은 멈출 수 있습니다. 데스크톱 Chrome 기준 100MB까지는 안정적. 큰 파일은 먼저 리사이즈 도구로 해상도를 줄인 후 압축하는 게 안전합니다.
+        </div>
+      </details>
+      <details>
+        <summary>화질 슬라이더가 PNG에서 비활성인 이유?</summary>
+        <div class="answer">
+          PNG는 <b>무손실(lossless) 포맷</b>이라 화질 개념이 없습니다. canvas API의 <code>toBlob('image/png')</code>는 quality 인자를 무시합니다. PNG 용량을 줄이려면 색상수 감소(quantization)가 필요한데, 이는 본 도구 범위 밖입니다. 대신 JPEG·WebP로 포맷을 바꾸세요.
+        </div>
+      </details>
+      <details>
+        <summary>왜 JPEG보다 WebP가 더 작은가요?</summary>
+        <div class="answer">
+          WebP는 Google이 2010년에 발표한 차세대 포맷으로, 같은 화질 기준 JPEG 대비 평균 25~35% 작은 용량을 냅니다. VP8 코덱 기반의 더 효율적인 압축 알고리즘 + 투명도 지원이 특징. 단 호환성은 JPEG보다 약하니 사용처를 고려해 선택하세요.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>압축한 사진을 어디에 사용할 수 있나요?</summary>
+        <div class="answer">
+          카카오톡 1장 5MB 한도, 네이버 메일·Gmail 25MB 첨부 한도, 인스타·블로그 업로드 권장 용량(보통 1~2MB) 등에 맞출 때 자주 씁니다. 화질 0.7~0.8이면 시각적 차이는 거의 없으면서 용량은 30~60% 줄어듭니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>원본 파일이 서버로 업로드되나요?</summary>
+        <div class="answer">
+          전송되지 않습니다. 모든 처리는 브라우저 안의 <b>canvas API</b>로 이루어지며, 사이트 운영자도 파일을 볼 수 없습니다. 신분증·이력서 사진처럼 민감한 이미지도 안심하고 사용하세요.
+        </div>
+      </details>
+
+      <details>
+        <summary>PNG도 압축되나요?</summary>
+        <div class="answer">
+          PNG는 무손실 포맷이라 화질 슬라이더로 용량을 줄일 수 없습니다. PNG 용량을 크게 줄이려면 출력 포맷을 <b>JPEG</b> 또는 <b>WebP</b>로 바꾸세요. 투명 배경이 필요 없는 사진이라면 JPEG, 투명도까지 보존하면서 더 작게는 WebP를 추천합니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>압축 후 화질이 너무 떨어졌어요.</summary>
+        <div class="answer">
+          화질 슬라이더를 <b>0.8 이상</b>으로 올려보세요. 0.7~0.85가 시각적 손실 없이 용량을 줄이는 sweet spot입니다. 0.5 이하부터는 블록·노이즈가 보이기 시작합니다. 인쇄용·확대 보기용은 0.9 이상 권장.
+        </div>
+      </details>
+
+      <details>
+        <summary>여러 장을 한 번에 압축할 수 있나요?</summary>
+        <div class="answer">
+          현재는 한 번에 1장씩 처리합니다. 여러 장은 다음 batch에서 검토 예정입니다. 대량 압축이 필요하면 화질·포맷을 결정한 후 같은 설정으로 한 장씩 빠르게 반복 처리하시면 됩니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>WebP는 어디서 안 열리나요?</summary>
+        <div class="answer">
+          최신 브라우저(Chrome·Edge·Firefox·Safari 14+)와 최근 윈도우·맥OS는 모두 지원합니다. 단 카카오톡·일부 메신저·구버전 윈도우 사진 뷰어에서는 미지원일 수 있습니다. 호환성이 중요하면 JPEG, 용량이 중요하면 WebP를 선택하세요.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-05 / 처리는 브라우저 canvas API 기반.</div>
+      <ul>
+        <li>HTMLCanvasElement.toBlob() — <a href="https://developer.mozilla.org/ko/docs/Web/API/HTMLCanvasElement/toBlob" rel="nofollow noopener" target="_blank">MDN</a></li>
+        <li>WebP 사양 — <a href="https://developers.google.com/speed/webp" rel="nofollow noopener" target="_blank">Google Developers</a></li>
+        <li>JPEG (ITU-T T.81) 표준 — ISO/IEC 10918-1</li>
+      </ul>
+      <div class="note">⚠️ 인쇄·법적 제출용 등 원본이 중요한 경우 반드시 원본을 별도 보관하세요. 압축은 비가역(원래 화질로 복원 불가).</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 이미지 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="./compress.js" defer></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

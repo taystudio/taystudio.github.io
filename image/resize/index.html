@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="이미지 리사이즈 | px·% 크기 변경, 포맷 변환 (JPG/PNG/WebP)">
+  <meta property="og:description" content="이미지 가로·세로 px 또는 % 입력으로 크기 변경. 비율 유지 옵션. JPG/PNG/WebP 포맷 변환. 모든 처리는 브라우저 안에서.">
+  <meta property="og:url" content="https://taystudio.github.io/image/resize/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="이미지 리사이즈 | px·% 크기 변경, 포맷 변환">
+  <meta name="twitter:description" content="이미지 가로·세로 px 또는 % 입력으로 크기 변경. 비율 유지·포맷 변환.">
+  <title>이미지 리사이즈 | px·% 크기 변경, JPG/PNG/WebP 포맷 변환</title>
+  <meta name="description" content="이미지 가로·세로 px 또는 % 입력으로 크기 변경. 비율 유지 옵션 + JPG·PNG·WebP 포맷 변환. 여권·이력서 사진 사이즈 맞추기. 브라우저 안에서 처리, 파일 외부 전송 없음.">
+  <meta name="keywords" content="이미지 리사이즈, 사진 크기 변경, 이력서 사진 px, 여권 사진 사이즈, JPG PNG 변환, WebP 변환">
+  <link rel="canonical" href="https://taystudio.github.io/image/resize/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "이미지 리사이즈 | px·% 크기 변경, 포맷 변환",
+      "description": "이미지 가로·세로 px 또는 % 입력으로 크기 변경. 비율 유지·JPG/PNG/WebP 포맷 변환. 브라우저 안에서 처리.",
+      "url": "https://taystudio.github.io/image/resize/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudio.github.io/image/" },
+        { "@type": "ListItem", "position": 3, "name": "이미지 리사이즈", "item": "https://taystudio.github.io/image/resize/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "여권·이력서 사진 사이즈는 어떻게 맞추나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "여권 사진 표준은 35×45mm, 300dpi 인쇄 기준 413×531px. 이력서·증명사진은 보통 3.5×4.5cm 또는 디지털 제출 시 100~300KB·400×500px 정도가 무난합니다. 본 도구에서 가로·세로를 px 단위로 입력하고 비율 유지를 끄면 정확한 치수로 맞출 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "비율 유지를 켜면 어떻게 동작하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "원본의 가로:세로 비율을 보존하기 위해, 입력한 가로·세로 중 더 작아지는 쪽을 기준으로 다른 한 변을 자동 계산합니다. 예: 1920×1080 사진에 가로 800·세로 600을 입력해도 결과는 800×450(가로 기준 비율 보존)이 됩니다. 정확한 치수가 필요하면 비율 유지 해제."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "%로 입력하는 게 더 편한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "단순히 '절반·30%로 줄이기' 같은 비율 축소면 % 모드가 빠릅니다. 가로·세로에 같은 % 값을 넣으면 비율이 자동 유지됩니다. SNS·블로그 업로드용 일괄 축소에 편리. 정확한 치수(예: 800×600)가 필요하면 px 모드 사용."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "포맷 변환만 하고 싶어요. 크기는 그대로.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "가로·세로를 원본과 같은 값으로 두거나, % 모드에서 100%로 두면 됩니다. 출력 포맷만 바꾸면 사실상 포맷 변환만 됩니다. PNG → JPEG로 바꿔서 용량 줄이기, JPEG → WebP로 바꿔서 더 줄이기 등에 자주 씁니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "원본보다 크게 늘리면 화질이 어떻게 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "canvas API의 기본 보간(bilinear)으로 늘립니다. 200% 정도까지는 보기 무난하지만 그 이상은 흐릿해집니다. AI 업스케일링 기능은 본 도구에 없습니다. 원본 해상도가 부족하면 다른 사진을 사용하는 게 낫습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "원본 파일이 서버로 업로드되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. 모든 처리는 브라우저 안의 canvas API로 이루어지며, 사이트 운영자도 파일을 볼 수 없습니다. 신분증·이력서·여권 사진 등 민감 이미지도 안심하고 사용하세요."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .dim-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .dim-row .field { margin: 0; }
+    .unit-toggle { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .unit-toggle button { width: auto; flex: 0 0 auto; padding: 6px 14px; font-size: 13px; font-weight: 500; background: transparent; color: var(--muted); border: 0; cursor: pointer; }
+    .unit-toggle button.active { background: var(--primary); color: #fff; }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">이미지</a> · 이미지 리사이즈</div>
+    <h1>이미지 리사이즈</h1>
+    <p class="subtitle">px·% 크기 변경 + JPG/PNG/WebP 포맷 변환 — 여권·이력서·SNS 사진에.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>파일이 외부 서버로 전송되지 않습니다.</b> 모든 처리는 사용자 브라우저 안에서만 이루어집니다.</div>
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">📁</div>
+        <div class="drop-title" id="dropTitle">이미지 파일을 드래그하거나 클릭해서 선택</div>
+        <div class="drop-hint">JPG · PNG · WebP · GIF · BMP — 1장씩 처리</div>
+        <input type="file" id="fileInput" accept="image/*">
+      </label>
+
+      <div class="field" style="margin-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <label style="margin:0">단위</label>
+        <div class="unit-toggle" role="group" aria-label="단위 전환">
+          <button type="button" id="unitPx" class="active" data-unit="px">px</button>
+          <button type="button" id="unitPct" data-unit="pct">%</button>
+        </div>
+      </div>
+
+      <div class="dim-row">
+        <div class="field">
+          <label for="widthIn">가로 <span id="widthUnit">px</span></label>
+          <input type="number" id="widthIn" min="1" step="1" placeholder="—">
+        </div>
+        <div class="field">
+          <label for="heightIn">세로 <span id="heightUnit">px</span></label>
+          <input type="number" id="heightIn" min="1" step="1" placeholder="—">
+        </div>
+      </div>
+
+      <div class="field" style="display:flex;align-items:center;gap:8px">
+        <input type="checkbox" id="lockRatio" checked style="width:auto">
+        <label for="lockRatio" style="margin:0;font-weight:400;font-size:14px">비율 유지 (가로 입력 시 세로 자동, 그 반대도)</label>
+      </div>
+
+      <div class="field">
+        <label for="format">출력 포맷</label>
+        <select id="format">
+          <option value="keep" selected>원본 포맷 유지</option>
+          <option value="image/jpeg">JPEG (.jpg)</option>
+          <option value="image/png">PNG (.png)</option>
+          <option value="image/webp">WebP (.webp)</option>
+        </select>
+      </div>
+
+      <div class="field" id="qualityField">
+        <label for="quality">화질 (JPEG·WebP 출력 시) <span class="range-value" id="qualityValue">0.92</span></label>
+        <input type="range" id="quality" min="0.1" max="1.0" step="0.02" value="0.92">
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="resizeBtn" disabled>리사이즈</button>
+        <button type="button" id="clearBtn">초기화</button>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="image-preview">
+        <img id="previewImg" alt="리사이즈 결과 미리보기">
+      </div>
+      <div class="image-meta">
+        <span>원본 <b id="origDim">—</b></span>
+        <span>결과 <b id="newDim">—</b></span>
+        <span>원본 용량 <b id="origSize">—</b></span>
+        <span>결과 용량 <b id="newSize">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ 다운로드</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>흔한 사진 사이즈 (px)</h2>
+      <p class="small">참고용. 제출처 공식 안내가 우선.</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>용도</th><th>크기 (px)</th><th>비율</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td>여권 사진 (디지털)</td><td>413×531</td><td>3.5:4.5</td><td>35×45mm @ 300dpi</td></tr>
+            <tr><td>증명사진 (이력서)</td><td>295×413</td><td>2.5:3.5</td><td>25×35mm @ 300dpi</td></tr>
+            <tr><td>인스타그램 정사각형</td><td>1080×1080</td><td>1:1</td><td>피드 권장</td></tr>
+            <tr><td>인스타그램 세로</td><td>1080×1350</td><td>4:5</td><td>피드 최대 세로</td></tr>
+            <tr><td>인스타 스토리·릴스</td><td>1080×1920</td><td>9:16</td><td>풀스크린</td></tr>
+            <tr><td>유튜브 썸네일</td><td>1280×720</td><td>16:9</td><td>HD 720p</td></tr>
+            <tr><td>네이버 블로그 본문</td><td>가로 800~1200</td><td>—</td><td>모바일 viewport 고려</td></tr>
+            <tr><td>카카오톡 프로필</td><td>640×640</td><td>1:1</td><td>1:1로 자동 크롭됨</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../compress/">이미지 압축<span class="desc">화질 슬라이더로 용량 줄이기</span></a>
+        <a href="../">이미지 도구 모음<span class="desc">QR·PDF·OCR (준비 중)</span></a>
+        <a href="/text/counter/">글자수 카운터<span class="desc">자소서·SNS 글자수</span></a>
+        <a href="/tools/age/">만 나이 계산기<span class="desc">이력서 작성 시</span></a>
+        <a href="/tools/dday/">D-day 계산기<span class="desc">서류 마감일</span></a>
+        <a href="/tools/">33개 계산기 모두 보기<span class="desc">세금·금융·생활</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>EXIF 정보(촬영 위치·시각)는 어떻게 되나요?</summary>
+        <div class="answer">
+          canvas API로 다시 그리면서 <b>EXIF 메타데이터는 자동 제거</b>됩니다. 위치 정보가 포함된 사진을 SNS·블로그에 올릴 때 프라이버시 보호 효과가 있습니다. 단 촬영 시각·카메라 모델 정보가 필요하면 원본을 별도 보관하세요.
+        </div>
+      </details>
+      <details>
+        <summary>회전(가로↔세로 전환)도 되나요?</summary>
+        <div class="answer">
+          현재는 크기·포맷 변경만 지원합니다. 회전·자르기(crop)는 별도 도구로 검토 중. 90° 회전이 자주 필요하면 운영체제 기본 사진 앱(macOS Preview, Windows 사진)에서 회전 후 본 도구로 가져오세요.
+        </div>
+      </details>
+      <details>
+        <summary>리사이즈한 사진이 흐릿해 보입니다.</summary>
+        <div class="answer">
+          축소(downscale)는 원본보다 작아지므로 보통 깨끗합니다. 단 너무 작게 줄이면(예: 100px 이하) 디테일이 사라집니다. 확대(upscale)는 보간으로 흐릿함이 발생 — 50% 이상 확대는 권장하지 않습니다. 인쇄·고해상도가 필요하면 원본 해상도가 충분한 사진을 사용하세요.
+        </div>
+      </details>
+      <details>
+        <summary>큰 파일(20MB+)도 처리되나요?</summary>
+        <div class="answer">
+          기술적으로는 가능하지만 모바일에서는 30MB 이상 사진은 멈출 수 있습니다. 데스크톱 Chrome 기준 100MB까지 안정적. 큰 파일을 작게 줄이는 작업은 데스크톱에서 진행 권장.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>여권·이력서 사진 사이즈는 어떻게 맞추나요?</summary>
+        <div class="answer">
+          여권 사진 표준은 35×45mm, 300dpi 인쇄 기준 <b>413×531px</b>. 이력서·증명사진은 보통 3.5×4.5cm 또는 디지털 제출 시 100~300KB·400×500px 정도가 무난합니다. 본 도구에서 가로·세로를 px 단위로 입력하고 <b>비율 유지를 끄면</b> 정확한 치수로 맞출 수 있습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>비율 유지를 켜면 어떻게 동작하나요?</summary>
+        <div class="answer">
+          원본의 가로:세로 비율을 보존하기 위해, 입력한 가로·세로 중 <b>더 작아지는 쪽</b>을 기준으로 다른 한 변을 자동 계산합니다.
+          예: 1920×1080 사진에 가로 800·세로 600을 입력해도 결과는 <b>800×450</b>(가로 기준 비율 보존)이 됩니다. 정확한 치수가 필요하면 비율 유지 해제.
+        </div>
+      </details>
+
+      <details>
+        <summary>%로 입력하는 게 더 편한가요?</summary>
+        <div class="answer">
+          단순히 '절반·30%로 줄이기' 같은 비율 축소면 <b>% 모드</b>가 빠릅니다. 가로·세로에 같은 % 값을 넣으면 비율이 자동 유지됩니다.
+          SNS·블로그 업로드용 일괄 축소에 편리. 정확한 치수(예: 800×600)가 필요하면 px 모드 사용.
+        </div>
+      </details>
+
+      <details>
+        <summary>포맷 변환만 하고 싶어요. 크기는 그대로.</summary>
+        <div class="answer">
+          가로·세로를 원본과 같은 값으로 두거나, % 모드에서 100%로 두면 됩니다. 출력 포맷만 바꾸면 사실상 <b>포맷 변환만</b> 됩니다.
+          PNG → JPEG로 바꿔서 용량 줄이기, JPEG → WebP로 바꿔서 더 줄이기 등에 자주 씁니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>원본보다 크게 늘리면 화질이 어떻게 되나요?</summary>
+        <div class="answer">
+          canvas API의 기본 보간(bilinear)으로 늘립니다. 200% 정도까지는 보기 무난하지만 그 이상은 흐릿해집니다.
+          AI 업스케일링 기능은 본 도구에 없습니다. 원본 해상도가 부족하면 다른 사진을 사용하는 게 낫습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>원본 파일이 서버로 업로드되나요?</summary>
+        <div class="answer">
+          전송되지 않습니다. 모든 처리는 브라우저 안의 <b>canvas API</b>로 이루어지며, 사이트 운영자도 파일을 볼 수 없습니다.
+          신분증·이력서·여권 사진 등 민감 이미지도 안심하고 사용하세요.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-05 / 처리는 브라우저 canvas API 기반.</div>
+      <ul>
+        <li>HTMLCanvasElement.toBlob() — <a href="https://developer.mozilla.org/ko/docs/Web/API/HTMLCanvasElement/toBlob" rel="nofollow noopener" target="_blank">MDN</a></li>
+        <li>CanvasRenderingContext2D.drawImage() — <a href="https://developer.mozilla.org/ko/docs/Web/API/CanvasRenderingContext2D/drawImage" rel="nofollow noopener" target="_blank">MDN</a></li>
+        <li>여권용 사진 규격 — <a href="https://www.passport.go.kr/" rel="nofollow noopener" target="_blank">외교부 여권민원</a></li>
+      </ul>
+      <div class="note">⚠️ 여권·신분증·증명서류는 제출처 공식 규격을 반드시 확인. 본 가이드는 일반적 권장치 참고용.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 이미지 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="./resize.js" defer></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

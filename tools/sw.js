@@ -4,10 +4,10 @@
  * - 오프라인 동작 지원
  */
 
-const CACHE_VERSION = 'tayleetools-v7';
+const CACHE_VERSION = 'tayleetools-v8';
 const STATIC_ASSETS = [
   './',
-  './css/style.css',
+  '/common/css/style.css',
   './favicon.svg',
   './manifest.webmanifest',
 ];
