@@ -21,9 +21,9 @@
 - **티스토리 블로그**: taehyuklee.tistory.com (이전 운영)
 - **메인 동기**: 구글 애드센스 광고 수익. 현실적 단계별 수익화 설계 선호
 - **운영 사이트들** (생각 정리 차원):
-  - `Archive/blog/` — 와이프의 육아 블로그 (Next.js, AdSense 메인 타겟)
-  - `Archive/tools/` — 본 프로젝트 (30개 계산기)
-  - `Archive/portfolio/` — 본인 포트폴리오
+  - `taystudio.github.io/tools/` — 본 프로젝트 (33개 계산기)
+  - 블로그·포트폴리오는 **별도 GitHub 레포로 분리 운영 예정** (이 레포에는 포함 X)
+  - 5/4 시점 루트 `index.html`의 hub-grid에서 Blog·Portfolio SOON 카드 제거됨
 - **소통 선호**: 직설적 + 핵심 우선 + 트레이드오프 명시. 환상 심어주는 답변 싫어함. 모든 답변 한국어 OK.
 
 ---
