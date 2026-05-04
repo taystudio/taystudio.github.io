@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#2563eb">
   <meta name="color-scheme" content="light dark">
-  <link rel="icon" type="image/svg+xml" href="../tools/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <title>변경 이력 — TAYSTUDIO</title>
   <meta name="description" content="TAYSTUDIO 사이트 변경 이력 — 도구 추가, 세율 갱신, SEO 작업, 인프라 변경을 시간 역순으로 가시화.">
   <meta name="robots" content="noindex, follow">
@@ -114,6 +117,106 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-04</span>
+            <span class="tl-tag fix">진단·해결</span>
+            <span class="tl-tag seo">SEO</span>
+          </div>
+          <div class="tl-title">🔍 Google SERP 파비콘 미노출 진단·해결</div>
+          <div class="tl-summary">
+            구글 검색 결과에서 사이트 로고 자리에 기본 globe 아이콘이 표시되는 현상. 브라우저 탭의 favicon은 정상 노출. <b>도메인 루트에 favicon 파일이 부재</b>한 것이 주원인으로 진단 → SVG + PNG(96·192·180) 4종을 root에 배치, 39개 페이지 head link 일괄 갱신 완료.
+          </div>
+          <details class="tl-details" open>
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">현상</h3>
+              <ul>
+                <li>브라우저 탭 / 북마크: <code>tools/favicon.svg</code> 정상 표시</li>
+                <li>Google 검색 결과 페이지(SERP): 기본 globe 아이콘 (favicon 미인식)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">원인 (우선순위 순)</h3>
+              <table>
+                <thead><tr><th>#</th><th>원인</th><th>영향도</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>도메인 루트(<code>/favicon.ico</code>)에 파일 없음 — Google이 가장 먼저 확인하는 표준 위치</td><td>★★★ 핵심</td></tr>
+                  <tr><td>2</td><td>SVG 한 종류만 존재 (PNG/ICO fallback 부재). Google 권장은 48의 배수 정사각형 PNG (48·96·144·192px)</td><td>★★</td></tr>
+                  <tr><td>3</td><td><code>apple-touch-icon</code> 180×180 부재 — iOS·SERP fallback 후보</td><td>★</td></tr>
+                  <tr><td>4</td><td>Google favicon 인덱싱이 페이지 인덱싱과 별도 파이프라인 — 새 사이트는 며칠~몇 주 지연</td><td>대기 요인</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">왜 루트 위치가 중요한가</h3>
+              <p><a href="https://developers.google.com/search/docs/appearance/favicon-in-search" target="_blank" rel="noopener">Google 공식 문서</a> 기준 SERP favicon 인식 순서:</p>
+              <ol>
+                <li>HTML <code>&lt;head&gt;</code>의 <code>&lt;link rel="icon"&gt;</code></li>
+                <li>위가 없거나 무효면 <code>https://&lt;도메인&gt;/favicon.ico</code> (RFC 5785 well-known 표준 위치)</li>
+              </ol>
+              <p>이론상 1번이 우선이지만 실무에선 Googlebot이 favicon 크롤링을 별도 파이프라인으로 처리하면서 <b>루트 표준 위치를 더 신뢰</b>함. 루트에 파일이 없으면 SERP에 favicon이 안 뜨는 케이스가 흔함.</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">현재 자산</h3>
+              <ul>
+                <li><code>tools/favicon.svg</code> — viewBox 100×100, 파란색 둥근 사각형 + 흰색 "T" 글자. 디자인 자체는 문제없음</li>
+                <li>루트 <code>/favicon.ico</code>: <b>없음</b></li>
+                <li>PNG 사이즈 변형: <b>없음</b></li>
+                <li><code>apple-touch-icon</code>: <b>없음</b></li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">해결 순서</h3>
+<pre>A. 루트에 favicon.ico (또는 favicon.svg) 배치   ← 95% 이게 원인
+B. 96·192px PNG 추가 + link rel="icon" sizes 명시
+C. apple-touch-icon 180×180 PNG 추가
+D. 33 페이지 head 일괄 갱신 (절대경로 권장)
+E. Google Search Console > URL Inspection > Live Test로 인식 확인
+F. 인덱싱 대기 (며칠~몇 주)</pre>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">SVG → PNG/ICO 변환 (mac)</h3>
+<pre># Quick Look 내장 (추가 설치 X)
+qlmanage -t -s 192 -o . tools/favicon.svg
+
+# ImageMagick (brew install imagemagick)
+magick tools/favicon.svg -resize 192x192 favicon-192.png
+magick tools/favicon.svg -resize 96x96  favicon-96.png
+magick tools/favicon.svg -resize 48x48  favicon-48.png
+magick favicon-48.png favicon-96.png favicon.ico   # multi-size ICO</pre>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">✅ 적용한 작업 (2026-05-04)</h3>
+              <ul>
+                <li><b>root favicon 자산 4종 배치</b>
+                  <ul>
+                    <li><code>/favicon.svg</code> (286B, 벡터, 모던 브라우저)</li>
+                    <li><code>/favicon-96.png</code> (1.3KB, 96×96, Google 권장)</li>
+                    <li><code>/favicon-192.png</code> (3.2KB, 192×192, Google 권장)</li>
+                    <li><code>/apple-touch-icon.png</code> (2.9KB, 180×180, iOS·SERP fallback)</li>
+                  </ul>
+                </li>
+                <li><b>변환 도구</b> — mac 내장 <code>qlmanage -t -s &lt;size&gt; -o . tools/favicon.svg</code> (ImageMagick 없이 처리). ICO는 생략 (현대 SERP는 PNG/SVG로 충분)</li>
+                <li><b>39개 HTML head link 일괄 갱신</b> — 단일 SVG 줄(상대경로 4종)을 4줄 세트(절대경로 통일)로 확장. perl one-liner 일괄 처리.
+<pre>&lt;link rel="icon" type="image/svg+xml" href="/favicon.svg"&gt;
+&lt;link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"&gt;
+&lt;link rel="apple-touch-icon" href="/apple-touch-icon.png"&gt;</pre>
+                </li>
+                <li><b>대상 파일</b> — 루트 1 + tools 카탈로그 1 + 404 1 + 도구 33 + privacy + terms + history = 39 파일</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⏳ 인덱싱 대기 (배포 후 절차)</h3>
+              <ol>
+                <li>commit + push → GitHub Pages 자동 배포</li>
+                <li>Google Search Console &gt; URL Inspection &gt; 루트 URL 입력 &gt; "Live Test" → favicon 인식 여부 확인</li>
+                <li>"Request Indexing"으로 재크롤링 트리거</li>
+                <li>며칠~몇 주 후 SERP에 favicon 노출 (Google favicon 워커 별도 파이프라인이라 즉시 반영 안 됨)</li>
+              </ol>
+
+              <p style="color:var(--muted);font-size:13px;margin-top:12px">상태: <b>코드 작업 완료</b> · 다음: commit·push 후 Search Console 재인덱싱 요청</p>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item major">
