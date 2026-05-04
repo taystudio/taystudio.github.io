@@ -71,6 +71,59 @@
           "item": "https://taystudio.github.io/tools/cartax-yearly/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "자동차세는 언제, 어떻게 내나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "매년 6월·12월 두 번 분납. 산정기준일은 각 반기 첫 날(6/1, 12/1). 6월에 상반기분, 12월에 하반기분 납부. 위택스 또는 시·군·구청에서 자동 고지서 발송."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "1월 연납하면 얼마나 할인되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "1월 일시납 시 약 6.4% 세액공제 (남은 11개월분 1.5% × 11/12). 2,000cc 기준 연 52만원이 약 48.7만원으로 약 3.3만원 절약. 3월·6월·9월에도 부분 연납 가능 (할인율 감소)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "차령 경감은 어떻게 적용되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "지방세법 시행령 제125조 — 3년차부터 매년 5%씩 경감, 12년 이상 50% 한도. 즉 12년 이상 차량은 신차 대비 절반만 부담. 단 친환경차는 별도 세제."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "전기차 자동차세는 어떻게 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전기차는 배기량 무관 정액 — 비영업용 13만원 + 지방교육세 30% = 약 16.9만원/년. 일반 2,000cc 차량(52만원)의 1/3 수준. 본 계산기는 내연기관 차량 기준."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "이사 후 거주지가 바뀌면 어떻게 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "차량등록은 거주지 시·군·구청 기준이지만 이사 후 변경 등록 의무는 14일 이내. 미변경 시 과태료 30만원. 자동차세는 변경된 지자체로 자동 이전. 단 6/1·12/1 시점 등록지 기준이라 그 이전 이사 시 새 지자체에 부과."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "장애인·다자녀 감면이 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "장애인용 자동차 면제 (지방세특례제한법 제17조). 국가유공자도 면제. 다자녀 가구는 7인승 이상 차량 50% 감면 (한도 조례에 따라). 본 계산기는 표준 기준 — 위택스 별도 신청."
+          }
+        }
+      ]
     }
   ]
 }
@@ -117,6 +170,214 @@
     <div class="disclaimer">
       ⚠️ 본 계산은 비영업용 승용차 기준입니다. 영업용 / 화물·승합 / 전기차(연 13만원 정액) / 이륜차는 별도 세율. 1월 일시납 시 약 6.4% 세액공제 가능 (연납공제).
     </div>
+
+    <section class="tool-article">
+      <h2>비영업용 승용차 자동차세율</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>배기량</th><th>cc당 세액</th></tr></thead>
+          <tbody>
+            <tr><td>1,000cc 이하 (경차)</td><td class="highlight">80원</td></tr>
+            <tr><td>1,000 ~ 1,600cc</td><td class="highlight">140원</td></tr>
+            <tr><td>1,600cc 초과</td><td class="highlight">200원</td></tr>
+            <tr><td>전기·수소차</td><td>정액 13만원/년</td></tr>
+            <tr><td>이륜차 (125cc 초과)</td><td>정액 18,000원/년</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">지방세법 제127조. 자동차세 = 배기량 × cc당 세액. 지방교육세(30%) 별도. 영업용·화물·승합은 별도 표.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>배기량별 연 자동차세 (신차 기준)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>배기량</th><th>본세</th><th>지방교육세</th><th>합계</th><th>1월 연납 (≈ 6.4% 할인)</th></tr></thead>
+          <tbody>
+            <tr><td>800cc</td><td>64,000</td><td>19,200</td><td class="highlight">83,200</td><td>77,875</td></tr>
+            <tr><td>1,000cc</td><td>80,000</td><td>24,000</td><td class="highlight">104,000</td><td>97,344</td></tr>
+            <tr><td>1,200cc</td><td>168,000</td><td>50,400</td><td class="highlight">218,400</td><td>204,422</td></tr>
+            <tr><td>1,500cc</td><td>210,000</td><td>63,000</td><td class="highlight">273,000</td><td>255,528</td></tr>
+            <tr><td>1,600cc</td><td>224,000</td><td>67,200</td><td class="highlight">291,200</td><td>272,563</td></tr>
+            <tr><td>1,800cc</td><td>360,000</td><td>108,000</td><td class="highlight">468,000</td><td>438,048</td></tr>
+            <tr><td>2,000cc</td><td>400,000</td><td>120,000</td><td class="highlight">520,000</td><td>486,720</td></tr>
+            <tr><td>2,500cc</td><td>500,000</td><td>150,000</td><td class="highlight">650,000</td><td>608,400</td></tr>
+            <tr><td>3,000cc</td><td>600,000</td><td>180,000</td><td class="highlight">780,000</td><td>730,080</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">신차(차령 0 ~ 2년차) 기준. 차령 3년부터 5%씩 경감 (12년 이상 50% 한도).</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>더 알아보기</h2>
+
+      <details>
+        <summary>차령 경감 (2,000cc 기준)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>차령</th><th>경감율</th><th>총 세액</th></tr></thead>
+              <tbody>
+                <tr><td>0 ~ 2년</td><td>0%</td><td>520,000</td></tr>
+                <tr><td>3년</td><td>5%</td><td>494,000</td></tr>
+                <tr><td>5년</td><td>15%</td><td>442,000</td></tr>
+                <tr><td>7년</td><td>25%</td><td>390,000</td></tr>
+                <tr><td>10년</td><td>40%</td><td>312,000</td></tr>
+                <tr><td>12년 이상</td><td class="highlight">50% (한도)</td><td class="highlight">260,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">3년차부터 매년 5%씩 경감. 12년 이상 50% 한도 도달 후 더 이상 감소 X.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>연납공제 시기별 할인율</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>연납 신청 시기</th><th>할인율 (잔여 11개월)</th></tr></thead>
+              <tbody>
+                <tr><td>1월</td><td class="highlight">약 6.4%</td></tr>
+                <tr><td>3월</td><td>약 5.4%</td></tr>
+                <tr><td>6월 (상반기 마지막 기회)</td><td>약 3.4%</td></tr>
+                <tr><td>9월</td><td>약 1.4%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">잔여 개월수 × 1.5% / 12 식으로 산출. 1월 연납 시 1년분을 미리 내고 약 6.4% 할인. 위택스에서 1월에 자동 신청 가능.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>전기차·하이브리드 자동차세</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>전기차</b>비영업용 13만원/년 + 교육세 = 16.9만원/년 정액. 배기량 무관.</div>
+            <div class="case"><b>수소차</b>전기차와 동일 (13만원 정액).</div>
+            <div class="case"><b>하이브리드</b>일반 내연기관과 동일 (배기량 기준). 별도 감면 X (자동차세는).</div>
+            <div class="case"><b>차령 경감</b>전기차도 차령 3년차부터 5%/년 경감 적용.</div>
+            <div class="case"><b>총 부담</b>2,000cc 일반 52만 vs 전기차 16.9만 = 약 35만 차이. 5년 보유 시 175만 절감.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>영업용·화물·승합 세율</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>차종</th><th>세액</th></tr></thead>
+              <tbody>
+                <tr><td>영업용 승용 (1,000cc 이하)</td><td>cc × 18원</td></tr>
+                <tr><td>영업용 승용 (1,000 ~ 1,600cc)</td><td>cc × 19원</td></tr>
+                <tr><td>영업용 승용 (1,600cc 초과)</td><td>cc × 24원</td></tr>
+                <tr><td>화물 (1톤 이하)</td><td>28,500원</td></tr>
+                <tr><td>화물 (1 ~ 2톤)</td><td>34,500원</td></tr>
+                <tr><td>화물 (2 ~ 3톤)</td><td>48,000원</td></tr>
+                <tr><td>승합 (15인 이하)</td><td>65,000원</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">영업용은 비영업용보다 cc당 세액이 약 1/10 수준. 화물·승합은 정액. 본 계산기는 비영업 승용 기준.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>장애인·국가유공자·다자녀 감면</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>장애인용 자동차</b>지방세특례제한법 제17조 — 자동차세 면제. 1 ~ 6급 본인·세대 명의.</div>
+            <div class="case"><b>국가유공자</b>유공자 본인 명의 차량 면제.</div>
+            <div class="case"><b>다자녀 (3자녀+)</b>7인승 이상 자동차 50% 감면 (조례 한도).</div>
+            <div class="case"><b>경차 (1,000cc 이하)</b>일반인은 cc당 80원으로 가장 낮은 세율 적용 — 별도 감면이 아닌 표준세율.</div>
+            <div class="case"><b>저공해차 인증</b>일부 지자체 별도 감면 (조례 확인).</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>납부 일정·연체</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>1차 납부</b>매년 6월 16일 ~ 30일 (상반기분).</div>
+            <div class="case"><b>2차 납부</b>12월 16일 ~ 31일 (하반기분).</div>
+            <div class="case"><b>1월 연납</b>1월 16일 ~ 31일에 1년분 일시 납부 (약 6.4% 할인).</div>
+            <div class="case"><b>위택스 납부</b>온라인 카드·계좌이체. 모바일 앱 가능.</div>
+            <div class="case"><b>가산세</b>납부불성실 1일 0.022% (지방세기본법).</div>
+            <div class="case"><b>체납 시</b>3개월 이상 체납 시 차량 압류·번호판 영치 가능.</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../cartax/">자동차 취득세 계산기<span class="desc">매수 시 7%</span></a>
+        <a href="../property-tax/">재산세 계산기<span class="desc">주택 7·9월</span></a>
+        <a href="../comp-property/">종부세 계산기<span class="desc">고가 부동산 보유세</span></a>
+        <a href="../insurance/">4대보험 계산기<span class="desc">월 부담액</span></a>
+        <a href="../loan/">대출 이자 계산기<span class="desc">자동차 할부</span></a>
+        <a href="../comprehensive/">종합소득세 계산기<span class="desc">사업·기타소득</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>자동차세는 언제, 어떻게 내나요?</summary>
+        <div class="answer">
+          매년 <b>6월·12월 두 번 분납</b>. 산정기준일은 각 반기 첫 날(6/1, 12/1). 6월에
+          상반기분, 12월에 하반기분 납부. 위택스 또는 시·군·구청에서 자동 고지서 발송.
+        </div>
+      </details>
+
+      <details>
+        <summary>1월 연납하면 얼마나 할인되나요?</summary>
+        <div class="answer">
+          1월 일시납 시 <b>약 6.4% 세액공제</b> (남은 11개월분 1.5% × 11/12). 2,000cc
+          기준 연 52만원이 약 48.7만원으로 약 3.3만원 절약. 3월·6월·9월에도 부분 연납
+          가능 (할인율 감소).
+        </div>
+      </details>
+
+      <details>
+        <summary>차령 경감은 어떻게 적용되나요?</summary>
+        <div class="answer">
+          지방세법 시행령 제125조 — <b>3년차부터 매년 5%씩 경감, 12년 이상 50% 한도</b>.
+          즉 12년 이상 차량은 신차 대비 절반만 부담. 단 친환경차는 별도 세제.
+        </div>
+      </details>
+
+      <details>
+        <summary>전기차 자동차세는 어떻게 되나요?</summary>
+        <div class="answer">
+          전기차는 배기량 무관 <b>정액 — 비영업용 13만원 + 지방교육세 30% = 약 16.9만원/년</b>.
+          일반 2,000cc 차량(52만원)의 1/3 수준. 본 계산기는 내연기관 차량 기준.
+        </div>
+      </details>
+
+      <details>
+        <summary>이사 후 거주지가 바뀌면 어떻게 되나요?</summary>
+        <div class="answer">
+          차량등록은 거주지 시·군·구청 기준이지만 이사 후 변경 등록 의무는 <b>14일 이내</b>.
+          미변경 시 과태료 30만원. 자동차세는 변경된 지자체로 자동 이전. 단 6/1·12/1
+          시점 등록지 기준이라 그 이전 이사 시 새 지자체에 부과.
+        </div>
+      </details>
+
+      <details>
+        <summary>장애인·다자녀 감면이 있나요?</summary>
+        <div class="answer">
+          <b>장애인용 자동차 면제</b> (지방세특례제한법 제17조). 국가유공자도 면제. 다자녀
+          가구는 7인승 이상 차량 50% 감면 (한도 조례에 따라). 본 계산기는 표준 기준 —
+          위택스 별도 신청.
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>적용된 법령·고시 및 출처</h2>

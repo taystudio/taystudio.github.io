@@ -71,6 +71,59 @@
           "item": "https://taystudio.github.io/tools/property-tax/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "재산세는 언제, 어떻게 내나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "주택 재산세는 매년 7월·9월 두 차례 분납. 7월에 절반, 9월에 절반. 산정기준일은 6월 1일이라 5월에 매수해도 그 해 재산세는 매수자 부담. 위택스에서 자동 고지서 발송."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "공시가격이 시세랑 다른가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네. 공시가격은 국토교통부가 매년 1월 1일 기준으로 산정·고시하는 가격으로, 일반적으로 시세의 약 60~80% 수준입니다. 재산세 과세표준은 공시가격 × 60% (공정시장가액비율). 즉 시세 10억 → 공시 약 7억 → 과표 약 4.2억."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "1세대 1주택 특례는 무조건 받나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "공시가격 9억 이하 + 1세대 1주택 + 단독명의여야 합니다. 부부 공동명의면 특례 적용 안 됨 (다만 양도세에서는 공동명의가 유리할 때가 많아 트레이드오프). 9억 초과는 일반세율."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "도시지역분이 뭔가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "지방세법 제112조에 따라 도시계획구역 내 토지·주택에 추가로 부과되는 세금입니다. 과세표준 × 0.14%. 도시 인프라(도로·공원 등)에 사용. 거의 모든 도시 지역 주택이 해당."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "재산세 외에 또 어떤 세금이 붙나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "지방교육세(재산세 본세의 20%)가 함께 부과됩니다. 또 공시가격 12억 초과(1주택) 또는 9억 초과(다주택 합산)면 종합부동산세가 별도 부과. 본 계산기는 재산세+도시지역분+지방교육세 3종 합계."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "공동명의는 재산세도 절반씩 나오나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "재산세는 공동명의여도 주택 1채 단위로 부과됩니다. 즉 합계는 같음. 다만 1주택 특례세율은 단독명의만 적용되므로 공동명의는 일반세율로 계산되어 약 30~40% 더 부담 (공시가 9억 이하 기준)."
+          }
+        }
+      ]
     }
   ]
 }
@@ -114,6 +167,196 @@
     <div class="disclaimer">
       ⚠️ 7월·9월 두 차례 분납 (1/2씩). 본 계산기는 주택 기준이며 토지·건축물·선박·항공기는 별도 세율 적용.
     </div>
+
+    <section class="tool-article">
+      <h2>주택 재산세율 (지방세법 제111조·제111조의2)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>과세표준</th><th>일반세율</th><th>1주택 특례세율</th></tr></thead>
+          <tbody>
+            <tr><td>6천만 이하</td><td>0.1%</td><td class="highlight">0.05%</td></tr>
+            <tr><td>6천만 ~ 1.5억</td><td>0.15% (−3만)</td><td class="highlight">0.10% (−3만)</td></tr>
+            <tr><td>1.5억 ~ 3억</td><td>0.25% (−18만)</td><td class="highlight">0.20% (−18만)</td></tr>
+            <tr><td>3억 ~ 5.4억 (특례)</td><td>0.4% (−63만)</td><td class="highlight">0.35% (−63만)</td></tr>
+            <tr><td>5.4억 초과 / 9억 초과 (특례 미적용)</td><td>0.4% (−63만)</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">과세표준 = 공시가격 × 60% (공정시장가액비율). 1주택 특례는 공시 9억 이하 + 단독명의만.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>공시가격별 재산세 (1세대 1주택 특례 적용)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>공시가</th><th>과세표준</th><th>재산세</th><th>도시지역분</th><th>지방교육세</th><th>합계</th></tr></thead>
+          <tbody>
+            <tr><td>3억</td><td>1.8억</td><td>180,000</td><td>252,000</td><td>36,000</td><td class="highlight">468,000</td></tr>
+            <tr><td>5억</td><td>3억</td><td>420,000</td><td>420,000</td><td>84,000</td><td class="highlight">924,000</td></tr>
+            <tr><td>7억</td><td>4.2억</td><td>840,000</td><td>588,000</td><td>168,000</td><td class="highlight">1,596,000</td></tr>
+            <tr><td>9억</td><td>5.4억</td><td>1,260,000</td><td>756,000</td><td>252,000</td><td class="highlight">2,268,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">7월·9월 두 차례 분납. 위택스에서 자동 고지서 발송.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>더 알아보기</h2>
+
+      <details>
+        <summary>일반세율 (다주택·9억 초과·공동명의)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>공시가</th><th>과세표준</th><th>재산세</th><th>합계 (도시·교육 포함)</th></tr></thead>
+              <tbody>
+                <tr><td>3억</td><td>1.8억</td><td>270,000</td><td class="highlight">576,000</td></tr>
+                <tr><td>5억</td><td>3억</td><td>570,000</td><td class="highlight">1,104,000</td></tr>
+                <tr><td>7억</td><td>4.2억</td><td>1,050,000</td><td class="highlight">1,848,000</td></tr>
+                <tr><td>9억</td><td>5.4억</td><td>1,530,000</td><td class="highlight">2,592,000</td></tr>
+                <tr><td>12억</td><td>7.2억</td><td>2,250,000</td><td class="highlight">3,708,000</td></tr>
+                <tr><td>15억</td><td>9억</td><td>2,970,000</td><td class="highlight">4,824,000</td></tr>
+                <tr><td>20억</td><td>12억</td><td>4,170,000</td><td class="highlight">6,684,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">동일 공시가 5억 비교 — 1주택 특례 92.4만 vs 일반세율 110.4만. 약 18만원 차이. 9억 초과부터는 무조건 일반세율.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>공시가격이 시세와 다른 이유</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>공시가격</b>국토교통부가 매년 1월 1일 기준으로 산정·고시. 시세의 약 60~80% 수준 (지역·유형별 차이).</div>
+            <div class="case"><b>현실화율</b>2020년부터 공시가격 현실화 정책으로 시세 대비 비율을 90%까지 단계적 상향했으나, 2024년 정부 정책 변경으로 동결.</div>
+            <div class="case"><b>공정시장가액비율</b>주택은 공시가격의 60% (지방세법 시행령 제109조). 즉 과세표준 = 시세의 36~48% 수준.</div>
+            <div class="case"><b>이의신청</b>매년 4월에 공시가격 열람·이의신청 가능. 객관적 사유(인근 주택 비교 등) 있으면 조정 가능.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>도시지역분·지방교육세 부가세</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>도시지역분 0.14%</b>도시계획구역 내 토지·주택에 부과 (지방세법 제112조). 거의 모든 도시 주택 해당. 도로·공원 등 인프라 비용.</div>
+            <div class="case"><b>지방교육세 20%</b>재산세 본세의 20%를 추가 부과 (지방세법 제151조). 시·도 교육청 재원.</div>
+            <div class="case"><b>고지서 합계</b>본세 + 도시지역분 + 지방교육세가 한 고지서에 합산. 본세보다 약 2배 부담 가능.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>분납·납부 방법</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>1차 (7월)</b>전체 재산세의 1/2. 7월 16일~31일.</div>
+            <div class="case"><b>2차 (9월)</b>나머지 1/2. 9월 16일~30일.</div>
+            <div class="case"><b>위택스 납부</b>온라인 카드·계좌이체. 신용카드 무이자 할부 이벤트 자주 있음.</div>
+            <div class="case"><b>분할 납부</b>본세 250만원 초과 시 2개월 이내 분할 가능.</div>
+            <div class="case"><b>가산세</b>납부불성실 1일 0.022% (지방세기본법 제55조).</div>
+            <div class="case"><b>2025년부터 간이고지</b>20만원 이하 재산세는 7월에 일괄 부과 (분납 X).</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>1세대 1주택 특례 요건</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>공시가격 9억 이하</b>국토부 공시가격 기준. 시세 아님.</div>
+            <div class="case"><b>1세대 1주택</b>주민등록상 세대 전원 합산. 부모와 동거 중이면 합산 위험.</div>
+            <div class="case"><b>단독명의</b>본인 단독 명의여야 함. 부부 공동명의는 특례 X.</div>
+            <div class="case"><b>일시적 2주택</b>이사 등 일시적 2주택은 신청 시 1주택으로 간주 (위택스 신청 필요).</div>
+            <div class="case"><b>공동명의 트레이드오프</b>재산세는 단독이 유리, 양도세는 공동이 유리. 종합 판단 필요.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>주택 외 부동산 재산세 (토지·건축물)</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>종합합산토지</b>0.2 ~ 0.5% 누진 (나대지·잡종지 등).</div>
+            <div class="case"><b>별도합산토지</b>0.2 ~ 0.4% 누진 (상가·사업용 토지).</div>
+            <div class="case"><b>분리과세토지</b>0.07% 또는 0.2% 또는 4% (농지·임야·골프장 등).</div>
+            <div class="case"><b>건축물 (상가·사무실)</b>0.25% (일반), 4% (골프장·고급오락장).</div>
+            <div class="case"><b>본 계산기</b>주택 기준만 지원. 토지·건축물은 위택스 별도 계산.</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../comp-property/">종부세 계산기<span class="desc">12억 초과 1주택·9억 초과 다주택</span></a>
+        <a href="../acqtax/">취득세 계산기<span class="desc">매수 시 1 ~ 12%</span></a>
+        <a href="../capgain/">양도소득세 계산기<span class="desc">매도 시 차익 과세</span></a>
+        <a href="../brokerage/">중개수수료 계산기<span class="desc">매매·임대 상한</span></a>
+        <a href="../inheritance/">상속세 계산기<span class="desc">일괄·배우자공제</span></a>
+        <a href="../gifttax/">증여세 계산기<span class="desc">10년 합산 누진</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>재산세는 언제, 어떻게 내나요?</summary>
+        <div class="answer">
+          주택 재산세는 매년 <b>7월·9월 두 차례 분납</b>. 7월에 절반, 9월에 절반. 산정기준일은
+          6월 1일이라 5월에 매수해도 그 해 재산세는 매수자 부담. 위택스에서 자동 고지서 발송.
+        </div>
+      </details>
+
+      <details>
+        <summary>공시가격이 시세랑 다른가요?</summary>
+        <div class="answer">
+          네. 공시가격은 국토교통부가 매년 1월 1일 기준으로 산정·고시하는 가격으로, 일반적으로
+          시세의 약 60 ~ 80% 수준입니다. 재산세 과세표준은 <b>공시가격 × 60%</b> (공정시장가액비율).
+          즉 시세 10억 → 공시 약 7억 → 과표 약 4.2억.
+        </div>
+      </details>
+
+      <details>
+        <summary>1세대 1주택 특례는 무조건 받나요?</summary>
+        <div class="answer">
+          공시가격 <b>9억 이하 + 1세대 1주택 + 단독명의</b>여야 합니다. 부부 공동명의면 특례
+          적용 안 됨 (다만 양도세에서는 공동명의가 유리할 때가 많아 트레이드오프). 9억 초과는
+          일반세율.
+        </div>
+      </details>
+
+      <details>
+        <summary>도시지역분이 뭔가요?</summary>
+        <div class="answer">
+          지방세법 제112조에 따라 도시계획구역 내 토지·주택에 추가로 부과되는 세금입니다.
+          <b>과세표준 × 0.14%.</b> 도시 인프라(도로·공원 등)에 사용. 거의 모든 도시 지역
+          주택이 해당.
+        </div>
+      </details>
+
+      <details>
+        <summary>재산세 외에 또 어떤 세금이 붙나요?</summary>
+        <div class="answer">
+          <b>지방교육세</b>(재산세 본세의 20%)가 함께 부과됩니다. 또 공시가격 12억 초과
+          (1주택) 또는 9억 초과(다주택 합산)면 <b>종합부동산세</b>가 별도 부과. 본 계산기는
+          재산세+도시지역분+지방교육세 3종 합계.
+        </div>
+      </details>
+
+      <details>
+        <summary>공동명의는 재산세도 절반씩 나오나요?</summary>
+        <div class="answer">
+          재산세는 공동명의여도 <b>주택 1채 단위로 부과</b>됩니다. 즉 합계는 같음. 다만
+          1주택 특례세율은 단독명의만 적용되므로 공동명의는 일반세율로 계산되어 약
+          30 ~ 40% 더 부담 (공시가 9억 이하 기준).
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>적용된 법령·고시 및 출처</h2>

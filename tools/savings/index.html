@@ -71,6 +71,59 @@
           "item": "https://taystudio.github.io/tools/savings/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "왜 적금에서는 단리가 복리보다 이자가 많나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "적금은 매월 적립이라 단리·복리의 의미가 일반 예금과 다릅니다. 단리식은 '각 월 적립분이 만기까지 연이율 단리'라 첫달 적립분은 n개월 이자, 마지막달은 1개월 이자만 받습니다. 월복리식은 매월 적립한 합계에 월이율을 누적 — 같은 명목금리에서 적금 단리가 미세하게 더 많이 나오는 케이스 흔함. 시중은행 표준은 단리."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "월 30만원, 24개월, 4% 적금이면 만기에 얼마 받나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "원금 720만 + 세전이자 30만 = 세후 약 745만원. 단리 기준. 이자소득세 15.4%(약 4.6만) 차감. 매월 30만 자동이체 누적분에 만기까지 단리 이자."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "예금 1억 1년 4% 정기예금 만기금은?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "세전이자 400만 → 이자소득세 15.4%(약 61.6만) → 세후이자 약 338.4만 → 만기 1억 338.4만원. 시중은행 정기예금은 단리 (월복리 상품은 드뭄)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "이자에 세금이 정확히 얼마 붙나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "이자소득세 14% + 지방소득세 1.4% = 합계 15.4% 원천징수. 만기에 자동 차감되어 실수령액으로 입금. 연 이자·배당 합계가 2,000만원 초과면 종합소득세 합산(금융소득종합과세)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "비과세·세제혜택 적금이 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "있습니다. 청년형 도약계좌(만 19~34세, 5년 만기, 정부 매칭 기여금 + 비과세), 청년 우대형 청약저축(연 240만원 한도 40% 소득공제 + 비과세), ISA(연 200~400만 비과세 + 9% 분리과세). 일반 적금 대비 실효 수익률이 1 ~ 3%p 높음."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "예금자보호 한도는 얼마인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "은행 1곳당 5,000만원(원금+이자 합계). 2024년 25년 만에 5,000만 → 1억 상향안 통과. 다만 은행마다 별도 한도라 5,000만 초과 자금은 여러 은행에 분산 권장. 저축은행도 동일 한도(별도)."
+          }
+        }
+      ]
     }
   ]
 }
@@ -128,6 +181,199 @@
     <div class="disclaimer">
       ⚠️ 시중은행 적금은 대부분 <b>단리</b>입니다. ISA·청년형 적금 등 비과세·세제혜택 상품은 별도. 우대금리·중도해지 시 이율이 다릅니다.
     </div>
+
+    <section class="tool-article">
+      <h2>적금 이자 산정 공식</h2>
+      <div class="formula-list">
+        <ol>
+          <li><b>단리</b>: <code>이자 = 월적립 × 연이율 × n(n+1)/2 ÷ 12</code> <span class="small">(각 월 적립분이 만기까지 단리)</span></li>
+          <li><b>월복리</b>: <code>FV = M × ((1 + r)<sup>n</sup> − 1) ÷ r</code> <span class="small">(매월 누적 원리합계에 월이율)</span></li>
+          <li><b>이자소득세</b>: 이자 × 15.4% (소득세 14% + 지방세 1.4%)</li>
+          <li><b>세후이자</b> = 세전이자 × (1 − 0.154) = 세전이자 × 0.846</li>
+        </ol>
+      </div>
+      <p class="small">시중은행 적금은 거의 단리. 월복리 상품은 일부 저축은행·인터넷은행에 한정. 같은 명목금리에서는 적금 단리가 월복리보다 미세하게 많이 나오는 경우가 흔함.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>월 30만원 적금 (단리) 만기 수령액</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>금리</th><th>기간</th><th>원금</th><th>세전이자</th><th>세후이자</th><th>만기금</th></tr></thead>
+          <tbody>
+            <tr><td>3%</td><td>12개월</td><td>360만</td><td>58,500</td><td>49,491</td><td class="highlight">3,649,491</td></tr>
+            <tr><td>3%</td><td>24개월</td><td>720만</td><td>225,000</td><td>190,350</td><td class="highlight">7,390,350</td></tr>
+            <tr><td>3%</td><td>36개월</td><td>1,080만</td><td>499,500</td><td>422,577</td><td class="highlight">11,222,577</td></tr>
+            <tr><td>4%</td><td>12개월</td><td>360만</td><td>78,000</td><td>65,988</td><td class="highlight">3,665,988</td></tr>
+            <tr><td>4%</td><td>24개월</td><td>720만</td><td>300,000</td><td>253,800</td><td class="highlight">7,453,800</td></tr>
+            <tr><td>4%</td><td>36개월</td><td>1,080만</td><td>666,000</td><td>563,436</td><td class="highlight">11,363,436</td></tr>
+            <tr><td>5%</td><td>12개월</td><td>360만</td><td>97,500</td><td>82,485</td><td class="highlight">3,682,485</td></tr>
+            <tr><td>5%</td><td>24개월</td><td>720만</td><td>375,000</td><td>317,250</td><td class="highlight">7,517,250</td></tr>
+            <tr><td>5%</td><td>36개월</td><td>1,080만</td><td>832,500</td><td>704,295</td><td class="highlight">11,504,295</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">월 30만 × 24개월 × 4% = 원금 720만 + 세전이자 30만(평균 6개월치 이자) → 세후 만기 약 745만.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>더 알아보기</h2>
+
+      <details>
+        <summary>예금 (1억 정기예금) 1년 만기금</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>금리</th><th>세전이자</th><th>이자소득세</th><th>세후이자</th><th>만기금</th></tr></thead>
+              <tbody>
+                <tr><td>3.0%</td><td>3,000,000</td><td>462,000</td><td>2,538,000</td><td class="highlight">102,538,000</td></tr>
+                <tr><td>3.5%</td><td>3,500,000</td><td>539,000</td><td>2,961,000</td><td class="highlight">102,961,000</td></tr>
+                <tr><td>4.0%</td><td>4,000,000</td><td>616,000</td><td>3,384,000</td><td class="highlight">103,384,000</td></tr>
+                <tr><td>4.5%</td><td>4,500,000</td><td>693,000</td><td>3,807,000</td><td class="highlight">103,807,000</td></tr>
+                <tr><td>5.0%</td><td>5,000,000</td><td>770,000</td><td>4,230,000</td><td class="highlight">104,230,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">정기예금은 일시 거치 단리 — 원금 × 금리. 본 계산기는 적금 전용이지만 예금은 위 표 또는 연이율 × 원금으로 즉시 산출 가능.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>단리 vs 월복리 (적금 기준)</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>적금 단리 표준</b>매월 적립분에 만기까지 단리 이자. 첫달 적립은 n개월, 마지막달은 1개월 이자.</div>
+            <div class="case"><b>월복리</b>매월 누적 원리합계에 월이율 적용. 누적 효과가 적기 때문에 적금에서는 단리보다 미세하게 적게 나오는 경우가 흔함.</div>
+            <div class="case"><b>예시 (월 50만 / 5% / 24개월)</b>단리 이자 62.5만 vs 복리 59.3만 → 단리가 3.2만 많음.</div>
+            <div class="case"><b>일반 예금은 다름</b>일시 거치 후 복리 가정 시 복리가 압도적 (1억 7% 30년 → 단리 3.1억, 복리 7.6억).</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>비과세·세제혜택 적금</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>청년형 도약계좌</b>만 19 ~ 34세, 5년 만기, 월 70만 한도. 정부 매칭 기여금 + 운용수익 비과세.</div>
+            <div class="case"><b>청년 우대형 청약저축</b>연 240만원 한도 40% 소득공제 + 이자 비과세 (만 19 ~ 34세 무주택).</div>
+            <div class="case"><b>ISA</b>연 2,000만 한도, 비과세 200 ~ 400만 + 초과분 9% 분리과세. 적금·예금·ETF 모두 가입 가능.</div>
+            <div class="case"><b>비과세 종합저축</b>만 65세 이상·장애인·기초생활수급자 등, 5,000만 한도, 이자 전액 비과세.</div>
+            <div class="case"><b>장기저축성보험</b>10년 이상 유지 시 이자 비과세 (보험차익).</div>
+            <div class="case"><b>실효 수익률</b>일반 적금 4% = 세후 3.38%. 비과세 적금 4% = 세후 4% (실효 +0.62%p).</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>우대금리·중도해지 주의</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>우대금리</b>주거래 + 자동이체 + 카드사용 등 조건으로 0.5 ~ 2%p 가산. 미충족 시 기본금리만 적용.</div>
+            <div class="case"><b>중도해지 이율</b>약정 금리의 약 30 ~ 50% 수준 (보통 1% 미만). 만기 직전 해지 시 이자 손실 큼.</div>
+            <div class="case"><b>예금담보대출</b>긴급 자금 필요 시 적금 해지 대신 예금담보대출 (예금 이율 + 0.5 ~ 1%p)이 유리할 때 많음.</div>
+            <div class="case"><b>특판 적금</b>한정 기간 4 ~ 6% 고금리 출시 자주 발생 — 은행연합회 소비자포털·앱 알림 활용.</div>
+            <div class="case"><b>월 한도</b>특판 적금은 보통 월 20 ~ 50만 한도라 큰 금액 적립 불가.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>예금자보호 한도</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>1인 1은행 5,000만</b>원금 + 이자 합계 한도 (예금자보호법). 2024년 1억 상향안 통과 — 시행일 확인 필요.</div>
+            <div class="case"><b>은행별 별도</b>5,000만 초과 자금은 여러 은행에 분산.</div>
+            <div class="case"><b>저축은행</b>동일 5,000만 한도. 일반 은행과는 별개.</div>
+            <div class="case"><b>외화예금</b>같은 한도 적용 (원화 환산).</div>
+            <div class="case"><b>제외 상품</b>주식·펀드·MMF·CMA·신탁은 보호 대상 아님.</div>
+            <div class="case"><b>새마을금고·신협</b>예금자보호법 적용 X. 별도 보장기금(자체).</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>금리 비교 사이트</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>은행연합회 소비자포털</b>모든 시중은행 적금·예금 금리 표준 비교. portal.kfb.or.kr</div>
+            <div class="case"><b>저축은행중앙회</b>저축은행 금리 비교. fsb.or.kr</div>
+            <div class="case"><b>핀크·뱅크샐러드</b>특판 알림·자동 비교. 제휴 적금 우대금리 추가 가능.</div>
+            <div class="case"><b>네이버페이·토스</b>통합 금융 화면에서 금리 순 정렬.</div>
+            <div class="case"><b>인터넷은행</b>케이뱅크·카카오뱅크·토스뱅크는 자주 4 ~ 5% 특판 출시.</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../compound/">복리 계산기<span class="desc">투자·예금 복리 효과</span></a>
+        <a href="../loan/">대출 이자 계산기<span class="desc">월 상환·총 이자</span></a>
+        <a href="../salary/">연봉 실수령액 계산기<span class="desc">4대보험·소득세</span></a>
+        <a href="../year-end/">연말정산 계산기<span class="desc">환급/추가 납부</span></a>
+        <a href="../comprehensive/">종합소득세 계산기<span class="desc">사업·기타소득</span></a>
+        <a href="../capgain/">양도소득세 계산기<span class="desc">주식·부동산 양도</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>왜 적금에서는 단리가 복리보다 이자가 많나요?</summary>
+        <div class="answer">
+          적금은 매월 적립이라 단리·복리의 의미가 일반 예금과 다릅니다. 단리식은 <b>'각
+          월 적립분이 만기까지 연이율 단리'</b>라 첫달 적립분은 n개월 이자, 마지막달은
+          1개월 이자만 받습니다. 월복리식은 매월 적립한 합계에 월이율을 누적 — 같은
+          명목금리에서 적금 단리가 미세하게 더 많이 나오는 케이스 흔함. 시중은행 표준은 단리.
+        </div>
+      </details>
+
+      <details>
+        <summary>월 30만원, 24개월, 4% 적금이면 만기에 얼마 받나요?</summary>
+        <div class="answer">
+          원금 720만 + 세전이자 30만 = 세후 <b>약 745만원</b>. 단리 기준. 이자소득세
+          15.4%(약 4.6만) 차감. 매월 30만 자동이체 누적분에 만기까지 단리 이자.
+        </div>
+      </details>
+
+      <details>
+        <summary>예금 1억 1년 4% 정기예금 만기금은?</summary>
+        <div class="answer">
+          세전이자 400만 → 이자소득세 15.4%(약 61.6만) → 세후이자 약 338.4만 → 만기
+          <b>1억 338.4만원</b>. 시중은행 정기예금은 단리 (월복리 상품은 드뭄).
+        </div>
+      </details>
+
+      <details>
+        <summary>이자에 세금이 정확히 얼마 붙나요?</summary>
+        <div class="answer">
+          이자소득세 14% + 지방소득세 1.4% = 합계 <b>15.4% 원천징수</b>. 만기에 자동
+          차감되어 실수령액으로 입금. 연 이자·배당 합계가 2,000만원 초과면 종합소득세
+          합산(금융소득종합과세).
+        </div>
+      </details>
+
+      <details>
+        <summary>비과세·세제혜택 적금이 있나요?</summary>
+        <div class="answer">
+          있습니다. <b>청년형 도약계좌</b>(만 19 ~ 34세, 5년 만기, 정부 매칭 기여금 +
+          비과세), <b>청년 우대형 청약저축</b>(연 240만원 한도 40% 소득공제 + 비과세),
+          <b>ISA</b>(연 200 ~ 400만 비과세 + 9% 분리과세). 일반 적금 대비 실효 수익률이
+          1 ~ 3%p 높음.
+        </div>
+      </details>
+
+      <details>
+        <summary>예금자보호 한도는 얼마인가요?</summary>
+        <div class="answer">
+          은행 1곳당 <b>5,000만원</b>(원금+이자 합계). 2024년 25년 만에 5,000만 → 1억
+          상향안 통과. 다만 은행마다 별도 한도라 5,000만 초과 자금은 여러 은행에 분산
+          권장. 저축은행도 동일 한도(별도).
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>출처</h2>

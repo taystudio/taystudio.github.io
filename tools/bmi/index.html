@@ -71,6 +71,51 @@
           "item": "https://taystudio.github.io/tools/bmi/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "BMI는 어떻게 계산하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BMI = 체중(kg) ÷ 키(m)². 예: 175cm·70kg → 70 ÷ 1.75² = 22.86. 한국 비만학회 기준으로 18.5 미만 저체중, 18.5~22.9 정상, 23~24.9 과체중, 25 이상 비만."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "한국 BMI 기준이 WHO보다 엄격한 이유는?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "동아시아인은 같은 BMI에서 서양인보다 체지방률이 높고 만성질환 위험이 큰 경향이 있습니다. WHO는 25/30/35 기준이지만 한국 비만학회는 23/25/30/35로 한 단계 일찍 비만 분류. 진료 기준은 한국 기준 따름."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "BMI가 정상이어도 비만일 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네. BMI는 근육·지방을 구분 못합니다. 운동선수처럼 근육량이 많으면 BMI가 높아도 체지방률은 낮음. 반대로 마른비만(skinny fat)은 BMI 정상이지만 체지방률 30%+. 정확한 평가는 인바디·DEXA 측정 권장."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "이상 체중은 어떻게 정해지나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BMI 22 (정상 범위 중간)에 해당하는 체중을 통상 이상 체중으로 봄. 계산식: 키(m)² × 22. 예: 175cm → 1.75² × 22 = 67.4kg. 본 계산기는 정상 범위(BMI 18.5~22.9)와 BMI 22 기준을 모두 표시."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "어린이·노인도 같은 기준으로 보나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아닙니다. 어린이는 성장 백분위(percentile) 차트로 평가. 노인은 영양상태 우선이라 BMI 23~28을 적정으로 보는 견해도 있음. 본 계산기는 만 19세 이상 일반 성인 기준."
+          }
+        }
+      ]
     }
   ]
 }
@@ -116,6 +161,104 @@
     <div class="disclaimer">
       ⚠️ BMI는 근육량을 반영하지 못하므로 운동선수·근육질 체형은 실제보다 비만으로 분류될 수 있습니다. 정확한 체성분은 인바디 측정 권장.
     </div>
+
+    <section class="tool-article">
+      <h2>한국 BMI 분류 (대한비만학회 2018)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>BMI</th><th>분류</th><th>건강 위험</th></tr></thead>
+          <tbody>
+            <tr><td>18.5 미만</td><td>저체중</td><td>면역력 저하</td></tr>
+            <tr><td>18.5 ~ 22.9</td><td class="highlight">정상</td><td>가장 낮음</td></tr>
+            <tr><td>23.0 ~ 24.9</td><td>과체중 (전비만)</td><td>증가</td></tr>
+            <tr><td>25.0 ~ 29.9</td><td>1단계 비만</td><td>높음</td></tr>
+            <tr><td>30.0 ~ 34.9</td><td>2단계 비만</td><td>매우 높음</td></tr>
+            <tr><td>35.0 이상</td><td>3단계 비만 (고도비만)</td><td>극도로 높음</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">계산식: BMI = 체중(kg) ÷ 키(m)². 한국 기준은 WHO(25/30/35)보다 한 단계 엄격 (동아시아인 체지방률 차이 반영).</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>키별 정상체중 범위 (BMI 18.5 ~ 22.9)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>키</th><th>저체중 미만</th><th>정상 범위</th><th>과체중 시작</th></tr></thead>
+          <tbody>
+            <tr><td>155cm</td><td>~ 44.4kg</td><td>44.4 ~ 55.0kg</td><td>55.3kg ~</td></tr>
+            <tr><td>160cm</td><td>~ 47.4kg</td><td>47.4 ~ 58.6kg</td><td>58.9kg ~</td></tr>
+            <tr><td>165cm</td><td>~ 50.4kg</td><td>50.4 ~ 62.3kg</td><td>62.6kg ~</td></tr>
+            <tr><td>170cm</td><td>~ 53.5kg</td><td>53.5 ~ 66.2kg</td><td>66.5kg ~</td></tr>
+            <tr><td>175cm</td><td>~ 56.7kg</td><td>56.7 ~ 70.1kg</td><td>70.4kg ~</td></tr>
+            <tr><td>180cm</td><td>~ 59.9kg</td><td>59.9 ~ 74.2kg</td><td>74.5kg ~</td></tr>
+            <tr><td>185cm</td><td>~ 63.3kg</td><td>63.3 ~ 78.4kg</td><td>78.6kg ~</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">키(m)² × 18.5 ~ 22.9. 이상 체중(BMI 22 기준)은 정상 범위 중간 — 175cm 기준 67.4kg.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../calorie/">칼로리 계산기<span class="desc">BMR·TDEE 산출</span></a>
+        <a href="../growth/">아기 성장 백분위<span class="desc">키·체중 백분위</span></a>
+        <a href="../pregnancy/">출산예정일 계산기<span class="desc">월경주기 기반</span></a>
+        <a href="../ovulation/">배란일 계산기<span class="desc">가임기 추정</span></a>
+        <a href="../baby-formula/">분유량 계산기<span class="desc">월령별 권장량</span></a>
+        <a href="../age/">만 나이 계산기<span class="desc">한국 나이 환산</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>BMI는 어떻게 계산하나요?</summary>
+        <div class="answer">
+          <code>BMI = 체중(kg) ÷ 키(m)²</code>. 예: 175cm·70kg → 70 ÷ 1.75² = <b>22.86</b>.
+          한국 비만학회 기준으로 18.5 미만 저체중, 18.5 ~ 22.9 정상, 23 ~ 24.9 과체중,
+          25 이상 비만.
+        </div>
+      </details>
+
+      <details>
+        <summary>한국 BMI 기준이 WHO보다 엄격한 이유는?</summary>
+        <div class="answer">
+          동아시아인은 같은 BMI에서 서양인보다 체지방률이 높고 만성질환 위험이 큰 경향이
+          있습니다. WHO는 25/30/35 기준이지만 한국 비만학회는 <b>23/25/30/35</b>로 한
+          단계 일찍 비만 분류. 진료 기준은 한국 기준 따름.
+        </div>
+      </details>
+
+      <details>
+        <summary>BMI가 정상이어도 비만일 수 있나요?</summary>
+        <div class="answer">
+          네. BMI는 근육·지방을 구분 못합니다. 운동선수처럼 근육량이 많으면 BMI가 높아도
+          체지방률은 낮음. 반대로 <b>마른비만(skinny fat)</b>은 BMI 정상이지만 체지방률
+          30%+. 정확한 평가는 인바디·DEXA 측정 권장.
+        </div>
+      </details>
+
+      <details>
+        <summary>이상 체중은 어떻게 정해지나요?</summary>
+        <div class="answer">
+          BMI 22 (정상 범위 중간)에 해당하는 체중을 통상 이상 체중으로 봄. 계산식:
+          <code>키(m)² × 22</code>. 예: 175cm → 1.75² × 22 = <b>67.4kg</b>. 본 계산기는
+          정상 범위(BMI 18.5 ~ 22.9)와 BMI 22 기준을 모두 표시.
+        </div>
+      </details>
+
+      <details>
+        <summary>어린이·노인도 같은 기준으로 보나요?</summary>
+        <div class="answer">
+          아닙니다. 어린이는 <b>성장 백분위(percentile) 차트</b>로 평가. 노인은 영양상태
+          우선이라 BMI 23 ~ 28을 적정으로 보는 견해도 있음. 본 계산기는 만 19세 이상
+          일반 성인 기준.
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>출처</h2>

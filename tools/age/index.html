@@ -79,7 +79,7 @@
           "name": "만 나이는 어떻게 계산하나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "생일이 지났으면 (올해 - 태어난 해), 안 지났으면 (올해 - 태어난 해 - 1)이에요."
+            "text": "생일이 지났으면 (올해 − 태어난 해), 안 지났으면 (올해 − 태어난 해 − 1). 예: 1990년 5월생, 오늘 2026년 4월 → 35세, 5월 이후면 36세."
           }
         },
         {
@@ -87,7 +87,23 @@
           "name": "연 나이는 뭔가요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "생일과 무관하게 (현재 연도 - 출생 연도)로 계산합니다. 청소년보호법, 병역법 등 일부 법령에서 사용해요."
+            "text": "생일과 무관하게 (현재 연도 − 출생 연도)로 계산합니다. 청소년보호법, 병역법 등 일부 법령에서 사용해요. 예: 1990년생은 2026년 기준 모두 연 나이 36세."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "한국식 나이는 아직도 쓰나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "2023년 6월 28일 만 나이 통일법 시행으로 법령·계약·공문서에서는 모두 만 나이만 사용. 한국식 나이(태어나면 1살, 매해 1월 1일 +1살)는 일상 표현으로만 잔존. 공식 효력 없음."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "병역·청소년보호는 만 나이인가요 연 나이인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "연 나이. 병역법은 1월 1일에 모두 +1살 (예: 2006년생은 2026년에 연 20세 → 병역 의무 시작). 청소년보호법은 만 19세 미만 → 사실상 만 나이지만 연 나이 1월 1일 기준 적용."
           }
         },
         {
@@ -95,7 +111,7 @@
           "name": "주민번호로도 계산할 수 있나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "현재는 생년월일 입력만 지원합니다. 주민번호 앞 6자리(YYMMDD)를 보고 1900년대/2000년대 판단해서 직접 입력해주세요."
+            "text": "현재는 생년월일 입력만 지원합니다. 주민번호 앞 6자리(YYMMDD)를 보고 1900년대/2000년대 판단해서 직접 입력해주세요. 뒤 7번째 자리: 1·2 → 1900년대, 3·4 → 2000년대."
           }
         }
       ]
@@ -143,16 +159,76 @@
       모두 <b>만 나이</b>가 사용됩니다. 한국식 나이는 일상 표현일 뿐 공식 효력은 없어요.
     </div>
 
+    <section class="tool-article">
+      <h2>나이 종류 비교</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>구분</th><th>계산식</th><th>적용</th></tr></thead>
+          <tbody>
+            <tr><td class="highlight">만 나이</td><td>생일 지남: 올해 − 출생연 / 안 지남: −1</td><td>법령·계약·공문서·의료 등 모든 공식 영역</td></tr>
+            <tr><td>연 나이</td><td>올해 − 출생연 (생일 무관)</td><td>병역법·청소년보호법 등 일부 특별법</td></tr>
+            <tr><td>한국식 (세는 나이)</td><td>출생 시 1살, 매년 1월 1일 +1</td><td>2023.6.28 폐지. 일상 표현으로만 잔존</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">행정기본법 제7조의2 (2023년 6월 시행) 만 나이 통일법으로 공식 영역은 모두 만 나이 단일화.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../dday/">D-day 계산기<span class="desc">두 날짜 사이 일수</span></a>
+        <a href="../pregnancy/">출산예정일 계산기<span class="desc">월경주기 기반</span></a>
+        <a href="../growth/">아기 성장 백분위<span class="desc">키·체중 백분위</span></a>
+        <a href="../bmi/">BMI 계산기<span class="desc">체질량지수·정상체중</span></a>
+        <a href="../calorie/">칼로리 계산기<span class="desc">BMR·TDEE 산출</span></a>
+        <a href="../salary/">연봉 실수령액 계산기<span class="desc">4대보험·소득세</span></a>
+      </div>
+    </section>
+
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
-      <details><summary>만 나이는 어떻게 계산하나요?</summary>
-        <div class="answer">생일이 지났으면 (올해 - 태어난 해), 안 지났으면 (올해 - 태어난 해 - 1)이에요.</div>
+
+      <details>
+        <summary>만 나이는 어떻게 계산하나요?</summary>
+        <div class="answer">
+          생일이 지났으면 <code>올해 − 태어난 해</code>, 안 지났으면 그 값에서 1을 뺍니다.
+          예: 1990년 5월생, 오늘 2026년 4월 → 35세, 5월 이후면 36세.
+        </div>
       </details>
-      <details><summary>연 나이는 뭔가요?</summary>
-        <div class="answer">생일과 무관하게 (현재 연도 - 출생 연도)로 계산합니다. 청소년보호법, 병역법 등 일부 법령에서 사용해요.</div>
+
+      <details>
+        <summary>연 나이는 뭔가요?</summary>
+        <div class="answer">
+          생일과 무관하게 <code>현재 연도 − 출생 연도</code>로 계산합니다. 청소년보호법,
+          병역법 등 일부 법령에서 사용. 예: 1990년생은 2026년 기준 <b>모두 연 나이 36세</b>.
+        </div>
       </details>
-      <details><summary>주민번호로도 계산할 수 있나요?</summary>
-        <div class="answer">현재는 생년월일 입력만 지원합니다. 주민번호 앞 6자리(YYMMDD)를 보고 1900년대/2000년대 판단해서 직접 입력해주세요.</div>
+
+      <details>
+        <summary>한국식 나이는 아직도 쓰나요?</summary>
+        <div class="answer">
+          2023년 6월 28일 만 나이 통일법 시행으로 법령·계약·공문서에서는 모두 만 나이만
+          사용. 한국식 나이(태어나면 1살, 매해 1월 1일 +1살)는 <b>일상 표현으로만 잔존</b>.
+          공식 효력 없음.
+        </div>
+      </details>
+
+      <details>
+        <summary>병역·청소년보호는 만 나이인가요 연 나이인가요?</summary>
+        <div class="answer">
+          <b>연 나이</b>. 병역법은 1월 1일에 모두 +1살 (예: 2006년생은 2026년에 연
+          20세 → 병역 의무 시작). 청소년보호법은 만 19세 미만 → 사실상 만 나이지만
+          연 나이 1월 1일 기준 적용.
+        </div>
+      </details>
+
+      <details>
+        <summary>주민번호로도 계산할 수 있나요?</summary>
+        <div class="answer">
+          현재는 생년월일 입력만 지원합니다. 주민번호 앞 6자리(YYMMDD)를 보고 1900년대/2000년대
+          판단해서 직접 입력해주세요. <b>뒤 7번째 자리: 1·2 → 1900년대, 3·4 → 2000년대</b>.
+        </div>
       </details>
     </section>
 

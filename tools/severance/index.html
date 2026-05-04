@@ -71,6 +71,59 @@
           "item": "https://taystudio.github.io/tools/severance/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "1년 미만 근로자도 퇴직금 받을 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "근로자퇴직급여 보장법 제4조 단서에 따라 계속근로기간이 1년 미만인 경우 퇴직금 지급 의무가 없습니다. 단, 회사 취업규칙·근로계약서에서 별도로 정한 경우는 그에 따릅니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "평균임금이랑 통상임금은 어떻게 다른가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "평균임금은 직전 3개월 임금총액(상여·수당 포함)을 90일로 나눈 값으로 퇴직금·휴업수당 산정에 씁니다. 통상임금은 정기·일률·고정적으로 지급되는 임금만 포함하며 연장·야간·휴일근로수당 산정에 씁니다. 보통 평균임금 ≥ 통상임금."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "퇴직소득세는 왜 일반 소득세보다 적게 나오나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "퇴직금은 장기간(평생) 모은 보상이라 일반 소득세율을 그대로 적용하면 누진과세 폭탄을 맞습니다. 그래서 근속연수공제로 일정 금액을 빼고, 남은 금액을 12배로 환산해 세율을 적용한 뒤 다시 근속연수로 나누는 '연분연승' 방식을 씁니다. 결과적으로 근속이 길수록 실효세율이 낮아집니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "DC형 퇴직연금이면 이 계산기 결과랑 다른가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "예. DB형(확정급여형)은 본 계산기와 동일한 평균임금 방식이지만, DC형(확정기여형)은 회사가 매년 연봉의 1/12을 적립한 뒤 운용 수익에 따라 결정됩니다. 운용 수익률이 높으면 평균임금 방식보다 더 많이, 낮으면 더 적게 받을 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "퇴직금을 IRP로 받으면 뭐가 좋은가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "퇴직금을 55세 이전에 일시금으로 받으면 퇴직소득세를 한 번에 내야 합니다. IRP(개인형 퇴직연금)로 이체하면 과세이연되어 55세 이후 연금으로 수령할 때 세금이 30% 감면(연금소득세)됩니다. 또한 운용 중 발생한 수익은 추가 비과세."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "연간 상여금이 있는데 어떻게 반영하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "근로기준법 시행령 제2조 제1항에 따라 연간 상여금의 1/4(3개월분)을 직전 3개월 임금총액에 합산합니다. 본 계산기 '연간 상여금' 입력란에 1년치 합계를 넣으면 자동으로 ×0.25 반영됩니다."
+          }
+        }
+      ]
     }
   ]
 }
@@ -137,6 +190,190 @@
       ⚠️ 회사가 DC형 퇴직연금에 가입했거나 중간정산이 있었던 경우 계산 방식이 달라집니다.
       퇴직소득세는 근속연수공제·환산급여공제로 단순화한 추정치예요.
     </div>
+
+    <section class="tool-article">
+      <h2>퇴직금 산정 공식</h2>
+      <div class="formula-list">
+        <ol>
+          <li><b>평균임금 (1일)</b> = 직전 3개월 임금총액 ÷ 90일 <span class="small">(연간 상여금이 있으면 1/4 합산)</span></li>
+          <li><b>퇴직금</b> = 평균임금 × 30 × (재직일수 ÷ 365)</li>
+          <li><b>퇴직소득세</b> = 「연분연승」 방식 (근속연수공제 → 12배 환산 → 누진세율 → ÷근속연수)</li>
+        </ol>
+      </div>
+      <p class="small">근로자퇴직급여 보장법 제8조 / 근로기준법 제2조 제1항 6호 / 소득세법 제48조·제55조</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>월급·근속별 퇴직금 (상여금 0, 단순 추정)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>월급</th><th>근속</th><th>퇴직금</th><th>퇴직소득세</th><th>실수령</th></tr></thead>
+          <tbody>
+            <tr><td>300만원</td><td>3년</td><td>9,000,000</td><td>585,000</td><td class="highlight">8,415,000</td></tr>
+            <tr><td>300만원</td><td>5년</td><td>15,000,000</td><td>975,000</td><td class="highlight">14,025,000</td></tr>
+            <tr><td>300만원</td><td>10년</td><td>30,000,000</td><td>1,200,000</td><td class="highlight">28,800,000</td></tr>
+            <tr><td>300만원</td><td>20년</td><td>60,000,000</td><td>1,200,000</td><td class="highlight">58,800,000</td></tr>
+            <tr><td>400만원</td><td>3년</td><td>12,000,000</td><td>1,035,000</td><td class="highlight">10,965,000</td></tr>
+            <tr><td>400만원</td><td>5년</td><td>20,000,000</td><td>1,725,000</td><td class="highlight">18,275,000</td></tr>
+            <tr><td>400만원</td><td>10년</td><td>40,000,000</td><td>2,700,000</td><td class="highlight">37,300,000</td></tr>
+            <tr><td>400만원</td><td>20년</td><td>80,000,000</td><td>3,900,000</td><td class="highlight">76,100,000</td></tr>
+            <tr><td>500만원</td><td>3년</td><td>15,000,000</td><td>1,485,000</td><td class="highlight">13,515,000</td></tr>
+            <tr><td>500만원</td><td>5년</td><td>25,000,000</td><td>2,475,000</td><td class="highlight">22,525,000</td></tr>
+            <tr><td>500만원</td><td>10년</td><td>50,000,000</td><td>4,200,000</td><td class="highlight">45,800,000</td></tr>
+            <tr><td>500만원</td><td>20년</td><td>100,000,000</td><td>6,900,000</td><td class="highlight">93,100,000</td></tr>
+            <tr><td>700만원</td><td>10년</td><td>70,000,000</td><td>8,400,000</td><td class="highlight">61,600,000</td></tr>
+            <tr><td>700만원</td><td>20년</td><td>140,000,000</td><td>14,400,000</td><td class="highlight">125,600,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">근속이 길수록 1년당 퇴직소득세 부담이 줄어듭니다(근속연수공제·연분연승 효과). 본 계산기는 환산급여공제를 단순화했으므로 실제보다 약간 높게 나올 수 있습니다.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>더 알아보기</h2>
+
+      <details>
+        <summary>평균임금 vs 통상임금</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>구분</th><th>평균임금</th><th>통상임금</th></tr></thead>
+              <tbody>
+                <tr><td>정의</td><td>직전 3개월 임금총액 ÷ 90일</td><td>정기·일률·고정 지급 임금</td></tr>
+                <tr><td>포함</td><td>기본급, 정기상여, 각종 수당, 연차수당</td><td>기본급, 직책수당, 자격수당 등 고정분</td></tr>
+                <tr><td>제외</td><td>—</td><td>연장·야간·휴일근로수당, 변동상여</td></tr>
+                <tr><td>적용</td><td>퇴직금, 휴업수당, 재해보상</td><td>연장근로수당, 해고예고수당</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>일반적으로 <b>평균임금 ≥ 통상임금</b>이며, 만약 평균임금이 통상임금보다 낮으면 통상임금을 평균임금으로 봅니다 (근로기준법 제2조 제2항).</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>퇴직소득세 산정 (연분연승)</summary>
+        <div class="body">
+          <div class="formula-list">
+            <ol>
+              <li><b>근속연수공제</b> 차감 (5년 이하 100만/년, 5~10년 200만/년, 10~20년 250만/년, 20년 초과 300만/년)</li>
+              <li>남은 금액을 <code>× 12 ÷ 근속연수</code> 환산 → <b>환산급여</b></li>
+              <li>환산급여공제 차감 (800만 100%, 800~7000만 60%, 7000만~1억 55% ...) <span class="small">※ 본 계산기는 단순화로 미반영</span></li>
+              <li>환산과세표준에 6 ~ 45% 누진세율 적용 → <b>환산세액</b></li>
+              <li>환산세액 <code>× 근속연수 ÷ 12</code> → <b>퇴직소득세</b></li>
+            </ol>
+          </div>
+          <p class="small">근속이 길수록 ÷ 근속연수에서 분모가 커지면서 실효세율이 낮아집니다 (10년 근속 시 ~5%, 20년 근속 시 ~3% 수준).</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>DC형 vs DB형 퇴직연금 차이</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>DB형 (확정급여형)</b>본 계산기와 동일. 회사가 적립·운용 책임을 지며, 퇴직 시 근로기준법 평균임금 방식으로 지급. 퇴직금이 임금 인상에 비례.</div>
+            <div class="case"><b>DC형 (확정기여형)</b>회사가 매년 연봉 1/12 이상을 근로자 계좌에 적립. 운용은 근로자가 직접 결정. 운용 수익률이 임금 인상률보다 높으면 DC가 유리.</div>
+            <div class="case"><b>혼합형</b>일부 기간은 DB, 일부는 DC. 회사 정책에 따름.</div>
+            <div class="case"><b>퇴직연금 미가입</b>2022년부터 단계적 의무화. 미가입 시 회사가 직접 퇴직금 지급.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>IRP 이전·연금 수령 시 세제 혜택</summary>
+        <div class="body">
+          <p>퇴직금을 일시금이 아니라 IRP(개인형 퇴직연금)로 이체하면 다음 혜택이 있습니다.</p>
+          <div class="case-grid">
+            <div class="case"><b>과세이연</b>퇴직 시점에 세금을 떼지 않고, 실제 수령 시점까지 세금 납부를 미룹니다.</div>
+            <div class="case"><b>연금소득세 30% 감면</b>55세 이후 10년 이상 분할로 연금 수령하면 퇴직소득세의 70%만 부과 (실효세율 약 3 ~ 5%).</div>
+            <div class="case"><b>운용 수익 비과세</b>IRP 계좌 안에서 발생한 운용 수익은 인출 전까지 비과세.</div>
+            <div class="case"><b>세액공제</b>IRP에 추가 납입(연 900만원 한도)하면 13.2~16.5% 세액공제.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>1년 미만 근속·중간정산 등 예외 케이스</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>1년 미만</b>퇴직금 지급 의무 없음 (근로자퇴직급여 보장법 제4조 단서). 365일 = 1년 기준.</div>
+            <div class="case"><b>중간정산</b>2012년 7월 이후 무주택자 주택구입·전세금·요양 등 6가지 사유에만 가능. 정산 후 재직기간은 정산일부터 새로 산정.</div>
+            <div class="case"><b>임금피크제</b>임금 감액 직전 3개월이 아닌 감액 전 평균임금 기준으로 산정 (대법원 판례).</div>
+            <div class="case"><b>육아휴직 직후 퇴직</b>육아휴직 직전 3개월 평균임금 기준 (근로기준법 시행령 제2조 제1항 단서).</div>
+            <div class="case"><b>해고 시</b>30일 전 예고 없으면 해고예고수당 별도 지급(통상임금 30일분).</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../salary/">연봉 실수령액 계산기<span class="desc">4대보험·소득세 차감</span></a>
+        <a href="../unemployment/">실업급여 계산기<span class="desc">구직급여 일액·기간</span></a>
+        <a href="../annual-leave/">연차수당 계산기<span class="desc">미사용 연차 환산</span></a>
+        <a href="../weekly-pay/">주휴수당 계산기<span class="desc">주 15시간 이상</span></a>
+        <a href="../year-end/">연말정산 계산기<span class="desc">환급/추가 납부</span></a>
+        <a href="../hourly/">시급 계산기<span class="desc">최저시급 환산</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>1년 미만 근로자도 퇴직금 받을 수 있나요?</summary>
+        <div class="answer">
+          근로자퇴직급여 보장법 제4조 단서에 따라 계속근로기간이 1년 미만인 경우 퇴직금
+          지급 의무가 없습니다. 단, 회사 취업규칙·근로계약서에서 별도로 정한 경우는 그에 따릅니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>평균임금이랑 통상임금은 어떻게 다른가요?</summary>
+        <div class="answer">
+          <b>평균임금</b>은 직전 3개월 임금총액(상여·수당 포함)을 90일로 나눈 값으로
+          퇴직금·휴업수당 산정에 씁니다. <b>통상임금</b>은 정기·일률·고정적으로 지급되는
+          임금만 포함하며 연장·야간·휴일근로수당 산정에 씁니다. 보통 평균임금 ≥ 통상임금.
+        </div>
+      </details>
+
+      <details>
+        <summary>퇴직소득세는 왜 일반 소득세보다 적게 나오나요?</summary>
+        <div class="answer">
+          퇴직금은 장기간(평생) 모은 보상이라 일반 소득세율을 그대로 적용하면 누진과세
+          폭탄을 맞습니다. 그래서 근속연수공제로 일정 금액을 빼고, 남은 금액을 12배로
+          환산해 세율을 적용한 뒤 다시 근속연수로 나누는 <b>'연분연승'</b> 방식을 씁니다.
+          결과적으로 근속이 길수록 실효세율이 낮아집니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>DC형 퇴직연금이면 이 계산기 결과랑 다른가요?</summary>
+        <div class="answer">
+          예. DB형(확정급여형)은 본 계산기와 동일한 평균임금 방식이지만, DC형(확정기여형)은
+          회사가 매년 연봉의 1/12을 적립한 뒤 운용 수익에 따라 결정됩니다. 운용 수익률이
+          높으면 평균임금 방식보다 더 많이, 낮으면 더 적게 받을 수 있습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>퇴직금을 IRP로 받으면 뭐가 좋은가요?</summary>
+        <div class="answer">
+          퇴직금을 55세 이전에 일시금으로 받으면 퇴직소득세를 한 번에 내야 합니다.
+          IRP(개인형 퇴직연금)로 이체하면 과세이연되어 55세 이후 연금으로 수령할 때
+          세금이 30% 감면(연금소득세)됩니다. 또한 운용 중 발생한 수익은 추가 비과세.
+        </div>
+      </details>
+
+      <details>
+        <summary>연간 상여금이 있는데 어떻게 반영하나요?</summary>
+        <div class="answer">
+          근로기준법 시행령 제2조 제1항에 따라 연간 상여금의 <b>1/4(3개월분)</b>을 직전
+          3개월 임금총액에 합산합니다. 본 계산기 '연간 상여금' 입력란에 1년치 합계를
+          넣으면 자동으로 ×0.25 반영됩니다.
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>적용된 법령·고시 및 출처</h2>

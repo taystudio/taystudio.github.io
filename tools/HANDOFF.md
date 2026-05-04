@@ -8,7 +8,7 @@
 
 ## 0. TL;DR (먼저 이거만 읽어도 됨)
 
-이 디렉토리는 **한국 시장용 utility 계산기 30개를 묶은 정적 사이트**입니다. **AdSense + 쿠팡 파트너스 수익화 목적**. 백엔드 없음, 순수 HTML/CSS/JS. 사용자(TayLee)가 티스토리 블로그에서 자체 사이트로 이전 중인 수익화 프로젝트의 일부입니다.
+이 디렉토리는 **한국 시장용 utility 계산기 33개를 묶은 정적 사이트**입니다 (2026-05-04 콘텐츠 깊이 보강 완료 — 페이지당 평균 405줄, JSON-LD FAQPage 동기화). **AdSense + 쿠팡 파트너스 수익화 목적**. 백엔드 없음, 순수 HTML/CSS/JS. 사용자(TayLee)가 티스토리 블로그에서 자체 사이트로 이전 중인 수익화 프로젝트의 일부입니다.
 
 **가장 중요한 즉시 작업** = **URL 경로 일괄 갱신**. 모든 파일이 `https://taehyuklee.github.io/Archive/tools/` 기준으로 하드코딩돼 있어서, 새 도메인/경로로 옮기면 다 바꿔줘야 합니다 (canonical URL, sitemap, JSON-LD, og:url 등). 마지막 섹션의 일괄 갱신 스크립트 참고.
 
@@ -16,7 +16,6 @@
 
 ## 1. 사용자 프로필 (Claude를 사용하는 사람 = TayLee)
 
-- **이메일**: thlee991@gmail.com (privacy·terms 페이지에 명시됨)
 - **GitHub**: taehyuklee
 - **배경**: Go 십년 차 백엔드 개발자, 프론트는 학습 중
 - **티스토리 블로그**: taehyuklee.tistory.com (이전 운영)
@@ -31,7 +30,7 @@
 
 ## 2. 이 프로젝트가 뭐냐
 
-**TAYLEE Tools — 실생활 계산기 30선**. 한국에서 자주 검색되는 세금·금융·근로·육아·건강 계산기를 한곳에 묶은 정적 사이트. 각 계산기는:
+**TAYSTUDIO Tools — 실생활 계산기 33선**. 한국에서 자주 검색되는 세금·금융·근로·육아·건강 계산기를 한곳에 묶은 정적 사이트. 각 계산기는:
 
 - 100% 클라이언트 사이드 JS (서버 없음, 사용자 입력값 외부 전송 안 함)
 - 출처·법령 근거 명시 (E-A-T 평가 + AdSense 승인 친화)
@@ -68,8 +67,9 @@
     │   └── style.css            ← 공통 스타일 (다크모드·반응형)
     ├── privacy/index.html       ← 개인정보처리방침 (AdSense 필수)
     ├── terms/index.html         ← 이용약관 (AdSense 필수)
-    └── [30개 도구 디렉토리]
-        각각: index.html + <slug>.js
+    └── [33개 도구 디렉토리]
+        각각: index.html + <slug>.js + (콘텐츠 보강 섹션: tool-article·disclosure-group·related-calc 등)
+        CONTENT_DEPTH.md 참고
 ```
 
 **도구 카테고리:**
@@ -241,7 +241,7 @@ const RATES = {
   - HTML: network-first (최신 우선)
   - CSS/JS: stale-while-revalidate (캐시 즉시 + 백그라운드 갱신)
   - 정적 자산: cache-first
-  - `CACHE_VERSION` 변경 시 옛 캐시 자동 폐기. **CSS·JS 수정하면 버전 올리세요** (현재 v3)
+  - `CACHE_VERSION` 변경 시 옛 캐시 자동 폐기. **CSS·JS 수정하면 버전 올리세요** (현재 v6)
 
 **주의**: 사용자가 "CSS 깨졌다" 하면 99% SW 캐시 문제. CACHE_VERSION 올리고 hard refresh 안내.
 
@@ -429,3 +429,71 @@ D tools/sitemap.xml
 - 사용자가 og:image 작업 진행 여부 결정 필요 — A(커밋+og:image), B(커밋만), C(둘 다 자동) 중 선택
 - og:image 진행 시: SVG → PNG 변환(macOS `qlmanage`/`rsvg-convert`) → `og/cover.png` 배치 → 33 페이지 head에 4줄 메타 자동 삽입 + 기존 `twitter:card` summary → summary_large_image 교체
 - 검증: 페북 디버거 + 카카오톡 미리보기
+
+---
+
+### 2026-05-04 (콘텐츠 깊이 보강 + 사이트 면책 인프라)
+
+**기록 정리 시점**: 2026-05-04 18:01 KST (개별 작업 시각은 미기록 — 알 수 있는 건 정리 완료 시각만)
+
+상세 기록은 **`CONTENT_DEPTH.md`** 와 **`history/index.html`** (5/4 timeline) 참고.
+
+**완료한 작업** (전부 uncommitted, 사용자 commit 요청 대기 중):
+
+#### 1. 33개 계산기 콘텐츠 깊이 보강 (외부 평가 반영)
+
+외부 평가에서 "33개를 한 번에 만든 느낌 / 검증된 도구 페이지처럼 보이려면 깊이 필요" 지적 → 모든 페이지에 6항목(업데이트 날짜·법령·계산식·예시 표·FAQ 5+·관련 계산기) 일관되게 채움.
+
+- **깊이 보강 24개** (세금·부동산·금융·근로·자동차) — 평균 405줄, FAQ 6 ~ 7
+- **라이트 보강 9개** (건강·임신·육아·생활) — 평균 270줄, FAQ 5
+- **JSON-LD FAQPage** 모든 페이지에 추가/동기화 (DOM `<details>` 수와 일치)
+- **수치 정확성**: 각 페이지 JS 로직을 `node`로 시뮬레이션해 표 수치 산출 → 코드와 100% 일치 보장
+
+CSS 신규 클래스 6종 (`tools/css/style.css`):
+- `.tool-article` (펼친 섹션) · `.ref-table` (시뮬레이션 표) · `.formula-list` (산식 ol)
+- `.case-grid` (케이스 박스 그리드) · `.related-calc` (관련 계산기 6 카드) · `.disclosure-group` (접힘 details 묶음, FAQ 스타일 공유)
+
+#### 2. Footer 단순화 (5/4 fallback 결정 번복)
+
+5/4에 AdSense 봇 대응으로 38개 페이지에 인라인 fallback `<footer>`를 박았으나, 같은 날 사용자 요청으로 다시 제거 — `<site-footer></site-footer>` 한 줄로 단순화. 변경량 38 files, 38(+) / 380(−).
+
+**AdSense 위험 보완**: §3의 header 면책 banner의 `/tools/terms/` 링크가 동일 역할 부분 수행. 거절되면 noscript fallback 추가 검토.
+
+#### 3. 사이트 면책 banner (`common/site-chrome.js`)
+
+- 위치: `<site-header>` 바로 아래 (A안)
+- 표시 조건: `window.location.pathname.includes('/tools/')` — 루트(/) 비표시
+- X 버튼: 클릭 시 그 화면에서만 `display:none`, **localStorage 저장 X** (새로고침마다 다시 표시)
+- 색상: 옅은 노란색 배경 (`rgba(245,158,11,0.08)`)
+
+#### 4. 개인정보 정리 + 이용약관 갱신
+
+- `tools/terms/` "30가지" → "33가지" 갱신
+- `tools/terms/` "9. 연락처" → "9. 운영 안내" (이메일 `thlee991@gmail.com` 제거, 일반 문구로 대체)
+- `tools/privacy/` "8. 연락처" → "8. 운영 안내" (동일 처리)
+- `tools/HANDOFF.md`, `adsense/APPROVAL.md`의 이메일 라인 제거
+- repo 전체 grep — `@gmail` · `thlee991` 잔재 0건 확인
+
+#### 5. SW 캐시 버전
+
+`tools/sw.js` `CACHE_VERSION` `'tayleetools-v5'` → `'tayleetools-v6'`. 배포 후 기존 방문자에게 갱신된 site-chrome.js 자동 전파.
+
+**사용자 결정 사항 (메모)**:
+- 면책 위치: A안(header 아래) 채택 — B안(form 위)·footer 안 모두 비교 후 결정
+- X 닫기 동작: 영구 dismiss(localStorage) → **비영구**로 변경. 매 방문 한 번씩 인지하는 게 안전
+- 운영자 연락처: 비공개. GitHub Issues 채널 등 추가 시점 미정
+
+**보류·미결정**:
+- 면책 banner 톤 조정 (노란색 → 다른 색) — 사용자 미요청
+- AdSense 노스크립트 fallback 추가 — AdSense 거절 시 진행
+- 5/3 og:image 작업은 아직 미진행 (이전 세션 인계 사항 그대로)
+- 현재 변경분 commit — 사용자 명시 요청 대기
+
+**현재 상태**:
+- 33개 도구 페이지 모두 검증 통과 (HTML 태그 밸런스 / JSON-LD FAQPage 동기화)
+- 사이트 면책 인프라 완비 (header banner + footer 링크 + terms 정식 면책 섹션)
+
+**다음 세션 인계 사항**:
+- 5/3 인계 사항(og:image, GA Property 등) 그대로 유효
+- 추가: AdSense 신청 시 면책 banner JS 의존 위험 점검 (curl로 라이브 HTML fetch 후 privacy 링크 텍스트 확인)
+- 추가: 콘텐츠 보강 후 페이지가 길어졌으니 인덱싱 재요청 권장 (Search Console URL Inspection)

@@ -71,6 +71,51 @@
           "item": "https://taystudio.github.io/tools/dday/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "D-day는 어떤 날을 0으로 잡나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "목표일이 D-day(D-0). 그 전 1일은 D-1, 1일 후는 D+1. 예: 시험일이 5월 10일이고 오늘이 5월 1일이면 D-9. 본 계산기는 시작일·목표일을 입력하면 양 방향(남은 일·경과일) 모두 표시."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "월수와 연수는 어떻게 계산하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "총 일수 ÷ 30.4375(평균 한 달)로 월 환산, ÷ 365.25(윤년 평균)로 연 환산. 정확한 달력 기준 차이가 아니라 평균 일수 기준이라 약간 오차 있음. '6개월 후'처럼 사람이 직관적으로 쓰는 단위."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "윤년은 자동으로 반영되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "예. 두 날짜 사이 일수는 JavaScript Date 객체로 ms 단위 계산 후 일 환산하므로 윤년·월별 일수 모두 자동 반영. 4년에 한 번 +1일 차이 발생."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "100일·1000일·결혼기념일 같은 거 어떻게 계산하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "기념일을 시작일에 입력하고 목표일에 (시작일 + N일)을 직접 계산해 입력. 또는 시작일만 알면 D+100, D+365, D+1000 같은 식으로 본 계산기에 두 날짜 입력 시 자동 일수 차 표시."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "오늘 기준 자동 계산도 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "본 계산기는 시작일·목표일 두 입력 모두 필요. 오늘 기준으로 보려면 시작일에 오늘 날짜를 입력하면 됩니다. 미래 사용 위해 자동 오늘 입력 기능은 후속 작업으로 검토."
+          }
+        }
+      ]
     }
   ]
 }
@@ -113,6 +158,82 @@
         <div class="breakdown-row total"><span class="label">연 단위</span><span id="totalYears" class="value">-</span></div>
       </div>
     </div>
+
+    <section class="tool-article">
+      <h2>D-day 표기 규칙</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>표기</th><th>의미</th><th>예시</th></tr></thead>
+          <tbody>
+            <tr><td>D-day</td><td>목표일 당일 (D-0)</td><td>시험일·결혼식·발표일</td></tr>
+            <tr><td>D-N</td><td>목표일까지 N일 남음</td><td>시험 9일 전 = D-9</td></tr>
+            <tr><td>D+N</td><td>목표일이 N일 지남</td><td>입사 100일 후 = D+100</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">2차 세계대전 노르망디 상륙작전(1944)에서 유래. "Day"의 첫 글자 D + 기준일까지의 차이.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../age/">만 나이 계산기<span class="desc">생년월일 → 나이</span></a>
+        <a href="../pregnancy/">출산예정일 계산기<span class="desc">월경주기 기반</span></a>
+        <a href="../ovulation/">배란일 계산기<span class="desc">가임기 추정</span></a>
+        <a href="../growth/">아기 성장 백분위<span class="desc">키·체중 백분위</span></a>
+        <a href="../bmi/">BMI 계산기<span class="desc">체질량지수·정상체중</span></a>
+        <a href="../calorie/">칼로리 계산기<span class="desc">BMR·TDEE 산출</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>D-day는 어떤 날을 0으로 잡나요?</summary>
+        <div class="answer">
+          목표일이 D-day(D-0). 그 전 1일은 D-1, 1일 후는 D+1. 예: 시험일이 5월 10일이고
+          오늘이 5월 1일이면 <b>D-9</b>. 본 계산기는 시작일·목표일을 입력하면 양 방향
+          (남은 일·경과일) 모두 표시.
+        </div>
+      </details>
+
+      <details>
+        <summary>월수와 연수는 어떻게 계산하나요?</summary>
+        <div class="answer">
+          총 일수 ÷ 30.4375(평균 한 달)로 월 환산, ÷ 365.25(윤년 평균)로 연 환산.
+          정확한 달력 기준 차이가 아니라 평균 일수 기준이라 약간 오차 있음. <b>'6개월
+          후'처럼 사람이 직관적으로 쓰는 단위</b>.
+        </div>
+      </details>
+
+      <details>
+        <summary>윤년은 자동으로 반영되나요?</summary>
+        <div class="answer">
+          예. 두 날짜 사이 일수는 JavaScript Date 객체로 ms 단위 계산 후 일 환산하므로
+          <b>윤년·월별 일수 모두 자동 반영</b>. 4년에 한 번 +1일 차이 발생.
+        </div>
+      </details>
+
+      <details>
+        <summary>100일·1000일·결혼기념일 같은 거 어떻게 계산하나요?</summary>
+        <div class="answer">
+          기념일을 시작일에 입력하고 목표일에 <code>(시작일 + N일)</code>을 직접 계산해
+          입력. 또는 시작일만 알면 <b>D+100, D+365, D+1000</b> 같은 식으로 본 계산기에
+          두 날짜 입력 시 자동 일수 차 표시.
+        </div>
+      </details>
+
+      <details>
+        <summary>오늘 기준 자동 계산도 되나요?</summary>
+        <div class="answer">
+          본 계산기는 시작일·목표일 두 입력 모두 필요. 오늘 기준으로 보려면 <b>시작일에
+          오늘 날짜를 입력</b>하면 됩니다. 미래 사용 위해 자동 오늘 입력 기능은 후속
+          작업으로 검토.
+        </div>
+      </details>
+    </section>
+
     <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
       <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 33개 계산기 모두 보기</a>
     </nav>

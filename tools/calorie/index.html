@@ -71,6 +71,51 @@
           "item": "https://taystudio.github.io/tools/calorie/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "BMR과 TDEE는 뭐가 다른가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BMR(기초대사량)은 가만히 누워있을 때 생명 유지에 필요한 칼로리. TDEE(일일 총소모량)는 BMR + 활동·운동·소화 등 모든 칼로리. TDEE = BMR × 활동지수(1.2 ~ 1.9). 다이어트·증량 기준은 TDEE 사용."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Mifflin-St Jeor 공식이란?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "1990년 발표된 BMR 산정 공식 — 남성 BMR = 10 × 체중(kg) + 6.25 × 키(cm) − 5 × 나이 + 5, 여성은 마지막에 −161. Harris-Benedict보다 현대인에게 정확하다고 알려져 의료·운동학에서 표준 사용."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "다이어트는 −500kcal/일이면 충분한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "지방 1kg = 약 7,700kcal. 일주일 −500 × 7 = −3,500kcal → 약 0.45kg/주 감량. 일반적인 안전 페이스. −1,000 이상 강한 적자는 근손실·요요·정체기 위험."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "활동지수는 어떻게 고르나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "좌식 사무직 1.2, 가벼운 운동(주 1~3) 1.375, 보통 운동(주 3~5) 1.55, 활동적(주 6~7 + 격렬) 1.725, 매우 활동적(육체노동 + 격렬) 1.9. 대부분 사람은 1.375 ~ 1.55 사이. 자주 과대평가하니 한 단계 낮춰 잡는 게 안전."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "단백질·탄수화물 비율도 알려주나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "본 계산기는 총 칼로리만. 일반 가이드: 단백질 체중 × 1.5 ~ 2g/일(다이어트), 1.0 ~ 1.5g/일(일반), 2.0 ~ 2.5g/일(증량·근비대). 탄수화물·지방은 운동 강도와 개인 반응에 따라 조정."
+          }
+        }
+      ]
     }
   ]
 }
@@ -137,6 +182,97 @@
     <div class="disclaimer">
       ⚠️ -500 kcal/일은 주당 약 0.5kg 감량 페이스의 일반적 가이드입니다. 극단적 감량(-1000+)은 건강 해칠 수 있고 요요 위험 ↑. 단백질 섭취량(체중 × 1.5~2g)은 별도 관리 권장.
     </div>
+
+    <section class="tool-article">
+      <h2>BMR·TDEE 산정 공식 (Mifflin-St Jeor)</h2>
+      <div class="formula-list">
+        <ol>
+          <li><b>남성 BMR</b> = 10 × 체중(kg) + 6.25 × 키(cm) − 5 × 나이 + 5</li>
+          <li><b>여성 BMR</b> = 10 × 체중(kg) + 6.25 × 키(cm) − 5 × 나이 − 161</li>
+          <li><b>TDEE</b> = BMR × 활동지수 (1.2 ~ 1.9)</li>
+          <li><b>다이어트 권장</b> = TDEE − 500 (주당 약 0.45kg 감량)</li>
+          <li><b>증량 권장</b> = TDEE + 500 (주당 약 0.45kg 증량)</li>
+        </ol>
+      </div>
+      <p class="small">지방 1kg = 약 7,700kcal. 안전 감량·증량 페이스는 주당 0.5 ~ 1kg.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>활동지수별 TDEE (175cm·70kg·30대 남성 BMR ≈ 1,650kcal)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>활동량</th><th>지수</th><th>TDEE</th><th>다이어트 (−500)</th></tr></thead>
+          <tbody>
+            <tr><td>좌식 (운동 거의 X)</td><td>1.2</td><td>1,980</td><td>1,480</td></tr>
+            <tr><td>가벼운 운동 (주 1 ~ 3회)</td><td>1.375</td><td>2,269</td><td>1,769</td></tr>
+            <tr><td>보통 운동 (주 3 ~ 5회)</td><td class="highlight">1.55</td><td class="highlight">2,558</td><td class="highlight">2,058</td></tr>
+            <tr><td>활동적 (주 6 ~ 7회)</td><td>1.725</td><td>2,846</td><td>2,346</td></tr>
+            <tr><td>매우 활동적 (육체노동)</td><td>1.9</td><td>3,135</td><td>2,635</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">대부분 사람은 1.375 ~ 1.55 구간. 본인 활동량을 과대평가하기 쉬워 한 단계 낮춰 잡는 게 안전.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../bmi/">BMI 계산기<span class="desc">체질량지수·정상체중</span></a>
+        <a href="../growth/">아기 성장 백분위<span class="desc">키·체중 백분위</span></a>
+        <a href="../pregnancy/">출산예정일 계산기<span class="desc">월경주기 기반</span></a>
+        <a href="../ovulation/">배란일 계산기<span class="desc">가임기 추정</span></a>
+        <a href="../baby-formula/">분유량 계산기<span class="desc">월령별 권장량</span></a>
+        <a href="../age/">만 나이 계산기<span class="desc">한국 나이 환산</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>BMR과 TDEE는 뭐가 다른가요?</summary>
+        <div class="answer">
+          <b>BMR(기초대사량)</b>은 가만히 누워있을 때 생명 유지에 필요한 칼로리.
+          <b>TDEE(일일 총소모량)</b>는 BMR + 활동·운동·소화 등 모든 칼로리. TDEE =
+          BMR × 활동지수(1.2 ~ 1.9). 다이어트·증량 기준은 TDEE 사용.
+        </div>
+      </details>
+
+      <details>
+        <summary>Mifflin-St Jeor 공식이란?</summary>
+        <div class="answer">
+          1990년 발표된 BMR 산정 공식 — 남성 BMR = 10 × 체중(kg) + 6.25 × 키(cm) −
+          5 × 나이 + 5, 여성은 마지막에 −161. <b>Harris-Benedict보다 현대인에게 정확하다고
+          알려져 의료·운동학에서 표준 사용</b>.
+        </div>
+      </details>
+
+      <details>
+        <summary>다이어트는 −500kcal/일이면 충분한가요?</summary>
+        <div class="answer">
+          지방 1kg = 약 7,700kcal. 일주일 −500 × 7 = −3,500kcal → <b>약 0.45kg/주 감량</b>.
+          일반적인 안전 페이스. −1,000 이상 강한 적자는 근손실·요요·정체기 위험.
+        </div>
+      </details>
+
+      <details>
+        <summary>활동지수는 어떻게 고르나요?</summary>
+        <div class="answer">
+          좌식 사무직 1.2, 가벼운 운동(주 1 ~ 3) 1.375, 보통 운동(주 3 ~ 5) 1.55,
+          활동적(주 6 ~ 7 + 격렬) 1.725, 매우 활동적(육체노동 + 격렬) 1.9. 대부분 사람은
+          1.375 ~ 1.55 사이. <b>자주 과대평가하니 한 단계 낮춰 잡는 게 안전</b>.
+        </div>
+      </details>
+
+      <details>
+        <summary>단백질·탄수화물 비율도 알려주나요?</summary>
+        <div class="answer">
+          본 계산기는 총 칼로리만. 일반 가이드: 단백질 <b>체중 × 1.5 ~ 2g/일(다이어트),
+          1.0 ~ 1.5g/일(일반), 2.0 ~ 2.5g/일(증량·근비대)</b>. 탄수화물·지방은 운동 강도와
+          개인 반응에 따라 조정.
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>출처</h2>

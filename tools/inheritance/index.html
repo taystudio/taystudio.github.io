@@ -71,6 +71,59 @@
           "item": "https://taystudio.github.io/tools/inheritance/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "상속재산이 10억이면 상속세가 얼마나 나오나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "배우자가 있다면 일괄공제 5억 + 배우자공제 최소 5억으로 총 10억까지 공제되어 상속세 0원입니다. 배우자가 없으면 일괄공제 5억만 적용되어 과세표준 5억 × 20% − 1,000만 = 약 8,730만원."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "일괄공제 5억 vs 인적공제(기초공제 2억 + 자녀공제) 어느 쪽이 유리해요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "자녀가 6명 이상이거나 미성년자녀·장애인공제가 큰 특수 케이스가 아니면 보통 일괄공제 5억이 유리합니다. 자녀공제는 1인당 5천만원에 불과해 5명 이하면 일괄공제가 무조건 더 큽니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "배우자공제는 정확히 얼마까지 받나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "최소 5억, 최대 30억. 배우자의 실제 상속분(법정 상속분에 해당하는 재산가액) 한도 내에서 공제됩니다. 배우자가 모든 재산을 단독으로 받아도 30억이 한도. 본 계산기는 배우자 단독 상속 가정으로 단순화."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "사전증여재산도 합산되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네. 상속개시일 기준 최근 10년 이내 상속인에게 증여한 재산, 5년 이내 상속인 외 자에게 증여한 재산은 모두 상속재산에 합산해 과세합니다. 미리 증여세를 낸 부분은 기납부세액으로 차감."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "신고세액공제 3%는 자동 적용되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "상속개시일이 속한 달의 말일부터 6개월 이내에 자진 신고하면 산출세액의 3%를 추가 공제합니다. 무신고·지연신고 시는 적용 안 되고 가산세 추가."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "상속세 개정안은 어떻게 됐나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "최고세율 50%→40% 인하, 자녀공제 5천만원→5억 확대 등 개정안이 발의돼 일부 언론에서 통과를 보도했지만 2026-04-29 국세청 공식 페이지 기준으로는 아직 변경 미반영. 본 계산기는 보수적으로 현행법 적용. 정식 시행 확인 시 즉시 갱신."
+          }
+        }
+      ]
     }
   ]
 }
@@ -124,6 +177,207 @@
       ⚠️ 본 계산은 매우 단순화한 추정치입니다. 실제로는 사전증여재산 합산, 가업상속공제,
       금융재산공제, 주택가액 평가 차이 등 변수가 매우 많아요. 실제 신고는 반드시 세무사 상담 필수.
     </div>
+
+    <section class="tool-article">
+      <h2>상속세율 (10 ~ 50% 누진)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>과세표준</th><th>세율</th><th>누진공제</th></tr></thead>
+          <tbody>
+            <tr><td>1억 이하</td><td>10%</td><td>0</td></tr>
+            <tr><td>1억 ~ 5억</td><td>20%</td><td>1,000만</td></tr>
+            <tr><td>5억 ~ 10억</td><td>30%</td><td>6,000만</td></tr>
+            <tr><td>10억 ~ 30억</td><td>40%</td><td>1억 6,000만</td></tr>
+            <tr><td>30억 초과</td><td>50%</td><td>4억 6,000만</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">상속세 및 증여세법 제26조. 산출세액 = 과세표준 × 세율 − 누진공제. 자진신고 시 산출세액의 3% 추가 공제.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>상속재산별 상속세 (배우자+자녀1, 채무 0 가정)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>상속재산</th><th>총 공제</th><th>과세표준</th><th>상속세</th><th>실수령</th></tr></thead>
+          <tbody>
+            <tr><td>5억</td><td>10억</td><td>0</td><td class="highlight">0</td><td>500,000,000</td></tr>
+            <tr><td>10억</td><td>10억</td><td>0</td><td class="highlight">0</td><td>1,000,000,000</td></tr>
+            <tr><td>15억</td><td>10억</td><td>5억</td><td class="highlight">87,300,000</td><td>1,412,700,000</td></tr>
+            <tr><td>20억</td><td>10억</td><td>10억</td><td class="highlight">232,800,000</td><td>1,767,200,000</td></tr>
+            <tr><td>30억</td><td>12.5억</td><td>17.5억</td><td class="highlight">523,800,000</td><td>2,476,200,000</td></tr>
+            <tr><td>50억</td><td>17.5억</td><td>32.5억</td><td class="highlight">1,130,050,000</td><td>3,869,950,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">10억까지는 일괄 5억 + 배우자 5억으로 사실상 비과세. 배우자공제는 자녀 수에 따라 달라지며, 본 계산기는 배우자 단독 상속분 기준으로 단순화했습니다.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>더 알아보기</h2>
+
+      <details>
+        <summary>주요 공제 항목 정리</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>일괄공제 5억</b>인적공제(기초공제 2억 + 자녀공제 1인당 5천만원 + 미성년자공제 등)와 <b>택일</b>. 자녀 6명 미만이면 일괄공제가 유리.</div>
+            <div class="case"><b>배우자공제</b>최소 5억 ~ 최대 30억. 실제 상속분 한도 내. 배우자만 있어도 5억 보장.</div>
+            <div class="case"><b>금융재산공제</b>순금융재산 × 20% (한도 2억). 예금·주식 등 금융재산이 많으면 추가.</div>
+            <div class="case"><b>동거주택 상속공제</b>피상속인과 10년 이상 1세대 1주택 동거 시 6억 한도 추가 공제.</div>
+            <div class="case"><b>가업상속공제</b>10년 이상 운영한 중소·중견기업 상속 시 최대 600억 공제 (2024년 기준).</div>
+            <div class="case"><b>채무·장례비</b>피상속인의 채무는 전액 차감. 장례비는 1,000만원 한도 (증빙 시 추가 500만).</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>배우자 유무에 따른 차이 (재산 20억 기준)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>가족 구성</th><th>총 공제</th><th>상속세</th></tr></thead>
+              <tbody>
+                <tr><td>배우자만</td><td>15억</td><td class="highlight">87,300,000</td></tr>
+                <tr><td>배우자 + 자녀 1</td><td>10억</td><td class="highlight">232,800,000</td></tr>
+                <tr><td>배우자 + 자녀 2</td><td>10억</td><td class="highlight">232,800,000</td></tr>
+                <tr><td>자녀 2 (배우자 X)</td><td>5억</td><td class="highlight">426,800,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">배우자공제는 자녀 수가 늘수록 1인당 상속분이 줄어 공제액도 감소. 배우자 단독 상속이 가장 유리. 배우자가 없으면 일괄공제 5억만 적용.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>사전증여재산 합산</summary>
+        <div class="body">
+          <p>상속세를 줄이려고 미리 증여하는 것을 막기 위해, 다음 기간 내 증여재산은 모두 상속재산에 합산합니다.</p>
+          <div class="case-grid">
+            <div class="case"><b>상속인 (자녀·배우자)</b>상속개시일 전 <b>10년 이내</b> 증여재산 합산.</div>
+            <div class="case"><b>상속인 외 (손자·며느리·법인 등)</b>상속개시일 전 <b>5년 이내</b> 증여재산 합산.</div>
+            <div class="case"><b>이미 낸 증여세</b>합산 후 산출된 상속세에서 기납부 증여세를 차감 (이중과세 방지).</div>
+            <div class="case"><b>증여 전략 한계</b>10년 이상 일찍 증여하면 합산 안 되지만, 증여세는 별도로 매번 발생.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>신고·납부 일정</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>신고 기한</b>상속개시일이 속한 달의 말일부터 <b>6개월 이내</b> (해외 거주 시 9개월).</div>
+            <div class="case"><b>신고세액공제 3%</b>기한 내 자진신고 시 산출세액의 3% 추가 공제.</div>
+            <div class="case"><b>분납</b>세액 1,000만원 초과 시 2개월 이내 분할 납부 가능.</div>
+            <div class="case"><b>연부연납</b>세액 2,000만원 초과 시 최대 5년 분할(가업상속은 20년). 가산이자 별도.</div>
+            <div class="case"><b>물납</b>현금 납부 곤란 시 부동산·유가증권으로 납부 가능 (조건 까다로움).</div>
+            <div class="case"><b>가산세</b>무신고 20%, 부정신고 40%, 납부불성실 1일 0.022%.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>실효세율 비교 (재산별)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>상속재산</th><th>상속세 (배우자+자녀1)</th><th>실효세율</th></tr></thead>
+              <tbody>
+                <tr><td>10억</td><td>0</td><td class="highlight">0%</td></tr>
+                <tr><td>15억</td><td>8,730만</td><td class="highlight">5.8%</td></tr>
+                <tr><td>20억</td><td>2억 3,280만</td><td class="highlight">11.6%</td></tr>
+                <tr><td>30억</td><td>5억 2,380만</td><td class="highlight">17.5%</td></tr>
+                <tr><td>50억</td><td>11억 3,005만</td><td class="highlight">22.6%</td></tr>
+                <tr><td>100억</td><td>약 30억</td><td class="highlight">~30%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">최고세율은 50%이지만 공제 덕분에 100억 재산에서도 실효세율은 30% 수준. 다만 사전증여 합산·가업공제 미적용 등 케이스에 따라 변동 큼.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>상속세 줄이는 5가지 전략</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>1. 10년 이상 일찍 증여</b>10년 이내 증여는 상속재산에 합산되므로 일찍 증여할수록 유리.</div>
+            <div class="case"><b>2. 배우자 활용</b>배우자공제 최대 30억 활용. 단, 배우자가 먼저 사망하면 다시 자녀에게 상속세 발생.</div>
+            <div class="case"><b>3. 동거주택 6억</b>피상속인과 10년 이상 1세대 1주택 동거 시 6억 추가 공제.</div>
+            <div class="case"><b>4. 금융재산 비중</b>금융재산이 많으면 순금융재산의 20%(한도 2억) 공제.</div>
+            <div class="case"><b>5. 가업상속</b>10년 이상 운영한 중소기업이면 가업상속공제 최대 600억.</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../gifttax/">증여세 계산기<span class="desc">10년 합산 누진</span></a>
+        <a href="../capgain/">양도소득세 계산기<span class="desc">주택·토지 양도</span></a>
+        <a href="../comp-property/">종부세 계산기<span class="desc">고가 부동산 보유세</span></a>
+        <a href="../property-tax/">재산세 계산기<span class="desc">매년 7·9월 부과</span></a>
+        <a href="../acqtax/">취득세 계산기<span class="desc">상속·증여 취득세</span></a>
+        <a href="../comprehensive/">종합소득세 계산기<span class="desc">사업소득 신고</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>상속재산이 10억이면 상속세가 얼마나 나오나요?</summary>
+        <div class="answer">
+          배우자가 있다면 일괄공제 5억 + 배우자공제 최소 5억으로 총 10억까지 공제되어
+          <b>상속세 0원</b>입니다. 배우자가 없으면 일괄공제 5억만 적용되어
+          과세표준 5억 × 20% − 1,000만 = 약 <b>8,730만원</b>.
+        </div>
+      </details>
+
+      <details>
+        <summary>일괄공제 5억 vs 인적공제(기초공제 2억 + 자녀공제) 어느 쪽이 유리해요?</summary>
+        <div class="answer">
+          자녀가 6명 이상이거나 미성년자녀·장애인공제가 큰 특수 케이스가 아니면 보통
+          <b>일괄공제 5억이 유리</b>합니다. 자녀공제는 1인당 5천만원에 불과해 5명 이하면
+          일괄공제가 무조건 더 큽니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>배우자공제는 정확히 얼마까지 받나요?</summary>
+        <div class="answer">
+          <b>최소 5억, 최대 30억.</b> 배우자의 실제 상속분(법정 상속분에 해당하는
+          재산가액) 한도 내에서 공제됩니다. 배우자가 모든 재산을 단독으로 받아도 30억이
+          한도. 본 계산기는 배우자 단독 상속 가정으로 단순화.
+        </div>
+      </details>
+
+      <details>
+        <summary>사전증여재산도 합산되나요?</summary>
+        <div class="answer">
+          네. 상속개시일 기준 최근 <b>10년 이내</b> 상속인에게 증여한 재산,
+          <b>5년 이내</b> 상속인 외 자에게 증여한 재산은 모두 상속재산에 합산해 과세합니다.
+          미리 증여세를 낸 부분은 기납부세액으로 차감.
+        </div>
+      </details>
+
+      <details>
+        <summary>신고세액공제 3%는 자동 적용되나요?</summary>
+        <div class="answer">
+          상속개시일이 속한 달의 말일부터 <b>6개월 이내에 자진 신고</b>하면 산출세액의
+          3%를 추가 공제합니다. 무신고·지연신고 시는 적용 안 되고 가산세 추가.
+        </div>
+      </details>
+
+      <details>
+        <summary>상속세 개정안은 어떻게 됐나요?</summary>
+        <div class="answer">
+          최고세율 50% → 40% 인하, 자녀공제 5천만원 → 5억 확대 등 개정안이 발의돼
+          일부 언론에서 통과를 보도했지만 <b>2026-04-29 국세청 공식 페이지 기준으로는
+          아직 변경 미반영</b>. 본 계산기는 보수적으로 현행법 적용. 정식 시행 확인 시
+          즉시 갱신합니다.
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>적용된 법령·고시 및 출처</h2>

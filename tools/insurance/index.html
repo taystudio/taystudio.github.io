@@ -71,6 +71,59 @@
           "item": "https://taystudio.github.io/tools/insurance/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "4대보험은 정확히 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "국민연금·건강보험(장기요양 포함)·고용보험·산재보험 4종. 근로자 ↔ 사업주가 절반씩 부담(산재는 100% 사업주). 2026년 기준 근로자 부담은 월급의 약 9.72%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "월급 350만원이면 4대보험이 얼마나 떼이나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "근로자 부담 약 34만원 (월급의 9.72%). 회사도 거의 같은 금액(39만)을 별도 부담. 즉 회사 입장에서는 인건비 약 11.3%가 4대보험. 본 계산기에서 정확한 항목별 분리 가능."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "국민연금 9.5%가 평생 그대로인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아닙니다. 2026년부터 매년 0.5%p씩 인상되어 2033년 합계 13%(근로자 6.5%)에 도달합니다. 본 계산기는 2026년 1월 기준 9.5%(각 4.75%) 적용."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "산재보험은 왜 항목에 안 보이나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "산재보험은 100% 사업주 부담이라 근로자 급여명세서에 안 나타납니다. 업종별 0.7~18.6%로 차이가 큰 편 (사무직 약 0.7%, 광업 18.6%). 본 계산기 사업주 부담 측에는 평균 1.2%로 추정."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "월 보수가 637만원 넘으면 어떻게 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "국민연금만 상한 적용 — 월 637만원에서 멈춤(2025.7~2026.6 기준). 즉 월급 700만원이어도 국민연금은 637만의 4.75% = 약 30.3만원. 건강보험·고용보험은 상한 없음. 결과적으로 고연봉일수록 4대보험 비율이 줄어듦."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "알바·일용직도 4대보험 가입하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "월 60시간 이상 또는 3개월 이상 근로 시 4대보험 가입 의무. 단시간(월 60h 미만) 알바는 산재만 의무, 나머지는 임의가입. 일용직(1개월 미만)은 산재·고용만 의무."
+          }
+        }
+      ]
     }
   ]
 }
@@ -123,6 +176,211 @@
     <div class="disclaimer">
       ⚠️ 산재보험료율은 업종마다 다릅니다 (0.7%~18.6%). 본 계산기는 평균값(1.2%) 기준 추정치예요.
     </div>
+
+    <section class="tool-article">
+      <h2>4대보험 요율 (2026년 기준)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>항목</th><th>근로자</th><th>사업주</th><th>합계</th></tr></thead>
+          <tbody>
+            <tr><td>국민연금</td><td>4.75%</td><td>4.75%</td><td>9.5%</td></tr>
+            <tr><td>건강보험</td><td>3.595%</td><td>3.595%</td><td>7.19%</td></tr>
+            <tr><td>장기요양</td><td>0.4724%</td><td>0.4724%</td><td>0.9448%</td></tr>
+            <tr><td>고용보험</td><td>0.9%</td><td>0.9% + 0.25 ~ 0.85%</td><td>1.8%+</td></tr>
+            <tr><td>산재보험</td><td>—</td><td>0.7 ~ 18.6% (업종별)</td><td>—</td></tr>
+            <tr><td><b>근로자 합계</b></td><td><b class="highlight">약 9.72%</b></td><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">국민연금은 2026년부터 매년 0.5%p씩 인상되어 2033년 합계 13%. 국민연금만 월상한 637만원(2025.7~2026.6).</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>월급별 4대보험 부담 (근로자·사업주)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>월 급여</th><th>근로자 부담</th><th>사업주 부담</th><th>합계</th><th>근로자 비율</th></tr></thead>
+          <tbody>
+            <tr><td>200만</td><td>194,348</td><td>225,348</td><td>419,696</td><td class="highlight">9.72%</td></tr>
+            <tr><td>250만</td><td>242,935</td><td>281,685</td><td>524,620</td><td class="highlight">9.72%</td></tr>
+            <tr><td>300만</td><td>291,522</td><td>338,022</td><td>629,544</td><td class="highlight">9.72%</td></tr>
+            <tr><td>350만</td><td>340,109</td><td>394,359</td><td>734,468</td><td class="highlight">9.72%</td></tr>
+            <tr><td>400만</td><td>388,696</td><td>450,696</td><td>839,392</td><td class="highlight">9.72%</td></tr>
+            <tr><td>500만</td><td>485,870</td><td>563,370</td><td>1,049,240</td><td class="highlight">9.72%</td></tr>
+            <tr><td>637만 (상한)</td><td>619,028</td><td>717,818</td><td>1,336,846</td><td class="highlight">9.72%</td></tr>
+            <tr><td>700만</td><td>650,293</td><td>758,793</td><td>1,409,086</td><td>9.29%</td></tr>
+            <tr><td>800만</td><td>699,967</td><td>823,967</td><td>1,523,934</td><td>8.75%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">월 637만원 초과 시 국민연금 상한 적용으로 비율이 떨어짐. 사업주는 산재 평균 1.2% + 고용보험 안정·능력개발 0.35% 가산 가정.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>더 알아보기</h2>
+
+      <details>
+        <summary>각 보험의 역할</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>국민연금</b>노후 대비. 가입 10년 이상 + 만 60세 이상 시 노령연금 수급. 장애·유족연금도 지급.</div>
+            <div class="case"><b>건강보험</b>의료비 보장. 직장가입자는 본인부담 30 ~ 50% 수준, 본인부담상한제로 연 한도 보장.</div>
+            <div class="case"><b>장기요양</b>65세 이상 또는 노인성 질병자에게 요양시설·재가 서비스 비용 지원. 건강보험과 함께 부과.</div>
+            <div class="case"><b>고용보험</b>실업급여, 육아휴직급여, 직업훈련 등. 비자발적 이직 시 구직급여 지급.</div>
+            <div class="case"><b>산재보험</b>업무상 재해·질병 시 치료·휴업급여·장해급여. 100% 사업주 부담이라 근로자에겐 무료 보험.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>가입 의무 (근로자·사업주)</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>월 60시간 이상</b>4대보험 모두 가입 의무.</div>
+            <div class="case"><b>3개월 이상 근로</b>월 60h 미만이라도 가입 의무.</div>
+            <div class="case"><b>월 60h 미만 단시간</b>산재만 의무, 국민연금·건강은 임의.</div>
+            <div class="case"><b>일용직 (1개월 미만)</b>산재 + 고용보험 의무. 국민연금·건강은 미적용.</div>
+            <div class="case"><b>대표자·1인 사업자</b>국민연금·건강은 지역가입자 자격으로 별도 가입. 산재 임의가입 가능.</div>
+            <div class="case"><b>5인 미만 사업장</b>4대보험 모두 의무 (사업장 규모 무관).</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>국민연금 상한·하한·연도별 인상</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>연도</th><th>합계 요율</th><th>근로자</th></tr></thead>
+              <tbody>
+                <tr><td>2025</td><td>9.0%</td><td>4.5%</td></tr>
+                <tr><td>2026 (현재)</td><td class="highlight">9.5%</td><td class="highlight">4.75%</td></tr>
+                <tr><td>2027</td><td>10.0%</td><td>5.0%</td></tr>
+                <tr><td>2028</td><td>10.5%</td><td>5.25%</td></tr>
+                <tr><td>...</td><td>...</td><td>...</td></tr>
+                <tr><td>2033</td><td>13.0%</td><td>6.5%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">2025년 12월 정부 발표 — 매년 0.5%p씩 8년간 인상. 월 보수 상한은 매년 7월 갱신 (2025.7 ~ 2026.6 기준 637만원). 하한 약 39만원.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>건강보험 정산 (매년 4월)</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>정산 시기</b>매년 4월에 전년도 보수총액 기준으로 재정산.</div>
+            <div class="case"><b>추가 납부</b>실제 보수가 신고분보다 많으면 차액 추가 부담 (4 ~ 6월에 분할).</div>
+            <div class="case"><b>환급</b>실제가 적으면 환급.</div>
+            <div class="case"><b>4월 충격</b>전년도 성과급·상여금 추가분이 정산되어 4월 급여 명세서에서 일시적으로 ±10 ~ 50만 차이 발생.</div>
+            <div class="case"><b>이의신청</b>5년 이내 이의신청 가능 (NHIS 고객센터 1577-1000).</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>산재보험 업종별 요율 (2025년)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>업종</th><th>요율</th></tr></thead>
+              <tbody>
+                <tr><td>광업</td><td class="highlight">최고 18.6%</td></tr>
+                <tr><td>건설업</td><td>3.6%</td></tr>
+                <tr><td>제조업</td><td>1.0 ~ 2.5%</td></tr>
+                <tr><td>운수·창고업</td><td>1.5 ~ 2.0%</td></tr>
+                <tr><td>도소매·음식·숙박</td><td>0.8 ~ 1.0%</td></tr>
+                <tr><td>금융·보험·사무직</td><td class="highlight">0.7%</td></tr>
+                <tr><td>전 업종 평균 (2025)</td><td>약 1.47%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">근로복지공단(kcomwel.or.kr)에서 정확한 업종 분류 코드별 요율 확인 가능.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>지역가입자 (자영업·프리랜서)</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>국민연금</b>본인 100% 부담. 신고소득 × 9% (월 최대 약 57만 / 최소 약 3.5만).</div>
+            <div class="case"><b>건강보험</b>소득·재산·자동차 점수 합산해 산정. 직장가입자보다 보통 무거움.</div>
+            <div class="case"><b>장기요양</b>건강보험료의 12.95%.</div>
+            <div class="case"><b>고용·산재</b>임의가입. 자영업자 고용보험 특례 가입 가능 (월 보수 200만 등 등급 선택).</div>
+            <div class="case"><b>피부양자 자격</b>연 소득 2,000만 이하 + 재산 9억 이하 등 요건 충족 시 직장가입자 가족으로 등록 가능 (보험료 X).</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../salary/">연봉 실수령액 계산기<span class="desc">4대보험·소득세 차감</span></a>
+        <a href="../comprehensive/">종합소득세 계산기<span class="desc">사업·기타소득</span></a>
+        <a href="../year-end/">연말정산 계산기<span class="desc">환급/추가 납부</span></a>
+        <a href="../unemployment/">실업급여 계산기<span class="desc">구직급여 일액·기간</span></a>
+        <a href="../parental-leave/">육아휴직 급여 계산기<span class="desc">통상임금 기반</span></a>
+        <a href="../severance/">퇴직금 계산기<span class="desc">평균임금 기반</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>4대보험은 정확히 무엇인가요?</summary>
+        <div class="answer">
+          <b>국민연금·건강보험(장기요양 포함)·고용보험·산재보험</b> 4종. 근로자 ↔ 사업주가
+          절반씩 부담(산재는 100% 사업주). 2026년 기준 근로자 부담은 월급의 약 9.72%.
+        </div>
+      </details>
+
+      <details>
+        <summary>월급 350만원이면 4대보험이 얼마나 떼이나요?</summary>
+        <div class="answer">
+          근로자 부담 <b>약 34만원</b> (월급의 9.72%). 회사도 거의 같은 금액(39만)을 별도
+          부담. 즉 회사 입장에서는 인건비 약 11.3%가 4대보험. 본 계산기에서 정확한
+          항목별 분리 가능.
+        </div>
+      </details>
+
+      <details>
+        <summary>국민연금 9.5%가 평생 그대로인가요?</summary>
+        <div class="answer">
+          아닙니다. 2026년부터 매년 0.5%p씩 인상되어 <b>2033년 합계 13%(근로자 6.5%)</b>에
+          도달합니다. 본 계산기는 2026년 1월 기준 9.5%(각 4.75%) 적용.
+        </div>
+      </details>
+
+      <details>
+        <summary>산재보험은 왜 항목에 안 보이나요?</summary>
+        <div class="answer">
+          산재보험은 <b>100% 사업주 부담</b>이라 근로자 급여명세서에 안 나타납니다.
+          업종별 0.7 ~ 18.6%로 차이가 큰 편 (사무직 약 0.7%, 광업 18.6%). 본 계산기
+          사업주 부담 측에는 평균 1.2%로 추정.
+        </div>
+      </details>
+
+      <details>
+        <summary>월 보수가 637만원 넘으면 어떻게 되나요?</summary>
+        <div class="answer">
+          국민연금만 상한 적용 — <b>월 637만원에서 멈춤</b>(2025.7 ~ 2026.6 기준). 즉
+          월급 700만원이어도 국민연금은 637만의 4.75% = 약 30.3만원. 건강보험·고용보험은
+          상한 없음. 결과적으로 고연봉일수록 4대보험 비율이 줄어듦.
+        </div>
+      </details>
+
+      <details>
+        <summary>알바·일용직도 4대보험 가입하나요?</summary>
+        <div class="answer">
+          <b>월 60시간 이상 또는 3개월 이상 근로 시 4대보험 가입 의무</b>. 단시간(월 60h
+          미만) 알바는 산재만 의무, 나머지는 임의가입. 일용직(1개월 미만)은 산재·고용만
+          의무.
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>적용된 법령·고시 및 출처</h2>

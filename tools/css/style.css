@@ -369,11 +369,19 @@ button:hover {
   border-color: var(--primary);
 }
 
-.faq {
+.faq,
+.disclosure-group {
   margin-top: 32px;
 }
 
-.faq details {
+.disclosure-group > h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.faq details,
+.disclosure-group details {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -381,7 +389,8 @@ button:hover {
   padding: 0;
 }
 
-.faq summary {
+.faq summary,
+.disclosure-group summary {
   padding: 14px 18px;
   cursor: pointer;
   font-weight: 500;
@@ -389,22 +398,26 @@ button:hover {
   list-style: none;
 }
 
-.faq summary::-webkit-details-marker {
+.faq summary::-webkit-details-marker,
+.disclosure-group summary::-webkit-details-marker {
   display: none;
 }
 
-.faq summary::after {
+.faq summary::after,
+.disclosure-group summary::after {
   content: "+";
   float: right;
   color: var(--muted);
   font-weight: 400;
 }
 
-.faq details[open] summary::after {
+.faq details[open] summary::after,
+.disclosure-group details[open] summary::after {
   content: "−";
 }
 
-.faq details[open] summary {
+.faq details[open] summary,
+.disclosure-group details[open] summary {
   border-bottom: 1px solid var(--border);
 }
 
@@ -413,6 +426,29 @@ button:hover {
   font-size: 14px;
   color: var(--muted);
   line-height: 1.65;
+}
+
+.disclosure-group .body {
+  padding: 14px 18px 16px;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.disclosure-group .body > *:last-child {
+  margin-bottom: 0;
+}
+
+.disclosure-group .body .ref-table,
+.disclosure-group .body .formula-list,
+.disclosure-group .body .case-grid {
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+.disclosure-group .body .formula-list,
+.disclosure-group .body .ref-table {
+  background: var(--bg);
 }
 
 .sources {
@@ -775,4 +811,167 @@ button:hover {
   .row {
     grid-template-columns: 1fr;
   }
+}
+
+/* ========== Tool article (랜딩 콘텐츠 블록) ========== */
+
+.tool-article {
+  margin-top: 32px;
+}
+
+.tool-article h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 32px 0 12px;
+}
+
+.tool-article > h2:first-child {
+  margin-top: 0;
+}
+
+.tool-article p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.tool-article p strong,
+.tool-article p b {
+  color: var(--text);
+}
+
+.tool-article .small {
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.ref-table {
+  margin: 12px 0 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.ref-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.ref-table th,
+.ref-table td {
+  padding: 10px 12px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ref-table th:first-child,
+.ref-table td:first-child {
+  text-align: left;
+}
+
+.ref-table th {
+  background: var(--bg);
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.ref-table tr + tr td {
+  border-top: 1px solid var(--border);
+}
+
+.ref-table .highlight {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.formula-list {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 22px;
+  margin: 12px 0 16px;
+}
+
+.formula-list ol {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--muted);
+}
+
+.formula-list li b {
+  color: var(--text);
+}
+
+.formula-list code {
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  color: var(--text);
+}
+
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin: 12px 0 16px;
+}
+
+.case-grid .case {
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.case-grid .case b {
+  display: block;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 13.5px;
+  margin-bottom: 4px;
+}
+
+.related-calc {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin: 12px 0 16px;
+}
+
+.related-calc a {
+  padding: 14px 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.related-calc a:hover {
+  border-color: var(--primary);
+  background: rgba(37, 99, 235, 0.04);
+}
+
+.related-calc a .desc {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
 }

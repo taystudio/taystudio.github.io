@@ -71,6 +71,51 @@
           "item": "https://taystudio.github.io/tools/growth/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "백분위가 뭔가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "또래 100명 중 본인 위치. 50백분위는 평균(중간), 90백분위는 같은 또래 100명 중 90명보다 큼/무거움. 25 ~ 75백분위가 가장 흔한 정상 범위. 3 미만 또는 97 초과는 의사 상담 권장."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "한국 성장도표와 WHO 차이는?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "WHO는 0~24개월 모유수유 기준 국제 표준, 한국 성장도표는 한국 영유아 실측 데이터(2017년) 기반. 0~5세는 WHO 권장, 5세 이후는 한국 데이터가 적합. 본 계산기는 2017 한국 성장도표 기준."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "키·몸무게 백분위가 다르면 문제인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "정상입니다. 한 아이가 키 90백분위·몸무게 60백분위처럼 다를 수 있어요. 두 백분위 차이가 50 이상으로 크게 벌어지거나(예: 키 90 vs 체중 10), 성장 속도가 갑자기 달라지면 의사 상담."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "백분위가 너무 낮으면 어떻게 하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "3 미만이면 저체중·저신장 가능성 — 소아과 상담 필수. 3 ~ 10 사이는 정상 범위 끝자락이지만 경과 관찰. 부모 키도 영향 — 부모 평균보다 작아도 부모 신장 고려 시 정상 범위일 수 있음."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "성장 속도가 더 중요한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "예. 백분위 절댓값보다 시간에 따른 변화가 중요. 같은 백분위 라인에서 꾸준히 성장하면 정상. 같은 라인을 벗어나 급격히 떨어지거나 올라가면(2단계 이상 변동) 검사 필요."
+          }
+        }
+      ]
     }
   ]
 }
@@ -133,6 +178,86 @@
     <div class="disclaimer">
       ⚠️ 본 계산은 2017 한국 성장도표 50백분위 + 표준편차 근사 기반 추정입니다. 정확한 백분위는 소아과 의무기록(LMS 방식)이 정확. 3~10백분위, 90~97백분위는 정상 범위 끝자락이며 극단(<3 또는 >97)은 의사 상담 권장.
     </div>
+
+    <section class="tool-article">
+      <h2>백분위 해석 가이드</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>백분위</th><th>의미</th><th>판정</th></tr></thead>
+          <tbody>
+            <tr><td>3 미만</td><td>또래 하위 3% 이내</td><td>저신장·저체중 가능성, 의사 상담</td></tr>
+            <tr><td>3 ~ 10</td><td>정상 범위 끝자락 (작은 편)</td><td>경과 관찰</td></tr>
+            <tr><td>10 ~ 25</td><td>평균보다 약간 작음</td><td>정상</td></tr>
+            <tr><td>25 ~ 75</td><td class="highlight">평균 (가장 흔함)</td><td>정상</td></tr>
+            <tr><td>75 ~ 90</td><td>평균보다 약간 큼</td><td>정상</td></tr>
+            <tr><td>90 ~ 97</td><td>정상 범위 끝자락 (큰 편)</td><td>경과 관찰</td></tr>
+            <tr><td>97 초과</td><td>또래 상위 3% 이내</td><td>비만·과성장 가능성, 의사 상담</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">2017 한국 소아청소년 성장도표 (대한소아청소년과학회 / 질병관리청).</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../baby-formula/">분유량 계산기<span class="desc">월령별 권장량</span></a>
+        <a href="../baby-clothes/">아기옷 사이즈 계산기<span class="desc">개월·키 기반</span></a>
+        <a href="../pregnancy/">출산예정일 계산기<span class="desc">월경주기 기반</span></a>
+        <a href="../ovulation/">배란일 계산기<span class="desc">가임기 추정</span></a>
+        <a href="../bmi/">BMI 계산기 (성인)<span class="desc">체질량지수</span></a>
+        <a href="../parental-leave/">육아휴직 급여 계산기<span class="desc">통상임금 기반</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>백분위가 뭔가요?</summary>
+        <div class="answer">
+          또래 100명 중 본인 위치. <b>50백분위는 평균(중간), 90백분위는 같은 또래 100명
+          중 90명보다 큼/무거움</b>. 25 ~ 75백분위가 가장 흔한 정상 범위. 3 미만 또는
+          97 초과는 의사 상담 권장.
+        </div>
+      </details>
+
+      <details>
+        <summary>한국 성장도표와 WHO 차이는?</summary>
+        <div class="answer">
+          WHO는 0 ~ 24개월 <b>모유수유 기준 국제 표준</b>, 한국 성장도표는 한국 영유아
+          실측 데이터(2017년) 기반. 0 ~ 5세는 WHO 권장, 5세 이후는 한국 데이터가 적합.
+          본 계산기는 2017 한국 성장도표 기준.
+        </div>
+      </details>
+
+      <details>
+        <summary>키·몸무게 백분위가 다르면 문제인가요?</summary>
+        <div class="answer">
+          정상입니다. 한 아이가 키 90백분위·몸무게 60백분위처럼 다를 수 있어요. <b>두
+          백분위 차이가 50 이상으로 크게 벌어지거나</b>(예: 키 90 vs 체중 10), 성장
+          속도가 갑자기 달라지면 의사 상담.
+        </div>
+      </details>
+
+      <details>
+        <summary>백분위가 너무 낮으면 어떻게 하나요?</summary>
+        <div class="answer">
+          <b>3 미만이면 저체중·저신장 가능성 — 소아과 상담 필수</b>. 3 ~ 10 사이는 정상
+          범위 끝자락이지만 경과 관찰. 부모 키도 영향 — 부모 평균보다 작아도 부모 신장
+          고려 시 정상 범위일 수 있음.
+        </div>
+      </details>
+
+      <details>
+        <summary>성장 속도가 더 중요한가요?</summary>
+        <div class="answer">
+          예. <b>백분위 절댓값보다 시간에 따른 변화가 중요</b>. 같은 백분위 라인에서
+          꾸준히 성장하면 정상. 같은 라인을 벗어나 급격히 떨어지거나 올라가면(2단계 이상
+          변동) 검사 필요.
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>출처</h2>

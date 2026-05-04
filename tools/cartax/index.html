@@ -71,6 +71,59 @@
           "item": "https://taystudio.github.io/tools/cartax/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "자동차 취득세는 정확히 몇 %인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "일반 승용차 7%, 경차(1,000cc 이하) 4%, 승합·화물 5%. 친환경차는 별도 감면 — 전기·수소차 한도 140만원, 하이브리드 한도 40만원 (조세특례제한법 제66조의4)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "공채는 무엇이고 꼭 사야 하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "차량 등록 시 시·도가 발행한 도시철도채권 등 공채를 매입해야 합니다 (서울 차량가액 약 9%). 의무 매입 후 즉시할인 매입(5~7% 할인) 가능 — 실부담 약 차량가액의 0.5% 수준. 등록 대행업체가 자동 처리하는 게 일반적."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "전기차 감면은 언제까지인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "조세특례제한법 제66조의4에 따라 2025년 말까지 적용 (전기·수소 140만, 하이브리드 40만 한도). 통상 연장돼 왔지만 2026년 이후 연장 여부는 국회 처리 결과 확인 필요. 본 계산기는 현행 감면 적용."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "취득세 외에 또 어떤 비용이 드나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "취득세(본세) 외 인지대 약 1만, 번호판 비용 약 4만, 의무 보험료 30~100만(차종·연령에 따라), 탁송료 0~30만, 등록 대행 수수료 5~10만, 공채 즉시할인 실부담 약 차량가의 0.5%. 본 계산기는 본세+공채만."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "장애인·다자녀 감면이 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "있습니다. 장애인용 자동차 취득세 면제 (지방세특례제한법 제17조). 다자녀(3자녀 이상) 가구는 7인승 이상 자동차 취득세 50% 감면(140만 한도). 본 계산기는 미반영 — 위택스에서 별도 신청."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "중고차도 취득세가 같은가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "동일 세율 적용. 단 과세표준은 매매가가 아닌 시가표준액 기준 (행정안전부 고시). 시가표준액이 매매가보다 높으면 시가표준액 기준 부과 (낮은 금액으로 매매 신고해도 효과 X)."
+          }
+        }
+      ]
     }
   ]
 }
@@ -129,6 +182,202 @@
       <div class="label">파트너스 활동을 통해 일정액의 수수료를 제공받을 수 있습니다</div>
       <a href="#" rel="nofollow sponsored noopener" target="_blank">[ 쿠팡 자동차 용품 추천 자리 ]</a>
     </div>
+
+    <section class="tool-article">
+      <h2>차량별 취득세율</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>차종</th><th>세율</th><th>친환경 감면 한도</th></tr></thead>
+          <tbody>
+            <tr><td>일반 승용차</td><td>7.0%</td><td>—</td></tr>
+            <tr><td>경차 (1,000cc 이하)</td><td class="highlight">4.0%</td><td>—</td></tr>
+            <tr><td>승합·화물</td><td>5.0%</td><td>—</td></tr>
+            <tr><td>전기·수소차</td><td>4.0%</td><td class="highlight">−140만원</td></tr>
+            <tr><td>하이브리드</td><td>7.0%</td><td class="highlight">−40만원</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">지방세법 제12조 + 조세특례제한법 제66조의4. 친환경차 감면은 2025년 말 일몰 (연장 여부 확인 필요).</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>차량 가격별 취득세 (일반 승용 7%)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>차량가</th><th>일반 7%</th><th>경차 4%</th><th>전기차 (4% − 140만)</th><th>하이브리드 (7% − 40만)</th></tr></thead>
+          <tbody>
+            <tr><td>1,500만</td><td>1,050,000</td><td>600,000</td><td>—</td><td>1,050,000 (감면 없음)</td></tr>
+            <tr><td>2,500만</td><td>1,750,000</td><td>1,000,000</td><td>—</td><td>1,350,000</td></tr>
+            <tr><td>3,500만</td><td>2,450,000</td><td>—</td><td>0 (감면 충당)</td><td>2,050,000</td></tr>
+            <tr><td>4,500만</td><td>3,150,000</td><td>—</td><td>400,000</td><td>2,750,000</td></tr>
+            <tr><td>5,500만</td><td>3,850,000</td><td>—</td><td>800,000</td><td>3,450,000</td></tr>
+            <tr><td>7,000만</td><td>4,900,000</td><td>—</td><td>1,400,000</td><td>4,500,000</td></tr>
+            <tr><td>1억</td><td>7,000,000</td><td>—</td><td>2,600,000</td><td>6,600,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">전기차 감면 한도 140만원 — 차량가 3,500만(취득세 140만)까지 사실상 0원. 그 이상은 한도 초과분만 부담.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>더 알아보기</h2>
+
+      <details>
+        <summary>공채 매입 비용 (서울 기준)</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>의무 매입</b>차량 등록 시 도시철도채권 등 의무 매입 (서울 차량가액의 약 9%).</div>
+            <div class="case"><b>즉시할인 매입</b>실제 보유 안 하고 즉시 할인 매각 — 5 ~ 7% 할인. 실부담 = 액면가 × 약 6% = 차량가 × 약 0.5%.</div>
+            <div class="case"><b>5년 보유</b>5년 후 액면가 + 이자 환불 — 단 거의 모든 사람이 즉시할인 선택.</div>
+            <div class="case"><b>지역별 차이</b>광역시·도마다 매입 비율 다름 (서울 9%, 경기·인천 7 ~ 12%, 지방 0 ~ 5%).</div>
+            <div class="case"><b>등록 대행</b>딜러가 자동 처리 — 차주는 개입할 일 없음.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>친환경차 감면 (조세특례제한법 제66조의4)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>차종</th><th>취득세 감면</th><th>일몰 시점</th></tr></thead>
+              <tbody>
+                <tr><td>전기차</td><td class="highlight">한도 140만</td><td>2025-12-31</td></tr>
+                <tr><td>수소차</td><td class="highlight">한도 140만</td><td>2025-12-31</td></tr>
+                <tr><td>하이브리드</td><td>한도 40만</td><td>2025-12-31</td></tr>
+                <tr><td>플러그인 하이브리드</td><td>한도 40만</td><td>2025-12-31</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>전기차는 본 세율도 4%로 낮아짐 (일반 승용 7%) — 차량가 3,500만까지 취득세 사실상 0원. 추가로 환경부 보조금 별도 (지자체 매칭 포함 약 700 ~ 1,200만 수준).</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>장애인·다자녀·국가유공자 감면</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>장애인용 자동차</b>지방세특례제한법 제17조 — 취득세·자동차세 면제. 1~6급 장애인 본인·세대 명의.</div>
+            <div class="case"><b>국가유공자</b>유공자 본인 명의 차량 — 취득세·자동차세 면제.</div>
+            <div class="case"><b>다자녀 (3자녀+)</b>7인승 이상 자동차 취득세 50% 감면 (140만 한도). 신청 필요.</div>
+            <div class="case"><b>국민기초생활수급자</b>일부 지자체 한정 감면 (조례 확인).</div>
+            <div class="case"><b>본 계산기</b>표준세율만 — 감면 적용 시 위택스 별도 신청.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>총 등록 비용 (취득세 + 부대비)</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>취득세 (본세)</b>차량가 × 7% (일반).</div>
+            <div class="case"><b>공채 즉시할인 실부담</b>차량가 × 약 0.5%.</div>
+            <div class="case"><b>인지대</b>약 10,000원 (등록 신청서).</div>
+            <div class="case"><b>번호판 비용</b>약 30,000 ~ 40,000원.</div>
+            <div class="case"><b>등록 대행 수수료</b>5 ~ 10만원 (딜러 통해 진행 시).</div>
+            <div class="case"><b>의무보험</b>30 ~ 100만원/연 (차종·연령에 따라).</div>
+            <div class="case"><b>탁송료</b>0 ~ 30만원 (출고지 → 등록지 거리에 따라).</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>중고차 취득세</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>세율 동일</b>신차와 같은 세율 (일반 7%, 경차 4% 등).</div>
+            <div class="case"><b>과세표준</b>매매가 아닌 <b>시가표준액</b>(행정안전부 고시) 기준. 매매가가 시표보다 낮아도 시표 기준.</div>
+            <div class="case"><b>시가표준액 조회</b>위택스 또는 자동차365(car365.go.kr).</div>
+            <div class="case"><b>증여·상속</b>증여 7%, 상속 5% (지방세법 제12조).</div>
+            <div class="case"><b>차령 5년 이상</b>잔존가치가 시가표준액 30 ~ 50% 수준.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>신고·납부 일정</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>신고 기한</b>차량 인수일부터 60일 이내 (지방세법 제20조).</div>
+            <div class="case"><b>납부처</b>구청 차량등록사업소 또는 위택스.</div>
+            <div class="case"><b>등록 시 자동</b>등록사업소에서 취득세 영수증 확인 후 등록 완료.</div>
+            <div class="case"><b>가산세</b>무신고 20%, 납부불성실 1일 0.022%.</div>
+            <div class="case"><b>분납</b>없음 (자동차 취득세는 일시 납부).</div>
+            <div class="case"><b>취소·환급</b>등록 후 30일 이내 취소 시 환급 가능.</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../cartax-yearly/">자동차세 연납 계산기<span class="desc">매년 6·12월 부과</span></a>
+        <a href="../acqtax/">부동산 취득세 계산기<span class="desc">주택 1 ~ 12%</span></a>
+        <a href="../loan/">대출 이자 계산기<span class="desc">자동차 할부 이자</span></a>
+        <a href="../insurance/">4대보험 계산기<span class="desc">월 부담액</span></a>
+        <a href="../vat/">부가세 계산기<span class="desc">사업자 부가세 신고</span></a>
+        <a href="../comprehensive/">종합소득세 계산기<span class="desc">사업·기타소득</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>자동차 취득세는 정확히 몇 %인가요?</summary>
+        <div class="answer">
+          일반 승용차 <b>7%</b>, 경차(1,000cc 이하) 4%, 승합·화물 5%. 친환경차는 별도
+          감면 — <b>전기·수소차 한도 140만원, 하이브리드 한도 40만원</b> (조세특례제한법
+          제66조의4).
+        </div>
+      </details>
+
+      <details>
+        <summary>공채는 무엇이고 꼭 사야 하나요?</summary>
+        <div class="answer">
+          차량 등록 시 시·도가 발행한 <b>도시철도채권</b> 등 공채를 매입해야 합니다
+          (서울 차량가액 약 9%). 의무 매입 후 즉시할인 매입(5 ~ 7% 할인) 가능 — 실부담
+          약 차량가액의 0.5% 수준. 등록 대행업체가 자동 처리하는 게 일반적.
+        </div>
+      </details>
+
+      <details>
+        <summary>전기차 감면은 언제까지인가요?</summary>
+        <div class="answer">
+          조세특례제한법 제66조의4에 따라 <b>2025년 말까지</b> 적용 (전기·수소 140만,
+          하이브리드 40만 한도). 통상 연장돼 왔지만 2026년 이후 연장 여부는 국회 처리
+          결과 확인 필요. 본 계산기는 현행 감면 적용.
+        </div>
+      </details>
+
+      <details>
+        <summary>취득세 외에 또 어떤 비용이 드나요?</summary>
+        <div class="answer">
+          취득세(본세) 외 <b>인지대 약 1만, 번호판 비용 약 4만, 의무 보험료 30 ~ 100만,
+          탁송료 0 ~ 30만, 등록 대행 수수료 5 ~ 10만, 공채 즉시할인 실부담 약 차량가의
+          0.5%</b>. 본 계산기는 본세+공채만.
+        </div>
+      </details>
+
+      <details>
+        <summary>장애인·다자녀 감면이 있나요?</summary>
+        <div class="answer">
+          있습니다. <b>장애인용 자동차 취득세 면제</b> (지방세특례제한법 제17조). 다자녀
+          (3자녀 이상) 가구는 7인승 이상 자동차 취득세 50% 감면(140만 한도). 본 계산기는
+          미반영 — 위택스에서 별도 신청.
+        </div>
+      </details>
+
+      <details>
+        <summary>중고차도 취득세가 같은가요?</summary>
+        <div class="answer">
+          동일 세율 적용. 단 과세표준은 매매가가 아닌 <b>시가표준액</b> 기준 (행정안전부
+          고시). 시가표준액이 매매가보다 높으면 시가표준액 기준 부과 (낮은 금액으로 매매
+          신고해도 효과 X).
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>적용된 법령·고시 및 출처</h2>

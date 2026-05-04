@@ -71,6 +71,59 @@
           "item": "https://taystudio.github.io/tools/comp-property/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "종부세는 누가 내는 세금인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "공시가격 합계가 1세대 1주택 12억 초과, 일반(부부공동·다주택) 9억 초과인 사람이 매년 12월 1~15일에 신고·납부합니다. 산정기준일은 6월 1일. 1주택자는 약 4 ~ 5%만 해당, 다주택자는 비중이 높음."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "1세대 1주택은 얼마부터 종부세가 붙나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "단독명의 12억 초과부터. 12억 = 시세 약 18 ~ 20억 수준이라 서울 강남권·용산 같은 핵심 입지가 아니면 일반 1주택자는 거의 해당 안 됨. 부부공동명의는 9억 공제만 적용 (각자 계산이 아니라 합산)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "부부공동명의는 종부세가 더 무거운가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "주의가 필요합니다. 단독명의 12억 공제 vs 공동명의 9억 공제 — 공시가 9~12억 구간은 공동이 불리. 다만 공동명의를 1주택 단독명의로 신고하면 12억 공제 적용 가능 (단 양도세 1세대 1주택 비과세 요건 충족 시)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "다주택 중과세율은 정확히 몇 %인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "2주택 이상 보유자는 중과세율 적용 — 0.5%(3억 이하) → 0.7% → 1.0% → 2.0% → 3.0% → 4.0% → 5.0%(94억 초과). 일반세율 최고 2.7%보다 약 2배 무거움."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "재산세도 내고 종부세도 내야 하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네. 재산세는 시·군·구청이 7·9월 부과, 종부세는 국세청이 12월 부과. 다만 종부세 산출 시 동일 부동산에 대한 재산세분 일부를 공제(재산세액 공제)해 이중과세를 막습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "고령자·장기보유 세액공제는 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "1세대 1주택 단독명의에 한해 적용. 만 60세 이상이면 20~40%, 5년 이상 보유면 20~50% 공제 (합산 한도 80%). 본 계산기는 미반영이며, 홈택스 종부세 모의계산에서 정확히 산출 가능."
+          }
+        }
+      ]
     }
   ]
 }
@@ -119,6 +172,218 @@
     <div class="disclaimer">
       ⚠️ 본 계산기는 단순 추정치로, 세액공제(연령별·보유기간별), 공시가격 변동분, 부부공동명의 12억·9억 선택 등 변수가 많습니다. 12월 정기고지 전 홈택스 모의계산 권장.
     </div>
+
+    <section class="tool-article">
+      <h2>종부세 핵심 요건</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>구분</th><th>기본공제</th><th>세율</th></tr></thead>
+          <tbody>
+            <tr><td>1세대 1주택 단독명의</td><td class="highlight">12억</td><td>0.5 ~ 2.7% (7단계)</td></tr>
+            <tr><td>일반 (부부공동·법인 제외)</td><td>9억</td><td>0.5 ~ 2.7%</td></tr>
+            <tr><td>2주택 이상 (다주택 중과)</td><td>9억</td><td class="highlight">0.5 ~ 5.0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">과세표준 = (공시가격 합계 − 기본공제) × 60% (공정시장가액비율). 산정기준일 6월 1일, 정기고지 12월 1 ~ 15일. 농어촌특별세 종부세의 20% 별도.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>1세대 1주택 단독 (12억 공제) 종부세</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>공시가</th><th>공제후</th><th>과세표준</th><th>종부세</th><th>총세액 (농특 포함)</th></tr></thead>
+          <tbody>
+            <tr><td>10억</td><td>0</td><td>0</td><td>0</td><td class="highlight">0</td></tr>
+            <tr><td>12억</td><td>0</td><td>0</td><td>0</td><td class="highlight">0</td></tr>
+            <tr><td>15억</td><td>3억</td><td>1.8억</td><td>900,000</td><td class="highlight">1,080,000</td></tr>
+            <tr><td>20억</td><td>8억</td><td>4.8억</td><td>2,760,000</td><td class="highlight">3,312,000</td></tr>
+            <tr><td>25억</td><td>13억</td><td>7.8억</td><td>5,400,000</td><td class="highlight">6,480,000</td></tr>
+            <tr><td>30억</td><td>18억</td><td>10.8억</td><td>8,400,000</td><td class="highlight">10,080,000</td></tr>
+            <tr><td>40억</td><td>28억</td><td>16.8억</td><td>15,840,000</td><td class="highlight">19,008,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">고령자(60세+)·장기보유(5년+) 세액공제 미반영. 실제로는 공제로 최대 80%까지 감면 가능 — 홈택스 모의계산 활용.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>더 알아보기</h2>
+
+      <details>
+        <summary>일반 (9억 공제) 시뮬레이션</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>공시가</th><th>공제후</th><th>과세표준</th><th>종부세</th><th>총세액</th></tr></thead>
+              <tbody>
+                <tr><td>9억</td><td>0</td><td>0</td><td>0</td><td class="highlight">0</td></tr>
+                <tr><td>10억</td><td>1억</td><td>6,000만</td><td>300,000</td><td class="highlight">360,000</td></tr>
+                <tr><td>12억</td><td>3억</td><td>1.8억</td><td>900,000</td><td class="highlight">1,080,000</td></tr>
+                <tr><td>15억</td><td>6억</td><td>3.6억</td><td>1,920,000</td><td class="highlight">2,304,000</td></tr>
+                <tr><td>20억</td><td>11억</td><td>6.6억</td><td>4,200,000</td><td class="highlight">5,040,000</td></tr>
+                <tr><td>30억</td><td>21억</td><td>12.6억</td><td>10,380,000</td><td class="highlight">12,456,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">부부공동명의는 9억 공제 (12억 X). 다만 공동명의 1주택자는 12억 공제 단독명의 신고 가능 (요건 충족 시).</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>2주택+ 중과 시뮬레이션</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>공시가 합계</th><th>공제후</th><th>과세표준</th><th>종부세</th><th>총세액</th></tr></thead>
+              <tbody>
+                <tr><td>9억</td><td>0</td><td>0</td><td>0</td><td class="highlight">0</td></tr>
+                <tr><td>12억</td><td>3억</td><td>1.8억</td><td>900,000</td><td class="highlight">1,080,000</td></tr>
+                <tr><td>15억</td><td>6억</td><td>3.6억</td><td>1,920,000</td><td class="highlight">2,304,000</td></tr>
+                <tr><td>20억</td><td>11억</td><td>6.6억</td><td>4,200,000</td><td class="highlight">5,040,000</td></tr>
+                <tr><td>30억</td><td>21억</td><td>12.6억</td><td>10,800,000</td><td class="highlight">12,960,000</td></tr>
+                <tr><td>50억</td><td>41억</td><td>24.6억</td><td>34,800,000</td><td class="highlight">41,760,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">3억 이하 / 6억 / 12억 / 25억 / 50억 / 94억 구간 — 25억 초과부터 일반(0.013) 대비 다주택(0.020) 격차 확대.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>1주택 vs 일반(9억) vs 다주택 비교</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>공시 합계</th><th>1주택 단독</th><th>일반 9억</th><th>다주택 중과</th></tr></thead>
+              <tbody>
+                <tr><td>12억</td><td>0</td><td>1,080,000</td><td>1,080,000</td></tr>
+                <tr><td>15억</td><td>1,080,000</td><td>2,304,000</td><td>2,304,000</td></tr>
+                <tr><td>20억</td><td>3,312,000</td><td>5,040,000</td><td>5,040,000</td></tr>
+                <tr><td>30억</td><td>10,080,000</td><td>12,456,000</td><td>12,960,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">12억 이하 1주택자는 0원, 12 ~ 25억 구간은 공제 차이가 가장 큰 영향, 25억 초과부터는 다주택 중과 격차가 더 벌어집니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>고령자·장기보유 세액공제 (1세대 1주택 단독)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>요건</th><th>공제율</th></tr></thead>
+              <tbody>
+                <tr><td>만 60 ~ 65세</td><td>20%</td></tr>
+                <tr><td>만 65 ~ 70세</td><td>30%</td></tr>
+                <tr><td>만 70세 이상</td><td>40%</td></tr>
+                <tr><td>5 ~ 10년 보유</td><td>20%</td></tr>
+                <tr><td>10 ~ 15년 보유</td><td>40%</td></tr>
+                <tr><td>15년 이상 보유</td><td>50%</td></tr>
+                <tr><td><b>합산 최대</b></td><td><b class="highlight">80%</b></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">만 70세 + 15년 보유 = 40% + 50% = 90% → 한도 80% 적용. 본 계산기는 미반영 → 실제 종부세는 본 표시값보다 적을 수 있음.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>재산세액 공제 (이중과세 방지)</summary>
+        <div class="body">
+          <p>같은 부동산에 재산세와 종부세가 모두 부과되는 부분의 이중과세를 막기 위해, 종부세 산출세액에서 동일 부동산의 재산세분을 공제합니다 (종부세법 제9조 제3항).</p>
+          <div class="case-grid">
+            <div class="case"><b>재산세분 공제액</b>= 재산세 본세 × (종부세 과세표준 / 재산세 과세표준)</div>
+            <div class="case"><b>본 계산기</b>이 공제 미반영 — 실제 종부세는 본 표시값보다 약 5 ~ 15% 적을 수 있음.</div>
+            <div class="case"><b>홈택스 모의계산</b>재산세액 공제·세액공제(고령·장기) 모두 자동 반영.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>신고·납부 일정</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>산정기준일</b>매년 6월 1일 0시 기준 보유 부동산.</div>
+            <div class="case"><b>정기고지</b>12월 1일 ~ 15일 국세청 자동 고지서 발송.</div>
+            <div class="case"><b>분납</b>본세 250만원 초과 시 6개월 이내 분납 가능.</div>
+            <div class="case"><b>합산배제 신고</b>임대주택·기숙사·사원용 주택 등은 9월에 합산배제 신청 가능.</div>
+            <div class="case"><b>가산세</b>무신고 20%, 납부불성실 1일 0.022%.</div>
+            <div class="case"><b>홈택스 모의계산</b>11월에 정확한 산출 가능. 고령·보유 공제 자동 반영.</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../property-tax/">재산세 계산기<span class="desc">매년 7·9월 부과</span></a>
+        <a href="../acqtax/">취득세 계산기<span class="desc">매수 시 1 ~ 12%</span></a>
+        <a href="../capgain/">양도소득세 계산기<span class="desc">매도 시 차익 과세</span></a>
+        <a href="../inheritance/">상속세 계산기<span class="desc">일괄·배우자공제</span></a>
+        <a href="../gifttax/">증여세 계산기<span class="desc">10년 합산 누진</span></a>
+        <a href="../brokerage/">중개수수료 계산기<span class="desc">매매·임대 상한</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>종부세는 누가 내는 세금인가요?</summary>
+        <div class="answer">
+          공시가격 합계가 1세대 1주택 12억 초과, 일반(부부공동·다주택) 9억 초과인 사람이
+          매년 <b>12월 1 ~ 15일</b>에 신고·납부합니다. 산정기준일은 6월 1일. 1주택자는
+          약 4 ~ 5%만 해당, 다주택자는 비중이 높음.
+        </div>
+      </details>
+
+      <details>
+        <summary>1세대 1주택은 얼마부터 종부세가 붙나요?</summary>
+        <div class="answer">
+          <b>단독명의 12억 초과</b>부터. 12억 = 시세 약 18 ~ 20억 수준이라 서울 강남권·용산
+          같은 핵심 입지가 아니면 일반 1주택자는 거의 해당 안 됨. 부부공동명의는 9억
+          공제만 적용 (각자 계산이 아니라 합산).
+        </div>
+      </details>
+
+      <details>
+        <summary>부부공동명의는 종부세가 더 무거운가요?</summary>
+        <div class="answer">
+          주의가 필요합니다. 단독명의 12억 공제 vs 공동명의 9억 공제 — 공시가 9 ~ 12억
+          구간은 공동이 불리. 다만 공동명의를 <b>1주택 단독명의로 신고</b>하면 12억 공제
+          적용 가능 (단 양도세 1세대 1주택 비과세 요건 충족 시).
+        </div>
+      </details>
+
+      <details>
+        <summary>다주택 중과세율은 정확히 몇 %인가요?</summary>
+        <div class="answer">
+          2주택 이상 보유자는 중과세율 적용 — 0.5%(3억 이하) → 0.7% → 1.0% → 2.0% → 3.0%
+          → 4.0% → <b>5.0%</b>(94억 초과). 일반세율 최고 2.7%보다 약 2배 무거움.
+        </div>
+      </details>
+
+      <details>
+        <summary>재산세도 내고 종부세도 내야 하나요?</summary>
+        <div class="answer">
+          네. 재산세는 시·군·구청이 7·9월 부과, 종부세는 국세청이 12월 부과. 다만
+          종부세 산출 시 동일 부동산에 대한 재산세분 일부를 공제(<b>재산세액 공제</b>)해
+          이중과세를 막습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>고령자·장기보유 세액공제는 무엇인가요?</summary>
+        <div class="answer">
+          1세대 1주택 단독명의에 한해 적용. <b>만 60세 이상이면 20 ~ 40%, 5년 이상 보유면
+          20 ~ 50%</b> 공제 (합산 한도 80%). 본 계산기는 미반영이며, 홈택스 종부세
+          모의계산에서 정확히 산출 가능.
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>적용된 법령·고시 및 출처</h2>

@@ -71,6 +71,59 @@
           "item": "https://taystudio.github.io/tools/weekly-pay/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "주휴수당 받는 조건이 정확히 뭔가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "두 조건 모두 충족: ① 1주 소정근로시간 15시간 이상 ② 1주 약속한 근로일 만근. 둘 다 충족하면 1주에 1일분 임금을 추가 지급(근로기준법 제55조). 4주 평균 15h이라도 1주마다 만근 여부로 판정."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "1일 결근하면 그 주 주휴수당 못 받나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "예. 결근하면 그 주 주휴수당 미발생. 단 사용자(회사) 귀책 휴무, 사용자 승인 휴가, 노조활동 등은 결근으로 보지 않음. 본인 사유 결근만 해당."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "주 5일 안 일하면 주휴수당이 다른가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "주휴수당 = 시급 × 1일 소정근로시간. 1일 소정 = 주 소정 ÷ 5(8h 한도). 즉 주 30h 근무 → 1일 6h → 시급 1만 × 6h = 6만원. 5일 안 일해도 같은 식 적용."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "사장이 주휴수당을 안 준다는데 신고할 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "할 수 있습니다. 고용노동부 근로감독관에 진정 — 미지급 임금은 3년 이내 청구 가능(임금채권 시효). 처벌 조항: 근로기준법 제110조 — 3년 이하 징역 또는 3,000만원 이하 벌금. 노동포털·1350번."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "월급제 직원도 주휴수당을 따로 받나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "월급제는 보통 209시간 안에 주휴 8h가 이미 포함되어 있어 별도 지급 X. 시급제·일급제·알바·일용직만 별도 청구 대상. 단 주말 근무 등 추가 발생 시는 별도."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "5인 미만 사업장도 주휴수당 의무인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "예. 주휴수당은 사업장 규모 무관 의무 (근로기준법 제55조). 5인 미만 사업장은 연장·휴일 가산수당이 면제되지만 주휴는 면제 X. 1인 사업장에서 알바 1명 고용해도 주휴 의무."
+          }
+        }
+      ]
     }
   ]
 }
@@ -114,6 +167,194 @@
     <div class="disclaimer">
       ⚠️ 주휴수당은 (1) 1주 소정근로시간 15시간 이상 (2) 약속된 근로일 만근 두 조건을 모두 충족해야 발생합니다. 결근 시 그 주 주휴수당 미발생.
     </div>
+
+    <section class="tool-article">
+      <h2>주휴수당 산정 공식</h2>
+      <div class="formula-list">
+        <ol>
+          <li><b>1일 소정근로시간</b> = 1주 소정근로시간 ÷ 5 (단, 8시간 한도)</li>
+          <li><b>주휴수당</b> = 시급 × 1일 소정근로시간</li>
+          <li><b>월 환산 주휴수당</b> = 주휴수당 × 4.345주</li>
+        </ol>
+      </div>
+      <p class="small">근로기준법 제55조 + 시행령 제30조. 주 15시간 미만은 주휴수당 의무 없음.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>시급·근로시간별 주휴수당 (2025년 최저시급 10,030원 기준)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>주 근무</th><th>1일 소정</th><th>주휴수당 (시급 1만)</th><th>월 환산 (4.345주)</th></tr></thead>
+          <tbody>
+            <tr><td>15시간</td><td>3.0h</td><td>30,000</td><td class="highlight">130,350</td></tr>
+            <tr><td>20시간</td><td>4.0h</td><td>40,000</td><td class="highlight">173,800</td></tr>
+            <tr><td>25시간</td><td>5.0h</td><td>50,000</td><td class="highlight">217,250</td></tr>
+            <tr><td>30시간</td><td>6.0h</td><td>60,000</td><td class="highlight">260,700</td></tr>
+            <tr><td>35시간</td><td>7.0h</td><td>70,000</td><td class="highlight">304,150</td></tr>
+            <tr><td>40시간 (풀타임)</td><td class="highlight">8.0h (한도)</td><td>80,000</td><td class="highlight">347,600</td></tr>
+            <tr><td>45시간</td><td>8.0h (한도)</td><td>80,000</td><td class="highlight">347,600</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">시급 1만원 기준. 시급 9,000원이면 위 값에 0.9 곱셈 등 비례 적용. 주 40시간 초과해도 1일 한도 8h.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>더 알아보기</h2>
+
+      <details>
+        <summary>주휴수당 받는 두 조건</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>① 주 15시간 이상</b>1주 소정근로시간 합계 15시간 이상. 4주 평균이 아닌 매주 기준.</div>
+            <div class="case"><b>② 만근</b>1주 약속한 근로일 모두 출근. 1일 결근 시 그 주 주휴 미발생.</div>
+            <div class="case"><b>지각·조퇴</b>출근으로 보고 주휴 발생. 단 약정 시간 미달이면 협의.</div>
+            <div class="case"><b>회사 귀책 휴무</b>예: 폐점 강제 휴무는 결근으로 보지 않음 → 주휴 발생.</div>
+            <div class="case"><b>본인 사유 결근</b>병결·개인사정 등은 결근 → 그 주 주휴 미발생.</div>
+            <div class="case"><b>약정 휴가</b>연차·병가·경조사 휴가 등 사용자 승인 → 출근 간주.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>실제 알바 시뮬레이션</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>케이스</th><th>주 근무</th><th>주휴 발생</th><th>주휴 금액 (시급 10,030)</th></tr></thead>
+              <tbody>
+                <tr><td>편의점 야간 (3일 × 5h)</td><td>15h</td><td>✅</td><td class="highlight">30,090</td></tr>
+                <tr><td>학생 평일 알바 (5일 × 4h)</td><td>20h</td><td>✅</td><td class="highlight">40,120</td></tr>
+                <tr><td>주말 알바 (2일 × 7h)</td><td>14h</td><td>❌ (15h 미달)</td><td>0</td></tr>
+                <tr><td>식당 풀타임 (5일 × 8h)</td><td>40h</td><td>✅</td><td class="highlight">80,240</td></tr>
+                <tr><td>1주 결근 (5일 중 1일 무단)</td><td>32h</td><td>❌ (미만근)</td><td>0</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>월급제와 시급제 차이</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>월급제 (209시간 포함)</b>월급에 주휴 8h × 4.345주 = 약 35h 분이 이미 포함. 별도 청구 X.</div>
+            <div class="case"><b>월급제 (소정근로만)</b>일부 회사는 월급에 주휴 미포함 — 약정서 확인 필수. 미포함이면 별도 청구 가능.</div>
+            <div class="case"><b>시급제·일급제</b>주휴는 별도 청구 대상. 본 계산기 활용.</div>
+            <div class="case"><b>일용직</b>1일 단위 근로계약 → 주휴 의무 없음.</div>
+            <div class="case"><b>파견·도급</b>근로계약상 사용자(파견업체)에게 주휴 청구.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>임금채권 시효·신고 방법</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>임금채권 시효 3년</b>발생일부터 3년 이내 청구 가능. 그 이후는 소멸.</div>
+            <div class="case"><b>고용노동부 진정</b>국번 없이 1350번. 또는 노동포털 labor.moel.go.kr 진정 접수.</div>
+            <div class="case"><b>처벌</b>근로기준법 제110조 — 3년 이하 징역 또는 3,000만원 이하 벌금.</div>
+            <div class="case"><b>증거 보전</b>근로계약서, 출퇴근 기록(카드·앱·메신저), 급여명세서, 알바 일정 캡처 등.</div>
+            <div class="case"><b>퇴사 후 청구</b>퇴사 후에도 3년 이내 청구 가능. 사장 외 회사 변경 시 인수자에게 청구.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>유사 수당 (연장·야간·휴일·연차)</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>연장수당 (제56조)</b>1일 8h / 주 40h 초과 — 통상시급 50% 가산. 5인 이상.</div>
+            <div class="case"><b>야간수당 (제56조)</b>22:00 ~ 06:00 — 통상시급 50% 가산. 5인 이상.</div>
+            <div class="case"><b>휴일수당 (제56조)</b>주휴일·법정공휴일 근로 — 50% 가산 (8h 초과는 100%). 5인 이상.</div>
+            <div class="case"><b>연차수당 (제60조)</b>1년 근속 + 80% 출근 → 연 15일 연차. 미사용 시 수당 청구. 5인 이상.</div>
+            <div class="case"><b>주휴수당 (제55조)</b>5인 미만도 의무.</div>
+            <div class="case"><b>실업급여</b>180일 이상 가입 + 비자발적 퇴사 → 구직급여 신청 가능.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>편의점·식당 알바 자주 누락되는 항목</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>주휴수당</b>주 15h 이상이면 무조건 발생. 가장 흔한 누락.</div>
+            <div class="case"><b>야간수당</b>편의점·24시간 식당 알바 — 22:00 이후 50% 가산. 5인 이상 사업장.</div>
+            <div class="case"><b>연장수당</b>1일 8h 초과 시 가산. 시급 1만 × 1.5 = 15,000.</div>
+            <div class="case"><b>퇴직금</b>1년 이상 + 주 15h 이상 → 퇴직금 의무. 알바도 적용.</div>
+            <div class="case"><b>4대보험</b>월 60h 이상 또는 3개월 이상 근로 → 4대보험 가입 의무.</div>
+            <div class="case"><b>휴게시간</b>4h당 30분, 8h당 1시간 무급 휴게 의무 (제54조).</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../hourly/">시급·월급 환산 계산기<span class="desc">209시간 기준</span></a>
+        <a href="../salary/">연봉 실수령액 계산기<span class="desc">4대보험·소득세</span></a>
+        <a href="../annual-leave/">연차수당 계산기<span class="desc">미사용 연차 환산</span></a>
+        <a href="../severance/">퇴직금 계산기<span class="desc">평균임금 기반</span></a>
+        <a href="../unemployment/">실업급여 계산기<span class="desc">구직급여 일액·기간</span></a>
+        <a href="../parental-leave/">육아휴직 급여 계산기<span class="desc">통상임금 기반</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>주휴수당 받는 조건이 정확히 뭔가요?</summary>
+        <div class="answer">
+          두 조건 모두 충족: ① <b>1주 소정근로시간 15시간 이상</b> ② <b>1주 약속한
+          근로일 만근</b>. 둘 다 충족하면 1주에 1일분 임금을 추가 지급(근로기준법
+          제55조). 4주 평균 15h이라도 1주마다 만근 여부로 판정.
+        </div>
+      </details>
+
+      <details>
+        <summary>1일 결근하면 그 주 주휴수당 못 받나요?</summary>
+        <div class="answer">
+          예. 결근하면 그 주 주휴수당 미발생. 단 사용자(회사) 귀책 휴무, 사용자 승인
+          휴가, 노조활동 등은 결근으로 보지 않음. <b>본인 사유 결근</b>만 해당.
+        </div>
+      </details>
+
+      <details>
+        <summary>주 5일 안 일하면 주휴수당이 다른가요?</summary>
+        <div class="answer">
+          주휴수당 = <code>시급 × 1일 소정근로시간</code>. 1일 소정 = 주 소정 ÷ 5(8h 한도).
+          즉 주 30h 근무 → 1일 6h → 시급 1만 × 6h = <b>6만원</b>. 5일 안 일해도 같은 식 적용.
+        </div>
+      </details>
+
+      <details>
+        <summary>사장이 주휴수당을 안 준다는데 신고할 수 있나요?</summary>
+        <div class="answer">
+          할 수 있습니다. 고용노동부 근로감독관에 진정 — 미지급 임금은 <b>3년 이내</b>
+          청구 가능(임금채권 시효). 처벌 조항: 근로기준법 제110조 — 3년 이하 징역 또는
+          3,000만원 이하 벌금. 노동포털·1350번.
+        </div>
+      </details>
+
+      <details>
+        <summary>월급제 직원도 주휴수당을 따로 받나요?</summary>
+        <div class="answer">
+          월급제는 보통 <b>209시간 안에 주휴 8h가 이미 포함</b>되어 있어 별도 지급 X.
+          시급제·일급제·알바·일용직만 별도 청구 대상. 단 주말 근무 등 추가 발생 시는 별도.
+        </div>
+      </details>
+
+      <details>
+        <summary>5인 미만 사업장도 주휴수당 의무인가요?</summary>
+        <div class="answer">
+          예. 주휴수당은 <b>사업장 규모 무관 의무</b> (근로기준법 제55조). 5인 미만
+          사업장은 연장·휴일 가산수당이 면제되지만 주휴는 면제 X. 1인 사업장에서
+          알바 1명 고용해도 주휴 의무.
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>적용된 법령·고시 및 출처</h2>

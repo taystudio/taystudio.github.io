@@ -71,6 +71,59 @@
           "item": "https://taystudio.github.io/tools/rent-convert/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "법정 전환율과 시장 전환율은 왜 다른가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "법정 상한(주임법 제7조의2)은 약 4.5%(2026년 4월 기준), 시장 관행은 약 5 ~ 7% 수준이라 보증금 1억 = 월세 30~50만원이 일반적입니다. 법정 상한은 임차인이 거부할 수 있는 기준선이지, 신규 자유계약을 강제하는 규정이 아닙니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "법정 상한이 강제력이 있는 건 언제인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "계약갱신청구권 행사 시 임대인이 전월세 전환을 요구할 때, 또는 계약 만료 후 재계약 시 임대인이 일방적으로 전환을 요구할 때 임차인이 법정 상한을 들어 거부할 수 있습니다. 신규 임대차 계약은 협의 자유."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "기준금리가 오르면 전환율도 올라가나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네. 주택 전환율 = min(기준금리 + 2%, 기준금리 × 4) — 보통 기준금리 + 2%가 낮으므로 적용. 즉 기준금리 1%p 상승 = 법정 전환율 1%p 상승. 임대인에게 유리, 임차인에게 불리."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "상가는 전환율이 다른가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네. 상가는 상가건물임대차보호법 제12조 적용 — min(12%, 기준금리 × 4.5). 기준금리 2.5% × 4.5 = 11.25%이므로 11.25% 적용. 주택보다 훨씬 높은 상한."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "전세를 월세로 일부 전환할 때 어떻게 계산하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "월세 = (감액 보증금 × 전환율) / 12. 예: 보증금 2억 → 1억으로 줄이고 1억을 월세로 전환, 법정 상한 4.5% → 월세 = 1억 × 4.5% / 12 = 37.5만원. 시장에서는 보통 50 ~ 70만원 협의."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "월세를 전세로 환산할 때 보증금은 얼마가 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "추가 보증금 = (월세 × 12) / 전환율. 예: 월 50만원, 법정 상한 4.5% → 추가 보증금 = 50만 × 12 / 0.045 = 약 1.33억. 시장에서는 전환율을 보통 더 높게(5~7%) 잡아 보증금 8천 ~ 1억 정도로 협의."
+          }
+        }
+      ]
     }
   ]
 }
@@ -142,6 +195,207 @@
     <div class="disclaimer">
       ⚠️ 본 계산은 <b>법정 상한선</b>입니다. 실제 시장 전환율은 통상 이보다 높게 협의됩니다(보증금↔월세 환산: 보증금 1억 = 월 30~50만원 수준이 시장 관행). 주임법 제7조의2의 법정 상한은 <b>계약갱신 청구</b> 또는 <b>임대인 요구로 전환할 때</b> 임차인이 거부할 수 있는 기준선이며, 신규 자유계약에는 강제 적용되지 않습니다.
     </div>
+
+    <section class="tool-article">
+      <h2>법정 전환율 산정 공식</h2>
+      <div class="formula-list">
+        <ol>
+          <li><b>주택</b> (주임법 제7조의2): <code>min(기준금리 + 2.0%, 기준금리 × 4.0)</code></li>
+          <li><b>상가</b> (상임법 제12조): <code>min(12%, 기준금리 × 4.5)</code></li>
+          <li><b>전세 → 월세</b>: 월세 = 감액 보증금 × 전환율 ÷ 12</li>
+          <li><b>월세 → 전세</b>: 추가 보증금 = 월세 × 12 ÷ 전환율</li>
+        </ol>
+      </div>
+      <p class="small">2026-04-10 한국은행 기준금리 동결: 2.50%. 주택 법정 상한 = min(4.5%, 10%) = <b>4.5%</b>.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>기준금리별 주택 법정 전환율</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>기준금리</th><th>+ 2.0%</th><th>× 4.0</th><th>법정 상한</th></tr></thead>
+          <tbody>
+            <tr><td>1.00%</td><td>3.00%</td><td>4.00%</td><td class="highlight">3.00%</td></tr>
+            <tr><td>1.50%</td><td>3.50%</td><td>6.00%</td><td class="highlight">3.50%</td></tr>
+            <tr><td>2.00%</td><td>4.00%</td><td>8.00%</td><td class="highlight">4.00%</td></tr>
+            <tr><td>2.50% (현재)</td><td>4.50%</td><td>10.00%</td><td class="highlight">4.50%</td></tr>
+            <tr><td>3.00%</td><td>5.00%</td><td>12.00%</td><td class="highlight">5.00%</td></tr>
+            <tr><td>3.50%</td><td>5.50%</td><td>14.00%</td><td class="highlight">5.50%</td></tr>
+            <tr><td>4.00%</td><td>6.00%</td><td>16.00%</td><td class="highlight">6.00%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">기준금리 1%p 상승 → 법정 전환율 1%p 상승. 항상 「+2.0%」 식이 「×4.0」 식보다 낮으므로 그쪽이 적용됨.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>더 알아보기</h2>
+
+      <details>
+        <summary>전세 → 월세 환산 (현재 4.5% 기준)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>현재 보증금</th><th>새 보증금</th><th>감액분</th><th>법정 월세 상한</th></tr></thead>
+              <tbody>
+                <tr><td>5,000만</td><td>3,000만</td><td>2,000만</td><td class="highlight">75,000 / 월</td></tr>
+                <tr><td>1억</td><td>5,000만</td><td>5,000만</td><td class="highlight">187,500 / 월</td></tr>
+                <tr><td>2억</td><td>1억</td><td>1억</td><td class="highlight">375,000 / 월</td></tr>
+                <tr><td>3억</td><td>2억</td><td>1억</td><td class="highlight">375,000 / 월</td></tr>
+                <tr><td>5억</td><td>3억</td><td>2억</td><td class="highlight">750,000 / 월</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">시장 관행은 통상 5 ~ 7% 전환율로, 동일 감액분에 대해 약 50% 더 높은 월세가 협의됩니다. 법정 상한은 임차인 거부권의 기준선.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>월세 → 전세 환산 (현재 4.5% 기준)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>월세</th><th>법정 환산 보증금</th></tr></thead>
+              <tbody>
+                <tr><td>30만원</td><td class="highlight">8,000만</td></tr>
+                <tr><td>50만원</td><td class="highlight">1억 3,333만</td></tr>
+                <tr><td>70만원</td><td class="highlight">1억 8,667만</td></tr>
+                <tr><td>100만원</td><td class="highlight">2억 6,667만</td></tr>
+                <tr><td>150만원</td><td class="highlight">4억</td></tr>
+                <tr><td>200만원</td><td class="highlight">5억 3,333만</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">시장에서는 보통 더 낮은 보증금으로 협의 (5 ~ 7% 전환율 가정). 예: 월 50만 시장 환산 약 8천만 ~ 1억.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>법정 상한 vs 시장 관행</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>법정 상한 (현재 4.5%)</b>주임법 제7조의2 — 임차인이 임대인의 일방적 전환 요구를 거부할 수 있는 기준선.</div>
+            <div class="case"><b>시장 관행 (5 ~ 7%)</b>통상 보증금 1억당 월세 30 ~ 50만원이 협의됨. 강남·핵심 입지일수록 낮음 (4 ~ 5%), 비인기 지역일수록 높음 (7 ~ 9%).</div>
+            <div class="case"><b>강제력 발생 시점</b>① 계약갱신청구권 행사 후 임대인이 전환 요구 ② 계약 만료 후 임대인 일방 전환 요구. 신규 자유계약은 협의.</div>
+            <div class="case"><b>분쟁 시</b>대한법률구조공단·주택임대차분쟁조정위원회 중재 가능.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>상가 전월세 전환 (상임법 제12조)</summary>
+        <div class="body">
+          <p>상가건물임대차보호법은 주택보다 훨씬 높은 상한을 인정합니다.</p>
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>기준금리</th><th>× 4.5</th><th>법정 상한 (12% 한도)</th></tr></thead>
+              <tbody>
+                <tr><td>1.00%</td><td>4.50%</td><td class="highlight">4.50%</td></tr>
+                <tr><td>2.00%</td><td>9.00%</td><td class="highlight">9.00%</td></tr>
+                <tr><td>2.50% (현재)</td><td>11.25%</td><td class="highlight">11.25%</td></tr>
+                <tr><td>3.00% 이상</td><td>13.50%+</td><td class="highlight">12.00% (한도)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">상가는 임대료 상승 압력이 더 강하기 때문에 법이 더 관대. 단 환산보증금 한도(서울 9억 등) 이하 사업자에게만 보호법 적용.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>계약갱신청구권과 전환</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>계약갱신청구</b>임차인이 1회 행사 가능 (2년 + 2년). 임대료 인상 한도 5%.</div>
+            <div class="case"><b>임대인 전환 요구</b>갱신 시 일부 보증금을 월세로 전환하길 원할 때 — 법정 상한 4.5% 적용 의무.</div>
+            <div class="case"><b>거부권</b>임차인이 법정 상한 초과 전환을 거부 가능. 분쟁조정 신청 가능.</div>
+            <div class="case"><b>실거주 사유</b>임대인이 본인·직계가족 실거주를 사유로 갱신 거절 가능 (이 경우 손해배상).</div>
+            <div class="case"><b>5% 인상 한도</b>임대료(보증금+월세 환산) 5% 초과 인상은 갱신청구권 행사 시 불가.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>한국은행 기준금리 변경 시 대응</summary>
+        <div class="body">
+          <p>한국은행 통화정책방향 결정회의(연 8회)에서 기준금리가 변동될 수 있습니다. 변경되면 본 계산기에 새 금리를 입력하세요.</p>
+          <div class="case-grid">
+            <div class="case"><b>한국은행 발표</b>매년 1월·2월·4월·5월·7월·8월·10월·11월 회의 직후 발표.</div>
+            <div class="case"><b>실시간 확인</b><a href="https://www.bok.or.kr/portal/singl/baseRate/list.do?dataSeCd=01&menuNo=200643" target="_blank" rel="noopener">한국은행 기준금리 추이</a> 페이지.</div>
+            <div class="case"><b>본 계산기 기본값</b>2026-04-10 동결 기준 2.50%. 새 회의 후 사용자가 입력값 갱신.</div>
+            <div class="case"><b>전세→월세 영향</b>금리 1%p 상승 → 보증금 1억당 월세 약 8.3만원 추가 부담 (4.5% → 5.5%).</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../brokerage/">중개수수료 계산기<span class="desc">매매·임대 상한요율</span></a>
+        <a href="../loan/">대출 이자 계산기<span class="desc">월 상환액·총이자</span></a>
+        <a href="../property-tax/">재산세 계산기<span class="desc">매년 7·9월 부과</span></a>
+        <a href="../comp-property/">종부세 계산기<span class="desc">12억·9억 공제</span></a>
+        <a href="../acqtax/">취득세 계산기<span class="desc">매수 시 1 ~ 12%</span></a>
+        <a href="../capgain/">양도소득세 계산기<span class="desc">매도 시 차익 과세</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>법정 전환율과 시장 전환율은 왜 다른가요?</summary>
+        <div class="answer">
+          법정 상한(주임법 제7조의2)은 약 4.5%(2026년 4월 기준), 시장 관행은 약 5 ~ 7%
+          수준이라 보증금 1억 = 월세 30 ~ 50만원이 일반적입니다. <b>법정 상한은 임차인이
+          거부할 수 있는 기준선</b>이지, 신규 자유계약을 강제하는 규정이 아닙니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>법정 상한이 강제력이 있는 건 언제인가요?</summary>
+        <div class="answer">
+          <b>계약갱신청구권 행사</b> 시 임대인이 전월세 전환을 요구할 때, 또는 계약 만료
+          후 재계약 시 임대인이 일방적으로 전환을 요구할 때 임차인이 법정 상한을 들어
+          거부할 수 있습니다. 신규 임대차 계약은 협의 자유.
+        </div>
+      </details>
+
+      <details>
+        <summary>기준금리가 오르면 전환율도 올라가나요?</summary>
+        <div class="answer">
+          네. 주택 전환율 = <code>min(기준금리 + 2%, 기준금리 × 4)</code> — 보통 기준금리
+          + 2%가 낮으므로 적용. 즉 <b>기준금리 1%p 상승 = 법정 전환율 1%p 상승</b>.
+          임대인에게 유리, 임차인에게 불리.
+        </div>
+      </details>
+
+      <details>
+        <summary>상가는 전환율이 다른가요?</summary>
+        <div class="answer">
+          네. 상가는 상가건물임대차보호법 제12조 적용 — <code>min(12%, 기준금리 × 4.5)</code>.
+          기준금리 2.5% × 4.5 = <b>11.25%</b>이므로 11.25% 적용. 주택보다 훨씬 높은 상한.
+        </div>
+      </details>
+
+      <details>
+        <summary>전세를 월세로 일부 전환할 때 어떻게 계산하나요?</summary>
+        <div class="answer">
+          <code>월세 = (감액 보증금 × 전환율) / 12</code>. 예: 보증금 2억 → 1억으로 줄이고
+          1억을 월세로 전환, 법정 상한 4.5% → 월세 = 1억 × 4.5% / 12 = <b>37.5만원</b>.
+          시장에서는 보통 50 ~ 70만원 협의.
+        </div>
+      </details>
+
+      <details>
+        <summary>월세를 전세로 환산할 때 보증금은 얼마가 되나요?</summary>
+        <div class="answer">
+          <code>추가 보증금 = (월세 × 12) / 전환율</code>. 예: 월 50만원, 법정 상한 4.5%
+          → 추가 보증금 = 50만 × 12 / 0.045 = 약 <b>1.33억</b>. 시장에서는 전환율을 보통
+          더 높게(5 ~ 7%) 잡아 보증금 8천 ~ 1억 정도로 협의.
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>적용된 법령·고시 및 출처</h2>

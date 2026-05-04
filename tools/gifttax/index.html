@@ -71,6 +71,59 @@
           "item": "https://taystudio.github.io/tools/gifttax/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "성년 자녀에게 5천만원 이하 증여하면 세금이 없나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "직계존속(부모·조부모)에게서 받는 증여재산은 10년간 합산 5천만원까지 공제됩니다. 즉 10년 안에 누적 5천만원까지는 증여세 0원. 미성년 자녀는 2천만원 한도."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "10년 합산이라는 게 정확히 무슨 뜻인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "동일 증여자(예: 아버지)에게서 10년 이내에 받은 증여재산은 모두 합산해 누진세율을 적용합니다. 어머니에게서 받는 건 별도 카운트. 10년 단위로 공제 한도가 리셋되므로 장기 증여 계획이 절세에 중요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "혼인·출산 공제 1억은 어떻게 적용되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "직계존속에게서 혼인일 전후 2년 이내, 또는 자녀 출생·입양 후 2년 이내 증여받으면 일반 공제 5천만원에 더해 1억원이 추가 공제됩니다 (혼인+출산 합산 1억 한도). 부부 합산이 아닌 1인 한도이므로 부부 각자 부모님에게서 1억씩 받으면 총 2억 비과세 가능."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "배우자 6억 공제는 평생 한 번인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아닙니다. 10년 단위로 6억까지 공제되므로 10년 이상 텀을 두면 다시 6억 비과세 증여 가능. 부부 사이는 양방향 모두 6억씩 공제 가능 (즉 부부가 서로 6억씩 주고받으면 각자 비과세)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "조부모가 손자에게 증여하면 세금이 더 무거운가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "예. 세대생략 할증과세 30%가 적용됩니다. 한 세대(부모)를 건너뛰어 증여세를 한 번 회피하는 셈이라 산출세액의 30%를 가산. 단 미성년 손자녀이면서 증여재산이 20억 초과이면 40%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "현금이 아니라 부동산을 증여하면 어떻게 평가하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "원칙은 시가(매매가, 감정가, 유사매매사례). 시가 산정이 어려우면 보충적 평가(공시가격·기준시가). 아파트는 보통 매매사례가, 토지는 개별공시지가가 기준. 부담부증여(채무 함께 인수) 시 채무 부분은 양도소득세 별도."
+          }
+        }
+      ]
     }
   ]
 }
@@ -135,6 +188,212 @@
     <div class="disclaimer">
       ⚠️ 본 계산은 단순 추정치입니다. 실제로는 합산 기간 내 다른 증여, 부담부증여(채무 인수), 비상장주식 평가, 가업승계 특례, 농지 증여 등 변수가 많습니다. 큰 증여는 반드시 세무사 상담 후 홈택스 신고를 권합니다.
     </div>
+
+    <section class="tool-article">
+      <h2>증여재산공제 (10년 합산 한도)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>증여자 → 수증자</th><th>공제 한도</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td>배우자 → 배우자</td><td class="highlight">6억</td><td>양방향 각각</td></tr>
+            <tr><td>직계존속 → 성년 자녀</td><td class="highlight">5,000만</td><td>아버지 5천 + 어머니 5천 별도 X (직계존속 합산)</td></tr>
+            <tr><td>직계존속 → 미성년 자녀</td><td class="highlight">2,000만</td><td>만 19세 미만 기준</td></tr>
+            <tr><td>직계비속 → 부모</td><td class="highlight">5,000만</td><td>자녀가 부모에게 증여 시</td></tr>
+            <tr><td>기타 친족 (4촌 이내)</td><td class="highlight">1,000만</td><td>형제자매·삼촌 등</td></tr>
+            <tr><td>혼인·출산 공제 (직계존속)</td><td class="highlight">+1억 추가</td><td>혼인 전후 2년, 출산·입양 후 2년</td></tr>
+            <tr><td>그 외 (지인·법인 등)</td><td>0</td><td>전액 과세</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">10년 단위로 공제 한도가 리셋됩니다. 동일 증여자로부터 10년 이내 받은 모든 증여는 합산 과세.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>증여액별 세금 (성년 자녀, 직계존속 5천만 공제)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>증여액</th><th>과세표준</th><th>증여세 (자진신고 시)</th></tr></thead>
+          <tbody>
+            <tr><td>5,000만원</td><td>0</td><td class="highlight">0</td></tr>
+            <tr><td>7,000만원</td><td>2,000만</td><td class="highlight">1,940,000</td></tr>
+            <tr><td>1억원</td><td>5,000만</td><td class="highlight">4,850,000</td></tr>
+            <tr><td>1.5억원</td><td>1억</td><td class="highlight">9,700,000</td></tr>
+            <tr><td>3억원</td><td>2.5억</td><td class="highlight">38,800,000</td></tr>
+            <tr><td>5억원</td><td>4.5억</td><td class="highlight">77,600,000</td></tr>
+            <tr><td>10억원</td><td>9.5억</td><td class="highlight">218,250,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">자진신고 시 산출세액의 3% 추가 공제 반영. 세율: 1억 이하 10%, 1~5억 20%, 5~10억 30%, 10~30억 40%, 30억 초과 50%.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>더 알아보기</h2>
+
+      <details>
+        <summary>배우자 증여 (6억 공제)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>증여액</th><th>과세표준</th><th>증여세</th></tr></thead>
+              <tbody>
+                <tr><td>5억</td><td>0</td><td class="highlight">0</td></tr>
+                <tr><td>10억</td><td>4억</td><td class="highlight">67,900,000</td></tr>
+                <tr><td>15억</td><td>9억</td><td class="highlight">203,700,000</td></tr>
+                <tr><td>20억</td><td>14억</td><td class="highlight">388,000,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">10년 단위로 6억 공제 리셋. 부부 사이는 양방향 모두 6억씩 가능. 단, 증여 후 5년 내 양도 시 이월과세(취득가액을 증여자 취득가로 환산)로 양도세가 커질 수 있어 주의.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>미성년 자녀 증여 (2천만 공제)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>증여액</th><th>과세표준</th><th>증여세</th></tr></thead>
+              <tbody>
+                <tr><td>2,000만원</td><td>0</td><td class="highlight">0</td></tr>
+                <tr><td>5,000만원</td><td>3,000만</td><td class="highlight">2,910,000</td></tr>
+                <tr><td>1억원</td><td>8,000만</td><td class="highlight">7,760,000</td></tr>
+                <tr><td>2억원</td><td>1.8억</td><td class="highlight">25,220,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">자녀 출생 직후 2천만 → 만 10세 2천만 → 성년 5천만 → 결혼 시 1억 패턴으로 10년 단위 분산하면 약 1.9억까지 비과세 가능 (혼인공제 포함).</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>혼인·출산 공제 1억 (2024년 신설)</summary>
+        <div class="body">
+          <p>직계존속(부모·조부모)에게서 받는 다음 증여는 일반 공제 5천만원에 더해 1억이 추가 공제됩니다.</p>
+          <div class="case-grid">
+            <div class="case"><b>혼인 공제</b>혼인일 <b>전후 2년 이내</b> 증여 (혼인일 전 2년 + 후 2년).</div>
+            <div class="case"><b>출산 공제</b>자녀 출생일·입양일 <b>후 2년 이내</b> 증여.</div>
+            <div class="case"><b>합산 한도</b>혼인+출산 합쳐 1인당 1억. 한 가지 사유로만 1억 받든, 둘로 나눠받든 합산 1억.</div>
+            <div class="case"><b>부부 각자</b>신랑·신부 각자 부모에게서 받을 수 있어 부부 합산 최대 2억 추가 공제 가능.</div>
+            <div class="case"><b>일반 공제와 합산</b>5천만(직계) + 1억(혼인) = 1.5억까지 비과세. 자녀에게 결혼식 비용으로 1억 5천 증여 시 세금 0원.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>세대생략 할증 (조부모 → 손자)</summary>
+        <div class="body">
+          <p>한 세대(부모)를 건너뛰어 증여세를 한 번 회피하는 셈이므로 산출세액에 다음을 가산합니다 (상증법 제57조).</p>
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>경우</th><th>할증률</th></tr></thead>
+              <tbody>
+                <tr><td>일반 (성년 손자녀)</td><td>30%</td></tr>
+                <tr><td>미성년 손자녀 + 증여재산 20억 초과</td><td class="highlight">40%</td></tr>
+                <tr><td>대습상속(부모 사망 후 조부모→손자)</td><td>0% (할증 없음)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">예: 1억 산출세액 + 30% 할증 = 1.3억 납부. 다만 손자녀에게도 직계존속 공제 5천만(미성년 2천)은 그대로 적용.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>증여 vs 상속 어느 쪽이 유리한가?</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>증여 유리</b>10년 이상 텀을 두고 분산 증여 가능, 자산 가격 상승 전 미리 이전 가능, 자녀에게 재산 분배 의사 명확화.</div>
+            <div class="case"><b>상속 유리</b>일괄공제 5억 + 배우자공제 5~30억으로 사실상 10억까지 비과세, 한 번에 정산되어 절차 간단.</div>
+            <div class="case"><b>혼합 전략</b>10년 이상 일찍부터 분산 증여(공제 한도 활용) → 상속 시점 잔여 재산만 상속세. 가장 흔한 절세 패턴.</div>
+            <div class="case"><b>주의</b>상속 10년 이내 증여재산은 상속재산에 합산되므로 너무 늦은 증여는 효과 없음. 일찍 시작이 중요.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>신고·납부 일정</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>신고 기한</b>증여일이 속한 달의 말일부터 <b>3개월 이내</b>.</div>
+            <div class="case"><b>신고세액공제 3%</b>기한 내 자진신고 시 산출세액의 3% 추가 공제.</div>
+            <div class="case"><b>분납</b>세액 1,000만원 초과 시 2개월 이내 분할 납부 가능.</div>
+            <div class="case"><b>연부연납</b>세액 2,000만원 초과 시 5년 분할(가산이자 별도).</div>
+            <div class="case"><b>가산세</b>무신고 20%, 부정신고 40%, 납부불성실 1일 0.022%.</div>
+            <div class="case"><b>홈택스 모의계산</b>증여 전 국세청 홈택스에서 정확한 수치 확인 가능.</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../inheritance/">상속세 계산기<span class="desc">일괄공제·배우자공제</span></a>
+        <a href="../capgain/">양도소득세 계산기<span class="desc">주택·토지 양도</span></a>
+        <a href="../acqtax/">취득세 계산기<span class="desc">증여 취득세 3.5%</span></a>
+        <a href="../property-tax/">재산세 계산기<span class="desc">매년 7·9월 부과</span></a>
+        <a href="../comp-property/">종부세 계산기<span class="desc">고가 부동산 보유세</span></a>
+        <a href="../comprehensive/">종합소득세 계산기<span class="desc">사업·임대 신고</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>성년 자녀에게 5천만원 이하 증여하면 세금이 없나요?</summary>
+        <div class="answer">
+          직계존속(부모·조부모)에게서 받는 증여재산은 <b>10년간 합산 5천만원</b>까지
+          공제됩니다. 즉 10년 안에 누적 5천만원까지는 증여세 0원. 미성년 자녀는 2천만원 한도.
+        </div>
+      </details>
+
+      <details>
+        <summary>10년 합산이라는 게 정확히 무슨 뜻인가요?</summary>
+        <div class="answer">
+          동일 증여자(예: 아버지)에게서 10년 이내에 받은 증여재산은 모두 합산해 누진세율을
+          적용합니다. 어머니에게서 받는 건 별도 카운트. 10년 단위로 공제 한도가 리셋되므로
+          장기 증여 계획이 절세에 중요.
+        </div>
+      </details>
+
+      <details>
+        <summary>혼인·출산 공제 1억은 어떻게 적용되나요?</summary>
+        <div class="answer">
+          직계존속에게서 혼인일 전후 2년 이내, 또는 자녀 출생·입양 후 2년 이내 증여받으면
+          일반 공제 5천만원에 더해 <b>1억원이 추가 공제</b>됩니다 (혼인+출산 합산 1억 한도).
+          부부 합산이 아닌 1인 한도이므로 부부 각자 부모님에게서 1억씩 받으면 총 2억
+          비과세 가능.
+        </div>
+      </details>
+
+      <details>
+        <summary>배우자 6억 공제는 평생 한 번인가요?</summary>
+        <div class="answer">
+          아닙니다. <b>10년 단위로 6억까지 공제</b>되므로 10년 이상 텀을 두면 다시 6억
+          비과세 증여 가능. 부부 사이는 양방향 모두 6억씩 공제 가능 (즉 부부가 서로
+          6억씩 주고받으면 각자 비과세).
+        </div>
+      </details>
+
+      <details>
+        <summary>조부모가 손자에게 증여하면 세금이 더 무거운가요?</summary>
+        <div class="answer">
+          예. <b>세대생략 할증과세 30%</b>가 적용됩니다. 한 세대(부모)를 건너뛰어 증여세를
+          한 번 회피하는 셈이라 산출세액의 30%를 가산. 단 미성년 손자녀이면서 증여재산이
+          20억 초과이면 40%.
+        </div>
+      </details>
+
+      <details>
+        <summary>현금이 아니라 부동산을 증여하면 어떻게 평가하나요?</summary>
+        <div class="answer">
+          원칙은 <b>시가</b>(매매가, 감정가, 유사매매사례). 시가 산정이 어려우면 보충적
+          평가(공시가격·기준시가). 아파트는 보통 매매사례가, 토지는 개별공시지가가 기준.
+          부담부증여(채무 함께 인수) 시 채무 부분은 양도소득세 별도.
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>적용된 법령·고시 및 출처</h2>

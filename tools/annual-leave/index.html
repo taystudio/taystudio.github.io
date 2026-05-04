@@ -71,6 +71,59 @@
           "item": "https://taystudio.github.io/tools/annual-leave/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "연차는 정확히 얼마나 발생하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "근로기준법 제60조 — 1년 미만은 1개월 만근당 1일(최대 11일), 1년 이상 15일, 3년차부터 2년마다 +1일(최대 25일). 신입 1년 동안 최대 11일 + 1주년 시 15일 = 첫 2년 누적 최대 26일."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "연차수당은 어떻게 계산되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "미사용 연차 일수 × 1일 통상임금. 1일 통상임금 = 월 통상임금 ÷ 209 × 8 (= 시급 × 8h). 예: 월 통상임금 350만 → 시급 16,746 → 일급 133,971 → 5일 미사용 시 약 67만원."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "통상임금에는 무엇이 포함되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "기본급 + 정기·일률·고정으로 지급되는 수당(직책수당, 자격수당 등). 연장·야간·휴일근로수당, 변동상여, 비정기 보너스는 통상임금 X. 회사 정책마다 다르므로 임금명세서 확인 필수."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "연차를 안 쓰면 무조건 수당으로 받나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "원칙은 그렇지만 회사가 '연차사용촉진제도'를 적용해 사용을 독려한 경우 미사용분에 대해 수당 지급 의무 면제 가능 (제61조). 촉진 절차: 회사가 6개월 전 사용시기 통보 + 미사용 시 2개월 전 재통보. 이 절차를 정확히 거쳐야 면제."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "5인 미만 사업장도 연차가 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "없습니다. 연차유급휴가는 근로기준법 제60조 — 5인 이상 사업장에만 의무 적용. 5인 미만은 회사 자체 정책에 따름. 다만 주휴수당·해고예고는 5인 미만도 의무."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "퇴사할 때 미사용 연차는 어떻게 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "퇴사 시점 미사용 연차 전부를 수당으로 지급해야 함 (퇴직금과 별도). 임금채권 시효 3년 이내 청구 가능. 보통 퇴사 시 마지막 급여에 합산 지급."
+          }
+        }
+      ]
     }
   ]
 }
@@ -117,6 +170,204 @@
       </div>
     </div>
 
+    <section class="tool-article">
+      <h2>연차 발생일수 (근속년수별)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>근속</th><th>발생일수</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td>1개월</td><td>1일</td><td>월 만근당 1일 (1년차)</td></tr>
+            <tr><td>11개월</td><td>11일 (한도)</td><td>1년 미만 최대 11일</td></tr>
+            <tr><td>1년 ~ 3년</td><td class="highlight">15일</td><td>입사 1주년 즉시 15일</td></tr>
+            <tr><td>3년</td><td>16일</td><td>3년차부터 2년마다 +1일</td></tr>
+            <tr><td>5년</td><td>17일</td><td></td></tr>
+            <tr><td>7년</td><td>18일</td><td></td></tr>
+            <tr><td>10년</td><td>19일</td><td></td></tr>
+            <tr><td>15년</td><td>22일</td><td></td></tr>
+            <tr><td>21년 이상</td><td class="highlight">25일 (한도)</td><td>법정 최대</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">근로기준법 제60조. 5인 이상 사업장만 의무. 1년차에 11일 + 입사 1주년 시점에 15일 추가 발생 (총 26일 가능).</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>월급별 1일 연차수당 (통상임금 기준)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>월 통상임금</th><th>통상시급 (÷209)</th><th>1일 (×8)</th><th>5일 미사용</th><th>10일 미사용</th></tr></thead>
+          <tbody>
+            <tr><td>200만</td><td>9,569</td><td>76,555</td><td>382,775</td><td class="highlight">765,550</td></tr>
+            <tr><td>250만</td><td>11,962</td><td>95,694</td><td>478,470</td><td class="highlight">956,940</td></tr>
+            <tr><td>300만</td><td>14,354</td><td>114,832</td><td>574,160</td><td class="highlight">1,148,320</td></tr>
+            <tr><td>350만</td><td>16,746</td><td>133,971</td><td>669,855</td><td class="highlight">1,339,710</td></tr>
+            <tr><td>400만</td><td>19,139</td><td>153,110</td><td>765,550</td><td class="highlight">1,531,100</td></tr>
+            <tr><td>500만</td><td>23,923</td><td>191,388</td><td>956,940</td><td class="highlight">1,913,880</td></tr>
+            <tr><td>600만</td><td>28,708</td><td>229,665</td><td>1,148,325</td><td class="highlight">2,296,650</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">통상시급 = 월 통상임금 ÷ 209. 1일 = 시급 × 8h. 정기상여·각종 수당이 통상임금에 포함되면 표보다 더 큼.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>더 알아보기</h2>
+
+      <details>
+        <summary>통상임금 vs 평균임금 차이</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>구분</th><th>통상임금</th><th>평균임금</th></tr></thead>
+              <tbody>
+                <tr><td>정의</td><td>정기·일률·고정 지급 임금</td><td>직전 3개월 임금총액 ÷ 90일</td></tr>
+                <tr><td>포함</td><td>기본급, 직책수당, 자격수당</td><td>기본급, 정기상여, 각종 수당, 연차수당</td></tr>
+                <tr><td>제외</td><td>연장·야간·휴일근로수당, 변동상여</td><td>—</td></tr>
+                <tr><td>적용</td><td><b>연차수당, 연장·야간·휴일근로수당, 해고예고수당</b></td><td>퇴직금, 휴업수당, 재해보상</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">일반적으로 평균임금 ≥ 통상임금. 평균임금이 통상임금보다 낮으면 통상임금을 평균임금으로 봄(제2조 제2항).</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>연차사용촉진제도 (제61조)</summary>
+        <div class="body">
+          <p>회사가 다음 절차를 정확히 거치면 미사용 연차에 대한 수당 지급 의무가 면제됩니다.</p>
+          <div class="case-grid">
+            <div class="case"><b>1차 통보 (6개월 전)</b>회사가 미사용 일수와 사용 시기 지정을 서면 통보.</div>
+            <div class="case"><b>근로자 응답 (10일 이내)</b>사용 시기를 지정해 회사에 통보.</div>
+            <div class="case"><b>2차 통보 (2개월 전)</b>근로자가 미응답 또는 미지정 시, 회사가 사용 시기를 지정해 서면 통보.</div>
+            <div class="case"><b>그래도 미사용</b>근로자 책임 → 수당 지급 의무 면제.</div>
+            <div class="case"><b>절차 미준수</b>한 단계라도 빠지면 정상적으로 수당 청구 가능.</div>
+            <div class="case"><b>1년차 연차 (월차)</b>2020년부터 1년차 연차도 촉진제도 적용 가능 (예외 케이스 다양).</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>연차 발생 흐름 (입사 직후 ~ 5년)</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>입사 ~ 1년</b>1개월 만근마다 1일씩 발생, 최대 11일.</div>
+            <div class="case"><b>입사 1주년</b>전년도 80% 이상 출근 시 15일 일괄 발생. 11일과 별개.</div>
+            <div class="case"><b>1주년 누적</b>최대 1년차 11일 + 2년차 15일 = 26일 보유 가능.</div>
+            <div class="case"><b>2 ~ 3년차</b>매년 15일씩 발생.</div>
+            <div class="case"><b>3년차</b>16일.</div>
+            <div class="case"><b>5년차</b>17일.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>연차 사용 / 시기 지정</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>근로자 신청</b>원칙 — 근로자가 시기를 지정해 사용 가능 (제60조 제5항).</div>
+            <div class="case"><b>회사 시기변경권</b>사업 운영에 막대한 지장 시 회사가 다른 시기로 변경 요청 가능.</div>
+            <div class="case"><b>법정공휴일</b>2022년부터 5인 이상 사업장에서 법정공휴일이 유급휴일로 인정 — 연차로 차감 X.</div>
+            <div class="case"><b>반차·시간 단위</b>회사 정책상 반나절·시간 단위 사용 가능. 1일 = 8시간 분할.</div>
+            <div class="case"><b>사용 기한</b>발생일부터 1년 이내 (제60조 제7항). 미사용 시 자동 소멸 (수당 청구 별개).</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>퇴사·계약만료 시 처리</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>잔여 연차 수당화</b>퇴사 시점 미사용 연차 전부 수당 지급 의무.</div>
+            <div class="case"><b>1년 이상 + 80% 출근</b>퇴사 직전에도 15일 발생 가능 (마지막 1년 시점 출근율로 판정).</div>
+            <div class="case"><b>임금채권 시효</b>발생일부터 3년. 퇴사 후에도 3년 이내 청구.</div>
+            <div class="case"><b>지급 시점</b>퇴사 후 14일 이내 (제36조 임금 청산).</div>
+            <div class="case"><b>지연 시 가산</b>지연 일수만큼 연 20% 가산 이자.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>특수 케이스</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>육아휴직</b>출근으로 간주 (제60조 제6항) → 연차 발생 정상.</div>
+            <div class="case"><b>출산휴가</b>출근으로 간주 → 연차 발생 정상.</div>
+            <div class="case"><b>업무상 부상·질병</b>요양으로 인한 휴업 — 출근으로 간주.</div>
+            <div class="case"><b>1년 미만 + 결근</b>월 단위 만근 X 시 그 월 1일 미발생.</div>
+            <div class="case"><b>출근율 80% 미만</b>15일 → 1개월 만근당 1일(최대 12일)로 축소.</div>
+            <div class="case"><b>5인 미만 사업장</b>연차 의무 없음. 회사 자체 정책에 따름.</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../weekly-pay/">주휴수당 계산기<span class="desc">주 15h 이상 만근</span></a>
+        <a href="../hourly/">시급·월급 환산 계산기<span class="desc">209시간 기준</span></a>
+        <a href="../salary/">연봉 실수령액 계산기<span class="desc">4대보험·소득세</span></a>
+        <a href="../severance/">퇴직금 계산기<span class="desc">평균임금 기반</span></a>
+        <a href="../parental-leave/">육아휴직 급여 계산기<span class="desc">통상임금 기반</span></a>
+        <a href="../unemployment/">실업급여 계산기<span class="desc">구직급여 일액·기간</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>연차는 정확히 얼마나 발생하나요?</summary>
+        <div class="answer">
+          근로기준법 제60조 — 1년 미만은 1개월 만근당 1일(최대 11일), 1년 이상 15일,
+          3년차부터 2년마다 +1일(최대 25일). 신입 1년 동안 최대 11일 + 1주년 시 15일 =
+          첫 2년 누적 최대 26일.
+        </div>
+      </details>
+
+      <details>
+        <summary>연차수당은 어떻게 계산되나요?</summary>
+        <div class="answer">
+          <code>미사용 연차 일수 × 1일 통상임금.</code> 1일 통상임금 = 월 통상임금 ÷ 209 × 8
+          (= 시급 × 8h). 예: 월 통상임금 350만 → 시급 16,746 → 일급 133,971 → 5일 미사용 시
+          <b>약 67만원</b>.
+        </div>
+      </details>
+
+      <details>
+        <summary>통상임금에는 무엇이 포함되나요?</summary>
+        <div class="answer">
+          기본급 + 정기·일률·고정으로 지급되는 수당(직책수당, 자격수당 등). <b>연장·야간·휴일근로수당,
+          변동상여, 비정기 보너스는 통상임금 X.</b> 회사 정책마다 다르므로 임금명세서 확인 필수.
+        </div>
+      </details>
+
+      <details>
+        <summary>연차를 안 쓰면 무조건 수당으로 받나요?</summary>
+        <div class="answer">
+          원칙은 그렇지만 회사가 <b>'연차사용촉진제도'</b>를 적용해 사용을 독려한 경우
+          미사용분에 대해 수당 지급 의무 면제 가능 (제61조). 촉진 절차: 회사가 6개월 전
+          사용시기 통보 + 미사용 시 2개월 전 재통보. 이 절차를 정확히 거쳐야 면제.
+        </div>
+      </details>
+
+      <details>
+        <summary>5인 미만 사업장도 연차가 있나요?</summary>
+        <div class="answer">
+          없습니다. 연차유급휴가는 근로기준법 제60조 — <b>5인 이상 사업장에만 의무 적용</b>.
+          5인 미만은 회사 자체 정책에 따름. 다만 주휴수당·해고예고는 5인 미만도 의무.
+        </div>
+      </details>
+
+      <details>
+        <summary>퇴사할 때 미사용 연차는 어떻게 되나요?</summary>
+        <div class="answer">
+          퇴사 시점 미사용 연차 <b>전부를 수당으로 지급</b>해야 함 (퇴직금과 별도).
+          임금채권 시효 3년 이내 청구 가능. 보통 퇴사 시 마지막 급여에 합산 지급.
+        </div>
+      </details>
+    </section>
+
     <section class="sources">
       <h2>적용된 법령·고시 및 출처</h2>
       <div class="updated">최종 검증: 2026-04-29</div>
@@ -124,8 +375,11 @@
         <li><b>연차유급휴가</b> — 근로기준법 제60조. <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B7%BC%EB%A1%9C%EA%B8%B0%EC%A4%80%EB%B2%95/%EC%A0%9C60%EC%A1%B0" target="_blank" rel="noopener">국가법령정보센터</a></li>
         <li><b>연차 발생</b> — 1년 미만 월 1일(11일 한도), 1년 이상 15일, 3년부터 2년마다 +1일 (최대 25일)</li>
         <li><b>통상임금</b> — 근로기준법 시행령 제6조</li>
+        <li><b>연차사용촉진제도</b> — 근로기준법 제61조</li>
+        <li><b>임금채권 시효 3년</b> — 근로기준법 제49조</li>
       </ul>
     </section>
+
     <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
       <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 33개 계산기 모두 보기</a>
     </nav>

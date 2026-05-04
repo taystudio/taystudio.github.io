@@ -71,6 +71,59 @@
           "item": "https://taystudio.github.io/tools/vat/"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "공급가액 100만원이면 합계 얼마인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "공급가 100만원 + 부가세 10만원(10%) = 합계 110만원. 거꾸로 합계 110만원에서 부가세 분리하면 공급가 100만 / 부가세 10만 (합계 ÷ 1.1로 분리)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "일반과세자와 간이과세자는 뭐가 다른가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "일반과세자는 공급가의 10%를 그대로 부가세로 부과·매입세액 공제 가능. 간이과세자는 매출에 업종별 1.5~4% 부가가치율을 곱한 금액의 10%만 부담, 매입세액 공제 제한적. 연 매출 1억 400만 미만 사업자가 간이과세 선택 가능."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "부가세 신고는 언제 하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "법인은 분기별(1·4·7·10월), 개인 일반과세자는 반기별(1·7월). 간이과세자는 연 1회(1월). 정기 신고 외에도 4·10월에 예정고지(직전 실적 1/2)가 자동 발송."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "영세율과 면세는 뭐가 다른가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "영세율(0%) = 부가세는 0이지만 매입세액 환급 가능 (수출·외화수입 등). 면세 = 부가세 자체가 부과 안 됨, 매입세액도 환급 X (의료·교육·주택임대 등). 영세율이 사업자에게 더 유리."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "세금계산서는 언제 발행하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "재화·용역 공급 시 의무 발행 (법인사업자는 전자세금계산서 의무, 개인은 직전 연 매출 8천만 이상 시 의무). 발행 시기는 공급일 또는 대가 받는 날의 익월 10일까지. 미발행 시 가산세 2%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "매입세액 공제는 어떻게 받나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "사업 관련 매입(원재료·임차료·공과금 등)에 대해 받은 세금계산서·신용카드매출전표·현금영수증의 부가세를 매출 부가세에서 차감. 차감 후 차액을 신고·납부. 적격증빙(세금계산서, 사업자카드)이 없으면 공제 불가."
+          }
+        }
+      ]
     }
   ]
 }
@@ -115,6 +168,212 @@
     <div class="disclaimer">
       ⚠️ 본 계산기는 일반과세자 기준 10% 세율입니다. 간이과세자는 업종별 1.5~4% 세율과 가산공제·납부의무 면제 등 별도 계산식 적용. 영세율(수출), 면세 항목은 0%.
     </div>
+
+    <section class="tool-article">
+      <h2>부가세 계산 공식</h2>
+      <div class="formula-list">
+        <ol>
+          <li><b>공급가액 → 합계</b>: 합계 = 공급가 × 1.1 (부가세 = 공급가 × 10%)</li>
+          <li><b>합계 → 공급가액 분리</b>: 공급가 = 합계 ÷ 1.1, 부가세 = 합계 − 공급가</li>
+          <li><b>매출세액</b> = 매출 부가세 합계, <b>매입세액</b> = 적격증빙 매입 부가세 합계</li>
+          <li><b>납부 부가세</b> = 매출세액 − 매입세액</li>
+        </ol>
+      </div>
+      <p class="small">일반과세자 10% 기준. 부가가치세법 제30조. 매입세액 공제는 적격증빙(세금계산서·사업자카드·현금영수증) 필수.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>금액별 부가세 (10% 기준)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>공급가액</th><th>부가세 (10%)</th><th>합계</th></tr></thead>
+          <tbody>
+            <tr><td>100,000</td><td>10,000</td><td class="highlight">110,000</td></tr>
+            <tr><td>500,000</td><td>50,000</td><td class="highlight">550,000</td></tr>
+            <tr><td>1,000,000</td><td>100,000</td><td class="highlight">1,100,000</td></tr>
+            <tr><td>3,000,000</td><td>300,000</td><td class="highlight">3,300,000</td></tr>
+            <tr><td>5,000,000</td><td>500,000</td><td class="highlight">5,500,000</td></tr>
+            <tr><td>10,000,000</td><td>1,000,000</td><td class="highlight">11,000,000</td></tr>
+            <tr><td>50,000,000</td><td>5,000,000</td><td class="highlight">55,000,000</td></tr>
+            <tr><td>100,000,000</td><td>10,000,000</td><td class="highlight">110,000,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">합계에서 거꾸로 분리: 합계 ÷ 1.1 = 공급가. 예: 110만 → 공급가 100만 / 부가세 10만.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>더 알아보기</h2>
+
+      <details>
+        <summary>일반과세자 vs 간이과세자</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>구분</th><th>일반과세</th><th>간이과세</th></tr></thead>
+              <tbody>
+                <tr><td>대상</td><td>모든 사업자</td><td>연 매출 1억 400만 미만 (음식·소매·서비스 등)</td></tr>
+                <tr><td>세율</td><td>10%</td><td>업종별 부가가치율 × 10% (1.5 ~ 4%)</td></tr>
+                <tr><td>매입세액 공제</td><td>전액</td><td>제한적 (매입가 × 0.5%)</td></tr>
+                <tr><td>세금계산서 발행</td><td>의무</td><td>발행 X (영수증)</td></tr>
+                <tr><td>납부 면제</td><td>없음</td><td>연 매출 4,800만 미만은 납부 면제</td></tr>
+                <tr><td>신고</td><td>반기 (개인) / 분기 (법인)</td><td>연 1회 (1월)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">소매·음식점은 보통 간이가 유리, 매입이 많거나 거래처가 사업자(세금계산서 요구)면 일반이 유리.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>업종별 간이과세 부가가치율</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>업종</th><th>부가가치율</th><th>실효 세율</th></tr></thead>
+              <tbody>
+                <tr><td>전기·가스·수도</td><td>5%</td><td>0.5%</td></tr>
+                <tr><td>소매·음식</td><td>15%</td><td>1.5%</td></tr>
+                <tr><td>제조·농임어업·숙박</td><td>20%</td><td>2.0%</td></tr>
+                <tr><td>건설·운수·통신·창고</td><td>25%</td><td>2.5%</td></tr>
+                <tr><td>금융·보험</td><td>30%</td><td>3.0%</td></tr>
+                <tr><td>부동산임대·전문직 서비스</td><td>30 ~ 40%</td><td>3.0 ~ 4.0%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">부가가치세법 시행령 제111조. 매출 × 부가가치율 × 10% = 납부 부가세. 일반과세 매출의 1.5 ~ 4% 수준.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>영세율 vs 면세</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>구분</th><th>영세율 (0%)</th><th>면세</th></tr></thead>
+              <tbody>
+                <tr><td>매출 부가세</td><td>0원</td><td>0원</td></tr>
+                <tr><td>매입세액 환급</td><td>가능</td><td>불가</td></tr>
+                <tr><td>대상</td><td>수출, 국외 용역</td><td>의료, 교육, 주택임대, 농수산물, 도서·신문</td></tr>
+                <tr><td>사업자 등록</td><td>일반·간이 모두 가능</td><td>면세사업자 등록 (별도)</td></tr>
+                <tr><td>신고 의무</td><td>있음 (환급용)</td><td>없음 (수입금액 신고만)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">영세율이 사업자에게 더 유리 — 매입세액 환급으로 실효 세율이 음수 가능.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>신고·납부 일정</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>법인 (분기)</b>1월·4월·7월·10월 — 직전 분기분 신고. 1·7월은 확정신고, 4·10월은 예정신고.</div>
+            <div class="case"><b>개인 일반 (반기)</b>1월·7월 — 직전 반기분 확정신고. 4·10월에 예정고지(직전 실적 1/2 자동 부과).</div>
+            <div class="case"><b>간이과세</b>1월 1회 (직전 1년분).</div>
+            <div class="case"><b>가산세</b>무신고 20%, 부정 무신고 40%, 납부불성실 1일 0.022%.</div>
+            <div class="case"><b>분납</b>세액 1,000만 초과 시 2개월 이내 분할 가능.</div>
+            <div class="case"><b>전자신고 세액공제</b>홈택스 자력 신고 시 1만원 추가 공제.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>매입세액 공제 가능·불가 항목</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>공제 가능</b>원재료·상품, 임차료·관리비, 광고비, 사업용 차량 정비, 사업자 카드 결제분.</div>
+            <div class="case"><b>공제 불가</b>접대비(연 한도 초과분), 비영업용 승용차, 가족 식대, 사적 사용분.</div>
+            <div class="case"><b>공제 시기</b>매입 시점 분기·반기에 즉시 공제 (이연 X).</div>
+            <div class="case"><b>적격증빙</b>세금계산서, 사업자 신용카드, 현금영수증(사업자), 직불카드. 일반 영수증 X.</div>
+            <div class="case"><b>의제매입세액</b>면세 농수산물 매입 시 의제 공제 (음식점 등). 매입가 × 102/108 등.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>세금계산서 발행 의무</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>법인사업자</b>전자세금계산서 의무.</div>
+            <div class="case"><b>개인 일반과세자</b>직전 연 매출 8,000만 이상이면 전자세금계산서 의무. 미만은 종이 가능.</div>
+            <div class="case"><b>간이과세자</b>세금계산서 발행 X (영수증만).</div>
+            <div class="case"><b>발행 시기</b>공급일 또는 대가 받는 날의 익월 10일까지.</div>
+            <div class="case"><b>가산세</b>미발행 2%, 지연 발행 1%.</div>
+            <div class="case"><b>홈택스 발행</b>e세로(esero.go.kr) 또는 홈택스에서 무료 전자발행.</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../comprehensive/">종합소득세 계산기<span class="desc">사업·기타소득 종합</span></a>
+        <a href="../salary/">연봉 실수령액 계산기<span class="desc">4대보험·소득세</span></a>
+        <a href="../year-end/">연말정산 계산기<span class="desc">환급/추가 납부</span></a>
+        <a href="../insurance/">4대보험 계산기<span class="desc">사업주·근로자 부담</span></a>
+        <a href="../capgain/">양도소득세 계산기<span class="desc">주택·주식 양도</span></a>
+        <a href="../inheritance/">상속세 계산기<span class="desc">일괄·배우자공제</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>공급가액 100만원이면 합계 얼마인가요?</summary>
+        <div class="answer">
+          공급가 100만원 + 부가세 10만원(10%) = <b>합계 110만원</b>. 거꾸로 합계 110만원에서
+          부가세 분리하면 공급가 100만 / 부가세 10만 (합계 ÷ 1.1로 분리).
+        </div>
+      </details>
+
+      <details>
+        <summary>일반과세자와 간이과세자는 뭐가 다른가요?</summary>
+        <div class="answer">
+          일반과세자는 공급가의 <b>10%를 그대로</b> 부가세로 부과·매입세액 공제 가능.
+          간이과세자는 매출에 업종별 <b>1.5 ~ 4% 부가가치율</b>을 곱한 금액의 10%만 부담,
+          매입세액 공제 제한적. 연 매출 1억 400만 미만 사업자가 간이과세 선택 가능.
+        </div>
+      </details>
+
+      <details>
+        <summary>부가세 신고는 언제 하나요?</summary>
+        <div class="answer">
+          법인은 분기별(1·4·7·10월), 개인 일반과세자는 반기별(1·7월). 간이과세자는
+          연 1회(1월). 정기 신고 외에도 <b>4·10월에 예정고지</b>(직전 실적 1/2)가
+          자동 발송.
+        </div>
+      </details>
+
+      <details>
+        <summary>영세율과 면세는 뭐가 다른가요?</summary>
+        <div class="answer">
+          <b>영세율(0%)</b> = 부가세는 0이지만 매입세액 환급 가능 (수출·외화수입 등).
+          <b>면세</b> = 부가세 자체가 부과 안 됨, 매입세액도 환급 X (의료·교육·주택임대 등).
+          영세율이 사업자에게 더 유리.
+        </div>
+      </details>
+
+      <details>
+        <summary>세금계산서는 언제 발행하나요?</summary>
+        <div class="answer">
+          재화·용역 공급 시 의무 발행 (법인사업자는 전자세금계산서 의무, 개인은 직전 연
+          매출 8천만 이상 시 의무). 발행 시기는 <b>공급일 또는 대가 받는 날의 익월 10일까지</b>.
+          미발행 시 가산세 2%.
+        </div>
+      </details>
+
+      <details>
+        <summary>매입세액 공제는 어떻게 받나요?</summary>
+        <div class="answer">
+          사업 관련 매입(원재료·임차료·공과금 등)에 대해 받은 세금계산서·신용카드매출전표·현금영수증의
+          부가세를 매출 부가세에서 차감. 차감 후 차액을 신고·납부. <b>적격증빙</b>(세금계산서,
+          사업자카드)이 없으면 공제 불가.
+        </div>
+      </details>
+    </section>
 
     <section class="sources">
       <h2>적용된 법령·고시 및 출처</h2>
