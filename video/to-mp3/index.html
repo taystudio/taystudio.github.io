@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudio.github.io · source = github.com/taystudio/taystudio.github.io · 무단 복제·재배포 금지 -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Video">
+  <meta property="og:title" content="동영상 MP3 추출 | 영상 음원 추출 (본인 영상 한정)">
+  <meta property="og:description" content="본인 동영상의 오디오를 MP3로 추출합니다. MP4·MOV·WebM 입력. 모든 처리는 브라우저 안에서. 저작권 영상·음원 사용 금지.">
+  <meta property="og:url" content="https://taystudio.github.io/video/to-mp3/">
+  <meta property="og:image" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="동영상 MP3 추출 | 본인 영상 한정">
+  <meta name="twitter:description" content="본인 동영상의 오디오를 MP3로 추출. 브라우저 안에서 처리.">
+  <meta name="twitter:image" content="https://taystudio.github.io/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <title>동영상 MP3 추출 | 영상 음원 추출 (본인 영상 한정·무료)</title>
+  <meta name="description" content="본인이 직접 촬영한 동영상의 오디오를 MP3로 추출합니다. MP4·MOV·WebM·MKV 입력, 비트레이트 96·128·192·256·320kbps 선택. 모든 처리는 브라우저 안에서, 영상 외부 전송 없음. 저작권 보호 영상·음원에는 사용 금지.">
+  <meta name="keywords" content="동영상 mp3 추출, 영상 음원 추출, 영상에서 음악 추출, MP4 mp3 변환, 동영상 오디오 추출, 영상 소리만 저장">
+  <link rel="canonical" href="https://taystudio.github.io/video/to-mp3/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "동영상 MP3 추출 | 영상 음원 추출",
+      "description": "본인이 촬영한 동영상의 오디오를 MP3로 추출. 비트레이트 5단계 선택. 브라우저 안에서 ffmpeg.wasm으로 처리. 저작권 보호 영상·음원에는 사용 금지.",
+      "url": "https://taystudio.github.io/video/to-mp3/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "MP4·MOV·WebM·MKV·AVI 입력",
+        "MP3 비트레이트 선택 (96·128·192·256·320 kbps)",
+        "오디오 미리 듣기 + 다운로드",
+        "원본 외부 전송 없음 — 브라우저 안에서 처리",
+        "본인 영상 한정 — 저작권 영상·음원 사용 금지"
+      ],
+      "dateModified": "2026-05-05",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Video", "item": "https://taystudio.github.io/video/" },
+        { "@type": "ListItem", "position": 3, "name": "동영상 MP3 추출", "item": "https://taystudio.github.io/video/to-mp3/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "이 도구는 어떤 경우에 합법적으로 사용할 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "본인이 직접 촬영한 영상(가족 행사·여행·자작 콘텐츠)의 음원만 추출하세요. 유튜브·TV·영화·음악 비디오 등 타인의 저작물에서 음원을 추출하는 행위는 저작권법 위반이며, 본인 사용(개인 감상) 목적이라도 법적 리스크가 있습니다. 사이트는 사용자가 입력한 영상을 외부로 전송하지 않으며, 사용 책임은 사용자에게 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "원본 영상이 서버로 업로드되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. 영상은 브라우저 안에서만 ffmpeg.wasm(WebAssembly)로 처리되며, 사이트 운영자도 내용을 볼 수 없습니다. 첫 사용 시 ffmpeg 라이브러리(~32MB)만 다운로드되고, 이후 영상 자체는 외부로 나가지 않습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "MP3 비트레이트는 어떻게 정하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "음성·강의 = 96~128 kbps (작은 용량). 일반 음악 = 192 kbps (권장). 고품질 음악 = 256~320 kbps (작은 차이, 큰 용량). 원본 오디오 비트레이트보다 높여도 음질이 좋아지지는 않습니다(원본 한도 이내에서만 의미)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "출력은 왜 MP3인가요? AAC·WAV는 안 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MP3가 가장 호환성이 넓습니다(모든 차량 오디오·블루투스 스피커·구형 MP3 플레이어 지원). AAC가 같은 비트레이트에서 약간 더 좋지만 일부 구형 기기에서 재생 안 됨. WAV는 무손실이지만 용량이 10배 이상. 사이트는 호환성 우선해 MP3만 출력합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "처리 시간이 얼마나 걸리나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MP3 인코딩은 영상 압축보다 훨씬 가벼워 5분 영상 = 데스크톱 Chrome 기준 10~30초. 모바일도 1분 이내. 첫 사용 시 ffmpeg 라이브러리 다운로드(~32MB)만 추가 시간 소요."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .progress-wrap { margin-top:16px }
+    .progress-bar {
+      width:100%; height:8px; background:var(--border); border-radius:4px;
+      overflow:hidden; position:relative;
+    }
+    .progress-fill {
+      height:100%; background:var(--primary); width:0%;
+      transition: width .25s ease;
+    }
+    .progress-text {
+      margin-top:8px; font-size:13px; color:var(--muted);
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .audio-preview {
+      margin-top:14px; padding:18px; border:1px solid var(--border); border-radius:10px;
+      background:var(--surface);
+    }
+    .audio-preview audio { width:100%; display:block; }
+    .video-meta {
+      display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:14px;
+      font-size:14px; color:var(--muted);
+    }
+    .video-meta b { color:var(--text); font-weight:600 }
+    .first-time-notice {
+      background:rgba(245,158,11,0.08);
+      border:1px solid rgba(245,158,11,0.3);
+      border-radius:10px; padding:14px 16px; margin-top:14px;
+      font-size:13.5px; line-height:1.65; color:var(--text);
+    }
+    .first-time-notice b { color:#d97706 }
+    @media (prefers-color-scheme: dark) {
+      .first-time-notice b { color:#fbbf24 }
+    }
+    .copyright-warning {
+      background:rgba(220,38,38,0.07);
+      border:1.5px solid rgba(220,38,38,0.35);
+      border-radius:10px; padding:16px 18px; margin-top:14px;
+      font-size:14px; line-height:1.65; color:var(--text);
+    }
+    .copyright-warning .cw-title {
+      font-weight:700; color:#dc2626; margin-bottom:6px;
+      display:flex; align-items:center; gap:8px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .copyright-warning .cw-title { color:#f87171 }
+    }
+    .copyright-warning ul { margin:8px 0 0; padding-left:22px; }
+    .copyright-warning li { margin-bottom:4px; }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">동영상</a> · 동영상 MP3 추출</div>
+    <h1>동영상 MP3 추출</h1>
+    <p class="subtitle">본인이 촬영한 영상의 오디오를 MP3로 — 가족 행사·여행·자작 콘텐츠 음원 보관용.</p>
+
+    <div class="copyright-warning">
+      <div class="cw-title">⚠️ 본인 영상 한정 — 저작권 안내</div>
+      <div>이 도구는 <b>본인이 직접 촬영한 영상</b>의 음원 추출만을 위한 것입니다. 다음은 저작권법 위반입니다:</div>
+      <ul>
+        <li>유튜브·TV·영화·뮤직비디오 등 <b>타인 저작물</b>에서 음원 추출</li>
+        <li>OST·강연·음악 영상의 오디오 트랙 추출 후 재배포·SNS 업로드</li>
+        <li>본인 사용(개인 감상) 목적이라도 <b>저작권자 허락 없는 추출</b>은 형사 처벌 대상</li>
+      </ul>
+      <div style="margin-top:10px;font-size:13.5px;color:var(--muted)">사이트는 입력한 영상을 외부로 전송하지 않으며, 모든 사용 책임은 사용자에게 있습니다.</div>
+    </div>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>영상이 외부 서버로 전송되지 않습니다.</b> 모든 처리는 사용자 브라우저 안의 ffmpeg.wasm(WebAssembly)으로만 이루어집니다.</div>
+    </div>
+
+    <div class="first-time-notice">
+      <b>첫 사용 시</b> 영상 처리 엔진(ffmpeg.wasm ~32MB)을 자동으로 다운로드합니다. <b>Wi-Fi 환경 권장</b> · 다운로드 후엔 브라우저에 캐시되어 다음 방문은 즉시 시작됩니다.
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">🎵</div>
+        <div class="drop-title" id="dropTitle">본인 영상 파일을 드래그하거나 클릭해서 선택</div>
+        <div class="drop-hint">MP4 · MOV · WebM · MKV · AVI — 권장 ≤ 1GB</div>
+        <input type="file" id="fileInput" accept="video/*">
+      </label>
+
+      <div class="field" style="margin-top:16px">
+        <label for="bitrate">MP3 비트레이트</label>
+        <select id="bitrate">
+          <option value="96">96 kbps (음성·강의, 작은 용량)</option>
+          <option value="128">128 kbps (일반)</option>
+          <option value="192" selected>192 kbps (음악 권장)</option>
+          <option value="256">256 kbps (고품질)</option>
+          <option value="320">320 kbps (최고품질, 큰 용량)</option>
+        </select>
+        <p class="small" style="color:var(--muted);margin-top:6px">원본 오디오의 비트레이트보다 높여도 음질이 좋아지지는 않습니다(원본 한도 이내).</p>
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="extractBtn" disabled>MP3 추출하기</button>
+        <button type="button" id="clearBtn">초기화</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText">대기 중...</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="audio-preview"><audio id="resultAudio" controls preload="metadata"></audio></div>
+      <div class="video-meta">
+        <span>원본 영상 <b id="origSize">—</b></span>
+        <span>MP3 <b id="mp3Size">—</b></span>
+        <span>비트레이트 <b id="brText">—</b></span>
+        <span>처리 시간 <b id="elapsedTime">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ 다운로드</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>비트레이트 선택 가이드</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>비트레이트</th><th>용량 추정 (5분 기준)</th><th>용도</th></tr></thead>
+          <tbody>
+            <tr><td>96 kbps</td><td>약 3.5 MB</td><td>음성 메모·강의·녹음 (음성만)</td></tr>
+            <tr><td>128 kbps</td><td>약 4.7 MB</td><td>일반 — 라디오 수준</td></tr>
+            <tr><td>192 kbps</td><td>약 7 MB</td><td>음악 — 권장 (CD 수준 근접)</td></tr>
+            <tr><td>256 kbps</td><td>약 9.4 MB</td><td>고품질 음악 (원본이 충분히 좋을 때)</td></tr>
+            <tr><td>320 kbps</td><td>약 11.7 MB</td><td>MP3 최고 — 차이 크지 않음</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../trim/">동영상 자르기<span class="desc">긴 영상에서 음원 구간만 잘라낸 후 추출</span></a>
+        <a href="../compress/">동영상 압축<span class="desc">화질·해상도 조정으로 용량 줄이기</span></a>
+        <a href="../to-gif/">동영상 GIF 변환<span class="desc">짧은 구간을 짤·움짤로</span></a>
+        <a href="../">동영상 도구 모음<span class="desc">압축·자르기·회전·GIF·MP3</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>합법적 사용 사례 vs 위법 사례</summary>
+        <div class="answer">
+          <b>합법</b>: 본인이 촬영한 가족 행사·여행 영상의 배경 소리, 본인 자작 영상·음악, 본인이 출연·녹음한 강의·인터뷰의 음원 보관.<br><br>
+          <b>위법</b>: 유튜브·SNS의 타인 영상에서 BGM 추출, TV 방송·영화·뮤직비디오의 오디오 트랙 저장, 인터넷 강의(유료·무료 무관)의 음원 추출 후 재배포. <b>본인 감상 목적도 저작권자 허락 없으면 위법</b>입니다.
+        </div>
+      </details>
+      <details>
+        <summary>왜 출력이 MP3 한 가지뿐인가요?</summary>
+        <div class="answer">
+          MP3는 가장 호환성이 넓습니다(모든 차량 오디오·블루투스 스피커·구형 MP3 플레이어·스마트폰 지원). AAC가 같은 비트레이트에서 약간 더 좋지만 일부 구형 기기 미지원. WAV는 무손실이지만 용량이 10배 이상이라 보관·전송 부담. 사이트는 호환성 우선해 MP3만 출력합니다.
+        </div>
+      </details>
+      <details>
+        <summary>처리 도중 페이지를 닫아도 되나요?</summary>
+        <div class="answer">
+          처리 진행 중에 페이지를 닫으면 작업이 취소됩니다. 다운로드된 ffmpeg 라이브러리는 캐시에 남아 다음에 재사용되므로, 닫고 다시 들어와도 라이브러리는 다시 받지 않습니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+      <details>
+        <summary>이 도구는 어떤 경우에 합법적으로 사용할 수 있나요?</summary>
+        <div class="answer">
+          <b>본인이 직접 촬영한 영상</b>(가족 행사·여행·자작 콘텐츠)의 음원만 추출하세요. 유튜브·TV·영화·음악 비디오 등 타인의 저작물에서 음원을 추출하는 행위는 저작권법 위반이며, 본인 사용 목적이라도 법적 리스크가 있습니다. 사이트는 사용자가 입력한 영상을 외부로 전송하지 않으며, 사용 책임은 사용자에게 있습니다.
+        </div>
+      </details>
+      <details>
+        <summary>원본 영상이 서버로 업로드되나요?</summary>
+        <div class="answer">
+          전송되지 않습니다. 영상은 브라우저 안에서만 <b>ffmpeg.wasm(WebAssembly)</b>로 처리되며, 사이트 운영자도 내용을 볼 수 없습니다. 첫 사용 시 ffmpeg 라이브러리(~32MB)만 다운로드되고, 이후 영상 자체는 외부로 나가지 않습니다.
+        </div>
+      </details>
+      <details>
+        <summary>MP3 비트레이트는 어떻게 정하나요?</summary>
+        <div class="answer">
+          음성·강의 = <b>96~128 kbps</b> (작은 용량). 일반 음악 = <b>192 kbps</b> (권장). 고품질 음악 = <b>256~320 kbps</b> (작은 차이, 큰 용량). 원본 오디오 비트레이트보다 높여도 음질이 좋아지지는 않습니다(원본 한도 이내에서만 의미).
+        </div>
+      </details>
+      <details>
+        <summary>처리 시간이 얼마나 걸리나요?</summary>
+        <div class="answer">
+          MP3 인코딩은 영상 압축보다 훨씬 가벼워 <b>5분 영상 = 10~30초</b>(데스크톱 Chrome). 모바일도 1분 이내. 첫 사용 시 ffmpeg 라이브러리 다운로드(~32MB)만 추가 시간 소요.
+        </div>
+      </details>
+      <details>
+        <summary>큰 영상(1GB+)도 처리 가능한가요?</summary>
+        <div class="answer">
+          데스크톱 Chrome 기준 1~2GB까지 가능합니다. iOS Safari·모바일 브라우저는 메모리 한계로 ~500MB 이상에서 불안정할 수 있습니다. 큰 영상은 <a href="../trim/">동영상 자르기</a>로 음원 구간만 먼저 잘라낸 후 추출하는 것이 안전합니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-05 / 처리는 ffmpeg.wasm(WebAssembly) + LAME MP3 인코더 기반.</div>
+      <ul>
+        <li>ffmpeg.wasm — <a href="https://ffmpegwasm.netlify.app/" rel="nofollow noopener" target="_blank">공식 사이트</a> (BSD/LGPL)</li>
+        <li>LAME MP3 인코더 — <a href="https://lame.sourceforge.io/" rel="nofollow noopener" target="_blank">공식 사이트</a> (LGPL)</li>
+        <li>MP3 표준 — ISO/IEC 11172-3, ISO/IEC 13818-3</li>
+        <li>저작권법 — <a href="https://www.law.go.kr/법령/저작권법" rel="nofollow noopener" target="_blank">국가법령정보센터</a></li>
+      </ul>
+      <div class="note">⚠️ 본인 영상에 대해서만 사용해 주세요. 타인 저작물의 음원 추출은 저작권법 위반입니다.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 동영상 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script type="module" src="./to-mp3.js"></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

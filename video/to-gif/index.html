@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudio.github.io · source = github.com/taystudio/taystudio.github.io · 무단 복제·재배포 금지 -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Video">
+  <meta property="og:title" content="동영상 GIF 변환 | 영상→GIF, 짤·움짤 만들기">
+  <meta property="og:description" content="MP4·MOV·WebM 동영상에서 짧은 구간만 GIF로 변환. 짤·움짤·이모티콘용. 모든 처리는 브라우저 안에서, 영상 외부 전송 없음.">
+  <meta property="og:url" content="https://taystudio.github.io/video/to-gif/">
+  <meta property="og:image" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="동영상 GIF 변환 | 짤·움짤 만들기">
+  <meta name="twitter:description" content="짧은 구간만 GIF로 변환. 짤·움짤·이모티콘용. 브라우저 안에서 처리.">
+  <meta name="twitter:image" content="https://taystudio.github.io/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <title>동영상 GIF 변환 | 영상→GIF, 짤·움짤 만들기 (무료)</title>
+  <meta name="description" content="MP4·MOV·WebM 동영상의 짧은 구간을 GIF로 변환합니다. 짤·움짤·SNS·이모티콘용. fps와 너비를 조절해 용량을 최적화. 모든 처리는 브라우저 안에서, 영상 외부 전송 없음.">
+  <meta name="keywords" content="동영상 GIF 변환, 영상 GIF, 짤 만들기, 움짤 만들기, MP4 GIF, 영상 GIF로 변환, 카톡 움짤, 영상 캡처 GIF">
+  <link rel="canonical" href="https://taystudio.github.io/video/to-gif/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "동영상 GIF 변환 | 짤·움짤 만들기",
+      "description": "MP4·MOV·WebM 동영상의 짧은 구간을 GIF로 변환. fps·너비 조절로 용량 최적화. 브라우저 안에서 ffmpeg.wasm으로 처리.",
+      "url": "https://taystudio.github.io/video/to-gif/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "MP4·MOV·WebM·MKV 입력",
+        "구간 지정 (시작·끝 시각, 권장 ≤ 10초)",
+        "fps 선택 (10·15·24·30)",
+        "너비 선택 (240·320·480·640·원본)",
+        "palettegen 2-pass 단일 호출 (256색 양자화 고품질)",
+        "원본 외부 전송 없음 — 브라우저 안에서 처리"
+      ],
+      "dateModified": "2026-05-05",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Video", "item": "https://taystudio.github.io/video/" },
+        { "@type": "ListItem", "position": 3, "name": "동영상 GIF 변환", "item": "https://taystudio.github.io/video/to-gif/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "원본 영상이 서버로 업로드되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. 영상은 브라우저 안에서만 ffmpeg.wasm(WebAssembly)로 처리되며, 사이트 운영자도 내용을 볼 수 없습니다. 첫 사용 시 ffmpeg 라이브러리(~32MB)만 다운로드되고, 이후 영상 자체는 외부로 나가지 않습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "왜 GIF가 동영상보다 용량이 클 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GIF는 1989년에 만들어진 오래된 포맷으로 256색 색상표 기반의 비효율적 압축을 씁니다. H.264 같은 현대 영상 코덱이 훨씬 작습니다. 5초 480p GIF가 5~20MB 나오는 건 정상이며, 30초·1080p로 만들면 100MB+도 가능합니다. 짤·움짤로 쓰려면 ≤ 10초 + 480px 이하 + fps 15 권장."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "fps와 너비는 어떻게 정하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "용량은 fps × 너비² × 길이에 비례합니다. SNS·카톡 짤 = fps 15 + 너비 480px / 이모티콘 = fps 12~15 + 너비 240~320px / 끊김 없는 부드러움 = fps 24~30(용량 큼). 너비 480px 이하 + fps 15가 화질·용량 균형 좋습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "왜 GIF 색상이 약간 깨져 보이나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "GIF는 한 프레임에 256색만 사용 가능하기 때문에(8-bit indexed color), 그라데이션·노을 색·실사 영상은 dithering으로 채워지면서 약간 거칠어 보일 수 있습니다. 사이트는 ffmpeg의 palettegen 필터로 영상 전체를 분석해 최적 256색을 자동 선택해 화질 손실을 최소화합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "처리 시간이 얼마나 걸리나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "5초·480p·fps 15 GIF = 데스크톱 Chrome 기준 10~30초. GIF 생성은 압축보다 무거워 단일 스레드에서도 시간이 더 걸립니다. 모바일은 2~3배 더 걸립니다. 권장은 10초 이내 + 480px 이하."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .progress-wrap { margin-top:16px }
+    .progress-bar {
+      width:100%; height:8px; background:var(--border); border-radius:4px;
+      overflow:hidden; position:relative;
+    }
+    .progress-fill {
+      height:100%; background:var(--primary); width:0%;
+      transition: width .25s ease;
+    }
+    .progress-text {
+      margin-top:8px; font-size:13px; color:var(--muted);
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .gif-preview {
+      margin-top:14px; border:1px solid var(--border); border-radius:10px;
+      overflow:hidden; background:#000; display:flex; justify-content:center;
+    }
+    .gif-preview img { max-width:100%; max-height:60vh; display:block; }
+    .video-meta {
+      display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:14px;
+      font-size:14px; color:var(--muted);
+    }
+    .video-meta b { color:var(--text); font-weight:600 }
+    .first-time-notice {
+      background:rgba(245,158,11,0.08);
+      border:1px solid rgba(245,158,11,0.3);
+      border-radius:10px; padding:14px 16px; margin-top:14px;
+      font-size:13.5px; line-height:1.65; color:var(--text);
+    }
+    .first-time-notice b { color:#d97706 }
+    @media (prefers-color-scheme: dark) {
+      .first-time-notice b { color:#fbbf24 }
+    }
+    .source-preview {
+      margin-top:14px; border:1px solid var(--border); border-radius:10px;
+      overflow:hidden; background:#000;
+    }
+    .source-preview video { width:100%; display:block; max-height:50vh; }
+    .time-row {
+      display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;
+    }
+    .time-row .field { flex:1 1 200px; margin-bottom:0 }
+    .duration-hint {
+      font-size:13px; color:var(--muted); margin-top:6px;
+    }
+    .pick-btn {
+      margin-top:6px; font-size:12.5px; padding:5px 10px;
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:6px; cursor:pointer; color:var(--text);
+    }
+    .pick-btn:hover { border-color:var(--primary); color:var(--primary) }
+    .opts-row {
+      display:flex; gap:12px; flex-wrap:wrap;
+    }
+    .opts-row .field { flex:1 1 180px; }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">동영상</a> · 동영상 GIF 변환</div>
+    <h1>동영상 GIF 변환</h1>
+    <p class="subtitle">짧은 구간만 GIF로 — 짤·움짤·SNS·이모티콘용. fps·너비 조절로 용량 최적화.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>영상이 외부 서버로 전송되지 않습니다.</b> 모든 처리는 사용자 브라우저 안의 ffmpeg.wasm(WebAssembly)으로만 이루어집니다.</div>
+    </div>
+
+    <div class="first-time-notice">
+      <b>첫 사용 시</b> 영상 처리 엔진(ffmpeg.wasm ~32MB)을 자동으로 다운로드합니다. <b>Wi-Fi 환경 권장</b> · 다운로드 후엔 브라우저에 캐시되어 다음 방문은 즉시 시작됩니다.
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">🎞️</div>
+        <div class="drop-title" id="dropTitle">영상 파일을 드래그하거나 클릭해서 선택</div>
+        <div class="drop-hint">MP4 · MOV · WebM · MKV · AVI — 권장: 짤은 ≤ 10초 구간만</div>
+        <input type="file" id="fileInput" accept="video/*">
+      </label>
+
+      <div class="source-preview" id="sourcePreviewWrap" hidden>
+        <video id="sourceVideo" controls playsinline preload="metadata"></video>
+      </div>
+      <div class="duration-hint" id="durationHint" hidden></div>
+
+      <div class="time-row" style="margin-top:16px">
+        <div class="field">
+          <label for="startTime">시작 시각</label>
+          <input type="text" id="startTime" placeholder="예: 0:30 또는 30">
+          <button type="button" class="pick-btn" id="pickStart">⏱ 현재 재생 위치로</button>
+        </div>
+        <div class="field">
+          <label for="endTime">끝 시각</label>
+          <input type="text" id="endTime" placeholder="예: 0:35 또는 35">
+          <button type="button" class="pick-btn" id="pickEnd">⏱ 현재 재생 위치로</button>
+        </div>
+      </div>
+
+      <div class="opts-row">
+        <div class="field">
+          <label for="fps">fps (초당 프레임)</label>
+          <select id="fps">
+            <option value="10">10 (작은 용량, 끊김 있음)</option>
+            <option value="15" selected>15 (권장)</option>
+            <option value="24">24 (부드러움)</option>
+            <option value="30">30 (가장 부드러움, 큰 용량)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="width">너비 (px)</label>
+          <select id="width">
+            <option value="240">240px (이모티콘)</option>
+            <option value="320">320px (소형 짤)</option>
+            <option value="480" selected>480px (권장 SNS·카톡)</option>
+            <option value="640">640px (큰 짤)</option>
+            <option value="0">원본 너비 유지 (큰 용량)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="convertBtn" disabled>GIF 만들기</button>
+        <button type="button" id="clearBtn">초기화</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText">대기 중...</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="gif-preview"><img id="resultImg" alt="변환된 GIF"></div>
+      <div class="video-meta">
+        <span>원본 영상 <b id="origSize">—</b></span>
+        <span>GIF <b id="gifSize">—</b></span>
+        <span>구간 길이 <b id="durText">—</b></span>
+        <span>설정 <b id="optText">—</b></span>
+        <span>처리 시간 <b id="elapsedTime">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ 다운로드</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>fps·너비별 용량 가이드</h2>
+      <p class="small">5초 구간 기준 추정. 실제 용량은 영상 색상 다양성·움직임에 따라 다름.</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>너비</th><th>fps</th><th>용량 추정</th><th>용도</th></tr></thead>
+          <tbody>
+            <tr><td>240px</td><td>15</td><td>1~3 MB</td><td>이모티콘·작은 짤</td></tr>
+            <tr><td>320px</td><td>15</td><td>2~5 MB</td><td>SNS 인라인</td></tr>
+            <tr><td>480px</td><td>15</td><td>4~10 MB</td><td>카톡·인스타 (권장)</td></tr>
+            <tr><td>480px</td><td>24</td><td>6~15 MB</td><td>부드러움 우선</td></tr>
+            <tr><td>640px</td><td>15</td><td>8~20 MB</td><td>큰 짤·블로그</td></tr>
+            <tr><td>원본(1080p)</td><td>30</td><td>50~150 MB</td><td>비권장 — MP4 그대로 쓰는 게 나음</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../trim/">동영상 자르기<span class="desc">긴 영상에서 GIF 만들 구간 잘라내기</span></a>
+        <a href="../compress/">동영상 압축<span class="desc">화질·해상도 조정으로 용량 줄이기</span></a>
+        <a href="../rotate/">동영상 회전<span class="desc">90·180도 회전, 좌우/상하 반전</span></a>
+        <a href="../">동영상 도구 모음<span class="desc">압축·자르기·회전·GIF</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>왜 GIF가 동영상보다 용량이 더 클 수 있나요?</summary>
+        <div class="answer">
+          GIF는 1989년에 만들어진 오래된 포맷으로 256색 색상표 기반의 비효율적 압축을 씁니다. H.264 같은 현대 영상 코덱은 같은 화질을 1/10~1/50 크기로 담을 수 있습니다. <b>GIF는 짧은 짤·움짤(≤ 10초, 480px 이하)에만 적합</b>하며, 그 이상이면 MP4를 그대로 쓰는 것이 합리적입니다.
+        </div>
+      </details>
+      <details>
+        <summary>왜 색상이 약간 깨져 보이나요?</summary>
+        <div class="answer">
+          GIF는 한 프레임에 256색만 사용 가능합니다(8-bit indexed color). 실사 영상이나 그라데이션은 dithering으로 채워지면서 약간 거칠어 보일 수 있습니다. 사이트는 ffmpeg의 <code>palettegen</code> 필터로 영상 전체를 분석해 최적 256색을 자동 선택해 화질 손실을 최소화합니다(2-pass 단일 호출).
+        </div>
+      </details>
+      <details>
+        <summary>처리 도중 페이지를 닫아도 되나요?</summary>
+        <div class="answer">
+          처리 진행 중에 페이지를 닫으면 작업이 취소됩니다. 다운로드된 ffmpeg 라이브러리는 캐시에 남아 다음에 재사용되므로, 닫고 다시 들어와도 라이브러리는 다시 받지 않습니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+      <details>
+        <summary>원본 영상이 서버로 업로드되나요?</summary>
+        <div class="answer">
+          전송되지 않습니다. 영상은 브라우저 안에서만 <b>ffmpeg.wasm(WebAssembly)</b>로 처리되며, 사이트 운영자도 내용을 볼 수 없습니다. 첫 사용 시 ffmpeg 라이브러리(~32MB)만 다운로드되고, 이후 영상 자체는 외부로 나가지 않습니다.
+        </div>
+      </details>
+      <details>
+        <summary>fps와 너비는 어떻게 정하나요?</summary>
+        <div class="answer">
+          용량은 <b>fps × 너비² × 길이</b>에 비례합니다.<br>
+          • SNS·카톡 짤 = fps 15 + 너비 480px (권장)<br>
+          • 이모티콘 = fps 12~15 + 너비 240~320px<br>
+          • 끊김 없는 부드러움 = fps 24~30 (용량 큼)<br>
+          너비 480px 이하 + fps 15가 화질·용량 균형이 좋습니다.
+        </div>
+      </details>
+      <details>
+        <summary>구간이 너무 길면 어떻게 되나요?</summary>
+        <div class="answer">
+          GIF는 30초 이상 + 480p 이상이면 100MB+로 커지면서 카톡·SNS 업로드가 거부될 수 있습니다. 사이트는 길이를 제한하지 않지만, <b>10초 이내</b>를 강하게 권장합니다. 긴 영상은 <a href="../trim/">동영상 자르기</a>로 먼저 짧게 자르고 사용하세요.
+        </div>
+      </details>
+      <details>
+        <summary>처리 시간이 얼마나 걸리나요?</summary>
+        <div class="answer">
+          5초·480p·fps 15 GIF = 데스크톱 Chrome 기준 <b>10~30초</b>. GIF 생성은 압축보다 무거워 단일 스레드에서도 시간이 더 걸립니다. 모바일은 2~3배 더 걸립니다.
+        </div>
+      </details>
+      <details>
+        <summary>출력 GIF는 투명 배경을 지원하나요?</summary>
+        <div class="answer">
+          영상 자체에 alpha 채널이 있는 드문 경우(예: 일부 ProRes·WebM)에 한해 투명 배경이 보존될 수 있으나, 사이트 기본 설정은 불투명 256색 GIF를 출력합니다. 투명 배경 GIF가 필요하면 별도 도구(GIMP·Photoshop) 사용을 권장합니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-05 / 처리는 ffmpeg.wasm(WebAssembly) 기반.</div>
+      <ul>
+        <li>ffmpeg.wasm — <a href="https://ffmpegwasm.netlify.app/" rel="nofollow noopener" target="_blank">공식 사이트</a> (BSD/LGPL)</li>
+        <li>palettegen / paletteuse 필터 — <a href="https://ffmpeg.org/ffmpeg-filters.html#palettegen-1" rel="nofollow noopener" target="_blank">FFmpeg Filters Documentation</a></li>
+        <li>GIF89a 표준 — <a href="https://www.w3.org/Graphics/GIF/spec-gif89a.txt" rel="nofollow noopener" target="_blank">W3 GIF 89a Specification</a></li>
+      </ul>
+      <div class="note">⚠️ 본인 영상에 대해서만 사용해 주세요. 영상·음원 저작권을 침해하는 사용은 금지됩니다.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 동영상 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script type="module" src="./to-gif.js"></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# macOS Finder 메타데이터
+.DS_Store
+._*
+
+# Windows
+Thumbs.db

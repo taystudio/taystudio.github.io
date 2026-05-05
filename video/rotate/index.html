@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudio.github.io · source = github.com/taystudio/taystudio.github.io · 무단 복제·재배포 금지 -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Video">
+  <meta property="og:title" content="동영상 회전 | 영상 90·180도 회전·좌우/상하 반전">
+  <meta property="og:description" content="세로로 찍힌 영상을 가로로, 거꾸로 찍힌 영상을 바로 세우기. 90·180도 회전과 좌우/상하 반전. 모든 처리는 브라우저 안에서.">
+  <meta property="og:url" content="https://taystudio.github.io/video/rotate/">
+  <meta property="og:image" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="동영상 회전 | 90·180도 회전·반전">
+  <meta name="twitter:description" content="세로로 찍힌 영상을 바로 세우기. 90·180도 회전 + 좌우/상하 반전.">
+  <meta name="twitter:image" content="https://taystudio.github.io/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <title>동영상 회전 | 영상 90·180도 회전·좌우/상하 반전 (무료)</title>
+  <meta name="description" content="MP4·MOV·WebM 동영상을 90도/180도 회전하거나 좌우·상하 반전합니다. 세로로 찍힌 영상을 가로로, 거꾸로 찍힌 영상을 바로 세울 때. 모든 처리는 브라우저 안에서, 영상 외부 전송 없음.">
+  <meta name="keywords" content="동영상 회전, 영상 회전, 동영상 뒤집기, 세로 영상 가로로, MP4 회전, 영상 좌우 반전, 영상 상하 반전, 거꾸로 영상">
+  <link rel="canonical" href="https://taystudio.github.io/video/rotate/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "동영상 회전 | 영상 90·180도 회전·반전",
+      "description": "MP4·MOV·WebM 동영상을 90·180도 회전하거나 좌우/상하 반전. 브라우저 안에서 ffmpeg.wasm으로 처리.",
+      "url": "https://taystudio.github.io/video/rotate/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "MP4·MOV·WebM·MKV 입력",
+        "90도 시계방향·90도 반시계방향·180도 회전",
+        "좌우 반전 (거울 효과)",
+        "상하 반전",
+        "오디오는 무손실 복사 — 음질 그대로",
+        "원본 외부 전송 없음 — 브라우저 안에서 처리"
+      ],
+      "dateModified": "2026-05-05",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Video", "item": "https://taystudio.github.io/video/" },
+        { "@type": "ListItem", "position": 3, "name": "동영상 회전", "item": "https://taystudio.github.io/video/rotate/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "원본 영상이 서버로 업로드되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. 영상은 브라우저 안에서만 ffmpeg.wasm(WebAssembly)로 처리되며, 사이트 운영자도 내용을 볼 수 없습니다. 첫 사용 시 ffmpeg 라이브러리(~32MB)만 다운로드되고, 이후 영상 자체는 외부로 나가지 않습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "왜 회전은 시간이 걸리나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "회전은 영상의 픽셀 배치를 바꾸는 작업이라 코덱이 디코딩 → 회전 → 다시 인코딩하는 과정이 필요합니다. 영상 메타데이터에 회전 플래그만 추가하는 방법(rotation tag)은 일부 플레이어에서만 인식되고, 카톡·SNS 업로드 시 무시되는 경우가 많아 픽셀을 실제로 회전시키는 방식을 씁니다. 처리 시간은 원본 길이의 0.3~1배(데스크톱 Chrome) 정도."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "오디오는 그대로 유지되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네 — 오디오는 재인코딩 없이 무손실 복사됩니다(-c:a copy). 영상 트랙만 회전·재인코딩하므로 음질 손실은 없습니다. 단 일부 입력 코덱(예: AC-3, DTS)이 MP4 컨테이너와 호환되지 않으면 자동으로 AAC로 재인코딩됩니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "어떤 영상 포맷이 입력되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MP4·MOV·WebM·MKV·AVI 등 ffmpeg가 지원하는 대부분 포맷이 입력 가능합니다. 출력은 MP4(H.264)로 통일 — 카톡·이메일·SNS·QuickTime 어디서든 재생됩니다."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .progress-wrap { margin-top:16px }
+    .progress-bar {
+      width:100%; height:8px; background:var(--border); border-radius:4px;
+      overflow:hidden; position:relative;
+    }
+    .progress-fill {
+      height:100%; background:var(--primary); width:0%;
+      transition: width .25s ease;
+    }
+    .progress-text {
+      margin-top:8px; font-size:13px; color:var(--muted);
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .video-preview {
+      margin-top:14px; border:1px solid var(--border); border-radius:10px;
+      overflow:hidden; background:#000;
+      display:flex; align-items:center; justify-content:center;
+      min-height:240px;
+    }
+    .video-preview video {
+      display:block; max-width:100%; max-height:60vh;
+      transition: transform .3s ease;
+      transform-origin: center center;
+    }
+    /* 회전 미리보기 — 실제 ffmpeg 출력과 동일한 시각 효과를 CSS transform으로 즉시 표시 */
+    .video-preview.rot-cw90 video  { transform: rotate(90deg); }
+    .video-preview.rot-ccw90 video { transform: rotate(-90deg); }
+    .video-preview.rot-rot180 video { transform: rotate(180deg); }
+    .video-preview.rot-hflip video { transform: scaleX(-1); }
+    .video-preview.rot-vflip video { transform: scaleY(-1); }
+    /* 90도 회전 시 video는 같은 크기로 회전돼서 가로 영상은 컨테이너에 잘 들어가지만,
+       세로 영상은 회전 후 가로로 길어져 좌우가 잘릴 수 있음 — 가로 max를 50%로 제한 */
+    .video-preview.rot-cw90 video,
+    .video-preview.rot-ccw90 video {
+      max-height: 50vh;
+    }
+    .preview-hint {
+      font-size:12.5px; color:var(--muted); margin-top:6px; text-align:center;
+    }
+    .video-meta {
+      display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:14px;
+      font-size:14px; color:var(--muted);
+    }
+    .video-meta b { color:var(--text); font-weight:600 }
+    .first-time-notice {
+      background:rgba(245,158,11,0.08);
+      border:1px solid rgba(245,158,11,0.3);
+      border-radius:10px; padding:14px 16px; margin-top:14px;
+      font-size:13.5px; line-height:1.65; color:var(--text);
+    }
+    .first-time-notice b { color:#d97706 }
+    @media (prefers-color-scheme: dark) {
+      .first-time-notice b { color:#fbbf24 }
+    }
+    .rotate-grid {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+      gap:10px; margin-top:8px;
+    }
+    .rotate-opt {
+      display:flex; flex-direction:column; align-items:center;
+      padding:14px 10px; border:1.5px solid var(--border); border-radius:10px;
+      cursor:pointer; background:var(--surface); transition:all .15s;
+      text-align:center;
+    }
+    .rotate-opt:hover { border-color:var(--primary); }
+    .rotate-opt input[type=radio] { display:none; }
+    .rotate-opt input[type=radio]:checked + .rotate-icon-wrap {
+      color: var(--primary); font-weight:600;
+    }
+    .rotate-opt:has(input:checked) {
+      border-color:var(--primary);
+      background:rgba(37,99,235,0.06);
+    }
+    .rotate-icon { font-size:26px; line-height:1; margin-bottom:6px; }
+    .rotate-label { font-size:13.5px; color:var(--text); }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">동영상</a> · 동영상 회전</div>
+    <h1>동영상 회전</h1>
+    <p class="subtitle">세로로 찍힌 영상을 가로로 / 거꾸로 찍힌 영상을 바로 세우기 — 90·180도 회전과 좌우/상하 반전.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>영상이 외부 서버로 전송되지 않습니다.</b> 모든 처리는 사용자 브라우저 안의 ffmpeg.wasm(WebAssembly)으로만 이루어집니다.</div>
+    </div>
+
+    <div class="first-time-notice">
+      <b>첫 사용 시</b> 영상 처리 엔진(ffmpeg.wasm ~32MB)을 자동으로 다운로드합니다. <b>Wi-Fi 환경 권장</b> · 다운로드 후엔 브라우저에 캐시되어 다음 방문은 즉시 시작됩니다.
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">🔄</div>
+        <div class="drop-title" id="dropTitle">영상 파일을 드래그하거나 클릭해서 선택</div>
+        <div class="drop-hint">MP4 · MOV · WebM · MKV · AVI — 권장 ≤ 500MB (모바일) / ≤ 1.5GB (데스크톱)</div>
+        <input type="file" id="fileInput" accept="video/*">
+      </label>
+
+      <div class="video-preview" id="sourcePreviewWrap" hidden>
+        <video id="sourceVideo" controls playsinline preload="metadata" muted></video>
+      </div>
+      <div class="preview-hint" id="previewHint" hidden>↑ 회전 옵션을 바꾸면 미리보기가 즉시 반영됩니다 (시각 시뮬레이션 — 실제 처리는 아래 "회전하기" 버튼)</div>
+
+      <div class="field" style="margin-top:16px">
+        <label>회전·반전 방식</label>
+        <div class="rotate-grid" role="radiogroup" aria-label="회전 방식">
+          <label class="rotate-opt">
+            <input type="radio" name="rot" value="cw90" checked>
+            <span class="rotate-icon-wrap"><div class="rotate-icon">↻</div><div class="rotate-label">90° 시계방향</div></span>
+          </label>
+          <label class="rotate-opt">
+            <input type="radio" name="rot" value="ccw90">
+            <span class="rotate-icon-wrap"><div class="rotate-icon">↺</div><div class="rotate-label">90° 반시계방향</div></span>
+          </label>
+          <label class="rotate-opt">
+            <input type="radio" name="rot" value="rot180">
+            <span class="rotate-icon-wrap"><div class="rotate-icon">⤿</div><div class="rotate-label">180°</div></span>
+          </label>
+          <label class="rotate-opt">
+            <input type="radio" name="rot" value="hflip">
+            <span class="rotate-icon-wrap"><div class="rotate-icon">⇆</div><div class="rotate-label">좌우 반전 (거울)</div></span>
+          </label>
+          <label class="rotate-opt">
+            <input type="radio" name="rot" value="vflip">
+            <span class="rotate-icon-wrap"><div class="rotate-icon">⇅</div><div class="rotate-label">상하 반전</div></span>
+          </label>
+          <label class="rotate-opt">
+            <input type="radio" name="rot" value="none">
+            <span class="rotate-icon-wrap"><div class="rotate-icon">□</div><div class="rotate-label">원래대로</div></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="rotateBtn" disabled>회전하기</button>
+        <button type="button" id="clearBtn">초기화</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText">대기 중...</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="video-preview"><video id="resultVideo" controls playsinline></video></div>
+      <div class="video-meta">
+        <span>원본 <b id="origSize">—</b></span>
+        <span>변환 후 <b id="outSize">—</b></span>
+        <span>변환 <b id="opText">—</b></span>
+        <span>처리 시간 <b id="elapsedTime">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ 다운로드</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>언제 어떤 옵션?</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>상황</th><th>선택</th></tr></thead>
+          <tbody>
+            <tr><td>아이폰 세로로 찍었는데 PC에서 가로로 보임</td><td>90° 시계방향 또는 반시계방향 (방향에 따라)</td></tr>
+            <tr><td>거꾸로 들고 찍은 영상 (천장 영상)</td><td>180°</td></tr>
+            <tr><td>거울 효과 (좌우 뒤집힌 셀카 보정)</td><td>좌우 반전</td></tr>
+            <tr><td>드론·고프로 거꾸로 장착으로 상하 반대</td><td>상하 반전 (또는 180°)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../compress/">동영상 압축<span class="desc">화질·해상도 조정으로 용량 줄이기</span></a>
+        <a href="../trim/">동영상 자르기<span class="desc">시작·끝 시각으로 구간 잘라내기</span></a>
+        <a href="../to-gif/">동영상 GIF 변환<span class="desc">짧은 구간을 짤·움짤로</span></a>
+        <a href="../to-mp3/">동영상 MP3 추출<span class="desc">본인 영상의 오디오 추출</span></a>
+        <a href="../">동영상 도구 모음<span class="desc">압축·자르기·회전·GIF·MP3</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>왜 회전이 영상 압축처럼 시간이 걸리나요?</summary>
+        <div class="answer">
+          회전은 영상의 픽셀 배치를 바꾸는 작업이라 코덱이 <b>디코딩 → 회전 → 다시 인코딩</b>하는 과정이 필요합니다. 영상 메타데이터에 회전 플래그만 추가하는 방법(rotation tag)은 일부 플레이어에서만 인식되고, 카톡·SNS 업로드 시 무시되는 경우가 많아 픽셀을 실제로 회전시키는 방식을 씁니다.
+        </div>
+      </details>
+      <details>
+        <summary>오디오는 그대로 유지되나요?</summary>
+        <div class="answer">
+          오디오는 재인코딩 없이 무손실 복사됩니다(<code>-c:a copy</code>). 영상 트랙만 회전·재인코딩하므로 음질 손실은 없습니다. 단 일부 입력 코덱(AC-3·DTS 등)이 MP4 컨테이너와 호환되지 않으면 자동으로 AAC로 재인코딩됩니다.
+        </div>
+      </details>
+      <details>
+        <summary>왜 멀티 스레드(빠른 처리)는 지원 안 되나요?</summary>
+        <div class="answer">
+          GitHub Pages 같은 정적 호스팅은 <code>Cross-Origin-Opener-Policy</code> / <code>Cross-Origin-Embedder-Policy</code> 헤더를 설정할 수 없어 SharedArrayBuffer가 비활성됩니다. 단일 스레드만 동작 — 안전하지만 느립니다(원본 길이의 0.3~1배).
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+      <details>
+        <summary>원본 영상이 서버로 업로드되나요?</summary>
+        <div class="answer">
+          전송되지 않습니다. 영상은 브라우저 안에서만 <b>ffmpeg.wasm(WebAssembly)</b>로 처리되며, 사이트 운영자도 내용을 볼 수 없습니다. 첫 사용 시 ffmpeg 라이브러리(~32MB)만 다운로드되고, 이후 영상 자체는 외부로 나가지 않습니다.
+        </div>
+      </details>
+      <details>
+        <summary>회전 + 압축을 한 번에 할 수 있나요?</summary>
+        <div class="answer">
+          현재 회전 도구는 화질 조정 옵션이 없습니다(원본 화질 유지를 위해 CRF 23 고정). 회전한 영상의 용량을 줄이려면 결과 파일을 다운로드한 뒤 <a href="../compress/">동영상 압축</a> 도구에 다시 넣어주세요. 향후 통합 옵션 검토 예정.
+        </div>
+      </details>
+      <details>
+        <summary>출력 포맷은 무엇인가요?</summary>
+        <div class="answer">
+          출력은 <b>MP4(H.264)</b>로 통일됩니다. 카톡·이메일·SNS·QuickTime 어디서든 재생 가능. 오디오는 가능하면 원본 그대로 복사, 호환 안 될 때만 AAC로 재인코딩.
+        </div>
+      </details>
+      <details>
+        <summary>처리 시간이 얼마나 걸리나요?</summary>
+        <div class="answer">
+          단일 스레드 처리 기준 원본 길이의 0.3~1배(데스크톱 Chrome). 5분 1080p 영상 ≈ 1~3분. 모바일은 2~3배 더 걸립니다.
+        </div>
+      </details>
+      <details>
+        <summary>큰 영상도 처리 가능한가요?</summary>
+        <div class="answer">
+          데스크톱 Chrome 기준 1~2GB까지 처리 가능합니다. iOS Safari·모바일 브라우저는 메모리 한계로 ~500MB 이상에서 불안정할 수 있습니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-05 / 처리는 ffmpeg.wasm(WebAssembly) 기반.</div>
+      <ul>
+        <li>ffmpeg.wasm — <a href="https://ffmpegwasm.netlify.app/" rel="nofollow noopener" target="_blank">공식 사이트</a> (BSD/LGPL)</li>
+        <li>transpose 필터 — <a href="https://ffmpeg.org/ffmpeg-filters.html#transpose" rel="nofollow noopener" target="_blank">FFmpeg Filters Documentation</a></li>
+        <li>H.264/AVC 표준 — ISO/IEC 14496-10</li>
+      </ul>
+      <div class="note">⚠️ 본인 영상에 대해서만 사용해 주세요. 영상·음원 저작권을 침해하는 사용은 금지됩니다.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 동영상 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script type="module" src="./rotate.js"></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

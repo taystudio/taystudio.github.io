@@ -138,7 +138,7 @@
     <h1>📜 변경 이력</h1>
     <p class="subtitle">사이트에서 일어난 일을 시간 역순으로 — 도구 추가, 세율 갱신, SEO·인프라 작업까지.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
-      <b>마지막 갱신</b>: 2026-05-05 · <span style="opacity:.7">운영자 dashboard <code>/dash-tay9k3m/</code> 신규(외부 링크 hub 5섹션 + Looker Studio iframe embed 슬롯 + secret URL · noindex · robots Disallow). 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
+      <b>마지막 갱신</b>: 2026-05-05 · <span style="opacity:.7">video 카테고리 신설 + 5선 완료(compress·trim·rotate·to-gif·to-mp3) — ffmpeg.wasm + IndexedDB 캐시 인프라. 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
     </p>
 
     <div class="legend">
@@ -148,6 +148,104 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item major">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-05</span>
+            <span class="tl-tag feature">video 카테고리 신설 + 5선 완료</span>
+            <span class="tl-tag">ffmpeg.wasm</span>
+            <span class="tl-tag">compress · trim · rotate · to-gif · to-mp3</span>
+          </div>
+          <div class="tl-title">🎬 동영상 카테고리 0 → 5선 (하루 안에) — ffmpeg.wasm + IndexedDB 캐시 인프라</div>
+          <div class="tl-summary">
+            §0.2 "정적 한계까지" 정신의 시각적 증거. 자체 작성 ESM wrapper(<code>video/vendor/ffmpeg-loader.mjs</code>, 137줄) 1개 + jsdelivr CDN의 <code>@ffmpeg/ffmpeg@0.12.10</code> + <code>@ffmpeg/core@0.12.6</code>(~32MB) IndexedDB Blob 캐시. 사용자 영상은 외부 전송 X. <b>5도구가 같은 wrapper 1개를 그대로 import</b> → 도구당 작업량은 ffmpeg args + UI 옵션 위주. 사이트 도구 수 <b>48 → 53선</b>(동영상 0 → 5), sitemap <b>54 → 60 URL</b>, 카테고리 3 → 4(<code>tools / text / image / video</code>).
+          </div>
+          <div class="stats-grid">
+            <div class="stat"><div class="label">신규 도구</div><div class="value">5</div><div class="delta">compress · trim · rotate · to-gif · to-mp3</div></div>
+            <div class="stat"><div class="label">전체 도구</div><div class="value">53</div><div class="delta">48 → 53 (+5)</div></div>
+            <div class="stat"><div class="label">sitemap</div><div class="value">60</div><div class="delta">54 → 60 URL (+6, hub 포함)</div></div>
+            <div class="stat"><div class="label">카테고리</div><div class="value">4</div><div class="delta">tools/text/image + <b>video</b></div></div>
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">⚙️ 인프라 (모든 도구 공통)</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><b><code>video/vendor/ffmpeg-loader.mjs</code></b> — 자체 작성 ESM wrapper. <code>loadFFmpeg(onProgress)</code> singleton + <code>toUint8Array(blob)</code> 헬퍼만 export</li>
+                <li>jsdelivr CDN에서 <code>@ffmpeg/ffmpeg@0.12.10</code> 동적 ESM import + <code>@ffmpeg/core@0.12.6</code> JS·WASM 직접 fetch</li>
+                <li>IndexedDB <code>taystudio-video</code> DB / <code>wasm-cache</code> store에 Blob 캐시 (버전 pinned key) → 두 번째 방문부터 ~32MB 다시 안 받음</li>
+                <li>캐시 실패(사파리 프라이빗·할당량) → silent fallback으로 fetch만 다시</li>
+                <li><b>Single-thread 결정</b> = GitHub Pages COOP/COEP 헤더 미지원 → SharedArrayBuffer 비활성 → multi-thread <code>@ffmpeg/core-mt</code> 사용 X. 처리 속도 0.3~1× 트레이드오프 감수</li>
+                <li>iOS Safari 메모리 ~500MB 한계 → 720p 이하 + 5~10분 이내 권장 (<code>.first-time-notice</code> 박스로 안내)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🗜️ 1. <code>video/compress/</code> — 동영상 압축</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>옵션: 해상도(원본/1080/720/480/360p) + CRF 슬라이더(18~35, 기본 28) + 오디오(AAC/무손실/제거)</li>
+                <li>args: <code>-c:v libx264 -preset ultrafast -crf N -pix_fmt yuv420p [-vf scale=-2:N] -c:a aac -b:a 128k -movflags +faststart</code></li>
+                <li>출력 MP4(H.264 + AAC) — 카톡·이메일·SNS 호환. 진행률 + 압축 후 미리보기 + 원본/압축 용량/감소율/처리 시간</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">✂️ 2. <code>video/trim/</code> — 동영상 자르기 (빠른 + 정확 모드)</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><b>빠른 모드</b>: <code>-ss &lt;s&gt; -to &lt;e&gt; -i input -c copy</code> — seek가 -i 앞 = 키프레임 단위, 1GB도 수 초</li>
+                <li><b>정확 모드</b>: <code>-i input -ss &lt;s&gt; -to &lt;e&gt; -c:v libx264 -crf 23</code> — 디코드 후 프레임 단위 재인코딩</li>
+                <li>시각 입력 파서 = HH:MM:SS / MM:SS / 초(.frac) 3가지 형식. 영상 업로드 시 미리보기 + duration 자동 표시 + "현재 재생 위치로" 버튼</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔄 3. <code>video/rotate/</code> — 동영상 회전</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>5종: 90° CW(<code>transpose=1</code>) / 90° CCW(<code>transpose=2</code>) / 180°(<code>transpose=2,transpose=2</code>) / 좌우(<code>hflip</code>) / 상하(<code>vflip</code>)</li>
+                <li>오디오는 <code>-c:a copy</code> 무손실 → MP4 호환 안 될 때만 AAC fallback (<code>tryExec</code> 1차/2차 분리 패턴)</li>
+                <li>비디오 CRF 23 고정 — 압축은 별도 도구로 위임 (좁은 도구 정신)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🎞️ 4. <code>video/to-gif/</code> — 동영상 GIF 변환</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><b>palette 단일패스 split 필터</b> (2-pass 따로 호출 X) — <code>fps=N,scale=W:-2:flags=lanczos,split[s0][s1];[s0]palettegen=stats_mode=diff[p];[s1][p]paletteuse=dither=bayer:bayer_scale=5</code></li>
+                <li>fps 4단계(10/15/24/30) + 너비 5단계(240/320/480/640/원본). <code>-loop 0</code> 무한 반복</li>
+                <li>30초 초과 구간은 confirm 안내(GIF 50MB+). 빠른 seek(<code>-ss/-to</code> -i 앞) 적용으로 긴 영상에서 짧은 구간 추출 시 디코드 양 최소화</li>
+                <li>"왜 GIF가 동영상보다 큰가?" FAQ로 256색 양자화 + 비효율 압축 설명</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🎵 5. <code>video/to-mp3/</code> — 동영상 MP3 추출</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>args: <code>-vn -c:a libmp3lame -b:a Nk</code>. 비트레이트 5단계(96/128/192/256/320 kbps, 권장 192)</li>
+                <li>결과 미리보기 = <code>&lt;audio controls&gt;</code> (영상 X). 다운로드 전 들어볼 수 있음</li>
+                <li><b>강한 inline <code>.copyright-warning</code> 박스</b>(red border + 위법 사례 3가지 bullet + 책임 면책) — 다른 도구는 sources note 1줄로 충분, 음원 추출은 즉각적 위험이라 강한 안내</li>
+                <li>JSON-LD FAQPage 첫 질문도 "어떤 경우에 합법적으로 사용할 수 있나요?"로 시작 (SERP 첫 메시지 = 본인 영상 한정)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔧 통합 갱신</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><code>common/site-chrome.js</code> nav 3 → 4 카테고리(계산기·텍스트·이미지·<b>동영상</b>)</li>
+                <li>루트 <code>index.html</code> hub-card 4번째(LIVE · 5선) + og·twitter·title·description·keywords·hasPart·alternateName description "48선 → 53선" + quick-list "동영상" row 5도구 노출</li>
+                <li><code>video/index.html</code> 카테고리 hub (count 5 + tool-card 5 + ItemList JSON-LD 5)</li>
+                <li><code>sitemap.xml</code> 6 URL 추가 (hub + 5도구) — 54 → <b>60 URL</b></li>
+                <li><code>tools/sw.js</code> v14 유지 (image/ 패턴 동일하게 STATIC_ASSETS 미포함, 사용자 방문 시 자동 캐시. PWA 통합은 §9.2 보류 항목 그대로)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📚 인계 문서</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><code>history/seo/2026-05-05-video-launch.md</code> — compress 1차 출시 (인프라 결정 포함)</li>
+                <li><code>history/seo/2026-05-05-video-trim-rotate.md</code> — trim·rotate 2선 추가</li>
+                <li><code>history/seo/2026-05-05-video-gif-mp3.md</code> — to-gif·to-mp3 + 5선 완료</li>
+                <li><code>history/video/concepts.md</code> — 누적형 개념 사전 (WASM·컨테이너/코덱·인프라 범위·single-thread·재사용 패턴·privacy·ffmpeg args 사전·-ss 위치·audio fallback·palette 단일패스·GIF 효율 한계 14섹션)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📈 후속 작업 (§9.4)</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>로컬 실기기 검증 (전체 5도구) — 첫 사용 ~32MB / IndexedDB 캐시 hit / iOS Safari / 큰 영상 메모리 / 처리 시간</li>
+                <li>PWA 통합 (A안) — image/ 9선 + video/ 5선으로 진입 시점 도달</li>
+                <li>audio 카테고리 진입 검토 (§5.5.3) — white-noise 1선 시그너처 시작 권장</li>
+                <li>Search Console 1~2주 후 트래픽·체류 데이터 본 후 다음 카테고리 ROI 결정</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item">

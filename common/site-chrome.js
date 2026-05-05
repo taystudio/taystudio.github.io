@@ -52,6 +52,7 @@ class SiteHeader extends HTMLElement {
           <a href="${BASE}/tools/" class="${cls('tools')}">계산기</a>
           <a href="${BASE}/text/" class="${cls('text')}">텍스트</a>
           <a href="${BASE}/image/" class="${cls('image')}">이미지</a>
+          <a href="${BASE}/video/" class="${cls('video')}">동영상</a>
         </nav>
       </header>
     `;
