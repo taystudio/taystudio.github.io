@@ -9,7 +9,7 @@
  *      → -i 뒤 seek는 디코드해서 정확한 프레임에서 잘리며 H.264로 재인코딩
  */
 
-import { loadFFmpeg, toUint8Array } from '/video/vendor/ffmpeg-loader.mjs';
+import { loadFFmpeg, toUint8Array, formatVideoError } from '/video/vendor/ffmpeg-loader.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -239,16 +239,13 @@ async function run() {
     try { await ffmpeg.deleteFile(inputName); } catch (_) {}
     try { await ffmpeg.deleteFile(outputName); } catch (_) {}
   } catch (e) {
-    const msg = (e && e.message) ? e.message : String(e);
-    progressText.textContent = '실패: ' + msg;
+    const { title, body } = formatVideoError(e, {
+      toolName: '동영상 자르기',
+      toolHint: '• 시각 입력값 확인 (시작 < 끝, 영상 길이 이내)\n• 빠른 모드 → 정확 모드로 전환 시도',
+    });
+    progressText.textContent = '실패: ' + title;
     progressFill.style.width = '0%';
-    alert(
-      '동영상 자르기 실패: ' + msg + '\n\n해결 시도:\n' +
-      '• 시각 입력값 확인 (시작 < 끝, 영상 길이 이내)\n' +
-      '• 빠른 모드 → 정확 모드로 전환 시도\n' +
-      '• 페이지 새로고침 후 재시도\n' +
-      '• 데스크톱 Chrome·Edge·Firefox 최신 사용'
-    );
+    alert(title + '\n\n' + body);
   } finally {
     trimBtn.textContent = orig;
     trimBtn.disabled = !currentFile;

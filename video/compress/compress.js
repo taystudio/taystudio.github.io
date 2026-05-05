@@ -9,7 +9,7 @@
  *  4. 결과 readFile → Blob → preview + download link
  */
 
-import { loadFFmpeg, toUint8Array } from '/video/vendor/ffmpeg-loader.mjs';
+import { loadFFmpeg, toUint8Array, formatVideoError } from '/video/vendor/ffmpeg-loader.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -174,16 +174,10 @@ async function run() {
     try { await ffmpeg.deleteFile(inputName); } catch (_) {}
     try { await ffmpeg.deleteFile(outputName); } catch (_) {}
   } catch (e) {
-    const msg = (e && e.message) ? e.message : String(e);
-    progressText.textContent = '실패: ' + msg;
+    const { title, body } = formatVideoError(e, { toolName: '동영상 압축' });
+    progressText.textContent = '실패: ' + title;
     progressFill.style.width = '0%';
-    alert(
-      '동영상 압축 실패: ' + msg + '\n\n해결 시도:\n' +
-      '• 페이지 새로고침 후 다시 시도\n' +
-      '• 더 작은 영상 또는 720p 이하로 시도\n' +
-      '• 데스크톱 Chrome·Edge·Firefox 최신 사용\n' +
-      '• 네트워크 점검 (첫 실행은 ffmpeg ~32MB 다운로드 필요)'
-    );
+    alert(title + '\n\n' + body);
   } finally {
     compressBtn.textContent = orig;
     compressBtn.disabled = !currentFile;

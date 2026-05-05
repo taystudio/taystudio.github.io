@@ -12,7 +12,7 @@
  * 2-pass 따로 호출하지 않고 한 번에 — 중간 palette.png 파일 불필요.
  */
 
-import { loadFFmpeg, toUint8Array } from '/video/vendor/ffmpeg-loader.mjs';
+import { loadFFmpeg, toUint8Array, formatVideoError } from '/video/vendor/ffmpeg-loader.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -236,16 +236,13 @@ async function run() {
     try { await ffmpeg.deleteFile(inputName); } catch (_) {}
     try { await ffmpeg.deleteFile(outputName); } catch (_) {}
   } catch (e) {
-    const msg = (e && e.message) ? e.message : String(e);
-    progressText.textContent = '실패: ' + msg;
+    const { title, body } = formatVideoError(e, {
+      toolName: 'GIF 변환',
+      toolHint: '• 구간을 짧게 (5초 이내) 또는 너비 480px 이하로 시도\n• 시각 입력값 확인 (시작 < 끝, 영상 길이 이내)',
+    });
+    progressText.textContent = '실패: ' + title;
     progressFill.style.width = '0%';
-    alert(
-      'GIF 변환 실패: ' + msg + '\n\n해결 시도:\n' +
-      '• 구간을 짧게 (5초 이내) 또는 너비 480px 이하로 시도\n' +
-      '• 시각 입력값 확인 (시작 < 끝, 영상 길이 이내)\n' +
-      '• 페이지 새로고침 후 재시도\n' +
-      '• 데스크톱 Chrome·Edge·Firefox 최신 사용'
-    );
+    alert(title + '\n\n' + body);
   } finally {
     convertBtn.textContent = orig;
     convertBtn.disabled = !currentFile;

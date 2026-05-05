@@ -12,7 +12,7 @@
  * 저작권 정책: 페이지 인라인 .copyright-warning 박스로 본인 영상 한정 안내.
  */
 
-import { loadFFmpeg, toUint8Array } from '/video/vendor/ffmpeg-loader.mjs';
+import { loadFFmpeg, toUint8Array, formatVideoError } from '/video/vendor/ffmpeg-loader.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -146,16 +146,13 @@ async function run() {
     try { await ffmpeg.deleteFile(inputName); } catch (_) {}
     try { await ffmpeg.deleteFile(outputName); } catch (_) {}
   } catch (e) {
-    const msg = (e && e.message) ? e.message : String(e);
-    progressText.textContent = '실패: ' + msg;
+    const { title, body } = formatVideoError(e, {
+      toolName: 'MP3 추출',
+      toolHint: '• 영상에 오디오 트랙이 있는지 확인 (음소거 영상은 추출 불가)\n• 큰 영상은 동영상 자르기로 먼저 짧게 자른 후 추출',
+    });
+    progressText.textContent = '실패: ' + title;
     progressFill.style.width = '0%';
-    alert(
-      'MP3 추출 실패: ' + msg + '\n\n해결 시도:\n' +
-      '• 영상에 오디오 트랙이 있는지 확인 (음소거 영상은 추출 불가)\n' +
-      '• 페이지 새로고침 후 재시도\n' +
-      '• 큰 영상은 동영상 자르기로 먼저 짧게 자른 후 추출\n' +
-      '• 데스크톱 Chrome·Edge·Firefox 최신 사용'
-    );
+    alert(title + '\n\n' + body);
   } finally {
     extractBtn.textContent = orig;
     extractBtn.disabled = !currentFile;

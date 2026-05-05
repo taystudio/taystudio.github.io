@@ -154,3 +154,42 @@ export async function toUint8Array(blob) {
   const buf = await blob.arrayBuffer();
   return new Uint8Array(buf);
 }
+
+/**
+ * 영상 도구 공통 에러 포맷터.
+ * NotReadableError(iCloud·Google Photos·file 권한 만료) 케이스를 별도 분기 — 모바일에서 자주 발생.
+ *
+ * @param {Error|any} error
+ * @param {{toolName?: string, toolHint?: string}} options
+ * @returns {{title: string, body: string}}
+ */
+export function formatVideoError(error, { toolName = '동영상 처리', toolHint = '' } = {}) {
+  const msg = (error && error.message) ? error.message : String(error);
+  const isReadError = error && (
+    error.name === 'NotReadableError' ||
+    /could not be read|requested file could not|not allowed|file could not be opened/i.test(msg)
+  );
+  if (isReadError) {
+    return {
+      title: '영상 파일을 읽을 수 없습니다',
+      body:
+        '가장 흔한 원인:\n' +
+        '• iCloud·Google Photos에 있는 영상 (폰에 실제 파일 없음, 클라우드에만)\n' +
+        '• 영상 선택 후 시간이 지나 file 권한 만료\n\n' +
+        '해결:\n' +
+        '• 폰 사진 앱에서 영상을 미리 다운로드\n' +
+        '• 영상 선택 직후 바로 처리 버튼 누르기\n' +
+        '• 데스크톱 브라우저(Chrome·Edge·Firefox)에서 시도'
+    };
+  }
+  return {
+    title: toolName + ' 실패: ' + msg,
+    body:
+      '해결 시도:\n' +
+      '• 페이지 새로고침 후 다시 시도\n' +
+      '• 더 작은 영상 또는 720p 이하로 시도\n' +
+      (toolHint ? toolHint + '\n' : '') +
+      '• 데스크톱 Chrome·Edge·Firefox 최신 사용\n' +
+      '• 네트워크 점검 (첫 실행은 ffmpeg ~32MB 다운로드 필요)'
+  };
+}
