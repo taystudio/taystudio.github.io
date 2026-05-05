@@ -163,16 +163,11 @@ function buildArgs(inputName, outputName, op, audioMode, scale) {
 }
 
 async function tryExec(ffmpeg, inputName, outputName, op, scale) {
-  // 1차: 오디오 무손실 복사
-  try {
-    await ffmpeg.exec(buildArgs(inputName, outputName, op, 'copy', scale));
-    return 'copy';
-  } catch (_) {
-    // 2차: AAC 재인코딩 fallback
-    try { await ffmpeg.deleteFile(outputName); } catch (_) {}
-    await ffmpeg.exec(buildArgs(inputName, outputName, op, 'aac', scale));
-    return 'aac';
-  }
+  // audio AAC 재인코딩 강제 — `-c:a copy` 첫 시도 fail 후 catch 재시도 패턴은 모바일 메모리 두 번 부담.
+  // 일부 .mov 컨테이너는 첫 시도 항상 fail(audio codec mp4 컨테이너 비호환)이라 단순화 + 안정성 우선.
+  // 음질은 128k AAC = 거의 차이 없음.
+  await ffmpeg.exec(buildArgs(inputName, outputName, op, 'aac', scale));
+  return 'aac';
 }
 
 async function run() {

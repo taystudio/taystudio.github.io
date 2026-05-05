@@ -65,6 +65,12 @@ function isInAppBrowser() {
   const ua = navigator.userAgent;
   return /KAKAOTALK|Line\/|FBAN|FBAV|Instagram|NAVER\(inapp/i.test(ua);
 }
+// /video/ 도구는 Chrome 외 모바일 브라우저(삼성 인터넷·Whale·UC 등)에서 메모리·WASM 한계로 실패 빈번.
+// in-app + 위 브라우저 자동 안내 대상.
+function isVideoUnsupportedBrowser() {
+  if (isInAppBrowser()) return true;
+  return /SamsungBrowser|UCBrowser|Whale\//i.test(navigator.userAgent);
+}
 function isInstalled() {
   if (isStandalone()) return true;
   try { return localStorage.getItem('ts-installed') === '1'; } catch (_) { return false; }
@@ -113,20 +119,25 @@ async function handleInstallClick() {
   if (isIOS()) showIosInstallModal();
 }
 
-// /video/ 도구는 메모리·WASM·file 권한 제약이 커 in-app 브라우저에서 거의 동작 X.
-// 페이지 로드 시 in-app 감지되면 자동 안내 박스 노출(상단 sticky).
-(function autoVideoInAppWarning() {
-  if (!isInAppBrowser()) return;
+// /video/ 도구는 Chrome·Safari 외 환경에서 메모리·WASM 한계로 실패 빈번.
+// in-app + 삼성 인터넷·Whale 등 감지 시 자동 안내 배너(상단 sticky).
+(function autoVideoBrowserWarning() {
   if (!location.pathname.startsWith('/video/')) return;
+  if (!isVideoUnsupportedBrowser()) return;
+  const inApp = isInAppBrowser();
   function show() {
     if (document.getElementById('ts-video-inapp-banner')) return;
     const banner = document.createElement('div');
     banner.id = 'ts-video-inapp-banner';
     banner.style.cssText = 'background:#fef3c7;border-bottom:1px solid #fbbf24;color:#78350f;padding:14px 20px 14px 20px;font-size:13.5px;line-height:1.55;text-align:center';
+    const title = inApp
+      ? '⚠ in-app 브라우저는 동영상 처리에 부적합합니다'
+      : '⚠ 이 브라우저는 동영상 처리에 한계가 있을 수 있습니다';
+    const btnLabel = inApp ? '외부 브라우저로 열기' : 'Chrome으로 열기';
     banner.innerHTML = `
-      <b>⚠ in-app 브라우저는 동영상 처리에 부적합합니다</b><br>
-      메모리·file 권한 한계로 자주 실패. <b>Chrome / Safari</b>에서 열면 안정적으로 동작합니다.
-      <button type="button" id="ts-inapp-open-external" style="margin-left:10px;padding:5px 10px;background:#7c3aed;color:#fff;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:12.5px">외부 브라우저로 열기</button>
+      <b>${title}</b><br>
+      메모리·WASM 한계로 자주 실패. <b>Chrome / Safari</b> 또는 <b>데스크톱</b>에서 안정적으로 동작합니다.
+      <button type="button" id="ts-inapp-open-external" style="margin-left:10px;padding:5px 10px;background:#7c3aed;color:#fff;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:12.5px">${btnLabel}</button>
     `;
     document.body.insertBefore(banner, document.body.firstChild);
     banner.querySelector('#ts-inapp-open-external').addEventListener('click', showInAppRedirectModal);
