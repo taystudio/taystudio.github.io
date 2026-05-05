@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- PWA 전용: 보라(#7c3aed)로 favicon(#2563eb blue)과 강한 색 구분.
+       향후 native app 아이콘은 #2563eb·#01875F 등 다른 톤으로 만들면 한눈에 구분. -->
+  <rect width="100" height="100" rx="20" fill="#7c3aed"/>
+  <text x="50" y="58" font-size="46" text-anchor="middle" fill="white"
+        font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700">T</text>
+  <!-- WEB 라벨: 작은 prompt 아이콘(~80px)에서도 읽힐 만큼 크게(15px / 100viewbox = 15%) -->
+  <text x="50" y="88" font-size="15" text-anchor="middle" fill="white"
+        font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="800" letter-spacing="2">WEB</text>
+</svg>

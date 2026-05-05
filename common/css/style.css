@@ -97,6 +97,52 @@ body {
   font-weight: 600;
 }
 
+/* PWA "웹앱 설치" 버튼 — 보라(#7c3aed)로 favicon blue·향후 native green과 강한 시각 구분.
+   manifest theme_color·pwa-icon.svg와 동일 색.
+   향후 native 안드로이드 앱 다운 버튼은 Play green(#01875F)으로 별도 색·텍스트(예: ".play-btn"). */
+.site-nav .install-btn {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: #7c3aed;
+  border: none;
+  padding: 6px 12px;
+  margin-left: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: background .15s, transform .1s;
+}
+
+.site-nav .install-btn:hover {
+  background: #6d28d9;
+}
+
+.site-nav .install-btn:active {
+  transform: scale(0.97);
+}
+
+.site-nav .install-btn[hidden] {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .site-nav .install-btn {
+    font-size: 12px;
+    padding: 5px 9px;
+    margin-left: 3px;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-nav .install-btn {
+    font-size: 11.5px;
+    padding: 5px 7px;
+    margin-left: 2px;
+  }
+}
+
 @media (max-width: 480px) {
   .site-header {
     padding: 14px 14px;
