@@ -113,6 +113,31 @@ async function handleInstallClick() {
   if (isIOS()) showIosInstallModal();
 }
 
+// /video/ 도구는 메모리·WASM·file 권한 제약이 커 in-app 브라우저에서 거의 동작 X.
+// 페이지 로드 시 in-app 감지되면 자동 안내 박스 노출(상단 sticky).
+(function autoVideoInAppWarning() {
+  if (!isInAppBrowser()) return;
+  if (!location.pathname.startsWith('/video/')) return;
+  function show() {
+    if (document.getElementById('ts-video-inapp-banner')) return;
+    const banner = document.createElement('div');
+    banner.id = 'ts-video-inapp-banner';
+    banner.style.cssText = 'background:#fef3c7;border-bottom:1px solid #fbbf24;color:#78350f;padding:14px 20px 14px 20px;font-size:13.5px;line-height:1.55;text-align:center';
+    banner.innerHTML = `
+      <b>⚠ in-app 브라우저는 동영상 처리에 부적합합니다</b><br>
+      메모리·file 권한 한계로 자주 실패. <b>Chrome / Safari</b>에서 열면 안정적으로 동작합니다.
+      <button type="button" id="ts-inapp-open-external" style="margin-left:10px;padding:5px 10px;background:#7c3aed;color:#fff;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:12.5px">외부 브라우저로 열기</button>
+    `;
+    document.body.insertBefore(banner, document.body.firstChild);
+    banner.querySelector('#ts-inapp-open-external').addEventListener('click', showInAppRedirectModal);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', show);
+  } else {
+    show();
+  }
+})();
+
 function showInAppRedirectModal() {
   if (document.getElementById('ts-install-overlay')) return;
   const android = isAndroid();

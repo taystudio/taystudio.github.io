@@ -156,6 +156,19 @@ export async function toUint8Array(blob) {
 }
 
 /**
+ * 영상 file 선택 직후 즉시 메모리에 read.
+ *
+ * 의도 = 휴대폰 브라우저(Safari·Chrome iOS·Android)의 **file 권한 짧은 유효기간** 회피.
+ * 사용자가 영상 선택 후 처리 버튼 누르기까지 1분 이상 경과하면 file handle invalidated → NotReadableError.
+ * 선택 직후 arrayBuffer 호출 = 권한 살아있을 때 읽음. 또한 iCloud·Google Photos 클라우드
+ * 영상도 즉시 다운로드 트리거되어 사용자 인지(처리 버튼 누를 때 갑자기 fail X).
+ */
+export async function readVideoFile(file) {
+  const buf = await file.arrayBuffer();
+  return new Uint8Array(buf);
+}
+
+/**
  * 영상 도구 공통 에러 포맷터.
  * NotReadableError(iCloud·Google Photos·file 권한 만료) 케이스를 별도 분기 — 모바일에서 자주 발생.
  *
