@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /dash-tay9k3m/
 
 Sitemap: https://taystudio.github.io/sitemap.xml

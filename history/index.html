@@ -138,7 +138,7 @@
     <h1>📜 변경 이력</h1>
     <p class="subtitle">사이트에서 일어난 일을 시간 역순으로 — 도구 추가, 세율 갱신, SEO·인프라 작업까지.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
-      <b>마지막 갱신</b>: 2026-05-05 · <span style="opacity:.7">클론·택갈이 1차 방어(JS 도메인 가드 + 51 파일 watermark, SW v11) + SEO 개념정리 용어집 <code>concepts.md</code> 신규. 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
+      <b>마지막 갱신</b>: 2026-05-05 · <span style="opacity:.7">운영자 dashboard <code>/dash-tay9k3m/</code> 신규(외부 링크 hub 5섹션 + Looker Studio iframe embed 슬롯 + secret URL · noindex · robots Disallow). 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
     </p>
 
     <div class="legend">
@@ -148,6 +148,93 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-05</span>
+            <span class="tl-tag feature">운영 dashboard</span>
+            <span class="tl-tag">secret URL</span>
+            <span class="tl-tag">Looker Studio</span>
+            <span class="tl-tag">iframe embed</span>
+          </div>
+          <div class="tl-title">📊 운영자 dashboard 신규 — <code>/dash-tay9k3m/</code> + Looker Studio iframe 슬롯</div>
+          <div class="tl-summary">
+            운영자가 GA·Search Console·AdSense·쿠팡·OG 디버거 등을 한 곳에서 진입할 수 있는 secret URL 페이지 신설. ① <b>외부 링크 hub 5섹션</b>(분석·트래픽 4 / 수익 2 / SEO 디버거 5 / 운영·코드 3 / 사이트 진입 5)은 새 탭 빠른 진입용 ② <b>Looker Studio iframe embed 슬롯</b>을 페이지 최상단에 배치 — GA4 연결 보고서를 페이지 안에서 실데이터로 노출 ③ 보안 = secret URL + <code>noindex, nofollow</code> + <code>robots.txt</code> Disallow + iframe <code>referrerpolicy="no-referrer"</code> + Looker 공유 "Restricted + 본인 Gmail만" 강제 ④ 백엔드 도입 X (plan §0.2 정적 우선 유지). 사이트 chrome(header/footer) 미포함 — 사용자 navigation에서 격리.
+          </div>
+          <div class="stats-grid">
+            <div class="stat"><div class="label">신규 페이지</div><div class="value">1</div><div class="delta">/dash-tay9k3m/</div></div>
+            <div class="stat"><div class="label">외부 링크 hub</div><div class="value">19</div><div class="delta">5 섹션 분류</div></div>
+            <div class="stat"><div class="label">embed 슬롯</div><div class="value">1</div><div class="delta">Looker Studio iframe</div></div>
+            <div class="stat"><div class="label">검색 차단</div><div class="value">3</div><div class="delta">noindex · nofollow · robots</div></div>
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">🎯 의도</h3>
+              <p>운영자(TayLee)가 사이트 운영 중 자주 들락거리는 외부 패널들(GA Real-time·Search Console·AdSense·쿠팡 파트너스·카톡 OG 디버거 등)을 한 페이지에 모아 즉시 진입. <b>외부 dashboard는 본인이 Google·Naver 로그인된 상태면 즉시 데이터 노출</b>되므로 별도 인증 로직 불필요. 백엔드 0.</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📂 외부 링크 hub (5 섹션 / 19 링크)</h3>
+              <table>
+                <thead><tr><th>섹션</th><th>대상</th><th>수</th></tr></thead>
+                <tbody>
+                  <tr><td>분석 · 트래픽</td><td>GA / Search Console / 네이버 서치어드바이저 / Looker Studio 본체</td><td>4</td></tr>
+                  <tr><td>수익</td><td>AdSense / 쿠팡 파트너스</td><td>2</td></tr>
+                  <tr><td>SEO · 미리보기 디버거</td><td>Kakao OG / Facebook Sharing / Twitter Card / Rich Results / PageSpeed</td><td>5</td></tr>
+                  <tr><td>운영 · 코드</td><td>GitHub Repo / Actions / 커밋 이력</td><td>3</td></tr>
+                  <tr><td>사이트 진입</td><td>메인 / 계산기 / 텍스트 / 이미지 / history</td><td>5</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🖼 Looker Studio iframe embed</h3>
+              <p>페이지 최상단(외부 링크 hub 위)에 <code>dash-embed</code> 섹션 신설. 보고서 미설정 상태에서는 placeholder + 5단계 설정 가이드 노출. 보고서 URL 받으면 주석 처리된 iframe 해제 + src 교체.</p>
+              <pre>&lt;!-- 설정 후 해제 --&gt;
+&lt;iframe
+  src="https://lookerstudio.google.com/embed/reporting/REPORT_ID/page/PAGE_ID"
+  referrerpolicy="no-referrer"
+  loading="lazy"
+  allow="fullscreen"
+  allowfullscreen&gt;&lt;/iframe&gt;</pre>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔒 보안 정책 — 4중 방어</h3>
+              <table>
+                <thead><tr><th>레이어</th><th>적용</th><th>위협 모델</th></tr></thead>
+                <tbody>
+                  <tr><td>secret URL</td><td><code>dash-tay9k3m</code> path 자체가 짐작 어려움</td><td>경로 탐색 차단</td></tr>
+                  <tr><td>검색엔진 차단</td><td><code>meta robots="noindex, nofollow"</code> + <code>robots.txt</code> Disallow</td><td>검색 결과 노출 차단</td></tr>
+                  <tr><td>Looker 공유 정책</td><td>"제한됨(Restricted) + 본인 Gmail만" 강제 (가이드에 경고)</td><td>URL leak 시 GA 데이터 노출 차단</td></tr>
+                  <tr><td>iframe referrer 차단</td><td><code>referrerpolicy="no-referrer"</code></td><td>secret URL이 Google referer 로그에 안 잡힘</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⚖ 대안 비교 — A안 채택, B·C 비채택</h3>
+              <table>
+                <thead><tr><th>안</th><th>방식</th><th>장점</th><th>단점</th><th>채택</th></tr></thead>
+                <tbody>
+                  <tr><td><b>A</b></td><td>Looker Studio iframe</td><td>코드 0줄 · 시각화 풍부 · 5분 작업</td><td>Looker UI 그대로 (커스텀 제한)</td><td>✓</td></tr>
+                  <tr><td>B</td><td>GIS + GA4 Data API client-side</td><td>완전 native · 자유 디자인</td><td>코드 200줄+ · AdSense/쿠팡 API 제약</td><td>X</td></tr>
+                  <tr><td>C</td><td>GitHub Actions cron + JSON 커밋</td><td>로그인 없이 즉시 노출</td><td><b>repo public이라 수치 노출 위험</b></td><td>X (사용자 비추 결정)</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⏭ 후속 (plan §9.4-10)</h3>
+              <ul>
+                <li>사용자가 Looker Studio에서 GA4 연결 보고서 생성 (차트: 실시간 활성 사용자 / 일별 페이지뷰 / 상위 페이지 Top 10 / 유입 채널)</li>
+                <li>공유 = "제한됨 + 본인 Gmail만" — 절대 "링크가 있는 모든 사용자"·"공개" X</li>
+                <li>임베드 src URL 받아 dash 페이지 iframe 주석 해제 + 교체</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📁 변경 파일</h3>
+              <ul>
+                <li><code>dash-tay9k3m/index.html</code> 신규 (~360줄, embed 섹션·CSS 포함)</li>
+                <li><code>robots.txt</code> — <code>Disallow: /dash-tay9k3m/</code> 1줄 추가</li>
+                <li><code>plan.md</code> §9.1 결정 기록 2 항목 + §9.4-10 진입 후보 추가</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item minor">
