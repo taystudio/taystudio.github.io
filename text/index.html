@@ -61,6 +61,24 @@
           "item": "https://taystudio.github.io/text/"
         }
       ]
+    },
+    {
+      "@type": "ItemList",
+      "name": "텍스트 도구",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "글자수 카운터", "url": "https://taystudio.github.io/text/counter/" },
+        { "@type": "ListItem", "position": 2, "name": "한↔영 키보드 변환", "url": "https://taystudio.github.io/text/kbd-convert/" },
+        { "@type": "ListItem", "position": 3, "name": "SNS 글 정리", "url": "https://taystudio.github.io/text/sns-format/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "한↔영 키보드 변환은 어떻게 동작하나요?", "acceptedAnswer": { "@type": "Answer", "text": "두벌식 표준 키보드 매핑 기반으로 'dkssudgktpdy'를 '안녕하세요'로 자모 합성·분해 상태 머신으로 정확히 변환합니다. 복합 종성(ㄳ ㄵ)·복합 모음(ㅘ ㅙ)도 처리합니다. 세벌식·드보락 등 비표준 키보드는 미지원." } },
+        { "@type": "Question", "name": "인스타 줄바꿈이 왜 안 먹히나요?", "acceptedAnswer": { "@type": "Answer", "text": "인스타그램은 빈 줄을 자동 압축합니다. SNS 글 정리 도구는 U+3164(채움 문자)를 빈 줄에 자동 삽입해 줄바꿈이 보존되도록 처리합니다." } },
+        { "@type": "Question", "name": "SNS 글자수 한도가 플랫폼마다 다른 이유는?", "acceptedAnswer": { "@type": "Answer", "text": "인스타 캡션 2200자, X 280자, 페이스북 63K 등 플랫폼별 정책 차이입니다. 글자수 카운터는 11개 SNS·자소서 한도를 progress bar로 동시 표시합니다." } },
+        { "@type": "Question", "name": "입력한 텍스트가 어디로 가나요?", "acceptedAnswer": { "@type": "Answer", "text": "사용자 브라우저 메모리에서만 처리되며 외부 전송되지 않습니다. 자소서·이력서·민감 텍스트도 안전합니다." } }
+      ]
     }
   ]
 }
@@ -87,6 +105,39 @@
         <a class="tool-card" href="./kbd-convert/" data-keywords="한영 키보드 잘못 친 변환 dkssudgktpdy"><div class="icon">⌨️</div><div class="name">한↔영 키보드 변환</div><div class="desc">한영키 안 누르고 친 글, 양방향 자동 변환</div></a>
         <a class="tool-card" href="./sns-format/" data-keywords="SNS 인스타 줄바꿈 해시태그 특수글씨 글씨체"><div class="icon">#️⃣</div><div class="name">SNS 글 정리</div><div class="desc">인스타 줄바꿈·해시태그 정리·특수 글씨 7종</div></a>
       </div>
+    </section>
+
+    <section class="hub-intro">
+      <p class="hub-intro-eyebrow">— 결정론적·정확</p>
+      <p class="hub-intro-lead">글자수·해시태그·한↔영 변환 — <span class="hl">자소서·SNS·블로그</span> 텍스트 한곳에서.</p>
+      <p class="hub-intro-body">
+        텍스트 변환·카운트는 결정론적 처리이므로 결과가 정확합니다. 자소서 한도(공기업·대기업 자소서 11종 progress bar), 인스타·X·페이스북 글자 한도, 두벌식 키보드 잘못 친 텍스트 복원, SNS Unicode fancy 글씨까지 한 곳에서 끝낼 수 있습니다. 입력 텍스트는 사용자 브라우저 안에서만 처리되며 외부 전송되지 않습니다.
+      </p>
+      <div class="hub-intro-meta">
+        <span>최종 갱신: 2026-05-05</span>
+        <span>도구 3선</span>
+        <span>입력값 외부 전송 X</span>
+      </div>
+    </section>
+
+    <section class="hub-faq">
+      <h2>자주 묻는 질문</h2>
+      <details>
+        <summary>한↔영 키보드 변환은 어떻게 동작하나요?</summary>
+        <div class="answer">두벌식 표준 키보드 매핑을 기반으로 합니다. "dkssudgktpdy" 같은 영문 입력을 "안녕하세요"로 자모 합성/분해 상태 머신으로 정확히 변환합니다. 복합 종성(ㄳ ㄵ 등)·복합 모음(ㅘ ㅙ 등)도 처리합니다. 단 세벌식·드보락 등 비표준 키보드는 지원하지 않습니다.</div>
+      </details>
+      <details>
+        <summary>인스타 줄바꿈이 왜 안 먹히나요? 어떻게 우회하나요?</summary>
+        <div class="answer">인스타그램은 단순 빈 줄을 자동으로 압축합니다. SNS 글 정리 도구는 U+3164(채움 문자)를 빈 줄에 자동 삽입해 줄바꿈이 보존되도록 처리합니다. 복사한 글을 인스타에 붙여넣으면 줄바꿈이 그대로 표시됩니다.</div>
+      </details>
+      <details>
+        <summary>SNS 글자수 한도가 플랫폼마다 다른 이유는?</summary>
+        <div class="answer">인스타 캡션 2200자, X(트위터) 280자, 페이스북 63K, 카톡 카드뉴스 한정 등 플랫폼별 정책 차이입니다. 글자수 카운터는 11개 SNS·자소서 한도를 progress bar로 동시 표시합니다.</div>
+      </details>
+      <details>
+        <summary>입력한 텍스트가 어디로 가나요?</summary>
+        <div class="answer">사용자 브라우저 메모리에서만 처리되며 외부 서버로 전송되지 않습니다. 자소서·이력서·민감 정보 텍스트도 안전합니다.</div>
+      </details>
     </section>
 
     <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">

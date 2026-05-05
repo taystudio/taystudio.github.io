@@ -66,6 +66,15 @@
         { "@type": "ListItem", "position": 8, "name": "이미지 글자 추출 (OCR)", "url": "https://taystudio.github.io/image/ocr/" },
         { "@type": "ListItem", "position": 9, "name": "배경 제거 (누끼)", "url": "https://taystudio.github.io/image/bg-remove/" }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "업로드한 파일이 정말 외부로 안 가나요?", "acceptedAnswer": { "@type": "Answer", "text": "네. 모든 처리는 사용자 브라우저의 JavaScript·WebAssembly로만 일어납니다. 이미지는 canvas API, PDF는 pdf-lib, OCR은 Tesseract.js, 배경 제거는 ONNX Runtime Web으로 클라이언트 사이드 동작. 첫 사용 시 OCR·배경 제거 AI 모델만 자동 다운로드됩니다." } },
+        { "@type": "Question", "name": "한국어 OCR 정확도는 어느 정도인가요?", "acceptedAnswer": { "@type": "Answer", "text": "Tesseract.js 한국어 학습 데이터 기준 인쇄체 명조·고딕은 90~95% 정확. 손글씨·필기체·복잡한 표·세로쓰기는 50~70%로 떨어집니다. 이미지 해상도 300dpi+ 권장." } },
+        { "@type": "Question", "name": "큰 파일도 처리 가능한가요?", "acceptedAnswer": { "@type": "Answer", "text": "데스크톱 Chrome 기준 100MB+ 이미지·PDF 처리 가능. 모바일 브라우저는 메모리 한계로 ~500MB 이상에서 불안정할 수 있습니다." } },
+        { "@type": "Question", "name": "AI 모델 다운로드는 매번 일어나나요?", "acceptedAnswer": { "@type": "Answer", "text": "아니요. 첫 사용 시만 다운로드되고 IndexedDB·브라우저 캐시에 저장돼 다음 방문은 즉시 시작됩니다. OCR 한국어 ~13MB, 배경 제거 small 모델 ~43MB." } }
+      ]
     }
   ]
 }
@@ -103,6 +112,39 @@
         <a class="tool-card" href="./ocr/" data-keywords="이미지 글자 추출 OCR 한국어 텍스트 변환"><div class="icon">🔡</div><div class="name">이미지 글자 추출 (OCR)</div><div class="desc">한국어·영어 OCR — Tesseract.js WASM, 브라우저 내</div></a>
         <a class="tool-card" href="./bg-remove/" data-keywords="배경 제거 누끼 따기 투명 PNG AI"><div class="icon">✂️</div><div class="name">배경 제거 (누끼)</div><div class="desc">AI로 사진 배경 자동 제거 → 투명 PNG (small ~43MB)</div></a>
       </div>
+    </section>
+
+    <section class="hub-intro">
+      <p class="hub-intro-eyebrow">— 브라우저 안에서만 처리</p>
+      <p class="hub-intro-lead">파일이 <span class="hl">외부 서버로 전송되지 않습니다</span> — 이력서·신분증·민감 PDF 안심.</p>
+      <p class="hub-intro-body">
+        TinyPNG·SmallPDF·remove.bg 같은 도구는 클라우드 업로드 방식이지만, 본 사이트는 모든 처리가 사용자 브라우저 메모리·WebAssembly에서만 일어납니다. 이미지 압축·리사이즈·QR 생성·QR 인식·PDF 합치기·자르기·이미지→PDF·OCR·배경 제거(AI)까지 9가지 도구를 무료·가입 없이 사용 가능합니다. 첫 사용 시 OCR(~13MB)·배경 제거(~43MB) AI 모델만 자동 다운로드되고 이후 캐시됩니다.
+      </p>
+      <div class="hub-intro-meta">
+        <span>최종 갱신: 2026-05-05</span>
+        <span>도구 9선</span>
+        <span>파일 외부 전송 X</span>
+      </div>
+    </section>
+
+    <section class="hub-faq">
+      <h2>자주 묻는 질문</h2>
+      <details>
+        <summary>업로드한 파일이 정말 외부로 안 가나요?</summary>
+        <div class="answer">네. 모든 처리는 사용자 브라우저의 JavaScript·WebAssembly로만 일어납니다. 이미지 압축은 canvas API, PDF는 pdf-lib(JS), OCR은 Tesseract.js(WASM), 배경 제거는 ONNX Runtime Web(WASM)에서 클라이언트 사이드로 동작. 사이트 운영자도 사용자 파일 내용을 볼 수 없습니다. 첫 사용 시 OCR 학습 데이터·배경 제거 AI 모델만 jsdelivr·staticimgly.com에서 자동 다운로드됩니다.</div>
+      </details>
+      <details>
+        <summary>한국어 OCR 정확도는 어느 정도인가요?</summary>
+        <div class="answer">Tesseract.js의 한국어 학습 데이터 기준 인쇄체 명조·고딕은 90~95% 정확. 손글씨·필기체·복잡한 표·세로쓰기는 50~70%로 떨어집니다. 정확도는 이미지 해상도(300dpi+ 권장)·배경 대비·폰트 종류에 크게 좌우됩니다.</div>
+      </details>
+      <details>
+        <summary>큰 파일도 처리 가능한가요?</summary>
+        <div class="answer">데스크톱 Chrome 기준 100MB+ 이미지·PDF도 처리 가능. iOS Safari·모바일 브라우저는 메모리 한계로 ~500MB 이상에서 불안정할 수 있습니다. PDF 합치기처럼 여러 파일 동시 처리 시 합산 메모리 기준입니다.</div>
+      </details>
+      <details>
+        <summary>AI 모델 다운로드는 매번 일어나나요?</summary>
+        <div class="answer">아니요. 첫 사용 시만 다운로드되고 IndexedDB·브라우저 캐시에 저장돼 다음 방문은 즉시 시작됩니다. OCR 한국어 ~13MB, 배경 제거 small 모델 ~43MB. Wi-Fi 환경 권장.</div>
+      </details>
     </section>
 
     <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">

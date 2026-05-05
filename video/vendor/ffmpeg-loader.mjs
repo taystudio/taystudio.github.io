@@ -92,6 +92,35 @@ async function fetchWithCache(url, cacheKey, onProgress, label) {
 let ffmpegInstance = null;
 let loadingPromise = null;
 
+// ffmpeg log ring buffer — 모바일에서 콘솔 보기 어려운 경우 alert에 마지막 N줄 첨부.
+// 메모리·코덱·권한 등 실제 원인 진단용.
+const ffmpegLogs = [];
+const FFMPEG_LOG_MAX = 30;
+function pushFfmpegLog(message) {
+  ffmpegLogs.push(message);
+  if (ffmpegLogs.length > FFMPEG_LOG_MAX) ffmpegLogs.shift();
+}
+export function getFfmpegLogs(n = 10) {
+  return ffmpegLogs.slice(-n);
+}
+export function clearFfmpegLogs() {
+  ffmpegLogs.length = 0;
+}
+// 환경 진단(메모리·UA) — alert에 첨부해서 모바일 사용자가 정확한 정보 우리에게 전달
+export function getEnvSnapshot() {
+  const lines = [];
+  try {
+    const m = performance.memory;
+    if (m) {
+      const used = (m.usedJSHeapSize / 1048576).toFixed(0);
+      const limit = (m.jsHeapSizeLimit / 1048576).toFixed(0);
+      lines.push(`JS heap: ${used}MB / ${limit}MB`);
+    }
+  } catch (_) {}
+  lines.push('UA: ' + navigator.userAgent.slice(0, 120));
+  return lines.join('\n');
+}
+
 /**
  * ffmpeg 인스턴스 로드 (singleton).
  * @param {(p: {key: string, current: number, total: number}) => void} onProgress
@@ -135,9 +164,10 @@ export async function loadFFmpeg(onProgress) {
         onProgress?.({ key: 'compute:transcode', current: progress, total: 1 });
       }
     });
-    // ffmpeg stderr → 브라우저 콘솔. hang/실패 진단용.
+    // ffmpeg stderr → 브라우저 콘솔 + ring buffer (모바일 alert 첨부용)
     ffmpeg.on('log', ({ message }) => {
       console.log('[ffmpeg]', message);
+      pushFfmpegLog(message);
     });
     await ffmpeg.load({ classWorkerURL, coreURL, wasmURL });
     ffmpegInstance = ffmpeg;
@@ -176,33 +206,53 @@ export async function readVideoFile(file) {
  * @param {{toolName?: string, toolHint?: string}} options
  * @returns {{title: string, body: string}}
  */
-export function formatVideoError(error, { toolName = '동영상 처리', toolHint = '' } = {}) {
+export function formatVideoError(error, { toolName = '동영상 처리', toolHint = '', includeDiagnostics = true } = {}) {
   const msg = (error && error.message) ? error.message : String(error);
   const isReadError = error && (
     error.name === 'NotReadableError' ||
     /could not be read|requested file could not|not allowed|file could not be opened/i.test(msg)
   );
+  // 메모리 한계 패턴 감지
+  const isMemoryError = /out of memory|allocation failed|cannot enlarge memory|memory access out of bounds|RangeError/i.test(msg);
+
+  let title, body;
   if (isReadError) {
-    return {
-      title: '영상 파일을 읽을 수 없습니다',
-      body:
-        '가장 흔한 원인:\n' +
-        '• iCloud·Google Photos에 있는 영상 (폰에 실제 파일 없음, 클라우드에만)\n' +
-        '• 영상 선택 후 시간이 지나 file 권한 만료\n\n' +
-        '해결:\n' +
-        '• 폰 사진 앱에서 영상을 미리 다운로드\n' +
-        '• 영상 선택 직후 바로 처리 버튼 누르기\n' +
-        '• 데스크톱 브라우저(Chrome·Edge·Firefox)에서 시도'
-    };
-  }
-  return {
-    title: toolName + ' 실패: ' + msg,
-    body:
+    title = '영상 파일을 읽을 수 없습니다';
+    body =
+      '가장 흔한 원인:\n' +
+      '• iCloud·Google Photos에 있는 영상 (폰에 실제 파일 없음, 클라우드에만)\n' +
+      '• 영상 선택 후 시간이 지나 file 권한 만료\n\n' +
+      '해결:\n' +
+      '• 폰 사진 앱에서 영상을 미리 다운로드\n' +
+      '• 영상 선택 직후 바로 처리 버튼 누르기\n' +
+      '• 데스크톱 브라우저(Chrome·Edge·Firefox)에서 시도';
+  } else if (isMemoryError) {
+    title = '메모리 한계 — 영상이 너무 큽니다';
+    body =
+      '브라우저 메모리 한계 초과로 처리할 수 없습니다.\n\n' +
+      '해결:\n' +
+      '• 출력 해상도를 480p·720p로 낮춰 시도\n' +
+      '• 동영상 자르기로 짧게(1분 이내) 자른 후 재시도\n' +
+      '• 데스크톱 Chrome / Edge에서 시도';
+  } else {
+    title = toolName + ' 실패: ' + msg;
+    body =
       '해결 시도:\n' +
       '• 페이지 새로고침 후 다시 시도\n' +
       '• 더 작은 영상 또는 720p 이하로 시도\n' +
       (toolHint ? toolHint + '\n' : '') +
       '• 데스크톱 Chrome·Edge·Firefox 최신 사용\n' +
-      '• 네트워크 점검 (첫 실행은 ffmpeg ~32MB 다운로드 필요)'
-  };
+      '• 네트워크 점검 (첫 실행은 ffmpeg ~32MB 다운로드 필요)';
+  }
+
+  // 진단 정보 첨부 — 모바일 사용자가 alert 보고 우리에게 정보 전달 가능 (콘솔 못 보는 환경)
+  if (includeDiagnostics) {
+    const logs = getFfmpegLogs(8);
+    if (logs.length > 0) {
+      body += '\n\n[ffmpeg 마지막 ' + logs.length + '줄]\n' + logs.join('\n');
+    }
+    body += '\n\n[환경]\n' + getEnvSnapshot();
+  }
+
+  return { title, body };
 }

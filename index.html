@@ -158,12 +158,20 @@
       font-size: clamp(56px, 12vw, 148px);
       font-weight: 800; letter-spacing: -.035em; line-height: .96;
       margin: 0;
-      background: linear-gradient(135deg, var(--text) 0%, var(--primary) 55%, #6366f1 100%);
+      /* 사이트 색 컨벤션 (slate → favicon blue → indigo → PWA violet) — "쓸"자 너무 진하지 않게 #1e293b 시작 */
+      background: linear-gradient(135deg, #1e293b 0%, #2563eb 32%, #6366f1 66%, #7c3aed 100%);
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent; color: transparent;
       word-break: keep-all;
     }
-    .hub-title .punct { color: var(--primary); -webkit-text-fill-color: var(--primary); }
+    .hub-title .punct { color: #7c3aed; -webkit-text-fill-color: #7c3aed; }
+    @media (prefers-color-scheme: dark) {
+      .hub-title {
+        background: linear-gradient(135deg, #cbd5e1 0%, #60a5fa 32%, #818cf8 66%, #a78bfa 100%);
+        -webkit-background-clip: text; background-clip: text;
+      }
+      .hub-title .punct { color: #a78bfa; -webkit-text-fill-color: #a78bfa; }
+    }
     .hub-tagline {
       color: var(--muted); font-size: clamp(15px, 1.5vw, 17px);
       margin: 22px auto 0; max-width: 520px; line-height: 1.65;
