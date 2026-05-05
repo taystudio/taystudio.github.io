@@ -1363,3 +1363,9 @@ button:hover {
   .hub-faq summary { padding: 12px 14px; font-size: 13.5px; }
   .hub-faq .answer { padding: 0 14px 14px; font-size: 13px; }
 }
+
+
+/* AdSense 미승인 — 광고 placeholder 숨김.
+   승인 후 이 블록 삭제하면 `.ad-slot` 위치가 다시 노출됩니다. */
+.ad-slot { display: none !important; }
+
