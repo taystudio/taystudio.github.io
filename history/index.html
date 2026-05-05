@@ -154,6 +154,154 @@
         <div class="tl-card">
           <div class="tl-head">
             <span class="tl-date">2026-05-05</span>
+            <span class="tl-tag feature">건강 계산기 5선 확장</span>
+            <span class="tl-tag">body-fat (Navy)</span>
+            <span class="tl-tag">ideal-weight (BMI 22)</span>
+            <span class="tl-tag">heart-rate (Karvonen)</span>
+          </div>
+          <div class="tl-title">💪 건강 계산기 3선 신규 — 체지방률(Navy)·표준체중(BMI 22 + 4공식)·운동 심박존(Karvonen 5 zone)</div>
+          <div class="tl-summary">
+            계산기 카테고리 단일화 결정 직후 SERP·일반인 트래픽 강한 후보 3선을 <code>tools/</code>에 직접 추가. 모든 공식·수치는 학술 논문·공식 가이드라인 <b>1차 출처 인용</b>(Naval Health Research Center 1984·JACC 2001·Circulation 2010·ACSM 11ed·대한비만학회·KDRI 2020 등). 사이트 도구 수 <b>45 → 48선</b>(계산기 33 → 36), sitemap <b>51 → 54 URL</b>. 별도 카테고리 분리 X — health/ 폐지 결정 일관 유지.
+          </div>
+          <div class="stats-grid">
+            <div class="stat"><div class="label">신규 도구</div><div class="value">3</div><div class="delta">body-fat · ideal-weight · heart-rate</div></div>
+            <div class="stat"><div class="label">계산기</div><div class="value">36</div><div class="delta">건강 5선 포함 (33 → 36)</div></div>
+            <div class="stat"><div class="label">sitemap</div><div class="value">54</div><div class="delta">51 → 54 URL</div></div>
+            <div class="stat"><div class="label">출처</div><div class="value">15</div><div class="delta">1차 학술·공식 가이드라인</div></div>
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">🩺 1. 체지방률 계산기 (<code>tools/body-fat/</code>)</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><b>Navy 줄자 공식</b>(Hodgdon-Beckett, NHRC Report 84-11/29, 1984) — 메인. 인치 기준이라 cm 자동 변환</li>
+                <li><b>CUN-BAE</b>(Gómez-Ambrosi, Int J Obes 2012;36(2):286-94) — BMI 기반 비교값</li>
+                <li><b>ACE 분류</b>(필수지방·운동선수·건강·평균·비만 5단계) + 본인 분류 행 자동 강조</li>
+                <li>지방량(kg) + 제지방량(LBM) + 참고 BMI 동시 표시</li>
+                <li>입력: 성별·나이·키·체중·목·허리(여성: +엉덩이) — 줄자만으로 인바디 대체</li>
+                <li>FAQ 6 (DOM·JSON-LD 동기) + 출처 5</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⚖️ 2. 표준체중 계산기 (<code>tools/ideal-weight/</code>)</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><b>BMI 22 한국 표준</b>(대한비만학회·KDRI 2020) — 메인. 22 × 키(m)²</li>
+                <li><b>Devine 1974</b>(약물 용량 의료 표준)</li>
+                <li><b>Robinson 1983</b>(Devine 보정·보수적)</li>
+                <li><b>Miller 1983</b>(평균 +3kg 후함)</li>
+                <li><b>Hamwi 1964</b>(가장 오래·가장 후함)</li>
+                <li>정상 체중 범위(BMI 18.5~22.9) + 본인 체중 입력 시 차이값(±·색상) 표시</li>
+                <li>152cm 미만은 4공식 음수 가능 → BMI 22만 표시 처리</li>
+                <li>FAQ 6 + 출처 6 (IOM 2009 임신 중 체중 증가 포함)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">❤️ 3. 운동 심박존 계산기 (<code>tools/heart-rate/</code>)</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><b>Tanaka HRmax</b>(Tanaka et al., JACC 2001;37(1):153-6) — 메인. 208 − 0.7 × age, ±5~7 BPM</li>
+                <li><b>Fox-Haskell 220 − age</b>(Ann Clin Res 1971) — 전통 비교, ±10~12 BPM 편차</li>
+                <li><b>Gulati 2010</b>(Circulation 2010;122(2):130-7) — 여성 전용. 206 − 0.88 × age</li>
+                <li><b>Karvonen HRR</b>(Ann Med Exp Biol Fenn 1957) — HRrest 입력 시 자동 적용. 미입력 시 단순 %HRmax</li>
+                <li><b>ACSM 5 zone</b>(11th ed., 2021) — 워밍업·지방연소·유산소·무산소 임계·VO2max BPM 범위 동시 표시</li>
+                <li>FAQ 6 + 출처 5</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔧 통합 갱신</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><code>tools/index.html</code> 허브 — 건강 섹션 카드 5개로 확장(BMI·BMR/TDEE·체지방률·표준체중·심박존), pill count 2 → 5, hero "실생활 계산기 36선"</li>
+                <li>루트 <code>index.html</code> — hub-card "LIVE · 36선", description에 "체지방률"·"기초대사량" 키워드 추가, hasPart description 갱신, quick-list에 체지방률 추가</li>
+                <li><code>tools/HANDOFF.md</code> "건강 (2)" → "건강 (5)" + "33개 계산기" → "36개 계산기" 일괄</li>
+                <li><code>scripts/build-sitemap.sh</code> 재빌드 51 → <b>54 URL</b></li>
+                <li><code>tools/sw.js</code> v13 → <b>v14</b></li>
+                <li><code>tools/privacy/</code>·<code>tools/terms/</code> — "33종" → "36종(건강 5종 포함)" + 시행일 "(건강 계산기 5종 확장)"</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📚 출처 정책 (memory feedback 준수)</h3>
+              <p>"수치 출처 정확성" 룰 — 세율·법령·의학 수치는 공식 페이지/학술 1차 인용. 본 3 도구의 모든 공식·기준은 <b>학술 논문·공식 가이드라인의 1차 출처</b>만 인용. 블로그·언론 인용 0:</p>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>U.S. Naval Health Research Center Report 84-11/29 (1984)</li>
+                <li>Int J Obes 2012 / Am J Clin Nutr / Am J Hosp Pharm 1983</li>
+                <li>JACC 2001 / Ann Clin Res 1971 / Ann Med Exp Biol Fenn 1957 / Circulation 2010</li>
+                <li>ACSM's Guidelines for Exercise Testing and Prescription, 11th ed. (2021)</li>
+                <li>대한비만학회 비만 진료지침 2022 / 보건복지부·한국영양학회 KDRI 2020</li>
+                <li>American Council on Exercise (ACE) Body Composition Standards</li>
+                <li>IOM 2009 (Weight Gain During Pregnancy)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⚠️ 면책 정책</h3>
+              <p>3 도구 모두 plan §7.2 정책 따름 — 사이트 banner(/tools/) + 페이지 내부 <code>.disclaimer</code>로 의료 진단·인바디·DEXA 대체 X 명시. 임산부·만성질환자·만 19세 미만 별도 평가 권장. heart-rate는 추가로 운동 중 가슴 통증·어지러움·메스꺼움 즉시 중단 안내.</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📈 잔여 후보</h3>
+              <p>plan §9.4 #4 — <b>1rm (1회 최대 반복, Epley·Brzycki)</b> 1선만 잔여. 단 운동인 좁은 SERP라 일반인 트래픽 ROI 약함. test/ 카테고리 진입 전·후 비교 결정.</p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-05</span>
+            <span class="tl-tag feature">카테고리 단일화</span>
+            <span class="tl-tag">tools/calorie/ 풍부화</span>
+            <span class="tl-tag">health/ 폐지</span>
+          </div>
+          <div class="tl-title">🩺 계산기 카테고리 단일화 — <code>health/</code> 신설 시도 → <code>tools/calorie/</code> 풍부화로 통합</div>
+          <div class="tl-summary">
+            한때 BMR·TDEE 종합 도구를 신규 카테고리(<code>health/</code>)로 분리 시도했으나, 기존 <code>tools/calorie/</code>와 콘텐츠 90%+ 겹쳐 SERP 자기-경쟁·duplicate-content 위험 발견. <b>결정</b>: 계산기는 모두 <code>tools/</code> 하나로 단일화. <code>tools/calorie/</code>를 풍부화(Mifflin + Harris-Benedict 1984 비교 + 활동량별 TDEE 5표 + 감량/린벌크 + 단백질 1.6g/kg + 수분 33ml/kg + 키별 BMR 참고표 + FAQ 6 + 출처 5)해 BMR 종합 분석 흡수. URL <code>/tools/calorie/</code> 보존으로 SEO equity 유지(인덱스 영향 X).
+          </div>
+          <div class="stats-grid">
+            <div class="stat"><div class="label">카테고리</div><div class="value">3</div><div class="delta">tools / text / image</div></div>
+            <div class="stat"><div class="label">사이트 도구</div><div class="value">45</div><div class="delta">계산기 33 + 텍스트 3 + 이미지 9</div></div>
+            <div class="stat"><div class="label">sitemap</div><div class="value">51</div><div class="delta">53 → 51 URL</div></div>
+            <div class="stat"><div class="label">URL 변경</div><div class="value">0</div><div class="delta">SEO equity 유지</div></div>
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">🎯 결정 이유</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><b>duplicate-content 회피</b> — Mifflin-St Jeor 같은 공식 + 같은 출력으로 두 페이지가 SERP에서 자기-경쟁</li>
+                <li><b>계산기는 본질적으로 한 묶음</b> — 세금·금융·근로·임신·육아·건강·자동차 모두 "계산기" 카테고리</li>
+                <li><b>plan §0.4 카테고리 채우기용 회피</b> — health/ 1선 신설은 이 패턴이 됨</li>
+                <li><b>SEO equity 유지</b> — URL <code>/tools/calorie/</code> 보존, sitemap lastmod만 갱신되어 재크롤링 trigger</li>
+                <li><b>운영 부담 ↓</b> — 카테고리 늘어나면 PWA·sitemap·hub·nav·약관 모두 반복 갱신</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📐 tools/calorie/ 흡수된 콘텐츠</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>Mifflin-St Jeor 1990 (메인) + <b>Harris-Benedict 1984 revised 비교값</b> 추가</li>
+                <li>활동량 5단계 표 — 고정 예시 → <b>실제 입력값 기반</b> 동적 계산 (×1.2 / 1.375 / 1.55 / 1.725 / 1.9)</li>
+                <li>감량 −500 / 린 벌크업 +300 (cut/bulk 둘 다 표시) + <b>단백질 1.6g/kg</b>(Morton 2018, BJSM) + <b>수분 33ml/kg</b>(KDRI 2020)</li>
+                <li>tool-article 3개 — BMR 공식 / 다이어트 목표 5단계 표 / 키·성별별 BMR 참고치 6행 (만 30세 기준)</li>
+                <li>FAQ 5 → <b>6</b> (임신·수유 항목 추가, JSON-LD FAQPage 동기)</li>
+                <li>출처 2 → <b>5</b> (Mifflin·Harris-Benedict·Frankenfield·Morton·KDRI)</li>
+                <li>JSON-LD <code>applicationCategory</code>: <code>FinanceApplication</code> → <code>HealthApplication</code></li>
+                <li>title·description·keywords — "기초대사량 계산기"·"BMR"·"TDEE"·"단백질"·"수분" 키워드 풀 확장</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🗑️ 회수된 작업 (health/ 신설분)</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><code>health/</code> 디렉토리 삭제 (untracked, git 영향 X)</li>
+                <li><code>common/site-chrome.js</code> nav — <code>건강</code> 라인 제거, 3선(계산기·텍스트·이미지) 복귀</li>
+                <li>루트 <code>index.html</code> — OG/title/description/hasPart/hub-card/quick-list 모두 health 흔적 제거. description은 calorie 풍부화 반영("계산기 33선(연봉·세금·부동산·임신·육아·<b>건강·BMR/TDEE</b>)")</li>
+                <li><code>scripts/build-sitemap.sh</code> CATEGORIES 3선 + classify 분기 복귀, sitemap 재빌드 53 → <b>51 URL</b></li>
+                <li><code>tools/sw.js</code> v11 → <b>v13</b> (site-chrome.js 변경 전파)</li>
+                <li><code>tools/privacy/</code> 1조 건강 줄 제거 + 푸터 nav 정리, 시행일 "(BMR/TDEE 분석 보강)"</li>
+                <li><code>tools/terms/</code> 2조 — health/ 표현 → "건강 계산기(BMI·기초대사량·임신·육아 등)" 일반 표현으로 의료 면책 유지</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📚 후속</h3>
+              <p>운동·체력 도구로 확장하고 싶을 때(body-fat·heart-rate·ideal-weight·1rm)는 <b>별도 카테고리 분리 X — <code>tools/</code>에 직접 추가</b>. plan §4.5·§9.4 #4 후보 기록.</p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-05</span>
             <span class="tl-tag feature">운영 dashboard</span>
             <span class="tl-tag">secret URL</span>
             <span class="tl-tag">Looker Studio</span>
@@ -2190,7 +2338,7 @@ magick favicon-48.png favicon-96.png favicon.ico   # multi-size ICO</pre>
 
     <nav style="text-align:center;margin-top:48px;padding-top:24px;border-top:1px solid var(--border)">
       <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px;margin-right:24px">← 홈으로</a>
-      <a href="../tools/" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 33개 계산기 모두 보기</a>
+      <a href="../tools/" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 36개 계산기 모두 보기</a>
     </nav>
   </main>
 </body>

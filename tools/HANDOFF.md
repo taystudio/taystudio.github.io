@@ -8,7 +8,7 @@
 
 ## 0. TL;DR (먼저 이거만 읽어도 됨)
 
-이 디렉토리는 **한국 시장용 utility 계산기 33개를 묶은 정적 사이트**입니다 (2026-05-04 콘텐츠 깊이 보강 완료 — 페이지당 평균 405줄, JSON-LD FAQPage 동기화). **AdSense + 쿠팡 파트너스 수익화 목적**. 백엔드 없음, 순수 HTML/CSS/JS. 사용자(TayLee)가 티스토리 블로그에서 자체 사이트로 이전 중인 수익화 프로젝트의 일부입니다.
+이 디렉토리는 **한국 시장용 utility 계산기 36개를 묶은 정적 사이트**입니다 (2026-05-05 건강 카테고리 5선 확장 — bmi·calorie(BMR/TDEE 종합)·body-fat·ideal-weight·heart-rate). **AdSense + 쿠팡 파트너스 수익화 목적**. 백엔드 없음, 순수 HTML/CSS/JS. 사용자(TayLee)가 티스토리 블로그에서 자체 사이트로 이전 중인 수익화 프로젝트의 일부입니다.
 
 **가장 중요한 즉시 작업** = **URL 경로 일괄 갱신**. 모든 파일이 `https://taehyuklee.github.io/Archive/tools/` 기준으로 하드코딩돼 있어서, 새 도메인/경로로 옮기면 다 바꿔줘야 합니다 (canonical URL, sitemap, JSON-LD, og:url 등). 마지막 섹션의 일괄 갱신 스크립트 참고.
 
@@ -21,7 +21,7 @@
 - **티스토리 블로그**: taehyuklee.tistory.com (이전 운영)
 - **메인 동기**: 구글 애드센스 광고 수익. 현실적 단계별 수익화 설계 선호
 - **운영 사이트들** (생각 정리 차원):
-  - `taystudio.github.io/tools/` — 본 프로젝트 (33개 계산기)
+  - `taystudio.github.io/tools/` — 본 프로젝트 (36개 계산기)
   - 블로그·포트폴리오는 **별도 GitHub 레포로 분리 운영 예정** (이 레포에는 포함 X)
   - 5/4 시점 루트 `index.html`의 hub-grid에서 Blog·Portfolio SOON 카드 제거됨
 - **소통 선호**: 직설적 + 핵심 우선 + 트레이드오프 명시. 환상 심어주는 답변 싫어함. 모든 답변 한국어 OK.
@@ -30,7 +30,7 @@
 
 ## 2. 이 프로젝트가 뭐냐
 
-**TAYSTUDIO Tools — 실생활 계산기 33선**. 한국에서 자주 검색되는 세금·금융·근로·육아·건강 계산기를 한곳에 묶은 정적 사이트. 각 계산기는:
+**TAYSTUDIO Tools — 실생활 계산기 36선**. 한국에서 자주 검색되는 세금·금융·근로·육아·건강 계산기를 한곳에 묶은 정적 사이트. 각 계산기는:
 
 - 100% 클라이언트 사이드 JS (서버 없음, 사용자 입력값 외부 전송 안 함)
 - 출처·법령 근거 명시 (E-A-T 평가 + AdSense 승인 친화)
@@ -67,7 +67,7 @@
     │   └── style.css            ← 공통 스타일 (다크모드·반응형)
     ├── privacy/index.html       ← 개인정보처리방침 (AdSense 필수)
     ├── terms/index.html         ← 이용약관 (AdSense 필수)
-    └── [33개 도구 디렉토리]
+    └── [36개 도구 디렉토리]
         각각: index.html + <slug>.js + (콘텐츠 보강 섹션: tool-article·disclosure-group·related-calc 등)
         CONTENT_DEPTH.md 참고
 ```
@@ -81,7 +81,7 @@
 | 근로·고용 (6) | hourly, weekly-pay, annual-leave, severance, unemployment, parental-leave |
 | 임신·육아 (5) | pregnancy, ovulation, baby-formula, baby-clothes, growth |
 | 자동차 (2) | cartax, cartax-yearly |
-| 건강 (2) | bmi, calorie |
+| 건강 (5) | bmi, calorie(BMR/TDEE 종합), body-fat(Navy), ideal-weight(BMI 22 + 4공식), heart-rate(Karvonen 5 zone) |
 | 생활 (2) | age, dday |
 
 ---

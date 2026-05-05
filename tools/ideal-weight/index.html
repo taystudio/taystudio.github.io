@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudio.github.io · source = github.com/taystudio/taystudio.github.io · 무단 복제·재배포 금지 -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO 계산기">
+  <meta property="og:title" content="표준체중 계산기 | BMI 22 한국 표준 + 의료 4공식 비교">
+  <meta property="og:description" content="대한비만학회 BMI 22 한국 표준체중 + Devine·Robinson·Miller·Hamwi 4 의료 공식 + 정상체중 범위(BMI 18.5~22.9). 본인 체중 입력 시 차이까지 한 화면에.">
+  <meta property="og:url" content="https://taystudio.github.io/tools/ideal-weight/">
+  <meta property="og:image" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="표준체중 계산기 | BMI 22 한국 표준 + 의료 4공식 비교">
+  <meta name="twitter:description" content="BMI 22 한국 표준 + Devine·Robinson·Miller·Hamwi 비교 + 정상 체중 범위 한 화면.">
+  <meta name="twitter:image" content="https://taystudio.github.io/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <title>표준체중 계산기 | BMI 22 한국 표준 + 의료 4공식 비교</title>
+  <meta name="description" content="대한비만학회 BMI 22 한국 표준체중과 Devine·Robinson·Miller·Hamwi 4 의료 공식의 비교값. 정상 체중 범위(BMI 18.5~22.9), 본인 체중 입력 시 차이값까지 한 화면.">
+  <meta name="keywords" content="표준체중 계산기, 이상체중, 적정체중, BMI 22, Devine, Robinson, Miller, Hamwi, 표준 체중, 정상 체중">
+  <link rel="canonical" href="https://taystudio.github.io/tools/ideal-weight/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "표준체중 계산기 (BMI 22 한국 표준 + 의료 4공식)",
+      "description": "대한비만학회 BMI 22 한국 표준체중 + Devine·Robinson·Miller·Hamwi 4 의료 공식 비교 + 정상 체중 범위.",
+      "url": "https://taystudio.github.io/tools/ideal-weight/",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Tools", "item": "https://taystudio.github.io/tools/" },
+        { "@type": "ListItem", "position": 2, "name": "건강", "item": "https://taystudio.github.io/tools/" },
+        { "@type": "ListItem", "position": 3, "name": "표준체중", "item": "https://taystudio.github.io/tools/ideal-weight/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "표준체중·이상체중·적정체중 차이는?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "셋 다 거의 같은 의미로 통용되지만 출처에 따라 정의가 다릅니다. 한국에서 '표준체중'은 일반적으로 BMI 22 기준(대한비만학회), '이상체중(IBW, Ideal Body Weight)'은 Devine 공식 등 미국 의료에서 약물 용량 산정용으로 만든 값. 본 계산기는 두 흐름을 모두 보여줘 비교 가능."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "왜 BMI 22를 한국 표준으로 쓰나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "동아시아인은 같은 BMI에서 서양인보다 체지방률이 높고 만성질환 위험이 큰 경향. 대한비만학회는 정상 BMI 범위를 18.5~22.9로 두고 22를 중간 적정점으로 권장(서양 기준 18.5~24.9 대비 한 단계 엄격). KDRI 2020도 동일 권장. 본 계산기 메인 결과는 BMI 22, 정상 체중 범위는 18.5~22.9로 표시."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Devine·Robinson·Miller·Hamwi 공식 차이는?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Devine 1974는 약물 용량 계산용 미국 의료 표준. Robinson 1983은 Devine을 보정한 더 보수적 값. Miller 1983은 더 후한 값(평균 +3kg). Hamwi 1964는 가장 오래되고 가장 후한 값(평균 +5kg). 4 공식 모두 5피트(152cm) 기준점 + 1인치당 가산 패턴이 동일. 키 작은 사람일수록 공식 간 차이 작음, 큰 사람일수록 차이 큼."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "본인 체중이 표준보다 높으면 무조건 비만인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아닙니다. 표준체중은 키 기반 회귀식으로 근육량·체지방률을 구분하지 못합니다. 운동선수는 BMI 25+여도 체지방률 낮고 건강할 수 있고, 마른비만(BMI 정상 + 체지방률 30%+)도 못 잡습니다. 정확한 평가는 BMI · 체지방률 · 허리둘레(복부비만 ≥ 90cm 남 / 85cm 여) 함께 봐야 함. 단순 체중 비교만으로 다이어트 결정 X."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "152cm 미만 키도 정확한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Devine 등 4 공식은 모두 5피트(152.4cm) = 60인치 기준점에서 출발하므로 그 미만 키에서는 음수 또는 비현실적 값이 나올 수 있습니다. 본 계산기는 152cm 미만에서 4 공식 결과 대신 BMI 22 기준만 표시하도록 처리. 작은 키·아동 평가는 BMI 22 또는 한국 소아청소년 성장도표 사용 권장."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "임신 중에도 같은 표준체중인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아닙니다. 임신 중 체중 증가 권장량은 임신 전 BMI에 따라 다름 — 저체중(<18.5): 12.5~18kg, 정상(18.5~22.9): 11.5~16kg, 과체중(23~24.9): 7~11.5kg, 비만(25+): 5~9kg(KDRI 2020·IOM 2009). 본 계산기는 일반 성인 기준이며 임산부는 산부인과 영양 상담 권장."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 건강 · 표준체중</div>
+    <h1>표준체중 계산기 <span class="basis-badge">BMI 22 한국 표준</span></h1>
+    <p class="subtitle">대한비만학회 BMI 22 메인 + Devine·Robinson·Miller·Hamwi 4 의료 공식 비교 + 정상 체중 범위.</p>
+
+    <form id="form" class="card">
+      <div class="row">
+        <div class="field">
+          <label>성별</label>
+          <div style="display:flex;gap:18px;padding-top:8px">
+            <label style="display:inline-flex;align-items:center;gap:6px;font-weight:400;cursor:pointer">
+              <input type="radio" name="sex" value="m" checked> 남성
+            </label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-weight:400;cursor:pointer">
+              <input type="radio" name="sex" value="f"> 여성
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="height">키 (cm)</label>
+          <input type="number" id="height" placeholder="예: 170" min="100" max="230" step="0.1" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="weight">현재 체중 (kg) — 선택</label>
+        <input type="number" id="weight" placeholder="입력 시 표준 대비 차이 표시" min="20" max="250" step="0.1">
+      </div>
+      <button type="submit">표준체중 계산</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">표준체중 (BMI 22 · 한국 표준)</div>
+        <div id="bmi22" class="result-value">-</div>
+        <div id="diffWeight" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row total"><span class="label">정상 체중 범위 (BMI 18.5~22.9)</span><span id="rangeWeight" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">Devine (1974) — 의료 표준</span><span id="devine" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">Robinson (1983) — 보수적</span><span id="robinson" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">Miller (1983) — 후함</span><span id="miller" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">Hamwi (1964) — 가장 후함</span><span id="hamwi" class="value">-</span></div>
+        <div class="breakdown-row" id="bmiRow" style="display:none"><span class="label">현재 BMI</span><span id="curBmi" class="value">-</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 표준체중은 키 기반 회귀식이라 <b>근육량·체지방률을 구분하지 못합니다</b>. 운동선수·마른비만(체지방률 ↑) 케이스에서 부정확. 정확한 평가는 BMI + 체지방률 + 허리둘레(복부비만 기준 남 ≥90cm / 여 ≥85cm)를 함께 보고, 의료 진단·식이 처방은 의료 전문가 상담 권장. 임산부·만 19세 미만은 별도 기준 적용.
+    </div>
+
+    <section class="tool-article">
+      <h2>표준체중 공식 비교</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>공식</th><th>남성</th><th>여성</th><th>용도</th></tr></thead>
+          <tbody>
+            <tr><td class="highlight">BMI 22 (한국)</td><td colspan="2"><code>22 × 키(m)²</code></td><td>대한비만학회·KDRI 2020</td></tr>
+            <tr><td>Devine 1974</td><td><code>50 + 2.3 × (인치 − 60)</code></td><td><code>45.5 + 2.3 × (인치 − 60)</code></td><td>약물 용량 (의료 표준)</td></tr>
+            <tr><td>Robinson 1983</td><td><code>52 + 1.9 × (인치 − 60)</code></td><td><code>49 + 1.7 × (인치 − 60)</code></td><td>Devine 보정·보수적</td></tr>
+            <tr><td>Miller 1983</td><td><code>56.2 + 1.41 × (인치 − 60)</code></td><td><code>53.1 + 1.36 × (인치 − 60)</code></td><td>일반 사용·후함</td></tr>
+            <tr><td>Hamwi 1964</td><td><code>48 + 2.7 × (인치 − 60)</code></td><td><code>45.5 + 2.2 × (인치 − 60)</code></td><td>가장 오래·가장 후함</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">4 의료 공식은 5피트(152.4cm) 기준점 + 1인치당 가산. 152cm 미만에서는 비현실적 값이 나올 수 있어 본 계산기는 BMI 22만 표시.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>한국 비만학회 BMI 분류 (참고)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>분류</th><th>BMI</th><th>WHO 서양 기준</th></tr></thead>
+          <tbody>
+            <tr><td>저체중</td><td>~ 18.4</td><td>~ 18.4</td></tr>
+            <tr><td>정상</td><td class="highlight">18.5 ~ 22.9</td><td>18.5 ~ 24.9</td></tr>
+            <tr><td>과체중 (위험)</td><td>23 ~ 24.9</td><td>—</td></tr>
+            <tr><td>1단계 비만</td><td>25 ~ 29.9</td><td>30 ~ 34.9</td></tr>
+            <tr><td>2단계 비만</td><td>30 ~ 34.9</td><td>35 ~ 39.9</td></tr>
+            <tr><td>3단계 (고도) 비만</td><td>35 +</td><td>40 +</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">한국 기준은 동아시아인의 체지방률·만성질환 위험을 반영해 WHO 기준보다 한 단계 엄격하게 적용.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>키별 BMI 22 표준체중 (참고표)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>키</th><th>BMI 22 표준</th><th>정상 범위 (18.5~22.9)</th></tr></thead>
+          <tbody>
+            <tr><td>150 cm</td><td>49.5 kg</td><td>41.6 ~ 51.5 kg</td></tr>
+            <tr><td>155 cm</td><td>52.9 kg</td><td>44.4 ~ 55.0 kg</td></tr>
+            <tr><td>160 cm</td><td>56.3 kg</td><td>47.4 ~ 58.6 kg</td></tr>
+            <tr><td>165 cm</td><td>59.9 kg</td><td>50.4 ~ 62.3 kg</td></tr>
+            <tr><td>170 cm</td><td>63.6 kg</td><td>53.5 ~ 66.2 kg</td></tr>
+            <tr><td>175 cm</td><td>67.4 kg</td><td>56.7 ~ 70.1 kg</td></tr>
+            <tr><td>180 cm</td><td>71.3 kg</td><td>59.9 ~ 74.2 kg</td></tr>
+            <tr><td>185 cm</td><td>75.3 kg</td><td>63.3 ~ 78.4 kg</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">키 5cm 차이마다 표준체중 약 3.5kg 변동. 정상 범위는 BMI 18.5~22.9 환산.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../bmi/">BMI 계산기<span class="desc">체질량지수·6단계 분류</span></a>
+        <a href="../body-fat/">체지방률 계산기<span class="desc">Navy 공식·ACE 분류</span></a>
+        <a href="../calorie/">기초대사량 (BMR·TDEE)<span class="desc">일일 칼로리·단백질·물</span></a>
+        <a href="../heart-rate/">운동 심박존<span class="desc">Karvonen·5 zone</span></a>
+        <a href="../growth/">아기 성장 백분위<span class="desc">키·체중 백분위</span></a>
+        <a href="../age/">만 나이 계산기<span class="desc">한국 나이 환산</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>표준체중·이상체중·적정체중 차이는?</summary>
+        <div class="answer">
+          셋 다 거의 같은 의미로 통용되지만 출처에 따라 정의가 다릅니다.
+          한국에서 <b>'표준체중'</b>은 일반적으로 BMI 22 기준(대한비만학회),
+          <b>'이상체중(IBW, Ideal Body Weight)'</b>은 Devine 공식 등 미국 의료에서
+          약물 용량 산정용으로 만든 값. 본 계산기는 두 흐름을 모두 보여줘 비교 가능.
+        </div>
+      </details>
+
+      <details>
+        <summary>왜 BMI 22를 한국 표준으로 쓰나요?</summary>
+        <div class="answer">
+          동아시아인은 같은 BMI에서 서양인보다 <b>체지방률이 높고 만성질환 위험이 큰 경향</b>.
+          대한비만학회는 정상 BMI 범위를 <b>18.5~22.9</b>로 두고 22를 중간 적정점으로 권장
+          (서양 기준 18.5~24.9 대비 한 단계 엄격). KDRI 2020도 동일 권장.
+          본 계산기 메인 결과는 BMI 22, 정상 체중 범위는 18.5~22.9로 표시.
+        </div>
+      </details>
+
+      <details>
+        <summary>Devine·Robinson·Miller·Hamwi 공식 차이는?</summary>
+        <div class="answer">
+          <b>Devine 1974</b>는 약물 용량 계산용 미국 의료 표준.
+          <b>Robinson 1983</b>은 Devine을 보정한 더 보수적 값.
+          <b>Miller 1983</b>은 더 후한 값(평균 +3kg).
+          <b>Hamwi 1964</b>는 가장 오래되고 가장 후한 값(평균 +5kg).
+          4 공식 모두 5피트(152cm) 기준점 + 1인치당 가산 패턴이 동일.
+          키 작은 사람일수록 공식 간 차이 작음, 큰 사람일수록 차이 큼.
+        </div>
+      </details>
+
+      <details>
+        <summary>본인 체중이 표준보다 높으면 무조건 비만인가요?</summary>
+        <div class="answer">
+          <b>아닙니다</b>. 표준체중은 키 기반 회귀식으로 근육량·체지방률을 구분하지 못합니다.
+          운동선수는 BMI 25+여도 체지방률 낮고 건강할 수 있고,
+          <b>마른비만(BMI 정상 + 체지방률 30%+)</b>도 못 잡습니다.
+          정확한 평가는 BMI · 체지방률 · 허리둘레(복부비만 ≥ 90cm 남 / 85cm 여) 함께 봐야 함.
+          단순 체중 비교만으로 다이어트 결정 X.
+        </div>
+      </details>
+
+      <details>
+        <summary>152cm 미만 키도 정확한가요?</summary>
+        <div class="answer">
+          Devine 등 4 공식은 모두 <b>5피트(152.4cm) = 60인치 기준점</b>에서 출발하므로
+          그 미만 키에서는 음수 또는 비현실적 값이 나올 수 있습니다.
+          본 계산기는 152cm 미만에서 4 공식 결과 대신 <b>BMI 22 기준만 표시</b>하도록 처리.
+          작은 키·아동 평가는 BMI 22 또는 한국 소아청소년 성장도표 사용 권장.
+        </div>
+      </details>
+
+      <details>
+        <summary>임신 중에도 같은 표준체중인가요?</summary>
+        <div class="answer">
+          <b>아닙니다</b>. 임신 중 체중 증가 권장량은 임신 전 BMI에 따라 다름 —
+          저체중(&lt;18.5): <b>12.5~18kg</b>, 정상(18.5~22.9): <b>11.5~16kg</b>,
+          과체중(23~24.9): <b>7~11.5kg</b>, 비만(25+): <b>5~9kg</b>(KDRI 2020·IOM 2009).
+          본 계산기는 일반 성인 기준이며 임산부는 산부인과 영양 상담 권장.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>출처</h2>
+      <div class="updated">최종 검증: 2026-05-05</div>
+      <ul>
+        <li><b>BMI 22 한국 표준</b> — 대한비만학회 비만 진료지침 2022 / 보건복지부·한국영양학회 「2020 한국인 영양소 섭취기준 (KDRI)」</li>
+        <li><b>Devine 1974</b> — Devine BJ. "Gentamicin therapy." Drug Intelligence and Clinical Pharmacy 1974;8:650-655</li>
+        <li><b>Robinson 1983</b> — Robinson JD et al. "Determination of ideal body weight." Am J Hosp Pharm 1983;40(6):1016-9</li>
+        <li><b>Miller 1983</b> — Miller DR et al. "Determination of ideal body weight." Am J Hosp Pharm 1983;40(11):1815-6</li>
+        <li><b>Hamwi 1964</b> — Hamwi GJ. "Therapy: changing dietary concepts." In: Diabetes Mellitus: Diagnosis and Treatment. American Diabetes Association, 1964</li>
+        <li><b>임신 중 체중 증가</b> — Institute of Medicine (US) and National Research Council. Weight Gain During Pregnancy: Reexamining the Guidelines. Washington (DC): National Academies Press, 2009</li>
+      </ul>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./ideal-weight.js" defer></script>
+  <site-footer></site-footer>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

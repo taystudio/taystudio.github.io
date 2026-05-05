@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudio.github.io · source = github.com/taystudio/taystudio.github.io · 무단 복제·재배포 금지 -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO 계산기">
+  <meta property="og:title" content="체지방률 계산기 (Navy 공식) | 줄자만으로 체성분 추정">
+  <meta property="og:description" content="미 해군(Navy) 공식으로 줄자만 가지고 체지방률 추정. CUN-BAE 비교값 + ACE 분류(필수·운동선수·건강·평균·비만) + 지방량·제지방량 동시 표시. 입력값은 브라우저 안에서만 처리.">
+  <meta property="og:url" content="https://taystudio.github.io/tools/body-fat/">
+  <meta property="og:image" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="체지방률 계산기 (Navy 공식) | 줄자만으로 체성분 추정">
+  <meta name="twitter:description" content="줄자만 가지고 Navy 공식 + CUN-BAE 비교 + ACE 분류로 체지방률·지방량·제지방량 한 화면.">
+  <meta name="twitter:image" content="https://taystudio.github.io/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <title>체지방률 계산기 (Navy 공식) | 줄자만으로 체성분 추정</title>
+  <meta name="description" content="미 해군(Navy) 줄자 공식으로 체지방률 추정 + CUN-BAE 비교값 + ACE 분류(필수·운동선수·건강·평균·비만 5단계) + 지방량·제지방량 동시 표시. 인바디 없이도 추정 가능.">
+  <meta name="keywords" content="체지방률 계산기, 체지방 측정, 네이비 공식, Navy body fat, 체지방률 평균, 제지방량, 인바디 대체">
+  <link rel="canonical" href="https://taystudio.github.io/tools/body-fat/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "체지방률 계산기 (Navy 공식)",
+      "description": "미 해군 줄자 공식으로 체지방률 추정 + CUN-BAE 비교 + ACE 분류 + 지방량·제지방량 표시.",
+      "url": "https://taystudio.github.io/tools/body-fat/",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Tools", "item": "https://taystudio.github.io/tools/" },
+        { "@type": "ListItem", "position": 2, "name": "건강", "item": "https://taystudio.github.io/tools/" },
+        { "@type": "ListItem", "position": 3, "name": "체지방률 (Navy)", "item": "https://taystudio.github.io/tools/body-fat/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Navy 공식의 정확도는 어느 정도인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "미 해군이 1984년 채택한 줄자 기반 공식으로 실측 수중계량법(hydrostatic weighing) 대비 평균 ±3~4% 오차. DEXA·인바디만큼 정확하진 않지만 비전문가가 줄자만으로 추정할 수 있는 가장 보편적 방법. 본 계산기는 BMI 기반 CUN-BAE(스페인 2012)도 비교값으로 함께 표시해 두 결과 차이가 크면 측정 오류 점검 가능."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "둘레는 어떻게 측정하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "목: 후두 융기(목젖) 바로 아래 가장 가는 부분, 줄자가 수평. 허리: 남성은 배꼽 높이, 여성은 가장 가는 부분(보통 배꼽 위 2~3cm). 엉덩이(여성만): 엉덩이에서 가장 두꺼운 부분. 측정 시 숨을 자연스럽게 내쉬고, 줄자는 피부에 살짝 닿는 정도(누르지 않음). 아침 공복·동일 자세에서 반복 측정해 평균값 사용 권장."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "체지방률 분류 기준은 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "미국운동위원회(ACE) 기준 — 남성: 필수지방 2~5%, 운동선수 6~13%, 건강 14~17%, 평균 18~24%, 비만 25%+. 여성: 필수지방 10~13%, 운동선수 14~20%, 건강 21~24%, 평균 25~31%, 비만 32%+. 여성은 호르몬·생식 기능을 위해 본질적으로 남성보다 5~9%p 높게 유지되는 게 정상."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "BMI와 체지방률, 어느 게 더 정확한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "체지방률이 더 정확합니다. BMI는 키·체중만 보기 때문에 근육량이 많은 운동선수도 비만으로 분류될 수 있고, 마른비만(skinny fat — BMI 정상이지만 체지방률 30%+)도 못 잡습니다. 단 BMI는 줄자 없이 즉시 계산 가능해 1차 스크리닝용. 본인이 운동인이거나 체형이 평균 외라면 체지방률을 기준으로 평가하세요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Navy 결과와 인바디 결과가 왜 다른가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "측정 원리가 다르기 때문. Navy는 둘레 회귀식(체형 추정), 인바디는 생체전기저항분석(BIA)으로 수분량 → 체지방 환산. 인바디는 수분 상태(공복·운동·생리)에 영향 받아 같은 사람도 ±2~3% 변동. 두 결과 모두 ±3~5% 오차가 표준이라 절대값보다 추세(주간·월간 변화)를 보는 게 의미 있음. 정확한 측정은 DEXA·수중계량(±1%)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "체지방률을 줄이려면?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "근육 보존하면서 지방만 줄이는 게 핵심 — ① 칼로리 적자 (주당 −0.5~1kg, TDEE −500kcal), ② 단백질 1.6~2.2g/kg/일 (Morton 2018, BJSM), ③ 저항운동 주 3회+ (근손실 방지), ④ 충분한 수면(7시간+) 으로 코티솔·렙틴·테스토스테론 정상화. 너무 빠른 감량(주 1kg+)은 근손실로 체지방률이 오히려 안 떨어짐."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 건강 · 체지방률 (Navy)</div>
+    <h1>체지방률 계산기 <span class="basis-badge">U.S. Navy 1984</span></h1>
+    <p class="subtitle">줄자만 가지고 체지방률 추정 — Navy 공식 + CUN-BAE 비교 + ACE 분류 + 지방량·제지방량 한 화면.</p>
+
+    <form id="form" class="card">
+      <div class="row">
+        <div class="field">
+          <label>성별</label>
+          <div style="display:flex;gap:18px;padding-top:8px">
+            <label style="display:inline-flex;align-items:center;gap:6px;font-weight:400;cursor:pointer">
+              <input type="radio" name="sex" value="m" checked> 남성
+            </label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-weight:400;cursor:pointer">
+              <input type="radio" name="sex" value="f"> 여성
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="age">나이 (만)</label>
+          <input type="number" id="age" placeholder="예: 30" min="15" max="100" step="1" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="height">키 (cm)</label>
+          <input type="number" id="height" placeholder="예: 175" min="100" max="230" step="0.1" required>
+        </div>
+        <div class="field">
+          <label for="weight">체중 (kg)</label>
+          <input type="number" id="weight" placeholder="예: 70" min="30" max="250" step="0.1" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="neck">목 둘레 (cm)</label>
+          <input type="number" id="neck" placeholder="예: 38" min="20" max="80" step="0.1" required>
+        </div>
+        <div class="field">
+          <label for="waist">허리 둘레 (cm)</label>
+          <input type="number" id="waist" placeholder="남: 배꼽 / 여: 가장 가는 부분" min="40" max="200" step="0.1" required>
+        </div>
+      </div>
+      <div class="field" id="hipField" style="display:none">
+        <label for="hip">엉덩이 둘레 (cm) — 여성만</label>
+        <input type="number" id="hip" placeholder="가장 두꺼운 부분" min="40" max="200" step="0.1">
+      </div>
+      <button type="submit">체지방률 계산</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">체지방률 (Navy)</div>
+        <div id="bf" class="result-value">-</div>
+        <div id="bfClass" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row total"><span class="label">지방량</span><span id="fatMass" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">제지방량 (LBM)</span><span id="leanMass" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">CUN-BAE 비교 (BMI 기반)</span><span id="cunbae" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">참고 BMI</span><span id="bmi" class="value">-</span></div>
+      </div>
+
+      <section class="tool-article" style="margin-top:24px">
+        <h2 style="font-size:16px">ACE 분류 위치 (계산 결과 기준)</h2>
+        <div class="ref-table">
+          <table>
+            <thead><tr><th>분류</th><th>남성</th><th>여성</th></tr></thead>
+            <tbody>
+              <tr id="rowEssential"><td>필수지방</td><td>2~5%</td><td>10~13%</td></tr>
+              <tr id="rowAthlete"><td>운동선수</td><td>6~13%</td><td>14~20%</td></tr>
+              <tr id="rowFitness"><td>건강</td><td>14~17%</td><td>21~24%</td></tr>
+              <tr id="rowAverage"><td>평균</td><td>18~24%</td><td>25~31%</td></tr>
+              <tr id="rowObese"><td>비만</td><td>25%+</td><td>32%+</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small">본인 분류 행이 강조됨. 여성은 호르몬·생식 기능을 위해 본질적으로 남성보다 5~9%p 높게 유지되는 게 정상.</p>
+      </section>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 본 계산은 Navy 줄자 공식 기반 일반인 추정치이며 <b>의료 진단·인바디·DEXA를 대체하지 않습니다</b>. 실측 대비 ±3~5% 오차 표준. 임산부·근육량 극단 케이스(보디빌더·심한 저체중)·만 19세 미만은 정확도가 더 떨어집니다. 정확한 체성분은 DEXA·수중계량 등 의료 측정 권장.
+    </div>
+
+    <section class="tool-article">
+      <h2>Navy 공식 (1984)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>성별</th><th>공식 (인치 단위)</th></tr></thead>
+          <tbody>
+            <tr><td>남성</td><td><code>%BF = 86.010 × log₁₀(허리 − 목) − 70.041 × log₁₀(키) + 36.76</code></td></tr>
+            <tr><td>여성</td><td><code>%BF = 163.205 × log₁₀(허리 + 엉덩이 − 목) − 97.684 × log₁₀(키) − 78.387</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">cm 입력값을 ÷ 2.54로 인치 변환 후 적용. 본 도구는 자동 변환됩니다.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>CUN-BAE 공식 (Gómez-Ambrosi 2012)</h2>
+      <p style="margin-bottom:12px">스페인 Navarra 대학병원이 검증한 공식으로 BMI·나이·성별 기반. 비만 인구에서 Navy 공식보다 정확도 ↑. 본 계산기는 비교값으로 함께 표시:</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>변수</th><th>의미</th></tr></thead>
+          <tbody>
+            <tr><td>BMI</td><td>체중(kg) ÷ 키(m)²</td></tr>
+            <tr><td>age</td><td>만 나이</td></tr>
+            <tr><td>sex</td><td>남성 0 / 여성 1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">두 공식 결과가 ±5%p 이상 차이나면 줄자 측정 오류 가능성. 동일 자세·아침 공복으로 재측정 권장.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>ACE 체지방률 분류 (참고)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>분류</th><th>남성</th><th>여성</th><th>설명</th></tr></thead>
+          <tbody>
+            <tr><td>필수지방</td><td>2~5%</td><td>10~13%</td><td>생명 유지 최소치 — 미만 시 호르몬·면역 이상</td></tr>
+            <tr><td>운동선수</td><td>6~13%</td><td>14~20%</td><td>경기력 최적 — 일반인 도달 어려움</td></tr>
+            <tr><td>건강</td><td>14~17%</td><td>21~24%</td><td class="highlight">대사 건강 최적 범위</td></tr>
+            <tr><td>평균</td><td>18~24%</td><td>25~31%</td><td>일반 성인 다수가 속함</td></tr>
+            <tr><td>비만</td><td>25%+</td><td>32%+</td><td>대사질환·심혈관 위험 ↑</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">여성은 에스트로겐·생식 기능을 위해 본질적으로 5~9%p 높음. 출산 후·폐경 후 변화 큼.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../bmi/">BMI 계산기<span class="desc">체질량지수·정상체중</span></a>
+        <a href="../calorie/">기초대사량 (BMR·TDEE)<span class="desc">일일 칼로리·단백질</span></a>
+        <a href="../ideal-weight/">표준체중 계산기<span class="desc">BMI 22 + 의료 4공식</span></a>
+        <a href="../heart-rate/">운동 심박존<span class="desc">Karvonen·5 zone</span></a>
+        <a href="../growth/">아기 성장 백분위<span class="desc">키·체중 백분위</span></a>
+        <a href="../age/">만 나이 계산기<span class="desc">한국 나이 환산</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>Navy 공식의 정확도는 어느 정도인가요?</summary>
+        <div class="answer">
+          미 해군이 1984년 채택한 줄자 기반 공식으로 실측 <b>수중계량법(hydrostatic weighing)</b> 대비 평균 ±3~4% 오차.
+          DEXA·인바디만큼 정확하진 않지만 비전문가가 줄자만으로 추정할 수 있는 가장 보편적 방법.
+          본 계산기는 BMI 기반 <b>CUN-BAE(스페인 2012)</b>도 비교값으로 함께 표시해 두 결과 차이가 크면 측정 오류 점검 가능.
+        </div>
+      </details>
+
+      <details>
+        <summary>둘레는 어떻게 측정하나요?</summary>
+        <div class="answer">
+          <b>목</b>: 후두 융기(목젖) 바로 아래 가장 가는 부분, 줄자가 수평.
+          <b>허리</b>: 남성은 배꼽 높이, 여성은 가장 가는 부분(보통 배꼽 위 2~3cm).
+          <b>엉덩이(여성만)</b>: 엉덩이에서 가장 두꺼운 부분.
+          측정 시 숨을 자연스럽게 내쉬고, 줄자는 피부에 살짝 닿는 정도(누르지 않음).
+          아침 공복·동일 자세에서 반복 측정해 평균값 사용 권장.
+        </div>
+      </details>
+
+      <details>
+        <summary>체지방률 분류 기준은 무엇인가요?</summary>
+        <div class="answer">
+          <b>미국운동위원회(ACE) 기준</b> — 남성: 필수지방 2~5%, 운동선수 6~13%, 건강 14~17%, 평균 18~24%, 비만 25%+.
+          여성: 필수지방 10~13%, 운동선수 14~20%, 건강 21~24%, 평균 25~31%, 비만 32%+.
+          여성은 호르몬·생식 기능을 위해 본질적으로 남성보다 5~9%p 높게 유지되는 게 정상.
+        </div>
+      </details>
+
+      <details>
+        <summary>BMI와 체지방률, 어느 게 더 정확한가요?</summary>
+        <div class="answer">
+          <b>체지방률이 더 정확합니다</b>. BMI는 키·체중만 보기 때문에 근육량이 많은 운동선수도 비만으로 분류될 수 있고,
+          <b>마른비만(skinny fat — BMI 정상이지만 체지방률 30%+)</b>도 못 잡습니다.
+          단 BMI는 줄자 없이 즉시 계산 가능해 1차 스크리닝용.
+          본인이 운동인이거나 체형이 평균 외라면 체지방률을 기준으로 평가하세요.
+        </div>
+      </details>
+
+      <details>
+        <summary>Navy 결과와 인바디 결과가 왜 다른가요?</summary>
+        <div class="answer">
+          측정 원리가 다르기 때문. Navy는 <b>둘레 회귀식</b>(체형 추정), 인바디는 <b>생체전기저항분석(BIA)</b>으로
+          수분량 → 체지방 환산. 인바디는 수분 상태(공복·운동·생리)에 영향 받아 같은 사람도 ±2~3% 변동.
+          두 결과 모두 ±3~5% 오차가 표준이라 <b>절대값보다 추세(주간·월간 변화)</b>를 보는 게 의미 있음.
+          정확한 측정은 DEXA·수중계량(±1%).
+        </div>
+      </details>
+
+      <details>
+        <summary>체지방률을 줄이려면?</summary>
+        <div class="answer">
+          근육 보존하면서 지방만 줄이는 게 핵심 — ① 칼로리 적자 (주당 −0.5~1kg, <b>TDEE −500kcal</b>),
+          ② 단백질 <b>1.6~2.2g/kg/일</b> (Morton 2018, BJSM), ③ 저항운동 주 3회+ (근손실 방지),
+          ④ 충분한 수면(7시간+) 으로 코티솔·렙틴·테스토스테론 정상화.
+          너무 빠른 감량(주 1kg+)은 근손실로 체지방률이 오히려 안 떨어짐.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>출처</h2>
+      <div class="updated">최종 검증: 2026-05-05</div>
+      <ul>
+        <li><b>Navy 공식</b> — Hodgdon JA, Beckett MB. "Prediction of percent body fat for U.S. Navy men/women from body circumferences and height." Naval Health Research Center Report No. 84-11/29, 1984</li>
+        <li><b>CUN-BAE 공식</b> — Gómez-Ambrosi J et al. "Body mass index classification misses subjects with increased cardiometabolic risk factors related to elevated adiposity." Int J Obes 2012;36(2):286-94</li>
+        <li><b>체지방률 분류</b> — American Council on Exercise (ACE), Body Composition Standards (Lee & Nieman 2013, Nutritional Assessment 6th ed.)</li>
+        <li><b>감량·근손실 방지</b> — Morton RW et al. "Systematic review, meta-analysis and meta-regression of the effect of protein supplementation on resistance training-induced gains." BJSM 2018</li>
+        <li><b>측정법 정확도 비교</b> — Kuriyan R. "Body composition techniques." Indian J Med Res 2018;148(5):648-658</li>
+      </ul>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./body-fat.js" defer></script>
+  <site-footer></site-footer>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

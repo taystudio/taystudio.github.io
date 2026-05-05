@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudio.github.io · source = github.com/taystudio/taystudio.github.io · 무단 복제·재배포 금지 -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO 계산기">
+  <meta property="og:title" content="운동 심박존 계산기 | Zone 2 체지방 감량·Fatmax 심박수 (Karvonen 5 zone)">
+  <meta property="og:description" content="Tanaka 최대심박수 + Karvonen 여유심박수로 5단계 운동 심박존 계산. Zone 2 체지방 감량(Fatmax 영역)·HIIT 비교·미토콘드리아 효율 가이드 포함. ACSM 가이드라인 + Achten 2002 + San-Millán 2018.">
+  <meta property="og:url" content="https://taystudio.github.io/tools/heart-rate/">
+  <meta property="og:image" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="운동 심박존 계산기 | Zone 2 체지방 감량·Fatmax 심박수">
+  <meta name="twitter:description" content="Tanaka HRmax + Karvonen HRR + ACSM 5 zone + Zone 2 체지방 감량(Fatmax) 가이드. Achten 2002·San-Millán 2018 인용.">
+  <meta name="twitter:image" content="https://taystudio.github.io/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <title>운동 심박존 계산기 | Zone 2 체지방 감량·Fatmax 심박수 (Karvonen 5 zone)</title>
+  <meta name="description" content="Tanaka 최대심박수 + Karvonen 여유심박수로 ACSM 5단계 운동 심박존 계산. Zone 2 체지방 감량 트레이닝(Fatmax 평균 HRmax의 60-65%, Achten 2002)·미토콘드리아 효율(San-Millán 2018)·HIIT 비교까지. Fox-Haskell·여성 Gulati 공식 비교값 포함.">
+  <meta name="keywords" content="운동 심박존 계산기, Zone 2 체지방 감량, Zone 2 다이어트, 체지방 감량 심박수, 지방연소 심박수, Fatmax, 최대심박수, 카르보넨 공식, Karvonen, Tanaka, 미토콘드리아 트레이닝, HIIT 심박수, VO2max">
+  <link rel="canonical" href="https://taystudio.github.io/tools/heart-rate/">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('../sw.js').catch(() => {}));
+    }
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "운동 심박존 계산기 (Zone 2 체지방 감량 · Tanaka HRmax + Karvonen 5 zone)",
+      "description": "Tanaka 최대심박수 + Karvonen 여유심박수로 ACSM 5단계 운동 심박존 계산. Zone 2 체지방 감량(Fatmax)·미토콘드리아 효율·HIIT 비교 가이드 포함.",
+      "url": "https://taystudio.github.io/tools/heart-rate/",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Tools", "item": "https://taystudio.github.io/tools/" },
+        { "@type": "ListItem", "position": 2, "name": "건강", "item": "https://taystudio.github.io/tools/" },
+        { "@type": "ListItem", "position": 3, "name": "운동 심박존", "item": "https://taystudio.github.io/tools/heart-rate/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "왜 220 − age 대신 Tanaka 공식을 쓰나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전통적인 Fox-Haskell 220 − age 공식은 1971년 비검증 추정으로 ±10~12 BPM 편차가 큽니다. Tanaka et al. 2001(JACC, 351명 메타분석)이 제시한 208 − 0.7 × age는 표준편차가 절반(±5~7 BPM) 수준이라 ACSM·미국심장협회(AHA)가 표준으로 권장. 본 계산기는 두 값을 모두 표시해 비교 가능."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Karvonen 공식이 단순 % HRmax보다 정확한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "안정시심박수(HRrest)를 입력할 수 있다면 Karvonen이 더 정확합니다. 평소 운동량·심혈관 컨디션이 HRrest로 반영되기 때문 — 같은 70%여도 운동인은 더 낮은 BPM이 같은 강도. 공식: 목표 HR = (HRmax − HRrest) × %강도 + HRrest. 본 계산기는 HRrest 미입력 시 단순 % HRmax 방식으로 자동 전환."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "안정시심박수(HRrest)는 어떻게 측정하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아침 기상 직후 누운 상태로 1분간 손목 또는 목 동맥에서 측정. 30초 측정 × 2도 가능. 일반인 60~80 BPM 정상, 운동인은 40~60 BPM. 카페인·스트레스·수면 부족·생리 주기에 영향 받으니 3~5일 평균값 사용 권장. 스마트워치 측정값도 ±2~3 BPM 정확도라 사용 가능."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "체지방 감량(다이어트)에 최적 심박수는? Fatmax란?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Achten & Jeukendrup 2002(Med Sci Sports Exerc 34(1):92-7)이 정의한 Fatmax(최대 지방산화 강도) = 평균 HRmax의 60-65%, 즉 본 계산기의 Zone 2 영역. 이 강도에서 분당 지방산화량 최대(0.5~0.7g/분). 단 '분당 지방' 최대일 뿐 '총 칼로리'는 강도 높을수록 큼. 시간 충분하면 Zone 2 1시간+ 누적, 시간 제한 있으면 HIIT(Zone 4-5) 짧고 강하게."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Zone 2 트레이닝이 왜 요즘 인기인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "San-Millán & Brooks 2018(Sports Med 48(2):467-479)이 Zone 2 지속 운동이 2형 미토콘드리아·지방산화 효소 발현을 유도해 대사 유연성(metabolic flexibility) 개선한다는 학술 근거를 제시. 토데 포가차르(투르 드 프랑스 챔프) 코치 Iñigo San-Millán이 \"엘리트 선수들은 80% 이상 시간을 Zone 2에 쓴다\"는 사실을 알리며 유산소 트레이닝 패러다임을 바꿈. 일반인에게도 부상 ↓·지속 가능성 ↑·심혈관 효과로 어필."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Zone 2 vs HIIT 어느 게 다이어트에 좋은가?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Foster et al. 2015(J Sports Sci Med 14(4):747-755) — 12주 비교에서 둘 다 체지방 감소 효과. Zone 2는 분당 지방산화 최대·매일 가능·관절 부담 ↓, HIIT는 시간 효율·EPOC(운동 후 추가 소모)·VO2max ↑. 최선은 병행 — 주 1~2회 HIIT + 주 2~3회 Zone 2. 시간 없는 직장인 = HIIT 위주, 시간 충분 = Zone 2 비중 ↑."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Zone 2가 너무 쉬워 보이는데 정말 효과 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "효과적입니다. 본질은 '쉬워 보이지만 오래 가능한 강도' — 대화 테스트(완전한 문장 가능, 노래는 어려움)·코호흡(입 안 벌어짐)으로 가늠. 초보자가 자주 하는 실수는 Zone 2를 Zone 3-4 강도로 하는 것(BPM 측정 안 하고 \"좀 빨리 걷기\" 정도로). 심박계로 BPM 확인 후 처음엔 답답할 정도로 천천히 — 실제 Zone 2면 매주 5~10시간 누적해도 피로 적음."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "여성은 다른 공식을 쓰나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "선택입니다. Gulati et al. 2010(노스웨스턴 의대 5,437명 연구)이 여성 전용 공식 HRmax = 206 − 0.88 × age 제시 — Tanaka보다 평균 5~6 BPM 낮음. Tanaka 공식 자체가 남녀 통합이라 여성에 약간 과대평가될 수 있음. 본 계산기는 성별 여성 선택 시 두 값을 모두 표시해 비교 가능. 운동 권장은 보수적인 Gulati 기준 사용 무난."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "심박수가 zone을 자주 벗어나도 괜찮은가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "괜찮습니다. zone은 절대 기준이 아니라 ACSM 가이드라인의 권장 범위. 운동 중 자연스럽게 변동하며, 평균이 목표 zone에 머물면 충분. 단 zone 5(90%+)를 5분 이상 유지·가슴 통증·어지러움·메스꺼움이 있으면 즉시 중단·의료 상담. 본 계산기는 일반 성인 기준이며 심혈관 질환·임산부·고혈압 환자는 의사 상담 후 강도 결정 권장."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 건강 · 운동 심박존</div>
+    <h1>운동 심박존 계산기 <span class="basis-badge">Tanaka 2001 + Karvonen</span></h1>
+    <p class="subtitle">ACSM 5단계 심박존(워밍업·<b>Zone 2 체지방 감량</b>·유산소·무산소·VO2max) — Tanaka HRmax + Karvonen HRR 기반. <b>Fatmax 영역(HRmax의 60-65%)</b>까지 한 화면.</p>
+
+    <form id="form" class="card">
+      <div class="row">
+        <div class="field">
+          <label>성별</label>
+          <div style="display:flex;gap:18px;padding-top:8px">
+            <label style="display:inline-flex;align-items:center;gap:6px;font-weight:400;cursor:pointer">
+              <input type="radio" name="sex" value="m" checked> 남성
+            </label>
+            <label style="display:inline-flex;align-items:center;gap:6px;font-weight:400;cursor:pointer">
+              <input type="radio" name="sex" value="f"> 여성
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="age">나이 (만)</label>
+          <input type="number" id="age" placeholder="예: 30" min="15" max="100" step="1" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="hrrest">안정시심박수 HRrest (BPM) — 선택</label>
+        <input type="number" id="hrrest" placeholder="입력 시 Karvonen 정확도 ↑ (미입력 = 단순 %HRmax)" min="30" max="120" step="1">
+      </div>
+      <button type="submit">심박존 계산</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">최대심박수 HRmax (Tanaka 2001)</div>
+        <div id="hrmax" class="result-value">-</div>
+        <div id="modeLabel" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">Fox-Haskell (220 − age) — 전통 비교</span><span id="hrmaxFox" class="value">-</span></div>
+        <div class="breakdown-row" id="gulatiRow" style="display:none"><span class="label">Gulati 2010 — 여성 전용 비교</span><span id="hrmaxGulati" class="value">-</span></div>
+      </div>
+
+      <section class="tool-article" style="margin-top:24px">
+        <h2 style="font-size:16px">5 단계 운동 심박존 (목표 BPM)</h2>
+        <div class="ref-table">
+          <table>
+            <thead><tr><th>Zone</th><th>강도</th><th>목적</th><th>BPM 범위</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>50~60%</td><td>워밍업·회복</td><td id="z1">-</td></tr>
+              <tr style="background:rgba(37,99,235,0.06)"><td><b>2</b></td><td><b>60~70%</b></td><td><b>체지방 감량 (Fatmax)·기초 유산소</b></td><td id="z2"><b>-</b></td></tr>
+              <tr><td>3</td><td>70~80%</td><td>유산소·심폐 강화</td><td id="z3">-</td></tr>
+              <tr><td>4</td><td>80~90%</td><td>무산소 임계 (Lactate)</td><td id="z4">-</td></tr>
+              <tr><td>5</td><td>90~100%</td><td>최대 강도 (VO2max)</td><td id="z5">-</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small" id="zoneNote">— BPM 범위는 Karvonen (HRR 반영) 또는 단순 %HRmax 방식 자동 전환.</p>
+      </section>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 본 계산은 ACSM 가이드라인 기반 일반 성인 추정치입니다. <b>심혈관 질환·고혈압·임산부·만 19세 미만</b>은 운동 강도를 의사와 상담하세요. 운동 중 가슴 통증·어지러움·메스꺼움이 있으면 즉시 중단. 의료 진단·운동 처방을 대체하지 않습니다.
+    </div>
+
+    <section class="tool-article">
+      <h2>최대심박수(HRmax) 공식 비교</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>공식</th><th>식</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr><td class="highlight">Tanaka 2001</td><td><code>208 − 0.7 × age</code></td><td>현재 표준 (ACSM·AHA 권장), ±5~7 BPM</td></tr>
+            <tr><td>Fox-Haskell 1971</td><td><code>220 − age</code></td><td>전통적·널리 쓰이지만 ±10~12 BPM 편차</td></tr>
+            <tr><td>Gulati 2010 (여성)</td><td><code>206 − 0.88 × age</code></td><td>여성 5,437명 연구, Tanaka보다 5~6 BPM 낮음</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">실측 트레드밀 검사가 가장 정확하지만, 일반인은 Tanaka 추정치로 충분.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>Karvonen 공식 (HRR · 1957)</h2>
+      <p style="margin-bottom:12px"><b>여유심박수(Heart Rate Reserve, HRR) = HRmax − HRrest</b>. 안정시심박수를 빼고 강도 % 적용 후 다시 더해 계산:</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>변수</th><th>의미</th></tr></thead>
+          <tbody>
+            <tr><td>목표 HR</td><td><code>(HRmax − HRrest) × %강도 + HRrest</code></td></tr>
+            <tr><td>HRrest</td><td>안정시심박수 (아침 기상 직후 측정 권장)</td></tr>
+            <tr><td>HRmax</td><td>최대심박수 (Tanaka 권장)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">HRrest를 알면 본인 컨디션이 반영돼 zone이 더 정확. 운동인일수록 HRrest가 낮고 → 같은 zone에서 더 낮은 BPM이 같은 강도.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>심박존별 운동 처방 (참고)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Zone</th><th>%</th><th>대표 운동</th><th>지속 가능 시간</th></tr></thead>
+          <tbody>
+            <tr><td>1 워밍업</td><td>50~60%</td><td>가벼운 걷기·스트레칭</td><td>제한 없음</td></tr>
+            <tr><td>2 지방연소</td><td>60~70%</td><td>빠른 걷기·가벼운 조깅·자전거</td><td>30분~수시간</td></tr>
+            <tr><td>3 유산소</td><td>70~80%</td><td>달리기·수영·사이클</td><td class="highlight">20~60분</td></tr>
+            <tr><td>4 무산소 임계</td><td>80~90%</td><td>인터벌·템포런</td><td>10~20분</td></tr>
+            <tr><td>5 최대 (VO2max)</td><td>90~100%</td><td>전력질주·HIIT 짧은 세트</td><td>1~5분</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">시간 제한 있는 다이어터는 zone 4~5 인터벌(EPOC 효과로 운동 후에도 칼로리 ↑) 권장. 초보자·심혈관 회복은 zone 2~3.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>💡 Zone 2 — 체지방 감량 (Fatmax) 트레이닝 가이드</h2>
+      <p style="margin-bottom:12px"><b>Zone 2(HRmax 60~70%)</b>가 최근 다이어트·러너 사이에서 가장 주목받는 강도. 단순 "지방 비율 ↑" 이상의 학술 근거가 있습니다:</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>이유</th><th>학술 근거</th></tr></thead>
+          <tbody>
+            <tr><td><b>Fatmax 영역 (최대 지방산화 강도)</b></td><td>Achten & Jeukendrup 2002 (Med Sci Sports Exerc) — Fatmax 평균 = <b>HRmax의 60-65%</b>. 이 강도에서 시간당 지방산화량 최대(분당 0.5~0.7g 지방)</td></tr>
+            <tr><td><b>미토콘드리아 효율 ↑</b></td><td>San-Millán & Brooks 2018 (Sports Med) — Zone 2 지속 트레이닝이 <b>2형 미토콘드리아·지방산화 효소</b> 발현을 유도, 대사 유연성(metabolic flexibility) 개선. 토데 포가차르(투르 드 프랑스 챔프) 코치 Iñigo San-Millán이 부활시킨 트레이닝</td></tr>
+            <tr><td><b>누적 시간이 큼 (총 칼로리)</b></td><td>피로 적어 주당 5~10시간 누적 가능. HIIT는 주 2~3회·45분 한계. <b>주간 총 지방 소모는 Zone 2가 더 많은 케이스 흔함</b></td></tr>
+            <tr><td><b>심혈관·관절 부담 ↓</b></td><td>대화 가능한 강도("자녀와 통화 가능" 페이스) → 부상 리스크 ↓·일상 회복 빠름·매일 가능</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">단 <b>분당 지방 소모량은 Zone 2 (Fatmax) 최대지만, 총 칼로리 소모는 강도 ↑일수록 큼</b>. 시간 제한 있으면 HIIT(zone 4-5) 효율 ↑.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>Zone 2 vs HIIT — 어느 게 다이어트에 좋은가?</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>비교</th><th>Zone 2 (60~70%)</th><th>HIIT (Zone 4~5)</th></tr></thead>
+          <tbody>
+            <tr><td>분당 지방 소모량</td><td class="highlight">최대 (Fatmax)</td><td>중간 (탄수화물 위주)</td></tr>
+            <tr><td>총 칼로리 소모</td><td>중간</td><td class="highlight">큼 + EPOC(운동 후 추가 소모)</td></tr>
+            <tr><td>시간 효율</td><td>1시간+ 필요</td><td class="highlight">15~30분</td></tr>
+            <tr><td>지속 가능성</td><td class="highlight">매일 가능</td><td>주 2~3회 한계</td></tr>
+            <tr><td>심혈관 효과</td><td>지구력 (산화 능력 ↑)</td><td>VO2max ↑</td></tr>
+            <tr><td>초보자 적합</td><td class="highlight">매우 좋음</td><td>주의 필요</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small"><b>Foster et al. 2015 (J Sports Sci Med)</b> — 12주 비교에서 HIIT·Zone 2 둘 다 체지방 감소 효과. <b>최선 = 두 방식 병행</b>(주 1~2회 HIIT + 주 2~3회 Zone 2). 시간 없는 직장인은 HIIT, 시간 충분한 사람은 Zone 2 비중 ↑.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>Zone 2 실전 — 어떻게 가늠하나?</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>방법</th><th>판별 기준</th></tr></thead>
+          <tbody>
+            <tr><td>본 계산기 BPM 범위</td><td class="highlight">Karvonen 또는 % HRmax 60~70% (개인별 정확)</td></tr>
+            <tr><td>대화 테스트 (Talk Test)</td><td>완전한 문장으로 대화 가능, 노래는 어려움 — ACSM Guidelines</td></tr>
+            <tr><td>Borg RPE 척도</td><td>10단계 중 <b>3~5/10</b> (가벼운~중간). 6 이상 = Zone 3+</td></tr>
+            <tr><td>호흡 (Nose breathing)</td><td>코로만 호흡 가능 (입 안 벌어짐) — Zone 2 입증 신호</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small"><b>심박계 없을 때 = 대화 테스트 + 코호흡 조합이 가장 신뢰</b>. Apple Watch·Garmin 등 광학 심박계는 ±2~5 BPM 오차라 사용 가능. 운동 시작 5~10분 후 측정값으로 판단.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../calorie/">기초대사량 (BMR·TDEE)<span class="desc">일일 칼로리·단백질·물</span></a>
+        <a href="../bmi/">BMI 계산기<span class="desc">체질량지수·정상체중</span></a>
+        <a href="../body-fat/">체지방률 계산기<span class="desc">Navy 공식·ACE 분류</span></a>
+        <a href="../ideal-weight/">표준체중 계산기<span class="desc">BMI 22 + 의료 4공식</span></a>
+        <a href="../growth/">아기 성장 백분위<span class="desc">키·체중 백분위</span></a>
+        <a href="../age/">만 나이 계산기<span class="desc">한국 나이 환산</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>왜 220 − age 대신 Tanaka 공식을 쓰나요?</summary>
+        <div class="answer">
+          전통적인 <b>Fox-Haskell 220 − age</b> 공식은 1971년 비검증 추정으로 ±10~12 BPM 편차가 큽니다.
+          <b>Tanaka et al. 2001(JACC, 351명 메타분석)</b>이 제시한 208 − 0.7 × age는 표준편차가 절반(±5~7 BPM) 수준이라
+          ACSM·미국심장협회(AHA)가 표준으로 권장. 본 계산기는 두 값을 모두 표시해 비교 가능.
+        </div>
+      </details>
+
+      <details>
+        <summary>Karvonen 공식이 단순 % HRmax보다 정확한가요?</summary>
+        <div class="answer">
+          <b>안정시심박수(HRrest)를 입력할 수 있다면 Karvonen이 더 정확</b>합니다.
+          평소 운동량·심혈관 컨디션이 HRrest로 반영되기 때문 — 같은 70%여도 운동인은 더 낮은 BPM이 같은 강도.
+          공식: <b>목표 HR = (HRmax − HRrest) × %강도 + HRrest</b>.
+          본 계산기는 HRrest 미입력 시 단순 % HRmax 방식으로 자동 전환.
+        </div>
+      </details>
+
+      <details>
+        <summary>안정시심박수(HRrest)는 어떻게 측정하나요?</summary>
+        <div class="answer">
+          <b>아침 기상 직후 누운 상태</b>로 1분간 손목 또는 목 동맥에서 측정. 30초 측정 × 2도 가능.
+          일반인 60~80 BPM 정상, 운동인은 40~60 BPM.
+          카페인·스트레스·수면 부족·생리 주기에 영향 받으니 <b>3~5일 평균값</b> 사용 권장.
+          스마트워치 측정값도 ±2~3 BPM 정확도라 사용 가능.
+        </div>
+      </details>
+
+      <details>
+        <summary>체지방 감량(다이어트)에 최적 심박수는? Fatmax란?</summary>
+        <div class="answer">
+          <b>Achten & Jeukendrup 2002</b>(Med Sci Sports Exerc 34(1):92-7)이 정의한 <b>Fatmax(최대 지방산화 강도)</b>
+          = 평균 HRmax의 <b>60-65%</b>, 즉 본 계산기의 <b>Zone 2 영역</b>. 이 강도에서 분당 지방산화량 최대(0.5~0.7g/분).
+          단 '<b>분당 지방</b>' 최대일 뿐 '<b>총 칼로리</b>'는 강도 높을수록 큼. 시간 충분하면 Zone 2 1시간+ 누적,
+          시간 제한 있으면 HIIT(Zone 4-5) 짧고 강하게.
+        </div>
+      </details>
+
+      <details>
+        <summary>Zone 2 트레이닝이 왜 요즘 인기인가요?</summary>
+        <div class="answer">
+          <b>San-Millán & Brooks 2018</b>(Sports Med 48(2):467-479)이 Zone 2 지속 운동이
+          <b>2형 미토콘드리아·지방산화 효소 발현</b>을 유도해 대사 유연성(metabolic flexibility) 개선한다는 학술 근거를 제시.
+          <b>토데 포가차르(투르 드 프랑스 챔프) 코치 Iñigo San-Millán</b>이 "엘리트 선수들은 80% 이상 시간을 Zone 2에 쓴다"는
+          사실을 알리며 유산소 트레이닝 패러다임을 바꿈. 일반인에게도 부상 ↓·지속 가능성 ↑·심혈관 효과로 어필.
+        </div>
+      </details>
+
+      <details>
+        <summary>Zone 2 vs HIIT 어느 게 다이어트에 좋은가?</summary>
+        <div class="answer">
+          <b>Foster et al. 2015</b>(J Sports Sci Med 14(4):747-755) — 12주 비교에서 둘 다 체지방 감소 효과.
+          Zone 2는 <b>분당 지방산화 최대·매일 가능·관절 부담 ↓</b>, HIIT는 <b>시간 효율·EPOC(운동 후 추가 소모)·VO2max ↑</b>.
+          <b>최선은 병행</b> — 주 1~2회 HIIT + 주 2~3회 Zone 2. 시간 없는 직장인 = HIIT 위주, 시간 충분 = Zone 2 비중 ↑.
+        </div>
+      </details>
+
+      <details>
+        <summary>Zone 2가 너무 쉬워 보이는데 정말 효과 있나요?</summary>
+        <div class="answer">
+          <b>효과적입니다</b>. 본질은 '쉬워 보이지만 오래 가능한 강도' — <b>대화 테스트</b>(완전한 문장 가능, 노래는 어려움)·
+          <b>코호흡</b>(입 안 벌어짐)으로 가늠. 초보자가 자주 하는 실수는 Zone 2를 Zone 3-4 강도로 하는 것
+          (BPM 측정 안 하고 "좀 빨리 걷기" 정도로). <b>심박계로 BPM 확인 후 처음엔 답답할 정도로 천천히</b> —
+          실제 Zone 2면 매주 5~10시간 누적해도 피로 적음.
+        </div>
+      </details>
+
+      <details>
+        <summary>여성은 다른 공식을 쓰나요?</summary>
+        <div class="answer">
+          선택입니다. <b>Gulati et al. 2010(노스웨스턴 의대 5,437명 연구)</b>이 여성 전용 공식
+          HRmax = 206 − 0.88 × age 제시 — Tanaka보다 평균 5~6 BPM 낮음.
+          Tanaka 공식 자체가 남녀 통합이라 여성에 약간 과대평가될 수 있음.
+          본 계산기는 성별 여성 선택 시 두 값을 모두 표시해 비교 가능. 운동 권장은 보수적인 Gulati 기준 사용 무난.
+        </div>
+      </details>
+
+      <details>
+        <summary>심박수가 zone을 자주 벗어나도 괜찮은가요?</summary>
+        <div class="answer">
+          <b>괜찮습니다</b>. zone은 절대 기준이 아니라 ACSM 가이드라인의 권장 범위.
+          운동 중 자연스럽게 변동하며, 평균이 목표 zone에 머물면 충분.
+          단 <b>zone 5(90%+)를 5분 이상 유지·가슴 통증·어지러움·메스꺼움</b>이 있으면 즉시 중단·의료 상담.
+          본 계산기는 일반 성인 기준이며 심혈관 질환·임산부·고혈압 환자는 의사 상담 후 강도 결정 권장.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>출처</h2>
+      <div class="updated">최종 검증: 2026-05-05 (Zone 2·Fatmax 학술 보강)</div>
+      <ul>
+        <li><b>Tanaka HRmax 공식</b> — Tanaka H, Monahan KD, Seals DR. "Age-predicted maximal heart rate revisited." J Am Coll Cardiol 2001;37(1):153-6</li>
+        <li><b>Fox-Haskell 1971</b> — Fox SM 3rd, Naughton JP, Haskell WL. "Physical activity and the prevention of coronary heart disease." Ann Clin Res 1971;3(6):404-32</li>
+        <li><b>Karvonen 공식</b> — Karvonen MJ, Kentala E, Mustala O. "The effects of training on heart rate; a longitudinal study." Ann Med Exp Biol Fenn 1957;35(3):307-15</li>
+        <li><b>Gulati 여성 공식</b> — Gulati M et al. "Heart rate response to exercise stress testing in asymptomatic women: the St. James Women Take Heart Project." Circulation 2010;122(2):130-7</li>
+        <li><b>5 zone 운동 처방</b> — American College of Sports Medicine. ACSM's Guidelines for Exercise Testing and Prescription, 11th ed. Philadelphia: Wolters Kluwer, 2021</li>
+        <li><b>Fatmax (최대 지방산화 강도)</b> — Achten J, Jeukendrup AE. "Determination of the exercise intensity that elicits maximal fat oxidation." Med Sci Sports Exerc 2002;34(1):92-7</li>
+        <li><b>Zone 2·미토콘드리아 효율</b> — San-Millán I, Brooks GA. "Assessment of metabolic flexibility by means of measuring blood lactate, fat, and carbohydrate oxidation responses to exercise in professional endurance athletes and less-fit individuals." Sports Med 2018;48(2):467-479</li>
+        <li><b>Zone 2 vs HIIT 비교</b> — Foster C et al. "The Effects of High Intensity Interval Training vs Steady State Training on Aerobic and Anaerobic Capacity." J Sports Sci Med 2015;14(4):747-755</li>
+      </ul>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./heart-rate.js" defer></script>
+  <site-footer></site-footer>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

@@ -16,8 +16,8 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="TAYSTUDIO 계산기">
-  <meta property="og:title" content="칼로리·BMR·TDEE 계산기 | 다이어트 권장 칼로리">
-  <meta property="og:description" content="Mifflin-St Jeor 공식으로 기초대사량(BMR)과 일일 권장 칼로리(TDEE) 계산. 다이어트·증량 권장 칼로리까지.">
+  <meta property="og:title" content="기초대사량 계산기 (BMR·TDEE) | 단백질·물 섭취량까지">
+  <meta property="og:description" content="Mifflin-St Jeor + Harris-Benedict 비교 + 활동량별 일일 칼로리(TDEE) + 다이어트·증량 권장 + 단백질 1.6g/kg + 수분 33ml/kg 한 화면에. 입력값은 브라우저 안에서만 처리.">
   <meta property="og:image" content="https://taystudio.github.io/og-image.png">
   <meta property="og:image:secure_url" content="https://taystudio.github.io/og-image.png">
   <meta property="og:image:type" content="image/png">
@@ -25,13 +25,13 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="칼로리·BMR·TDEE 계산기 | 다이어트 권장 칼로리">
-  <meta name="twitter:description" content="Mifflin-St Jeor 공식으로 기초대사량(BMR)과 일일 권장 칼로리(TDEE) 계산. 다이어트·증량 권장 칼로리까지.">
+  <meta name="twitter:title" content="기초대사량 계산기 (BMR·TDEE) | 단백질·물 섭취량까지">
+  <meta name="twitter:description" content="Mifflin + Harris-Benedict 비교 + TDEE + 다이어트·증량 + 단백질·수분 권장량 한 화면.">
   <meta name="twitter:image" content="https://taystudio.github.io/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
-  <title>칼로리·BMR·TDEE 계산기 | 다이어트 권장 칼로리</title>
-  <meta name="description" content="Mifflin-St Jeor 공식으로 기초대사량(BMR)과 일일 권장 칼로리(TDEE) 계산. 다이어트·증량 권장 칼로리까지.">
-  <meta name="keywords" content="칼로리 계산기, BMR, TDEE, 기초대사량, 다이어트 칼로리">
+  <title>기초대사량 계산기 (BMR·TDEE) | 단백질·물 섭취량까지</title>
+  <meta name="description" content="Mifflin-St Jeor 공식과 Harris-Benedict 1984 비교값으로 기초대사량(BMR)·일일 칼로리(TDEE)·다이어트·증량 권장 칼로리·단백질 1.6g/kg·수분 33ml/kg을 한 화면에. 활동량 5단계 표·키별 BMR 참고치 포함.">
+  <meta name="keywords" content="기초대사량 계산기, BMR 계산, TDEE 계산기, 칼로리 계산기, 일일 칼로리, 다이어트 칼로리, 단백질 권장량, 물 섭취량, Mifflin-St Jeor">
   <link rel="canonical" href="https://taystudio.github.io/tools/calorie/">
   <link rel="manifest" href="../manifest.webmanifest">
   <script>
@@ -45,10 +45,10 @@
   "@graph": [
     {
       "@type": "WebApplication",
-      "name": "칼로리·BMR·TDEE 계산기 | 다이어트 권장 칼로리",
-      "description": "Mifflin-St Jeor 공식으로 기초대사량(BMR)과 일일 권장 칼로리(TDEE) 계산. 다이어트·증량 권장 칼로리까지.",
+      "name": "기초대사량 계산기 (BMR·TDEE) | 단백질·물 섭취량까지",
+      "description": "Mifflin-St Jeor + Harris-Benedict 비교 + 활동량별 TDEE + 다이어트·증량 권장 + 단백질·수분 한 화면.",
       "url": "https://taystudio.github.io/tools/calorie/",
-      "applicationCategory": "FinanceApplication",
+      "applicationCategory": "HealthApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
       "offers": {
@@ -77,7 +77,7 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "칼로리·BMR·TDEE 계산기",
+          "name": "기초대사량 (BMR·TDEE)",
           "item": "https://taystudio.github.io/tools/calorie/"
         }
       ]
@@ -87,42 +87,50 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "BMR과 TDEE는 뭐가 다른가요?",
+          "name": "BMR과 TDEE는 어떻게 다른가요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "BMR(기초대사량)은 가만히 누워있을 때 생명 유지에 필요한 칼로리. TDEE(일일 총소모량)는 BMR + 활동·운동·소화 등 모든 칼로리. TDEE = BMR × 활동지수(1.2 ~ 1.9). 다이어트·증량 기준은 TDEE 사용."
+            "text": "BMR(기초대사량)은 아무것도 안 해도 생명 유지에 쓰이는 최소 열량(심장·호흡·체온 유지). TDEE(Total Daily Energy Expenditure)는 BMR에 활동량을 곱한 실제 일일 소모 칼로리. 다이어트·증량은 TDEE 기준으로 가감합니다."
           }
         },
         {
           "@type": "Question",
-          "name": "Mifflin-St Jeor 공식이란?",
+          "name": "Mifflin-St Jeor 공식이 권장되는 이유는?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "1990년 발표된 BMR 산정 공식 — 남성 BMR = 10 × 체중(kg) + 6.25 × 키(cm) − 5 × 나이 + 5, 여성은 마지막에 −161. Harris-Benedict보다 현대인에게 정확하다고 알려져 의료·운동학에서 표준 사용."
+            "text": "1990년 발표된 가장 최근의 메이저 BMR 공식으로, 미국영양학회(ADA) 메타분석에서 비만 인구 포함 가장 정확하다고 평가됨. 1919년 Harris-Benedict 공식보다 평균 5% 낮게 나오며 현대 인구에 더 부합. 본 계산기는 Harris-Benedict 1984 revised 비교값도 함께 표시."
           }
         },
         {
           "@type": "Question",
-          "name": "다이어트는 −500kcal/일이면 충분한가요?",
+          "name": "활동량 단계는 어떻게 선택하나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "지방 1kg = 약 7,700kcal. 일주일 −500 × 7 = −3,500kcal → 약 0.45kg/주 감량. 일반적인 안전 페이스. −1,000 이상 강한 적자는 근손실·요요·정체기 위험."
+            "text": "좌식(×1.2): 사무직 + 운동 거의 X. 가벼운(×1.375): 주 1~3회 가벼운 운동. 중강도(×1.55): 주 3~5회 중강도(헬스·러닝). 고강도(×1.725): 주 6~7회 강도 높은 훈련. 극심한(×1.9): 육체노동 또는 하루 2회 운동. 애매하면 한 단계 낮춰 잡는 게 안전 — 활동량 과대평가가 다이어트 실패 1순위 원인."
           }
         },
         {
           "@type": "Question",
-          "name": "활동지수는 어떻게 고르나요?",
+          "name": "감량 시 −500kcal 권장 이유는?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "좌식 사무직 1.2, 가벼운 운동(주 1~3) 1.375, 보통 운동(주 3~5) 1.55, 활동적(주 6~7 + 격렬) 1.725, 매우 활동적(육체노동 + 격렬) 1.9. 대부분 사람은 1.375 ~ 1.55 사이. 자주 과대평가하니 한 단계 낮춰 잡는 게 안전."
+            "text": "지방 1kg ≈ 7,700kcal. 일일 −500kcal 적자면 주당 약 0.45kg 감량 — WHO·ADA 권장 안전 속도(주 0.5~1kg). 너무 빠른 감량은 근손실·요요·대사 적응(BMR 감소)을 부름. 일일 −1,000kcal 이상은 의료 감독 하 단기 적용만 권장."
           }
         },
         {
           "@type": "Question",
-          "name": "단백질·탄수화물 비율도 알려주나요?",
+          "name": "단백질 1.6g/kg 근거는?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "본 계산기는 총 칼로리만. 일반 가이드: 단백질 체중 × 1.5 ~ 2g/일(다이어트), 1.0 ~ 1.5g/일(일반), 2.0 ~ 2.5g/일(증량·근비대). 탄수화물·지방은 운동 강도와 개인 반응에 따라 조정."
+            "text": "한국영양학회 RDA는 일반 성인 0.8~0.91g/kg이지만, 운동·근손실 방지·다이어트 중에는 1.6~2.2g/kg이 메타분석(Morton 2018, BJSM) 권장. 본 계산기 기본값 1.6g은 운동인·다이어트 중 보편 권장량. 운동 X 일반인은 RDA 0.91g 기준으로 ÷1.75 환산."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "임신·수유 중에도 같은 공식인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아닙니다. 임신 중기 +340kcal, 후기 +450kcal, 수유기 +330kcal 추가 필요(KDRI 2020). 본 계산기는 일반 성인 기준이며 임산부·수유부는 산부인과 영양 상담 권장. 청소년(만 19세 미만)도 성장에 따른 추가 열량 필요로 별도 평가 필요."
           }
         }
       ]
@@ -135,9 +143,9 @@
 <body>
   <site-header></site-header>
   <main class="container">
-    <div class="breadcrumb"><a href="../index.html">도구</a> · 건강 · 칼로리(BMR/TDEE)</div>
-    <h1>칼로리·BMR·TDEE 계산기 <span class="basis-badge">Mifflin-St Jeor</span></h1>
-    <p class="subtitle">기초대사량 + 일일 소모 칼로리 + 다이어트·증량 권장량까지.</p>
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 건강 · 기초대사량 (BMR·TDEE)</div>
+    <h1>기초대사량 계산기 <span class="basis-badge">Mifflin-St Jeor 1990</span></h1>
+    <p class="subtitle">BMR + 활동량별 일일 칼로리(TDEE) + 다이어트·증량·권장 단백질·물 섭취량을 한 화면에.</p>
 
     <form id="form" class="card">
       <div class="field">
@@ -178,50 +186,89 @@
 
     <div id="result" class="result" style="display:none">
       <div class="result-headline">
-        <div class="result-label">일일 권장 칼로리 (TDEE)</div>
-        <div id="tdee" class="result-value">- kcal</div>
-        <div id="activityLabel" class="result-sub">-</div>
+        <div class="result-label">기초대사량 (BMR · Mifflin-St Jeor)</div>
+        <div id="bmr" class="result-value">-</div>
+        <div class="result-sub">아무것도 안 해도 소모하는 기본 열량</div>
       </div>
       <div class="breakdown">
-        <div class="breakdown-row"><span class="label">기초대사량 (BMR)</span><span id="bmr" class="value">- kcal</span></div>
-        <div class="breakdown-row"><span class="label">다이어트 권장 (-500)</span><span id="loseCal" class="value">-</span></div>
-        <div class="breakdown-row total"><span class="label">증량 권장 (+500)</span><span id="gainCal" class="value">-</span></div>
+        <div class="breakdown-row total"><span class="label">활동량 반영 일일 칼로리 (TDEE)</span><span id="tdee" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">선택 활동량</span><span id="activityLabel" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">감량 목표 (TDEE − 500)</span><span id="loseCal" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">린 벌크업 (TDEE + 300)</span><span id="gainCal" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">권장 단백질 (1.6 g/kg)</span><span id="protein" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">권장 수분 (33 ml/kg)</span><span id="water" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">Harris-Benedict (1984) 비교</span><span id="hb" class="value">-</span></div>
       </div>
+
+      <section class="tool-article" style="margin-top:24px">
+        <h2 style="font-size:16px">활동량별 일일 칼로리 (참고)</h2>
+        <div class="ref-table">
+          <table>
+            <thead><tr><th>활동량</th><th>설명</th><th>일일 칼로리</th></tr></thead>
+            <tbody>
+              <tr><td>좌식 (×1.2)</td><td>운동 거의 X, 사무직</td><td id="t12">-</td></tr>
+              <tr><td>가벼운 (×1.375)</td><td>가벼운 운동 주 1~3회</td><td id="t1375">-</td></tr>
+              <tr><td>중강도 (×1.55)</td><td>중강도 운동 주 3~5회</td><td id="t155">-</td></tr>
+              <tr><td>고강도 (×1.725)</td><td>고강도 운동 주 6~7회</td><td id="t1725">-</td></tr>
+              <tr><td>극심한 (×1.9)</td><td>육체노동 또는 하루 2회 운동</td><td id="t19">-</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small">애매하면 한 단계 낮춰 선택 — 활동량 과대평가가 다이어트 실패 1순위 원인.</p>
+      </section>
     </div>
 
     <div class="disclaimer">
-      ⚠️ -500 kcal/일은 주당 약 0.5kg 감량 페이스의 일반적 가이드입니다. 극단적 감량(-1000+)은 건강 해칠 수 있고 요요 위험 ↑. 단백질 섭취량(체중 × 1.5~2g)은 별도 관리 권장.
+      ⚠️ 본 계산은 Mifflin-St Jeor 공식 기반 일반 성인 추정치입니다. 임산부·수유부·만성질환자·대사 이상자·만 19세 미만은 실제 필요량이 다를 수 있으며, 정확한 진단·식이 처방은 의료 전문가 상담 권장.
     </div>
 
     <section class="tool-article">
-      <h2>BMR·TDEE 산정 공식 (Mifflin-St Jeor)</h2>
-      <div class="formula-list">
-        <ol>
-          <li><b>남성 BMR</b> = 10 × 체중(kg) + 6.25 × 키(cm) − 5 × 나이 + 5</li>
-          <li><b>여성 BMR</b> = 10 × 체중(kg) + 6.25 × 키(cm) − 5 × 나이 − 161</li>
-          <li><b>TDEE</b> = BMR × 활동지수 (1.2 ~ 1.9)</li>
-          <li><b>다이어트 권장</b> = TDEE − 500 (주당 약 0.45kg 감량)</li>
-          <li><b>증량 권장</b> = TDEE + 500 (주당 약 0.45kg 증량)</li>
-        </ol>
-      </div>
-      <p class="small">지방 1kg = 약 7,700kcal. 안전 감량·증량 페이스는 주당 0.5 ~ 1kg.</p>
-    </section>
-
-    <section class="tool-article">
-      <h2>활동지수별 TDEE (175cm·70kg·30대 남성 BMR ≈ 1,650kcal)</h2>
+      <h2>BMR 공식 (Mifflin-St Jeor 1990)</h2>
       <div class="ref-table">
         <table>
-          <thead><tr><th>활동량</th><th>지수</th><th>TDEE</th><th>다이어트 (−500)</th></tr></thead>
+          <thead><tr><th>성별</th><th>공식</th></tr></thead>
           <tbody>
-            <tr><td>좌식 (운동 거의 X)</td><td>1.2</td><td>1,980</td><td>1,480</td></tr>
-            <tr><td>가벼운 운동 (주 1 ~ 3회)</td><td>1.375</td><td>2,269</td><td>1,769</td></tr>
-            <tr><td>보통 운동 (주 3 ~ 5회)</td><td class="highlight">1.55</td><td class="highlight">2,558</td><td class="highlight">2,058</td></tr>
-            <tr><td>활동적 (주 6 ~ 7회)</td><td>1.725</td><td>2,846</td><td>2,346</td></tr>
-            <tr><td>매우 활동적 (육체노동)</td><td>1.9</td><td>3,135</td><td>2,635</td></tr>
+            <tr><td>남성</td><td><code>10 × 체중(kg) + 6.25 × 키(cm) − 5 × 나이 + 5</code></td></tr>
+            <tr><td>여성</td><td><code>10 × 체중(kg) + 6.25 × 키(cm) − 5 × 나이 − 161</code></td></tr>
           </tbody>
         </table>
       </div>
-      <p class="small">대부분 사람은 1.375 ~ 1.55 구간. 본인 활동량을 과대평가하기 쉬워 한 단계 낮춰 잡는 게 안전.</p>
+      <p class="small">예: 30세 남성 175cm·70kg → 10×70 + 6.25×175 − 5×30 + 5 = <b>1,649 kcal</b>. 활동량 ×1.55 = TDEE 약 <b>2,556 kcal</b>.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>다이어트 목표별 권장 칼로리</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>목표</th><th>일일 칼로리</th><th>주간 변화</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td>안전 감량</td><td>TDEE − 500</td><td>약 −0.45 kg/주</td><td class="highlight">WHO·ADA 권장</td></tr>
+            <tr><td>적극 감량</td><td>TDEE − 750</td><td>약 −0.7 kg/주</td><td>단기 적용만</td></tr>
+            <tr><td>유지</td><td>TDEE</td><td>±0</td><td>—</td></tr>
+            <tr><td>린 벌크업</td><td>TDEE + 300</td><td>약 +0.27 kg/주</td><td>근육 위주 증량</td></tr>
+            <tr><td>적극 증량</td><td>TDEE + 500</td><td>약 +0.45 kg/주</td><td>지방 동반 증가</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">지방 1kg ≈ 7,700kcal 환산. 일일 −1,000kcal 이상 적자는 의료 감독 하 단기 적용만 권장 (근손실·요요·대사 적응 위험).</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>키·성별별 BMR 참고치 (만 30세 기준)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>키</th><th>체중</th><th>남성 BMR</th><th>여성 BMR</th></tr></thead>
+          <tbody>
+            <tr><td>160 cm</td><td>55 kg</td><td>1,400 kcal</td><td>1,234 kcal</td></tr>
+            <tr><td>165 cm</td><td>60 kg</td><td>1,481 kcal</td><td>1,316 kcal</td></tr>
+            <tr><td>170 cm</td><td>65 kg</td><td>1,562 kcal</td><td>1,397 kcal</td></tr>
+            <tr><td>175 cm</td><td>70 kg</td><td>1,644 kcal</td><td>1,478 kcal</td></tr>
+            <tr><td>180 cm</td><td>75 kg</td><td>1,725 kcal</td><td>1,559 kcal</td></tr>
+            <tr><td>185 cm</td><td>80 kg</td><td>1,806 kcal</td><td>1,640 kcal</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">키 5cm·체중 5kg 차이마다 BMR 약 80kcal 변동. 활동량 ×1.55 적용 시 TDEE는 약 125kcal 차이.</p>
     </section>
 
     <section class="tool-article">
@@ -240,60 +287,74 @@
       <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
 
       <details>
-        <summary>BMR과 TDEE는 뭐가 다른가요?</summary>
+        <summary>BMR과 TDEE는 어떻게 다른가요?</summary>
         <div class="answer">
-          <b>BMR(기초대사량)</b>은 가만히 누워있을 때 생명 유지에 필요한 칼로리.
-          <b>TDEE(일일 총소모량)</b>는 BMR + 활동·운동·소화 등 모든 칼로리. TDEE =
-          BMR × 활동지수(1.2 ~ 1.9). 다이어트·증량 기준은 TDEE 사용.
+          <b>BMR(기초대사량)</b>은 아무것도 안 해도 생명 유지에 쓰이는 최소 열량(심장·호흡·체온 유지).
+          <b>TDEE(Total Daily Energy Expenditure)</b>는 BMR에 활동량을 곱한 실제 일일 소모 칼로리.
+          다이어트·증량은 TDEE 기준으로 가감합니다.
         </div>
       </details>
 
       <details>
-        <summary>Mifflin-St Jeor 공식이란?</summary>
+        <summary>Mifflin-St Jeor 공식이 권장되는 이유는?</summary>
         <div class="answer">
-          1990년 발표된 BMR 산정 공식 — 남성 BMR = 10 × 체중(kg) + 6.25 × 키(cm) −
-          5 × 나이 + 5, 여성은 마지막에 −161. <b>Harris-Benedict보다 현대인에게 정확하다고
-          알려져 의료·운동학에서 표준 사용</b>.
+          1990년 발표된 가장 최근의 메이저 BMR 공식으로, <b>미국영양학회(ADA) 메타분석</b>에서
+          비만 인구 포함 가장 정확하다고 평가됨. 1919년 Harris-Benedict 공식보다 평균 5%
+          낮게 나오며 현대 인구에 더 부합. 본 계산기는 Harris-Benedict 1984 revised 비교값도 함께 표시.
         </div>
       </details>
 
       <details>
-        <summary>다이어트는 −500kcal/일이면 충분한가요?</summary>
+        <summary>활동량 단계는 어떻게 선택하나요?</summary>
         <div class="answer">
-          지방 1kg = 약 7,700kcal. 일주일 −500 × 7 = −3,500kcal → <b>약 0.45kg/주 감량</b>.
-          일반적인 안전 페이스. −1,000 이상 강한 적자는 근손실·요요·정체기 위험.
+          좌식(×1.2): 사무직 + 운동 거의 X. 가벼운(×1.375): 주 1~3회 가벼운 운동.
+          중강도(×1.55): 주 3~5회 중강도(헬스·러닝). 고강도(×1.725): 주 6~7회 강도 높은 훈련.
+          극심한(×1.9): 육체노동 또는 하루 2회 운동.
+          <b>애매하면 한 단계 낮춰 잡는 게 안전</b> — 활동량 과대평가가 다이어트 실패 1순위 원인.
         </div>
       </details>
 
       <details>
-        <summary>활동지수는 어떻게 고르나요?</summary>
+        <summary>감량 시 −500kcal 권장 이유는?</summary>
         <div class="answer">
-          좌식 사무직 1.2, 가벼운 운동(주 1 ~ 3) 1.375, 보통 운동(주 3 ~ 5) 1.55,
-          활동적(주 6 ~ 7 + 격렬) 1.725, 매우 활동적(육체노동 + 격렬) 1.9. 대부분 사람은
-          1.375 ~ 1.55 사이. <b>자주 과대평가하니 한 단계 낮춰 잡는 게 안전</b>.
+          지방 1kg ≈ 7,700kcal. 일일 −500kcal 적자면 <b>주당 약 0.45kg 감량</b> — WHO·ADA
+          권장 안전 속도(주 0.5~1kg). 너무 빠른 감량은 근손실·요요·대사 적응(BMR 감소)을
+          부름. 일일 −1,000kcal 이상은 의료 감독 하 단기 적용만 권장.
         </div>
       </details>
 
       <details>
-        <summary>단백질·탄수화물 비율도 알려주나요?</summary>
+        <summary>단백질 1.6g/kg 근거는?</summary>
         <div class="answer">
-          본 계산기는 총 칼로리만. 일반 가이드: 단백질 <b>체중 × 1.5 ~ 2g/일(다이어트),
-          1.0 ~ 1.5g/일(일반), 2.0 ~ 2.5g/일(증량·근비대)</b>. 탄수화물·지방은 운동 강도와
-          개인 반응에 따라 조정.
+          한국영양학회 RDA는 일반 성인 <b>0.8~0.91g/kg</b>이지만, 운동·근손실 방지·다이어트
+          중에는 <b>1.6~2.2g/kg</b>이 메타분석(Morton 2018, BJSM) 권장. 본 계산기 기본값
+          1.6g은 운동인·다이어트 중 보편 권장량. 운동 X 일반인은 RDA 0.91g 기준으로 환산.
+        </div>
+      </details>
+
+      <details>
+        <summary>임신·수유 중에도 같은 공식인가요?</summary>
+        <div class="answer">
+          아닙니다. 임신 중기 <b>+340kcal</b>, 후기 <b>+450kcal</b>, 수유기 <b>+330kcal</b>
+          추가 필요(KDRI 2020). 본 계산기는 일반 성인 기준이며 임산부·수유부는 산부인과
+          영양 상담 권장. 청소년(만 19세 미만)도 성장에 따른 추가 열량 필요로 별도 평가 필요.
         </div>
       </details>
     </section>
 
     <section class="sources">
       <h2>출처</h2>
-      <div class="updated">최종 검증: 2026-04-29</div>
+      <div class="updated">최종 검증: 2026-05-05</div>
       <ul>
-        <li><b>Mifflin-St Jeor 공식 (1990)</b> — Mifflin et al., American Journal of Clinical Nutrition</li>
-        <li><b>활동지수</b> — Harris-Benedict equation activity multipliers (보편적 사용)</li>
+        <li><b>Mifflin-St Jeor 공식</b> — Mifflin MD et al. "A new predictive equation for resting energy expenditure in healthy individuals." Am J Clin Nutr 1990;51(2):241-7</li>
+        <li><b>Harris-Benedict 1984 revised</b> — Roza AM, Shizgal HM. "The Harris Benedict equation reevaluated." Am J Clin Nutr 1984;40(1):168-82</li>
+        <li><b>활동량 multiplier</b> — Frankenfield et al. "Comparison of predictive equations for resting metabolic rate in healthy nonobese and obese adults." J Am Diet Assoc 2005</li>
+        <li><b>단백질 권장량</b> — Morton RW et al. "Systematic review, meta-analysis and meta-regression of the effect of protein supplementation on resistance training-induced gains." BJSM 2018</li>
+        <li><b>한국 영양 기준</b> — 보건복지부·한국영양학회 「2020 한국인 영양소 섭취기준 (KDRI)」</li>
       </ul>
     </section>
     <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
-      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 33개 계산기 모두 보기</a>
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 36개 계산기 모두 보기</a>
     </nav>
   </main>
   <script src="./calorie.js" defer></script>
