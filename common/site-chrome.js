@@ -1,6 +1,24 @@
 // TAYSTUDIO common chrome — header & footer web components.
 // Uses absolute paths under / so depth-agnostic across all pages.
 
+// 도메인 가드 — 비공식 미러 사이트 경고
+(function () {
+  const ALLOWED = ['taystudio.github.io', 'localhost', '127.0.0.1', ''];
+  const host = location.hostname;
+  if (ALLOWED.includes(host) || host.endsWith('.local')) return;
+  const show = () => {
+    const banner = document.createElement('div');
+    banner.style.cssText = 'background:#dc2626;color:#fff;padding:14px 20px;text-align:center;font-size:14px;line-height:1.5;font-weight:500';
+    banner.innerHTML = '⚠️ 비공식 미러 사이트입니다. 정품: <a href="https://taystudio.github.io" style="color:#fff;font-weight:700;text-decoration:underline">taystudio.github.io</a>';
+    document.body.insertBefore(banner, document.body.firstChild);
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', show);
+  } else {
+    show();
+  }
+})();
+
 (function () {
   const GA_ID = 'G-79C40NJRYT';
   const s = document.createElement('script');
