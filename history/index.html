@@ -138,7 +138,7 @@
     <h1>📜 변경 이력</h1>
     <p class="subtitle">사이트에서 일어난 일을 시간 역순으로 — 도구 추가, 세율 갱신, SEO·인프라 작업까지.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
-      <b>마지막 갱신</b>: 2026-05-05 · <span style="opacity:.7">SEO Tier 1.1 후속 — OG 카피 일반화(숫자 제외·`한국에서` 제거) + 51 파일 메타 보강(<code>og:image:type</code> · <code>secure_url</code> · <code>twitter:image:alt</code>). 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
+      <b>마지막 갱신</b>: 2026-05-05 · <span style="opacity:.7">메인 페이지 정리 — <code>hub-intro</code> 박스 신설 + 미리보기 부피 ~50% 감소(15 카드 → 인라인 3행) + 카피 일반화(`한국에서` 제거). 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
     </p>
 
     <div class="legend">
@@ -148,6 +148,108 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-05</span>
+            <span class="tl-tag feature">메인 인덱스</span>
+            <span class="tl-tag">hub-intro</span>
+            <span class="tl-tag">미리보기 압축</span>
+            <span class="tl-tag">카피 일반화</span>
+          </div>
+          <div class="tl-title">🏠 메인 페이지 정리 — hub-intro 신설 + 미리보기 부피 ~50% 감소 + "한국에서" 제거</div>
+          <div class="tl-summary">
+            루트 <code>index.html</code>을 사용자 톤(군더더기 X·즉시성)에 맞춰 정리. ① <b>카피 일반화</b> — title·og·twitter·meta description·JSON-LD ×2·hero tagline에서 "한국에서" 제거 (OG 카피·약관 갱신과 톤 일관) ② <b>hub-intro 박스 신설</b> — hub-card 아래 eyebrow + lead + body 3계층 + 좌측 primary 보더 ③ <b>preview-section 3개(15 카드) → quick-list 1 섹션</b> 통합 — 인라인 리스트, 이모지·dot·border 등 노이즈 제거, 카테고리 라벨 primary + 세로선만 ④ 이미지 큐레이션 변경 — bg-remove → 압축·리사이즈·PDF 합치기·QR 코드(일상 빈도 높음).
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat"><div class="label">변경 묶음</div><div class="value">4</div><div class="delta">카피·intro·미리보기·이미지</div></div>
+            <div class="stat"><div class="label">미리보기 부피</div><div class="value">~50%</div><div class="delta">15 카드 → 인라인 3행</div></div>
+            <div class="stat"><div class="label">"한국에서" 제거</div><div class="value">7</div><div class="delta">title + 메타 6</div></div>
+            <div class="stat"><div class="label">디자인 이터레이션</div><div class="value">5</div><div class="delta">사용자 피드백 반영 5회</div></div>
+          </div>
+
+          <details class="tl-details" open>
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">① 카피 일반화 — "한국에서" 제거</h3>
+              <table>
+                <thead><tr><th>위치</th><th>이전</th><th>이후</th></tr></thead>
+                <tbody>
+                  <tr><td><code>&lt;title&gt;</code></td><td>한국 실생활 계산기·텍스트·이미지 도구</td><td>자주 쓰는 무료 도구 (계산기·텍스트·이미지)</td></tr>
+                  <tr><td><code>og:title</code> / <code>twitter:title</code></td><td>동일</td><td>동일 갱신</td></tr>
+                  <tr><td><code>meta description</code></td><td>한국에서 자주 쓰는 무료 도구 — ...</td><td>회원가입·앱 설치 없이 바로 쓰는 무료 도구 — ...</td></tr>
+                  <tr><td>JSON-LD description ×2</td><td>한국에서 자주 쓰는 ...</td><td>자주 쓰는 ...</td></tr>
+                  <tr><td>hero tagline</td><td>한국에서 자주 쓰는 무료 도구.</td><td>자주 쓰는 무료 도구.</td></tr>
+                </tbody>
+              </table>
+              <p style="font-size:13px;color:var(--muted);margin-top:6px"><b>유지</b>: keywords meta(`한국 계산기` — 검색 키워드 = 사실, Naver 인식용) / 도구 desc("만·연·한국식", "한국 비만학회", "한국어 OCR" — 사실 표기). 마케팅 카피만 일반화, 사실은 그대로</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">② hub-intro 박스 신설</h3>
+              <p>hub-card 그리드 아래, preview 섹션 위에 신규 카드 박스. 좌측 primary 색 3px 보더로 인용·강조 영역 시그널. 3계층 위계:</p>
+              <table>
+                <thead><tr><th>요소</th><th>역할</th><th>스타일</th></tr></thead>
+                <tbody>
+                  <tr><td>eyebrow</td><td>"— 사이트 소개"</td><td>mono 11px·muted·letter-spacing .25em (다른 섹션 헤더 톤과 통일)</td></tr>
+                  <tr><td>lead</td><td>"입력값·이미지·PDF가 <b>외부 서버로 전송되지 않습니다</b>"</td><td>19px·700·primary 색 부분 강조 (`&lt;span class="hl"&gt;`)</td></tr>
+                  <tr><td>body</td><td>회원가입·이력서·신분증 등 사용 시나리오 + 도구 카테고리 요약</td><td>14.5px·muted·line-height 1.8</td></tr>
+                </tbody>
+              </table>
+              <p style="font-size:13px;color:var(--muted);margin-top:6px">의도 = 첫 화면(hero + hub-card)은 사용자 자랑 가치(즉시성·군더더기 X) 보존, 콘텐츠 깊이는 below-the-fold에 = SEO·AdSense 인덱싱용. 첫 인상 안 망가뜨리고 콘텐츠 추가</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">③ 미리보기 — 3 섹션 → 1 섹션 통합 + 인라인 리스트</h3>
+              <table>
+                <thead><tr><th>요소</th><th>이전</th><th>이후</th></tr></thead>
+                <tbody>
+                  <tr><td>섹션 수</td><td>3 (계산기·텍스트·이미지 분리)</td><td>1 (quick-list)</td></tr>
+                  <tr><td>카드 수</td><td>15 (각 카테고리 6 / 3 / 6)</td><td>10 (인라인 도구 이름)</td></tr>
+                  <tr><td>도구 표현</td><td>아이콘 + 이름 + desc 카드</td><td>도구 이름만 (인라인)</td></tr>
+                  <tr><td>카테고리 시그널</td><td>섹션 헤더 분리</td><td>각 행 좌측 라벨(primary 색) + 세로 1px 선</td></tr>
+                  <tr><td>"전체 보기" 링크</td><td>3 (각 카테고리)</td><td>3 (각 행 우측, "모두 →")</td></tr>
+                  <tr><td>세로 부피</td><td>~600px</td><td>~280px (~50% 감소)</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">④ 이미지 큐레이션 변경</h3>
+              <table>
+                <thead><tr><th>이전 (화제·차별화)</th><th>이후 (일상 빈도 — 사용자 결정)</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>배경 제거 / 이미지 압축 / QR 생성 (3)</td>
+                    <td>이미지 압축 / 리사이즈 / PDF 합치기 / QR 코드 (4)</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p style="font-size:13px;color:var(--muted);margin-top:6px">bg-remove는 사이트 첫 AI 도구로 화제성·기술 시그널은 강하지만 일상 사용 빈도는 낮음. 사용자 결정 = 메인 페이지 미리보기는 일상 빈도 우선</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⑤ 디자인 이터레이션 (5회)</h3>
+              <p style="font-size:13px;line-height:1.8">사용자 피드백을 반영해 5번 시안 변경. 최종 도착점 = <b>사이트 톤(mono·minimal·이모지 X)에 부합하는 시각 시그널 = 색·굵기·세로선만</b>:</p>
+              <ol style="font-size:13px;line-height:1.8;padding-left:22px;color:var(--muted)">
+                <li>한 단락 plain 카드 — 보통</li>
+                <li>위계 추가 (eyebrow + lead + body + 좌측 보더) — 더 좋아짐</li>
+                <li>통합 6 카드 mix → "마음에 안 든다" — 카오스</li>
+                <li>인라인 + 이모지 prefix → "조잡하다" — 노이즈</li>
+                <li><b>이모지 X + primary 라벨 + 세로선 → 채택</b></li>
+                <li>+ mono 헤더 "— 미리보기" 추가 — 다른 섹션과 톤 통일 마무리</li>
+              </ol>
+              <p style="font-size:13px;color:var(--muted);margin-top:8px">교훈: 사이트가 이미 "군더더기 없는 즉시 사용성" 톤 — 새 디자인 요소도 그 톤에 부합해야 함. 카드·이모지·dot 구분자는 노이즈로 인식. 색·굵기·세로선이 답</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔍 검증</h3>
+              <table>
+                <thead><tr><th>항목</th><th>결과</th></tr></thead>
+                <tbody>
+                  <tr><td>"한국에서" / "한국 실생활" 잔존</td><td>0 (사실 표기 "한국식"·"한국어"는 유지) ✓</td></tr>
+                  <tr><td>인라인 도구 노출 수</td><td>10 (계산기 3 / 텍스트 3 / 이미지 4) ✓</td></tr>
+                  <tr><td>fade-up 애니메이션 흐름</td><td>hub-card d1·d2·d3 → hub-intro .30s → quick-list d4 자연 ✓</td></tr>
+                  <tr><td>모바일 반응형</td><td>좁은 화면(&lt;640px)에서 ql-label이 위 줄로 단독, 도구가 다음 줄에 wrap ✓</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item">

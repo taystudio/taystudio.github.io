@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="TAYSTUDIO">
-  <meta property="og:title" content="TAYSTUDIO — 한국 실생활 계산기·텍스트·이미지 도구">
+  <meta property="og:title" content="TAYSTUDIO — 자주 쓰는 무료 도구 (계산기·텍스트·이미지)">
   <meta property="og:description" content="계산기 33선(연봉·세금·부동산·임신·육아·건강) + 텍스트 도구 3선 + 이미지·PDF 도구 9선(압축·리사이즈·QR·PDF·OCR·이미지→PDF·배경 제거). 모든 처리 브라우저 내.">
   <meta property="og:url" content="https://taystudio.github.io/">
   <meta property="og:image" content="https://taystudio.github.io/og-image.png">
@@ -24,12 +24,12 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="TAYSTUDIO — 한국 실생활 계산기·텍스트·이미지 도구">
+  <meta name="twitter:title" content="TAYSTUDIO — 자주 쓰는 무료 도구 (계산기·텍스트·이미지)">
   <meta name="twitter:description" content="계산기 33선 + 텍스트 도구 3선 + 이미지·PDF 도구 9선. 가입·설치 없이.">
   <meta name="twitter:image" content="https://taystudio.github.io/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
-  <title>TAYSTUDIO — 한국 실생활 계산기·텍스트·이미지 도구</title>
-  <meta name="description" content="한국에서 자주 쓰는 무료 도구 — 계산기 33선 + 텍스트 도구 3선 + 이미지·PDF 도구 9선(압축·리사이즈·QR 생성/인식·PDF 합치기/자르기·이미지→PDF·OCR·배경 제거). 모든 처리는 브라우저 안에서, 파일·입력값 외부 전송 없음.">
+  <title>TAYSTUDIO — 자주 쓰는 무료 도구 (계산기·텍스트·이미지)</title>
+  <meta name="description" content="회원가입·앱 설치 없이 바로 쓰는 무료 도구 — 계산기 33선 + 텍스트 도구 3선 + 이미지·PDF 도구 9선(압축·리사이즈·QR 생성/인식·PDF 합치기/자르기·이미지→PDF·OCR·배경 제거). 모든 처리는 브라우저 안에서, 파일·입력값 외부 전송 없음.">
   <meta name="keywords" content="한국 계산기, 연봉 실수령액, 양도세, 4대보험, 글자수 세기, 이미지 압축, 사진 용량 줄이기, 이미지 리사이즈, QR코드 만들기, PDF 합치기, 이미지 PDF 변환, 배경 제거 누끼, 이미지 글자 추출, OCR, TAYSTUDIO">
   <link rel="canonical" href="https://taystudio.github.io/">
   <script type="application/ld+json">
@@ -40,7 +40,7 @@
       "@type": "WebSite",
       "name": "TAYSTUDIO",
       "url": "https://taystudio.github.io/",
-      "description": "한국에서 자주 쓰는 무료 도구 — 계산기 33선 + 텍스트 도구 3선 + 이미지·PDF 도구 9선. 모든 처리 브라우저 내.",
+      "description": "자주 쓰는 무료 도구 — 계산기 33선 + 텍스트 도구 3선 + 이미지·PDF 도구 9선. 모든 처리 브라우저 내.",
       "inLanguage": "ko-KR",
       "hasPart": [
         {
@@ -81,7 +81,7 @@
       "url": "https://taystudio.github.io/",
       "logo": "https://taystudio.github.io/favicon-192.png",
       "image": "https://taystudio.github.io/og-image.png",
-      "description": "한국에서 자주 쓰는 무료 도구를 모은 정적 사이트. 계산기·텍스트·이미지·PDF 도구 45선 — 모든 처리는 사용자 브라우저 안에서.",
+      "description": "자주 쓰는 무료 도구를 모은 정적 사이트. 계산기·텍스트·이미지·PDF 도구 45선 — 모든 처리는 사용자 브라우저 안에서.",
       "foundingDate": "2026",
       "areaServed": "KR",
       "knowsLanguage": "ko-KR"
@@ -250,6 +250,101 @@
     }
     .preview-section .all-link:hover { gap: 10px; }
 
+    /* quick-list — 카테고리별 인라인 도구 */
+    .quick-list {
+      margin-top: 56px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .ql-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 4px;
+      margin-bottom: 12px;
+    }
+    .ql-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 22px;
+      padding: 18px 22px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .ql-label {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 14px;
+      flex-shrink: 0;
+      letter-spacing: -.005em;
+      margin-right: 12px;
+      padding-right: 14px;
+      border-right: 1px solid var(--border);
+    }
+    .ql-row a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: color .15s;
+    }
+    .ql-row a:hover { color: var(--primary); }
+    .ql-row a.ql-more {
+      margin-left: auto;
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    @media (max-width:640px) {
+      .quick-list { margin-top: 40px; gap: 6px; }
+      .ql-row { padding: 14px 16px; gap: 6px 16px; }
+      .ql-label { font-size: 13px; margin-right: 0; padding-right: 0; border-right: 0; flex-basis: 100%; margin-bottom: 6px; }
+      .ql-row a { font-size: 13.5px; }
+      .ql-row a.ql-more { font-size: 12.5px; }
+    }
+
+    .hub-intro {
+      max-width: 720px;
+      margin: 56px auto 0;
+      padding: 30px 32px 28px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--primary);
+      border-radius: 14px;
+      text-align: left;
+    }
+    .hub-intro-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 14px;
+    }
+    .hub-intro-lead {
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin: 0 0 14px;
+      letter-spacing: -.012em;
+      color: var(--text);
+    }
+    .hub-intro-lead .hl { color: var(--primary); }
+    .hub-intro-body {
+      font-size: 14.5px;
+      line-height: 1.8;
+      color: var(--muted);
+      margin: 0;
+    }
+
     .fade-up { animation: fadeUp .8s cubic-bezier(.2,.8,.2,1) both; }
     .d1 { animation-delay: .08s; }
     .d2 { animation-delay: .16s; }
@@ -270,6 +365,9 @@
     @media (max-width: 640px) {
       .hub-hero { padding: 56px 16px 32px; }
       .hub-grid { margin-top: 40px; }
+      .hub-intro { padding: 22px 20px 20px; margin-top: 36px; }
+      .hub-intro-lead { font-size: 17px; }
+      .hub-intro-body { font-size: 14px; line-height: 1.75; }
       .preview-section { margin-top: 56px; }
     }
 
@@ -287,7 +385,7 @@
     <section class="hub-hero fade-up">
       <p class="hub-eyebrow">TAYSTUDIO · EST. 2026</p>
       <h1 class="hub-title">쓸모 있는<br>것들<span class="punct">.</span></h1>
-      <p class="hub-tagline">한국에서 자주 쓰는 무료 도구.<br>가입·설치 없이, 입력값은 브라우저 안에서만.</p>
+      <p class="hub-tagline">자주 쓰는 무료 도구.<br>가입·설치 없이, 입력값은 브라우저 안에서만.</p>
     </section>
 
     <section class="hub-grid">
@@ -320,45 +418,35 @@
       </a>
     </section>
 
-    <section class="preview-section fade-up d4">
-      <div class="header">
-        <div class="title">— 계산기 미리보기</div>
-        <a class="all-link" href="./tools/">전체 33개 보기 <span aria-hidden="true">→</span></a>
-      </div>
-      <div class="tool-grid">
-        <a class="tool-card" href="./tools/salary/"><div class="icon">💵</div><div class="name">연봉 실수령액</div><div class="desc">2026 4대보험·세금</div></a>
-        <a class="tool-card" href="./tools/capgain/"><div class="icon">🏠</div><div class="name">양도소득세</div><div class="desc">1주택 12억 비과세</div></a>
-        <a class="tool-card" href="./tools/comprehensive/"><div class="icon">📋</div><div class="name">종합소득세</div><div class="desc">5월 신고 시즌</div></a>
-        <a class="tool-card" href="./tools/age/"><div class="icon">🎂</div><div class="name">만 나이</div><div class="desc">만·연·한국식</div></a>
-        <a class="tool-card" href="./tools/pregnancy/"><div class="icon">🍼</div><div class="name">출산예정일</div><div class="desc">임신주수 + D-day</div></a>
-        <a class="tool-card" href="./tools/bmi/"><div class="icon">⚖️</div><div class="name">BMI 계산기</div><div class="desc">한국 비만학회 6단계</div></a>
-      </div>
+    <section class="hub-intro fade-up" style="animation-delay:.30s">
+      <p class="hub-intro-eyebrow">— 사이트 소개</p>
+      <p class="hub-intro-lead">입력값·이미지·PDF가 <span class="hl">외부 서버로 전송되지 않습니다</span>.</p>
+      <p class="hub-intro-body">회원가입·앱 설치 없이 바로 쓰는 도구 모음입니다. 모든 처리는 사용자 브라우저 안에서만 일어나기 때문에 이력서 사진·신분증·민감 PDF 같은 자료도 안심하고 다룰 수 있습니다. 세금 계산·연봉 시뮬레이션·이미지 압축·OCR·QR·PDF 합치기·배경 제거까지, 일상에서 자주 부딪히는 작업을 한 곳에서 끝낼 수 있도록 정리했습니다.</p>
     </section>
 
-    <section class="preview-section fade-up d5">
-      <div class="header">
-        <div class="title">— 텍스트 도구 미리보기</div>
-        <a class="all-link" href="./text/">전체 3개 보기 <span aria-hidden="true">→</span></a>
+    <section class="quick-list fade-up d4">
+      <div class="ql-title">— 미리보기</div>
+      <div class="ql-row">
+        <span class="ql-label">계산기</span>
+        <a href="./tools/salary/">연봉 실수령</a>
+        <a href="./tools/comprehensive/">종합소득세</a>
+        <a href="./tools/age/">만 나이</a>
+        <a class="ql-more" href="./tools/">모두 →</a>
       </div>
-      <div class="tool-grid">
-        <a class="tool-card" href="./text/counter/"><div class="icon">🔤</div><div class="name">글자수 카운터</div><div class="desc">SNS·자소서 한도 11종</div></a>
-        <a class="tool-card" href="./text/kbd-convert/"><div class="icon">⌨️</div><div class="name">한↔영 키보드 변환</div><div class="desc">한영키 안 누르고 친 글</div></a>
-        <a class="tool-card" href="./text/sns-format/"><div class="icon">#️⃣</div><div class="name">SNS 글 정리</div><div class="desc">인스타 줄바꿈·해시태그</div></a>
+      <div class="ql-row">
+        <span class="ql-label">텍스트</span>
+        <a href="./text/counter/">글자수 카운터</a>
+        <a href="./text/kbd-convert/">한↔영 변환</a>
+        <a href="./text/sns-format/">SNS 정리</a>
+        <a class="ql-more" href="./text/">모두 →</a>
       </div>
-    </section>
-
-    <section class="preview-section fade-up d6">
-      <div class="header">
-        <div class="title">— 이미지 도구 미리보기</div>
-        <a class="all-link" href="./image/">전체 9개 보기 <span aria-hidden="true">→</span></a>
-      </div>
-      <div class="tool-grid">
-        <a class="tool-card" href="./image/bg-remove/"><div class="icon">✂️</div><div class="name">배경 제거 (누끼)</div><div class="desc">AI 자동 배경 제거 → 투명 PNG</div></a>
-        <a class="tool-card" href="./image/img-to-pdf/"><div class="icon">🖼️</div><div class="name">이미지 → PDF</div><div class="desc">사진 여러 장을 1 PDF로</div></a>
-        <a class="tool-card" href="./image/compress/"><div class="icon">🗜️</div><div class="name">이미지 압축</div><div class="desc">화질 슬라이더로 용량 줄이기</div></a>
-        <a class="tool-card" href="./image/resize/"><div class="icon">📐</div><div class="name">이미지 리사이즈</div><div class="desc">px·% 크기 변경 + 포맷 변환</div></a>
-        <a class="tool-card" href="./image/qr-gen/"><div class="icon">▣</div><div class="name">QR 코드 생성</div><div class="desc">URL·Wi-Fi → PNG·SVG</div></a>
-        <a class="tool-card" href="./image/ocr/"><div class="icon">🔡</div><div class="name">이미지 글자 추출 (OCR)</div><div class="desc">한국어·영어 텍스트 인식</div></a>
+      <div class="ql-row">
+        <span class="ql-label">이미지</span>
+        <a href="./image/compress/">이미지 압축</a>
+        <a href="./image/resize/">리사이즈</a>
+        <a href="./image/pdf-merge/">PDF 합치기</a>
+        <a href="./image/qr-gen/">QR 코드</a>
+        <a class="ql-more" href="./image/">모두 →</a>
       </div>
     </section>
   </main>
