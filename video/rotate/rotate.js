@@ -130,14 +130,28 @@ function clearAll() {
   resultVideo.load();
 }
 
-function buildArgs(inputName, outputName, op, audioMode) {
-  const filter = OP_FILTER[op] || OP_FILTER.cw90;
+function getScale() {
+  const sel = document.getElementById('scale');
+  return sel ? sel.value : 'orig';
+}
+
+function buildVfChain(op, scale) {
+  const rot = OP_FILTER[op] || OP_FILTER.cw90;
+  // 회전 전에 다운스케일 적용 = 회전 시 메모리 절감 (회전 후 적용보다 효율).
+  // -2 = 짝수로 자동 정렬 (yuv420p 호환), 짧은 변 기준 scale.
+  if (scale && scale !== 'orig') {
+    return `scale=-2:${scale},${rot}`;
+  }
+  return rot;
+}
+
+function buildArgs(inputName, outputName, op, audioMode, scale) {
   const audioArgs = audioMode === 'aac'
     ? ['-c:a', 'aac', '-b:a', '128k']
     : ['-c:a', 'copy'];
   return [
     '-i', inputName,
-    '-vf', filter,
+    '-vf', buildVfChain(op, scale),
     '-c:v', 'libx264',
     '-preset', 'ultrafast',
     '-crf', '23',
@@ -148,15 +162,15 @@ function buildArgs(inputName, outputName, op, audioMode) {
   ];
 }
 
-async function tryExec(ffmpeg, inputName, outputName, op) {
+async function tryExec(ffmpeg, inputName, outputName, op, scale) {
   // 1차: 오디오 무손실 복사
   try {
-    await ffmpeg.exec(buildArgs(inputName, outputName, op, 'copy'));
+    await ffmpeg.exec(buildArgs(inputName, outputName, op, 'copy', scale));
     return 'copy';
   } catch (_) {
     // 2차: AAC 재인코딩 fallback
     try { await ffmpeg.deleteFile(outputName); } catch (_) {}
-    await ffmpeg.exec(buildArgs(inputName, outputName, op, 'aac'));
+    await ffmpeg.exec(buildArgs(inputName, outputName, op, 'aac', scale));
     return 'aac';
   }
 }
@@ -188,7 +202,7 @@ async function run() {
     await ffmpeg.writeFile(inputName, inputData);
 
     progressText.textContent = '회전·인코딩 중...';
-    await tryExec(ffmpeg, inputName, outputName, op);
+    await tryExec(ffmpeg, inputName, outputName, op, getScale());
 
     const out = await ffmpeg.readFile(outputName);
     const blob = new Blob([out.buffer], { type: 'video/mp4' });

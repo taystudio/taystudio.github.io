@@ -38,6 +38,14 @@ const gifSize = document.getElementById('gifSize');
 const durText = document.getElementById('durText');
 const optText = document.getElementById('optText');
 const elapsedTime = document.getElementById('elapsedTime');
+
+// 모바일 감지 시 default width 320으로 — single-thread WASM 메모리 한계 회피
+(function applyMobileDefaults() {
+  if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) return;
+  if (widthSel && widthSel.value === '480') {
+    widthSel.value = '320';
+  }
+})();
 const downloadBtn = document.getElementById('downloadBtn');
 
 let currentFile = null;
