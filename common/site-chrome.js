@@ -46,6 +46,7 @@ const installButtonRefs = [];
   });
   window.addEventListener('appinstalled', () => {
     deferredPrompt = null;
+    try { localStorage.setItem('ts-installed', '1'); } catch (_) {}
     syncInstallButtons();
   });
 })();
@@ -56,28 +57,98 @@ function isStandalone() {
 function isIOS() {
   return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 }
+function isAndroid() {
+  return /Android/i.test(navigator.userAgent);
+}
+// 카카오톡·라인·페북·인스타 등 in-app 브라우저는 PWA install 미지원 → 외부 브라우저 안내
+function isInAppBrowser() {
+  const ua = navigator.userAgent;
+  return /KAKAOTALK|Line\/|FBAN|FBAV|Instagram|NAVER\(inapp/i.test(ua);
+}
+function isInstalled() {
+  if (isStandalone()) return true;
+  try { return localStorage.getItem('ts-installed') === '1'; } catch (_) { return false; }
+}
 
 function syncInstallButtons() {
-  // 이미 설치(standalone) = 숨김 / Android·Desktop = prompt 받은 후 표시 / iOS Safari = 항상 표시(안내용)
-  const visible = !isStandalone() && (deferredPrompt !== null || isIOS());
+  // 카카오·라인·페북 등 in-app 브라우저 = "외부 열기" 모드 (PWA install 미지원)
+  // 미지원 환경(prompt X·iOS X·미설치) = 숨김 / 설치됨 = 비활성 "✓ 설치됨" / 미설치 = 활성 "웹앱 설치"
+  const installed = isInstalled();
+  const inApp = isInAppBrowser();
+  const supported = inApp || deferredPrompt !== null || isIOS() || installed;
   for (const btn of installButtonRefs) {
-    btn.hidden = !visible;
+    btn.hidden = !supported;
+    if (inApp && !installed) {
+      btn.disabled = false;
+      btn.textContent = '외부 열기';
+      btn.title = 'in-app 브라우저는 앱 설치 미지원 — Chrome·Safari로 열어주세요';
+    } else {
+      btn.disabled = installed;
+      btn.textContent = installed ? '✓ 설치됨' : '웹앱 설치';
+      btn.title = installed
+        ? '이미 앱으로 설치됨'
+        : '브라우저에서 바로 설치 — 홈 화면·작업표시줄에 앱처럼 추가됩니다';
+    }
   }
 }
 
 async function handleInstallClick() {
+  if (isInstalled()) return;
+  if (isInAppBrowser()) {
+    showInAppRedirectModal();
+    return;
+  }
   if (deferredPrompt) {
     deferredPrompt.prompt();
     try {
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === 'accepted') {
         deferredPrompt = null;
+        try { localStorage.setItem('ts-installed', '1'); } catch (_) {}
         syncInstallButtons();
       }
     } catch (_) {}
     return;
   }
   if (isIOS()) showIosInstallModal();
+}
+
+function showInAppRedirectModal() {
+  if (document.getElementById('ts-install-overlay')) return;
+  const android = isAndroid();
+  const ios = isIOS();
+  const overlay = document.createElement('div');
+  overlay.id = 'ts-install-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px';
+  overlay.innerHTML = `
+    <div style="background:var(--surface,#fff);border:1px solid var(--border,#e5e7eb);border-radius:14px;padding:22px;max-width:380px;font-size:14.5px;line-height:1.65;color:var(--text,#111)">
+      <div style="font-weight:700;font-size:16px;margin-bottom:10px">외부 브라우저에서 열기</div>
+      <p style="margin:0 0 14px 0;color:var(--muted,#666);font-size:13.5px">
+        카카오·라인·페북 등 in-app 브라우저는 <b>앱 설치 기능을 지원하지 않습니다</b>.
+        Chrome·Safari로 열면 홈 화면에 앱처럼 추가할 수 있어요.
+      </p>
+      <div style="font-weight:600;margin-bottom:8px">방법</div>
+      <ol style="padding-left:18px;margin:0 0 16px 0;font-size:13.5px">
+        <li>화면 <b>우측 상단 메뉴(⋮ 또는 ⋯)</b> 탭</li>
+        <li><b>"외부 브라우저로 열기"</b> 또는 <b>"다른 브라우저에서 열기"</b> 선택</li>
+        ${android ? '<li>또는 아래 <b>"Chrome으로 열기"</b> 시도</li>' : ''}
+      </ol>
+      ${android ? `
+        <button type="button" id="ts-chrome-intent" style="width:100%;padding:10px;background:var(--primary,#2563eb);color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:14px;margin-bottom:8px">Chrome으로 열기 (시도)</button>
+      ` : ''}
+      <button type="button" id="ts-install-close" style="width:100%;padding:10px;background:${android || ios ? 'var(--bg,#f3f4f6)' : 'var(--primary,#2563eb)'};color:${android || ios ? 'var(--text,#111)' : '#fff'};border:1px solid var(--border,#e5e7eb);border-radius:8px;font-weight:600;cursor:pointer;font-size:14px">닫기</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.querySelector('#ts-install-close').addEventListener('click', () => overlay.remove());
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+  const intentBtn = overlay.querySelector('#ts-chrome-intent');
+  if (intentBtn) {
+    intentBtn.addEventListener('click', () => {
+      const path = location.href.replace(/^https?:\/\//, '');
+      location.href = `intent://${path}#Intent;scheme=https;package=com.android.chrome;end`;
+    });
+  }
 }
 
 function showIosInstallModal() {

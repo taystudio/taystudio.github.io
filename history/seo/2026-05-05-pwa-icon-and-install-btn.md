@@ -176,8 +176,108 @@ CSS:
 
 → 사용자 nav에서 **보라 "웹앱 설치"** vs **green "Play 스토어"** 한눈에 구분.
 
+## 9. UX 마감 보강 (2026-05-05 same-day 후속)
+
+배포 후 사용자 피드백 기반 3개 보강.
+
+### 9.1 자동 숨김 → 비활성 토글
+
+사용자 의견: "한 번 더 클릭하면 dismiss할 수 있게" → 더 단순화 결론 = **"비활성/활성"만**.
+
+```js
+function syncInstallButtons() {
+  const installed = isInstalled();
+  ...
+  btn.disabled = installed;
+  btn.textContent = installed ? '✓ 설치됨' : '웹앱 설치';
+}
+
+window.addEventListener('appinstalled', () => {
+  deferredPrompt = null;
+  try { localStorage.setItem('ts-installed', '1'); } catch (_) {}
+  syncInstallButtons();
+});
+```
+
+`isInstalled()` = `isStandalone() || localStorage('ts-installed') === '1'`. 새로고침 후에도 비활성 유지.
+
+CSS:
+```css
+.site-nav .install-btn:disabled {
+  background: var(--muted);
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+```
+
+**한계** = 사용자가 OS에서 PWA 직접 삭제 시 감지 X = 영원히 비활성. 향후 "다시 활성화" 옵션 검토.
+
+### 9.2 카카오·라인·페북 등 in-app 회수
+
+카톡 공유 트래픽 큰 한국 시장 특성 → in-app 사용자도 install 채널로 회수.
+
+UA 감지:
+```js
+function isInAppBrowser() {
+  return /KAKAOTALK|Line\/|FBAN|FBAV|Instagram|NAVER\(inapp/i.test(navigator.userAgent);
+}
+```
+
+5개 in-app 동시 처리 (카톡 + 라인 + 페북 앱 + 인스타 + 네이버 앱).
+
+`syncInstallButtons` 분기:
+```js
+if (inApp && !installed) {
+  btn.textContent = '외부 열기';
+  btn.disabled = false;
+}
+```
+
+`handleInstallClick` 분기 → `showInAppRedirectModal`:
+- 안내 = "우측 상단 메뉴 → 외부 브라우저로 열기" + 방법 1·2·3 ol
+- **Android만** = "Chrome으로 열기 (시도)" 버튼:
+  ```js
+  const path = location.href.replace(/^https?:\/\//, '');
+  location.href = `intent://${path}#Intent;scheme=https;package=com.android.chrome;end`;
+  ```
+  Chrome 미설치면 fallback 동작 X — 사용자가 메뉴 안내로 우회
+- **iOS** = Apple 정책상 Chrome 강제 X (URL scheme 차단). 메뉴 안내만
+
+### 9.3 모바일 헤더 컴팩트
+
+nav 5항목(계산기·텍스트·이미지·동영상·웹앱 설치) → 안드로이드 모바일에서 따닥따닥. 미디어 쿼리 강화:
+
+```css
+@media (max-width: 480px) {
+  .site-header { padding: 12px 12px; gap: 6px; }
+  .site-header .logo { font-size: 15px; }
+  .site-nav { gap: 1px; }
+  .site-nav .nav-link { font-size: 12px; padding: 5px 6px; }
+  .site-nav .install-btn { font-size: 11px; padding: 4px 7px; margin-left: 3px; }
+}
+@media (max-width: 360px) {
+  .site-header { padding: 10px 8px; gap: 4px; }
+  .site-header .logo { font-size: 14px; }
+  .site-nav { gap: 0; }
+  .site-nav .nav-link { font-size: 11px; padding: 4px 5px; }
+  .site-nav .install-btn { font-size: 10.5px; padding: 4px 6px; margin-left: 2px; }
+}
+```
+
+이전 = `gap: 2px` + 13px 폰트라 5항목이 좁은 화면에 안 맞았음. gap·padding 줄이고 폰트 1~2pt 내림.
+
+### 9.4 검증 시나리오
+
+| 시나리오 | 기대 동작 |
+|---|---|
+| 카톡으로 링크 → in-app 진입 | "외부 열기" 보라 활성 → 클릭 시 모달 + Chrome intent (Android) |
+| iOS Safari 일반 | "웹앱 설치" 활성 → 클릭 시 "공유 → 홈 화면" 안내 모달 |
+| Android Chrome install | native prompt → 설치 후 회색 비활성 "✓ 설치됨" |
+| 새로고침 후 재방문 | localStorage 유지 = 비활성 그대로 |
+| iPhone 360px viewport | nav 5항목 컴팩트 (overflow X) |
+
 ## 관련 plan 항목
 
-- §9.1 결정 기록 (PWA install 버튼 + 아이콘 자산 분리)
-- §9.4 다음 세션 — Lighthouse PWA 검증 + native 진입 시 .play-btn 추가
+- §9.1 결정 기록 (PWA UX 마감 + install 버튼 + 아이콘 자산 분리)
+- §9.4 다음 세션 — Lighthouse PWA 검증 + native 진입 시 .play-btn 추가 + 카카오 디버거 OG flush
 - §10 비즈니스 트랙 — TWA Bubblewrap 또는 Kotlin native 진입 시점 결정
