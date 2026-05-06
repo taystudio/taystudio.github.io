@@ -139,47 +139,78 @@ body {
   transform: none;
 }
 
+/* ≤480px = 모바일. JS가 install을 header 직접 자식으로 옮김 (site-chrome.js placeInstall).
+   header는 grid 2줄: 1줄 [logo · install] / 2줄 [nav 5분할 균등].
+   active 카테고리는 하단 막대(border-bottom 2px primary)로 iOS UITabBar 패턴 — 직관성 ↑. */
 @media (max-width: 480px) {
   .site-header {
-    padding: 12px 12px;
-    gap: 6px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: center;
+    padding: 10px 12px 0;
+    column-gap: 8px;
+    row-gap: 4px;
   }
   .site-header .logo {
+    grid-column: 1;
+    grid-row: 1;
     font-size: 15px;
   }
+  /* install이 header 직접 자식일 때만 grid 1행 우측에 배치 (모바일 한정) */
+  .site-header > .install-btn {
+    grid-column: 2;
+    grid-row: 1;
+    margin-left: 0;
+    font-size: 12px;
+    padding: 5px 10px;
+    justify-self: end;
+  }
   .site-nav {
-    gap: 1px;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin: 6px -12px 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--border);
   }
   .site-nav .nav-link {
     font-size: 12px;
-    padding: 5px 6px;
+    font-weight: 500;
+    padding: 10px 2px;
+    text-align: center;
+    border-radius: 0;
+    border-bottom: 2px solid transparent;
   }
-  .site-nav .install-btn {
-    font-size: 11px;
-    padding: 4px 7px;
-    margin-left: 3px;
+  .site-nav .nav-link:hover {
+    background: transparent;
+  }
+  .site-nav .nav-link.active {
+    background: rgba(37, 99, 235, 0.06);
+    color: var(--primary);
+    border-bottom-color: var(--primary);
   }
 }
 
 @media (max-width: 360px) {
   .site-header {
-    padding: 10px 8px;
-    gap: 4px;
+    padding: 8px 8px 0;
+    column-gap: 6px;
   }
   .site-header .logo {
     font-size: 14px;
   }
+  .site-header > .install-btn {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
   .site-nav {
-    gap: 0;
+    margin: 6px -8px 0;
   }
   .site-nav .nav-link {
     font-size: 11px;
-    padding: 4px 5px;
-  }
-  .site-nav .install-btn {
-    font-size: 10.5px;
-    padding: 4px 6px;
-    margin-left: 2px;
+    padding: 9px 2px;
   }
 }
 

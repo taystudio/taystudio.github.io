@@ -257,6 +257,25 @@ class SiteHeader extends HTMLElement {
       installBtn.addEventListener('click', handleInstallClick);
       syncInstallButtons();
     }
+
+    // ≤480px = install을 header 직접 자식으로 옮김 → grid 2줄 layout에서 자유 배치.
+    // >480px = install을 nav 안 마지막 자식으로 (기존 데스크톱 위치 100% 보존).
+    // matchMedia change로 viewport rotation·DevTools resize 시에도 즉시 재배치.
+    const headerEl = this.querySelector('.site-header');
+    const navEl = this.querySelector('.site-nav');
+    if (installBtn && headerEl && navEl) {
+      const mq = window.matchMedia('(max-width: 480px)');
+      const placeInstall = () => {
+        if (mq.matches) {
+          if (installBtn.parentElement !== headerEl) headerEl.appendChild(installBtn);
+        } else {
+          if (installBtn.parentElement !== navEl) navEl.appendChild(installBtn);
+        }
+      };
+      placeInstall();
+      try { mq.addEventListener('change', placeInstall); }
+      catch (_) { mq.addListener(placeInstall); /* Safari < 14 */ }
+    }
   }
 }
 
