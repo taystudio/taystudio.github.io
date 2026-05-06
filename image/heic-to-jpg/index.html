@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudio.github.io · source = github.com/taystudio/taystudio.github.io · 무단 복제·재배포 금지 -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="HEIC → JPG 변환 | 아이폰 사진 무료 변환">
+  <meta property="og:description" content="아이폰·아이패드의 HEIC 사진을 JPG·PNG로 무료 변환. 여러 파일 일괄. 모든 처리는 브라우저 안에서. 가입·설치·워터마크 없음.">
+  <meta property="og:url" content="https://taystudio.github.io/image/heic-to-jpg/">
+  <meta property="og:image" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HEIC → JPG | 아이폰 사진 무료 변환">
+  <meta name="twitter:description" content="HEIC를 JPG·PNG로. 브라우저 안에서, 가입·워터마크 없음.">
+  <meta name="twitter:image" content="https://taystudio.github.io/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <title>HEIC → JPG 변환 | 아이폰 사진 무료 변환, 워터마크 없음</title>
+  <meta name="description" content="아이폰·아이패드 HEIC 사진을 JPG/PNG로 무료 변환. 여러 파일 일괄 처리, 모든 처리는 브라우저 안에서. 가입·설치·워터마크 없음. 카톡·이메일·블로그 업로드 호환.">
+  <meta name="keywords" content="HEIC JPG 변환, 아이폰 사진 변환, HEIC 변환, 아이패드 사진 JPG, HEIC PNG, 사진 형식 변환, HEIC 파일 열기">
+  <link rel="canonical" href="https://taystudio.github.io/image/heic-to-jpg/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "HEIC → JPG 변환 | 아이폰 사진 무료 변환",
+      "description": "아이폰·아이패드 HEIC 사진을 JPG·PNG로 변환. 여러 파일 일괄 + 품질 조정. 브라우저 안에서 처리.",
+      "url": "https://taystudio.github.io/image/heic-to-jpg/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "HEIC/HEIF → JPG·PNG 일괄 변환",
+        "JPG 품질 1~100 슬라이더",
+        "다중 파일 드래그·드롭",
+        "원본 외부 업로드 없음 — 브라우저 안에서 처리"
+      ],
+      "dateModified": "2026-05-06",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudio.github.io/image/" },
+        { "@type": "ListItem", "position": 3, "name": "HEIC → JPG", "item": "https://taystudio.github.io/image/heic-to-jpg/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "HEIC 파일이 외부 서버로 업로드되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. 변환은 브라우저 내부의 heic2any(libheif WebAssembly) 라이브러리에서 모두 수행되며, 사이트 운영자도 사진 내용을 볼 수 없습니다. 가족·여행 사진처럼 사적인 자료도 안심하고 사용하세요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "왜 HEIC를 변환해야 하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "iPhone·iPad는 iOS 11부터 사진을 HEIC(High Efficiency Image Coding) 포맷으로 저장합니다. 같은 화질 기준 JPG의 절반 용량이지만 윈도우·안드로이드·카톡·구버전 브라우저·일부 사진 인쇄 서비스에서 열리지 않습니다. JPG로 변환하면 어디서나 열립니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "변환 시 화질이 떨어지나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "JPG로 변환 시 손실 압축이 적용되지만 품질 90 이상에서는 육안 차이 거의 없습니다. 무손실이 필요하면 PNG로 변환하세요(용량은 JPG의 5~10배). 본 도구는 원본 HEIC를 디코딩한 픽셀 그대로 인코딩하므로 추가 손실 없음."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "여러 장을 한 번에 변환할 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네. 여러 HEIC 파일을 드래그·드롭하거나 다중 선택해 한 번에 변환합니다. 각 파일은 변환 진행률이 표시되며, 완료 후 페이지별 다운로드 또는 '전체 다운로드'로 한 번에 받을 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "큰 사진도 처리되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "iPhone 카메라 12MP(4032×3024)·48MP(8064×6048) 모두 처리 가능. 한 장당 약 1~3초(데스크톱 기준). 모바일 Safari는 메모리 한계로 ~50MB 이상 또는 10장+ 동시 처리 시 불안정할 수 있으니 데스크톱 권장."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "HEIC와 HEIF는 같은 건가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "거의 같습니다. HEIF(High Efficiency Image File)는 컨테이너 포맷, HEIC는 그 안에 HEVC(H.265) 코덱으로 압축한 이미지입니다. 본 도구는 HEIC, HEIF, .heif, .heic 확장자 모두 지원합니다."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "HEIC를 JPG로 변환하는 방법",
+      "description": "iPhone·iPad의 HEIC 사진을 JPG 또는 PNG로 변환합니다.",
+      "totalTime": "PT30S",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "HEIC 파일 선택", "text": "HEIC/HEIF 파일을 드래그·드롭하거나 클릭해 여러 개를 선택." },
+        { "@type": "HowToStep", "position": 2, "name": "포맷·품질 선택", "text": "JPG(용량 작음) 또는 PNG(무손실) 선택. JPG는 품질 슬라이더로 추가 조정." },
+        { "@type": "HowToStep", "position": 3, "name": "변환", "text": "변환 버튼을 누르면 brower 안에서 heic2any 라이브러리가 한 장씩 변환." },
+        { "@type": "HowToStep", "position": 4, "name": "다운로드", "text": "각 파일 다운로드 또는 '전체 다운로드' 클릭. 외부 서버 전송 없음." }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .file-list { display:flex; flex-direction:column; gap:8px; margin-top:14px; }
+    .file-item { display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--card); border:1px solid var(--border); border-radius:8px; }
+    .file-item .order { width:24px; height:24px; display:flex; align-items:center; justify-content:center; background:var(--border); color:var(--muted); border-radius:50%; font-size:12px; font-weight:600; flex:0 0 auto; }
+    .file-item .name { flex:1 1 auto; font-size:13.5px; word-break:break-all; line-height:1.4; }
+    .file-item .size { font-size:12px; color:var(--muted); flex:0 0 auto; font-variant-numeric:tabular-nums; }
+    .file-item .status { font-size:12px; color:var(--muted); flex:0 0 auto; }
+    .file-item .status.done { color:#16a34a; }
+    .file-item .status.err { color:#dc2626; }
+    .file-item .row-actions { display:flex; gap:4px; flex:0 0 auto; }
+    .file-item .row-actions button { width:30px; height:30px; padding:0; font-size:14px; line-height:1; background:transparent; color:var(--muted); border:1px solid var(--border); border-radius:6px; cursor:pointer; }
+    .file-item .row-actions button:hover { color:#dc2626; border-color:#dc2626; }
+    .opt-row { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:12px; margin-top:14px; }
+    .opt-row .field label { display:block; margin-bottom:4px; font-size:12.5px; color:var(--muted); }
+    .opt-row .field select, .opt-row .field input[type="number"] { width:100%; padding:8px 10px; font-size:14px; border:1px solid var(--border); border-radius:6px; background:var(--card); color:var(--text); }
+    .opt-row .field input[type="range"] { width:100%; }
+    .quality-row[data-format="png"] { display:none; }
+    .progress-wrap { margin-top:14px; }
+    .progress-wrap .bar { height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+    .progress-wrap .fill { height:100%; background:var(--primary); transition:width .15s; }
+    .progress-wrap .text { font-size:12px; color:var(--muted); margin-top:4px; text-align:center; font-variant-numeric:tabular-nums; }
+    .img-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:14px; margin-top:14px; }
+    .img-card { border:1px solid var(--border); border-radius:8px; padding:8px; background:var(--card); }
+    .img-card-thumb { width:100%; aspect-ratio:1/1; background:#fff; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:4px; }
+    .img-card-thumb img { max-width:100%; max-height:100%; object-fit:contain; }
+    .img-card-meta { font-size:11px; color:var(--muted); margin-top:6px; text-align:center; word-break:break-all; }
+    .img-card-dl { display:block; margin-top:6px; padding:6px 0; text-align:center; font-size:13px; background:var(--primary); color:#fff; border-radius:5px; text-decoration:none; }
+    .img-card-dl:hover { opacity:.9; }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">이미지</a> · HEIC → JPG</div>
+    <h1>HEIC → JPG 변환</h1>
+    <p class="subtitle">아이폰·아이패드 사진을 JPG·PNG로 — 카톡·이메일·블로그 업로드 호환.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>HEIC 파일이 외부 서버로 전송되지 않습니다.</b> 모든 변환은 사용자 브라우저 안에서 이루어집니다.</div>
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">📷</div>
+        <div class="drop-title" id="dropTitle">HEIC 파일을 드래그하거나 클릭해서 선택</div>
+        <div class="drop-hint">HEIC·HEIF 형식 — 여러 파일 일괄 가능</div>
+        <input type="file" id="fileInput" accept=".heic,.heif,image/heic,image/heif" multiple>
+      </label>
+
+      <div id="fileList" class="file-list"></div>
+
+      <div class="opt-row" id="optRow" hidden>
+        <div class="field">
+          <label for="formatSel">출력 포맷</label>
+          <select id="formatSel">
+            <option value="jpeg" selected>JPG (용량 작음)</option>
+            <option value="png">PNG (무손실)</option>
+          </select>
+        </div>
+        <div class="field quality-row" id="qualityRow">
+          <label for="qualityIn">JPG 품질 (1~100): <b id="qualityVal">90</b></label>
+          <input type="range" id="qualityIn" min="1" max="100" step="1" value="90">
+        </div>
+      </div>
+
+      <div class="image-actions" id="actionBar" hidden>
+        <button type="button" id="convertBtn">변환</button>
+        <button type="button" id="clearBtn">전체 삭제</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
+        <div class="text" id="progressText">0 / 0</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="image-meta">
+        <span>변환 완료 <b id="newCount">—</b></span>
+        <span>총 용량 <b id="newSize">—</b></span>
+      </div>
+      <div class="image-actions">
+        <button type="button" id="downloadAllBtn" class="download-btn">⬇ 전체 다운로드</button>
+      </div>
+      <div class="img-grid" id="imgGrid"></div>
+    </div>
+
+    <section class="tool-article">
+      <h2>이런 상황에 씁니다</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>상황</th><th>변환 추천</th></tr></thead>
+          <tbody>
+            <tr><td>카톡·이메일로 사진 보내기</td><td>JPG 품질 90 — 호환성 + 적정 용량</td></tr>
+            <tr><td>블로그·SNS 업로드</td><td>JPG 품질 85 — 가벼운 페이지 로딩</td></tr>
+            <tr><td>인쇄·사진관 인화</td><td>JPG 품질 95~100 — 화질 최우선</td></tr>
+            <tr><td>윈도우 PC에서 사진 보기</td><td>JPG 품질 90 — Windows 기본 뷰어 호환</td></tr>
+            <tr><td>편집(포토샵·일반 도구)</td><td>PNG — 무손실, 재압축 누적 X</td></tr>
+            <tr><td>웹 디자인·로고 작업</td><td>PNG — 투명도 보존(HEIC가 알파 포함 시)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../compress/">이미지 압축<span class="desc">변환 후 용량 더 줄이기</span></a>
+        <a href="../resize/">이미지 리사이즈<span class="desc">크기·해상도 조정</span></a>
+        <a href="../crop/">이미지 자르기<span class="desc">필요한 영역만 추출</span></a>
+        <a href="../id-photo/">증명사진 만들기<span class="desc">여권·이력서 표준 사이즈</span></a>
+        <a href="/pdf/img-to-pdf/">이미지 → PDF<span class="desc">변환 후 PDF로 묶기</span></a>
+        <a href="../">이미지 도구 모음<span class="desc">압축·QR·OCR·배경 제거</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>iPhone에서 HEIC 대신 JPG로 직접 찍을 수 있나요?</summary>
+        <div class="answer">
+          네. iPhone <b>설정 → 카메라 → 포맷 → '높은 호환성'</b>으로 바꾸면 다음부터 JPG로 저장됩니다. 단 같은 화질 기준 용량이 약 2배가 됩니다. 이미 찍은 HEIC는 본 도구로 변환하세요.
+        </div>
+      </details>
+      <details>
+        <summary>한 번에 몇 장까지 변환되나요?</summary>
+        <div class="answer">
+          이론적으로 제한 없으나 브라우저 메모리에 좌우됩니다. 데스크톱 Chrome 기준 <b>50~100장 무난</b>(한 장당 평균 2~3MB 가정), 모바일 20~30장 권장. 큰 묶음은 한 번에 10~20장씩 나눠 처리하면 안전.
+        </div>
+      </details>
+      <details>
+        <summary>EXIF(촬영 날짜·GPS) 정보는 보존되나요?</summary>
+        <div class="answer">
+          현재 변환 과정에서 일부 EXIF 메타데이터가 사라질 수 있습니다. 촬영 일시·카메라 정보는 대부분 유지되지만 GPS 좌표·HDR 정보 등 일부는 전달되지 않을 수 있습니다. SNS·블로그 업로드 시 GPS 제거가 오히려 프라이버시에 유리할 수 있습니다.
+        </div>
+      </details>
+      <details>
+        <summary>heic2any·libheif 라이브러리</summary>
+        <div class="answer">
+          <a href="https://github.com/alexcorvi/heic2any" rel="nofollow noopener" target="_blank">heic2any</a>는 <a href="https://github.com/strukturag/libheif" rel="nofollow noopener" target="_blank">libheif</a>(WebAssembly)를 wrap한 클라이언트 사이드 변환 라이브러리. 약 1.3MB, 외부 CDN 의존 없이 vendoring(직접 commit)했습니다. MIT 라이선스.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>HEIC 파일이 외부 서버로 업로드되나요?</summary>
+        <div class="answer">
+          전송되지 않습니다. 변환은 <b>브라우저 내부의 heic2any(libheif WebAssembly) 라이브러리</b>에서 모두 수행되며, 사이트 운영자도 사진 내용을 볼 수 없습니다. 가족·여행 사진처럼 사적인 자료도 안심하고 사용하세요.
+        </div>
+      </details>
+
+      <details>
+        <summary>왜 HEIC를 변환해야 하나요?</summary>
+        <div class="answer">
+          <b>iPhone·iPad는 iOS 11부터 사진을 HEIC 포맷으로 저장</b>합니다. 같은 화질 기준 JPG의 절반 용량이지만 윈도우·안드로이드·카톡·구버전 브라우저·일부 사진 인쇄 서비스에서 열리지 않습니다.
+          JPG로 변환하면 어디서나 열립니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>변환 시 화질이 떨어지나요?</summary>
+        <div class="answer">
+          JPG로 변환 시 손실 압축이 적용되지만 <b>품질 90 이상에서는 육안 차이 거의 없습니다</b>. 무손실이 필요하면 PNG로 변환하세요(용량은 JPG의 5~10배).
+          본 도구는 원본 HEIC를 디코딩한 픽셀 그대로 인코딩하므로 추가 손실 없음.
+        </div>
+      </details>
+
+      <details>
+        <summary>여러 장을 한 번에 변환할 수 있나요?</summary>
+        <div class="answer">
+          네. 여러 HEIC 파일을 드래그·드롭하거나 다중 선택해 한 번에 변환합니다.
+          각 파일은 변환 진행률이 표시되며, 완료 후 페이지별 다운로드 또는 '전체 다운로드'로 한 번에 받을 수 있습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>큰 사진도 처리되나요?</summary>
+        <div class="answer">
+          iPhone 카메라 <b>12MP(4032×3024)·48MP(8064×6048) 모두 처리</b> 가능. 한 장당 약 1~3초(데스크톱 기준).
+          모바일 Safari는 메모리 한계로 ~50MB 이상 또는 10장+ 동시 처리 시 불안정할 수 있으니 데스크톱 권장.
+        </div>
+      </details>
+
+      <details>
+        <summary>HEIC와 HEIF는 같은 건가요?</summary>
+        <div class="answer">
+          거의 같습니다. <b>HEIF(High Efficiency Image File)는 컨테이너 포맷, HEIC는 그 안에 HEVC(H.265) 코덱</b>으로 압축한 이미지입니다.
+          본 도구는 HEIC, HEIF, .heif, .heic 확장자 모두 지원합니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-06 / heic2any (MIT) + libheif (LGPLv3) 라이브러리 사용.</div>
+      <ul>
+        <li>heic2any (MIT) — <a href="https://github.com/alexcorvi/heic2any" rel="nofollow noopener" target="_blank">GitHub</a></li>
+        <li>libheif (LGPLv3) — <a href="https://github.com/strukturag/libheif" rel="nofollow noopener" target="_blank">GitHub</a></li>
+        <li>HEIF 표준 — ISO/IEC 23008-12</li>
+        <li>HEVC (H.265) 코덱 — ITU-T H.265</li>
+      </ul>
+      <div class="note">⚠️ 변환 후 이미지 화질·색상·EXIF 정보가 의도한 대로인지 확인하세요. 인쇄 등 중요한 용도는 원본 HEIC도 함께 보관 권장.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 이미지 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="/image/vendor/heic2any.min.js" defer></script>
+  <script src="./heic-to-jpg.js" defer></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

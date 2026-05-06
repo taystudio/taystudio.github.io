@@ -1,7 +1,7 @@
 {
   "name": "TayTools — 자주 쓰는 무료 도구",
   "short_name": "TayTools",
-  "description": "계산기·텍스트·이미지·동영상까지 53가지 실용 도구 한곳에. 입력값·파일이 외부 서버로 전송되지 않습니다 — 모두 브라우저 안에서 처리.",
+  "description": "계산기·텍스트·이미지·PDF·동영상까지 58가지 실용 도구 한곳에. 입력값·파일이 외부 서버로 전송되지 않습니다 — 모두 브라우저 안에서 처리.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -60,10 +60,10 @@
       "icons": [{ "src": "/pwa-icon-192.png", "sizes": "192x192" }]
     },
     {
-      "name": "QR 코드 생성",
-      "short_name": "QR 코드",
-      "description": "텍스트·URL·Wi-Fi → QR PNG·SVG",
-      "url": "/image/qr-gen/",
+      "name": "PDF 합치기",
+      "short_name": "PDF 합치기",
+      "description": "여러 PDF를 한 파일로 — 브라우저 안에서",
+      "url": "/pdf/pdf-merge/",
       "icons": [{ "src": "/pwa-icon-192.png", "sizes": "192x192" }]
     }
   ]

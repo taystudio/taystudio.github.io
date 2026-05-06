@@ -139,7 +139,7 @@
     <h1>📜 변경 이력</h1>
     <p class="subtitle">사이트에서 일어난 일을 시간 역순으로 — 도구 추가, 세율 갱신, SEO·인프라 작업까지.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
-      <b>마지막 갱신</b>: 2026-05-05 · <span style="opacity:.7">video 카테고리 신설 + 5선 완료(compress·trim·rotate·to-gif·to-mp3) — ffmpeg.wasm + IndexedDB 캐시 인프라. 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
+      <b>마지막 갱신</b>: 2026-05-06 · <span style="opacity:.7">privacy·terms root 이전(<code>/tools/{privacy,terms}/</code> → <code>/{privacy,terms}/</code>, soft refresh stub) · image+pdf 종합 검증 라운드 · 이미지 카테고리 Tier 1 신규 3종 + 같은 일자 PDF 카테고리 신설. 도구 <b>58선</b>, sitemap <b>66 URL</b>. 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
     </p>
 
     <div class="legend">
@@ -149,6 +149,387 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-06</span>
+            <span class="tl-tag seo">SEO 위치 정합성 — root 이전</span>
+            <span class="tl-tag">privacy · terms</span>
+          </div>
+          <div class="tl-title">🛡️ privacy·terms root 이전 — <code>/tools/{privacy,terms}/</code> → <code>/{privacy,terms}/</code></div>
+          <div class="tl-summary">
+            사용자가 footer 정책 페이지 위치 SEO 검토 요청. <code>/tools/</code>는 "계산기" 카테고리인데 정책은 사이트 전체용 → 의미 부조화 + AdSense·표준 관행상 root 직속이 정답. 합의 후 root 이전 실행. 옛 위치는 <b>soft refresh stub 4계층</b>(meta refresh + canonical + noindex + JS replace) — GitHub Pages는 301 헤더 불가라 기존 PDF 카테고리 분리에서 정립한 패턴 재사용. <code>common/site-chrome.js</code> footer 2 link + banner "자세히" link 갱신, <code>scripts/build-sitemap.sh</code>에 <code>ROOT_PAGES=("privacy" "terms")</code> walk 추가(재실행 시 보존). <b>도구 수·카테고리 변동 0, sitemap 66 URL 그대로</b>.
+          </div>
+          <div class="stats-grid">
+            <div class="stat"><div class="label">신규 위치</div><div class="value">2</div><div class="delta"><code>/privacy/</code> · <code>/terms/</code> root 직속</div></div>
+            <div class="stat"><div class="label">stub 4계층</div><div class="value">2/2</div><div class="delta">canonical + refresh + noindex + JS replace 모두 적용</div></div>
+            <div class="stat"><div class="label">site-chrome.js</div><div class="value">3</div><div class="delta">footer 2 link + banner "자세히" link 갱신</div></div>
+            <div class="stat"><div class="label">sitemap 영향</div><div class="value">0</div><div class="delta">신규 등재 +2, 옛 stub 자동 제외 −2 = net 0</div></div>
+          </div>
+          <details class="tl-detail">
+            <summary>왜 root로 옮겼나 + 어떻게 이전했나 + isToolsPage 검증</summary>
+            <div class="tl-detail-body">
+              <h3 style="font-size:15px;margin:18px 0 8px">🎯 동기 — 4가지 부조화</h3>
+              <ul>
+                <li><b>URL 의미 충돌</b>: <code>/tools/</code>는 계산기 카테고리, privacy/terms는 사이트 전체 정책 → 부조화</li>
+                <li><b>AdSense·표준 관행</b>: 주요 사이트 100% root 직속(<code>/privacy</code>·<code>/terms</code>)</li>
+                <li><b>카테고리 권한 분산</b>: <code>/tools/</code> backlink·권한이 정책 페이지로 새는 미세 손실</li>
+                <li><b>breadcrumb·동선</b>: "도구 → 개인정보처리방침"은 어색, footer→정책 흐름에 <code>/tools/</code> 노출이 직관 어긋남</li>
+              </ul>
+              <p style="color:var(--muted);font-size:13px"><b>단 SEO 직접 영향은 작음</b> — 정책 페이지는 검색 트래픽 거의 0(검색 의도 X, footer link만 도달), 사이트 신뢰 시그널은 존재 자체가 핵심. 그래도 "지금부터 깔끔하게" 정리할 가치가 있다는 판단.</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🧩 신규 위치 메타 — 4 정합성</h3>
+              <ul>
+                <li><code>og:url</code> · <code>canonical</code> = <code>https://taystudio.github.io/{privacy,terms}/</code></li>
+                <li><b>breadcrumb 부모 변경</b>: <code>&lt;a href="../index.html"&gt;도구&lt;/a&gt;</code> → <code>&lt;a href="/"&gt;TAYSTUDIO&lt;/a&gt;</code> — 정책은 도구 하위가 아니라 사이트 전체 정책</li>
+                <li><b>related-nav 절대경로화</b>: root에서 <code>../index.html</code>은 깨짐 → <code>/tools/</code> 절대경로로 명시</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔁 옛 위치 stub — soft refresh 4계층</h3>
+              <pre><code>&lt;link rel="canonical" href="https://taystudio.github.io/privacy/"&gt;
+&lt;meta http-equiv="refresh" content="0; url=/privacy/"&gt;
+&lt;meta name="robots" content="noindex"&gt;
+&lt;script&gt;location.replace('/privacy/');&lt;/script&gt;</code></pre>
+              <ul>
+                <li><b>canonical</b>: Google에 신규 URL이 정본임을 시그널 → equity 일부 이전</li>
+                <li><b>meta refresh</b>: JS 비활성 환경에서 0초 후 redirect</li>
+                <li><b>robots noindex</b>: sitemap·검색 결과에서 점진 제거(수개월 뒤 자연 deindex)</li>
+                <li><b>JS location.replace</b>: JS 활성 환경 즉시 redirect, history 안 남음</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🛠 site-chrome.js 일괄</h3>
+              <ul>
+                <li><code>&lt;site-footer&gt;</code> 개인정보처리방침·이용약관 link → <code>/privacy/</code>·<code>/terms/</code></li>
+                <li><code>&lt;site-header&gt;</code> banner "자세히" link → <code>/terms/</code></li>
+                <li><code>isToolsPage()</code> 정규식 <code>/\/tools\/(privacy|terms|404)\b/</code> <b>유지</b> — stub은 즉시 redirect되지만 JS-blocked 환경 안전망 + banner 부적절</li>
+                <li>footer는 60+ 도구 페이지 모두 Web Component로 렌더링되므로 한 곳만 고치면 사이트 전체 일괄 반영</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🗺 build-sitemap.sh — root walk 추가</h3>
+              <p>기존 walk는 카테고리(<code>tools/text/image/pdf/video</code>) 하위만 순회 → root 직속 단일 페이지(<code>/privacy/</code>·<code>/terms/</code>)는 자동 픽업 X. 명시 등록 필요.</p>
+              <pre><code># 루트 직속 단일 페이지 — privacy·terms 같이 카테고리 아닌 정책 페이지
+ROOT_PAGES=("privacy" "terms")
+
+for slug in "${ROOT_PAGES[@]}"; do
+  file="${slug}/index.html"
+  [ -f "$file" ] || continue
+  is_noindex "$file" &amp;&amp; continue
+  URL=$(canonical_of "$file" "${DOMAIN}/${slug}/")
+  emit_url "$URL" "$(last_mod "$file")"
+done</code></pre>
+              <p style="color:var(--muted);font-size:13px">결과 = sitemap 66 URL 그대로 (<code>/privacy/</code>·<code>/terms/</code> 등재 +2 / 옛 stub은 noindex 메타로 <code>is_noindex()</code> 자동 제외 −2).</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">✅ 검증</h3>
+              <ul>
+                <li><code>isToolsPage()</code> 11/11 케이스 PASS — banner 노출 의도대로 (<code>/tools/{privacy,terms}/</code> stub·<code>/privacy/</code>·<code>/terms/</code> 모두 false, 36 계산기 도구는 true)</li>
+                <li>canonical/og:url 4파일 일치 ✓</li>
+                <li>stub 4계층(refresh + canonical + noindex + JS replace) 모두 적용 ✓</li>
+                <li>잔존 <code>/tools/{privacy,terms}/</code> 참조 = site-chrome.js 주석 1건뿐(정상)</li>
+                <li>sitemap 66 URL 그대로</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔄 패턴 재사용 노트</h3>
+              <p>이번 이전은 <b>PDF 카테고리 분리(같은 날 앞선 작업)에서 정립한 soft refresh stub 4계층 패턴</b>을 그대로 재사용. GitHub Pages 정적 호스팅의 301 부재 한계를 우회하는 표준 패턴으로 확립.</p>
+              <ul>
+                <li>2026-05-06 PDF 카테고리 분리 — <code>image/{pdf-merge,pdf-split,img-to-pdf}/</code> → <code>pdf/...</code> (3 stub)</li>
+                <li>2026-05-06 privacy·terms root 이전 (이번) — <code>tools/{privacy,terms}/</code> → <code>/{privacy,terms}/</code> (2 stub)</li>
+              </ul>
+              <p style="color:var(--muted);font-size:13px">다음 카테고리·페이지 이전 시 동일 패턴 적용. <code>build-sitemap.sh</code>의 <code>is_noindex()</code> 자동 제외 + <code>ROOT_PAGES</code> 배열은 향후 사이트 전체 단일 페이지(404·about 등) 추가 시 그대로 확장 가능.</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📌 사용자 후속</h3>
+              <ul>
+                <li><b>Search Console</b>: 신규 URL <code>/privacy/</code>·<code>/terms/</code> 색인 요청. 옛 <code>/tools/{privacy,terms}/</code>는 noindex로 자연 deindex(수개월)</li>
+                <li><b>sitemap 재제출</b>: <code>https://taystudio.github.io/sitemap.xml</code> Search Console에서 재제출</li>
+                <li><b>카카오 OG 캐시</b>: 신규 URL OG 카드 첫 호출 시 자동 fetch. 필요 시 캐시 flush 도구로 수동 갱신</li>
+                <li><b>history 문서</b>: <code>history/seo/2026-05-06-legal-pages-root-move.md</code></li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-06</span>
+            <span class="tl-tag seo">검증 라운드 — 자동 검사 + UX 4라운드</span>
+            <span class="tl-tag">image 9 + pdf 5</span>
+          </div>
+          <div class="tl-title">✅ image+pdf 종합 검증 — 자동 검사 모두 통과 + crop·id-photo UX 보강</div>
+          <div class="tl-summary">
+            사용자 요청으로 image 9선 + pdf 5선 자동 검증·정적 분석 라운드. <b>JS syntax 14/14 / JSON-LD 17/17 / canonical·og:url 17/17 / FAQ DOM=LD 17/17 / HTML 태그 17/17 / HTTP 200 30/30 / redirect stub 3/3 / 잔존 검사 0건</b> 모두 통과. 정적 분석에서 BlobURL 누수·Pointer capture·async catch·pdf.js worker URL 모두 정상. 동시에 crop·id-photo UX 피드백 4라운드 — 영역 구분·sticky 제거·info·act 풀 너비·가로 사진 폭 시도/원복 (canvas는 img와 다르게 max-width+max-height 동시 적용 시 비율 자동 유지 X 발견).
+          </div>
+          <div class="stats-grid">
+            <div class="stat"><div class="label">자동 검사 통과</div><div class="value">115</div><div class="delta">syntax 14 + JSON-LD 17 + URL 17 + FAQ 17 + 태그 17 + HTTP 30 + stub 3</div></div>
+            <div class="stat"><div class="label">잔존 issue</div><div class="value">0</div><div class="delta">옛 vendor·cross-link·sitemap stub 모두 0건</div></div>
+            <div class="stat"><div class="label">UX 라운드</div><div class="value">4</div><div class="delta">영역 분리 → sticky 제거 → 풀 너비 → 가로 폭 시도·원복</div></div>
+            <div class="stat"><div class="label">최종 도구 수</div><div class="value">58</div><div class="delta">image 9 + pdf 5 + tools 36 + text 3 + video 5</div></div>
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">✅ 자동 검증 — 모두 통과</h3>
+              <table>
+                <thead><tr><th>항목</th><th class="num">결과</th></tr></thead>
+                <tbody>
+                  <tr><td>JS syntax (<code>node --check</code>)</td><td class="num">14/14 ✓</td></tr>
+                  <tr><td>JSON-LD <code>JSON.parse</code></td><td class="num">17/17 ✓</td></tr>
+                  <tr><td>canonical·og:url 일관</td><td class="num">17/17 ✓</td></tr>
+                  <tr><td>FAQ DOM count == JSON-LD</td><td class="num">17/17 ✓</td></tr>
+                  <tr><td>HTML 태그 밸런스</td><td class="num">17/17 ✓</td></tr>
+                  <tr><td>HTTP 200 (도구·hub·vendor·sitemap·sw·manifest)</td><td class="num">30/30 ✓</td></tr>
+                  <tr><td>redirect stub (canonical+refresh+noindex)</td><td class="num">3/3 ✓</td></tr>
+                  <tr><td>옛 vendor·cross-link·sitemap stub URL 잔존</td><td class="num">0건</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔍 정적 분석</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><b>BlobURL 누수</b>: 우리 도구 0건. vendor(tesseract) 1건은 라이브러리 책임</li>
+                <li><b>Pointer Events capture</b>: crop·id-photo는 set/release 1/1 ✓. pdf-edit는 0/0인데 HTML5 native <code>dragstart/dragover/drop</code> 사용으로 정상</li>
+                <li><b>async/await catch</b>: 큰 처리는 try/finally + alert 보호. 작은 await(arrayBuffer 등)는 unhandledrejection만 — 사용자 영향 작음</li>
+                <li><b>pdf.js worker URL</b>: pdf-edit·pdf-to-image 모두 <code>/pdf/vendor/pdf.worker.min.mjs</code> 절대경로 ✓</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🎨 crop·id-photo UX 보강 — 4 라운드</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><b>1차</b>: 옵션 변경 후 사진 보기 어려움 → grid 2열 + 모바일 사진 위로(<code>order</code>) + sticky 시도</li>
+                <li><b>2차</b>: "구간 구분 안됨, sticky 정신없음" → sticky 완전 제거 + opt-row fieldset 박스("⚙ 옵션" 칩 라벨 + border + 살짝 다른 배경)</li>
+                <li><b>3차</b>: "사진 옆 빈 공간" → grid-template-areas 변경, info·act를 풀 너비로 사진 아래 가로 펼침</li>
+                <li><b>4차</b>: "가로 사진 작아 보임" → column 320px·container 1280px·canvas width:100% 토글 시도 → "세로 사진이 납작" → 원복. <b>canvas는 max-width+max-height 동시 적용 시 비율 자동 유지 X</b> 발견 (img와 다르게)</li>
+                <li><b>최종</b> = 영역 분리(fieldset 박스·info·act 풀 너비) 유지 / column 비율·container 원복 / canvas 처음 상태(<code>max-width:100%; height:auto</code>)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⚠️ 자동 검증으로 못 잡는 부분</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>실 HEIC 파일 변환 화질 + 다중 일괄</li>
+                <li>crop drag rect 정밀도·모바일 터치 영역·회전 후 좌표 정렬</li>
+                <li>id-photo 가이드 라인이 다양한 사진 비율에서 자연스러움</li>
+                <li>pdf-edit drag&amp;drop 모바일 동작 + 큰 PDF 썸네일 메모리</li>
+                <li>pdf-to-image DPI별 실제 화질 + "전체 다운로드" 브라우저 차단 안내</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📚 학습 포인트</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><b>canvas vs img 비율 유지 차이</b> — img는 자연 비율 자동 유지, canvas는 X. <code>max-width:100%; max-height:80vh</code> 둘 다 적용하면 두 limit이 따로 잘려서 stretch 발생. 비율 보장하려면 JS 계산 또는 CSS <code>aspect-ratio</code> 필요</li>
+                <li><b>HTML5 native drag&amp;drop은 모바일 약함</b> — pdf-edit가 native API라 모바일 fallback으로 ↑↓ 버튼 제공. PointerEvents 패턴(crop·id-photo)이 모바일에서 더 안정적</li>
+                <li><b>CSS <code>order</code>로 시각 순서만 변경</b> — DOM 순서는 접근성·SEO 관점에서 의미 있는 순서 유지, 시각만 모바일에서 재배치</li>
+                <li><b>fieldset 스타일 영역 분리</b> = <code>::before</code> pseudo 칩 라벨 + border + 살짝 다른 background. wrapper 추가 없이 영역 명확</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📚 인계 문서</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><code>history/seo/2026-05-06-verification-round.md</code> — 자동 검증 결과 표·정적 분석 표·UX 4라운드 상세·자동 검증 한계·학습 포인트 5개</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item major">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-06</span>
+            <span class="tl-tag feature">이미지 카테고리 Tier 1 신규 3종</span>
+            <span class="tl-tag">heic2any (libheif WASM) + canvas 2D</span>
+            <span class="tl-tag">heic-to-jpg · crop · id-photo</span>
+          </div>
+          <div class="tl-title">📸 이미지 카테고리 6 → 9선 — HEIC 변환·SNS 자르기·한국 표준 증명사진</div>
+          <div class="tl-summary">
+            같은 일자 PDF 카테고리 신설 작업 후 image/ Tier 1 신규 3종 출시. 사용자 위임("직관적·적당한 선·SEO 최적화")으로 16개 후보 중 트래픽·광고·정적 가능 ★★★ 만 선택. <b><code>heic-to-jpg</code></b>(아이폰 HEIC 일괄 변환, heic2any 1.35MB UMD vendoring) + <b><code>crop</code></b>(SNS 비율 프리셋 7종 + 8핸들 자유 크롭 + 회전·반전, canvas 0KB) + <b><code>id-photo</code></b>(여권·이력서·민증 한국 표준 6종 + 가이드 라인 + 300 DPI 자동 픽셀, canvas 0KB). 사이트 도구 수 <b>55 → 58선</b>, sitemap <b>63 → 66 URL</b>, 카테고리 5개 그대로.
+          </div>
+          <div class="stats-grid">
+            <div class="stat"><div class="label">신규 도구</div><div class="value">3</div><div class="delta">heic-to-jpg · crop · id-photo</div></div>
+            <div class="stat"><div class="label">전체 도구</div><div class="value">58</div><div class="delta">55 → 58 (+3)</div></div>
+            <div class="stat"><div class="label">image 카테고리</div><div class="value">9</div><div class="delta">6 → 9 (+3)</div></div>
+            <div class="stat"><div class="label">sitemap</div><div class="value">66</div><div class="delta">63 → 66 URL (+3)</div></div>
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">🎯 결정 배경 — 16개 후보 분류</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><b>추가 (3선)</b> = HEIC→JPG (★★★ 한국 iPhone), 자르기 (★★★ 트래픽), 증명사진 (★★★ <b>광고 단가 가장 높음</b>)</li>
+                <li><b>이미 있음</b> = 압축·리사이즈·QR 생성/인식·OCR·배경 제거 → 6선 그대로</li>
+                <li><b>merge (기존에 통합)</b> = 포맷 변환(JPG/PNG/WebP) → resize에 이미 있음 / 픽셀 사이즈 확인 → resize 표시 / 썸네일 → resize 사용</li>
+                <li><b>2차 묶음 후보 (보류)</b> = EXIF 제거, 모자이크/블러, favicon 생성기</li>
+                <li><b>§0.4 스킵</b> = 색상 추출 (디자이너 좁음), app icon 생성기 (favicon으로 충분)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📷 1. <code>image/heic-to-jpg/</code> — HEIC 일괄 변환</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>vendor = <b>heic2any v0.0.4</b> (1.35MB UMD, libheif WebAssembly 자체 번들). esm.sh ?bundle은 wrapper만 받아서 실패 → jsdelivr 직접 다운로드</li>
+                <li>UX = 다중 파일 누적 + 포맷(JPG/PNG) + JPG 품질 1~100 슬라이더 + 진행률 + 파일 카드별 상태(대기·완료·실패)</li>
+                <li>결과 = 페이지별 썸네일(브라우저 native rendering) + 다운로드 + "전체 다운로드" 200ms 간격 anchor click</li>
+                <li>SEO = "HEIC JPG 변환·아이폰 사진 변환·HEIC 변환·아이패드 사진 JPG·HEIC PNG·HEIC 파일 열기"</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🖼️ 2. <code>image/crop/</code> — 자유 크롭 + SNS 비율</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>vendor = 없음 (canvas 2D + Pointer Events)</li>
+                <li><b>비율 프리셋 7종</b> = 자유 / 1:1(인스타·프로필) / 4:3 / 16:9(유튜브) / 9:16(릴스·틱톡·쇼츠) / 3:2(DSLR·필름) / 4:5(인스타 세로)</li>
+                <li><b>회전·반전 6종</b> = ↻90·↺90·180·flipH·flipV·원래대로 — <code>transformedCanvas</code> 임시 생성 패턴 (translate·rotate·scale·drawImage 한 번에)</li>
+                <li><b>8 handles</b> = corner 4 + edge 4 + 안쪽 드래그 이동. 비율 고정 시 corner는 큰 변화 기준, edge는 가운데 대칭 확장. <code>setPointerCapture</code> + <code>touch-action: none</code></li>
+                <li>출력 = JPG/PNG/WebP. SNS·플랫폼별 권장 비율 표 11행 inline</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🪪 3. <code>image/id-photo/</code> — 한국 표준 증명사진</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>vendor = 없음 (canvas 2D + Pointer Events)</li>
+                <li><b>표준 6종</b>: 여권 35×45mm(413×531px) · 증명사진 30×40 · 운전면허·민증 35×45 · 미국 비자 51×51 · 중국 비자 33×48 · 직접 mm 입력</li>
+                <li><b>300 DPI 자동 변환</b>: <code>MM_TO_PX = 300/25.4 ≈ 11.811</code>. 사진관·인쇄소 표준</li>
+                <li><b>가이드 라인</b>: frame 안에 정수리(18%)·눈(42%)·턱(78%) 점선 + 가운데 세로선 + 라벨</li>
+                <li><b>흰 배경 옵션</b>: <code>fillRect(white)</code> 후 drawImage — 원본 알파 영역만 흰색으로</li>
+                <li>비율 강제 (corner 4 핸들만, edge X — 단순화) + 출력 시 표준 픽셀로 리샘플링(<code>imageSmoothingQuality: 'high'</code>)</li>
+                <li>출처 = 외교부 여권안내·도로교통공단·정부24 + 인쇄 DPI 300 표준</li>
+                <li>비공식 용도 명시 — 정부 신분증 발급용은 사진관 직접 촬영 권장. 본 도구는 이력서·자기소개서·학원·앱 가입에 적합</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔧 인프라 일괄</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><code>sw.js</code> v3 → <b>v4</b></li>
+                <li><code>manifest.webmanifest</code> description "55가지 → 58가지"</li>
+                <li>루트 <code>index.html</code> = og·twitter·title·description·keywords 모두 "이미지 9선" + 신규 키워드(HEIC JPG 변환·이미지 자르기·증명사진 만들기·여권 사진), JSON-LD hasPart description 갱신, hub-card 이미지 LIVE·6→9선, Organization "55→58선", quick-list 이미지 행 신규 5개(HEIC·자르기·증명사진·압축·배경 제거)</li>
+                <li><code>image/index.html</code> = ItemList 6 → 9, tool-grid 6 → 9 카드(📷·🖼️·🪪 신규), hub-intro 본문 갱신, count·og·subtitle "9선"</li>
+                <li><code>tools/privacy/</code>·<code>tools/terms/</code> 시행일·1조 도구 수 "55종 → 58종"</li>
+                <li><code>sitemap.xml</code> rebuild — 63 → <b>66 URL</b></li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">✅ 검증</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>JS syntax 3/3 ✓ (heic-to-jpg·crop·id-photo)</li>
+                <li>JSON-LD parse 5/5 ✓ (3 도구 + image hub + root)</li>
+                <li>FAQ DOM = JSON-LD 6/6 ✓</li>
+                <li>HTML 태그 밸런스 4/4 ✓ (open == close)</li>
+                <li>HTTP 200 9/9 ✓ (image hub, 신규 3 도구, heic2any vendor, sitemap, sw, manifest, root)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📚 인계 문서</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><code>history/seo/2026-05-06-image-tier1-3.md</code> — 16 후보 분류·신규 3 도구 핵심 로직·esm.sh ?bundle 함정·transformedCanvas·Pointer Events·DPI 변환·후속 백로그·학습 포인트 6개</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📈 후속 작업</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>실 파일로 검토 — HEIC 일괄 / crop 비율 7종 / id-photo 셀카 + 흰 배경 옵션</li>
+                <li>Search Console 신규 3 URL 색인 요청 + sitemap 재제출 + 카카오 OG 캐시 flush</li>
+                <li>2차 이미지 묶음 — EXIF 제거 · 모자이크/블러 · favicon 생성기 (트래픽 데이터 본 후)</li>
+                <li>id-photo 자동 얼굴 정렬 (face-api.js ~6MB) — 작업량 큼, 후순위</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item major">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-06</span>
+            <span class="tl-tag feature">PDF 카테고리 신설 + 신규 2종 + 이전 3종</span>
+            <span class="tl-tag">pdf-lib + pdf.js</span>
+            <span class="tl-tag">pdf-edit · pdf-to-image (신규) + merge · split · img-to-pdf (이전)</span>
+          </div>
+          <div class="tl-title">📑 PDF 카테고리 0 → 5선 — image/에서 분리 + 신규 도구 2종</div>
+          <div class="tl-summary">
+            기존 <code>image/</code> 9선 중 PDF 3개(<code>pdf-merge</code>·<code>pdf-split</code>·<code>img-to-pdf</code>)가 이미지 6개와 섞여 있던 구조를 <code>pdf/</code> 카테고리로 분리. 동시에 신규 도구 2종 추가 — <b><code>pdf-edit</code></b>(페이지 삭제+순서 변경+회전 통합, SmallPDF "Organize PDF" 패턴) + <b><code>pdf-to-image</code></b>(PDF→PNG/JPG, pdf.js 신규 vendoring). 사이트 도구 수 <b>53 → 55선</b>(+2 신규), 카테고리 <b>4 → 5개</b>(<code>tools / text / image / pdf / video</code>), sitemap <b>60 → 63 URL</b>. 기존 <code>image/pdf-*</code> URL은 meta refresh + canonical + noindex stub로 soft redirect (GitHub Pages 301 불가 회피). PDF SERP 키워드 풀 강화 + image hub 정합성 회복.
+          </div>
+          <div class="stats-grid">
+            <div class="stat"><div class="label">신규 도구</div><div class="value">2</div><div class="delta">pdf-edit · pdf-to-image</div></div>
+            <div class="stat"><div class="label">전체 도구</div><div class="value">55</div><div class="delta">53 → 55 (+2)</div></div>
+            <div class="stat"><div class="label">sitemap</div><div class="value">63</div><div class="delta">60 → 63 URL (+3 net)</div></div>
+            <div class="stat"><div class="label">카테고리</div><div class="value">5</div><div class="delta">+ <b>pdf</b> (image/와 분리)</div></div>
+          </div>
+          <details class="tl-details">
+            <summary>상세 보기</summary>
+            <div class="tl-body">
+              <h3 style="font-size:15px;margin:12px 0 8px">📑 신규 도구 2종</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><b><code>pdf/pdf-edit/</code></b> — 페이지 삭제 + 순서 변경(drag&amp;drop + ↑↓) + 회전(↻ 90°/180°/270°/0° 순환) 통합. pdf.js로 썸네일 canvas 렌더(target width 150px, JPEG 0.7 품질 dataURL 캐시) + pdf-lib로 <code>copyPages·setRotation</code>. 삭제는 토글 플래그(↺로 복원), 저장 전까지 메모리 in-place. JSON-LD WebApplication·BreadcrumbList·FAQPage(6)·HowTo(4 step)</li>
+                <li><b><code>pdf/pdf-to-image/</code></b> — PDF 페이지 → PNG/JPG. pdf.js만 (pdf-lib 불필요). 페이지 범위(<code>1-3,5,7-10</code> parseRange — pdf-split.js에서 차용 + 빈 입력 = 전체 확장) + 포맷(PNG/JPG) + DPI(72/150/300/600) + JPG 품질. 결과 그리드에 페이지별 다운로드 카드 + "전체 다운로드" 200ms 간격 순차 click. ZIP 일괄은 후속 백로그</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">↪️ 기존 3종 이전 (메타 갱신 매트릭스)</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><code>image/{pdf-merge,pdf-split,img-to-pdf}/</code> → <code>pdf/{...}/</code> cp 후 11개 위치 갱신:</li>
+                <li>① <code>og:site_name</code> "TAYSTUDIO Image" → "TAYSTUDIO PDF"</li>
+                <li>② <code>og:url</code> + ③ canonical + ④ JSON-LD WebApplication url 모두 <code>/image/&lt;slug&gt;/</code> → <code>/pdf/&lt;slug&gt;/</code></li>
+                <li>⑤ JSON-LD BreadcrumbList position 2 = <code>Image</code> → <code>PDF</code> + URL 갱신</li>
+                <li>⑥ position 3 item URL 갱신 / ⑦ breadcrumb DOM <code>이미지</code> → <code>PDF</code></li>
+                <li>⑧ tool-article 관련 도구 cross-cat 링크 = <code>../compress/</code> → <code>/image/compress/</code> 등 (다른 카테고리는 절대경로)</li>
+                <li>⑨ 같은 카테고리 신규 도구 링크 추가 (<code>../pdf-edit/</code>·<code>../pdf-to-image/</code>)</li>
+                <li>⑩ related-nav 라벨 "이미지 도구 모두 보기" → "PDF 도구 모두 보기" / ⑪ vendor src <code>/image/vendor/pdf-lib.min.js</code> → <code>/pdf/vendor/pdf-lib.min.js</code></li>
+                <li><code>.js</code> 파일 자체는 변경 없음 (pdf-lib 글로벌 <code>window.PDFLib</code> 그대로 사용)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔁 redirect 정책 — soft refresh stub</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>GitHub Pages는 301 redirect 헤더 불가 → <code>image/{pdf-merge,pdf-split,img-to-pdf}/index.html</code>을 짧은 stub HTML로 덮어쓰기</li>
+                <li>3중 안전장치 = <code>&lt;meta http-equiv="refresh"&gt;</code> + <code>&lt;link rel="canonical"&gt;</code> 새 URL + <code>&lt;script&gt;location.replace()&lt;/script&gt;</code> + <code>&lt;meta name="robots" content="noindex"&gt;</code></li>
+                <li>Google이 soft redirect로 인식 → equity 일부 이전 + 자연 deindex (수개월). 사용자가 SC에 신규 5 URL 색인 요청 권장</li>
+                <li>기존 <code>.js</code> 3개 삭제 (stub HTML이 미참조)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📦 vendor 분리 — <code>pdf/vendor/</code> 신설</h3>
+              <table>
+                <thead><tr><th>파일</th><th class="num">크기</th><th>출처</th></tr></thead>
+                <tbody>
+                  <tr><td><code>pdf-lib.min.js</code></td><td class="num">525 KB</td><td><code>image/vendor/</code>에서 mv</td></tr>
+                  <tr><td><code>pdf.min.mjs</code></td><td class="num">336 KB</td><td>jsdelivr <code>pdfjs-dist@4.7.76</code> 신규 vendoring</td></tr>
+                  <tr><td><code>pdf.worker.min.mjs</code></td><td class="num">1.36 MB</td><td>동일 (lazy fetch + IndexedDB 캐시)</td></tr>
+                </tbody>
+              </table>
+              <p><code>image/vendor/</code>는 4종(qrcode·jsQR·tesseract·imgly-bg-remove)으로 정리. 분리 이유 = 카테고리 자급 + 사용자 의사결정. cross-import는 절대경로(<code>/pdf/...</code>·<code>/image/...</code>).</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">⚙️ build-sitemap.sh — 2개 fix 동시</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><code>CATEGORIES=("tools" "text" "image" "pdf" "video")</code> — pdf 추가 + <b>video 누락 버그 같이 fix</b></li>
+                <li><code>is_noindex()</code> 함수 신규 = noindex 메타 있는 stub HTML 자동 제외 → 옛 URL 3개 sitemap에 안 들어감</li>
+                <li>classify에 <code>/pdf/</code>·<code>/video/</code> 분기 추가</li>
+                <li>결과 = <b>63 URL</b> (pdf hub 1 + pdf 도구 5 + video hub 1 + video 도구 5 + image hub 1 + image 도구 6 + tools 36 + tools/privacy + tools/terms + text hub 1 + text 도구 3 + root)</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🔧 인프라 일괄</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><code>sw.js</code> <code>CACHE_VERSION</code> v2 → <b>v3</b> + <code>STATIC_ASSETS</code>에 <code>/pdf/</code> 추가</li>
+                <li><code>manifest.webmanifest</code> description "53가지 → 55가지", shortcuts 4개 중 QR 코드 → PDF 합치기 교체</li>
+                <li>루트 <code>index.html</code> = og·twitter·title·description·keywords 모두 "이미지 6선·PDF 5선"으로, JSON-LD hasPart 4 → 5 WebSite, hub-card 4 → 5(PDF 카드 신규 d4 + video d5), Organization "53선 → 55선", quick-list 이미지 행에서 pdf-merge 제거·PDF 행 신규 추가</li>
+                <li><code>image/index.html</code> = ItemList 9 → 6, hub-intro·count·og 메타·quick-list "도구 6선" 갱신, "PDF 도구는 별도 카테고리로 →" cross-link 박스 신설</li>
+                <li><code>common/site-chrome.js</code> header nav 4 → <b>5 메뉴</b>: 계산기·텍스트·이미지·<b>PDF</b>·동영상</li>
+                <li><code>tools/privacy/</code>·<code>tools/terms/</code> 시행일 갱신 + 카테고리 줄 분리(이미지·PDF·동영상 별도) + footer nav 5 카테고리 + terms 2조에 PDF 도구 정확성 면책 줄 신규</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">✅ 검증</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>JS syntax 5/5 ✓ (pdf-merge·pdf-split·img-to-pdf·pdf-edit·pdf-to-image)</li>
+                <li>JSON-LD parse 8/8 ✓ (pdf hub + 5 도구 + image hub + root)</li>
+                <li>FAQ DOM = JSON-LD 6/6 ✓</li>
+                <li>HTML 태그 밸런스 9/9 ✓ (open == close)</li>
+                <li>HTTP 200 17/17 ✓ (root + 5 카테고리 hub + 5 pdf 도구 + 3 image stub + 3 vendor + sitemap + sw + manifest)</li>
+                <li>stub redirect 메타 3/3 ✓ (canonical + refresh + noindex)</li>
+                <li>잔존 흔적 0 (image/vendor/pdf-lib·image/index.html 안 PDF 도구·pdf/ 안 "TAYSTUDIO Image")</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📚 인계 문서</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li><code>history/seo/2026-05-06-pdf-category-launch.md</code> — 결정 배경·도구 ROI 매트릭스·카테고리 분리 옵션 비교·신규 도구 핵심 로직·메타 갱신 매트릭스·redirect 정책·후속 백로그·학습 포인트 5개</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📈 후속 작업 (§9.4)</h3>
+              <ul style="padding-left:20px;line-height:1.8">
+                <li>사용자 SC 신규 5 URL 색인 요청 + sitemap 재제출 + 카카오 OG 캐시 flush</li>
+                <li>2차 PDF 도구 묶음 — pdf-watermark · pdf-compress · pdf-page-number 검토</li>
+                <li>이미지 카테고리 확장 검토 (HEIC→JPG·EXIF 제거·자르기·모자이크·여권 사진 크롭·favicon 생성기 등)</li>
+                <li>video wrapper hang fix 끝까지 검증 (5도구 처리·다운로드까지)</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item major">

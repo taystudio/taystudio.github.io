@@ -11,14 +11,15 @@
  * 이전 = `/tools/sw.js` (scope `./tools/`)만 동작. 사이트 4 카테고리 확장 후 root scope로 통합.
  */
 
-const CACHE_VERSION = 'taystudio-v2';
+const CACHE_VERSION = 'taystudio-v5';
 
-// install 시 즉시 캐시 — 루트 + 4 카테고리 hub + 공용 자산. 도구별 페이지·vendor는 navigate 시 자연 캐싱
+// install 시 즉시 캐시 — 루트 + 5 카테고리 hub + 공용 자산. 도구별 페이지·vendor는 navigate 시 자연 캐싱
 const STATIC_ASSETS = [
   '/',
   '/tools/',
   '/text/',
   '/image/',
+  '/pdf/',
   '/video/',
   '/common/css/style.css',
   '/common/site-chrome.js',

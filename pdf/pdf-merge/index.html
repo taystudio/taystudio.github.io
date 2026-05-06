@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudio.github.io · source = github.com/taystudio/taystudio.github.io · 무단 복제·재배포 금지 -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO PDF">
+  <meta property="og:title" content="PDF 합치기 | 여러 PDF를 한 파일로 무료 병합">
+  <meta property="og:description" content="여러 PDF를 드래그·정렬해 한 파일로 합치기. 모든 처리는 브라우저 안에서. 가입·설치·워터마크 없음.">
+  <meta property="og:url" content="https://taystudio.github.io/pdf/pdf-merge/">
+  <meta property="og:image" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PDF 합치기 | 무료 병합, 워터마크 없음">
+  <meta name="twitter:description" content="여러 PDF → 한 파일로. 브라우저 안에서 처리, 외부 전송 없음.">
+  <meta name="twitter:image" content="https://taystudio.github.io/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <title>PDF 합치기 | 여러 PDF를 한 파일로 무료 병합</title>
+  <meta name="description" content="여러 PDF 파일을 드래그·정렬해 하나로 합치는 무료 도구. 모든 처리는 브라우저 안에서, 워터마크·가입·설치 불필요. 이력서·보고서·계약서·과제 첨부에.">
+  <meta name="keywords" content="PDF 합치기, PDF 병합, PDF 무료 합치기, PDF 머지, 워터마크 없음">
+  <link rel="canonical" href="https://taystudio.github.io/pdf/pdf-merge/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "PDF 합치기 | 여러 PDF를 한 파일로 무료 병합",
+      "description": "여러 PDF 파일을 드래그·정렬해 하나로 병합. 브라우저 안에서 처리, 워터마크·가입 없음.",
+      "url": "https://taystudio.github.io/pdf/pdf-merge/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "여러 PDF 한 파일로 결합",
+        "드래그 정렬·페이지 순서 변경",
+        "원본 외부 업로드 없음 — 브라우저 안에서 처리"
+      ],
+      "dateModified": "2026-05-05",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudio.github.io/" },
+        { "@type": "ListItem", "position": 2, "name": "PDF", "item": "https://taystudio.github.io/pdf/" },
+        { "@type": "ListItem", "position": 3, "name": "PDF 합치기", "item": "https://taystudio.github.io/pdf/pdf-merge/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "PDF 파일이 외부 서버로 업로드되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. PDF 처리는 브라우저 내부의 pdf-lib 라이브러리에서 모두 수행되며, 사이트 운영자도 파일 내용을 볼 수 없습니다. 계약서·이력서·민감 문서도 안심하고 사용하세요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "암호 걸린 PDF도 합쳐지나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "암호로 잠긴 PDF는 자동으로 처리되지 않을 수 있습니다. 잠금을 먼저 해제한 후 업로드하세요. 암호 해제는 본 도구에서 지원하지 않으며, 원본 파일의 권한을 가진 사용자가 PDF 뷰어에서 직접 해제해야 합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "파일 순서를 바꿀 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네. 업로드된 파일 목록에서 ↑·↓ 버튼으로 순서를 조정할 수 있습니다. 순서대로 페이지가 이어붙어 1개의 PDF가 됩니다. 필요 없는 파일은 ✕ 버튼으로 제거."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "최대 몇 개까지 합칠 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "이론적으로 제한 없으나 브라우저 메모리에 좌우됩니다. 데스크톱 Chrome 기준 총 200MB·100페이지 정도까진 무난. 모바일은 50MB 이하·30페이지 권장. 큰 파일은 먼저 PDF 자르기로 페이지 수를 줄이거나 데스크톱에서 처리하세요."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "원본 PDF의 폰트·이미지·하이퍼링크는 보존되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "pdf-lib는 페이지를 원본 그대로 복사하므로 폰트·이미지·하이퍼링크 대부분 유지됩니다. 단 PDF 폼 필드의 인터랙티브 동작·디지털 서명·일부 주석은 합치기 후 동작이 달라질 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "결과 파일이 원본보다 용량이 큰데 정상인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "정상 가능 범위입니다. pdf-lib는 페이지 객체를 그대로 복사하므로 원본의 폰트·이미지가 중복 저장될 수 있습니다. 용량이 너무 크면 합친 후 다른 PDF 압축 도구를 추가로 사용하거나, 원본 단계에서 이미지 해상도를 낮추는 방법이 있습니다."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "PDF 합치는 방법",
+      "description": "여러 PDF 파일을 순서대로 하나의 PDF로 합칩니다. 모든 처리는 브라우저 안에서.",
+      "totalTime": "PT1M",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "PDF 파일 선택", "text": "PDF 파일들을 드래그·드롭하거나 클릭해 여러 개를 선택합니다." },
+        { "@type": "HowToStep", "position": 2, "name": "순서 정렬", "text": "목록에서 위·아래 화살표로 합칠 순서를 조정합니다." },
+        { "@type": "HowToStep", "position": 3, "name": "합치기", "text": "합치기 버튼을 누르면 pdf-lib가 브라우저 안에서 페이지를 누적해 새 PDF를 생성합니다." },
+        { "@type": "HowToStep", "position": 4, "name": "다운로드", "text": "결과 PDF를 즉시 다운로드합니다. 외부 서버 전송 없음." }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .file-list { display:flex; flex-direction:column; gap:8px; margin-top:14px; }
+    .file-item { display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--card); border:1px solid var(--border); border-radius:8px; }
+    .file-item .order { width:24px; height:24px; display:flex; align-items:center; justify-content:center; background:var(--border); color:var(--muted); border-radius:50%; font-size:12px; font-weight:600; flex:0 0 auto; }
+    .file-item .name { flex:1 1 auto; font-size:13.5px; word-break:break-all; line-height:1.4; }
+    .file-item .size { font-size:12px; color:var(--muted); flex:0 0 auto; font-variant-numeric:tabular-nums; }
+    .file-item .row-actions { display:flex; gap:4px; flex:0 0 auto; }
+    .file-item .row-actions button { width:30px; height:30px; padding:0; font-size:14px; line-height:1; background:transparent; color:var(--muted); border:1px solid var(--border); border-radius:6px; cursor:pointer; }
+    .file-item .row-actions button:hover { color:var(--primary); border-color:var(--primary); }
+    .file-item .row-actions button[disabled] { opacity:.3; cursor:not-allowed; }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">PDF</a> · PDF 합치기</div>
+    <h1>PDF 합치기</h1>
+    <p class="subtitle">여러 PDF를 드래그·정렬해 1개 파일로 — 이력서·보고서·계약서·과제 제출에.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>PDF 파일이 외부 서버로 전송되지 않습니다.</b> 모든 처리는 사용자 브라우저 안에서 이루어집니다.</div>
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">📑</div>
+        <div class="drop-title" id="dropTitle">PDF 파일 여러 개를 드래그하거나 클릭해서 선택</div>
+        <div class="drop-hint">PDF 형식만 — 추가로 더 끌어와도 누적 추가</div>
+        <input type="file" id="fileInput" accept="application/pdf" multiple>
+      </label>
+
+      <div id="fileList" class="file-list"></div>
+
+      <div class="image-actions">
+        <button type="button" id="mergeBtn" disabled>합치기</button>
+        <button type="button" id="clearBtn">전체 삭제</button>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="image-meta">
+        <span>합친 파일 수 <b id="mergedCount">—</b></span>
+        <span>총 페이지 <b id="mergedPages">—</b></span>
+        <span>결과 용량 <b id="mergedSize">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ 합친 PDF 다운로드</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>흔한 사용 사례</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>상황</th><th>합치는 파일</th></tr></thead>
+          <tbody>
+            <tr><td>지원서 제출</td><td>이력서 + 자기소개서 + 포트폴리오 → 1개 PDF</td></tr>
+            <tr><td>계약서</td><td>본문 + 부속서 + 별첨 → 1개 PDF</td></tr>
+            <tr><td>과제·논문</td><td>표지 + 본문 + 참고문헌 → 1개 PDF</td></tr>
+            <tr><td>증빙 자료</td><td>여러 영수증·청구서 스캔본 → 1개 PDF</td></tr>
+            <tr><td>여행 문서</td><td>항공권 + 호텔 바우처 + 비자 → 1개 PDF</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../pdf-split/">PDF 자르기<span class="desc">페이지 범위 추출</span></a>
+        <a href="../pdf-edit/">PDF 편집<span class="desc">페이지 삭제·순서·회전</span></a>
+        <a href="../img-to-pdf/">이미지 → PDF<span class="desc">사진 여러 장을 PDF로</span></a>
+        <a href="/image/compress/">이미지 압축<span class="desc">PDF에 넣을 사진 용량 줄이기</span></a>
+        <a href="/text/counter/">글자수 카운터<span class="desc">자소서·논문 분량</span></a>
+        <a href="../">PDF 도구 모음<span class="desc">합치기·자르기·편집·변환</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>pdf-lib 라이브러리</summary>
+        <div class="answer">
+          <a href="https://github.com/Hopding/pdf-lib" rel="nofollow noopener" target="_blank">pdf-lib</a> (Andrew Dillon, MIT 라이선스). 약 700KB, 클라이언트 100% 동작. PDF 합치기·자르기·페이지 조작·폼 채우기 등을 지원합니다.
+        </div>
+      </details>
+      <details>
+        <summary>큰 파일 처리 시 주의</summary>
+        <div class="answer">
+          PDF 처리 중에는 <b>탭 메모리가 일시적으로 크게 증가</b>합니다. 모바일 Safari는 ~200MB 근처에서 강제 종료될 수 있으니 큰 파일은 데스크톱에서 작업 권장. 처리 시간은 페이지 수보다 임베디드 이미지·폰트 양에 더 좌우됩니다.
+        </div>
+      </details>
+      <details>
+        <summary>합친 후 페이지 순서 바꾸려면?</summary>
+        <div class="answer">
+          현재 도구는 <b>파일 단위</b> 정렬만 지원합니다. 합친 후 페이지를 다시 자르고 합치는 단계가 필요하다면 PDF 자르기로 부분 추출 → 다시 합치기 순서로 진행하세요. 향후 페이지 단위 재배치 기능 검토 중.
+        </div>
+      </details>
+      <details>
+        <summary>워터마크가 붙나요?</summary>
+        <div class="answer">
+          <b>붙지 않습니다.</b> 본 도구는 라이브러리 광고나 워터마크를 추가하지 않으며, AdSense 광고는 페이지 UI 영역에만 표시됩니다. 결과 PDF는 깨끗합니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>PDF 파일이 외부 서버로 업로드되나요?</summary>
+        <div class="answer">
+          전송되지 않습니다. PDF 처리는 <b>브라우저 내부의 pdf-lib 라이브러리</b>에서 모두 수행되며, 사이트 운영자도 파일 내용을 볼 수 없습니다.
+          계약서·이력서·민감 문서도 안심하고 사용하세요.
+        </div>
+      </details>
+
+      <details>
+        <summary>암호 걸린 PDF도 합쳐지나요?</summary>
+        <div class="answer">
+          <b>암호로 잠긴 PDF는 자동으로 처리되지 않을 수 있습니다.</b> 잠금을 먼저 해제한 후 업로드하세요.
+          암호 해제는 본 도구에서 지원하지 않으며, 원본 파일의 권한을 가진 사용자가 PDF 뷰어에서 직접 해제해야 합니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>파일 순서를 바꿀 수 있나요?</summary>
+        <div class="answer">
+          네. 업로드된 파일 목록에서 <b>↑·↓ 버튼</b>으로 순서를 조정할 수 있습니다. 순서대로 페이지가 이어붙어 1개의 PDF가 됩니다.
+          필요 없는 파일은 ✕ 버튼으로 제거.
+        </div>
+      </details>
+
+      <details>
+        <summary>최대 몇 개까지 합칠 수 있나요?</summary>
+        <div class="answer">
+          이론적으로 제한 없으나 브라우저 메모리에 좌우됩니다. 데스크톱 Chrome 기준 <b>총 200MB·100페이지 정도까진 무난</b>.
+          모바일은 50MB 이하·30페이지 권장. 큰 파일은 먼저 PDF 자르기로 페이지 수를 줄이거나 데스크톱에서 처리하세요.
+        </div>
+      </details>
+
+      <details>
+        <summary>원본 PDF의 폰트·이미지·하이퍼링크는 보존되나요?</summary>
+        <div class="answer">
+          pdf-lib는 페이지를 원본 그대로 복사하므로 <b>폰트·이미지·하이퍼링크 대부분 유지</b>됩니다.
+          단 PDF 폼 필드의 인터랙티브 동작·디지털 서명·일부 주석은 합치기 후 동작이 달라질 수 있습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>결과 파일이 원본보다 용량이 큰데 정상인가요?</summary>
+        <div class="answer">
+          정상 가능 범위입니다. pdf-lib는 페이지 객체를 그대로 복사하므로 <b>원본의 폰트·이미지가 중복 저장될 수 있습니다</b>.
+          용량이 너무 크면 합친 후 다른 PDF 압축 도구를 추가로 사용하거나, 원본 단계에서 이미지 해상도를 낮추는 방법이 있습니다.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>참고</h2>
+      <div class="updated">최종 검증: 2026-05-05 / pdf-lib (MIT) 라이브러리 사용.</div>
+      <ul>
+        <li>pdf-lib (MIT) — <a href="https://github.com/Hopding/pdf-lib" rel="nofollow noopener" target="_blank">GitHub</a></li>
+        <li>PDF 사양 — ISO 32000-1 / ISO 32000-2</li>
+        <li>File API — <a href="https://developer.mozilla.org/ko/docs/Web/API/File_API" rel="nofollow noopener" target="_blank">MDN</a></li>
+      </ul>
+      <div class="note">⚠️ 합친 후 결과 PDF를 다운로드해 PDF 뷰어로 열어보고 페이지 순서·내용을 확인하세요.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ PDF 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="/pdf/vendor/pdf-lib.min.js" defer></script>
+  <script src="./pdf-merge.js" defer></script>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

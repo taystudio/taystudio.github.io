@@ -211,8 +211,11 @@ function showIosInstallModal() {
 function isToolsPage() {
   // 면책 banner = "모든 계산은 참고용 추정치". 계산기(/tools/)에서만 노출.
   // text/는 변환·카운트라 정확 — banner 부적절. image/test 등은 카테고리별로 별도 결정.
+  // /tools/privacy·/tools/terms 는 root /privacy·/terms 로 이전된 stub 이므로 제외, /tools/404 도 도구 아님.
   const path = window.location.pathname;
-  return path.includes('/tools/');
+  if (!path.includes('/tools/')) return false;
+  if (/\/tools\/(privacy|terms|404)\b/.test(path)) return false;
+  return true;
 }
 
 class SiteHeader extends HTMLElement {
@@ -227,6 +230,7 @@ class SiteHeader extends HTMLElement {
           <a href="${BASE}/tools/" class="${cls('tools')}">계산기</a>
           <a href="${BASE}/text/" class="${cls('text')}">텍스트</a>
           <a href="${BASE}/image/" class="${cls('image')}">이미지</a>
+          <a href="${BASE}/pdf/" class="${cls('pdf')}">PDF</a>
           <a href="${BASE}/video/" class="${cls('video')}">동영상</a>
           <button type="button" id="ts-install-btn" class="install-btn" hidden title="브라우저에서 바로 설치 — 홈 화면·작업표시줄에 앱처럼 추가됩니다">웹앱 설치</button>
         </nav>
@@ -235,7 +239,7 @@ class SiteHeader extends HTMLElement {
     const disclaimerHTML = !isToolsPage() ? '' : `
       <div id="ts-disclaimer" role="note" style="position:relative;background:rgba(245,158,11,0.08);border-bottom:1px solid rgba(245,158,11,0.25);padding:8px 44px 8px 20px;text-align:center;font-size:12.5px;line-height:1.5;color:var(--text)">
         ⚠️ 본 사이트의 모든 계산은 <b>참고용 추정치</b>입니다. 정확한 결과는 공식 기관·전문가 상담을 권장합니다 ·
-        <a href="${BASE}/tools/terms/" style="color:var(--primary);text-decoration:none">자세히</a>
+        <a href="${BASE}/terms/" style="color:var(--primary);text-decoration:none">자세히</a>
         <button id="ts-disclaimer-close" type="button" aria-label="공지 닫기" title="닫기" style="position:absolute;top:50%;right:8px;transform:translateY(-50%);width:auto;padding:2px 8px;font-size:18px;font-weight:400;line-height:1;background:transparent;color:var(--muted);border:none;border-radius:4px;cursor:pointer">×</button>
       </div>
     `;
@@ -261,9 +265,9 @@ class SiteFooter extends HTMLElement {
     this.innerHTML = `
       <footer style="margin-top:48px;padding:32px 20px;border-top:1px solid var(--border);text-align:center;color:var(--muted)">
         <div style="font-size:13px;margin-bottom:18px">
-          <a href="${BASE}/tools/privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
+          <a href="${BASE}/privacy/" style="color:var(--muted);text-decoration:none;margin:0 8px">개인정보처리방침</a>
           ·
-          <a href="${BASE}/tools/terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
+          <a href="${BASE}/terms/" style="color:var(--muted);text-decoration:none;margin:0 8px">이용약관</a>
         </div>
         <div style="font-size:13px">입력값은 브라우저 안에서만 처리됩니다</div>
         <div style="font-size:12px;margin-top:10px;opacity:.7">© 2026 TAYSTUDIO. All Rights Reserved.</div>

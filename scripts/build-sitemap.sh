@@ -35,7 +35,15 @@ canonical_of() {
 }
 
 # 카테고리 목록 — 새 카테고리(test/ 등) 추가 시 여기 갱신
-CATEGORIES=("tools" "text" "image")
+CATEGORIES=("tools" "text" "image" "pdf" "video")
+
+# 루트 직속 단일 페이지 — privacy·terms 같이 카테고리 아닌 정책 페이지. AdSense·표준 관행상 root 위치.
+ROOT_PAGES=("privacy" "terms")
+
+# noindex 메타가 있는 파일은 sitemap에 포함하지 않음 (이전 stub 등).
+is_noindex() {
+  grep -qE '<meta[[:space:]]+name="robots"[[:space:]]+content="[^"]*noindex' "$1" 2>/dev/null
+}
 
 # Default priority and changefreq based on URL path conventions.
 classify() {
@@ -44,12 +52,14 @@ classify() {
     "${DOMAIN}/")              echo "1.0 weekly" ;;
     *"/privacy/"*)             echo "0.3 yearly" ;;
     *"/terms/"*)               echo "0.3 yearly" ;;
-    # 카테고리 허브 (/tools/, /text/, /image/, ...) — 깊이 4 = "${DOMAIN}/<cat>/"
+    # 카테고리 허브 (/tools/, /text/, /image/, /pdf/, /video/) — 깊이 4
     "${DOMAIN}/tools/")               echo "1.0 weekly" ;;
     "${DOMAIN}/text/")                echo "1.0 weekly" ;;
     "${DOMAIN}/image/")               echo "1.0 weekly" ;;
+    "${DOMAIN}/pdf/")                 echo "1.0 weekly" ;;
+    "${DOMAIN}/video/")               echo "1.0 weekly" ;;
     # 개별 도구 상세 페이지 — 깊이 5+
-    *"/tools/"*|*"/text/"*|*"/image/"*) echo "0.95 monthly" ;;
+    *"/tools/"*|*"/text/"*|*"/image/"*|*"/pdf/"*|*"/video/"*) echo "0.95 monthly" ;;
     *)                         echo "0.5 monthly" ;;
   esac
 }
@@ -77,15 +87,24 @@ emit_url() {
   echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
 
   # Root index
-  if [ -f "index.html" ]; then
+  if [ -f "index.html" ] && ! is_noindex "index.html"; then
     URL=$(canonical_of "index.html" "${DOMAIN}/")
     emit_url "$URL" "$(last_mod index.html)"
   fi
 
+  # 루트 직속 단일 페이지 (privacy/terms)
+  for slug in "${ROOT_PAGES[@]}"; do
+    file="${slug}/index.html"
+    [ -f "$file" ] || continue
+    is_noindex "$file" && continue
+    URL=$(canonical_of "$file" "${DOMAIN}/${slug}/")
+    emit_url "$URL" "$(last_mod "$file")"
+  done
+
   # 각 카테고리 — 허브(<cat>/index.html) + 도구별 상세(<cat>/<slug>/index.html)
   for cat in "${CATEGORIES[@]}"; do
     hub="${cat}/index.html"
-    if [ -f "$hub" ]; then
+    if [ -f "$hub" ] && ! is_noindex "$hub"; then
       URL=$(canonical_of "$hub" "${DOMAIN}/${cat}/")
       emit_url "$URL" "$(last_mod "$hub")"
     fi
@@ -93,6 +112,7 @@ emit_url() {
     for dir in "${cat}"/*/; do
       file="${dir}index.html"
       [ -f "$file" ] || continue
+      is_noindex "$file" && continue
       name=$(basename "$dir")
       fallback="${DOMAIN}/${cat}/${name}/"
       URL=$(canonical_of "$file" "$fallback")
