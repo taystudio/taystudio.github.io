@@ -217,7 +217,80 @@ Content-Type: application/json
       </tbody>
     </table>
 
-    <h2>8. 핵심 정리</h2>
+    <h2>8. 적용 단계별 작업 + 의미 (2026-05-07 회고)</h2>
+    <p>이번 적용 작업을 단계별로 분해 — 각 단계가 왜 필요했는지 + 어떤 결정을 내렸는지. 다음에 다른 사이트에 적용하거나 비슷한 push-style 프로토콜(Naver Search Advisor API·Bing Submit URL 등)에 응용할 때 참고용.</p>
+
+    <h3>① 사전 조사</h3>
+    <ul>
+      <li><strong>한 일</strong>: <code>scripts/build-sitemap.sh</code> 구조 파악 (CATEGORIES 배열·emit_url·noindex 자동 제외 로직), 현재 sitemap URL 수(67) 확인, <code>robots.txt</code>·repo 루트 구조 확인</li>
+      <li><strong>왜</strong>: 기존 빌드 파이프라인에 ping을 hook할 위치 + URL 소스 결정용. 새 인프라 만들지 말고 <strong>기존 sitemap 빌드 흐름에 얹는다</strong>가 정적 사이트 정신에 맞음 (단일 진입점)</li>
+    </ul>
+
+    <h3>② Key 발급 + 검증 파일 배치</h3>
+    <ul>
+      <li><strong>한 일</strong>: <code>uuidgen</code> → 32자 lowercase hex(<code>b762f70e...</code>) 생성. 루트에 <code>{key}.txt</code> 작성, body에 key 1줄</li>
+      <li><strong>왜</strong>: IndexNow 스펙은 8~128자 영숫자 허용. UUID에서 하이픈만 제거하면 32자라 적정. <strong>충돌 가능성 사실상 0</strong>(UUID v4 = 122-bit 엔트로피)</li>
+      <li><strong>왜 루트 직속</strong>: <code>keyLocation</code>을 명시적으로 보내긴 하지만, 루트 직속이 IndexNow 관행. 일부 엔진은 <code>https://host/{key}.txt</code> 직접 추측 검증도 함</li>
+    </ul>
+
+    <h3>③ Ping 스크립트 작성 (<code>scripts/indexnow-ping.sh</code>)</h3>
+    <ul>
+      <li><strong>한 일</strong>: bash 스크립트 99줄. sitemap.xml에서 <code>&lt;loc&gt;</code> 추출 → JSON payload 빌드 → curl POST → HTTP 코드별 분기</li>
+      <li><strong>왜 standalone</strong>: 빌드 스크립트와 분리(<strong>단일 책임 원칙</strong>). sitemap 빌드 없이 ping만 재시도 가능 (예: 첫 ping 실패 시 디버깅)</li>
+      <li><strong>왜 <code>--dry-run</code> 옵션</strong>: ping은 <strong>비가역 작업</strong>(전송 후 취소 X). 첫 실행 전 payload 검증 필수. 이후 디버깅 시도 dry-run으로 빠르게 확인 가능</li>
+      <li><strong>왜 한국어 에러 메시지</strong>: 1인 운영이라 메시지 톤 일관 + 에러 코드별 대응 가이드 즉시 노출 → 검색 시간 절약</li>
+    </ul>
+
+    <h3>④ 빌드 스크립트에 hook (<code>build-sitemap.sh</code> +7줄)</h3>
+    <ul>
+      <li><strong>한 일</strong>: sitemap 생성 후 <code>indexnow-ping.sh</code> 자동 호출. <code>INDEXNOW_PING=0</code> env로 opt-out</li>
+      <li><strong>왜 default ON</strong>: 새 도구 출시 워크플로우 = "build-sitemap.sh 한 번 실행"으로 끝나야 함. opt-in이면 사용자가 ping 까먹을 위험 → 색인 지연</li>
+      <li><strong>왜 opt-out 옵션</strong>: commit 전 로컬 dry-build·테스트 시 의도치 않은 ping 방지. <strong>단일 매개변수로 안전한 우회</strong> 제공</li>
+      <li><strong>왜 fail-soft (<code>|| { 경고 }</code>)</strong>: ping 실패해도 sitemap 자체는 정상 생성됐으니 빌드 결과 버리지 X. 사용자가 수동 재시도 안내</li>
+    </ul>
+
+    <h3>⑤ robots.txt 주석 추가</h3>
+    <ul>
+      <li><strong>한 일</strong>: key location URL을 주석으로 명시 (3줄)</li>
+      <li><strong>왜</strong>: 일부 third-party 크롤러·SEO 도구가 robots.txt에서 IndexNow key 위치를 hint로 활용. <strong>기능 영향 0</strong>이지만 관행 준수가 안전</li>
+      <li><strong>왜 주석으로</strong>: 표준 robots.txt 디렉티브가 아니라 비표준 hint라 <code>#</code> 처리. 미래 봇이 인식 못해도 문제 X</li>
+    </ul>
+
+    <h3>⑥ Dry-run 검증</h3>
+    <ul>
+      <li><strong>한 일</strong>: <code>bash scripts/indexnow-ping.sh --dry-run</code> 실행 → payload 출력 → 4가지 항목 확인</li>
+      <li><strong>확인 항목</strong>:
+        <ul>
+          <li>✓ shell syntax (<code>bash -n</code>)</li>
+          <li>✓ URL 67개 추출 (sitemap과 일치)</li>
+          <li>✓ JSON payload 형식 valid</li>
+          <li>✓ <code>image/upscale/</code>(noindex 봉인) 자동 제외</li>
+          <li>✓ <code>tools/storage/</code>(신규 도구) 정상 포함</li>
+        </ul>
+      </li>
+      <li><strong>왜 비가역 작업 전 필수</strong>: 잘못된 host·잘못된 key·URL host 불일치(422) 등은 dry-run 없이는 실 전송에서야 발견. ping rate limit(429) 한계 상 디버깅 사이클 비쌈</li>
+    </ul>
+
+    <h3>⑦ Deploy + 실 전송 (deploy 의존성)</h3>
+    <ul>
+      <li><strong>한 일</strong>: commit + push → GitHub Pages 배포 → <code>{key}.txt</code> 공개 → ping 실행</li>
+      <li><strong>왜 deploy 후에야 가능</strong>: IndexNow API가 ping 받자마자 <code>keyLocation</code> GET해서 검증. <strong>deploy 안 된 상태에서 ping 보내면 403 Forbidden</strong>. 따라서 commit+push가 사실상 ping의 전제조건</li>
+      <li><strong>왜 ping 후 1~2분 wait 권장</strong>: GitHub Pages CDN 전파에 짧은 lead time. 너무 빨리 ping 하면 일부 IndexNow 검증 노드가 캐시 X 응답 받음</li>
+    </ul>
+
+    <h3>⑧ 효과 가시화 (1~3일 후)</h3>
+    <ul>
+      <li><strong>해야 할 일</strong>: Bing Webmaster Tools 가입 → "Submitted via IndexNow" 카운터 확인 / Naver Search Advisor에서 신규 URL 색인 속도 비교 / <code>site:taystudio.github.io</code> 검색 결과 수 변화</li>
+      <li><strong>왜 직접 인덱스 카운트는 못 봄</strong>: IndexNow API 자체는 ping 응답에 인덱스 결과 안 줌. 큐 진입만 보고 = 사후 검색엔진별 도구로 검증</li>
+      <li><strong>왜 1~3일 wait</strong>: ping → 크롤 → 인덱스 큐 → 인덱스 노출까지 단계별 lead time. 즉시 검증 X. <strong>기대값 셋업이 중요</strong> (사용자가 1시간 후 보고 "효과 없네" 결론 X)</li>
+    </ul>
+
+    <div class="callout note">
+      <strong>학습 — 정적 사이트 워크플로우의 정신</strong>
+      이번 적용 = 새 인프라(서버·CI·DB) 0 추가하고 <strong>기존 빌드 스크립트에 7줄 + 새 파일 2개</strong>로 끝. <code>plan.md §0.2</code>의 "정적 한계까지 끌어올린다" 정신 그대로. push-style 프로토콜이라도 정적 사이트로 cover 가능한 케이스의 모범 사례.
+    </div>
+
+    <h2>9. 핵심 정리</h2>
     <ul>
       <li><strong>본질</strong> = HTTP 한 줄(POST + GET 검증)로 검색엔진 인덱스 큐에 push</li>
       <li><strong>정적 사이트 친화</strong> = 백엔드 0, key 파일 1개 + 스크립트 1개</li>

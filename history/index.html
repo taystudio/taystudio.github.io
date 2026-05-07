@@ -154,6 +154,95 @@
       <article class="tl-item">
         <div class="tl-card">
           <div class="tl-head">
+            <span class="tl-date">2026-05-07</span>
+            <span class="tl-tag seo">SEO 인프라 — IndexNow 도입</span>
+            <span class="tl-tag">Bing · Yandex · Naver · Seznam</span>
+          </div>
+          <div class="tl-title">🚀 IndexNow 프로토콜 적용 — 67 URL 일괄 push, Search Console 일일 한도 우회 + Naver(2024 합류) 색인 가속</div>
+          <div class="tl-summary">
+            Search Console URL 색인 요청 일일 ~10건 한도 + 네이버 sitemap pull 며칠 lead time 우회 목적. <b>IndexNow = HTTP POST 한 번으로 Bing·Yandex·<b>Naver(2024 합류)</b>·Seznam 4 엔진 동시 push</b>. 정적 사이트 친화 — 백엔드 0, key 파일 1개 + bash 스크립트 1개로 구현. 기존 <code>build-sitemap.sh</code>에 7줄 hook 추가 → 새 도구 출시 시 sitemap 갱신 + 자동 ping. 첫 실 전송 = <b>HTTP 202 Accepted (67 URLs queued)</b>. Google은 IndexNow 미지원이라 sitemap·SC로 cover 유지.
+          </div>
+          <div class="stats-grid">
+            <div class="stat"><div class="label">전송 URL</div><div class="value">67</div><div class="delta">sitemap.xml 전체. <code>image/upscale/</code>(noindex 봉인) 자동 제외</div></div>
+            <div class="stat"><div class="label">참여 엔진</div><div class="value">4</div><div class="delta">Bing · Yandex · Naver · Seznam (Google 미지원)</div></div>
+            <div class="stat"><div class="label">신규 파일</div><div class="value">3</div><div class="delta"><code>{key}.txt</code> · <code>indexnow-ping.sh</code> · <code>concept-indexnow.html</code></div></div>
+            <div class="stat"><div class="label">실 ping 응답</div><div class="value">202</div><div class="delta">Accepted, 67 URLs queued</div></div>
+          </div>
+          <details class="tl-detail">
+            <summary>왜 IndexNow + 8 단계 작업 회고 + 학습 포인트</summary>
+            <div class="tl-detail-body">
+              <h3 style="font-size:15px;margin:18px 0 8px">🎯 동기 — 두 가지 한계 우회</h3>
+              <ul>
+                <li><b>Search Console URL 검사 일일 ~10건 제한</b>(구글 정책) — 67 URL 일괄 색인 안 됨</li>
+                <li><b>네이버 Search Advisor sitemap = pull 방식</b> — 며칠 lead time. 한국 시장 매출 직결인데 색인 지연</li>
+                <li><b>IndexNow = push 방식</b> + 단일 endpoint(api.indexnow.org)로 4 엔진 동시 cover. <b>Naver 2024년 합류로 한국 시장 ROI 결정적</b></li>
+                <li><b>정적 사이트 친화</b> — 인증 없이 key 파일 검증만, 백엔드 0. <code>plan.md §0.2</code> "정적 한계까지" 정신 일관</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🧩 핵심 메커니즘 5가지</h3>
+              <ul>
+                <li><b>Push 모델</b>: 변경 즉시 검색엔진 통보 → 며칠 → 몇 시간으로 단축</li>
+                <li><b>Key 파일 = 소유권 증명</b>: <code>https://host/{key}.txt</code> body == key 검증. 공개돼도 안전</li>
+                <li><b>Hub &amp; Spoke</b>: <code>api.indexnow.org</code> 한 곳에 ping → Bing이 internal로 다른 엔진에 relay</li>
+                <li><b>응답 코드</b>: 200/202 성공, 403 keyLocation 검증 실패, 422 host 불일치, 429 rate limit</li>
+                <li><b>큐잉 ≠ 인덱스 보장</b>: 가속 채널일 뿐, 콘텐츠 품질 검증은 검색엔진 재량</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🛠 적용 단계 8 (개념서 §8 요약)</h3>
+              <ol>
+                <li><b>사전 조사</b> — build-sitemap.sh·sitemap·robots 구조 파악 (기존 흐름에 얹는다)</li>
+                <li><b>Key 발급</b> — UUID 32자 hex(<code>b762f70e...</code>) → 루트에 <code>{key}.txt</code></li>
+                <li><b>Ping 스크립트</b> — bash 99줄 + <code>--dry-run</code> + HTTP 코드 분기 (단일 책임)</li>
+                <li><b>빌드 hook +7줄</b> — default ON, <code>INDEXNOW_PING=0</code> opt-out, fail-soft</li>
+                <li><b>robots.txt 주석</b> — key location hint (관행)</li>
+                <li><b>Dry-run 검증</b> — syntax + 67 URL + JSON valid + noindex 제외 (비가역 작업 사전 검증)</li>
+                <li><b>Deploy + 실 전송</b> — commit/push → keyLocation 200 확인 → ping → <b>HTTP 202</b></li>
+                <li><b>효과 가시화</b> — Bing WT·Naver Advisor·<code>site:</code> 검색 (1~3일 lead time)</li>
+              </ol>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📁 작업 결과물</h3>
+              <table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:8px">
+                <thead><tr style="background:var(--bg)"><th style="padding:8px;text-align:left;border-bottom:1px solid var(--border)">파일</th><th style="padding:8px;text-align:left;border-bottom:1px solid var(--border)">종류</th><th style="padding:8px;text-align:left;border-bottom:1px solid var(--border)">역할</th></tr></thead>
+                <tbody>
+                  <tr><td style="padding:6px 8px"><code>b762f70e61da4ac199b51566e31748b3.txt</code></td><td style="padding:6px 8px">신규</td><td style="padding:6px 8px">소유권 검증 (key 1줄)</td></tr>
+                  <tr><td style="padding:6px 8px"><code>scripts/indexnow-ping.sh</code></td><td style="padding:6px 8px">신규 99줄</td><td style="padding:6px 8px">sitemap → JSON → POST + HTTP 코드 분기</td></tr>
+                  <tr><td style="padding:6px 8px"><code>scripts/build-sitemap.sh</code></td><td style="padding:6px 8px">+7줄</td><td style="padding:6px 8px">sitemap 빌드 후 자동 ping hook</td></tr>
+                  <tr><td style="padding:6px 8px"><code>robots.txt</code></td><td style="padding:6px 8px">+3줄</td><td style="padding:6px 8px">key location 주석 (관행 hint)</td></tr>
+                  <tr><td style="padding:6px 8px"><code>history/seo/concept-indexnow.html</code></td><td style="padding:6px 8px">신규 312줄</td><td style="padding:6px 8px">메커니즘·적용 단계·의미 정리 (noindex)</td></tr>
+                </tbody>
+              </table>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">🚀 향후 자동화</h3>
+              <p>새 도구 출시 시 단일 명령:</p>
+              <pre><code>bash scripts/build-sitemap.sh
+# → sitemap.xml 갱신 + IndexNow ping 자동 (한 번에)</code></pre>
+              <p style="color:var(--muted);font-size:13px"><code>INDEXNOW_PING=0</code>으로 끄고 sitemap만 빌드 가능 (commit 전 로컬 dry-build).</p>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">💡 학습 포인트</h3>
+              <ul>
+                <li><b>정적 사이트도 push-protocol cover 가능</b> — CLI 1회 실행 = "필요할 때 push 한 번" cron-less ping. <code>§0.2 정적 한계까지</code> 구체 사례</li>
+                <li><b>단일 진입점 통합 가치</b> — sitemap 빌드 + ping을 하나의 명령으로 묶으면 mental model 단순화</li>
+                <li><b>비가역 작업 = dry-run 필수</b> — IndexNow ping은 취소 X + rate limit. 첫 실 전송 전 dry-run = 안전망</li>
+                <li><b>fail-soft 디자인</b> — sitemap 빌드와 ping 책임 분리. ping 실패가 sitemap 결과 무효화 X</li>
+                <li><b>Naver IndexNow 합류(2024)는 한국 시장 결정적</b> — 그 전 ROI 약했음. 2024 이후 한국 단일 사이트도 ROI 큼</li>
+              </ul>
+
+              <h3 style="font-size:15px;margin:18px 0 8px">📌 사용자 후속</h3>
+              <ul>
+                <li><b>Bing Webmaster Tools 가입</b>(15분, 권장) — "Submitted via IndexNow" 카운터 + 인덱스 수 변화 가시화</li>
+                <li><b>Naver Search Advisor</b>(이미 등록) — 수집/색인 메뉴에서 신규 URL 등록 속도 비교</li>
+                <li><b>1~3일 후 측정</b> — <code>site:taystudio.github.io</code> Bing·Naver 결과 수 변화 + 인덱스 카운트</li>
+                <li><b>history 문서</b>: <code>history/seo/2026-05-07-indexnow.md</code> + 개념서 <code>history/seo/concept-indexnow.html</code></li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
             <span class="tl-date">2026-05-06</span>
             <span class="tl-tag seo">SEO 위치 정합성 — root 이전</span>
             <span class="tl-tag">privacy · terms</span>
