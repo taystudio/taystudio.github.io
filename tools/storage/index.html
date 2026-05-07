@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudio.github.io · source = github.com/taystudio/taystudio.github.io · 무단 복제·재배포 금지 -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <!-- AdSense 미승인 — 승인 후 주석 해제: <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script> -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO 계산기">
+  <meta property="og:title" content="저장공간 계산기 | 영상·사진 용량 추정·외장하드 SSD 권장">
+  <meta property="og:description" content="4K 영상·RAW 사진의 필요 저장 용량을 코덱·해상도·장수별로 정확히 추정. 외장 SSD·HDD·NAS 권장 카테고리까지 한 화면. 입력값은 브라우저 안에서만 처리.">
+  <meta property="og:url" content="https://taystudio.github.io/tools/storage/">
+  <meta property="og:image" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudio.github.io/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="저장공간 계산기 | 영상·사진 용량 추정·외장하드 SSD 권장">
+  <meta name="twitter:description" content="4K·RAW·HEIC 사진/영상 용량 추정 + 외장 SSD·HDD·NAS 권장 카테고리. 비트레이트·코덱별 정확 계산.">
+  <meta name="twitter:image" content="https://taystudio.github.io/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <title>저장공간 계산기 | 영상·사진 용량 추정·외장하드 SSD 권장</title>
+  <meta name="description" content="4K·QHD·FHD 영상의 시간·코덱별 용량 + DSLR RAW·HEIC 사진의 장수별 용량 자동 추정. 외장 SSD·HDD·NAS 권장 카테고리(256GB~16TB+)까지 한 화면. 무료, 외부 전송 X.">
+  <meta name="keywords" content="저장공간 계산기, 영상 용량 계산, 4K 영상 용량, 사진 용량 계산, RAW 용량, 외장하드 추천, SSD 추천, 1TB 외장, 외장 SSD HDD, 영상 GB 계산, 백업 용량">
+  <link rel="canonical" href="https://taystudio.github.io/tools/storage/">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "저장공간 계산기 (영상·사진 용량 + 외장하드/SSD 권장)",
+      "description": "영상 시간·해상도·코덱 또는 사진 장수·종류 입력 → 필요 저장 용량 + 외장 SSD·HDD·NAS 권장 카테고리 자동 추천.",
+      "url": "https://taystudio.github.io/tools/storage/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Tools", "item": "https://taystudio.github.io/tools/" },
+        { "@type": "ListItem", "position": 2, "name": "디지털·기기", "item": "https://taystudio.github.io/tools/" },
+        { "@type": "ListItem", "position": 3, "name": "저장공간 계산기", "item": "https://taystudio.github.io/tools/storage/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "4K 영상 1시간은 용량이 얼마나 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "코덱·비트레이트에 따라 6~44GB로 크게 다릅니다. 4K H.264 50Mbps는 시간당 약 22GB, 더 효율적인 H.265는 절반 수준 11GB, 차세대 AV1은 6~7GB. 반면 액션캠 4K(GoPro·DJI Action 등 100Mbps)는 44GB, 시네마용 ProRes 422는 264GB로 폭증. 폰 4K HDR(60Mbps)은 27GB. 같은 4K라도 압축 효율·HDR·프레임레이트(60fps→2배)에 따라 달라집니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "RAW 사진 한 장은 보통 몇 MB인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "센서 화소수에 비례합니다. 24MP DSLR/미러리스 RAW는 25~30MB, 45~50MP 고화소 카메라(Sony A7R·Canon R5)는 60~70MB. JPG는 같은 화소라도 1/4~1/8 크기. 폰 HEIC는 12MP에서 1.5~2MB로 가장 작고, 48MP 폰(아이폰 ProRAW·갤럭시 RAW)은 50~75MB로 DSLR 수준. RAW 1만 장 = 250~300GB로 1TB SSD 1년 안에 차는 페이스."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "외장 SSD vs 외장 HDD, 어느 게 좋나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "용도별 결정. SSD는 빠르고(500MB/s+) 충격에 강하고 가벼움 → 노트북 백업·이동용·영상 편집 직결에 유리, 단 1TB당 12~18만으로 비쌈. HDD는 1TB당 7~9만으로 절반 수준, 단 외부 충격에 약하고 100~200MB/s로 느림 → 책상에 놓고 백업·아카이브용에 유리. 4TB+ 대용량은 HDD가 가성비 압도, 1TB 이하는 SSD가 가격차 적어 SSD 권장."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "클라우드와 외장 저장 어느 쪽이 나을까요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "용량·접근 패턴이 결정. 클라우드(iCloud·Google One·Dropbox)는 어디서나 접근·자동 백업·기기 분실 시 안전, 단 월정액(2TB iCloud 약 1.1만원/월 = 5년 70만)이라 장기적으로 외장보다 비쌈. 외장은 초기 1회 결제로 끝나지만 분실·고장 시 데이터 손실. 권장 = 1차 외장(작업·아카이브) + 2차 클라우드(중요 사진·문서만). 사진 1만 장 이하·기기 2~3개면 클라우드만으로도 충분."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "왜 결과 옆에 +50% 권장 용량이 따로 나오나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "실제 운용에는 ① 편집 캐시·프록시 파일 (영상 편집 시 원본의 30~50% 추가) ② 백업 중복본 ③ OS·앱 임시 파일 ④ 향후 추가 촬영 여유 등이 필요해 추정 용량의 1.5배를 권장합니다. 예: 원본 600GB라면 1TB는 빠듯하고 2TB가 안전. 100% 채우면 SSD 성능 저하·HDD 단편화도 발생하니 80% 이하 사용이 좋습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "NAS는 언제부터 고려해야 하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "데이터 8TB+·여러 기기에서 접근·이중 백업이 필요할 때. NAS(Synology·QNAP)는 RAID 1/5로 디스크 한 개 고장에도 데이터 안전, 가족·팀 공유, 자동 백업 스케줄링 가능. 단 본체 30~50만 + 디스크 2~4개(개당 8~15만) = 100~150만 초기 투자. 2-bay 8TB(RAID 1)부터 시작해 필요 시 디스크 증설. 단순 백업·1인 사용이면 외장 HDD 4~8TB로 충분."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .mode-tabs { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .result-headline { text-align: center; margin-bottom: 18px; }
+    .result-value { font-size: 38px; font-weight: 700; color: var(--primary); line-height: 1.1; margin: 6px 0; }
+    .result-label { font-size: 12px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+    .result-sub { font-size: 14px; color: var(--muted); margin-top: 4px; }
+    .breakdown-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .breakdown-row.total { border-bottom: 2px solid var(--primary); font-weight: 600; }
+    .rec-card { margin-top: 18px; padding: 16px 18px; background: rgba(37,99,235,.06); border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--border)); border-radius: 10px; }
+    .rec-tier { font-weight: 700; font-size: 16px; color: var(--primary); margin-bottom: 6px; }
+    .rec-note { font-size: 13.5px; color: var(--muted); line-height: 1.55; }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 디지털·기기 · 저장공간</div>
+    <h1>저장공간 계산기 <span class="basis-badge">코덱·해상도·RAW</span></h1>
+    <p class="subtitle">4K 영상·RAW 사진의 필요 저장 용량 추정 + 외장 SSD·HDD·NAS 권장 카테고리.</p>
+
+    <form id="form" class="card">
+      <div class="row">
+        <div class="field">
+          <label for="mode">계산 모드</label>
+          <select id="mode" required>
+            <option value="video">🎬 영상 (시간·해상도·코덱)</option>
+            <option value="photo">📷 사진 (장수·종류)</option>
+            <option value="manual">✍️ 직접 입력 (GB)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="video-fields">
+        <div class="row">
+          <div class="field">
+            <label for="videoHours">영상 시간 (h)</label>
+            <input type="number" id="videoHours" placeholder="예: 2" min="0.1" max="10000" step="0.1" value="2">
+          </div>
+          <div class="field">
+            <label for="videoType">영상 종류</label>
+            <select id="videoType"></select>
+          </div>
+        </div>
+      </div>
+
+      <div id="photo-fields" style="display:none">
+        <div class="row">
+          <div class="field">
+            <label for="photoCount">사진 장수</label>
+            <input type="number" id="photoCount" placeholder="예: 5000" min="1" max="10000000" step="1" value="5000">
+          </div>
+          <div class="field">
+            <label for="photoType">사진 종류</label>
+            <select id="photoType"></select>
+          </div>
+        </div>
+      </div>
+
+      <div id="manual-fields" style="display:none">
+        <div class="row">
+          <div class="field">
+            <label for="manualGb">필요 용량 (GB)</label>
+            <input type="number" id="manualGb" placeholder="예: 500" min="1" max="100000" step="1">
+          </div>
+        </div>
+      </div>
+
+      <button type="submit">필요 용량 계산</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">필요 용량 (원본)</div>
+        <div id="primaryGb" class="result-value">-</div>
+        <div id="breakdown" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row total"><span class="label">권장 용량 (×1.5 — 편집 캐시·여유 포함)</span><span id="recommendGb" class="value">-</span></div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-tier">💡 권장 저장장치 — <span id="recTier">-</span></div>
+        <div class="rec-note" id="recNote">-</div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 본 계산은 일반 시나리오 평균값 기반 추정입니다. 실제 용량은 카메라·인코더·HDR·프레임레이트(60fps→2배)·압축 모드에 따라 ±20% 변동할 수 있습니다. 편집 작업 시에는 캐시·프록시·렌더링 파일이 추가되어 원본의 1.5~2배 공간을 권장합니다. 가격은 2026년 5월 한국 온라인 평균 시세이며 변동 가능합니다.
+    </div>
+
+    <section class="tool-article">
+      <h2>영상 1시간당 용량 (코덱·해상도별)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>영상 종류</th><th>비트레이트</th><th>1시간당</th></tr></thead>
+          <tbody>
+            <tr><td>4K H.264</td><td>50 Mbps</td><td>~22 GB</td></tr>
+            <tr><td>4K H.265 / HEVC</td><td>25 Mbps</td><td>~11 GB</td></tr>
+            <tr><td>4K AV1</td><td>15 Mbps</td><td>~6.6 GB</td></tr>
+            <tr><td>QHD H.264</td><td>16 Mbps</td><td>~7.0 GB</td></tr>
+            <tr><td>FHD H.264</td><td>8 Mbps</td><td>~3.5 GB</td></tr>
+            <tr><td>FHD H.265</td><td>4 Mbps</td><td>~1.8 GB</td></tr>
+            <tr><td>스마트폰 4K HDR</td><td>60 Mbps</td><td>~27 GB</td></tr>
+            <tr><td>액션캠 4K (GoPro·DJI)</td><td>100 Mbps</td><td>~44 GB</td></tr>
+            <tr><td>ProRes 422 4K (편집용)</td><td>590 Mbps</td><td>~264 GB</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">계산식 = 비트레이트(Mbps) × 3600초 ÷ 8 ÷ 1024 ≈ GB. 60fps는 30fps의 약 1.5~2배. HDR·10-bit는 8-bit SDR의 1.25~1.5배.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>사진 1장당 평균 사이즈</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>사진 종류</th><th>평균 사이즈</th><th>참고</th></tr></thead>
+          <tbody>
+            <tr><td>DSLR RAW (24MP)</td><td>25~30 MB</td><td>Canon R6·Nikon Z6·Sony A7 III</td></tr>
+            <tr><td>DSLR RAW (45~50MP)</td><td>60~70 MB</td><td>Sony A7R V·Canon R5·Nikon Z7</td></tr>
+            <tr><td>미러리스 RAW (24MP)</td><td>20~25 MB</td><td>Fujifilm X-T·Sony A6700</td></tr>
+            <tr><td>JPG 고화질 (24MP)</td><td>6~10 MB</td><td>RAW + JPG 동시 촬영 시</td></tr>
+            <tr><td>JPG 일반 (12MP)</td><td>2~4 MB</td><td>일반 촬영·웹 업로드</td></tr>
+            <tr><td>스마트폰 HEIC (12MP)</td><td>1.5~2 MB</td><td>iPhone 기본·갤럭시 HEIF</td></tr>
+            <tr><td>스마트폰 HEIC (48MP)</td><td>3~5 MB</td><td>iPhone Pro·갤럭시 S Ultra 기본</td></tr>
+            <tr><td>iPhone ProRAW (48MP)</td><td>50~75 MB</td><td>14 Pro+·15 Pro+·DSLR급 용량</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">RAW는 압축 모드(무손실·손실)에 따라 ±30% 변동. JPG 품질 슬라이더(80~100)에 따라 2~3배 차이.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>권장 저장장치 카테고리 (필요 용량별)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>필요 용량</th><th>권장 카테고리</th><th>가격대 (2026 기준)</th></tr></thead>
+          <tbody>
+            <tr><td>~64 GB</td><td>SD카드·USB 메모리</td><td>1~3만</td></tr>
+            <tr><td>64~256 GB</td><td>256GB 휴대용 SSD</td><td>5~7만</td></tr>
+            <tr><td>256~512 GB</td><td>512GB 휴대용 SSD</td><td>8~12만</td></tr>
+            <tr><td>0.5~1 TB</td><td>1TB 외장 SSD 또는 외장 HDD</td><td>SSD 12~18만 / HDD 7~9만</td></tr>
+            <tr><td>1~2 TB</td><td>2TB 외장 HDD (또는 1TB SSD 분리)</td><td>HDD 9~13만</td></tr>
+            <tr><td>2~4 TB</td><td>4TB 외장 HDD</td><td>13~18만</td></tr>
+            <tr><td>4~8 TB</td><td>8TB 외장 HDD 또는 NAS 2-bay</td><td>HDD 25~30만 / NAS 본체 30~50만</td></tr>
+            <tr><td>8 TB+</td><td>NAS 4-bay (12~16TB+)</td><td>100만+</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">SSD = 빠름·충격 강함·휴대 / HDD = 가성비·대용량 / NAS = 이중화·다기기. 사진·문서 1차 저장은 SSD, 영상·아카이브는 HDD가 표준 조합.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../compound/">복리 계산기<span class="desc">월정액 비교 시 미래가치</span></a>
+        <a href="/image/compress/">이미지 압축<span class="desc">사진 용량 절반 줄이기</span></a>
+        <a href="/video/compress/">동영상 압축<span class="desc">영상 GB 줄이기</span></a>
+        <a href="/image/heic-to-jpg/">HEIC → JPG<span class="desc">아이폰 사진 변환</span></a>
+        <a href="/pdf/pdf-merge/">PDF 합치기<span class="desc">파일 정리</span></a>
+        <a href="../dday/">D-day 계산기<span class="desc">백업 주기 카운트</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>4K 영상 1시간은 용량이 얼마나 되나요?</summary>
+        <div class="answer">
+          코덱·비트레이트에 따라 <b>6~44GB</b>로 크게 다릅니다. 4K H.264 50Mbps는 시간당 약 22GB,
+          더 효율적인 <b>H.265는 절반 수준 11GB</b>, 차세대 AV1은 6~7GB.
+          반면 액션캠 4K(GoPro·DJI Action 등 100Mbps)는 44GB, 시네마용 ProRes 422는 264GB로 폭증.
+          폰 4K HDR(60Mbps)은 27GB. 같은 4K라도 압축 효율·HDR·프레임레이트(60fps→2배)에 따라 달라집니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>RAW 사진 한 장은 보통 몇 MB인가요?</summary>
+        <div class="answer">
+          센서 화소수에 비례합니다. 24MP DSLR/미러리스 RAW는 25~30MB,
+          45~50MP 고화소 카메라(Sony A7R·Canon R5)는 60~70MB.
+          JPG는 같은 화소라도 <b>1/4~1/8</b> 크기. 폰 HEIC는 12MP에서 1.5~2MB로 가장 작고,
+          <b>48MP 폰(아이폰 ProRAW·갤럭시 RAW)은 50~75MB</b>로 DSLR 수준.
+          RAW 1만 장 = 250~300GB로 1TB SSD 1년 안에 차는 페이스.
+        </div>
+      </details>
+
+      <details>
+        <summary>외장 SSD vs 외장 HDD, 어느 게 좋나요?</summary>
+        <div class="answer">
+          용도별 결정. <b>SSD는 빠르고(500MB/s+) 충격에 강하고 가벼움</b> → 노트북 백업·이동용·영상 편집 직결에 유리,
+          단 1TB당 12~18만으로 비쌈.
+          <b>HDD는 1TB당 7~9만으로 절반 수준</b>, 단 외부 충격에 약하고 100~200MB/s로 느림 → 책상에 놓고 백업·아카이브용에 유리.
+          4TB+ 대용량은 HDD가 가성비 압도, 1TB 이하는 SSD가 가격차 적어 SSD 권장.
+        </div>
+      </details>
+
+      <details>
+        <summary>클라우드와 외장 저장 어느 쪽이 나을까요?</summary>
+        <div class="answer">
+          용량·접근 패턴이 결정. 클라우드(iCloud·Google One·Dropbox)는 어디서나 접근·자동 백업·기기 분실 시 안전,
+          단 <b>월정액(2TB iCloud 약 1.1만원/월 = 5년 70만)</b>이라 장기적으로 외장보다 비쌈.
+          외장은 초기 1회 결제로 끝나지만 분실·고장 시 데이터 손실.
+          <b>권장 = 1차 외장(작업·아카이브) + 2차 클라우드(중요 사진·문서만)</b>.
+          사진 1만 장 이하·기기 2~3개면 클라우드만으로도 충분.
+        </div>
+      </details>
+
+      <details>
+        <summary>왜 결과 옆에 +50% 권장 용량이 따로 나오나요?</summary>
+        <div class="answer">
+          실제 운용에는 ① <b>편집 캐시·프록시 파일</b> (영상 편집 시 원본의 30~50% 추가)
+          ② 백업 중복본 ③ OS·앱 임시 파일 ④ 향후 추가 촬영 여유 등이 필요해 추정 용량의 <b>1.5배</b>를 권장합니다.
+          예: 원본 600GB라면 1TB는 빠듯하고 2TB가 안전.
+          100% 채우면 SSD 성능 저하·HDD 단편화도 발생하니 80% 이하 사용이 좋습니다.
+        </div>
+      </details>
+
+      <details>
+        <summary>NAS는 언제부터 고려해야 하나요?</summary>
+        <div class="answer">
+          데이터 <b>8TB+</b>·여러 기기에서 접근·이중 백업이 필요할 때.
+          NAS(Synology·QNAP)는 <b>RAID 1/5로 디스크 한 개 고장에도 데이터 안전</b>,
+          가족·팀 공유, 자동 백업 스케줄링 가능.
+          단 본체 30~50만 + 디스크 2~4개(개당 8~15만) = 100~150만 초기 투자.
+          2-bay 8TB(RAID 1)부터 시작해 필요 시 디스크 증설.
+          단순 백업·1인 사용이면 외장 HDD 4~8TB로 충분.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>출처</h2>
+      <div class="updated">최종 검증: 2026-05-06</div>
+      <ul>
+        <li><b>YouTube 권장 업로드 비트레이트</b> — Google Help "Recommended upload encoding settings" (4K/QHD/FHD/HD H.264·H.265)</li>
+        <li><b>Apple ProRes 데이터 레이트</b> — Final Cut Pro X User Guide, Apple Inc.</li>
+        <li><b>액션캠 비트레이트 사양</b> — DJI Action 4·5 / GoPro Hero 12·13 공식 매뉴얼 (2025)</li>
+        <li><b>RAW 파일 사이즈 가이드</b> — Adobe Lightroom Classic Help, Camera RAW format reference</li>
+        <li><b>iPhone ProRAW</b> — Apple Support "Take ProRAW photos with iPhone" (2024 갱신)</li>
+      </ul>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./storage.js" defer></script>
+  <site-footer></site-footer>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

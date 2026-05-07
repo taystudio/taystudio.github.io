@@ -127,3 +127,12 @@ emit_url() {
 COUNT=$(grep -c "<url>" "$OUT")
 echo "✓ sitemap.xml generated at $OUT"
 echo "  URL count: $COUNT"
+
+# IndexNow ping — Bing·Yandex·Naver·Seznam 즉시 인덱스 알림.
+# INDEXNOW_PING=0 으로 비활성화 (commit/push 전 로컬 빌드 등).
+if [ "${INDEXNOW_PING:-1}" = "1" ] && [ -f "${REPO_ROOT}/scripts/indexnow-ping.sh" ]; then
+  echo ""
+  bash "${REPO_ROOT}/scripts/indexnow-ping.sh" || {
+    echo "⚠ IndexNow ping 실패 — sitemap은 정상 생성됨. 수동 재시도: bash scripts/indexnow-ping.sh"
+  }
+fi
