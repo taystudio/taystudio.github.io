@@ -227,9 +227,20 @@
                 <li><b>Naver IndexNow 합류(2024)는 한국 시장 결정적</b> — 그 전 ROI 약했음. 2024 이후 한국 단일 사이트도 ROI 큼</li>
               </ul>
 
+              <h3 style="font-size:15px;margin:18px 0 8px">🔐 Bing Webmaster Tools 가입 진행 (2026-05-07)</h3>
+              <p>IndexNow 효과 가시화 채널 = Bing Webmaster Tools. <b>소유권 검증 = meta 태그 방식</b>(기존 google-site-verification·naver-site-verification 패턴과 일관) 채택.</p>
+              <ul>
+                <li><b>적용 위치</b>: <code>index.html</code> <code>&lt;head&gt;</code> 12번 줄</li>
+                <li><b>코드</b>: <code>&lt;meta name="msvalidate.01" content="064396E810073C47308AEC058EDC3846" /&gt;</code></li>
+                <li><b>적용 페이지</b>: 루트 <code>index.html</code> 1개만 (Bing이 도메인 root만 fetch해서 검증 → 도메인 전체 권한 부여)</li>
+                <li><b>왜 meta 방식</b>: 기존 Google·Naver verification과 같은 패턴 = 일관성. XML 파일(<code>BingSiteAuth.xml</code>) 방식은 fallback으로 미적용</li>
+                <li><b>검증 흐름</b>: commit/push → GitHub Pages 배포 (~1~2분) → Bing 콘솔 "Verify" 클릭 → 인증 완료</li>
+                <li><b>검증 통과 시 가시화 데이터</b>: IndexNow ping 67건 처리 결과 + 인덱스 수 변화 + 검색 키워드별 노출·클릭 + 크롤 에러 페이지</li>
+              </ul>
+
               <h3 style="font-size:15px;margin:18px 0 8px">📌 사용자 후속</h3>
               <ul>
-                <li><b>Bing Webmaster Tools 가입</b>(15분, 권장) — "Submitted via IndexNow" 카운터 + 인덱스 수 변화 가시화</li>
+                <li><b>Bing Webmaster Tools 검증 클릭</b>(meta 적용 완료, commit/push 후 콘솔 Verify) — "Submitted via IndexNow" 카운터 + 인덱스 수 변화 가시화</li>
                 <li><b>Naver Search Advisor</b>(이미 등록) — 수집/색인 메뉴에서 신규 URL 등록 속도 비교</li>
                 <li><b>1~3일 후 측정</b> — <code>site:taystudio.github.io</code> Bing·Naver 결과 수 변화 + 인덱스 카운트</li>
                 <li><b>history 문서</b>: <code>history/seo/2026-05-07-indexnow.md</code> + 개념서 <code>history/seo/concept-indexnow.html</code></li>
