@@ -139,7 +139,7 @@
     <h1>📜 변경 이력</h1>
     <p class="subtitle">사이트에서 일어난 일을 시간 역순으로 — 도구 추가, 세율 갱신, SEO·인프라 작업까지.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
-      <b>마지막 갱신</b>: 2026-05-06 · <span style="opacity:.7">privacy·terms root 이전(<code>/tools/{privacy,terms}/</code> → <code>/{privacy,terms}/</code>, soft refresh stub) · image+pdf 종합 검증 라운드 · 이미지 카테고리 Tier 1 신규 3종 + 같은 일자 PDF 카테고리 신설. 도구 <b>58선</b>, sitemap <b>66 URL</b>. 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
+      <b>마지막 갱신</b>: 2026-05-09 · <span style="opacity:.7">tools/monitor 신규(PPI·시야거리·4K 변별 + 4 사용 목적별 추천 카드) · 쿠팡 파트너스 가입(AF4086854) + 위젯 4·추천링크 4 박힘(AdSense 승인 전까지 CSS hide) · 사이트 일관성 38선/60도구 · 헤더 깜박임 완전 해결(70 HTML script head·blocking 이동 + min-height 예약 + install 버튼 캐시) · index.html PDF 라벨 vertical line 정렬. 도구 <b>60선</b>, sitemap <b>68 URL</b>, SW <b>v14</b>. 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
     </p>
 
     <div class="legend">
@@ -149,6 +149,55 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-09</span>
+            <span class="tl-tag feature">UX — 헤더 깜박임 완전 해결</span>
+            <span class="tl-tag">70 HTML · CSS · JS</span>
+          </div>
+          <div class="tl-title">🎯 메뉴 클릭 시 헤더 사라짐 현상 해결 — site-chrome.js를 head·blocking으로 일괄 이동 + min-height 예약 + install 버튼 캐시</div>
+          <div class="tl-summary">
+            MPA 정적 사이트라 메뉴 클릭마다(계산기·pdf·이미지·동영상) 헤더 inner content가 사라졌다 다시 등장. 원인 = <code>&lt;script src="/common/site-chrome.js" defer&gt;</code>로 늦게 실행. <b>해결 3단</b>: ① <b>70 HTML 파일 모두 script를 <code>&lt;/body&gt;</code> 직전 → <code>&lt;/head&gt;</code> 직전 blocking 이동 + defer 제거</b> (perl one-liner) → custom element 등록이 body parse 전에 완료 → <code>&lt;site-header&gt;</code> 즉시 upgrade ② CSS에 <code>site-header { min-height: 64px (mobile 80px); bg+border }</code> 예약 → 0px 점프 방지 ③ <code>wasInstallEligible()</code> localStorage 캐시 — beforeinstallprompt 한 번 받으면 다음 페이지부터 install 버튼 즉시 노출. View Transitions API도 시도했으나 defer 스크립트와 결합 시 NEW 페이지 스냅샷이 빈 헤더로 잡혀 morphing이 오히려 악화 → 제거. 트레이드오프: 첫 paint 지연 ~5~15ms (cached) — 인지 불가. SW v13→v14 bump.
+          </div>
+          <div class="stats-grid">
+            <div class="stat"><div class="label">변경 파일</div><div class="value">73</div><div class="delta">70 HTML + common/css/style.css + common/site-chrome.js + sw.js</div></div>
+            <div class="stat"><div class="label">변경량</div><div class="value">+92/-73</div><div class="delta">단일 commit (8107584). 추가 commit e63acec — index.html PDF 라벨 vertical line 정렬</div></div>
+            <div class="stat"><div class="label">SW 버전</div><div class="value">v14</div><div class="delta">PWA 사용자 자동 갱신</div></div>
+            <div class="stat"><div class="label">첫 paint 지연</div><div class="value">~10ms</div><div class="delta">cached. 첫 방문 ~50~150ms — 사실상 인지 불가</div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-09</span>
+            <span class="tl-tag feature">신규 도구 — 모니터 PPI·시야거리 + 쿠팡 파트너스 라이브</span>
+            <span class="tl-tag">tools/monitor + AdSense·쿠팡 2축</span>
+          </div>
+          <div class="tl-title">🖥️ 모니터 PPI·시야거리 계산기 + 쿠팡 파트너스 가입·위젯 4·추천링크 4 라이브 (AdSense 승인 전까지 affiliate UI hide)</div>
+          <div class="tl-summary">
+            38번째 계산기 = <code>tools/monitor/</code>. 인치+해상도 입력 → PPI·픽셀 피치·종횡비·시야거리(작업/영상/최소)·4K 변별 가능성. 4 사용 목적별 추천 카드(게이밍·사무·영상편집·세컨드) — 입력값 매칭 자동 "최적" 배지. JSON-LD WebApp + Breadcrumb + FAQPage 7건. <b>쿠팡 파트너스</b> 가입 (회원 ID <code>AF4086854</code>, 즉시 "활동 중") + <b>Playwright + CDP로 너 Chrome retail 쿠팡 직접 스크래핑</b> (Akamai 봇 차단 우회 — <code>--remote-debugging-port=9222 --user-data-dir=/tmp/chrome-debug-coupang</code> 패턴) → 4 카테고리 × 70~80개 unique 상품 추출 → 리뷰수·브랜드 가중치로 1순위 픽업 → 너가 콘솔에서 위젯·추천링크 8개 발급 → 4 카드에 박음. <b>AdSense 승인 전까지 affiliate 영역 CSS hide</b> (`common/css/style.css` 두 번째 hide 블록 — `.purpose-grid · .partner-disclosure · .affiliate-section-title/intro` 4 selector). 코드·iframe·단축링크는 그대로 — 승인 후 단일 블록 삭제로 즉시 unhide. 도구 수 59 → 60선, sitemap 67 → 68 URL.
+          </div>
+          <div class="stats-grid">
+            <div class="stat"><div class="label">신규 도구</div><div class="value">monitor</div><div class="delta">PPI·시야거리·4K 변별 + 4 추천 카드</div></div>
+            <div class="stat"><div class="label">picked 상품</div><div class="value">한성 619/2491리뷰 · 삼성 190 · ASUS ProArt</div><div class="delta">retail 쿠팡 직접 스크래핑 (Akamai 우회)</div></div>
+            <div class="stat"><div class="label">수익 모델</div><div class="value">쿠팡 + AdSense 2축</div><div class="delta">쿠팡 = 활성, AdSense = 신청 대기</div></div>
+            <div class="stat"><div class="label">commit</div><div class="value">3개</div><div class="delta">199eafc · c0192e2 · 9361344. + 89cc812 사이트 일관성 갱신</div></div>
+          </div>
+          <details class="tl-detail">
+            <summary>상세 = history/coupang-partners/index.html + widget-howto.html</summary>
+            <div class="tl-detail-body">
+              <p><b>현 상태</b>: 코드 박힘 라이브, UI는 hide. 너의 다음 액션 = AdSense 신청 (<a href="https://www.google.com/adsense" target="_blank">google.com/adsense</a>) → 승인 후 plan §7.5 절차대로 자동 진행 (두 hide 블록 삭제 + script 39개 해제 + 60 ad-slot 채우기 + SW bump).</p>
+              <p>방법론·확장 가이드 = <a href="./coupang-partners/widget-howto.html"><code>history/coupang-partners/widget-howto.html</code></a>. storage·baby·pet 도구에 같은 패턴 적용 시 절차 그대로 재사용.</p>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item">
