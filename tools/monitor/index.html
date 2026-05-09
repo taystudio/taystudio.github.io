@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudios.com · source = github.com/taystudio/taystudios.com · 무단 복제·재배포 금지 -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO 계산기">
+  <meta property="og:title" content="모니터 PPI·시야거리 계산기 — 인치·해상도별 권장 거리·4K 체감">
+  <meta property="og:description" content="모니터 인치 + 해상도 입력 → PPI·픽셀 피치·권장 시야거리·4K 변별 가능성 자동 계산. 게이밍·사무·영상편집·세컨드 사용 목적별 추천. 입력값은 브라우저 안에서만 처리.">
+  <meta property="og:url" content="https://taystudios.com/tools/monitor/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="모니터 PPI·시야거리 계산기 — 인치·해상도별 권장 거리·4K 체감">
+  <meta name="twitter:description" content="인치 + 해상도 → PPI·시야거리·4K 변별 + 사용 목적별 추천. 게이밍·사무·영상편집·세컨드 4 카테고리.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <title>모니터 PPI·시야거리 계산기 | 4K 27인치 권장 거리, 게이밍·사무용 인치 추천</title>
+  <meta name="description" content="모니터 인치 + 해상도(FHD·QHD·4K·UWQHD·5K·8K) 입력 → 픽셀 밀도 PPI·픽셀 피치·권장 시야거리·책상 깊이·4K 변별 자동 계산. 게이밍·사무·영상편집·세컨드 사용 목적별 추천 카테고리. 무료, 외부 전송 X.">
+  <meta name="keywords" content="모니터 PPI, 모니터 시야거리, 4K 27인치, 4K 24인치, QHD 27인치, 게이밍 모니터 인치, 사무용 모니터 추천, 영상편집 모니터, 픽셀 밀도, 책상 깊이, 듀얼 모니터, 21:9 울트라와이드, 모니터 해상도 비교">
+  <link rel="canonical" href="https://taystudios.com/tools/monitor/">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "모니터 PPI·시야거리 계산기 (사용 목적별 추천)",
+      "description": "모니터 인치·해상도 입력 → PPI·픽셀 피치·권장 시야거리·4K 변별 가능성 자동 계산 + 게이밍·사무·영상편집·세컨드 사용 목적별 적합도.",
+      "url": "https://taystudios.com/tools/monitor/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Tools", "item": "https://taystudios.com/tools/" },
+        { "@type": "ListItem", "position": 2, "name": "디지털·기기", "item": "https://taystudios.com/tools/" },
+        { "@type": "ListItem", "position": 3, "name": "모니터 PPI·시야거리 계산기", "item": "https://taystudios.com/tools/monitor/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "27인치에 4K가 적당한가요? FHD는요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "27인치 4K = 약 163 PPI로 픽셀이 매끄럽고 글자·영상 디테일이 또렷합니다. macOS는 자동 Retina scaling, Windows는 125~150% scaling 권장. 27인치 FHD는 약 82 PPI로 픽셀 거침이 인지되어 일반 사무엔 OK지만 텍스트 정밀 작업에는 거칠게 느껴집니다. 가성비 = 27인치 QHD(109 PPI), 디자인·영상 작업 = 27인치 4K, 일반 사무·게이밍 가성비 = 24~27인치 FHD."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "모니터와 눈 사이 권장 거리는 어떻게 계산하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "화면 높이를 기준으로 합니다. 작업·생산성은 화면 높이 × 2.0(텍스트 정밀 작업 권장), 영상·게임은 화면 높이 × 1.5(4K 변별 가능 거리). 예: 27인치 16:9는 화면 높이 약 33.6cm → 작업 67cm, 영상 50cm. 책상 깊이는 권장 거리 + 키보드/마우스 공간 20cm = 70~90cm 필요. 너무 가까우면(화면 높이 × 1.2 이내) 시야각 과대로 눈 피로 증가."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "PPI는 몇 이상이면 충분한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "사용 목적과 시청 거리에 따라 다릅니다. 일반 사무·웹 = 90~110 PPI(FHD 27인치, FHD 32인치)면 충분, 단 텍스트 가장자리 계단 현상 살짝 인지. 텍스트·디자인 작업 = 110~140 PPI(QHD 24~27인치) 표준 권장. 영상 편집·디자인 정밀 = 140~180 PPI(4K 27~32인치). 220+ PPI(5K 27인치, 4K 24인치) = Apple Retina급으로 픽셀 인식 한계 — 일반 사용엔 과한 영역."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "21:9 울트라와이드는 일반 16:9보다 좋나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "용도별 결정. 21:9(34인치 UWQHD 등)는 가로가 넓어 멀티 윈도우(코드+브라우저)·시네마(레터박스 X)·일부 게임(시야 ↑)에 유리. 단 16:9 콘텐츠 시청 시 좌우 검은 띠 발생, 책상 깊이 부담, 가격 비쌈(같은 면적 16:9의 1.3~1.5배). 일반 사무·문서·동영상 = 16:9 27~32인치 권장. 코딩·트레이딩·영상 편집 = 21:9 34인치+ 고려."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "게이밍 모니터는 인치보다 주사율이 더 중요한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "FPS·격투 등 경쟁 게임은 240Hz·1ms·G-Sync/FreeSync가 인치보다 우선. 화면이 작아도(24인치) 빠른 응답이 승률 직결. 반대로 RPG·시뮬레이션·콘솔 게임은 인치·해상도가 중요(27인치 QHD·144Hz 표준 권장). 사무·게임 겸용은 27인치 QHD 144Hz가 균형. 단 144Hz+ 모니터는 그래픽카드 성능(RTX 4060+ 권장)과 함께 가야 의미 있음."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "듀얼 모니터를 쓸 때 권장 인치 조합은?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "메인 + 세컨드 패턴 = 27인치 QHD 메인 + 22~24인치 FHD 세컨드 또는 24인치 FHD 세로 회전(코드·문서). 같은 해상도·인치 두 대(예: 27인치 QHD × 2)도 흔하지만 화면 회전 시 키 기능에 차이. 책상 폭 = 메인 인치 × 2 + 5cm 권장(예: 27 × 2 = 54인치 ≒ 137cm 책상). 노트북 + 외장 모니터 = 외장은 노트북보다 큰 27인치+ 권장."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .result-headline { text-align: center; margin-bottom: 18px; }
+    .result-value { font-size: 42px; font-weight: 700; color: var(--primary); line-height: 1.1; margin: 6px 0; }
+    .result-label { font-size: 12px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+    .result-sub { font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 18px 0 8px; }
+    .stat-cell { padding: 12px 14px; background: rgba(37,99,235,.05); border: 1px solid var(--border); border-radius: 8px; }
+    .stat-cell .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+    .stat-cell .stat-value { font-size: 18px; font-weight: 600; color: var(--text); }
+
+    .ppi-card { padding: 16px 18px; background: rgba(37,99,235,.06); border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--border)); border-radius: 10px; margin-top: 18px; }
+    .ppi-tier { font-weight: 700; font-size: 16px; color: var(--primary); margin-bottom: 6px; }
+    .ppi-note { font-size: 13.5px; color: var(--muted); line-height: 1.55; }
+
+    .dist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 14px; }
+    .dist-cell { padding: 14px 16px; border: 1px solid var(--border); border-radius: 8px; text-align: center; }
+    .dist-cell.work { background: rgba(34,197,94,.06); border-color: color-mix(in srgb, #22c55e 25%, var(--border)); }
+    .dist-cell.media { background: rgba(99,102,241,.06); border-color: color-mix(in srgb, #6366f1 25%, var(--border)); }
+    .dist-cell.min { background: rgba(245,158,11,.06); border-color: color-mix(in srgb, #f59e0b 25%, var(--border)); }
+    .dist-cell .dist-label { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .dist-cell .dist-value { font-size: 22px; font-weight: 700; color: var(--text); }
+    .dist-cell .dist-hint { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+
+    /* 4K verdict */
+    .fourk-card { padding: 14px 18px; margin-top: 14px; border: 1px solid var(--border); border-radius: 8px; background: rgba(99,102,241,.04); }
+    .fourk-row { display: flex; align-items: center; gap: 12px; }
+    .fourk-symbol { font-size: 28px; font-weight: 700; min-width: 36px; text-align: center; color: var(--primary); }
+    .fourk-text { font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+
+    /* 추천 카드 그리드 */
+    .purpose-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 18px; }
+    .purpose-card {
+      display: flex; flex-direction: column;
+      padding: 16px 18px; background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+      transition: all 0.2s;
+    }
+    .purpose-card.match { border-color: var(--primary); background: rgba(37,99,235,.04); box-shadow: 0 1px 6px rgba(37,99,235,.08); }
+    .purpose-card.match .match-badge { display: inline-block; }
+    .purpose-card .purpose-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .purpose-card .purpose-icon { font-size: 22px; }
+    .purpose-card .purpose-title { font-weight: 700; font-size: 15.5px; color: var(--text); flex: 1; }
+    .purpose-card .match-badge {
+      display: none; padding: 2px 8px; border-radius: 999px;
+      font-size: 10.5px; font-weight: 700; letter-spacing: .03em;
+      background: var(--primary); color: #fff;
+    }
+    .purpose-card .purpose-spec { font-size: 12.5px; color: var(--muted); margin-bottom: 8px; line-height: 1.5; }
+    .purpose-card .purpose-fit { font-size: 12px; color: var(--primary); font-weight: 500; margin: 4px 0 10px; min-height: 1.5em; }
+
+    /* 쿠팡 위젯 슬롯 — 카드 안에 쿠팡 iframe 위젯 박힘 */
+    .purpose-card .widget-slot {
+      margin: 6px 0 12px; padding: 8px;
+      background: #f8fafc; border: 1px solid #eef2f7; border-radius: 8px;
+      min-height: 240px; display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .purpose-card .widget-slot iframe { display: block; border: 0; max-width: 100%; }
+
+    .purpose-card .purpose-link {
+      display: inline-block; margin-top: auto; padding: 9px 14px;
+      background: var(--primary); color: #fff;
+      border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600; text-align: center;
+      transition: opacity 0.15s;
+    }
+    .purpose-card .purpose-link:hover { opacity: 0.85; }
+
+    .partner-disclosure {
+      margin-top: 14px; padding: 10px 14px; background: rgba(0,0,0,.03); border-left: 3px solid var(--muted);
+      font-size: 11.5px; color: var(--muted); line-height: 1.5; border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">도구</a> · 디지털·기기 · 모니터 PPI·시야거리</div>
+    <h1>모니터 PPI·시야거리 계산기 <span class="basis-badge">인치·해상도</span></h1>
+    <p class="subtitle">픽셀 밀도(PPI) + 권장 시야거리 + 4K 체감 + 사용 목적별 추천 카테고리.</p>
+
+    <form id="form" class="card">
+      <div class="row">
+        <div class="field">
+          <label for="inch">대각선 인치</label>
+          <input type="number" id="inch" placeholder="예: 27" min="10" max="100" step="0.1" value="27" required>
+        </div>
+        <div class="field">
+          <label for="resolution">해상도</label>
+          <select id="resolution" required></select>
+        </div>
+      </div>
+
+      <div id="custom-fields" style="display:none">
+        <div class="row">
+          <div class="field">
+            <label for="customW">커스텀 가로 (px)</label>
+            <input type="number" id="customW" placeholder="예: 3840" min="100" max="20000" step="1">
+          </div>
+          <div class="field">
+            <label for="customH">커스텀 세로 (px)</label>
+            <input type="number" id="customH" placeholder="예: 2160" min="100" max="20000" step="1">
+          </div>
+        </div>
+      </div>
+
+      <button type="submit">계산하기</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">픽셀 밀도 (PPI)</div>
+        <div id="ppiValue" class="result-value">-</div>
+        <div class="result-sub">화면 단위 면적당 픽셀 수 — 높을수록 글자·영상 매끄러움</div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-cell">
+          <div class="stat-label">픽셀 피치</div>
+          <div class="stat-value" id="pixelPitch">-</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">종횡비</div>
+          <div class="stat-value" id="aspectRatio">-</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">화면 높이</div>
+          <div class="stat-value" id="screenHeight">-</div>
+        </div>
+      </div>
+
+      <div class="ppi-card">
+        <div class="ppi-tier">📐 PPI 등급 — <span id="ppiTier">-</span></div>
+        <div class="ppi-note" id="ppiNote">-</div>
+      </div>
+
+      <h3 style="margin-top:24px;font-size:16px;font-weight:600;color:var(--text)">📏 권장 시야거리</h3>
+      <div class="dist-grid">
+        <div class="dist-cell work">
+          <div class="dist-label">작업·생산성</div>
+          <div class="dist-value" id="distWork">-</div>
+          <div class="dist-hint">텍스트·코딩·문서 / 화면 높이 × 2.0</div>
+        </div>
+        <div class="dist-cell media">
+          <div class="dist-label">영상·게임</div>
+          <div class="dist-value" id="distMedia">-</div>
+          <div class="dist-hint">시네마·FPS·콘솔 / 화면 높이 × 1.5</div>
+        </div>
+        <div class="dist-cell min">
+          <div class="dist-label">최소 권장 (편안)</div>
+          <div class="dist-value" id="distMin">-</div>
+          <div class="dist-hint">이보다 가까우면 시야각 부담</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:24px;font-size:16px;font-weight:600;color:var(--text)">🔍 4K 변별 가능성</h3>
+      <div class="fourk-card">
+        <div class="fourk-row">
+          <div class="fourk-symbol" id="fourKVerdict">-</div>
+          <div class="fourk-text" id="fourKNote">-</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:28px;font-size:17px;font-weight:700;color:var(--text)">🎯 사용 목적별 추천 모니터</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:0">현재 입력값에 가장 적합한 카테고리는 <b style="color:var(--primary)">파란 테두리</b>로 표시됩니다.</p>
+
+      <div class="purpose-grid">
+        <div class="purpose-card" data-purpose="gaming">
+          <div class="purpose-head">
+            <div class="purpose-icon">🎮</div>
+            <div class="purpose-title">게이밍 모니터</div>
+            <span class="match-badge">최적</span>
+          </div>
+          <div class="purpose-spec">240Hz·1ms·G-Sync/FreeSync<br>추천 인치 24~27 / FHD~QHD</div>
+          <div class="purpose-fit">-</div>
+          <!-- COUPANG_WIDGET_GAMING — 한성컴퓨터 TFG27F24V2 240Hz 커브드 -->
+          <div class="widget-slot">
+            <iframe src="https://coupa.ng/cmNDCb" width="120" height="240" frameborder="0" scrolling="no" referrerpolicy="unsafe-url" browsingtopics></iframe>
+          </div>
+          <a class="purpose-link" href="https://link.coupang.com/a/eFYixM" target="_blank" rel="sponsored noopener">게이밍 모니터 더 보기 →</a>
+        </div>
+        <div class="purpose-card" data-purpose="office">
+          <div class="purpose-head">
+            <div class="purpose-icon">💼</div>
+            <div class="purpose-title">사무용 모니터</div>
+            <span class="match-badge">최적</span>
+          </div>
+          <div class="purpose-spec">QHD·아이케어·HDMI/DP 풀세트<br>추천 인치 27~32 / QHD</div>
+          <div class="purpose-fit">-</div>
+          <!-- COUPANG_WIDGET_OFFICE — 삼성 S27F610 QHD IPS 피벗 -->
+          <div class="widget-slot">
+            <iframe src="https://coupa.ng/cmNDIA" width="120" height="240" frameborder="0" scrolling="no" referrerpolicy="unsafe-url" browsingtopics></iframe>
+          </div>
+          <a class="purpose-link" href="https://link.coupang.com/a/eFYoz6" target="_blank" rel="sponsored noopener">사무용 모니터 더 보기 →</a>
+        </div>
+        <div class="purpose-card" data-purpose="creative">
+          <div class="purpose-head">
+            <div class="purpose-icon">🎬</div>
+            <div class="purpose-title">영상편집 모니터</div>
+            <span class="match-badge">최적</span>
+          </div>
+          <div class="purpose-spec">4K HDR·sRGB 99%·DCI-P3<br>추천 인치 27~32 / 4K</div>
+          <div class="purpose-fit">-</div>
+          <!-- COUPANG_WIDGET_CREATIVE — ASUS ProArt PA329CV 32" 4K HDR -->
+          <div class="widget-slot">
+            <iframe src="https://coupa.ng/cmNDMx" width="120" height="240" frameborder="0" scrolling="no" referrerpolicy="unsafe-url" browsingtopics></iframe>
+          </div>
+          <a class="purpose-link" href="https://link.coupang.com/a/eFYq3Y" target="_blank" rel="sponsored noopener">4K 모니터 더 보기 →</a>
+        </div>
+        <div class="purpose-card" data-purpose="secondary">
+          <div class="purpose-head">
+            <div class="purpose-icon">🖥️</div>
+            <div class="purpose-title">일반·세컨드 모니터</div>
+            <span class="match-badge">최적</span>
+          </div>
+          <div class="purpose-spec">FHD 60Hz IPS 가성비<br>추천 인치 22~24 / FHD</div>
+          <div class="purpose-fit">-</div>
+          <!-- COUPANG_WIDGET_SECONDARY — 한성 TFG24F14P2 24" 144Hz IPS -->
+          <div class="widget-slot">
+            <iframe src="https://coupa.ng/cmNDPl" width="120" height="240" frameborder="0" scrolling="no" referrerpolicy="unsafe-url" browsingtopics></iframe>
+          </div>
+          <a class="purpose-link" href="https://link.coupang.com/a/eFYsPA" target="_blank" rel="sponsored noopener">가성비 모니터 더 보기 →</a>
+        </div>
+      </div>
+
+      <div class="partner-disclosure">
+        이 페이지의 추천 모니터 링크는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다. 사용자가 추천 링크를 통해 구매해도 가격은 동일하며, 추천 링크는 정보 제공 목적입니다.
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ 본 계산은 일반 시청 환경(60cm 거리·실내 조명)을 기준으로 한 추정입니다. 실제 권장 거리는 시력·노안·화면 밝기·콘텐츠 종류에 따라 ±20% 변동할 수 있습니다. PPI 등급은 표준 시청 거리 기준이며 가까이서 보면 더 거칠게, 멀리서 보면 더 매끄럽게 인지됩니다.
+    </div>
+
+    <section class="tool-article">
+      <h2>주요 해상도 + 인치 조합별 PPI</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>해상도</th><th>24인치</th><th>27인치</th><th>32인치</th><th>등급</th></tr></thead>
+          <tbody>
+            <tr><td>FHD 1920×1080</td><td>92 PPI</td><td>82 PPI</td><td>69 PPI</td><td>거침~일반</td></tr>
+            <tr><td>QHD 2560×1440</td><td>122 PPI</td><td>109 PPI</td><td>92 PPI</td><td>좋음</td></tr>
+            <tr><td>4K UHD 3840×2160</td><td>184 PPI</td><td>163 PPI</td><td>138 PPI</td><td>고밀도</td></tr>
+            <tr><td>5K 5120×2880</td><td>—</td><td>218 PPI</td><td>184 PPI</td><td>초고밀도</td></tr>
+            <tr><td>UWQHD 3440×1440</td><td>—</td><td>—</td><td>110 PPI(34인치)</td><td>좋음</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">계산식 = √(가로² + 세로²) ÷ 대각선(인치). 같은 해상도라도 인치가 커지면 PPI가 떨어져 픽셀이 거칠어 보임.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>사용 목적별 권장 사양</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>용도</th><th>인치</th><th>해상도</th><th>핵심 사양</th><th>가격대</th></tr></thead>
+          <tbody>
+            <tr><td>🎮 게이밍 (FPS·격투)</td><td>24~27"</td><td>FHD~QHD</td><td>240Hz, 1ms, G-Sync/FreeSync</td><td>30~80만</td></tr>
+            <tr><td>💼 사무용·코딩</td><td>27~32"</td><td>QHD</td><td>IPS, 75Hz+, 아이케어, USB-C</td><td>25~50만</td></tr>
+            <tr><td>🎬 영상 편집·디자인</td><td>27~32"</td><td>4K</td><td>sRGB 99%+, DCI-P3, HDR400+</td><td>50~150만</td></tr>
+            <tr><td>📐 사진·색재현</td><td>27"</td><td>4K~5K</td><td>10-bit, ΔE&lt;2, 캘리브레이션</td><td>80~300만</td></tr>
+            <tr><td>🖥️ 세컨드·휴대</td><td>22~24"</td><td>FHD</td><td>IPS, 60Hz, HDMI</td><td>10~20만</td></tr>
+            <tr><td>🌌 울트라와이드 (트레이딩·코딩)</td><td>34"</td><td>UWQHD</td><td>21:9, IPS, USB-C 90W+</td><td>50~120만</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">2026년 5월 한국 온라인 평균 시세. 모델·세일에 따라 ±30% 변동. 같은 인치·해상도라도 패널 등급(IPS·VA·OLED), 색재현, 응답 속도에 따라 가격 차이 큼.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 계산기</h2>
+      <div class="related-calc">
+        <a href="../storage/">저장공간 계산기<span class="desc">영상·사진 용량 + SSD 권장</span></a>
+        <a href="/image/resize/">이미지 리사이즈<span class="desc">해상도 맞춤 변환</span></a>
+        <a href="/image/compress/">이미지 압축<span class="desc">사진 용량 줄이기</span></a>
+        <a href="/video/compress/">동영상 압축<span class="desc">영상 GB 줄이기</span></a>
+        <a href="../bmi/">BMI 계산기<span class="desc">건강 지표</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+
+      <details>
+        <summary>27인치에 4K가 적당한가요? FHD는요?</summary>
+        <div class="answer">
+          27인치 4K = 약 <b>163 PPI</b>로 픽셀이 매끄럽고 글자·영상 디테일이 또렷합니다.
+          macOS는 자동 Retina scaling, Windows는 <b>125~150% scaling 권장</b>.
+          27인치 FHD는 약 82 PPI로 픽셀 거침이 인지되어 일반 사무엔 OK지만 텍스트 정밀 작업에는 거칠게 느껴집니다.
+          <b>가성비 = 27인치 QHD(109 PPI)</b>, 디자인·영상 작업 = 27인치 4K, 일반 사무·게이밍 가성비 = 24~27인치 FHD.
+        </div>
+      </details>
+
+      <details>
+        <summary>모니터와 눈 사이 권장 거리는 어떻게 계산하나요?</summary>
+        <div class="answer">
+          <b>화면 높이를 기준</b>으로 합니다. 작업·생산성은 <b>화면 높이 × 2.0</b>(텍스트 정밀 작업 권장),
+          영상·게임은 화면 높이 × 1.5(4K 변별 가능 거리).
+          예: 27인치 16:9는 화면 높이 약 33.6cm → <b>작업 67cm, 영상 50cm</b>.
+          책상 깊이는 권장 거리 + 키보드/마우스 공간 20cm = <b>70~90cm 필요</b>.
+          너무 가까우면(화면 높이 × 1.2 이내) 시야각 과대로 눈 피로 증가.
+        </div>
+      </details>
+
+      <details>
+        <summary>PPI는 몇 이상이면 충분한가요?</summary>
+        <div class="answer">
+          사용 목적과 시청 거리에 따라 다릅니다.
+          일반 사무·웹 = <b>90~110 PPI</b>(FHD 27인치, FHD 32인치)면 충분, 단 텍스트 가장자리 계단 현상 살짝 인지.
+          텍스트·디자인 작업 = <b>110~140 PPI</b>(QHD 24~27인치) 표준 권장.
+          영상 편집·디자인 정밀 = <b>140~180 PPI</b>(4K 27~32인치).
+          220+ PPI(5K 27인치, 4K 24인치) = Apple Retina급으로 픽셀 인식 한계 — 일반 사용엔 과한 영역.
+        </div>
+      </details>
+
+      <details>
+        <summary>21:9 울트라와이드는 일반 16:9보다 좋나요?</summary>
+        <div class="answer">
+          용도별 결정. <b>21:9(34인치 UWQHD 등)는 가로가 넓어 멀티 윈도우(코드+브라우저)·시네마(레터박스 X)·일부 게임(시야 ↑)</b>에 유리.
+          단 16:9 콘텐츠 시청 시 좌우 검은 띠 발생, 책상 깊이 부담, 가격 비쌈(같은 면적 16:9의 1.3~1.5배).
+          <b>일반 사무·문서·동영상 = 16:9 27~32인치</b> 권장.
+          <b>코딩·트레이딩·영상 편집 = 21:9 34인치+</b> 고려.
+        </div>
+      </details>
+
+      <details>
+        <summary>게이밍 모니터는 인치보다 주사율이 더 중요한가요?</summary>
+        <div class="answer">
+          <b>FPS·격투 등 경쟁 게임은 240Hz·1ms·G-Sync/FreeSync가 인치보다 우선</b>.
+          화면이 작아도(24인치) 빠른 응답이 승률 직결.
+          반대로 RPG·시뮬레이션·콘솔 게임은 인치·해상도가 중요(27인치 QHD·144Hz 표준 권장).
+          <b>사무·게임 겸용은 27인치 QHD 144Hz</b>가 균형.
+          단 144Hz+ 모니터는 그래픽카드 성능(RTX 4060+ 권장)과 함께 가야 의미 있음.
+        </div>
+      </details>
+
+      <details>
+        <summary>듀얼 모니터를 쓸 때 권장 인치 조합은?</summary>
+        <div class="answer">
+          <b>메인 + 세컨드 패턴</b> = 27인치 QHD 메인 + 22~24인치 FHD 세컨드 또는 24인치 FHD 세로 회전(코드·문서).
+          같은 해상도·인치 두 대(예: 27인치 QHD × 2)도 흔하지만 화면 회전 시 키 기능에 차이.
+          <b>책상 폭 = 메인 인치 × 2 + 5cm 권장</b>(예: 27 × 2 = 54인치 ≒ 137cm 책상).
+          노트북 + 외장 모니터 = 외장은 노트북보다 큰 27인치+ 권장.
+        </div>
+      </details>
+
+      <details>
+        <summary>OLED·QLED·미니LED — 패널 등급 차이가 큰가요?</summary>
+        <div class="answer">
+          <b>OLED</b> = 무한대 명암비·검은색 완벽 / 단 번인 위험·고가(80만+).
+          <b>미니LED</b> = OLED 80% 화질 + 번인 X / 단 블루밍(밝은 부분 주변 빛 번짐).
+          <b>QLED(VA + 양자점 필터)</b> = 색재현 우수·중간 가격 / 시야각 IPS보다 좁음.
+          <b>IPS</b> = 표준·시야각 우수·가성비 / 명암비 약함, 검은색 회색에 가까움.
+          영상·디자인 작업 = OLED·미니LED, 게이밍 = OLED 또는 240Hz IPS, 사무 = IPS, 가성비 = VA·IPS.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>출처</h2>
+      <div class="updated">최종 검증: 2026-05-09</div>
+      <ul>
+        <li><b>ITU-R BT.500-15 / BT.2022</b> — Methodology for the subjective assessment of the quality of television pictures (시야거리 권고)</li>
+        <li><b>Apple Retina Display 정의</b> — "What is the Retina display?" Apple Support (2010~)</li>
+        <li><b>DisplayMate Display Shoot-Outs</b> — PPI tier 분류 가이드, 색재현·HDR 평가 표준</li>
+        <li><b>RTINGS Monitor Reviews</b> — 패널 등급(IPS·VA·OLED)·응답 속도 측정 방법론</li>
+        <li><b>NVIDIA G-Sync / AMD FreeSync 사양</b> — Variable Refresh Rate 공식 인증 기준</li>
+      </ul>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 계산기 모두 보기</a>
+    </nav>
+  </main>
+  <script src="./monitor.js" defer></script>
+  <site-footer></site-footer>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

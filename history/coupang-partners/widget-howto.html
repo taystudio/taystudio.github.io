@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#E11D2D">
+  <meta name="color-scheme" content="light">
+  <title>쿠팡 파트너스 위젯 적용 방법론 — TAYSTUDIO</title>
+  <meta name="description" content="도구 컨텍스트 추천 카드에 쿠팡 다이내믹 배너 위젯을 박는 표준 절차 + 다른 도구로 확장하는 패턴.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Inter", "Noto Sans KR", sans-serif;
+      font-size: 15px; line-height: 1.65;
+      color: #1F2933; background: #F6F8FB;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #E11D2D; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: "SF Mono", "Menlo", "Consolas", "Monaco", monospace;
+           background: #F1F4F8; border: 1px solid #E5EAF0;
+           padding: 1px 6px; border-radius: 4px; font-size: 0.88em; color: #B91C24; }
+    pre {
+      background: #0F1721; color: #D7DDE4;
+      padding: 16px 18px; border-radius: 10px;
+      overflow-x: auto; font-size: 12.5px; line-height: 1.55;
+      font-family: "SF Mono", "Menlo", "Consolas", "Monaco", monospace;
+      border: 1px solid #1F2D3F; margin: 12px 0;
+    }
+    pre code { background: transparent; border: none; padding: 0; color: inherit; }
+    pre .hl { background: rgba(225,29,45,0.18); color: #FFB4BB; padding: 1px 0; }
+    pre .add { color: #7CE38B; }
+    pre .del { color: #F47F84; text-decoration: line-through; opacity: .8; }
+    pre .cmt { color: #8B98AB; font-style: italic; }
+
+    .hero {
+      background: linear-gradient(135deg, #0F1721 0%, #6E0B14 60%, #B91C24 100%);
+      color: #fff;
+      padding: 56px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; right: -120px; top: -80px;
+      width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(225,29,45,0.28) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 1020px; margin: 0 auto; position: relative; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(225,29,45,0.22); color: #FFA8B0;
+      padding: 6px 14px; border-radius: 999px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.4px;
+      border: 1px solid rgba(225,29,45,0.4);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: 30px; font-weight: 800; margin: 0 0 14px;
+      line-height: 1.25; letter-spacing: -0.4px;
+    }
+    .hero p.lead {
+      font-size: 16px; color: #F1C8CC; max-width: 760px;
+      margin: 0 0 18px; line-height: 1.65;
+    }
+    .meta-row {
+      display: flex; gap: 22px; flex-wrap: wrap;
+      font-size: 13px; color: #C99CA1; margin-top: 12px;
+    }
+    .meta-row b { color: #fff; }
+
+    .container {
+      max-width: 1020px; margin: -48px auto 64px;
+      padding: 0 24px; position: relative;
+    }
+    section { margin-bottom: 48px; }
+    h2 {
+      font-size: 22px; font-weight: 800; margin: 0 0 6px;
+      letter-spacing: -0.2px; color: #0F1721;
+      display: flex; align-items: center; gap: 12px;
+    }
+    h2 .badge {
+      flex: 0 0 auto;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 4px 12px; border-radius: 8px;
+      background: linear-gradient(135deg, #E11D2D 0%, #F87171 100%);
+      color: #fff; font-size: 12px; font-weight: 800;
+      box-shadow: 0 4px 12px rgba(225,29,45,0.32);
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    h2 .badge.howto { background: linear-gradient(135deg, #1976D2 0%, #4096E0 100%); box-shadow: 0 4px 12px rgba(25,118,210,0.32); }
+    h2 .badge.warn { background: linear-gradient(135deg, #F38020 0%, #FAAD3F 100%); box-shadow: 0 4px 12px rgba(243,128,32,0.32); }
+    h2 .badge.plain { background: #1F2D3F; box-shadow: none; }
+    h2 .badge.done { background: linear-gradient(135deg, #2EA44F 0%, #4CC76A 100%); box-shadow: 0 4px 12px rgba(46,164,79,0.32); }
+    .section-sub { color: #6B7785; font-size: 13.5px; margin: 6px 0 22px 0; }
+
+    h3 { font-size: 16px; font-weight: 700; margin: 24px 0 10px; color: #1F2D3F; }
+    h4 { font-size: 14px; font-weight: 700; margin: 18px 0 6px; color: #1F2D3F; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 12px; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+
+    .step-block {
+      background: #fff; border-radius: 14px;
+      padding: 26px 28px 22px; margin-bottom: 22px;
+      border: 1px solid #E5EAF0;
+      box-shadow: 0 4px 16px rgba(15,23,33,0.06);
+      border-top: 4px solid #E11D2D;
+    }
+    .step-block .step-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .step-block .step-num {
+      flex: 0 0 auto;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, #E11D2D 0%, #F87171 100%);
+      color: #fff; font-size: 17px; font-weight: 800;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(225,29,45,0.32);
+    }
+    .step-block .step-title { font-size: 18px; font-weight: 700; color: #0F1721; margin-bottom: 2px; }
+    .step-block .step-meta { font-size: 12.5px; color: #6B7785; }
+
+    table.cmp, table.result {
+      width: 100%; border-collapse: collapse; margin: 12px 0;
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 10px;
+      overflow: hidden;
+    }
+    table.cmp th, table.cmp td, table.result th, table.result td {
+      padding: 11px 14px; text-align: left; font-size: 13.5px;
+      border-bottom: 1px solid #E5EAF0; vertical-align: top;
+    }
+    table.cmp th { background: #F8FAFC; font-weight: 700; color: #1F2D3F; font-size: 12px; }
+    table.result th { background: #FCE4E7; font-weight: 700; color: #1F2D3F; font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+    table.cmp tr:last-child td, table.result tr:last-child td { border-bottom: none; }
+    table.result td.ok { color: #237D3D; font-weight: 700; }
+    table.result td.warn { color: #C26414; font-weight: 700; }
+    table.result td.todo { color: #1565C0; font-weight: 700; }
+    table.cmp .picked { background: #FFF1F3; }
+    table.cmp .picked td { color: #1F2D3F; font-weight: 600; }
+
+    .card {
+      background: #fff; border-radius: 10px;
+      border: 1px solid #E5EAF0; padding: 16px 20px; margin-bottom: 14px;
+    }
+    .card.tip { border-left: 4px solid #E11D2D; background: #FFF1F3; }
+    .card.warn { border-left: 4px solid #F38020; background: #FFF8F0; }
+    .card.danger { border-left: 4px solid #B91C24; background: #FFF5F7; }
+    .card.success { border-left: 4px solid #2EA44F; background: #F2FAF5; }
+    .card-title {
+      font-weight: 700; font-size: 14px; margin-bottom: 6px;
+      color: #1F2D3F;
+    }
+    .card.tip .card-title { color: #B91C24; }
+    .card.warn .card-title { color: #C26414; }
+    .card.danger .card-title { color: #8B1318; }
+    .card.success .card-title { color: #1A6B36; }
+
+    .check-list {
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 12px;
+      padding: 16px 20px;
+      list-style: none; padding-left: 24px;
+    }
+    .check-list li {
+      padding: 8px 0 8px 28px; position: relative;
+      border-bottom: 1px dashed #E5EAF0; font-size: 14px;
+    }
+    .check-list li:last-child { border-bottom: none; }
+    .check-list li.todo::before {
+      content: '☐'; position: absolute; left: 0; top: 6px;
+      color: #94A3B0; font-size: 16px;
+    }
+    .check-list li.done::before {
+      content: '✓'; position: absolute; left: 0; top: 6px;
+      color: #2EA44F; font-size: 16px; font-weight: 700;
+    }
+    .check-list li.user::before {
+      content: '👤'; position: absolute; left: 0; top: 7px;
+      font-size: 14px;
+    }
+
+    .doc-footer {
+      max-width: 1020px; margin: 32px auto 64px; padding: 24px;
+      border-top: 1px solid #E5EAF0; color: #6B7785; font-size: 13px;
+      text-align: center;
+    }
+    .doc-footer a { color: #E11D2D; }
+
+    .toc {
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 10px;
+      padding: 16px 22px; margin-bottom: 28px;
+    }
+    .toc-title { font-size: 12px; font-weight: 700; color: #6B7785; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+    .toc ol { margin: 0; padding-left: 22px; font-size: 13.5px; }
+    .toc li { margin-bottom: 4px; }
+    .toc a { color: #1F2D3F; }
+    .toc a:hover { color: #E11D2D; }
+
+    .marker-pill {
+      display: inline-block; padding: 2px 8px; border-radius: 4px;
+      background: #FFF1E5; color: #C26414; border: 1px dashed #F38020;
+      font-family: "SF Mono", Menlo, monospace; font-size: 11.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">📘 쿠팡 파트너스 · 위젯 적용 방법론</div>
+      <h1>쿠팡 파트너스 위젯 적용 방법론 — TAYSTUDIO</h1>
+      <p class="lead">
+        도구 컨텍스트 추천 카드(예: 모니터 4 카드)에 쿠팡 다이내믹 배너 위젯을 박는 표준 절차.
+        모니터 도구에서 검증한 패턴을 다른 도구(storage·향후 baby/pet)로 확장할 때도 그대로 적용.
+      </p>
+      <div class="meta-row">
+        <span><b>패턴 검증 도구</b> tools/monitor/</span>
+        <span><b>회원 ID</b> AF4086854</span>
+        <span><b>적용일</b> 2026-05-09</span>
+        <span><b>접근</b> 운영자 전용 (noindex/nofollow)</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- TOC -->
+    <nav class="toc">
+      <div class="toc-title">📋 목차</div>
+      <ol>
+        <li><a href="#sec-why">1. 패턴 결정 — 왜 "도구 카드 + 위젯 슬롯"인가</a></li>
+        <li><a href="#sec-card">2. 카드 구조 — HTML·CSS 마크업</a></li>
+        <li><a href="#sec-console">3. 쿠팡 콘솔에서 위젯 받기 (단계별)</a></li>
+        <li><a href="#sec-apply">4. 코드 적용 — find-replace 절차</a></li>
+        <li><a href="#sec-link">5. 추천 링크 URL 별도 받기 (CTA 버튼용)</a></li>
+        <li><a href="#sec-verify">6. 검증 체크리스트</a></li>
+        <li><a href="#sec-extend">7. 다른 도구로 확장 — storage 예시</a></li>
+        <li><a href="#sec-policy">8. 정책 주의사항 — 절대 하지 말 것</a></li>
+      </ol>
+    </nav>
+
+    <!-- 1. 패턴 결정 -->
+    <section id="sec-why">
+      <h2><span class="badge howto">1. WHY</span> 패턴 결정 — 왜 "도구 카드 + 위젯 슬롯"인가</h2>
+      <p class="section-sub">쿠팡 파트너스에 카드를 박는 방법은 여러 갈래. 그 중 우리 도구 컨텍스트에 가장 잘 맞는 형식을 선택한 배경.</p>
+
+      <table class="cmp">
+        <thead>
+          <tr><th>옵션</th><th>이미지 출처</th><th>디자인 통제</th><th>전환률</th><th>정책 안전</th><th>채택</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>A. 쿠팡 자동 위젯 통째로</td>
+            <td>쿠팡 자동</td>
+            <td>X (위젯 디자인 그대로)</td>
+            <td>★ (도구 무관 광고 섞임)</td>
+            <td>✅</td>
+            <td>X</td>
+          </tr>
+          <tr>
+            <td>B. 쿠팡 이미지 직접 다운로드</td>
+            <td>쿠팡 임의 사용</td>
+            <td>O</td>
+            <td>★★★</td>
+            <td>❌ <b>활동 정지 위험</b></td>
+            <td>X</td>
+          </tr>
+          <tr>
+            <td>C. Unsplash + 쿠팡 검색 링크</td>
+            <td>무료 라이선스</td>
+            <td>O</td>
+            <td>★★ (실상품 매칭 약함)</td>
+            <td>✅</td>
+            <td>X (1차 검토)</td>
+          </tr>
+          <tr class="picked">
+            <td><b>D. 도구 카테고리 카드 + 쿠팡 단일 상품 위젯 (240×240)</b></td>
+            <td>쿠팡 위젯 자동</td>
+            <td>△ (외곽만 통제)</td>
+            <td>★★★ (도구 컨텍스트 + 실상품)</td>
+            <td>✅</td>
+            <td><b>✅ 채택</b></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="card tip">
+        <div class="card-title">💡 채택 근거</div>
+        <ul style="margin: 0;">
+          <li><b>도구 컨텍스트 ↑</b> — 모니터 PPI 계산하던 사용자에게 "당신 입력값에 적합한 카테고리는 게이밍 모니터" + 실상품이 같이 보임 → 클릭률 ↑</li>
+          <li><b>저작권 안전</b> — 이미지·가격은 쿠팡 위젯이 자동 표시 (운영자가 임의로 다운로드 안 함)</li>
+          <li><b>가격 자동 갱신</b> — 위젯이 iframe이라 쿠팡 측에서 가격·이미지 자동 업데이트 → 유지보수 0</li>
+          <li><b>외곽 디자인 통제</b> — 카테고리 헤더(이름·적합도 배지)는 운영자 디자인 → 도구 컨텍스트 메시지 그대로</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 2. 카드 구조 -->
+    <section id="sec-card">
+      <h2><span class="badge howto">2. STRUCTURE</span> 카드 구조 — HTML·CSS 마크업</h2>
+      <p class="section-sub">카드 1개 단위 마크업. 4개 카드는 동일 패턴 반복. <code>data-purpose</code>·마커·검색 키워드만 카테고리별로 다름.</p>
+
+      <h3>HTML 1 카드 패턴</h3>
+<pre><code>&lt;div class="purpose-card" data-purpose="<span class="hl">gaming</span>"&gt;
+  &lt;div class="purpose-head"&gt;
+    &lt;div class="purpose-icon"&gt;<span class="hl">🎮</span>&lt;/div&gt;
+    &lt;div class="purpose-title"&gt;<span class="hl">게이밍 모니터</span>&lt;/div&gt;
+    &lt;span class="match-badge"&gt;최적&lt;/span&gt;   <span class="cmt">&lt;!-- .match 적용 시 자동 노출 --&gt;</span>
+  &lt;/div&gt;
+  &lt;div class="purpose-spec"&gt;240Hz·1ms·G-Sync/FreeSync&lt;br&gt;추천 인치 24~27 / FHD~QHD&lt;/div&gt;
+  &lt;div class="purpose-fit"&gt;-&lt;/div&gt;     <span class="cmt">&lt;!-- JS가 입력값 기반 적합도 텍스트 갱신 --&gt;</span>
+  <span class="cmt">&lt;!-- COUPANG_WIDGET_<span class="hl">GAMING</span> — 사용자가 콘솔에서 받은 위젯 코드를 .widget-slot 안에 통째로 교체 --&gt;</span>
+  &lt;div class="widget-slot"&gt;
+    &lt;div class="widget-placeholder"&gt;
+      &lt;div class="ph-icon"&gt;🛒&lt;/div&gt;
+      &lt;div&gt;쿠팡 위젯 대기&lt;/div&gt;
+      &lt;code&gt;<span class="hl">240Hz 게이밍 모니터</span>&lt;/code&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;a class="purpose-link" href="<span class="hl">#coupang-gaming-link</span>" target="_blank" rel="sponsored noopener"&gt;
+    <span class="hl">게이밍 모니터 더 보기</span> →
+  &lt;/a&gt;
+&lt;/div&gt;</code></pre>
+
+      <div class="card warn">
+        <div class="card-title">⚠ 카테고리별로 바꿀 자리 (빨간 음영)</div>
+        <ul style="margin: 0;">
+          <li><code>data-purpose</code> = JS 매칭 키 (gaming/office/creative/secondary)</li>
+          <li>이모지 · 카테고리 이름 · spec 텍스트</li>
+          <li>마커 주석 <code>COUPANG_WIDGET_*</code> = grep으로 즉시 위치 찾는 용도</li>
+          <li>검색 키워드 (placeholder 안내용)</li>
+          <li><code>href</code> = 위젯 받은 후 <a href="#sec-link">5단계</a>에서 교체할 자리</li>
+        </ul>
+      </div>
+
+      <h3>핵심 CSS</h3>
+<pre><code><span class="cmt">/* 카드를 flex column으로 — "더 보기" 버튼이 카드 하단 정렬 */</span>
+.purpose-card { display: flex; flex-direction: column; ... }
+
+<span class="cmt">/* "최적" 배지는 .match 클래스 토글 시만 노출 */</span>
+.purpose-card .match-badge { display: none; ... }
+.purpose-card.match .match-badge { display: inline-block; }
+
+<span class="cmt">/* 위젯 슬롯 — 240px 표준, iframe/img 자동 fit */</span>
+.purpose-card .widget-slot {
+  margin: 6px 0 12px; padding: 8px;
+  background: #f8fafc; border: 1px dashed var(--border); border-radius: 8px;
+  min-height: 240px; display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.purpose-card .widget-slot iframe,
+.purpose-card .widget-slot img,
+.purpose-card .widget-slot a { max-width: 100%; height: auto; display: block; border: 0; }
+
+<span class="cmt">/* "더 보기" 버튼 — margin-top: auto로 카드 하단 정렬 */</span>
+.purpose-card .purpose-link { margin-top: auto; ... }</code></pre>
+
+      <h3>JS 동작 (monitor.js)</h3>
+      <p>JS는 위젯과 무관 — 입력값(인치·해상도) 기반으로 4 카드 중 가장 적합한 카드에 <code>.match</code> 클래스 추가 + <code>.purpose-fit</code> 텍스트 갱신만 함.</p>
+<pre><code>const card = document.querySelector(`.purpose-card[data-purpose="${key}"]`);
+if (적합) card.classList.add('match');   <span class="cmt">// → "최적" 배지 + 파란 테두리 자동 노출</span>
+else      card.classList.remove('match');
+card.querySelector('.purpose-fit').textContent = 적합도_텍스트;</code></pre>
+    </section>
+
+    <!-- 3. 콘솔 절차 -->
+    <section id="sec-console">
+      <h2><span class="badge howto">3. CONSOLE</span> 쿠팡 콘솔에서 위젯 받기 (단계별)</h2>
+      <p class="section-sub">사용자(TayLee) 액션. 카드 4개당 위젯 4개 받아옴.</p>
+
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">A</div>
+          <div>
+            <div class="step-title">콘솔 진입 + 메뉴</div>
+            <div class="step-meta">partners.coupang.com → 좌측 메뉴 → "링크/배너 만들기" → "다이내믹 배너"</div>
+          </div>
+        </div>
+        <ul style="margin: 0;">
+          <li>로그인 = 회원 ID <code>AF4086854</code></li>
+          <li>"활동 중" 상태 확인 — 비활성이면 위젯 생성 X</li>
+        </ul>
+      </div>
+
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">B</div>
+          <div>
+            <div class="step-title">위젯 옵션 선택</div>
+            <div class="step-meta">단일 상품 위젯 + 240×240 정사각형</div>
+          </div>
+        </div>
+        <table class="cmp">
+          <thead><tr><th>옵션</th><th>설정값</th><th>이유</th></tr></thead>
+          <tbody>
+            <tr><td>유형</td><td><b>단일 상품 위젯</b></td><td>도구 카드 1개 = 상품 1개 매칭. 캐러셀은 도구 컨텍스트 약화</td></tr>
+            <tr><td>사이즈</td><td><b>240×240</b> 정사각형</td><td>카드 폭(260px+)에 정확히 fit. CSS <code>.widget-slot { min-height: 240px }</code>와 일치</td></tr>
+            <tr><td>tracking code</td><td>비워두기 또는 카드별 sub ID</td><td>카드별 매출 분리 추적하려면 sub ID 입력 (선택)</td></tr>
+            <tr><td>광고 영역</td><td>taystudios.com</td><td>사이트 신고용</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">C</div>
+          <div>
+            <div class="step-title">카테고리별 대표 상품 4개 선택</div>
+            <div class="step-meta">쿠팡 검색 → 베스트셀러·리뷰 많은 상품 1개 선정</div>
+          </div>
+        </div>
+        <table class="result">
+          <thead><tr><th>카드</th><th>쿠팡 검색 키워드</th><th>가격대</th><th>위젯 자리 마커</th></tr></thead>
+          <tbody>
+            <tr><td>🎮 게이밍</td><td><code>240Hz 게이밍 모니터 27인치</code></td><td>30~60만</td><td><span class="marker-pill">COUPANG_WIDGET_GAMING</span></td></tr>
+            <tr><td>💼 사무</td><td><code>27인치 QHD 모니터 아이케어</code></td><td>25~40만</td><td><span class="marker-pill">COUPANG_WIDGET_OFFICE</span></td></tr>
+            <tr><td>🎬 영상편집</td><td><code>4K HDR 모니터 sRGB</code></td><td>50~100만</td><td><span class="marker-pill">COUPANG_WIDGET_CREATIVE</span></td></tr>
+            <tr><td>🖥️ 일반·세컨드</td><td><code>24인치 FHD 모니터 가성비</code></td><td>12~20만</td><td><span class="marker-pill">COUPANG_WIDGET_SECONDARY</span></td></tr>
+          </tbody>
+        </table>
+        <div class="card tip">
+          <div class="card-title">💡 상품 선정 기준</div>
+          <ul style="margin: 0;">
+            <li>리뷰 1000개+ (베스트셀러)</li>
+            <li>로켓배송 ✓ (전환률 ↑)</li>
+            <li>가격대 카테고리 평균 (너무 비싸거나 싸면 클릭 후 이탈)</li>
+            <li>품절·단종 방지 — 메이저 브랜드(LG·삼성·BenQ·Dell·KTC) 우선</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">D</div>
+          <div>
+            <div class="step-title">위젯 코드 4개 복사</div>
+            <div class="step-meta">iframe 또는 a+img 형식</div>
+          </div>
+        </div>
+        <p>쿠팡이 주는 코드는 보통 두 형식 중 하나:</p>
+        <h4>형식 1 — iframe (권장)</h4>
+<pre><code>&lt;iframe src="https://ads-partners.coupang.com/widgets.html?id=XXXXXX&amp;template=carousel&amp;trackingCode=AF4086854&amp;subId=&amp;width=240&amp;height=240&amp;tsource="
+        width="240" height="240" frameborder="0" scrolling="no"
+        referrerpolicy="unsafe-url" browsingtopics&gt;&lt;/iframe&gt;
+&lt;script async src="https://ads-partners.coupang.com/g.js"&gt;&lt;/script&gt;</code></pre>
+        <h4>형식 2 — 이미지 링크</h4>
+<pre><code>&lt;a href="https://link.coupang.com/a/XXXXX" target="_blank" referrerpolicy="unsafe-url"&gt;
+  &lt;img src="https://ads-partners.coupang.com/banners/XXX?subId=&amp;traceId=..."
+       alt="..." /&gt;
+&lt;/a&gt;</code></pre>
+        <div class="card warn">
+          <div class="card-title">⚠ <code>&lt;script async src="g.js"&gt;</code> 중복</div>
+          <p style="margin: 0;">위젯 4개 다 iframe 형식이면 <code>g.js</code> script 태그가 4번 박힘. <b>1번만 남기고 3개 제거</b> 또는 페이지 하단 <code>&lt;/body&gt;</code> 직전에 1번만 박기. 중복 로드는 동작은 하지만 비효율.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 적용 절차 -->
+    <section id="sec-apply">
+      <h2><span class="badge howto">4. APPLY</span> 코드 적용 — find-replace 절차</h2>
+      <p class="section-sub">위젯 코드 4개를 <code>tools/monitor/index.html</code>에 박는 표준 절차.</p>
+
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">위젯 자리 4개 찾기</div>
+            <div class="step-meta">grep으로 마커 4개 즉시 위치 확인</div>
+          </div>
+        </div>
+<pre><code>grep -n 'COUPANG_WIDGET_' tools/monitor/index.html
+<span class="cmt"># 결과 예 (4줄):</span>
+<span class="cmt"># 278: &lt;!-- COUPANG_WIDGET_GAMING — ... --&gt;</span>
+<span class="cmt"># 297: &lt;!-- COUPANG_WIDGET_OFFICE --&gt;</span>
+<span class="cmt"># 315: &lt;!-- COUPANG_WIDGET_CREATIVE --&gt;</span>
+<span class="cmt"># 333: &lt;!-- COUPANG_WIDGET_SECONDARY --&gt;</span></code></pre>
+      </div>
+
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">각 카드의 placeholder 통째로 위젯 코드 교체</div>
+            <div class="step-meta">.widget-slot div 안의 .widget-placeholder 부분만 교체 — .widget-slot 외곽은 유지</div>
+          </div>
+        </div>
+        <p>교체 대상 (게이밍 카드 예시):</p>
+<pre><code>&lt;div class="widget-slot"&gt;
+<span class="del">  &lt;div class="widget-placeholder"&gt;</span>
+<span class="del">    &lt;div class="ph-icon"&gt;🛒&lt;/div&gt;</span>
+<span class="del">    &lt;div&gt;쿠팡 위젯 대기&lt;/div&gt;</span>
+<span class="del">    &lt;code&gt;240Hz 게이밍 모니터&lt;/code&gt;</span>
+<span class="del">  &lt;/div&gt;</span>
+<span class="add">  &lt;iframe src="https://ads-partners.coupang.com/widgets.html?id=GAMING_WIDGET_ID&amp;..."</span>
+<span class="add">          width="240" height="240" frameborder="0" scrolling="no"</span>
+<span class="add">          referrerpolicy="unsafe-url" browsingtopics&gt;&lt;/iframe&gt;</span>
+&lt;/div&gt;</code></pre>
+        <p>4 카드 동일 패턴 반복.</p>
+      </div>
+
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title"><code>g.js</code> script 1번만 박기</div>
+            <div class="step-meta">페이지 하단 &lt;/body&gt; 직전 (또는 첫 위젯 옆에 1번만)</div>
+          </div>
+        </div>
+<pre><code><span class="cmt">&lt;!-- ... 본문 끝 --&gt;</span>
+<span class="cmt">&lt;!-- 쿠팡 위젯 loader (4 카드 공통, 1번만) --&gt;</span>
+&lt;script async src="https://ads-partners.coupang.com/g.js"&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+      </div>
+    </section>
+
+    <!-- 5. CTA 링크 -->
+    <section id="sec-link">
+      <h2><span class="badge howto">5. LINK</span> 추천 링크 URL 별도 받기 (CTA 버튼용)</h2>
+      <p class="section-sub">카드 하단 "더 보기 →" 버튼은 위젯과 별개. 카테고리 검색 페이지로 보내는 추천 링크가 따로 필요.</p>
+
+      <h3>왜 따로 받나</h3>
+      <ul>
+        <li>위젯 = 단일 상품 (그 상품 페이지로 이동)</li>
+        <li>"더 보기" 버튼 = 그 카테고리 전체 검색 결과로 이동 → 사용자가 다른 옵션도 비교 가능 → 24시간 쿠키 안에 결제할 확률 ↑</li>
+      </ul>
+
+      <h3>받는 방법</h3>
+      <ol>
+        <li>쿠팡 메인에서 카테고리 키워드 검색 (예: "게이밍 모니터")</li>
+        <li>검색 결과 페이지 URL 복사 (예: <code>https://www.coupang.com/np/search?q=게이밍+모니터&amp;...</code>)</li>
+        <li>쿠팡 파트너스 콘솔 → "링크 생성" → URL 붙여넣기 → 추천 링크 받기</li>
+        <li>받은 <code>https://link.coupang.com/a/XXXXX</code> 형식의 URL을 <code>href</code>에 박음</li>
+      </ol>
+
+      <h3>적용 — 4개 placeholder URL 교체</h3>
+<pre><code>grep -n '#coupang-' tools/monitor/index.html
+<span class="cmt"># 결과 (4줄):</span>
+<span class="cmt"># href="#coupang-gaming-link"</span>
+<span class="cmt"># href="#coupang-office-link"</span>
+<span class="cmt"># href="#coupang-creative-link"</span>
+<span class="cmt"># href="#coupang-secondary-link"</span></code></pre>
+      <p>각 placeholder를 받은 추천 링크로 교체:</p>
+<pre><code>&lt;a class="purpose-link"
+   href="<span class="del">#coupang-gaming-link</span><span class="add">https://link.coupang.com/a/XXXXX</span>"
+   target="_blank" rel="<span class="hl">sponsored noopener</span>"&gt;
+  게이밍 모니터 더 보기 →
+&lt;/a&gt;</code></pre>
+      <div class="card tip">
+        <div class="card-title">💡 <code>rel="sponsored noopener"</code> 필수</div>
+        <ul style="margin: 0;">
+          <li><code>sponsored</code> = Google이 권장하는 어필리에이트 링크 표시 (SEO 정책)</li>
+          <li><code>noopener</code> = 새 탭 보안 (window.opener 누수 차단)</li>
+          <li>이미 마크업에 박혀 있음 — 교체 시 유지</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6. 검증 -->
+    <section id="sec-verify">
+      <h2><span class="badge howto">6. VERIFY</span> 검증 체크리스트</h2>
+      <p class="section-sub">코드 박은 후 라이브 확인 항목.</p>
+
+      <ul class="check-list">
+        <li class="todo"><b>로컬 — 위젯 4개 모두 240×240 박스 안에 정상 표시</b> (쿠팡 상품 이미지·가격·제목 보임)</li>
+        <li class="todo"><b>placeholder 잔존 0건</b> — <code>grep 'widget-placeholder' tools/monitor/index.html</code> 결과 0줄</li>
+        <li class="todo"><b><code>#coupang-*-link</code> 잔존 0건</b> — <code>grep '#coupang-' tools/monitor/index.html</code> 결과 0줄</li>
+        <li class="todo"><b><code>g.js</code> script 1번만</b> — <code>grep -c 'g.js' tools/monitor/index.html</code> = 1</li>
+        <li class="todo"><b>위젯 클릭 → 쿠팡 상품 페이지 정상 이동</b> + URL에 <code>trackingCode=AF4086854</code> 파라미터 포함 확인 (DevTools Network 탭)</li>
+        <li class="todo"><b>"더 보기" 버튼 클릭 → 쿠팡 카테고리 검색 결과로 이동</b> + 트래킹 ID 포함 확인</li>
+        <li class="todo"><b>disclosure 박스 노출</b> — "이 페이지의 추천 모니터 링크는 쿠팡 파트너스 활동..." 문구 그대로 보임</li>
+        <li class="todo"><b>입력값 변경 → 적합 카드만 "최적" 배지 + 파란 테두리</b> 자동 토글 확인</li>
+        <li class="todo"><b>모바일 반응형</b> — 카드 4개가 1열로 쌓이고 위젯 240×240 그대로 표시 (잘림 없음)</li>
+        <li class="todo"><b>commit + push</b> 후 라이브 URL <a href="https://taystudios.com/tools/monitor/" target="_blank">taystudios.com/tools/monitor/</a>에서 동일 확인</li>
+        <li class="todo"><b>쿠팡 콘솔 → 실시간 트래킹</b>에서 클릭 1건 이상 잡히는지 30분~1h 후 확인</li>
+      </ul>
+    </section>
+
+    <!-- 7. 다른 도구로 확장 -->
+    <section id="sec-extend">
+      <h2><span class="badge howto">7. EXTEND</span> 다른 도구로 확장 — storage 예시</h2>
+      <p class="section-sub">동일 패턴을 <code>tools/storage/</code>에 적용. 5 카드(SD카드/USB · 256GB SSD · 1TB SSD · 4TB HDD · NAS).</p>
+
+      <h3>차이점만 정리</h3>
+      <table class="result">
+        <thead><tr><th>항목</th><th>monitor</th><th>storage</th></tr></thead>
+        <tbody>
+          <tr><td>카드 수</td><td>4</td><td>5</td></tr>
+          <tr><td>카드 grid</td><td>2×2 (260px minmax)</td><td>5열 또는 2-3열 (auto-fit 그대로)</td></tr>
+          <tr><td><code>data-purpose</code></td><td>gaming/office/creative/secondary</td><td>sd-usb / ssd-256 / ssd-1tb / hdd-4tb / nas</td></tr>
+          <tr><td>매칭 기준</td><td>인치+해상도</td><td>용량 추정 결과 (영상·사진 GB)</td></tr>
+          <tr><td>마커</td><td>COUPANG_WIDGET_GAMING 등</td><td>COUPANG_WIDGET_SD_USB 등</td></tr>
+          <tr><td>검색 키워드</td><td>게이밍 모니터 등</td><td>SD카드 128GB · 외장SSD 1TB 등</td></tr>
+          <tr><td>가격대</td><td>12~100만</td><td>2~20만 (커미션 절대값 ↓ 단 클릭률 ↑)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>재사용 단위</h3>
+      <ul>
+        <li><b>CSS 동일</b> — <code>.purpose-card</code> · <code>.widget-slot</code> · <code>.match-badge</code> 클래스명 그대로 (필요 시 <code>common/css/style.css</code>로 이관 검토)</li>
+        <li><b>HTML 패턴 복붙</b> — 카드 1개 markup을 5번 반복 + 마커·키워드만 변경</li>
+        <li><b>JS 매칭 로직만 신규</b> — storage는 용량(GB) 입력 기반 적합 카드 1개 .match 토글</li>
+        <li><b>쿠팡 콘솔 위젯 5개 + 추천 링크 5개 받기</b> — 절차는 동일</li>
+        <li><b>disclosure 박스 그대로 복사</b> (도구별 도구명만 변경: "추천 모니터 링크" → "추천 저장장치 링크")</li>
+      </ul>
+
+      <div class="card success">
+        <div class="card-title">✓ CSS 공용화 시점</div>
+        <p style="margin: 0;">monitor + storage 두 도구 같은 CSS 쓰기 시작하면 <code>common/css/style.css</code>로 옮길 후보. 3번째 도구(baby/pet 등) 추가될 때 한꺼번에 옮기면 효율적. 그전엔 도구별 inline 유지로 OK (실험 단계 격리).</p>
+      </div>
+
+      <h3>향후 후보 도구 (쿠팡 친화)</h3>
+      <ul>
+        <li><code>tools/baby/</code> — 분유 단가·기저귀 사용량 계산 → 분유·기저귀 위젯</li>
+        <li><code>tools/pet/</code> — 사료 단가·체중별 권장 칼로리 → 사료·간식 위젯</li>
+        <li>상세 = <a href="../candidate/coupang-affiliate-tools.md"><code>history/candidate/coupang-affiliate-tools.md</code></a></li>
+      </ul>
+    </section>
+
+    <!-- 8. 정책 -->
+    <section id="sec-policy">
+      <h2><span class="badge warn">8. POLICY</span> 정책 주의사항 — 절대 하지 말 것</h2>
+      <p class="section-sub">쿠팡 파트너스 활동 정지 사유 = 매출 몰수. 아래 항목 위반 X.</p>
+
+      <div class="card danger">
+        <div class="card-title">❌ 쿠팡 상품 이미지 직접 다운로드 → 사이트 호스팅</div>
+        <p style="margin: 0;">쿠팡 약관 위반. 적발 시 활동 정지 + 그동안 매출 몰수. 위젯·iframe·이미지 링크 형식만 사용 (저작권 자동 해결).</p>
+      </div>
+
+      <div class="card danger">
+        <div class="card-title">❌ disclosure 박스 누락</div>
+        <p style="margin: 0;">추천 링크 박힌 페이지에 "쿠팡 파트너스 활동의 일환..." 문구 미표시 = 정책 위반. 모든 카드 페이지 하단에 <code>.partner-disclosure</code> div 필수.</p>
+      </div>
+
+      <div class="card danger">
+        <div class="card-title">❌ 가격·재고 정보 임의 표시</div>
+        <p style="margin: 0;">"최저가" "할인 중" 같은 텍스트를 운영자가 직접 적으면 X. 가격은 쿠팡 위젯이 자동 표시하는 것만 허용 (쿠팡 측에서 갱신).</p>
+      </div>
+
+      <div class="card danger">
+        <div class="card-title">❌ 클릭 유도 자극적 문구</div>
+        <p style="margin: 0;">"무조건 사야 할" "안 사면 후회" 같은 과장 X. "PPI 기준 적합 카테고리" 같이 도구 컨텍스트 정보성 문구만.</p>
+      </div>
+
+      <div class="card warn">
+        <div class="card-title">⚠ <code>rel="sponsored"</code> + <code>target="_blank"</code> + <code>noopener</code> 일관 적용</div>
+        <p style="margin: 0;">Google SEO 정책. 어필리에이트 링크는 <code>rel="sponsored"</code>로 표시 (또는 <code>nofollow</code>). 새 탭 열기 시 <code>noopener</code> 보안. 마크업에 이미 박혀 있음 — 교체 시 유지.</p>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">💡 운영자 직접 클릭·구매 금지 (자기-거래)</div>
+        <p style="margin: 0;">자기 추천 링크 본인이 클릭·구매하면 활동 정지. 디자인 검증 시엔 위젯 표시만 확인하고 클릭 X. 클릭 검증은 가족·친구 또는 별도 디바이스 IP에서.</p>
+      </div>
+    </section>
+
+    <!-- 관련 -->
+    <section>
+      <h2><span class="badge plain">참조</span> 관련 문서</h2>
+      <ul>
+        <li><a href="./index.html">history/coupang-partners/index.html</a> — 쿠팡 파트너스 가입·진행 기록 dashboard</li>
+        <li><a href="../candidate/coupang-affiliate-tools.md">history/candidate/coupang-affiliate-tools.md</a> — 쿠팡 친화 신규 도구 후보 매트릭스 10선</li>
+        <li><code>tools/MONETIZATION.md</code> — AdSense·쿠팡 정책·전략 reference</li>
+        <li><code>tools/monitor/index.html</code> · <code>tools/monitor/monitor.js</code> — 패턴 검증 첫 도구 (이 방법론의 reference 구현)</li>
+        <li><code>tools/storage/</code> — 다음 적용 후보 (5 카드 패턴 확장)</li>
+        <li><code>plan.md §9.4</code> — 쿠팡 파트너스 진행 상태</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="doc-footer">
+    작성 2026-05-09 · 쿠팡 위젯 적용 방법론 · noindex/nofollow (운영자 전용)
+  </footer>
+
+</body>
+</html>

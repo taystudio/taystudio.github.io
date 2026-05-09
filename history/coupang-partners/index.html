@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#E11D2D">
+  <meta name="color-scheme" content="light">
+  <title>쿠팡 파트너스 진행 기록 — TAYSTUDIO</title>
+  <meta name="description" content="쿠팡 파트너스 가입 + 모니터 도구 신규 + 추천 카드 영역 작업 진행 기록.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Inter", "Noto Sans KR", sans-serif;
+      font-size: 15px; line-height: 1.65;
+      color: #1F2933; background: #F6F8FB;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #E11D2D; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: "SF Mono", "Menlo", "Consolas", "Monaco", monospace;
+           background: #F1F4F8; border: 1px solid #E5EAF0;
+           padding: 1px 6px; border-radius: 4px; font-size: 0.88em; color: #B91C24; }
+    pre {
+      background: #0F1721; color: #D7DDE4;
+      padding: 16px 18px; border-radius: 10px;
+      overflow-x: auto; font-size: 12.5px; line-height: 1.55;
+      font-family: "SF Mono", "Menlo", "Consolas", "Monaco", monospace;
+      border: 1px solid #1F2D3F; margin: 12px 0;
+    }
+    pre code { background: transparent; border: none; padding: 0; color: inherit; }
+
+    .hero {
+      background: linear-gradient(135deg, #0F1721 0%, #6E0B14 60%, #B91C24 100%);
+      color: #fff;
+      padding: 56px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; right: -120px; top: -80px;
+      width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(225,29,45,0.28) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 980px; margin: 0 auto; position: relative; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(225,29,45,0.22); color: #FFA8B0;
+      padding: 6px 14px; border-radius: 999px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.4px;
+      border: 1px solid rgba(225,29,45,0.4);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: 32px; font-weight: 800; margin: 0 0 14px;
+      line-height: 1.2; letter-spacing: -0.4px;
+    }
+    .hero p.lead {
+      font-size: 16px; color: #F1C8CC; max-width: 720px;
+      margin: 0 0 26px; line-height: 1.65;
+    }
+    .meta-row {
+      display: flex; gap: 22px; flex-wrap: wrap;
+      font-size: 13px; color: #C99CA1; margin-top: 12px;
+    }
+    .meta-row b { color: #fff; }
+    .progress-bar {
+      background: rgba(255,255,255,0.08); border-radius: 999px;
+      height: 10px; max-width: 720px; margin-top: 14px;
+      overflow: hidden;
+    }
+    .progress-bar .fill {
+      height: 100%; width: 100%;
+      background: linear-gradient(90deg, #2EA44F 0%, #4CC76A 100%);
+      border-radius: 999px;
+      box-shadow: 0 0 12px rgba(46,164,79,0.55);
+    }
+
+    .container {
+      max-width: 980px; margin: -48px auto 64px;
+      padding: 0 24px; position: relative;
+    }
+    section { margin-bottom: 48px; }
+    h2 {
+      font-size: 22px; font-weight: 800; margin: 0 0 6px;
+      letter-spacing: -0.2px; color: #0F1721;
+      display: flex; align-items: center; gap: 12px;
+    }
+    h2 .badge {
+      flex: 0 0 auto;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 4px 12px; border-radius: 8px;
+      background: linear-gradient(135deg, #E11D2D 0%, #F87171 100%);
+      color: #fff; font-size: 12px; font-weight: 800;
+      box-shadow: 0 4px 12px rgba(225,29,45,0.32);
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    h2 .badge.done { background: linear-gradient(135deg, #2EA44F 0%, #4CC76A 100%); box-shadow: 0 4px 12px rgba(46,164,79,0.32); }
+    h2 .badge.next { background: linear-gradient(135deg, #F38020 0%, #FAAD3F 100%); box-shadow: 0 4px 12px rgba(243,128,32,0.32); }
+    h2 .badge.user { background: linear-gradient(135deg, #1976D2 0%, #4096E0 100%); box-shadow: 0 4px 12px rgba(25,118,210,0.32); }
+    h2 .badge.plain { background: #1F2D3F; box-shadow: none; }
+    .section-sub { color: #6B7785; font-size: 13.5px; margin: 6px 0 22px 0; }
+
+    h3 { font-size: 16px; font-weight: 700; margin: 24px 0 10px; color: #1F2D3F; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 12px; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+
+    .status-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .status-card {
+      background: #fff; border-radius: 10px;
+      padding: 18px 20px; border: 1px solid #E5EAF0;
+      border-left: 4px solid #E11D2D;
+      box-shadow: 0 1px 3px rgba(15,23,33,0.04);
+    }
+    .status-card.warn { border-left-color: #F38020; }
+    .status-card .label {
+      font-size: 11px; color: #6B7785; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 6px;
+    }
+    .status-card .value { font-weight: 700; font-size: 14px; color: #1F2D3F; margin-bottom: 4px; }
+    .status-card .meta { font-size: 12px; color: #6B7785; line-height: 1.45; }
+
+    .step-block {
+      background: #fff; border-radius: 14px;
+      padding: 26px 28px 22px; margin-bottom: 22px;
+      border: 1px solid #E5EAF0;
+      box-shadow: 0 4px 16px rgba(15,23,33,0.06);
+      border-top: 4px solid #E11D2D;
+    }
+    .step-block.user { border-top-color: #1976D2; }
+    .step-block.both { border-top-color: #6B7785; }
+    .step-block .step-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .step-block .step-num {
+      flex: 0 0 auto;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, #E11D2D 0%, #F87171 100%);
+      color: #fff; font-size: 17px; font-weight: 800;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(225,29,45,0.32);
+    }
+    .step-block.user .step-num { background: linear-gradient(135deg, #1976D2 0%, #4096E0 100%); color: #fff; box-shadow: 0 4px 12px rgba(25,118,210,0.32); }
+    .step-block .step-title { font-size: 18px; font-weight: 700; color: #0F1721; margin-bottom: 2px; }
+    .step-block .step-meta { font-size: 12.5px; color: #6B7785; }
+    .step-block .step-meta .who-pill {
+      display: inline-block; padding: 2px 8px; border-radius: 999px;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.3px;
+      margin-right: 6px; vertical-align: middle;
+    }
+    .step-block .who-pill.auto { background: #FCE4E7; color: #B91C24; }
+    .step-block .who-pill.user { background: #E7F0FA; color: #1565C0; }
+    .step-block .who-pill.both { background: #F1F4F8; color: #4A5A6E; }
+
+    table.cmp, table.result {
+      width: 100%; border-collapse: collapse; margin: 12px 0;
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 10px;
+      overflow: hidden;
+    }
+    table.cmp th, table.cmp td, table.result th, table.result td {
+      padding: 11px 14px; text-align: left; font-size: 13.5px;
+      border-bottom: 1px solid #E5EAF0; vertical-align: top;
+    }
+    table.cmp th { background: #F8FAFC; font-weight: 700; color: #1F2D3F; font-size: 12px; }
+    table.result th { background: #FCE4E7; font-weight: 700; color: #1F2D3F; font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+    table.cmp tr:last-child td, table.result tr:last-child td { border-bottom: none; }
+    table.result td.ok { color: #237D3D; font-weight: 700; }
+    table.result td.warn { color: #C26414; font-weight: 700; }
+    table.result td.todo { color: #1565C0; font-weight: 700; }
+
+    .card {
+      background: #fff; border-radius: 10px;
+      border: 1px solid #E5EAF0; padding: 16px 20px; margin-bottom: 14px;
+    }
+    .card.tip { border-left: 4px solid #E11D2D; background: #FFF1F3; }
+    .card.warn { border-left: 4px solid #F38020; background: #FFF8F0; }
+    .card.danger { border-left: 4px solid #B91C24; background: #FFF5F7; }
+    .card.success { border-left: 4px solid #2EA44F; background: #F2FAF5; }
+    .card-title {
+      font-weight: 700; font-size: 14px; margin-bottom: 6px;
+      color: #1F2D3F;
+    }
+    .card.tip .card-title { color: #B91C24; }
+    .card.warn .card-title { color: #C26414; }
+    .card.success .card-title { color: #1A6B36; }
+
+    .timeline {
+      background: #fff; border-radius: 12px; padding: 20px 26px;
+      border: 1px solid #E5EAF0;
+    }
+    .timeline-row {
+      display: grid; grid-template-columns: 80px 1fr 96px;
+      gap: 14px; align-items: center;
+      padding: 11px 0; border-bottom: 1px solid #F1F4F8;
+    }
+    .timeline-row:last-child { border-bottom: none; }
+    .timeline-row .when {
+      font-weight: 700; font-size: 12.5px; color: #B91C24;
+      font-family: "SF Mono", Menlo, monospace;
+    }
+    .timeline-row .what { font-size: 13.5px; color: #1F2933; }
+    .timeline-row .what b { color: #1F2D3F; }
+    .timeline-row .who { font-size: 11px; padding: 4px 10px; border-radius: 999px; text-align: center; font-weight: 600; }
+    .timeline-row .who.auto { background: #FCE4E7; color: #B91C24; }
+    .timeline-row .who.user { background: #E7F0FA; color: #1565C0; }
+    .timeline-row .who.both { background: #F1F4F8; color: #4A5A6E; }
+    @media (max-width: 600px) { .timeline-row { grid-template-columns: 1fr; gap: 4px; } .timeline-row .who { justify-self: start; padding: 2px 8px; } }
+
+    .check-list {
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 12px;
+      padding: 16px 20px;
+      list-style: none; padding-left: 24px;
+    }
+    .check-list li {
+      padding: 8px 0 8px 28px; position: relative;
+      border-bottom: 1px dashed #E5EAF0; font-size: 14px;
+    }
+    .check-list li:last-child { border-bottom: none; }
+    .check-list li.done::before {
+      content: '✓'; position: absolute; left: 0; top: 6px;
+      color: #2EA44F; font-size: 16px; font-weight: 700;
+    }
+    .check-list li.todo::before {
+      content: '☐'; position: absolute; left: 0; top: 6px;
+      color: #94A3B0; font-size: 16px;
+    }
+    .check-list li.user::before {
+      content: '👤'; position: absolute; left: 0; top: 7px;
+      font-size: 14px;
+    }
+    .check-list li.done { color: #6B7785; text-decoration: line-through; text-decoration-color: #C5CFD9; }
+
+    .pill {
+      display: inline-block; padding: 3px 10px; border-radius: 999px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+    }
+    .pill.todo { background: #FFF1E5; color: #C26414; }
+    .pill.done { background: #E7F4ED; color: #237D3D; }
+    .pill.user { background: #E7F0FA; color: #1565C0; }
+
+    .doc-footer {
+      max-width: 980px; margin: 32px auto 64px; padding: 24px;
+      border-top: 1px solid #E5EAF0; color: #6B7785; font-size: 13px;
+      text-align: center;
+    }
+    .doc-footer a { color: #E11D2D; }
+
+    /* placeholder URL 강조 */
+    .placeholder-url {
+      display: inline-block; padding: 2px 8px;
+      background: #FFF1E5; color: #C26414;
+      border: 1px dashed #F38020; border-radius: 4px;
+      font-family: "SF Mono", Menlo, monospace; font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">🛒 쿠팡 파트너스 · 진행 기록</div>
+      <h1>쿠팡 파트너스 진행 기록 — TAYSTUDIO</h1>
+      <p class="lead">
+        2026-05-09 쿠팡 파트너스 가입 + 첫 추천 도구(모니터 PPI·시야거리 계산기) 신규 작성까지 진행 기록.
+        AdSense + 쿠팡 파트너스 = 한 사이트 수익화 2축.
+      </p>
+      <div class="progress-bar"><div class="fill"></div></div>
+      <div class="meta-row">
+        <span><b>가입일</b> 2026-05-09</span>
+        <span><b>회원 ID</b> AF4086854</span>
+        <span><b>상태</b> 활동 중 + 라이브 광고 운영 중</span>
+        <span><b>첫 도구</b> 모니터 PPI·시야거리 (위젯 4개 + 추천링크 4개 라이브)</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- 가입 결과 -->
+    <section>
+      <h2><span class="badge done">완료</span> 1단계 — 가입 + 활동 활성화</h2>
+      <p class="section-sub">AdSense와 달리 사이트별 검토 절차 없이 즉시 활성. "활동 중" 배지 = 추천 링크 즉시 생성 가능 단계.</p>
+
+      <div class="status-grid">
+        <div class="status-card">
+          <div class="label">계정 상태</div>
+          <div class="value">활동 중 ✓</div>
+          <div class="meta">로그인 즉시 콘솔 진입<br>추천 링크 생성 가능</div>
+        </div>
+        <div class="status-card">
+          <div class="label">회원 ID</div>
+          <div class="value">AF4086854</div>
+          <div class="meta">매출 추적 단위<br>사이트별 채널 ID 추가 가능</div>
+        </div>
+        <div class="status-card">
+          <div class="label">사이트 등록</div>
+          <div class="value">taystudios.com</div>
+          <div class="meta">등록 = 활동 위치 신고<br>사이트별 별도 검토 X</div>
+        </div>
+        <div class="status-card warn">
+          <div class="label">출금 정보</div>
+          <div class="value">미입력 (활동 무관)</div>
+          <div class="meta">매출 발생·적립은 정보 없이도 OK<br>첫 출금 시점에 계좌·세금 정보 입력</div>
+        </div>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">💡 쿠팡 파트너스 vs AdSense 모델 차이</div>
+        <table class="cmp" style="margin: 10px 0 0;">
+          <thead>
+            <tr><th>항목</th><th>AdSense</th><th>쿠팡 파트너스</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>가입 후 첫 상태</td><td>"준비 중" 1~7일 검토</td><td><b>"활동 중" 즉시</b></td></tr>
+            <tr><td>사이트별 검토</td><td>O (개별 검토)</td><td>X (URL은 신고용)</td></tr>
+            <tr><td>첫 광고/링크 생성</td><td>승인 후만</td><td><b>즉시 가능</b></td></tr>
+            <tr><td>매출 모델</td><td>광고 노출·클릭</td><td>구매 전환 (24시간 쿠키)</td></tr>
+            <tr><td>출금 조건</td><td>$100 이상</td><td>10,000원 이상</td></tr>
+            <tr><td>원천징수</td><td>해외 송금 (W-8BEN)</td><td>한국 8.8% 원천징수</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 모니터 도구 -->
+    <section>
+      <h2><span class="badge done">완료</span> 2단계 — 모니터 도구 신규 작성 + 위젯·추천링크 8개 라이브</h2>
+      <p class="section-sub">디지털·기기 카테고리 2번째 도구. 저장공간 계산기와 짝. 단가 30~150만 ★★★ 쿠팡 친화 톱2.</p>
+
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">A</div>
+          <div>
+            <div class="step-title">tools/monitor/ 신규 작성</div>
+            <div class="step-meta">
+              <span class="who-pill auto">자동 처리</span>
+              <span>풀세트 — SEO + 계산 UI + 추천 카드</span>
+            </div>
+          </div>
+        </div>
+        <p>도구 구성:</p>
+        <ul>
+          <li><b>입력</b>: 인치(슬라이더+직접) + 해상도(FHD·QHD·4K·UWQHD·5K·8K·custom 등 11종)</li>
+          <li><b>계산</b>: PPI · 픽셀 피치(mm) · 종횡비 · 화면 높이 · PPI 6단계 등급</li>
+          <li><b>시야거리</b>: 작업(× 2.0) · 영상(× 1.5) · 최소 편안(× 1.2) — 화면 높이 기반</li>
+          <li><b>4K 변별</b>: 인치별 4K 가시 가능성 표시</li>
+          <li><b>추천 카드 ⭐</b>: 게이밍·사무·영상편집·세컨드 4 카테고리 — 입력값에 적합한 카드 자동 하이라이트</li>
+        </ul>
+
+        <h3>SEO 시그널</h3>
+        <ul>
+          <li>JSON-LD = WebApplication + BreadcrumbList + <b>FAQPage 7건</b> (rich snippet 후보)</li>
+          <li>키워드 13개 (모니터 PPI · 시야거리 · 4K 27인치 · 게이밍 모니터 · 사무용 등)</li>
+          <li>canonical · og · twitter 풀세트</li>
+        </ul>
+      </div>
+
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">B</div>
+          <div>
+            <div class="step-title">tools/index.html 갱신</div>
+            <div class="step-meta">
+              <span class="who-pill auto">자동 처리</span>
+              <span>카테고리 카드 추가 + JSON-LD ItemList 38</span>
+            </div>
+          </div>
+        </div>
+        <table class="result">
+          <thead><tr><th>위치</th><th>변경</th></tr></thead>
+          <tbody>
+            <tr><td>카테고리 pill</td><td>🖥️ 디지털·기기 1 → <b>2</b></td></tr>
+            <tr><td>디지털 섹션</td><td>모니터 카드 추가 (저장공간 옆)</td></tr>
+            <tr><td>JSON-LD ItemList</td><td>position 38 추가</td></tr>
+            <tr><td>설명 텍스트</td><td>"37가지" → "38가지" (4곳) / "저장공간까지" → "저장공간·모니터까지"</td></tr>
+            <tr><td>keywords</td><td>모니터 PPI · 모니터 시야거리 · 4K 27인치 · 게이밍 모니터 · 사무용 모니터 추가</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">C</div>
+          <div>
+            <div class="step-title">쿠팡 위젯 4개 + 추천링크 4개 박힘 (라이브)</div>
+            <div class="step-meta">
+              <span class="who-pill both">사용자 콘솔 + 자동 적용</span>
+              <span>Playwright + CDP로 너 Chrome에 연결해 카테고리별 베스트셀러 자동 추천 → 사용자 콘솔에서 위젯 8개 받음 → iframe·단축링크 자동 박음</span>
+            </div>
+          </div>
+        </div>
+        <table class="result">
+          <thead><tr><th>카드</th><th>실 상품</th><th>가격</th><th>리뷰수</th><th>iframe</th><th>단축 URL</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>🎮 게이밍</td>
+              <td>한성 TFG27F24V2 (240Hz 커브드)</td>
+              <td>213,220원</td>
+              <td>619</td>
+              <td><code>coupa.ng/cmNDCb</code></td>
+              <td><code>link.coupang.com/a/eFYixM</code></td>
+            </tr>
+            <tr>
+              <td>💼 사무</td>
+              <td>삼성 S27F610 (QHD IPS 피벗)</td>
+              <td>500,000원</td>
+              <td>190</td>
+              <td><code>coupa.ng/cmNDIA</code></td>
+              <td><code>link.coupang.com/a/eFYoz6</code></td>
+            </tr>
+            <tr>
+              <td>🎬 영상편집</td>
+              <td>ASUS ProArt PA329CV (32" 4K HDR Calman)</td>
+              <td>422,200원</td>
+              <td>신상</td>
+              <td><code>coupa.ng/cmNDMx</code></td>
+              <td><code>link.coupang.com/a/eFYq3Y</code></td>
+            </tr>
+            <tr>
+              <td>🖥️ 세컨드</td>
+              <td>한성 TFG24F14P2 (24" 144Hz IPS)</td>
+              <td>117,200원</td>
+              <td><b>2,491</b></td>
+              <td><code>coupa.ng/cmNDPl</code></td>
+              <td><code>link.coupang.com/a/eFYsPA</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="card warn">
+          <div class="card-title">⚠ 쿠팡 정책 disclosure 박스 포함</div>
+          <p style="margin: 0;">
+            모니터 도구 페이지 추천 카드 영역 하단에 다음 disclosure 박스 박혀 있음:
+          </p>
+          <pre style="margin: 8px 0 0;"><code>이 페이지의 추천 모니터 링크는 쿠팡 파트너스 활동의 일환으로,
+이에 따른 일정액의 수수료를 제공받습니다.
+사용자가 추천 링크를 통해 구매해도 가격은 동일하며, 추천 링크는 정보 제공 목적입니다.</code></pre>
+          <p style="margin: 8px 0 0;">정책상 추천 링크 박는 페이지에 disclosure 명시 필수 (미표시 시 활동 정지 위험).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 변경 파일 -->
+    <section>
+      <h2><span class="badge done">변경</span> 이번 작업 파일 (commit 대기)</h2>
+      <table class="result">
+        <thead>
+          <tr><th>파일</th><th>상태</th><th>변경</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>tools/monitor/index.html</code></td>
+            <td class="todo">신규 (?? untracked)</td>
+            <td>~640줄 — SEO + JSON-LD + UI + FAQ + sources</td>
+          </tr>
+          <tr>
+            <td><code>tools/monitor/monitor.js</code></td>
+            <td class="todo">신규 (?? untracked)</td>
+            <td>~140줄 — PPI·시야거리·4K 변별·사용 목적별 적합도 계산</td>
+          </tr>
+          <tr>
+            <td><code>tools/index.html</code></td>
+            <td class="warn">M (modified)</td>
+            <td>+11/-9줄 — 카드 추가·카운트·JSON-LD·키워드·설명</td>
+          </tr>
+          <tr>
+            <td><code>history/coupang-partners/index.html</code></td>
+            <td class="todo">신규 (현재 이 페이지)</td>
+            <td>진행 기록 dashboard</td>
+          </tr>
+          <tr>
+            <td><code>plan.md</code></td>
+            <td class="warn">M (예정)</td>
+            <td>§9.4 쿠팡 파트너스 가입 ✓ + 모니터 도구 진행 갱신</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 다음 미완료 -->
+    <section>
+      <h2><span class="badge next">다음</span> 후속 + 백로그</h2>
+
+      <ul class="check-list">
+        <li class="done"><b>사용자 — 쿠팡 콘솔에서 위젯 4개 + 추천링크 4개 받음</b> (한성 TFG27F24V2 / 삼성 S27F610 / ASUS ProArt PA329CV / 한성 TFG24F14P2)</li>
+        <li class="done"><b>자동</b> — placeholder 4개 → 실 iframe 위젯 4개 교체</li>
+        <li class="done"><b>자동</b> — #coupang-*-link 4개 → link.coupang.com/a/eFY* 단축링크 4개 교체</li>
+        <li class="done"><b>자동</b> — sitemap.xml rebuild (67 → 68 URL — monitor 추가)</li>
+        <li class="done"><b>자동</b> — commit + push + IndexNow ping</li>
+        <li class="todo"><b>1주 후 검증</b> — 쿠팡 콘솔 실시간 트래킹에서 클릭·구매 데이터 확인 (CTR·CR·매출)</li>
+        <li class="todo"><b>(선택) 백로그</b> — 저장공간 도구(<code>tools/storage/</code>)에도 추천 카드 영역 추가 (5 카드: SD카드/USB · 256GB SSD · 1TB SSD · 4TB HDD · NAS) — <a href="./widget-howto.html">widget-howto.html</a> 절차 그대로 반복</li>
+        <li class="todo"><b>(선택) 미래</b> — baby(분유) · pet(사료) 재구매 단가 도구 + 다른 디지털·기기 도구 후보 (스마트폰 화면 비교·노트북 사양 비교 등 §5.5.4 convert 카테고리와 별개로 계산기 형식으로 흡수 가능)</li>
+      </ul>
+    </section>
+
+    <!-- 매출 모델 -->
+    <section>
+      <h2><span class="badge plain">참고</span> 쿠팡 파트너스 매출 모델</h2>
+      <table class="cmp">
+        <thead>
+          <tr><th>단계</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>추천 링크 클릭</td>
+            <td>사용자가 도구 페이지의 추천 카드 → 쿠팡 상품 페이지로 이동</td>
+          </tr>
+          <tr>
+            <td>쿠키 설정 (24시간)</td>
+            <td>클릭 시 쿠팡이 사용자 브라우저에 24시간 쿠키 설정 — 이 기간 안에 쿠팡 결제 시 매출 인정</td>
+          </tr>
+          <tr>
+            <td>매출 인정 범위</td>
+            <td>클릭한 그 상품 외에도 24시간 안의 모든 쿠팡 결제가 매출에 포함 (다른 카테고리 상품 사도 OK)</td>
+          </tr>
+          <tr>
+            <td>수수료율</td>
+            <td>카테고리별 1~5% 수준. 모니터 등 가전은 2~3%, 도서·식품은 더 높음</td>
+          </tr>
+          <tr>
+            <td>매출 → 적립 → 출금</td>
+            <td>실시간 트래킹 → 월 단위 정산 → 10,000원 이상 시 출금 가능</td>
+          </tr>
+          <tr>
+            <td>원천징수</td>
+            <td>한국 사업소득 8.8% (사업소득세 8% + 지방소득세 0.8%) — 출금 시 자동 차감</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 타임라인 -->
+    <section>
+      <h2><span class="badge done">타임라인</span> 2026-05-09</h2>
+      <div class="timeline">
+        <div class="timeline-row">
+          <span class="when">17:50</span>
+          <span class="what"><b>쿠팡 파트너스 가입 신청</b> — partners.coupang.com → 본인인증 + 사이트(taystudios.com) 등록</span>
+          <span class="who user">사용자</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">18:00</span>
+          <span class="what"><b>"활동 중" 즉시 활성화</b> — 회원 ID AF4086854 발급, 추천 링크 생성 가능</span>
+          <span class="who both">쿠팡 즉시</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">18:10</span>
+          <span class="what"><b>모니터 도구 설계 합의</b> — URL/입력/출력/4 추천 카드/disclosure 위치 결정</span>
+          <span class="who both">합의</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">18:25</span>
+          <span class="what"><b>tools/monitor/ 신규 작성</b> — index.html ~640줄 + monitor.js ~140줄 + tools/index.html 갱신</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">18:35</span>
+          <span class="what"><b>history/coupang-partners/ + plan.md 갱신</b> — 진행 기록 작성</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">19:00</span>
+          <span class="what"><b>Playwright + CDP로 너 Chrome에 연결</b> — `pkill -9 + open --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-debug-coupang` 패턴으로 Akamai 봇 차단 우회. 4 카테고리 × 70~80개 unique 상품 자동 추출</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">19:30</span>
+          <span class="what"><b>리뷰수·브랜드 가중치로 카테고리별 1순위 픽업</b> — 한성 TFG27F24V2 619리뷰 / 삼성 S27F610 190리뷰 / ASUS ProArt PA329CV / 한성 TFG24F14P2 2,491리뷰</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">20:00</span>
+          <span class="what"><b>사용자 — 쿠팡 콘솔에서 위젯 4개 + 추천링크 4개 발급</b> (상품 링크 메뉴 → URL 또는 키워드 검색 → 링크 생성 → iframe + 단축 URL)</span>
+          <span class="who user">사용자</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">20:15</span>
+          <span class="what"><b>4 카드의 widget-slot · purpose-link href 자동 박음</b> + sitemap·plan·history 갱신 + 단일 commit + push + IndexNow ping. <b>라이브</b></span>
+          <span class="who auto">자동</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 관련 문서 -->
+    <section>
+      <h2><span class="badge plain">참조</span> 관련 문서</h2>
+      <ul>
+        <li><a href="./widget-howto.html"><b>📘 widget-howto.html — 쿠팡 위젯 적용 방법론</b></a> (2026-05-09 신규) — 카드 구조·콘솔 절차·find-replace·검증·확장 가이드</li>
+        <li><a href="../migration/adsense/">history/migration/adsense/</a> — AdSense 작업 기록 (수익화 2축 중 1)</li>
+        <li><a href="../candidate/coupang-affiliate-tools.md">history/candidate/coupang-affiliate-tools.md</a> — 쿠팡 파트너스 친화 신규 도구 후보 매트릭스 10선 (2026-05-06)</li>
+        <li><code>tools/MONETIZATION.md</code> — AdSense·쿠팡 정책·전략 reference</li>
+        <li><code>plan.md §9.4</code> — 다음 세션 진입 후보 (쿠팡 친화 도구 후속)</li>
+        <li><code>tools/monitor/</code> — 첫 쿠팡 친화 도구 (이번 작업)</li>
+        <li><code>tools/storage/</code> — 디지털·기기 카테고리 1번째 도구 (2026-05-06, 추천 카드 영역 추가 백로그)</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="doc-footer">
+    작성 2026-05-09 · 쿠팡 파트너스 진행 기록 · noindex/nofollow (운영자 전용)
+  </footer>
+
+</body>
+</html>
