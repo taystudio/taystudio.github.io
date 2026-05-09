@@ -64,7 +64,7 @@
       overflow: hidden; position: relative;
     }
     .progress-bar .fill {
-      height: 100%; width: 95%;
+      height: 100%; width: 99%;
       background: linear-gradient(90deg, #F38020 0%, #FAAD3F 100%);
       border-radius: 999px;
       box-shadow: 0 0 12px rgba(243,128,32,0.5);
@@ -360,20 +360,20 @@
       </p>
       <div class="progress-bar"><div class="fill"></div></div>
       <div class="progress-meta">
-        <span><b>전체 진행</b> 약 95% (2026-05-09 15:50 갱신)</span>
-        <span><b>끝남</b> DNS · CNAME · 코드 sed · sitemap · SW v13 · commit/push · Enforce HTTPS · GSC 검증·주소 변경 · Naver SA 검증 · Bing WMT Import · sitemap 제출 · IndexNow ping 67 URL HTTP 200</span>
-        <span><b>남음</b> Naver SA 사용자 인증·웹페이지 수집 · AdSense 사이트 추가(검토 1~14일) · 카카오 OG flush(선택)</span>
-        <span><b>현 단계</b> ▶ AdSense 진입 직전</span>
+        <span><b>전체 진행</b> 약 99% (2026-05-09 16:55 갱신)</span>
+        <span><b>끝남</b> DNS · CNAME · 코드 sed · sitemap · SW v13 · Enforce HTTPS · GSC 검증·주소 변경 · Naver SA 검증 · Bing WMT Import · IndexNow ping · AdSense 메타 검증·script 100% 커버·검토 요청</span>
+        <span><b>남음</b> AdSense 검토 결과 대기 (1~7일 자동) · Naver SA 웹페이지 수집(사용자 잔여) · 카카오 OG flush(선택)</span>
+        <span><b>현 단계</b> ⏳ AdSense 검토 대기 + 잔여 후속</span>
       </div>
     </div>
   </header>
 
   <main class="container">
 
-    <!-- ============ 진행 갱신 스냅샷 (2026-05-09 15:50) ============ -->
+    <!-- ============ 진행 갱신 스냅샷 (2026-05-09 16:55) ============ -->
     <section>
-      <h2><span class="badge done">갱신</span> 2026-05-09 15:50 진행 스냅샷</h2>
-      <p class="section-sub">검색엔진 3채널(Google·Naver·Bing) 검증 완료 + IndexNow 67 URL HTTP 200 push 완료. 남은 사용자 액션 = AdSense 사이트 추가 + (선택) 카카오 OG flush.</p>
+      <h2><span class="badge done">갱신</span> 2026-05-09 16:55 진행 스냅샷</h2>
+      <p class="section-sub">검색엔진 3채널(Google·Naver·Bing) + IndexNow + AdSense 검증·script 100% 커버까지 완료. 남은 건 AdSense 검토 결과 대기(1~7일 자동)와 (선택) 카카오 OG flush.</p>
 
       <table class="cmp">
         <thead>
@@ -418,9 +418,9 @@
           </tr>
           <tr>
             <td><b>AdSense 신규 도메인 추가</b></td>
-            <td><span class="pill todo">사용자 액션 남음</span></td>
-            <td>ads.txt 200 OK</td>
-            <td><b>AdSense 미승인 상태</b> — script 주석 처리된 채 대기. 사이트 추가 + 검토 신청 → 승인 후 별도 commit으로 주석 해제</td>
+            <td><span class="pill done">메타 검증 + script 100% + 검토 요청</span></td>
+            <td><code>b4ad7d0</code> · <code>328ad86</code> · <code>5daf2a6</code></td>
+            <td><a href="adsense/">상세 →</a> · 68 페이지 메타·script 커버 · 검토 1~7일 대기</td>
           </tr>
           <tr>
             <td><b>카카오 OG flush</b></td>
@@ -432,11 +432,12 @@
       </table>
 
       <div class="card tip">
-        <div class="card-title">📂 신규 작성 문서 (4건)</div>
+        <div class="card-title">📂 신규 작성 문서 (5건)</div>
         <ul style="margin-bottom:0;">
           <li><a href="google-search-console/">history/migration/google-search-console/index.html</a> — GSC 6단계 + Change of Address 검사 결과</li>
           <li><a href="naver-search-advisor/">history/migration/naver-search-advisor/index.html</a> — Naver SA 4단계 + Naver vs Google 비교 + 우선순위 13 URL</li>
           <li><a href="bing-webmaster-tools/">history/migration/bing-webmaster-tools/index.html</a> — Bing 7단계 + Site Moves UI deprecation 발견 + IndexNow ping HTTP 200 결과</li>
+          <li><a href="adsense/">history/migration/adsense/index.html</a> — AdSense 6단계 + "준비 중" 스턱 원인 발견 + 메타·script 100% 커버 + 라이브 검증 7 sample</li>
           <li><a href="../checklist/2026-05-09-domain-migration-live-check.md">history/checklist/2026-05-09-domain-migration-live-check.md</a> — push 직후 14항목 curl 검증</li>
         </ul>
       </div>
