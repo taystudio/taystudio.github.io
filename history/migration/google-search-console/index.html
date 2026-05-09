@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4285F4">
+  <meta name="color-scheme" content="light">
+  <title>Google Search Console 도메인 Migration — taystudio.github.io → taystudios.com</title>
+  <meta name="description" content="GSC 신규 도메인 property 검증 + 옛 도메인 주소 변경(Change of Address) 진행 기록.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Inter", "Noto Sans KR", sans-serif;
+      font-size: 15px; line-height: 1.65;
+      color: #1F2933; background: #F6F8FB;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #4285F4; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: "SF Mono", "Menlo", "Consolas", "Monaco", monospace;
+           background: #F1F4F8; border: 1px solid #E5EAF0;
+           padding: 1px 6px; border-radius: 4px; font-size: 0.88em; color: #1565C0; }
+    pre {
+      background: #0F1721; color: #D7DDE4;
+      padding: 16px 18px; border-radius: 10px;
+      overflow-x: auto; font-size: 12.5px; line-height: 1.55;
+      font-family: "SF Mono", "Menlo", "Consolas", "Monaco", monospace;
+      border: 1px solid #1F2D3F; margin: 12px 0;
+    }
+    pre code { background: transparent; border: none; padding: 0; color: inherit; }
+
+    /* ========== Hero ========== */
+    .hero {
+      background: linear-gradient(135deg, #0F1721 0%, #1A3A6E 60%, #1565C0 100%);
+      color: #fff;
+      padding: 56px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; right: -120px; top: -80px;
+      width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(66,133,244,0.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 980px; margin: 0 auto; position: relative; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(66,133,244,0.18); color: #82B0FF;
+      padding: 6px 14px; border-radius: 999px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.4px;
+      border: 1px solid rgba(66,133,244,0.36);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: 34px; font-weight: 800; margin: 0 0 14px;
+      line-height: 1.2; letter-spacing: -0.4px;
+    }
+    .hero h1 .arrow { color: #4285F4; margin: 0 10px; }
+    .hero h1 .from { opacity: 0.55; font-weight: 600; }
+    .hero p.lead {
+      font-size: 16px; color: #C7D6EA; max-width: 720px;
+      margin: 0 0 26px; line-height: 1.65;
+    }
+    .meta-row {
+      display: flex; gap: 22px; flex-wrap: wrap;
+      font-size: 13px; color: #8FA8C9; margin-top: 12px;
+    }
+    .meta-row b { color: #fff; }
+    .progress-bar {
+      background: rgba(255,255,255,0.08); border-radius: 999px;
+      height: 10px; max-width: 720px; margin-top: 14px;
+      overflow: hidden;
+    }
+    .progress-bar .fill {
+      height: 100%; width: 60%;
+      background: linear-gradient(90deg, #4285F4 0%, #82B0FF 100%);
+      border-radius: 999px;
+      box-shadow: 0 0 12px rgba(66,133,244,0.55);
+    }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 24px; }
+      .hero h1 .arrow { display: block; margin: 4px 0; }
+    }
+
+    /* ========== Container ========== */
+    .container {
+      max-width: 980px; margin: -48px auto 64px;
+      padding: 0 24px; position: relative;
+    }
+    section { margin-bottom: 48px; }
+    h2 {
+      font-size: 22px; font-weight: 800; margin: 0 0 6px;
+      letter-spacing: -0.2px; color: #0F1721;
+      display: flex; align-items: center; gap: 12px;
+    }
+    h2 .badge {
+      flex: 0 0 auto;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 4px 12px; border-radius: 8px;
+      background: linear-gradient(135deg, #4285F4 0%, #82B0FF 100%);
+      color: #fff; font-size: 12px; font-weight: 800;
+      box-shadow: 0 4px 12px rgba(66,133,244,0.32);
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    h2 .badge.done { background: linear-gradient(135deg, #2EA44F 0%, #4CC76A 100%); box-shadow: 0 4px 12px rgba(46,164,79,0.32); }
+    h2 .badge.next { background: linear-gradient(135deg, #F38020 0%, #FAAD3F 100%); box-shadow: 0 4px 12px rgba(243,128,32,0.32); }
+    h2 .badge.user { background: linear-gradient(135deg, #1976D2 0%, #4096E0 100%); box-shadow: 0 4px 12px rgba(25,118,210,0.32); }
+    .section-sub { color: #6B7785; font-size: 13.5px; margin: 6px 0 22px 0; }
+
+    h3 { font-size: 16px; font-weight: 700; margin: 24px 0 10px; color: #1F2D3F; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 12px; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+
+    /* ========== Status grid (시작 상태) ========== */
+    .status-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .status-card {
+      background: #fff; border-radius: 10px;
+      padding: 18px 20px; border: 1px solid #E5EAF0;
+      border-left: 4px solid #4285F4;
+      box-shadow: 0 1px 3px rgba(15,23,33,0.04);
+    }
+    .status-card .label {
+      font-size: 11px; color: #6B7785; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 6px;
+    }
+    .status-card .value { font-weight: 700; font-size: 14px; color: #1F2D3F; margin-bottom: 4px; }
+    .status-card .meta { font-size: 12px; color: #6B7785; line-height: 1.45; }
+
+    /* ========== Step block ========== */
+    .step-block {
+      background: #fff; border-radius: 14px;
+      padding: 26px 28px 22px; margin-bottom: 22px;
+      border: 1px solid #E5EAF0;
+      box-shadow: 0 4px 16px rgba(15,23,33,0.06);
+      border-top: 4px solid #4285F4;
+      position: relative;
+    }
+    .step-block.user { border-top-color: #F38020; }
+    .step-block.both { border-top-color: #6B7785; }
+    .step-block .step-head {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 14px;
+    }
+    .step-block .step-num {
+      flex: 0 0 auto;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, #4285F4 0%, #82B0FF 100%);
+      color: #fff; font-size: 17px; font-weight: 800;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(66,133,244,0.32);
+    }
+    .step-block.user .step-num { background: linear-gradient(135deg, #F38020 0%, #FAAD3F 100%); box-shadow: 0 4px 12px rgba(243,128,32,0.32); }
+    .step-block.both .step-num { background: linear-gradient(135deg, #1F2D3F 0%, #4A5A6E 100%); box-shadow: 0 4px 12px rgba(31,45,63,0.32); }
+    .step-block .step-title { font-size: 18px; font-weight: 700; color: #0F1721; margin-bottom: 2px; }
+    .step-block .step-meta { font-size: 12.5px; color: #6B7785; }
+    .step-block .step-meta .who-pill {
+      display: inline-block; padding: 2px 8px; border-radius: 999px;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.3px;
+      margin-right: 6px; vertical-align: middle;
+    }
+    .step-block .who-pill.auto { background: #E7F0FA; color: #1565C0; }
+    .step-block .who-pill.user { background: #FFF1E5; color: #C26414; }
+    .step-block .who-pill.both { background: #F1F4F8; color: #4A5A6E; }
+
+    /* ========== Diff box ========== */
+    .diff-box {
+      background: #FAFBFC; border: 1px solid #E5EAF0;
+      border-radius: 8px; padding: 14px 16px;
+      font-family: "SF Mono", Menlo, monospace;
+      font-size: 12.5px; line-height: 1.6;
+      margin: 10px 0;
+    }
+    .diff-box .added {
+      background: #E7F4ED; color: #237D3D;
+      display: block; padding: 1px 8px;
+    }
+    .diff-box .added::before { content: '+ '; color: #2EA44F; font-weight: 700; }
+    .diff-box .ctx { display: block; padding: 1px 8px; color: #6B7785; }
+
+    /* ========== Result table ========== */
+    table.result {
+      width: 100%; border-collapse: collapse; margin: 12px 0;
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 10px;
+      overflow: hidden;
+    }
+    table.result th, table.result td {
+      padding: 11px 14px; text-align: left; font-size: 13.5px;
+      border-bottom: 1px solid #E5EAF0; vertical-align: top;
+    }
+    table.result th { background: #F4F8FC; font-weight: 700; color: #1F2D3F; font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+    table.result tr:last-child td { border-bottom: none; }
+    table.result td.ok { color: #237D3D; font-weight: 700; }
+    table.result td.warn { color: #C26414; font-weight: 700; }
+
+    /* ========== Card variants ========== */
+    .card {
+      background: #fff; border-radius: 10px;
+      border: 1px solid #E5EAF0; padding: 16px 20px; margin-bottom: 14px;
+    }
+    .card.tip { border-left: 4px solid #4285F4; background: #F4F8FC; }
+    .card.warn { border-left: 4px solid #F38020; background: #FFF8F0; }
+    .card.danger { border-left: 4px solid #E11D48; background: #FFF5F7; }
+    .card.success { border-left: 4px solid #2EA44F; background: #F2FAF5; }
+    .card-title {
+      font-weight: 700; font-size: 14px; margin-bottom: 6px;
+      color: #1F2D3F;
+    }
+    .card.tip .card-title { color: #1565C0; }
+    .card.warn .card-title { color: #C26414; }
+    .card.danger .card-title { color: #B91C3C; }
+    .card.success .card-title { color: #1A6B36; }
+
+    /* ========== Timeline ========== */
+    .timeline {
+      background: #fff; border-radius: 12px; padding: 20px 26px;
+      border: 1px solid #E5EAF0;
+    }
+    .timeline-row {
+      display: grid; grid-template-columns: 80px 1fr 96px;
+      gap: 14px; align-items: center;
+      padding: 11px 0; border-bottom: 1px solid #F1F4F8;
+    }
+    .timeline-row:last-child { border-bottom: none; }
+    .timeline-row .when {
+      font-weight: 700; font-size: 12.5px; color: #4285F4;
+      font-family: "SF Mono", Menlo, monospace;
+    }
+    .timeline-row .what { font-size: 13.5px; color: #1F2933; }
+    .timeline-row .what b { color: #1F2D3F; }
+    .timeline-row .who {
+      font-size: 11px; padding: 4px 10px; border-radius: 999px;
+      text-align: center; font-weight: 600;
+    }
+    .timeline-row .who.auto { background: #E7F0FA; color: #1565C0; }
+    .timeline-row .who.user { background: #FFF1E5; color: #C26414; }
+    .timeline-row .who.both { background: #F1F4F8; color: #4A5A6E; }
+    @media (max-width: 600px) {
+      .timeline-row { grid-template-columns: 1fr; gap: 4px; }
+      .timeline-row .who { justify-self: start; padding: 2px 8px; }
+    }
+
+    /* ========== Checklist ========== */
+    .check-list {
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 12px;
+      padding: 16px 20px;
+      list-style: none; padding-left: 24px;
+    }
+    .check-list li {
+      padding: 8px 0 8px 28px; position: relative;
+      border-bottom: 1px dashed #E5EAF0; font-size: 14px;
+    }
+    .check-list li:last-child { border-bottom: none; }
+    .check-list li.done::before {
+      content: '✓'; position: absolute; left: 0; top: 6px;
+      color: #2EA44F; font-size: 16px; font-weight: 700;
+    }
+    .check-list li.todo::before {
+      content: '☐'; position: absolute; left: 0; top: 6px;
+      color: #94A3B0; font-size: 16px;
+    }
+    .check-list li.done { color: #6B7785; text-decoration: line-through; text-decoration-color: #C5CFD9; }
+
+    .pill {
+      display: inline-block; padding: 3px 10px; border-radius: 999px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+    }
+    .pill.todo { background: #FFF1E5; color: #C26414; }
+    .pill.done { background: #E7F4ED; color: #237D3D; }
+    .pill.user { background: #FFF1E5; color: #C26414; }
+    .pill.auto { background: #E7F0FA; color: #1565C0; }
+
+    .doc-footer {
+      max-width: 980px; margin: 32px auto 64px; padding: 24px;
+      border-top: 1px solid #E5EAF0; color: #6B7785; font-size: 13px;
+      text-align: center;
+    }
+    .doc-footer a { color: #4285F4; }
+  </style>
+</head>
+<body>
+
+  <!-- ========== Hero ========== -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">🔍 Google Search Console · 도메인 Migration</div>
+      <h1>
+        <span class="from">taystudio.github.io</span>
+        <span class="arrow">→</span>
+        taystudios.com
+      </h1>
+      <p class="lead">
+        2026-05-09 GSC 신규 도메인 property 검증 + 옛 property에서 주소 변경(Change of Address) 신청까지의 진행 기록.
+        실행한 명령, edit한 파일, 결과를 자기 자신이 6개월 후 다시 봐도 재현 가능하도록 정리.
+      </p>
+      <div class="progress-bar"><div class="fill"></div></div>
+      <div class="meta-row">
+        <span><b>실행일</b> 2026-05-09</span>
+        <span><b>방식</b> URL prefix property + HTML meta tag 검증</span>
+        <span><b>상태</b> 검증 완료 + Change of Address 이전 중 (Google 자동 처리)</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ========== 시작 상태 ========== -->
+    <section>
+      <h2><span class="badge done">시작 전</span> 전제 조건</h2>
+      <p class="section-sub">GSC migration 시작 전 이미 충족돼 있어야 하는 조건들.</p>
+
+      <div class="status-grid">
+        <div class="status-card">
+          <div class="label">신규 도메인 라이브</div>
+          <div class="value">https://taystudios.com</div>
+          <div class="meta">HTTP 200 + Let's Encrypt cert<br>GitHub Pages 자동 발급</div>
+        </div>
+        <div class="status-card">
+          <div class="label">301 redirect</div>
+          <div class="value">옛 → 신규 자동</div>
+          <div class="meta">https://taystudio.github.io/* → https://taystudios.com/*<br>GitHub Pages 자동 (CNAME 변경 시)</div>
+        </div>
+        <div class="status-card">
+          <div class="label">Enforce HTTPS</div>
+          <div class="value">ON (방금 활성화)</div>
+          <div class="meta">http:// → 301 → https://<br>Settings → Pages 체크박스</div>
+        </div>
+        <div class="status-card">
+          <div class="label">옛 property 존재</div>
+          <div class="value">taystudio.github.io</div>
+          <div class="meta">기존 운영 중인 GSC URL prefix property<br>인덱스 시그널 보유</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 단계별 ========== -->
+    <section>
+      <h2><span class="badge done">실행</span> 단계별 진행</h2>
+      <p class="section-sub">사용자 입력 = GSC UI 클릭 / 자동 처리 = repo 코드 edit + commit/push.</p>
+
+      <!-- Step 1 -->
+      <div class="step-block user">
+        <div class="step-head">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">신규 property 추가 — URL prefix 방식</div>
+            <div class="step-meta">
+              <span class="who-pill user">사용자 액션</span>
+              <span>search.google.com/search-console → "속성 추가"</span>
+            </div>
+          </div>
+        </div>
+        <ul>
+          <li>속성 유형 두 옵션 중 <b>"URL prefix"</b> 선택 (Domain property가 권장이지만 DNS TXT 추가 비용보다 HTML meta 한 줄 추가가 더 가볍다 판단)</li>
+          <li>입력: <code>https://taystudios.com/</code></li>
+          <li>검증 방식: <b>"HTML 태그"</b></li>
+          <li>Google이 발급한 검증 코드:
+            <pre><code>&lt;meta name="google-site-verification" content="uiMTiQjh9FfPJu7Mx4FxF-hiRG5eq6Pi7qrIYqzR3Nw" /&gt;</code></pre>
+          </li>
+        </ul>
+        <div class="card tip">
+          <div class="card-title">💡 왜 URL prefix를 골랐나</div>
+          Domain property는 DNS TXT 레코드 1건 추가 + 전파 1~10분 대기가 필요. URL prefix는 head meta 1줄 추가로 끝.
+          신규 도메인은 <code>https://taystudios.com/</code> 하나만 다루면 되므로 (Enforce HTTPS로 http/, www. 자동 통합) URL prefix로 충분.
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">검증 메타 추가 — 옛 코드 유지하며 병행</div>
+            <div class="step-meta">
+              <span class="who-pill auto">자동 처리</span>
+              <span>index.html line 10 다음 줄 삽입</span>
+            </div>
+          </div>
+        </div>
+        <p>옛 property(taystudio.github.io)는 6개월간 살려둬야 redirect 시그널이 자연 이전됨. 따라서 옛 검증 메타는 <b>그대로 두고 신규 메타를 추가</b>. Google은 head 내 동일 name 메타 중복 허용.</p>
+        <div class="diff-box">
+          <span class="ctx">  &lt;meta name="theme-color" content="#2563eb"&gt;</span>
+          <span class="ctx">  &lt;meta name="color-scheme" content="light dark"&gt;</span>
+          <span class="ctx">  &lt;meta name="google-site-verification" content="X6nU3Kz5e0V_ZfAHt0QcXhuvw99O9RUCvkVe97B603c"&gt;  &lt;!-- 옛 --&gt;</span>
+          <span class="added">  &lt;meta name="google-site-verification" content="uiMTiQjh9FfPJu7Mx4FxF-hiRG5eq6Pi7qrIYqzR3Nw"&gt;  &lt;!-- 신규 --&gt;</span>
+          <span class="ctx">  &lt;meta name="naver-site-verification" content="bfe7d4c2ed7faf9c9204f614640698ae5bc7b4cd"&gt;</span>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">commit + push — GitHub Pages 배포</div>
+            <div class="step-meta">
+              <span class="who-pill auto">자동 처리</span>
+              <span>commit c2913bd</span>
+            </div>
+          </div>
+        </div>
+        <pre><code>git add index.html history/checklist/
+git commit -m "feat: GSC 신규 도메인 property 검증 meta 추가 + 라이브 검증 체크리스트"
+git push origin main</code></pre>
+        <p>GitHub Pages 배포 polling — 약 30~40초 후 라이브 반영:</p>
+        <pre><code>$ curl -sS https://taystudios.com/ | grep google-site-verification
+  &lt;meta name="google-site-verification" content="X6nU3Kz5e0V_..."&gt;   ← 옛
+  &lt;meta name="google-site-verification" content="uiMTiQjh9FfPJu7..."&gt; ← 신규</code></pre>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-block user">
+        <div class="step-head">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">GSC "확인" 클릭 → 신규 property 검증 통과</div>
+            <div class="step-meta">
+              <span class="who-pill user">사용자 액션</span>
+              <span>발급 화면에서 "확인" 버튼</span>
+            </div>
+          </div>
+        </div>
+        <p>Google이 <code>https://taystudios.com/</code> fetch → head 안에서 <code>uiMTiQjh9FfPJu7...</code> 검증 코드 발견 → 즉시 통과.</p>
+        <p>검증 통과 후 GSC가 자동으로 옛 property(taystudio.github.io)에서의 <b>주소 변경(Change of Address)</b> 화면으로 유도. 옛 property에 인덱스 시그널이 많이 쌓여 있을 때 Google이 추천하는 경로.</p>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step-block both">
+        <div class="step-head">
+          <div class="step-num">5</div>
+          <div>
+            <div class="step-title">주소 변경(Change of Address) 유효성 검사</div>
+            <div class="step-meta">
+              <span class="who-pill both">Google 자동 검증</span>
+              <span>옛 property → 신규 property 매핑 자격 확인</span>
+            </div>
+          </div>
+        </div>
+        <p>Google이 자동으로 다음 4가지 검사를 수행. 결과 모두 통과:</p>
+        <table class="result">
+          <thead>
+            <tr><th>구분</th><th>검사 항목</th><th>결과</th><th>의미</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>필수</td>
+              <td>두 사이트 모두 인증</td>
+              <td class="ok">✓</td>
+              <td>옛 + 신규 property 모두 GSC 검증 완료</td>
+            </tr>
+            <tr>
+              <td>필수</td>
+              <td>홈페이지 301 리디렉션</td>
+              <td class="ok">✓</td>
+              <td>taystudio.github.io/ → taystudios.com/ 자동 감지</td>
+            </tr>
+            <tr>
+              <td>권장</td>
+              <td>샘플 페이지 301 리디렉션</td>
+              <td class="ok">✓</td>
+              <td>5개 샘플 URL 전부 redirect 발견 — Google이 보유한 옛 인덱스에서 직접 추출</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>샘플로 검사된 URL (Google이 직접 골라서 fetch):</p>
+        <ul>
+          <li><code>https://taystudio.github.io/tools/salary/</code></li>
+          <li><code>https://taystudio.github.io/tools/</code></li>
+          <li><code>https://taystudio.github.io/tools/capgain/</code></li>
+          <li><code>https://taystudio.github.io/tools/property-tax/</code></li>
+          <li><code>https://taystudio.github.io/tools/comp-property/</code></li>
+        </ul>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="step-block user">
+        <div class="step-head">
+          <div class="step-num">6</div>
+          <div>
+            <div class="step-title">"이동 확인" 클릭 → 이전 중</div>
+            <div class="step-meta">
+              <span class="who-pill user">사용자 액션</span>
+              <span>주소 변경 최종 제출</span>
+            </div>
+          </div>
+        </div>
+        <div class="card success">
+          <div class="card-title">✅ 현재 상태 — "이전 중" (Google 자동 처리 중)</div>
+          Google이 옛 property의 인덱스 시그널을 신규 property로 점진 이전. 검색 결과의 URL도 옛 → 신규로 자연 전환.
+          처리 기간 = 수일~수주(주요 URL) / 6개월(전체 long-tail).
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 다음 단계 ========== -->
+    <section>
+      <h2><span class="badge next">다음</span> 미완료 액션</h2>
+      <p class="section-sub">신규 property 검증과 주소 변경은 끝났지만, 신규 도메인의 <b>인덱싱 가속</b>을 위해 추가 작업 필요.</p>
+
+      <ul class="check-list">
+        <li class="todo">신규 property 좌측 메뉴 <b>Sitemaps</b> → "<code>sitemap.xml</code>" 입력 → 제출 (path만, 전체 URL 아님)</li>
+        <li class="todo">신규 property 좌측 메뉴 <b>URL 검사</b> → <code>https://taystudios.com/</code> 색인 생성 요청 (메인부터)</li>
+        <li class="todo">동일하게 5 카테고리 hub URL 색인 요청 (<code>/tools/</code>·<code>/text/</code>·<code>/image/</code>·<code>/pdf/</code>·<code>/video/</code>)</li>
+        <li class="todo">주요 도구 페이지 5~10개 추가 색인 요청 (일일 한도 내에서)</li>
+        <li class="todo"><b>6개월 후</b> — 옛 property에서 인덱싱 트래픽이 거의 0에 수렴하는지 확인 후 옛 property 정리(삭제)</li>
+      </ul>
+    </section>
+
+    <!-- ========== 변경 파일 ========== -->
+    <section>
+      <h2><span class="badge done">변경</span> 이번에 건드린 파일</h2>
+      <table class="result">
+        <thead>
+          <tr><th>파일</th><th>변경 내용</th><th>commit</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>index.html</code></td>
+            <td>line 11 — google-site-verification meta 1줄 추가 (신규 property 검증용, 옛 코드는 유지)</td>
+            <td><code>c2913bd</code></td>
+          </tr>
+          <tr>
+            <td><code>history/checklist/2026-05-09-domain-migration-live-check.md</code></td>
+            <td>migration 후 라이브 응답 검증 체크리스트 (14항목, 13/14 통과)</td>
+            <td><code>c2913bd</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ========== 의사결정 메모 ========== -->
+    <section>
+      <h2><span class="badge">결정</span> 의사결정 메모</h2>
+
+      <div class="card tip">
+        <div class="card-title">URL prefix vs Domain property — URL prefix 채택</div>
+        <p style="margin-bottom: 6px;"><b>이유</b></p>
+        <ul style="margin-bottom: 0;">
+          <li>Enforce HTTPS + www → apex 301로 origin이 <code>https://taystudios.com/</code> 단 하나로 수렴</li>
+          <li>HTML meta 추가 비용 1줄 &lt; DNS TXT 등록 + 전파 대기</li>
+          <li>이미 head에 동일 패턴(google-site-verification, naver-site-verification, msvalidate.01) 박혀 있어 일관성</li>
+        </ul>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">옛 검증 메타 유지 — 6개월 정책</div>
+        <p style="margin: 0;">
+          옛 property(taystudio.github.io)는 인덱스 시그널 자연 이전을 위해 최소 6개월 유지. 따라서 옛 검증 메타도 동기간 유지.
+          <br>이전 진행 모니터링 = GSC 옛 property에서 노출수/클릭수 트렌드 확인. 거의 0에 수렴하면 옛 property 삭제 + 옛 메타 줄도 제거.
+        </p>
+      </div>
+
+      <div class="card warn">
+        <div class="card-title">옛 property 즉시 삭제 금지</div>
+        <p style="margin: 0;">
+          신규 property 검증 통과했다고 옛 property를 바로 지우면 주소 변경 시그널이 끊김. Google은 옛 property에서 redirect를 계속 관찰해야
+          신규로의 권위 이전을 확신 처리. 6개월 = 일반적 권장 기간.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== 타임라인 ========== -->
+    <section>
+      <h2><span class="badge done">타임라인</span> 2026-05-09</h2>
+      <div class="timeline">
+        <div class="timeline-row">
+          <span class="when">14:51</span>
+          <span class="what"><b>Enforce HTTPS</b> ON — Settings → Pages 체크박스 (curl로 http→https 301 응답 확인)</span>
+          <span class="who user">사용자</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">14:55</span>
+          <span class="what"><b>GSC URL prefix property 추가</b> — taystudios.com 입력 + HTML 태그 검증 코드 발급</span>
+          <span class="who user">사용자</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">14:57</span>
+          <span class="what"><b>index.html edit</b> — 신규 google-site-verification meta line 11에 추가 (옛 코드 유지)</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">14:58</span>
+          <span class="what"><b>commit c2913bd + push</b> — GSC 메타 + 라이브 검증 체크리스트</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">14:59</span>
+          <span class="what"><b>GitHub Pages 배포 완료</b> — 신규 메타 라이브 반영 (curl polling 2회만에 발견)</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">15:00</span>
+          <span class="what"><b>GSC "확인" 클릭</b> → 신규 property 검증 통과 → 주소 변경 화면 자동 유도</span>
+          <span class="who user">사용자</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">15:00</span>
+          <span class="what"><b>Change of Address 유효성 검사</b> — 두 사이트 인증 + 홈/샘플 301 모두 통과</span>
+          <span class="who both">Google</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">15:01</span>
+          <span class="what"><b>"이동 확인" 클릭</b> → "이전 중" 상태 진입 (Google 점진 이전 시작)</span>
+          <span class="who user">사용자</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 검증 명령 ========== -->
+    <section>
+      <h2><span class="badge">재현</span> 검증 명령</h2>
+      <p class="section-sub">6개월 후 메타 회수 시점에 다시 실행해서 상태 확인용.</p>
+      <pre><code># 1. 두 검증 메타 라이브 존재 확인
+curl -sS https://taystudios.com/ | grep google-site-verification
+
+# 기대: 두 줄 (옛 + 신규)
+#   &lt;meta name="google-site-verification" content="X6nU3Kz5e0V_..."&gt;
+#   &lt;meta name="google-site-verification" content="uiMTiQjh9FfPJu7..."&gt;
+
+# 2. 301 redirect 동작
+curl -sSI https://taystudio.github.io/ | head -3
+# 기대: HTTP/2 301 Moved Permanently / Location: https://taystudios.com/
+
+# 3. Enforce HTTPS
+curl -sSI http://taystudios.com/ | head -3
+# 기대: HTTP/1.1 301 Moved Permanently / Location: https://taystudios.com/</code></pre>
+    </section>
+
+    <!-- ========== 관련 문서 ========== -->
+    <section>
+      <h2><span class="badge plain" style="background:#1F2D3F">참조</span> 관련 문서</h2>
+      <ul>
+        <li><a href="../">history/migration/index.html</a> — 도메인 migration 전체 dashboard</li>
+        <li><a href="../../checklist/2026-05-09-domain-migration-live-check.md">history/checklist/2026-05-09-domain-migration-live-check.md</a> — 라이브 응답 14항목 검증</li>
+        <li><a href="../../seo/">history/seo/</a> — SEO 작업 시점 분기 entries</li>
+        <li>다음 작업 = Naver Search Advisor → Bing Webmaster Tools → AdSense → IndexNow ping</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="doc-footer">
+    작성 2026-05-09 · GSC migration 진행 기록 · noindex/nofollow (운영자 전용)
+  </footer>
+
+</body>
+</html>

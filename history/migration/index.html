@@ -64,7 +64,7 @@
       overflow: hidden; position: relative;
     }
     .progress-bar .fill {
-      height: 100%; width: 75%;
+      height: 100%; width: 95%;
       background: linear-gradient(90deg, #F38020 0%, #FAAD3F 100%);
       border-radius: 999px;
       box-shadow: 0 0 12px rgba(243,128,32,0.5);
@@ -360,15 +360,322 @@
       </p>
       <div class="progress-bar"><div class="fill"></div></div>
       <div class="progress-meta">
-        <span><b>전체 진행</b> 약 75% (2026-05-09 13:55 기준)</span>
-        <span><b>끝남</b> DNS · CNAME · 코드 일괄 sed · sitemap rebuild · SW v13 · 개념·시점분기 문서</span>
-        <span><b>남음</b> commit·push 사용자 검수 → IndexNow ping · 검색엔진 4채널 등록</span>
-        <span><b>현 단계</b> ⏸ commit/push 검수 대기</span>
+        <span><b>전체 진행</b> 약 95% (2026-05-09 15:50 갱신)</span>
+        <span><b>끝남</b> DNS · CNAME · 코드 sed · sitemap · SW v13 · commit/push · Enforce HTTPS · GSC 검증·주소 변경 · Naver SA 검증 · Bing WMT Import · sitemap 제출 · IndexNow ping 67 URL HTTP 200</span>
+        <span><b>남음</b> Naver SA 사용자 인증·웹페이지 수집 · AdSense 사이트 추가(검토 1~14일) · 카카오 OG flush(선택)</span>
+        <span><b>현 단계</b> ▶ AdSense 진입 직전</span>
       </div>
     </div>
   </header>
 
   <main class="container">
+
+    <!-- ============ 진행 갱신 스냅샷 (2026-05-09 15:50) ============ -->
+    <section>
+      <h2><span class="badge done">갱신</span> 2026-05-09 15:50 진행 스냅샷</h2>
+      <p class="section-sub">검색엔진 3채널(Google·Naver·Bing) 검증 완료 + IndexNow 67 URL HTTP 200 push 완료. 남은 사용자 액션 = AdSense 사이트 추가 + (선택) 카카오 OG flush.</p>
+
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:30%">채널 / 작업</th><th style="width:22%">상태</th><th style="width:22%">commit / 검증코드</th><th>비고</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>도메인 코드 일괄 갱신</b></td>
+            <td><span class="pill done">완료</span></td>
+            <td><code>0997736</code> + <code>f3a8882</code></td>
+            <td>67 URL sitemap rebuild 포함</td>
+          </tr>
+          <tr>
+            <td><b>GitHub Pages Enforce HTTPS</b></td>
+            <td><span class="pill done">ON</span></td>
+            <td>(콘솔 토글)</td>
+            <td>http→https 301 정상</td>
+          </tr>
+          <tr>
+            <td><b>Google Search Console</b></td>
+            <td><span class="pill done">검증 + 주소 변경 이전 중</span></td>
+            <td><code>c2913bd</code> · <code>uiMTiQjh...</code></td>
+            <td><a href="google-search-console/">상세 →</a></td>
+          </tr>
+          <tr>
+            <td><b>Naver Search Advisor</b></td>
+            <td><span class="pill done">메타 검증 / 사용자 인증·수집 진행</span></td>
+            <td><code>c170f15</code> · <code>4cdee18e...</code></td>
+            <td><a href="naver-search-advisor/">상세 →</a></td>
+          </tr>
+          <tr>
+            <td><b>Bing Webmaster Tools</b></td>
+            <td><span class="pill done">Import 자동 verified + sitemap</span></td>
+            <td>(commit 0건)</td>
+            <td><a href="bing-webmaster-tools/">상세 →</a> · Site Moves UI 제거됨 → 자동 감지</td>
+          </tr>
+          <tr>
+            <td><b>IndexNow 67 URL ping</b></td>
+            <td><span class="pill done">HTTP 200, 67 URLs queued</span></td>
+            <td>key 파일 200 OK</td>
+            <td><code>bash scripts/indexnow-ping.sh</code> 실행</td>
+          </tr>
+          <tr>
+            <td><b>AdSense 신규 도메인 추가</b></td>
+            <td><span class="pill todo">사용자 액션 남음</span></td>
+            <td>ads.txt 200 OK</td>
+            <td><b>AdSense 미승인 상태</b> — script 주석 처리된 채 대기. 사이트 추가 + 검토 신청 → 승인 후 별도 commit으로 주석 해제</td>
+          </tr>
+          <tr>
+            <td><b>카카오 OG flush</b></td>
+            <td><span class="pill todo">미진행 (선택)</span></td>
+            <td>—</td>
+            <td>메인 + 5 hub + 인기 도구</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="card tip">
+        <div class="card-title">📂 신규 작성 문서 (4건)</div>
+        <ul style="margin-bottom:0;">
+          <li><a href="google-search-console/">history/migration/google-search-console/index.html</a> — GSC 6단계 + Change of Address 검사 결과</li>
+          <li><a href="naver-search-advisor/">history/migration/naver-search-advisor/index.html</a> — Naver SA 4단계 + Naver vs Google 비교 + 우선순위 13 URL</li>
+          <li><a href="bing-webmaster-tools/">history/migration/bing-webmaster-tools/index.html</a> — Bing 7단계 + Site Moves UI deprecation 발견 + IndexNow ping HTTP 200 결과</li>
+          <li><a href="../checklist/2026-05-09-domain-migration-live-check.md">history/checklist/2026-05-09-domain-migration-live-check.md</a> — push 직후 14항목 curl 검증</li>
+        </ul>
+      </div>
+
+      <div class="card warn">
+        <div class="card-title">⏰ 6개월 후 정리 절차 (목표 = 2026-11-09 무렵)</div>
+        <p style="margin-bottom: 8px;">옛 도메인 인덱스 시그널이 신규로 자연 이전되는 시점. 채널별 정리 액션이 다름:</p>
+        <ul style="margin-bottom: 0;">
+          <li><b>Google SC</b> = 옛 property 그대로 둬도 됨 (Change of Address 자동 정리). 원하면 속성 삭제 — 옵션</li>
+          <li><b>Naver SA</b> = 🔴 옛 사이트 등록 <b>삭제 필수</b> (Change of Address 기능 없음 → 자동 정리 X)</li>
+          <li><b>Bing WMT</b> = Site Moves 신청해뒀으면 보존, 안 했으면 옛 등록 삭제</li>
+          <li><b>AdSense</b> = 🔴 옛 사이트 <b>삭제 필수</b> (신규 승인 떨어진 후, 즉시 X)</li>
+          <li><b>repo 정리</b> = <code>index.html</code> 옛 검증 메타 2줄 제거 + <code>common/site-chrome.js</code> ALLOWED 옛 도메인 라인 제거</li>
+        </ul>
+        <p style="margin: 10px 0 0; font-size: 12.5px; color:#6B7785;">자세한 절차·검증 명령 = <code>plan.md §9.5.9</code></p>
+      </div>
+    </section>
+
+    <!-- ============ 통신 흐름도 (시퀀스 다이어그램) ============ -->
+    <section>
+      <h2><span class="badge plain">흐름도</span> taystudios.com 접속 시퀀스 다이어그램</h2>
+      <p class="section-sub">사용자가 브라우저에서 <code>https://taystudios.com</code>을 입력했을 때 DNS·TLS·HTTP 계층에서 어떤 일이 일어나는지 시간순(위→아래)으로 추적. Cloudflare(DNS) + GitHub Pages(호스팅) + repo CNAME 파일이 어떻게 연결되는지 한 그림으로.</p>
+
+      <div style="background:#FAFBFC; border:1px solid #E5EAF0; border-radius:12px; padding:20px; overflow-x:auto; margin-bottom:14px;">
+        <svg viewBox="0 0 920 720" xmlns="http://www.w3.org/2000/svg" style="display:block; width:100%; height:auto; min-width:760px;" aria-label="taystudios.com 접속 시퀀스 다이어그램">
+
+          <defs>
+            <marker id="arr-req" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" fill="#1F2D3F"/>
+            </marker>
+            <marker id="arr-res" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" fill="#2EA44F"/>
+            </marker>
+            <marker id="arr-tls" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" fill="#7B3FE4"/>
+            </marker>
+          </defs>
+
+          <!-- Lifeline 헤더 박스 -->
+          <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" text-anchor="middle">
+            <rect x="20" y="14" width="140" height="44" rx="10" fill="#1976D2"/>
+            <text x="90" y="34" fill="#fff" font-size="13" font-weight="700">👤 사용자 Browser</text>
+            <text x="90" y="50" fill="#C7E0FA" font-size="10">로컬 PC</text>
+
+            <rect x="200" y="14" width="140" height="44" rx="10" fill="#6B7785"/>
+            <text x="270" y="34" fill="#fff" font-size="13" font-weight="700">🌐 ISP DNS</text>
+            <text x="270" y="50" fill="#D7DDE4" font-size="10">recursive resolver</text>
+
+            <rect x="380" y="14" width="160" height="44" rx="10" fill="#F38020"/>
+            <text x="460" y="34" fill="#fff" font-size="13" font-weight="700">☁️ Cloudflare DNS</text>
+            <text x="460" y="50" fill="#FFE6CC" font-size="10">authoritative for taystudios.com</text>
+
+            <rect x="580" y="14" width="160" height="44" rx="10" fill="#0F1721"/>
+            <text x="660" y="34" fill="#fff" font-size="13" font-weight="700">🐙 GitHub Pages</text>
+            <text x="660" y="50" fill="#9AA8B7" font-size="10">185.199.108-111.153</text>
+
+            <rect x="780" y="14" width="120" height="44" rx="10" fill="#2EA44F"/>
+            <text x="840" y="34" fill="#fff" font-size="13" font-weight="700">📄 repo</text>
+            <text x="840" y="50" fill="#CFEFD9" font-size="10">CNAME file</text>
+          </g>
+
+          <!-- Lifeline 점선 -->
+          <g stroke="#B5C0CD" stroke-width="1.4" stroke-dasharray="5,5">
+            <line x1="90"  y1="62" x2="90"  y2="700"/>
+            <line x1="270" y1="62" x2="270" y2="700"/>
+            <line x1="460" y1="62" x2="460" y2="700"/>
+            <line x1="660" y1="62" x2="660" y2="700"/>
+            <line x1="840" y1="62" x2="840" y2="700"/>
+          </g>
+
+          <!-- ===== Group A — DNS resolution ===== -->
+          <g>
+            <text x="20" y="92" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#6B7785" letter-spacing="0.5">A. DNS 조회</text>
+            <line x1="20" y1="100" x2="900" y2="100" stroke="#E5EAF0" stroke-width="1"/>
+          </g>
+
+          <!-- Step 1: self - URL 입력 -->
+          <g>
+            <rect x="38" y="116" width="160" height="28" rx="6" fill="#E7F0FA" stroke="#1976D2" stroke-width="1"/>
+            <text x="118" y="134" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#155A9C">주소창 입력 → URL 파싱</text>
+            <circle cx="46" cy="130" r="10" fill="#1976D2"/>
+            <text x="46" y="134" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">1</text>
+          </g>
+
+          <!-- Step 2: Browser → ISP DNS (A query) -->
+          <g>
+            <line x1="90" y1="172" x2="265" y2="172" stroke="#1F2D3F" stroke-width="2" marker-end="url(#arr-req)"/>
+            <text x="178" y="166" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11.5" fill="#1F2D3F" font-weight="600">DNS query: A? taystudios.com</text>
+            <circle cx="98" cy="172" r="11" fill="#1F2D3F"/>
+            <text x="98" y="176" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">2</text>
+          </g>
+
+          <!-- Step 3: ISP DNS → Cloudflare -->
+          <g>
+            <line x1="270" y1="208" x2="455" y2="208" stroke="#1F2D3F" stroke-width="2" marker-end="url(#arr-req)"/>
+            <text x="365" y="202" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11.5" fill="#1F2D3F" font-weight="600">recursive: root → .com → Cloudflare NS</text>
+            <text x="365" y="222" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10.5" fill="#6B7785" font-style="italic">중간 root/TLD 조회는 캐시되거나 1회성</text>
+            <circle cx="278" cy="208" r="11" fill="#1F2D3F"/>
+            <text x="278" y="212" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">3</text>
+          </g>
+
+          <!-- Step 4: Cloudflare → ISP DNS (A records) -->
+          <g>
+            <line x1="455" y1="252" x2="275" y2="252" stroke="#2EA44F" stroke-width="2" marker-end="url(#arr-res)"/>
+            <text x="365" y="246" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11.5" fill="#1A6B36" font-weight="600">A records ×4: 185.199.108.153 / .109 / .110 / .111</text>
+            <circle cx="453" cy="252" r="11" fill="#2EA44F"/>
+            <text x="453" y="256" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">4</text>
+          </g>
+
+          <!-- Step 5: ISP DNS → Browser -->
+          <g>
+            <line x1="265" y1="288" x2="93" y2="288" stroke="#2EA44F" stroke-width="2" marker-end="url(#arr-res)"/>
+            <text x="178" y="282" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11.5" fill="#1A6B36" font-weight="600">resolver 응답 → IP 4개 (TTL 1h)</text>
+            <circle cx="263" cy="288" r="11" fill="#2EA44F"/>
+            <text x="263" y="292" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">5</text>
+          </g>
+
+          <!-- ===== Group B — TLS handshake ===== -->
+          <g>
+            <text x="20" y="332" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#6B7785" letter-spacing="0.5">B. TLS 핸드셰이크</text>
+            <line x1="20" y1="340" x2="900" y2="340" stroke="#E5EAF0" stroke-width="1"/>
+          </g>
+
+          <!-- Step 6: Browser → GitHub Pages (TCP SYN + ClientHello SNI) -->
+          <g>
+            <line x1="90" y1="372" x2="655" y2="372" stroke="#7B3FE4" stroke-width="2" marker-end="url(#arr-tls)"/>
+            <text x="372" y="366" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11.5" fill="#5826B0" font-weight="600">TCP SYN → 185.199.108.153:443 + TLS ClientHello (SNI=taystudios.com)</text>
+            <circle cx="98" cy="372" r="11" fill="#7B3FE4"/>
+            <text x="98" y="376" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">6</text>
+          </g>
+
+          <!-- Step 7: GitHub → Browser (TLS cert) -->
+          <g>
+            <line x1="655" y1="408" x2="93" y2="408" stroke="#7B3FE4" stroke-width="2" marker-end="url(#arr-tls)"/>
+            <text x="372" y="402" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11.5" fill="#5826B0" font-weight="600">TLS cert: CN=taystudios.com (Let's Encrypt, GitHub 자동 발급)</text>
+            <text x="372" y="422" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10.5" fill="#6B7785" font-style="italic">→ 브라우저: 자물쇠 🔒 + 신원 검증 통과</text>
+            <circle cx="653" cy="408" r="11" fill="#7B3FE4"/>
+            <text x="653" y="412" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">7</text>
+          </g>
+
+          <!-- ===== Group C — HTTP ===== -->
+          <g>
+            <text x="20" y="468" font-family="-apple-system, sans-serif" font-size="11" font-weight="700" fill="#6B7785" letter-spacing="0.5">C. HTTP 요청/응답</text>
+            <line x1="20" y1="476" x2="900" y2="476" stroke="#E5EAF0" stroke-width="1"/>
+          </g>
+
+          <!-- Step 8: Browser → GitHub HTTP GET -->
+          <g>
+            <line x1="90" y1="508" x2="655" y2="508" stroke="#1F2D3F" stroke-width="2" marker-end="url(#arr-req)"/>
+            <text x="372" y="502" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11.5" fill="#1F2D3F" font-weight="600">HTTPS GET / · Host: taystudios.com · User-Agent: ...</text>
+            <circle cx="98" cy="508" r="11" fill="#1F2D3F"/>
+            <text x="98" y="512" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">8</text>
+          </g>
+
+          <!-- Step 9: GitHub → repo CNAME (custom domain check) -->
+          <g>
+            <line x1="660" y1="544" x2="835" y2="544" stroke="#1F2D3F" stroke-width="2" marker-end="url(#arr-req)"/>
+            <text x="748" y="538" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11.5" fill="#1F2D3F" font-weight="600">"taystudios.com" repo 매칭?</text>
+            <circle cx="668" cy="544" r="11" fill="#1F2D3F"/>
+            <text x="668" y="548" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">9</text>
+          </g>
+
+          <!-- Step 10: repo CNAME → GitHub Pages (match) -->
+          <g>
+            <line x1="835" y1="580" x2="665" y2="580" stroke="#2EA44F" stroke-width="2" marker-end="url(#arr-res)"/>
+            <text x="748" y="574" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11.5" fill="#1A6B36" font-weight="600">taystudio/taystudio.github.io ✓</text>
+            <text x="748" y="594" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10.5" fill="#6B7785" font-style="italic">CNAME 파일 = "taystudios.com"</text>
+            <circle cx="833" cy="580" r="11" fill="#2EA44F"/>
+            <text x="833" y="584" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">10</text>
+          </g>
+
+          <!-- Step 11: GitHub → Browser HTML 200 -->
+          <g>
+            <line x1="655" y1="640" x2="93" y2="640" stroke="#2EA44F" stroke-width="2.5" marker-end="url(#arr-res)"/>
+            <text x="372" y="634" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" fill="#1A6B36" font-weight="700">HTTP/2 200 OK · text/html · index.html (gzip)</text>
+            <text x="372" y="654" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="10.5" fill="#6B7785" font-style="italic">→ 브라우저 렌더 시작 · CSS·JS·favicon 후속 fetch</text>
+            <circle cx="653" cy="640" r="12" fill="#2EA44F"/>
+            <text x="653" y="644" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">11</text>
+          </g>
+
+          <!-- 종료 라인 -->
+          <line x1="20" y1="688" x2="900" y2="688" stroke="#1A6B36" stroke-width="2"/>
+          <text x="460" y="704" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#1A6B36" font-weight="700">✅ 페이지 로드 완료 — 사용자 화면에 taystudios.com 표시</text>
+        </svg>
+      </div>
+
+      <!-- 범례 -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:10px; margin-bottom:18px; font-size:13px;">
+        <div style="background:#fff; border:1px solid #E5EAF0; border-radius:8px; padding:10px 14px;">
+          <span style="display:inline-block; width:22px; height:3px; background:#1F2D3F; vertical-align:middle; margin-right:8px;"></span>
+          요청 (request)
+        </div>
+        <div style="background:#fff; border:1px solid #E5EAF0; border-radius:8px; padding:10px 14px;">
+          <span style="display:inline-block; width:22px; height:3px; background:#2EA44F; vertical-align:middle; margin-right:8px;"></span>
+          응답 (response)
+        </div>
+        <div style="background:#fff; border:1px solid #E5EAF0; border-radius:8px; padding:10px 14px;">
+          <span style="display:inline-block; width:22px; height:3px; background:#7B3FE4; vertical-align:middle; margin-right:8px;"></span>
+          TLS 협상 (handshake)
+        </div>
+        <div style="background:#fff; border:1px solid #E5EAF0; border-radius:8px; padding:10px 14px;">
+          <span style="display:inline-block; width:22px; height:14px; border:1px dashed #B5C0CD; vertical-align:middle; margin-right:8px;"></span>
+          lifeline (액터 시간축)
+        </div>
+      </div>
+
+      <!-- 변형 시나리오 -->
+      <h3>↪ 변형 시나리오 — 다른 입력으로 들어왔을 때</h3>
+
+      <div class="card warn">
+        <div class="card-title">변형 1 · http://taystudios.com (HTTPS 누락)</div>
+        <p style="margin-bottom: 6px;">위 다이어그램의 step 6 직전에서 분기:</p>
+        <pre style="background:#0F1721; color:#D7DDE4; padding:14px 18px; border-radius:8px; overflow-x:auto; font-size:12.5px; margin:0;"><code>Browser → GitHub Pages :80 → HTTP/1.1 301 Moved Permanently
+                                    Location: https://taystudios.com/
+Browser ← (다이어그램 step 1로 재시작 with https://)</code></pre>
+        <p style="margin: 8px 0 0; font-size:13px; color:#6B7785;">근거 = GitHub Pages "Enforce HTTPS" ON (2026-05-09 활성화)</p>
+      </div>
+
+      <div class="card warn">
+        <div class="card-title">변형 2 · 옛 도메인 https://taystudio.github.io/foo (CNAME mismatch)</div>
+        <p style="margin-bottom: 6px;">DNS는 같은 GitHub Pages IP를 받지만, GitHub Pages가 Host 헤더를 보고 분기:</p>
+        <pre style="background:#0F1721; color:#D7DDE4; padding:14px 18px; border-radius:8px; overflow-x:auto; font-size:12.5px; margin:0;"><code>Browser → GitHub Pages: GET /foo · Host: taystudio.github.io
+GitHub Pages → repo CNAME 파일: "taystudios.com"  ← 옛 호스트와 불일치
+GitHub Pages → Browser: HTTP/2 301 Moved Permanently
+                        Location: https://taystudios.com/foo
+Browser ← (다이어그램 step 1로 재시작 with 신규 도메인)</code></pre>
+        <p style="margin: 8px 0 0; font-size:13px; color:#6B7785;">근거 = repo CNAME 파일이 "taystudios.com"인 동안 GitHub Pages가 자동 처리. 6개월~1년 동안 옛 도메인 DNS 살아 있는 한 자동 redirect</p>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">💡 주요 포인트</div>
+        <ul style="margin: 0;">
+          <li><b>Cloudflare는 DNS 해석만</b> — orange cloud(proxy) OFF 상태이므로 실제 트래픽은 GitHub Pages로 직접. CDN/프록시 X. (proxy ON으로 바꾸면 step 6~11이 모두 Cloudflare 엣지를 경유)</li>
+          <li><b>repo CNAME 파일</b> = `/CNAME` (1줄짜리, body = "taystudios.com"). GitHub Pages가 Host 헤더와 매칭하는 키. 이 파일이 도메인 단일 source</li>
+          <li><b>인증서</b> = GitHub Pages가 Let's Encrypt에서 자동 발급·갱신. 별도 설정 X. Custom domain 입력 후 ~10분 내 발급</li>
+          <li><b>실제 IP 4개</b>(185.199.108-111.153) = GitHub Pages 공용 anycast. 가장 가까운 엣지로 자동 라우팅. <code>dig taystudios.com</code> / <code>nslookup</code>으로 직접 확인 가능</li>
+        </ul>
+      </div>
+    </section>
 
     <!-- ============ 끝난 작업 ============ -->
     <section>

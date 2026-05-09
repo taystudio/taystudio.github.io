@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#03C75A">
+  <meta name="color-scheme" content="light">
+  <title>Naver Search Advisor 도메인 Migration — taystudio.github.io → taystudios.com</title>
+  <meta name="description" content="Naver SA 신규 도메인 사이트 등록 + 검증 + 인덱싱 가속 진행 기록.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Inter", "Noto Sans KR", sans-serif;
+      font-size: 15px; line-height: 1.65;
+      color: #1F2933; background: #F6F8FB;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #03C75A; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: "SF Mono", "Menlo", "Consolas", "Monaco", monospace;
+           background: #F1F4F8; border: 1px solid #E5EAF0;
+           padding: 1px 6px; border-radius: 4px; font-size: 0.88em; color: #028A3F; }
+    pre {
+      background: #0F1721; color: #D7DDE4;
+      padding: 16px 18px; border-radius: 10px;
+      overflow-x: auto; font-size: 12.5px; line-height: 1.55;
+      font-family: "SF Mono", "Menlo", "Consolas", "Monaco", monospace;
+      border: 1px solid #1F2D3F; margin: 12px 0;
+    }
+    pre code { background: transparent; border: none; padding: 0; color: inherit; }
+
+    /* ========== Hero ========== */
+    .hero {
+      background: linear-gradient(135deg, #0F1721 0%, #0A4023 60%, #028A3F 100%);
+      color: #fff;
+      padding: 56px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; right: -120px; top: -80px;
+      width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(3,199,90,0.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 980px; margin: 0 auto; position: relative; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(3,199,90,0.18); color: #6FE2A2;
+      padding: 6px 14px; border-radius: 999px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.4px;
+      border: 1px solid rgba(3,199,90,0.36);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: 34px; font-weight: 800; margin: 0 0 14px;
+      line-height: 1.2; letter-spacing: -0.4px;
+    }
+    .hero h1 .arrow { color: #03C75A; margin: 0 10px; }
+    .hero h1 .from { opacity: 0.55; font-weight: 600; }
+    .hero p.lead {
+      font-size: 16px; color: #B8DBC4; max-width: 720px;
+      margin: 0 0 26px; line-height: 1.65;
+    }
+    .meta-row {
+      display: flex; gap: 22px; flex-wrap: wrap;
+      font-size: 13px; color: #93B5A1; margin-top: 12px;
+    }
+    .meta-row b { color: #fff; }
+    .progress-bar {
+      background: rgba(255,255,255,0.08); border-radius: 999px;
+      height: 10px; max-width: 720px; margin-top: 14px;
+      overflow: hidden;
+    }
+    .progress-bar .fill {
+      height: 100%; width: 50%;
+      background: linear-gradient(90deg, #03C75A 0%, #6FE2A2 100%);
+      border-radius: 999px;
+      box-shadow: 0 0 12px rgba(3,199,90,0.55);
+    }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 24px; }
+      .hero h1 .arrow { display: block; margin: 4px 0; }
+    }
+
+    /* ========== Container ========== */
+    .container {
+      max-width: 980px; margin: -48px auto 64px;
+      padding: 0 24px; position: relative;
+    }
+    section { margin-bottom: 48px; }
+    h2 {
+      font-size: 22px; font-weight: 800; margin: 0 0 6px;
+      letter-spacing: -0.2px; color: #0F1721;
+      display: flex; align-items: center; gap: 12px;
+    }
+    h2 .badge {
+      flex: 0 0 auto;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 4px 12px; border-radius: 8px;
+      background: linear-gradient(135deg, #03C75A 0%, #6FE2A2 100%);
+      color: #fff; font-size: 12px; font-weight: 800;
+      box-shadow: 0 4px 12px rgba(3,199,90,0.32);
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    h2 .badge.done { background: linear-gradient(135deg, #2EA44F 0%, #4CC76A 100%); box-shadow: 0 4px 12px rgba(46,164,79,0.32); }
+    h2 .badge.next { background: linear-gradient(135deg, #F38020 0%, #FAAD3F 100%); box-shadow: 0 4px 12px rgba(243,128,32,0.32); }
+    h2 .badge.user { background: linear-gradient(135deg, #1976D2 0%, #4096E0 100%); box-shadow: 0 4px 12px rgba(25,118,210,0.32); }
+    h2 .badge.plain { background: #1F2D3F; box-shadow: none; }
+    .section-sub { color: #6B7785; font-size: 13.5px; margin: 6px 0 22px 0; }
+
+    h3 { font-size: 16px; font-weight: 700; margin: 24px 0 10px; color: #1F2D3F; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 12px; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+
+    /* ========== Status grid ========== */
+    .status-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .status-card {
+      background: #fff; border-radius: 10px;
+      padding: 18px 20px; border: 1px solid #E5EAF0;
+      border-left: 4px solid #03C75A;
+      box-shadow: 0 1px 3px rgba(15,23,33,0.04);
+    }
+    .status-card .label {
+      font-size: 11px; color: #6B7785; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 6px;
+    }
+    .status-card .value { font-weight: 700; font-size: 14px; color: #1F2D3F; margin-bottom: 4px; }
+    .status-card .meta { font-size: 12px; color: #6B7785; line-height: 1.45; }
+
+    /* ========== Step block ========== */
+    .step-block {
+      background: #fff; border-radius: 14px;
+      padding: 26px 28px 22px; margin-bottom: 22px;
+      border: 1px solid #E5EAF0;
+      box-shadow: 0 4px 16px rgba(15,23,33,0.06);
+      border-top: 4px solid #03C75A;
+      position: relative;
+    }
+    .step-block.user { border-top-color: #F38020; }
+    .step-block.both { border-top-color: #6B7785; }
+    .step-block .step-head {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 14px;
+    }
+    .step-block .step-num {
+      flex: 0 0 auto;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, #03C75A 0%, #6FE2A2 100%);
+      color: #fff; font-size: 17px; font-weight: 800;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(3,199,90,0.32);
+    }
+    .step-block.user .step-num { background: linear-gradient(135deg, #F38020 0%, #FAAD3F 100%); box-shadow: 0 4px 12px rgba(243,128,32,0.32); }
+    .step-block.both .step-num { background: linear-gradient(135deg, #1F2D3F 0%, #4A5A6E 100%); box-shadow: 0 4px 12px rgba(31,45,63,0.32); }
+    .step-block .step-title { font-size: 18px; font-weight: 700; color: #0F1721; margin-bottom: 2px; }
+    .step-block .step-meta { font-size: 12.5px; color: #6B7785; }
+    .step-block .step-meta .who-pill {
+      display: inline-block; padding: 2px 8px; border-radius: 999px;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.3px;
+      margin-right: 6px; vertical-align: middle;
+    }
+    .step-block .who-pill.auto { background: #E7F5EC; color: #028A3F; }
+    .step-block .who-pill.user { background: #FFF1E5; color: #C26414; }
+    .step-block .who-pill.both { background: #F1F4F8; color: #4A5A6E; }
+
+    /* ========== Diff box ========== */
+    .diff-box {
+      background: #FAFBFC; border: 1px solid #E5EAF0;
+      border-radius: 8px; padding: 14px 16px;
+      font-family: "SF Mono", Menlo, monospace;
+      font-size: 12.5px; line-height: 1.6;
+      margin: 10px 0;
+    }
+    .diff-box .added {
+      background: #E7F5EC; color: #028A3F;
+      display: block; padding: 1px 8px;
+    }
+    .diff-box .added::before { content: '+ '; color: #03C75A; font-weight: 700; }
+    .diff-box .ctx { display: block; padding: 1px 8px; color: #6B7785; }
+
+    /* ========== Result table ========== */
+    table.result {
+      width: 100%; border-collapse: collapse; margin: 12px 0;
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 10px;
+      overflow: hidden;
+    }
+    table.result th, table.result td {
+      padding: 11px 14px; text-align: left; font-size: 13.5px;
+      border-bottom: 1px solid #E5EAF0; vertical-align: top;
+    }
+    table.result th { background: #F4FAF6; font-weight: 700; color: #1F2D3F; font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+    table.result tr:last-child td { border-bottom: none; }
+    table.result td.ok { color: #237D3D; font-weight: 700; }
+    table.result td.warn { color: #C26414; font-weight: 700; }
+
+    /* ========== Comparison table ========== */
+    table.cmp {
+      width: 100%; border-collapse: collapse; margin: 12px 0;
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 10px;
+      overflow: hidden;
+    }
+    table.cmp th, table.cmp td {
+      padding: 11px 14px; text-align: left; font-size: 13.5px;
+      border-bottom: 1px solid #E5EAF0; vertical-align: top;
+    }
+    table.cmp th { background: #F8FAFC; font-weight: 700; color: #1F2D3F; font-size: 12px; }
+    table.cmp tr:last-child td { border-bottom: none; }
+    table.cmp td:nth-child(2) { color: #1565C0; font-weight: 600; }
+    table.cmp td:nth-child(3) { color: #028A3F; font-weight: 600; }
+
+    /* ========== Cards ========== */
+    .card {
+      background: #fff; border-radius: 10px;
+      border: 1px solid #E5EAF0; padding: 16px 20px; margin-bottom: 14px;
+    }
+    .card.tip { border-left: 4px solid #03C75A; background: #F4FAF6; }
+    .card.warn { border-left: 4px solid #F38020; background: #FFF8F0; }
+    .card.danger { border-left: 4px solid #E11D48; background: #FFF5F7; }
+    .card.success { border-left: 4px solid #2EA44F; background: #F2FAF5; }
+    .card-title {
+      font-weight: 700; font-size: 14px; margin-bottom: 6px;
+      color: #1F2D3F;
+    }
+    .card.tip .card-title { color: #028A3F; }
+    .card.warn .card-title { color: #C26414; }
+    .card.danger .card-title { color: #B91C3C; }
+    .card.success .card-title { color: #1A6B36; }
+
+    /* ========== Timeline ========== */
+    .timeline {
+      background: #fff; border-radius: 12px; padding: 20px 26px;
+      border: 1px solid #E5EAF0;
+    }
+    .timeline-row {
+      display: grid; grid-template-columns: 80px 1fr 96px;
+      gap: 14px; align-items: center;
+      padding: 11px 0; border-bottom: 1px solid #F1F4F8;
+    }
+    .timeline-row:last-child { border-bottom: none; }
+    .timeline-row .when {
+      font-weight: 700; font-size: 12.5px; color: #03C75A;
+      font-family: "SF Mono", Menlo, monospace;
+    }
+    .timeline-row .what { font-size: 13.5px; color: #1F2933; }
+    .timeline-row .what b { color: #1F2D3F; }
+    .timeline-row .who {
+      font-size: 11px; padding: 4px 10px; border-radius: 999px;
+      text-align: center; font-weight: 600;
+    }
+    .timeline-row .who.auto { background: #E7F5EC; color: #028A3F; }
+    .timeline-row .who.user { background: #FFF1E5; color: #C26414; }
+    .timeline-row .who.both { background: #F1F4F8; color: #4A5A6E; }
+    @media (max-width: 600px) {
+      .timeline-row { grid-template-columns: 1fr; gap: 4px; }
+      .timeline-row .who { justify-self: start; padding: 2px 8px; }
+    }
+
+    /* ========== Checklist ========== */
+    .check-list {
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 12px;
+      padding: 16px 20px;
+      list-style: none; padding-left: 24px;
+    }
+    .check-list li {
+      padding: 8px 0 8px 28px; position: relative;
+      border-bottom: 1px dashed #E5EAF0; font-size: 14px;
+    }
+    .check-list li:last-child { border-bottom: none; }
+    .check-list li.done::before {
+      content: '✓'; position: absolute; left: 0; top: 6px;
+      color: #2EA44F; font-size: 16px; font-weight: 700;
+    }
+    .check-list li.todo::before {
+      content: '☐'; position: absolute; left: 0; top: 6px;
+      color: #94A3B0; font-size: 16px;
+    }
+    .check-list li.done { color: #6B7785; text-decoration: line-through; text-decoration-color: #C5CFD9; }
+
+    .url-list {
+      background: #FAFBFC; border: 1px solid #E5EAF0; border-radius: 8px;
+      padding: 12px 16px; font-family: "SF Mono", Menlo, monospace;
+      font-size: 12.5px; line-height: 1.85; color: #1F2D3F;
+      margin: 12px 0;
+    }
+
+    .pill {
+      display: inline-block; padding: 3px 10px; border-radius: 999px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+    }
+    .pill.todo { background: #FFF1E5; color: #C26414; }
+    .pill.done { background: #E7F4ED; color: #237D3D; }
+
+    .doc-footer {
+      max-width: 980px; margin: 32px auto 64px; padding: 24px;
+      border-top: 1px solid #E5EAF0; color: #6B7785; font-size: 13px;
+      text-align: center;
+    }
+    .doc-footer a { color: #03C75A; }
+  </style>
+</head>
+<body>
+
+  <!-- ========== Hero ========== -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">🟢 Naver Search Advisor · 도메인 Migration</div>
+      <h1>
+        <span class="from">taystudio.github.io</span>
+        <span class="arrow">→</span>
+        taystudios.com
+      </h1>
+      <p class="lead">
+        2026-05-09 Naver SA 신규 도메인 사이트 등록 + 소유 확인까지 진행 기록. 옛 사이트는 그대로 유지하면서
+        병행 운영 — Naver는 Google과 달리 "주소 변경" 기능이 없어 301 redirect로 자연 이전.
+      </p>
+      <div class="progress-bar"><div class="fill"></div></div>
+      <div class="meta-row">
+        <span><b>실행일</b> 2026-05-09</span>
+        <span><b>방식</b> 사이트 등록 + HTML 태그 검증</span>
+        <span><b>현 상태</b> 검증 메타 라이브 반영 완료 / 소유 확인 + 인덱싱 가속 작업 사용자 진행 중</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ========== 시작 상태 ========== -->
+    <section>
+      <h2><span class="badge done">시작 전</span> 전제 조건</h2>
+      <p class="section-sub">Naver SA migration 시작 전 충족돼 있어야 하는 조건. GSC 단계와 거의 동일.</p>
+
+      <div class="status-grid">
+        <div class="status-card">
+          <div class="label">신규 도메인 라이브</div>
+          <div class="value">https://taystudios.com</div>
+          <div class="meta">HTTP 200 + Let's Encrypt cert<br>GitHub Pages 자동 발급</div>
+        </div>
+        <div class="status-card">
+          <div class="label">301 redirect</div>
+          <div class="value">옛 → 신규 자동</div>
+          <div class="meta">https://taystudio.github.io/* → https://taystudios.com/*</div>
+        </div>
+        <div class="status-card">
+          <div class="label">Enforce HTTPS</div>
+          <div class="value">ON</div>
+          <div class="meta">http:// → 301 → https://</div>
+        </div>
+        <div class="status-card">
+          <div class="label">옛 Naver 사이트 존재</div>
+          <div class="value">taystudio.github.io</div>
+          <div class="meta">기존 운영 중인 SA 사이트<br>인덱스 시그널 보유</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Naver vs Google 차이점 ========== -->
+    <section>
+      <h2><span class="badge plain">차이점</span> Naver vs Google — 미리 알아두기</h2>
+      <p class="section-sub">같은 검증 콘솔이지만 운영 모델이 꽤 달라. 인덱싱 가속에 직결되는 점들.</p>
+
+      <table class="cmp">
+        <thead>
+          <tr><th>항목</th><th>Google Search Console</th><th>Naver Search Advisor</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>인증 후 sitemap 자동 픽업</td>
+            <td>강함 (robots.txt 자동 감지)</td>
+            <td>약함 — 수동 제출 필수</td>
+          </tr>
+          <tr>
+            <td>인덱싱 속도</td>
+            <td>자연 크롤 빠름</td>
+            <td>느림 — "웹페이지 수집 요청" 수동 push 필수</td>
+          </tr>
+          <tr>
+            <td>주소 변경(Change of Address) 기능</td>
+            <td>있음 — 시그널 자동 이전</td>
+            <td>없음 — 301 redirect로 자연 이전만</td>
+          </tr>
+          <tr>
+            <td>일일 색인/수집 요청 한도</td>
+            <td>충분</td>
+            <td>도메인당 약 50건/일 (빡빡)</td>
+          </tr>
+          <tr>
+            <td>한국 검색 점유율</td>
+            <td>약 60%</td>
+            <td>약 30% (필수 채널)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="card warn">
+        <div class="card-title">📌 시사점</div>
+        Naver는 인증 끝나도 끝난 게 아님 — sitemap 제출 + 핵심 URL 수집 요청까지 해야 인덱싱 시작.
+        한국 트래픽 30%가 걸려 있으니 작업 빠뜨리면 손해 큼.
+      </div>
+    </section>
+
+    <!-- ========== 단계별 진행 ========== -->
+    <section>
+      <h2><span class="badge done">실행</span> 단계별 진행</h2>
+      <p class="section-sub">사용자 액션 = SA UI 클릭 / 자동 처리 = repo 코드 edit + commit/push.</p>
+
+      <!-- Step 1 -->
+      <div class="step-block user">
+        <div class="step-head">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">신규 사이트 등록 — HTML 태그 검증</div>
+            <div class="step-meta">
+              <span class="who-pill user">사용자 액션</span>
+              <span>searchadvisor.naver.com → 웹마스터 도구 → 사이트 등록</span>
+            </div>
+          </div>
+        </div>
+        <ul>
+          <li>로그인 후 우측 상단 <b>"웹마스터 도구"</b> 진입</li>
+          <li>상단 입력란에 <code>https://taystudios.com</code> → <b>"등록"</b></li>
+          <li>검증 방식 두 옵션 중 <b>"HTML 태그"</b> 선택 (head meta 일관성)</li>
+          <li>Naver가 발급한 검증 코드:
+            <pre><code>&lt;meta name="naver-site-verification" content="4cdee18ea9529c885139c0d5971830541da2b23c" /&gt;</code></pre>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">검증 메타 추가 — 옛 코드 유지 병행</div>
+            <div class="step-meta">
+              <span class="who-pill auto">자동 처리</span>
+              <span>index.html 옛 naver 메타 다음 줄에 삽입</span>
+            </div>
+          </div>
+        </div>
+        <p>옛 사이트(taystudio.github.io)도 SA에 그대로 유지해야 인덱스 자연 이전이 추적됨. 따라서 옛 검증 메타 그대로 두고 신규 메타를 추가. Naver도 동일 name 메타 중복 허용.</p>
+        <div class="diff-box">
+          <span class="ctx">  &lt;meta name="google-site-verification" content="X6nU3Kz5e0V_..."&gt;</span>
+          <span class="ctx">  &lt;meta name="google-site-verification" content="uiMTiQjh9FfPJu7..."&gt;</span>
+          <span class="ctx">  &lt;meta name="naver-site-verification" content="bfe7d4c2ed7faf..."&gt;  &lt;!-- 옛 --&gt;</span>
+          <span class="added">  &lt;meta name="naver-site-verification" content="4cdee18ea9529c..."&gt;  &lt;!-- 신규 --&gt;</span>
+          <span class="ctx">  &lt;meta name="msvalidate.01" content="064396E810073C47308AEC058EDC3846" /&gt;</span>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">commit + push — GitHub Pages 배포</div>
+            <div class="step-meta">
+              <span class="who-pill auto">자동 처리</span>
+              <span>commit c170f15</span>
+            </div>
+          </div>
+        </div>
+        <pre><code>git add index.html
+git commit -m "feat: Naver SA 신규 도메인 property 검증 meta 추가"
+git push origin main</code></pre>
+        <p>배포 polling — 약 30~40초 후 라이브 반영:</p>
+        <pre><code>$ curl -sS https://taystudios.com/ | grep naver-site-verification
+  &lt;meta name="naver-site-verification" content="bfe7d4c2ed7faf..."&gt;   ← 옛
+  &lt;meta name="naver-site-verification" content="4cdee18ea9529c..."&gt; ← 신규</code></pre>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-block user">
+        <div class="step-head">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">"소유 확인" 클릭 → 검증 통과</div>
+            <div class="step-meta">
+              <span class="who-pill user">사용자 액션</span>
+              <span>발급 화면에서 "소유 확인" 버튼</span>
+            </div>
+          </div>
+        </div>
+        <p>Naver가 <code>https://taystudios.com/</code> fetch → head 안에서 <code>4cdee18ea9529c...</code> 검증 코드 발견 → 즉시 통과. GSC와 달리 주소 변경 자동 유도 화면은 없음. 검증 통과 후 바로 사이트 대시보드로 진입.</p>
+      </div>
+    </section>
+
+    <!-- ========== 다음 미완료 ========== -->
+    <section>
+      <h2><span class="badge next">다음</span> 인덱싱 가속 작업 (필수)</h2>
+      <p class="section-sub">Naver는 인증만으로 끝나지 않음. 다음 4가지 수동 작업이 인덱싱 속도를 결정.</p>
+
+      <ul class="check-list">
+        <li class="todo"><b>사이트맵 제출</b> — 좌측 메뉴 <code>요청 → 사이트맵 제출</code> → 입력란에 <code>sitemap.xml</code> (path만) → "확인"</li>
+        <li class="todo"><b>RSS 제출</b> — 현재 RSS 안 만들었으므로 skip</li>
+        <li class="todo"><b>웹페이지 수집 요청</b> — <code>요청 → 웹페이지 수집 요청</code> → 핵심 URL 수동 push (도메인 50건/일 한도)</li>
+        <li class="todo"><b>robots.txt 검증</b> — <code>검증 → robots.txt</code> → Sitemap 줄 인지 확인</li>
+        <li class="todo"><b>사이트 최적화 점수 확인</b> — <code>검증 → 사이트 최적화</code> → 80+ 목표 (현재 head 시그널 박혀 있어 만점 가까이 예상)</li>
+        <li class="todo"><b>옛 사이트 정리</b> — 6개월 후 옛 사이트(taystudio.github.io) 등록 삭제 (지금은 유지)</li>
+      </ul>
+
+      <h3>웹페이지 수집 요청 — 우선순위 URL (13개)</h3>
+      <p>한 번에 다 들어가지 않으면 5건씩 끊어서 제출. 트래픽/매출 기여도 큰 도구부터.</p>
+      <div class="url-list">
+        https://taystudios.com/<br>
+        https://taystudios.com/tools/<br>
+        https://taystudios.com/tools/salary/<br>
+        https://taystudios.com/tools/capgain/<br>
+        https://taystudios.com/tools/property-tax/<br>
+        https://taystudios.com/tools/comp-property/<br>
+        https://taystudios.com/text/<br>
+        https://taystudios.com/image/<br>
+        https://taystudios.com/image/compress/<br>
+        https://taystudios.com/pdf/<br>
+        https://taystudios.com/pdf/pdf-merge/<br>
+        https://taystudios.com/video/<br>
+        https://taystudios.com/video/compress/
+      </div>
+    </section>
+
+    <!-- ========== 변경 파일 ========== -->
+    <section>
+      <h2><span class="badge done">변경</span> 이번에 건드린 파일</h2>
+      <table class="result">
+        <thead>
+          <tr><th>파일</th><th>변경 내용</th><th>commit</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>index.html</code></td>
+            <td>line 13 위치에 naver-site-verification meta 1줄 추가 (신규 site 검증용, 옛 코드 유지)</td>
+            <td><code>c170f15</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ========== 의사결정 메모 ========== -->
+    <section>
+      <h2><span class="badge">결정</span> 의사결정 메모</h2>
+
+      <div class="card tip">
+        <div class="card-title">옛 Naver 사이트 유지 — 6개월 정책</div>
+        <p style="margin: 0;">
+          Naver는 주소 변경 기능이 없어서 옛 사이트의 인덱스 시그널이 신규로 자동 이전되지 않음.
+          그래서 옛 사이트 등록을 유지하면서 301 redirect로 Naver 봇이 점진 갱신하도록 둠. 옛 검증 메타도 동일 기간 유지.
+          6개월 후 옛 사이트 노출/클릭 트렌드가 거의 0이면 옛 사이트 삭제 + 옛 메타 줄 제거.
+        </p>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">웹페이지 수집 요청 — 13개 우선순위</div>
+        <p style="margin: 0;">
+          50건/일 한도가 있어 전체 sitemap(67 URL) 한 번에 제출 X. 트래픽/매출 기여도 + 카테고리 hub 위주로 13개 추림 (메인 1 + 카테고리 5 + 핵심 도구 7).
+          나머지 long-tail은 sitemap + 자연 크롤로 위임. 효과 검증은 SA 노출/클릭 통계로 1~2주 후.
+        </p>
+      </div>
+
+      <div class="card warn">
+        <div class="card-title">옛 사이트 즉시 삭제 금지</div>
+        <p style="margin: 0;">
+          옛 사이트 삭제 시 Naver 봇이 redirect 추적 신호를 잃을 수 있음. 자연 이전이 끝났다고 판단되는 시점(6개월 후)에 삭제.
+          삭제 전에 SA 옛 사이트 분석 화면에서 노출 트렌드 확인 필수.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== 타임라인 ========== -->
+    <section>
+      <h2><span class="badge done">타임라인</span> 2026-05-09</h2>
+      <div class="timeline">
+        <div class="timeline-row">
+          <span class="when">15:01</span>
+          <span class="what"><b>GSC 작업 완료</b> — 신규 property 검증 + 주소 변경 이전 중</span>
+          <span class="who both">완료</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">15:03</span>
+          <span class="what"><b>Naver SA 사이트 등록 시작</b> — taystudios.com 입력 + HTML 태그 검증 선택</span>
+          <span class="who user">사용자</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">15:04</span>
+          <span class="what"><b>검증 코드 발급</b> — <code>4cdee18ea9529c885139c0d5971830541da2b23c</code></span>
+          <span class="who user">사용자</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">15:05</span>
+          <span class="what"><b>index.html edit</b> — 신규 naver-site-verification meta 추가 (옛 코드 유지)</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">15:05</span>
+          <span class="what"><b>commit c170f15 + push</b> — Naver SA 검증 메타</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">15:06</span>
+          <span class="what"><b>GitHub Pages 배포 완료</b> — 신규 메타 라이브 반영 (curl polling 2회만에 발견)</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">진행 중</span>
+          <span class="what"><b>SA "소유 확인" 클릭 + 인덱싱 가속 작업</b> — 사이트맵 제출 + 웹페이지 수집 요청 + robots.txt 검증</span>
+          <span class="who user">사용자</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 검증 명령 ========== -->
+    <section>
+      <h2><span class="badge">재현</span> 검증 명령</h2>
+      <p class="section-sub">6개월 후 옛 사이트 정리 시점에 다시 실행해서 상태 확인용.</p>
+      <pre><code># 1. 두 검증 메타 라이브 존재 확인
+curl -sS https://taystudios.com/ | grep naver-site-verification
+
+# 기대: 두 줄 (옛 + 신규)
+#   &lt;meta name="naver-site-verification" content="bfe7d4c2ed7faf..."&gt;
+#   &lt;meta name="naver-site-verification" content="4cdee18ea9529c..."&gt;
+
+# 2. 301 redirect 동작 (Naver 봇이 옛 → 신규 매핑하는 경로)
+curl -sSI https://taystudio.github.io/ | head -3
+# 기대: HTTP/2 301 Moved Permanently / Location: https://taystudios.com/
+
+# 3. sitemap.xml 정상 응답 (Naver SA 사이트맵 제출 대상)
+curl -sSI https://taystudios.com/sitemap.xml | head -3
+curl -sS  https://taystudios.com/sitemap.xml | grep -c '&lt;loc&gt;'
+# 기대: HTTP/2 200 / 67개 URL</code></pre>
+    </section>
+
+    <!-- ========== 관련 문서 ========== -->
+    <section>
+      <h2><span class="badge plain">참조</span> 관련 문서</h2>
+      <ul>
+        <li><a href="../">history/migration/index.html</a> — 도메인 migration 전체 dashboard</li>
+        <li><a href="../google-search-console/">history/migration/google-search-console/</a> — GSC 작업 기록 (직전 단계)</li>
+        <li><a href="../../checklist/2026-05-09-domain-migration-live-check.md">history/checklist/2026-05-09-domain-migration-live-check.md</a> — 라이브 응답 14항목 검증</li>
+        <li>다음 작업 = Bing Webmaster Tools (Site Moves 기능 핵심) → AdSense → IndexNow ping</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="doc-footer">
+    작성 2026-05-09 · Naver SA migration 진행 기록 · noindex/nofollow (운영자 전용)
+  </footer>
+
+</body>
+</html>
