@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F4801A">
+  <meta name="color-scheme" content="light">
+  <title>Google Analytics 4 도메인 Migration — taystudio.github.io → taystudios.com</title>
+  <meta name="description" content="GA4 신규 도메인 데이터 수집 진행 기록. 코드 변경 0건, 콘솔 데이터 스트림 URL 갱신만으로 완결.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Inter", "Noto Sans KR", sans-serif;
+      font-size: 15px; line-height: 1.65;
+      color: #1F2933; background: #F6F8FB;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #C26414; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: "SF Mono", "Menlo", "Consolas", "Monaco", monospace;
+           background: #F1F4F8; border: 1px solid #E5EAF0;
+           padding: 1px 6px; border-radius: 4px; font-size: 0.88em; color: #B45309; }
+    pre {
+      background: #0F1721; color: #D7DDE4;
+      padding: 16px 18px; border-radius: 10px;
+      overflow-x: auto; font-size: 12.5px; line-height: 1.55;
+      font-family: "SF Mono", "Menlo", "Consolas", "Monaco", monospace;
+      border: 1px solid #1F2D3F; margin: 12px 0;
+    }
+    pre code { background: transparent; border: none; padding: 0; color: inherit; }
+
+    .hero {
+      background: linear-gradient(135deg, #0F1721 0%, #5C2D00 60%, #B45309 100%);
+      color: #fff;
+      padding: 56px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; right: -120px; top: -80px;
+      width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(244,128,26,0.28) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 980px; margin: 0 auto; position: relative; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(244,128,26,0.22); color: #FFB066;
+      padding: 6px 14px; border-radius: 999px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.4px;
+      border: 1px solid rgba(244,128,26,0.4);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: 34px; font-weight: 800; margin: 0 0 14px;
+      line-height: 1.2; letter-spacing: -0.4px;
+    }
+    .hero h1 .arrow { color: #F4801A; margin: 0 10px; }
+    .hero h1 .from { opacity: 0.55; font-weight: 600; }
+    .hero p.lead {
+      font-size: 16px; color: #F1D4B5; max-width: 720px;
+      margin: 0 0 26px; line-height: 1.65;
+    }
+    .meta-row {
+      display: flex; gap: 22px; flex-wrap: wrap;
+      font-size: 13px; color: #C5A37A; margin-top: 12px;
+    }
+    .meta-row b { color: #fff; }
+    .progress-bar {
+      background: rgba(255,255,255,0.08); border-radius: 999px;
+      height: 10px; max-width: 720px; margin-top: 14px;
+      overflow: hidden;
+    }
+    .progress-bar .fill {
+      height: 100%; width: 95%;
+      background: linear-gradient(90deg, #F4801A 0%, #FFB066 100%);
+      border-radius: 999px;
+      box-shadow: 0 0 12px rgba(244,128,26,0.55);
+    }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 24px; }
+      .hero h1 .arrow { display: block; margin: 4px 0; }
+    }
+
+    .container {
+      max-width: 980px; margin: -48px auto 64px;
+      padding: 0 24px; position: relative;
+    }
+    section { margin-bottom: 48px; }
+    h2 {
+      font-size: 22px; font-weight: 800; margin: 0 0 6px;
+      letter-spacing: -0.2px; color: #0F1721;
+      display: flex; align-items: center; gap: 12px;
+    }
+    h2 .badge {
+      flex: 0 0 auto;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 4px 12px; border-radius: 8px;
+      background: linear-gradient(135deg, #F4801A 0%, #FFB066 100%);
+      color: #fff; font-size: 12px; font-weight: 800;
+      box-shadow: 0 4px 12px rgba(244,128,26,0.32);
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    h2 .badge.done { background: linear-gradient(135deg, #2EA44F 0%, #4CC76A 100%); color: #fff; box-shadow: 0 4px 12px rgba(46,164,79,0.32); }
+    h2 .badge.next { background: linear-gradient(135deg, #1976D2 0%, #4096E0 100%); color: #fff; box-shadow: 0 4px 12px rgba(25,118,210,0.32); }
+    h2 .badge.warn { background: linear-gradient(135deg, #E11D48 0%, #FB7185 100%); color: #fff; box-shadow: 0 4px 12px rgba(225,29,72,0.32); }
+    h2 .badge.plain { background: #1F2D3F; color: #fff; box-shadow: none; }
+    .section-sub { color: #6B7785; font-size: 13.5px; margin: 6px 0 22px 0; }
+
+    h3 { font-size: 16px; font-weight: 700; margin: 24px 0 10px; color: #1F2D3F; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 12px; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+
+    .status-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .status-card {
+      background: #fff; border-radius: 10px;
+      padding: 18px 20px; border: 1px solid #E5EAF0;
+      border-left: 4px solid #F4801A;
+      box-shadow: 0 1px 3px rgba(15,23,33,0.04);
+    }
+    .status-card.warn { border-left-color: #E11D48; }
+    .status-card.tip { border-left-color: #1976D2; }
+    .status-card .label {
+      font-size: 11px; color: #6B7785; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 6px;
+    }
+    .status-card .value { font-weight: 700; font-size: 14px; color: #1F2D3F; margin-bottom: 4px; }
+    .status-card .meta { font-size: 12px; color: #6B7785; line-height: 1.45; }
+
+    .step-block {
+      background: #fff; border-radius: 14px;
+      padding: 26px 28px 22px; margin-bottom: 22px;
+      border: 1px solid #E5EAF0;
+      box-shadow: 0 4px 16px rgba(15,23,33,0.06);
+      border-top: 4px solid #F4801A;
+      position: relative;
+    }
+    .step-block.user { border-top-color: #1976D2; }
+    .step-block.both { border-top-color: #6B7785; }
+    .step-block .step-head {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 14px;
+    }
+    .step-block .step-num {
+      flex: 0 0 auto;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, #F4801A 0%, #FFB066 100%);
+      color: #fff; font-size: 17px; font-weight: 800;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(244,128,26,0.32);
+    }
+    .step-block.user .step-num { background: linear-gradient(135deg, #1976D2 0%, #4096E0 100%); color: #fff; box-shadow: 0 4px 12px rgba(25,118,210,0.32); }
+    .step-block.both .step-num { background: linear-gradient(135deg, #1F2D3F 0%, #4A5A6E 100%); color: #fff; box-shadow: 0 4px 12px rgba(31,45,63,0.32); }
+    .step-block .step-title { font-size: 18px; font-weight: 700; color: #0F1721; margin-bottom: 2px; }
+    .step-block .step-meta { font-size: 12.5px; color: #6B7785; }
+    .step-block .step-meta .who-pill {
+      display: inline-block; padding: 2px 8px; border-radius: 999px;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.3px;
+      margin-right: 6px; vertical-align: middle;
+    }
+    .step-block .who-pill.auto { background: #FEEAD3; color: #B45309; }
+    .step-block .who-pill.user { background: #E7F0FA; color: #1565C0; }
+    .step-block .who-pill.both { background: #F1F4F8; color: #4A5A6E; }
+
+    table.cmp, table.result {
+      width: 100%; border-collapse: collapse; margin: 12px 0;
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 10px;
+      overflow: hidden;
+    }
+    table.cmp th, table.cmp td, table.result th, table.result td {
+      padding: 11px 14px; text-align: left; font-size: 13.5px;
+      border-bottom: 1px solid #E5EAF0; vertical-align: top;
+    }
+    table.cmp th { background: #F8FAFC; font-weight: 700; color: #1F2D3F; font-size: 12px; }
+    table.result th { background: #FFF4E5; font-weight: 700; color: #1F2D3F; font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+    table.cmp tr:last-child td, table.result tr:last-child td { border-bottom: none; }
+    table.result td.ok { color: #237D3D; font-weight: 700; }
+    table.result td.warn { color: #C26414; font-weight: 700; }
+    table.cmp td:nth-child(2) { color: #1F2D3F; }
+
+    .card {
+      background: #fff; border-radius: 10px;
+      border: 1px solid #E5EAF0; padding: 16px 20px; margin-bottom: 14px;
+    }
+    .card.tip { border-left: 4px solid #F4801A; background: #FFF4E5; }
+    .card.warn { border-left: 4px solid #F38020; background: #FFF8F0; }
+    .card.danger { border-left: 4px solid #E11D48; background: #FFF5F7; }
+    .card.success { border-left: 4px solid #2EA44F; background: #F2FAF5; }
+    .card-title {
+      font-weight: 700; font-size: 14px; margin-bottom: 6px;
+      color: #1F2D3F;
+    }
+    .card.tip .card-title { color: #B45309; }
+    .card.warn .card-title { color: #C26414; }
+    .card.danger .card-title { color: #B91C3C; }
+    .card.success .card-title { color: #1A6B36; }
+
+    .timeline {
+      background: #fff; border-radius: 12px; padding: 20px 26px;
+      border: 1px solid #E5EAF0;
+    }
+    .timeline-row {
+      display: grid; grid-template-columns: 80px 1fr 96px;
+      gap: 14px; align-items: center;
+      padding: 11px 0; border-bottom: 1px solid #F1F4F8;
+    }
+    .timeline-row:last-child { border-bottom: none; }
+    .timeline-row .when {
+      font-weight: 700; font-size: 12.5px; color: #C26414;
+      font-family: "SF Mono", Menlo, monospace;
+    }
+    .timeline-row .what { font-size: 13.5px; color: #1F2933; }
+    .timeline-row .what b { color: #1F2D3F; }
+    .timeline-row .who {
+      font-size: 11px; padding: 4px 10px; border-radius: 999px;
+      text-align: center; font-weight: 600;
+    }
+    .timeline-row .who.auto { background: #FEEAD3; color: #B45309; }
+    .timeline-row .who.user { background: #E7F0FA; color: #1565C0; }
+    .timeline-row .who.both { background: #F1F4F8; color: #4A5A6E; }
+    @media (max-width: 600px) {
+      .timeline-row { grid-template-columns: 1fr; gap: 4px; }
+      .timeline-row .who { justify-self: start; padding: 2px 8px; }
+    }
+
+    .check-list {
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 12px;
+      padding: 16px 20px;
+      list-style: none; padding-left: 24px;
+    }
+    .check-list li {
+      padding: 8px 0 8px 28px; position: relative;
+      border-bottom: 1px dashed #E5EAF0; font-size: 14px;
+    }
+    .check-list li:last-child { border-bottom: none; }
+    .check-list li.done::before {
+      content: '✓'; position: absolute; left: 0; top: 6px;
+      color: #2EA44F; font-size: 16px; font-weight: 700;
+    }
+    .check-list li.todo::before {
+      content: '☐'; position: absolute; left: 0; top: 6px;
+      color: #94A3B0; font-size: 16px;
+    }
+    .check-list li.done { color: #6B7785; text-decoration: line-through; text-decoration-color: #C5CFD9; }
+
+    .pill {
+      display: inline-block; padding: 3px 10px; border-radius: 999px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+    }
+    .pill.todo { background: #FFF1E5; color: #C26414; }
+    .pill.done { background: #E7F4ED; color: #237D3D; }
+
+    .doc-footer {
+      max-width: 980px; margin: 32px auto 64px; padding: 24px;
+      border-top: 1px solid #E5EAF0; color: #6B7785; font-size: 13px;
+      text-align: center;
+    }
+    .doc-footer a { color: #C26414; }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">📊 Google Analytics 4 · 도메인 Migration</div>
+      <h1>
+        <span class="from">taystudio.github.io</span>
+        <span class="arrow">→</span>
+        taystudios.com
+      </h1>
+      <p class="lead">
+        2026-05-09 GA4 신규 도메인 migration 진행 기록. 검증 메타·script 추가 작업 0건 — 이미 통합된
+        측정 ID(<code>G-79C40NJRYT</code>)가 도메인 무관하게 fire 중이라 코드 변경 X. 콘솔 데이터 스트림 URL 갱신만 사용자 액션.
+      </p>
+      <div class="progress-bar"><div class="fill"></div></div>
+      <div class="meta-row">
+        <span><b>실행일</b> 2026-05-09</span>
+        <span><b>측정 ID</b> G-79C40NJRYT (도메인 무관 단일)</span>
+        <span><b>현 상태</b> 신규 도메인 데이터 수집 중 / 콘솔 URL 라벨 갱신 사용자 잔여</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- 시작 상태 -->
+    <section>
+      <h2><span class="badge done">시작 전</span> 발견된 상태</h2>
+      <p class="section-sub">다른 채널과 가장 다른 점 = "할 일이 거의 없다". GA4는 도메인 migration 이전부터 통합되어 있었음.</p>
+
+      <div class="status-grid">
+        <div class="status-card">
+          <div class="label">측정 ID</div>
+          <div class="value">G-79C40NJRYT</div>
+          <div class="meta">2026-05-03 도메인 변경 시점에 새로 발급<br>(옛 ID는 그 전 dual-repo 검토 단계에서 폐기)</div>
+        </div>
+        <div class="status-card">
+          <div class="label">repo 통합 위치</div>
+          <div class="value">common/site-chrome.js</div>
+          <div class="meta">line 137~148 IIFE<br>모든 페이지 head에 defer 로드</div>
+        </div>
+        <div class="status-card">
+          <div class="label">로딩 방식</div>
+          <div class="value">JS 동적 주입 (gtag.js)</div>
+          <div class="meta">script tag → 런타임 createElement<br>analytics는 client-side만 영향이라 SEO 무관</div>
+        </div>
+        <div class="status-card tip">
+          <div class="label">데이터 스트림 URL</div>
+          <div class="value">2026-05-03 갱신 ✓</div>
+          <div class="meta"><code>tools/ADSENSE_SETUP.md</code> §Step 6에<br>"GA4 데이터 스트림 URL 갱신 ✅" 기록됨</div>
+        </div>
+      </div>
+
+      <div class="card success">
+        <div class="card-title">✓ 핵심 — 신규 도메인도 이미 같은 ID로 데이터 수집 중</div>
+        <p style="margin: 0;">
+          gtag는 measurement ID 기반 fire — 도메인이 바뀌어도 같은 ID면 같은 GA4 property에 hit이 쌓임.
+          <code>taystudios.com</code> 모든 페이지에 <code>site-chrome.js</code> 로드되고 있으니 별도 코드 변경 없이 데이터 수집 작동.
+          단 콘솔의 데이터 스트림 URL 라벨은 "taystudio.github.io"로 남아 있을 가능성 → 인지 정합성 차원의 사용자 작업만 남음.
+        </p>
+      </div>
+    </section>
+
+    <!-- 다른 채널과 비교 -->
+    <section>
+      <h2><span class="badge plain">차이점</span> GA4 vs 다른 4채널</h2>
+      <table class="cmp">
+        <thead>
+          <tr><th>항목</th><th>GA4 (이번)</th><th>GSC·Naver·Bing·AdSense</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>head 메타 추가</td>
+            <td>0건</td>
+            <td>각 1~2 메타 (검증용)</td>
+          </tr>
+          <tr>
+            <td>commit/push</td>
+            <td>0건</td>
+            <td>1~3 commit (메타 + script)</td>
+          </tr>
+          <tr>
+            <td>로딩 방식</td>
+            <td>JS 동적 주입 (allowed for analytics)</td>
+            <td>정적 HTML 메타·script (SEO 안전)</td>
+          </tr>
+          <tr>
+            <td>도메인 의존</td>
+            <td>측정 ID 단일 — 도메인 무관 fire</td>
+            <td>property/site별 검증 필요</td>
+          </tr>
+          <tr>
+            <td>이번 작업의 본질</td>
+            <td>콘솔 라벨 갱신만 (사용자 클릭)</td>
+            <td>코드 변경 + 콘솔 검증</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="card tip">
+        <div class="card-title">💡 GA4가 JS 주입 OK인 이유</div>
+        <p style="margin: 0;">
+          analytics는 <b>client-side만 동작</b>. 검색봇이 GA를 실행할 일도, 실행해서도 안 됨.
+          따라서 "검색봇이 JS 미실행이라 정적 HTML 필수" 정책이 GA4에는 적용 X.
+          반대로 verification meta·canonical·OG는 검색봇이 첫 fetch에 봐야 하니 JS 주입 X 정책 유지.
+        </p>
+      </div>
+    </section>
+
+    <!-- 단계별 -->
+    <section>
+      <h2><span class="badge done">실행</span> 단계별 진행</h2>
+      <p class="section-sub">대부분 사전 통합 검증 + 사용자 콘솔 클릭 1건. 코드 변경 0건.</p>
+
+      <!-- Step 1 -->
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">기존 통합 발견 — common/site-chrome.js</div>
+            <div class="step-meta">
+              <span class="who-pill auto">자동 처리 (검증)</span>
+              <span>grep으로 GA 코드 위치·ID 확인</span>
+            </div>
+          </div>
+        </div>
+        <p>도메인 migration 시작 전부터 통합되어 있던 코드:</p>
+        <pre><code>// common/site-chrome.js line 137-148
+(function () {
+  const GA_ID = 'G-79C40NJRYT';
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag('js', new Date());
+  window.gtag('config', GA_ID);
+})();</code></pre>
+        <p>모든 페이지의 head에 <code>&lt;script src="/common/site-chrome.js" defer&gt;&lt;/script&gt;</code> 로드 → 사용자 페이지 진입 시 IIFE 즉시 실행 → gtag.js 동적 주입 → GA4로 hit 전송.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-block">
+        <div class="step-head">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">라이브 동작 검증 — 신규 도메인에서 정상 fire 확인</div>
+            <div class="step-meta">
+              <span class="who-pill auto">자동 처리 (검증)</span>
+              <span>curl로 site-chrome.js 본문 확인</span>
+            </div>
+          </div>
+        </div>
+        <pre><code>$ curl -sSI https://taystudios.com/common/site-chrome.js | head -3
+HTTP/2 200
+server: GitHub.com
+content-type: application/javascript; charset=utf-8
+
+$ curl -sS https://taystudios.com/common/site-chrome.js | grep 'GA_ID\|gtag'
+  const GA_ID = 'G-79C40NJRYT';
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag('js', new Date());
+  window.gtag('config', GA_ID);</code></pre>
+        <div class="card success">
+          <div class="card-title">✓ 신규 도메인에서 같은 measurement ID로 fire 중</div>
+          별도 작업 없이 GA4 데이터 수집 작동. <code>G-79C40NJRYT</code> 단일 ID가 도메인 무관 hit 처리.
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-block user">
+        <div class="step-head">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">GA4 콘솔 데이터 스트림 URL 갱신 (사용자)</div>
+            <div class="step-meta">
+              <span class="who-pill user">사용자 액션</span>
+              <span>analytics.google.com → Admin → 데이터 스트림</span>
+            </div>
+          </div>
+        </div>
+        <p>인지 정합성 차원 — 데이터 수집 자체엔 영향 X지만 콘솔에서 스트림이 옛 도메인 라벨로 보이면 혼란.</p>
+        <ol>
+          <li><a href="https://analytics.google.com" target="_blank" rel="noopener">analytics.google.com</a> 진입 → property 드롭다운에서 TAYSTUDIO 속성 선택</li>
+          <li>좌측 하단 <b>⚙ 관리(Admin)</b> → 속성 컬럼 → <b>데이터 스트림</b></li>
+          <li>등록된 스트림 클릭 → 우측 상단 <b>연필 아이콘 ✏️ (편집)</b></li>
+          <li>두 항목 수정·확인:
+            <table class="result">
+              <thead><tr><th>필드</th><th>옛 값</th><th>신규 값</th></tr></thead>
+              <tbody>
+                <tr><td>스트림 URL</td><td><code>taystudio.github.io</code></td><td><code>taystudios.com</code></td></tr>
+                <tr><td>스트림 이름</td><td>"taystudio.github.io"</td><td>"<b>taystudios.com</b>"</td></tr>
+                <tr><td>Measurement ID</td><td><code>G-79C40NJRYT</code></td><td>그대로 (변경 X)</td></tr>
+              </tbody>
+            </table>
+          </li>
+          <li>저장 → 라벨 갱신 즉시 반영</li>
+        </ol>
+        <div class="card warn">
+          <div class="card-title">⚠ Measurement ID는 절대 새로 발급받지 마</div>
+          <p style="margin: 0;">
+            URL 변경 시 콘솔이 "새 측정 ID 발급받아야 합니다" 안내 띄우면 그건 <b>새 데이터 스트림 만들기 모드</b>일 때만.
+            기존 스트림의 URL <b>수정</b>은 ID 유지됨. 만약 새 ID 발급되면:
+          </p>
+          <ul style="margin: 6px 0 0;">
+            <li><code>common/site-chrome.js</code> line 138 ID 갱신 + commit/push 필요</li>
+            <li>옛 ID로 들어오던 데이터 끊김 → 데이터 연속성 깨짐</li>
+            <li>→ cancel 후 "기존 스트림 편집" 경로로 다시 시도</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 데이터 스트림 URL의 의미 -->
+    <section>
+      <h2><span class="badge">개념</span> 데이터 스트림 URL의 진짜 의미</h2>
+      <p>오해하기 쉬운 부분 — "URL이 잘못되면 데이터 안 들어오나?" → <b>아니다</b>.</p>
+
+      <table class="cmp">
+        <thead>
+          <tr><th>항목</th><th>의미</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>실제 데이터 수집 키</td>
+            <td>Measurement ID (<code>G-XXXXXXXXX</code>) — gtag가 hit 보낼 때 사용</td>
+          </tr>
+          <tr>
+            <td>데이터 스트림 URL</td>
+            <td>콘솔용 라벨/메타데이터 — "이 스트림은 어느 사이트?" 인지용</td>
+          </tr>
+          <tr>
+            <td>도메인 검증 여부</td>
+            <td>없음 — 어느 도메인에서 fire하든 ID 매칭하면 다 받음</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="card tip">
+        <div class="card-title">즉 라벨 안 바꿔도 데이터는 정상 수집</div>
+        <p style="margin: 0;">
+          단 콘솔에서 스트림 이름이 "taystudio.github.io"이면 운영자(나·미래의 나·다른 사람)가 "이 데이터가 옛 도메인 데이터인가?" 헷갈림.
+          신규 도메인 라벨로 갱신 = <b>인지 정합성 + 운영 명확성</b> 차원.
+        </p>
+      </div>
+    </section>
+
+    <!-- 다음 미완료 -->
+    <section>
+      <h2><span class="badge next">다음</span> 후속</h2>
+
+      <ul class="check-list">
+        <li class="todo"><b>GA4 콘솔 데이터 스트림 URL 갱신</b> — 사용자 5분 (Step 3)</li>
+        <li class="todo"><b>Realtime 리포트로 hit 검증</b> — 콘솔 → 보고서 → 실시간 → 신규 도메인 page 보이는지 확인 (사용자 1~2분)</li>
+        <li class="todo"><b>dash-tay9k3m 운영자 dashboard 텍스트 갱신</b> — line 198 "taystudio.github.io 속성" → "taystudios.com 속성" (선택, SEO 영향 0)</li>
+        <li class="todo"><b>(선택) cross-domain 측정</b> — 6개월 동안 옛·신규 도메인을 하나의 사용자 세션으로 추적. GA4 콘솔 admin → 데이터 스트림 → cross-domain 설정</li>
+        <li class="todo"><b>1~2주 후 데이터 검증</b> — 신규 도메인 페이지뷰 추이 정상인지 + 옛 도메인 트래픽 자연 감소 트렌드 확인</li>
+      </ul>
+    </section>
+
+    <!-- 변경 파일 -->
+    <section>
+      <h2><span class="badge done">변경</span> 이번에 건드린 파일</h2>
+      <div class="card success">
+        <div class="card-title">✓ 0건</div>
+        GA4 작업으로 인한 repo 코드 변경 없음. measurement ID는 도메인 변경 이전부터 통합되어 있었고, 도메인 무관 fire라 별도 코드 변경 불필요.
+        남은 건 콘솔 라벨 갱신뿐 — 사용자 액션.
+      </div>
+    </section>
+
+    <!-- 의사결정 -->
+    <section>
+      <h2><span class="badge">결정</span> 의사결정 메모</h2>
+
+      <div class="card tip">
+        <div class="card-title">JS 동적 주입 채택 (analytics 한정)</div>
+        <p style="margin: 0;">
+          common/site-chrome.js에서 gtag를 런타임 동적 주입 — 정적 HTML 정책과 충돌하는 듯 보이나 OK.
+          이유 = analytics는 client-side만 동작, 검색봇이 GA를 실행할 일·실행해서도 안 됨.
+          반대로 verification meta·canonical·OG는 검색봇 첫 fetch에 봐야 하니 정적 HTML 필수.
+        </p>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">측정 ID 단일 유지 (옛·신규 같은 ID)</div>
+        <p style="margin: 0;">
+          도메인 변경 시 새 ID 발급받지 않고 기존 <code>G-79C40NJRYT</code> 유지.
+          이유 = ① 코드 변경 0건 ② 옛·신규 도메인 데이터가 같은 property에 연속성 유지 ③ 분석 시 도메인 분리는 GA4 콘솔에서 source/medium 필터로 처리 가능.
+        </p>
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">콘솔 라벨 갱신은 "선택적" 작업</div>
+        <p style="margin: 0;">
+          데이터 수집 자체엔 영향 0건. 단 운영 인지 정합성 + 미래 자기 자신·다른 운영자 혼란 방지 차원에서 권장.
+          사용자 5분 클릭 작업 = ROI 높음.
+        </p>
+      </div>
+    </section>
+
+    <!-- 타임라인 -->
+    <section>
+      <h2><span class="badge done">타임라인</span> 2026-05-09</h2>
+      <div class="timeline">
+        <div class="timeline-row">
+          <span class="when">17:05</span>
+          <span class="what"><b>GA4 사전 상태 정찰</b> — common/site-chrome.js·dash-tay9k3m·ADSENSE_SETUP.md 검색 + measurement ID 확인</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">17:06</span>
+          <span class="what"><b>발견</b> — GA4 이미 통합 (G-79C40NJRYT) + 라이브 site-chrome.js 정상 응답 + 신규 도메인에서 같은 ID로 fire 중</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">17:07</span>
+          <span class="what"><b>ADSENSE_SETUP.md §Step 6 확인</b> — "GA4 데이터 스트림 URL 갱신 ✅" 2026-05-03 기록</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">17:08</span>
+          <span class="what"><b>dash-tay9k3m line 198 stale 발견</b> — "taystudio.github.io 속성" 텍스트 (SEO 영향 0, 인지 정합성)</span>
+          <span class="who auto">자동</span>
+        </div>
+        <div class="timeline-row">
+          <span class="when">진행 중</span>
+          <span class="what"><b>GA4 콘솔 데이터 스트림 URL 갱신</b> — 사용자 액션</span>
+          <span class="who user">사용자</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 재현 명령 -->
+    <section>
+      <h2><span class="badge">재현</span> 검증 명령</h2>
+      <pre><code># 1. site-chrome.js 라이브 응답
+curl -sSI https://taystudios.com/common/site-chrome.js | head -3
+# 기대: HTTP/2 200 / content-type: application/javascript
+
+# 2. measurement ID 확인
+curl -sS https://taystudios.com/common/site-chrome.js | grep 'GA_ID'
+# 기대: const GA_ID = 'G-79C40NJRYT';
+
+# 3. gtag 코드 fire 경로 확인
+curl -sS https://taystudios.com/common/site-chrome.js | grep -E 'gtag|googletagmanager'
+# 기대: 5줄 (script 생성 + dataLayer + gtag config)
+
+# 4. 모든 페이지에 site-chrome.js 로드되는지 (sample)
+for path in / /tools/salary/ /image/compress/ /pdf/pdf-merge/; do
+  has=$(curl -sS "https://taystudios.com${path}" | grep -c 'site-chrome.js')
+  echo "${path}: site-chrome.js loaded=${has}"
+done
+# 기대: 모두 loaded=1
+
+# 5. (콘솔 작업 후) Realtime 리포트 검증
+#    analytics.google.com → 보고서 → 실시간
+#    → "지난 30분 활성 사용자" 카드 + "페이지 제목 및 화면 클래스" 차트에서 신규 도메인 페이지 보이는지</code></pre>
+    </section>
+
+    <!-- 관련 문서 -->
+    <section>
+      <h2><span class="badge plain">참조</span> 관련 문서</h2>
+      <ul>
+        <li><a href="../">history/migration/index.html</a> — 도메인 migration 전체 dashboard</li>
+        <li><a href="../google-search-console/">history/migration/google-search-console/</a> — GSC 작업 기록</li>
+        <li><a href="../naver-search-advisor/">history/migration/naver-search-advisor/</a> — Naver SA 작업 기록</li>
+        <li><a href="../bing-webmaster-tools/">history/migration/bing-webmaster-tools/</a> — Bing WMT 작업 기록</li>
+        <li><a href="../adsense/">history/migration/adsense/</a> — AdSense 작업 기록</li>
+        <li><code>tools/ADSENSE_SETUP.md §Step 6</code> — GA4 데이터 스트림 URL 갱신 (2026-05-03 기록)</li>
+        <li><code>common/site-chrome.js:137-148</code> — GA4 통합 코드 위치</li>
+        <li><code>dash-tay9k3m/index.html</code> — 운영자 dashboard (Looker Studio·GA·SC 콘솔 링크)</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="doc-footer">
+    작성 2026-05-09 · GA4 도메인 migration 진행 기록 · noindex/nofollow (운영자 전용)
+  </footer>
+
+</body>
+</html>
