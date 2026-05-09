@@ -139,6 +139,24 @@ body {
   transform: none;
 }
 
+/* 언어 토글 — 헤더 우측, install 버튼 다음. 작은 텍스트 link. */
+.site-nav .lang-toggle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 4px 8px;
+  margin-left: 4px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
+}
+.site-nav .lang-toggle:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
 /* ≤480px = 모바일. JS가 install을 header 직접 자식으로 옮김 (site-chrome.js placeInstall).
    header는 grid 2줄: 1줄 [logo · install] / 2줄 [nav 5분할 균등].
    active 카테고리는 하단 막대(border-bottom 2px primary)로 iOS UITabBar 패턴 — 직관성 ↑. */
