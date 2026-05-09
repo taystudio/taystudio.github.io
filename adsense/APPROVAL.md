@@ -3,7 +3,7 @@
 **작성일**: 2026-05-04  
 **상태**: 신청 완료 · 심사 대기 중  
 **Publisher ID**: `ca-pub-3553250610781349`  
-**도메인**: https://taystudio.github.io/
+**도메인**: https://taystudios.com/
 
 ---
 
@@ -32,7 +32,7 @@ Google AdSense 심사는 자동 봇 + 일부 사람 검토. 봇이 사이트를 
 - 광고가 자동으로 수집하는 정보(쿠키·IP·기기 ID·광고 식별자)에 대한 고지가 핵심
 
 **우리 사이트 적용 상태** ✅
-- URL: https://taystudio.github.io/tools/privacy/
+- URL: https://taystudios.com/tools/privacy/
 - 8개 섹션 구조:
   1. 수집하는 개인정보
   2. 자동 수집 정보 (제3자 도구) — Google AdSense, Google Analytics, 쿠팡 파트너스 명시
@@ -53,7 +53,7 @@ Google AdSense 심사는 자동 봇 + 일부 사람 검토. 봇이 사이트를 
 - 분쟁 발생 시 운영자 보호 장치
 
 **우리 사이트 적용 상태** ✅
-- URL: https://taystudio.github.io/tools/terms/
+- URL: https://taystudios.com/tools/terms/
 - 8개 섹션 구조:
   1. 서비스의 성격 (계산기 도구임을 명시)
   2. 정확성 면책 (가장 중요 — 세금 계산은 추정치)
@@ -81,7 +81,7 @@ Google AdSense 심사는 자동 봇 + 일부 사람 검토. 봇이 사이트를 
 | 항목 | 상태 | 비고 |
 |---|---|---|
 | HTTPS | ✅ | GitHub Pages 자동 (Let's Encrypt) |
-| 커스텀 도메인 | ❌ | `taystudio.github.io` 사용 (서브도메인이라 평가 약간 불리) |
+| 커스텀 도메인 | ❌ | `taystudios.com` 사용 (서브도메인이라 평가 약간 불리) |
 | `ads.txt` | ✅ | repo root에 배치, publisher ID 명시 |
 | `sitemap.xml` | ✅ | repo root, 37 URL (자동 빌드 `scripts/build-sitemap.sh`) |
 | `robots.txt` | ✅ | `Sitemap:` 라인 포함, AI 봇 차단 X (수익 우선) |
@@ -165,7 +165,7 @@ AdSense 금지 콘텐츠 항목 — 우리 사이트는 모두 해당 없음:
 | **트래픽 누적 부족** | ★★★ | Search Console 인덱싱 진행 중. GA4 일일 방문자 50+ 도달 후 더 안전 |
 | ~~privacy/terms 링크 JS 의존~~ | ~~★★~~ | ✅ **2026-05-04 해결** — 정적 fallback footer 38 페이지 적용 ([FOOTER_FIX.md](FOOTER_FIX.md)) |
 | **`og:image` 공통 이미지 부재** | ★ | SNS 미리보기 약함. 보류 중 |
-| **서브도메인 사용** (`taystudio.github.io`) | ★ | 커스텀 도메인 권장이지만 강제 X |
+| **서브도메인 사용** (`taystudios.com`) | ★ | 커스텀 도메인 권장이지만 강제 X |
 
 ---
 
@@ -174,7 +174,7 @@ AdSense 금지 콘텐츠 항목 — 우리 사이트는 모두 해당 없음:
 | 날짜 | 작업 |
 |---|---|
 | **2026-04-30** | 사이트 초기 구축 — 30개 계산기 정적 HTML/CSS/JS |
-| **2026-05-03** | `taystudio.github.io` 단일 repo 통합 (URL 일괄 갱신) |
+| **2026-05-03** | `taystudios.com` 단일 repo 통합 (URL 일괄 갱신) |
 | **2026-05-03** | sitemap.xml · robots.txt 표준화 (root 배치) + 자동 빌드 스크립트 |
 | **2026-05-03** | Google Search Console 등록 + sitemap 제출 |
 | **2026-05-03** | 네이버 Search Advisor 등록 + sitemap 제출 |

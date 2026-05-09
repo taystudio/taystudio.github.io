@@ -8,7 +8,7 @@
 
 set -euo pipefail
 
-DOMAIN="https://taystudio.github.io"
+DOMAIN="https://taystudios.com"
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="${REPO_ROOT}/sitemap.xml"
 

@@ -21,7 +21,7 @@
 - **티스토리 블로그**: taehyuklee.tistory.com (이전 운영)
 - **메인 동기**: 구글 애드센스 광고 수익. 현실적 단계별 수익화 설계 선호
 - **운영 사이트들** (생각 정리 차원):
-  - `taystudio.github.io/tools/` — 본 프로젝트 (36개 계산기)
+  - `taystudios.com/tools/` — 본 프로젝트 (36개 계산기)
   - 블로그·포트폴리오는 **별도 GitHub 레포로 분리 운영 예정** (이 레포에는 포함 X)
   - 5/4 시점 루트 `index.html`의 hub-grid에서 Blog·Portfolio SOON 카드 제거됨
 - **소통 선호**: 직설적 + 핵심 우선 + 트레이드오프 명시. 환상 심어주는 답변 싫어함. 모든 답변 한국어 OK.
@@ -396,7 +396,7 @@ const RATES = {
    User-agent: *
    Allow: /
 
-   Sitemap: https://taystudio.github.io/sitemap.xml
+   Sitemap: https://taystudios.com/sitemap.xml
    ```
    - **AI 봇 차단 안 함** — 사용자 결정. 수익화 사이트라 트래픽·노출 극대화 우선. ChatGPT/Claude/Gemini 검색 결과에서도 우리 도구 노출되도록.
    - 향후 입장 바뀌면 `GPTBot`, `ClaudeBot`, `CCBot`, `Google-Extended`에 `Disallow: /` 추가

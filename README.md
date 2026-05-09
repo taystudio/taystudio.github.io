@@ -1,1 +1,1 @@
-# taystudio.github.io
+# taystudios.com

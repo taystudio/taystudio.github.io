@@ -1,6 +1,6 @@
 # SEO 등록·최적화 진행 기록
 
-`taystudio.github.io` 를 Google·Naver 검색에 노출시키는 작업. 운영 매뉴얼이 아니라 이번 셋업의 **개념 정리 + 체크리스트 + 실제 진행 로그** 통합 문서.
+`taystudios.com` 를 Google·Naver 검색에 노출시키는 작업. 운영 매뉴얼이 아니라 이번 셋업의 **개념 정리 + 체크리스트 + 실제 진행 로그** 통합 문서.
 
 ---
 
@@ -57,7 +57,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://taystudio.github.io/tools/salary/</loc>
+    <loc>https://taystudios.com/tools/salary/</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
@@ -106,7 +106,7 @@ User-agent: *           # 모든 봇 대상
 Allow: /                # 전체 허용 (이건 사실 기본값)
 Disallow: /admin/       # /admin/ 이하는 막음
 
-Sitemap: https://taystudio.github.io/sitemap.xml
+Sitemap: https://taystudios.com/sitemap.xml
 ```
 
 **우리 사이트가 가져갈 형태** (단순):
@@ -115,7 +115,7 @@ Sitemap: https://taystudio.github.io/sitemap.xml
 User-agent: *
 Allow: /
 
-Sitemap: https://taystudio.github.io/sitemap.xml
+Sitemap: https://taystudios.com/sitemap.xml
 ```
 
 = "모든 봇한테 전체 허용 + sitemap은 여기 있다".
@@ -142,7 +142,7 @@ Sitemap: https://taystudio.github.io/sitemap.xml
 **형태** (각 페이지 `<head>`):
 
 ```html
-<link rel="canonical" href="https://taystudio.github.io/tools/salary/">
+<link rel="canonical" href="https://taystudios.com/tools/salary/">
 ```
 
 **우리 상태**: 33개 도구 페이지 전부에 canonical 박혀있음 ✓ (Step 3 코드 변경 시 정리됨)
@@ -153,7 +153,7 @@ Sitemap: https://taystudio.github.io/sitemap.xml
 
 ```
 연봉 실수령액 계산기 2026 | 4대보험·세금 차감     ← <title>
-https://taystudio.github.io/tools/salary/             ← URL
+https://taystudios.com/tools/salary/             ← URL
 2026년 기준 연봉 실수령액을 즉시 계산. 국민연금...   ← <meta description>
 ```
 
@@ -255,14 +255,14 @@ https://taystudio.github.io/tools/salary/             ← URL
 - [ ] commit + push
 
 ### Phase 2. Google Search Console
-- [ ] 속성 추가 → `taystudio.github.io`
+- [ ] 속성 추가 → `taystudios.com`
 - [ ] 소유권 확인 (HTML 메타 태그 권장)
 - [ ] sitemap 제출
 - [ ] URL 검사로 색인 강제 요청 (메인 페이지 + 주요 도구)
 - [ ] 모바일 사용성·Core Web Vitals 보고서 확인
 
 ### Phase 3. Naver Search Advisor
-- [ ] 사이트 등록 → `https://taystudio.github.io/`
+- [ ] 사이트 등록 → `https://taystudios.com/`
 - [ ] 소유권 확인
 - [ ] sitemap 제출
 - [ ] robots.txt 등록

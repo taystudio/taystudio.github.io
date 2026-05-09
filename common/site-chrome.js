@@ -11,7 +11,7 @@ const LANG = (() => {
 
 const I18N = {
   ko: {
-    mirrorWarn: '⚠️ 비공식 미러 사이트입니다. 정품: <a href="https://taystudio.github.io" style="color:#fff;font-weight:700;text-decoration:underline">taystudio.github.io</a>',
+    mirrorWarn: '⚠️ 비공식 미러 사이트입니다. 정품: <a href="https://taystudios.com" style="color:#fff;font-weight:700;text-decoration:underline">taystudios.com</a>',
     installExternal: '외부 열기',
     installDone: '✓ 설치됨',
     installPrompt: '웹앱 설치',
@@ -52,7 +52,7 @@ const I18N = {
     langToggleTitle: 'View in English',
   },
   en: {
-    mirrorWarn: '⚠️ Unofficial mirror site. Official: <a href="https://taystudio.github.io" style="color:#fff;font-weight:700;text-decoration:underline">taystudio.github.io</a>',
+    mirrorWarn: '⚠️ Unofficial mirror site. Official: <a href="https://taystudios.com" style="color:#fff;font-weight:700;text-decoration:underline">taystudios.com</a>',
     installExternal: 'Open Externally',
     installDone: '✓ Installed',
     installPrompt: 'Install Web App',

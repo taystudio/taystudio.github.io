@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /dash-tay9k3m/
 
-Sitemap: https://taystudio.github.io/sitemap.xml
+Sitemap: https://taystudios.com/sitemap.xml
 
 # IndexNow key location (Bing·Yandex·Naver·Seznam 즉시 인덱스 알림 검증용)
-# Key file: https://taystudio.github.io/b762f70e61da4ac199b51566e31748b3.txt
+# Key file: https://taystudios.com/b762f70e61da4ac199b51566e31748b3.txt

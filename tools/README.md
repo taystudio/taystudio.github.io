@@ -7,7 +7,7 @@
 ## 1. 한눈에 보기
 
 - **36개 계산기** 전부 클라이언트사이드 JavaScript (백엔드 없음)
-- **GitHub Pages** 배포 가정 (`https://taystudio.github.io/tools/`)
+- **GitHub Pages** 배포 가정 (`https://taystudios.com/tools/`)
 - 각 도구는 디렉토리 1개 = `index.html` + `<name>.js` 구조
 - **공통 CSS**: `tools/css/style.css` (다크모드·반응형 자동 지원)
 - **사이트맵**: `sitemap.xml` (repo root)

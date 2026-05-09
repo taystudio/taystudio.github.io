@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F38020">
+  <meta name="color-scheme" content="light">
+  <title>도메인 Migration Dashboard — taystudio.github.io → taystudios.com</title>
+  <meta name="description" content="도메인 migration 진행 상태 — 끝난 작업·남은 작업·검색엔진 재등록·타임라인을 한눈에.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Inter", "Noto Sans KR", sans-serif;
+      font-size: 15px; line-height: 1.6;
+      color: #1F2933; background: #F6F8FB;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #F38020; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: "SF Mono", "Menlo", "Consolas", "Monaco", monospace;
+           background: #F1F4F8; border: 1px solid #E5EAF0;
+           padding: 1px 6px; border-radius: 4px; font-size: 0.88em; color: #C26414; }
+
+    /* ============ Hero ============ */
+    .hero {
+      background: linear-gradient(135deg, #0F1721 0%, #1F2D3F 60%, #243447 100%);
+      color: #fff;
+      padding: 56px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; right: -120px; top: -80px;
+      width: 480px; height: 480px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(243,128,32,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(243,128,32,0.14); color: #FAAD3F;
+      padding: 6px 14px; border-radius: 999px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.4px;
+      border: 1px solid rgba(243,128,32,0.32);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-size: 38px; font-weight: 800; margin: 0 0 14px;
+      line-height: 1.18; letter-spacing: -0.5px;
+    }
+    .hero h1 .arrow { color: #F38020; margin: 0 12px; }
+    .hero h1 .from { opacity: 0.55; font-weight: 600; }
+    .hero p.lead {
+      font-size: 16.5px; color: #C7D2DE; max-width: 720px;
+      margin: 0 0 28px; line-height: 1.65;
+    }
+    .progress-bar {
+      background: rgba(255,255,255,0.08); border-radius: 999px;
+      height: 10px; max-width: 720px; margin-top: 12px;
+      overflow: hidden; position: relative;
+    }
+    .progress-bar .fill {
+      height: 100%; width: 75%;
+      background: linear-gradient(90deg, #F38020 0%, #FAAD3F 100%);
+      border-radius: 999px;
+      box-shadow: 0 0 12px rgba(243,128,32,0.5);
+    }
+    .progress-meta {
+      display: flex; gap: 22px; font-size: 13px;
+      color: #8A99AA; margin-top: 12px; flex-wrap: wrap;
+    }
+    .progress-meta b { color: #fff; }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 26px; }
+      .hero h1 .arrow { display: block; margin: 4px 0; }
+    }
+
+    /* ============ Container ============ */
+    .container {
+      max-width: 1100px; margin: -48px auto 64px;
+      padding: 0 24px; position: relative;
+    }
+
+    section { margin-bottom: 56px; }
+    h2 {
+      font-size: 24px; font-weight: 800; margin: 0 0 6px;
+      letter-spacing: -0.2px; color: #0F1721;
+      display: flex; align-items: center; gap: 14px;
+    }
+    h2 .badge {
+      flex: 0 0 auto;
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 4px 12px; border-radius: 8px;
+      background: linear-gradient(135deg, #F38020 0%, #FAAD3F 100%);
+      color: #fff; font-size: 12px; font-weight: 800;
+      box-shadow: 0 4px 12px rgba(243,128,32,0.32);
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    h2 .badge.done { background: linear-gradient(135deg, #2EA44F 0%, #4CC76A 100%); box-shadow: 0 4px 12px rgba(46,164,79,0.32); }
+    h2 .badge.user { background: linear-gradient(135deg, #1976D2 0%, #4096E0 100%); box-shadow: 0 4px 12px rgba(25,118,210,0.32); }
+    h2 .badge.plain { background: #1F2D3F; box-shadow: none; }
+    .section-sub {
+      color: #6B7785; font-size: 13.5px; margin: 6px 0 22px 0;
+    }
+
+    h3 { font-size: 16px; font-weight: 700; margin: 24px 0 10px; color: #1F2D3F; }
+    p { margin: 0 0 12px; }
+    ul, ol { margin: 0 0 12px; padding-left: 24px; }
+    li { margin-bottom: 6px; }
+
+    /* ============ Status grid (끝난 작업) ============ */
+    .status-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px; margin-bottom: 8px;
+    }
+    .status-card {
+      background: #fff; border-radius: 10px;
+      padding: 18px 20px; border: 1px solid #E5EAF0;
+      border-left: 4px solid #2EA44F;
+      box-shadow: 0 1px 3px rgba(15,23,33,0.04);
+      position: relative;
+    }
+    .status-card .check {
+      position: absolute; top: 12px; right: 14px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #E7F4ED; color: #2EA44F;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 13px;
+    }
+    .status-card .label {
+      font-size: 11px; color: #6B7785; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 6px;
+    }
+    .status-card .value { font-weight: 700; font-size: 14px; color: #1F2D3F; margin-bottom: 4px; }
+    .status-card .meta { font-size: 12px; color: #6B7785; line-height: 1.4; }
+
+    /* ============ Phase block ============ */
+    .phase-block {
+      background: #fff; border-radius: 14px;
+      padding: 28px 28px 24px; margin-bottom: 24px;
+      border: 1px solid #E5EAF0;
+      box-shadow: 0 4px 16px rgba(15,23,33,0.06);
+      position: relative;
+    }
+    .phase-block.auto { border-top: 4px solid #F38020; }
+    .phase-block.user { border-top: 4px solid #1976D2; }
+    .phase-block .phase-head {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+    }
+    .phase-block .phase-num {
+      flex: 0 0 auto;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, #F38020 0%, #FAAD3F 100%);
+      color: #fff; font-size: 18px; font-weight: 800;
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(243,128,32,0.32);
+    }
+    .phase-block.user .phase-num { background: linear-gradient(135deg, #1976D2 0%, #4096E0 100%); box-shadow: 0 4px 12px rgba(25,118,210,0.32); }
+    .phase-block .phase-title { font-size: 19px; font-weight: 700; color: #0F1721; margin-bottom: 2px; }
+    .phase-block .phase-meta { font-size: 12.5px; color: #6B7785; }
+
+    /* ============ File matrix ============ */
+    .file-matrix {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px; margin-top: 14px;
+    }
+    .file-card {
+      background: #FAFBFC; border: 1px solid #E5EAF0;
+      border-radius: 10px; padding: 14px 16px;
+      transition: all 0.15s;
+    }
+    .file-card:hover { border-color: #F38020; }
+    .file-card .ic { font-size: 18px; margin-bottom: 6px; }
+    .file-card .nm { font-weight: 700; font-size: 13px; color: #1F2D3F; margin-bottom: 4px; }
+    .file-card .ds {
+      font-size: 12px; color: #6B7785; line-height: 1.5;
+      font-family: "SF Mono", Menlo, monospace;
+    }
+    .file-card .cnt {
+      display: inline-block; background: #FFF1E5; color: #C26414;
+      font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;
+      margin-top: 6px;
+    }
+
+    /* ============ Engine cards (검색엔진 4채널) ============ */
+    .engine-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .engine-card {
+      background: #fff; border: 1px solid #E5EAF0;
+      border-radius: 12px; padding: 18px 20px;
+      position: relative;
+      transition: all 0.15s;
+    }
+    .engine-card:hover { box-shadow: 0 4px 16px rgba(15,23,33,0.08); }
+    .engine-card .order {
+      position: absolute; top: -10px; left: 16px;
+      background: #1F2D3F; color: #fff;
+      font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+      letter-spacing: 0.3px;
+    }
+    .engine-card .engine-name {
+      font-weight: 800; font-size: 16px; color: #0F1721;
+      margin-bottom: 6px; margin-top: 4px;
+    }
+    .engine-card .impact {
+      font-size: 11px; color: #6B7785; text-transform: uppercase;
+      letter-spacing: 0.5px; margin-bottom: 10px;
+    }
+    .engine-card .impact .stars { color: #FAAD3F; letter-spacing: 1px; }
+    .engine-card .actions {
+      list-style: none; padding-left: 0; font-size: 13px; line-height: 1.55;
+    }
+    .engine-card .actions li {
+      padding: 5px 0 5px 20px; position: relative; color: #1F2933;
+      border-bottom: 1px dashed #E5EAF0;
+    }
+    .engine-card .actions li:last-child { border-bottom: none; }
+    .engine-card .actions li::before {
+      content: '▸'; position: absolute; left: 4px; color: #F38020;
+    }
+    .engine-card .console-link {
+      display: inline-block; margin-top: 12px;
+      background: #F1F4F8; color: #1F2D3F;
+      padding: 6px 12px; border-radius: 6px;
+      font-size: 12px; font-weight: 600;
+    }
+
+    /* ============ Split (사용자/자동) ============ */
+    .split {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+    }
+    @media (max-width: 760px) { .split { grid-template-columns: 1fr; } }
+    .split-col {
+      background: #fff; border-radius: 12px;
+      padding: 22px 24px; border: 1px solid #E5EAF0;
+    }
+    .split-col.auto { border-left: 4px solid #F38020; }
+    .split-col.user { border-left: 4px solid #1976D2; }
+    .split-col h4 {
+      margin: 0 0 12px; font-size: 14px; font-weight: 700;
+      letter-spacing: 0.3px; text-transform: uppercase;
+      color: #6B7785;
+    }
+    .split-col.auto h4 { color: #C26414; }
+    .split-col.user h4 { color: #155A9C; }
+    .split-col ul { padding-left: 18px; font-size: 14px; }
+    .split-col ul li { margin-bottom: 7px; }
+    .split-col strong { color: #1F2D3F; }
+
+    /* ============ Timeline ============ */
+    .timeline {
+      background: #fff; border-radius: 12px; padding: 24px 28px;
+      border: 1px solid #E5EAF0; margin-top: 14px;
+    }
+    .timeline-row {
+      display: grid; grid-template-columns: 90px 1fr 110px;
+      gap: 16px; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid #F1F4F8;
+    }
+    .timeline-row:last-child { border-bottom: none; }
+    .timeline-row .when {
+      font-weight: 700; font-size: 13px; color: #F38020;
+      font-family: "SF Mono", Menlo, monospace;
+    }
+    .timeline-row .what { font-size: 14px; color: #1F2933; }
+    .timeline-row .what b { color: #1F2D3F; }
+    .timeline-row .who {
+      font-size: 11px; padding: 4px 10px; border-radius: 999px;
+      text-align: center; font-weight: 600;
+    }
+    .timeline-row .who.auto { background: #FFF1E5; color: #C26414; }
+    .timeline-row .who.user { background: #E7F0FA; color: #155A9C; }
+    .timeline-row .who.both { background: #F1F4F8; color: #6B7785; }
+    @media (max-width: 600px) {
+      .timeline-row { grid-template-columns: 1fr; gap: 6px; }
+      .timeline-row .who { justify-self: start; padding: 2px 8px; }
+    }
+
+    /* ============ Checklist ============ */
+    .check-list {
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 12px;
+      padding: 20px 24px;
+      list-style: none; padding-left: 24px;
+    }
+    .check-list li {
+      padding: 8px 0 8px 30px; position: relative;
+      border-bottom: 1px dashed #E5EAF0; font-size: 14px;
+      font-family: "SF Mono", Menlo, monospace;
+    }
+    .check-list li:last-child { border-bottom: none; }
+    .check-list li::before {
+      content: '☐'; position: absolute; left: 0; top: 6px;
+      color: #94A3B0; font-size: 18px;
+    }
+
+    /* ============ Card variants ============ */
+    .card {
+      background: #fff; border-radius: 10px;
+      border: 1px solid #E5EAF0; padding: 18px 20px; margin-bottom: 14px;
+    }
+    .card.warn { border-left: 4px solid #F38020; }
+    .card.danger { border-left: 4px solid #E11D48; background: #FFF5F7; }
+    .card.tip { border-left: 4px solid #1976D2; background: #F4F8FC; }
+    .card-title {
+      font-weight: 700; font-size: 14px; margin-bottom: 6px;
+      color: #1F2D3F;
+    }
+    .card.warn .card-title { color: #C26414; }
+    .card.tip .card-title { color: #155A9C; }
+    .card.danger .card-title { color: #B91C3C; }
+
+    table.cmp {
+      width: 100%; border-collapse: collapse; margin: 12px 0;
+      background: #fff; border: 1px solid #E5EAF0; border-radius: 10px;
+      overflow: hidden;
+    }
+    table.cmp th, table.cmp td {
+      padding: 12px 16px; text-align: left; font-size: 13.5px;
+      border-bottom: 1px solid #E5EAF0; vertical-align: top;
+    }
+    table.cmp th { background: #F8FAFC; font-weight: 700; color: #1F2D3F; }
+    table.cmp tr:last-child td { border-bottom: none; }
+
+    .doc-footer {
+      max-width: 1100px; margin: 32px auto 64px; padding: 24px;
+      border-top: 1px solid #E5EAF0; color: #6B7785; font-size: 13px;
+      text-align: center;
+    }
+    .doc-footer a { color: #F38020; }
+
+    .pill {
+      display: inline-block; padding: 3px 10px; border-radius: 999px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+    }
+    .pill.todo { background: #FFF1E5; color: #C26414; }
+    .pill.done { background: #E7F4ED; color: #237D3D; }
+    .pill.user { background: #E7F0FA; color: #155A9C; }
+  </style>
+</head>
+<body>
+
+  <!-- ============ Hero ============ -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">🚀 Migration Dashboard · 운영자 전용</div>
+      <h1>
+        <span class="from">taystudio.github.io</span>
+        <span class="arrow">→</span>
+        taystudios.com
+      </h1>
+      <p class="lead">
+        도메인 migration 진행 상태를 한눈에. 끝난 작업 · 남은 작업 · 검색엔진 재등록 · 타임라인 · 검증.
+      </p>
+      <div class="progress-bar"><div class="fill"></div></div>
+      <div class="progress-meta">
+        <span><b>전체 진행</b> 약 75% (2026-05-09 13:55 기준)</span>
+        <span><b>끝남</b> DNS · CNAME · 코드 일괄 sed · sitemap rebuild · SW v13 · 개념·시점분기 문서</span>
+        <span><b>남음</b> commit·push 사용자 검수 → IndexNow ping · 검색엔진 4채널 등록</span>
+        <span><b>현 단계</b> ⏸ commit/push 검수 대기</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ============ 끝난 작업 ============ -->
+    <section>
+      <h2><span class="badge done">완료</span> 지금까지 끝난 것</h2>
+      <p class="section-sub">DNS·인증서·자동 redirect 모두 작동 중. 남은 건 사이트 코드 정합 + 검색엔진 재등록.</p>
+
+      <div class="status-grid">
+        <div class="status-card">
+          <span class="check">✓</span>
+          <div class="label">DNS · HTTPS</div>
+          <div class="value">Cloudflare → GitHub</div>
+          <div class="meta">A 4 + CNAME www<br>Let's Encrypt cert OK</div>
+        </div>
+        <div class="status-card">
+          <span class="check">✓</span>
+          <div class="label">repo CNAME 파일</div>
+          <div class="value">taystudios.com</div>
+          <div class="meta">commit 2ea65ad<br>origin/main에 push</div>
+        </div>
+        <div class="status-card">
+          <span class="check">✓</span>
+          <div class="label">사이트 가드</div>
+          <div class="value">ALLOWED + SW v12</div>
+          <div class="meta">옛·새 도메인 둘 다 허용<br>전환기 안전망</div>
+        </div>
+        <div class="status-card">
+          <span class="check">✓</span>
+          <div class="label">자동 redirect</div>
+          <div class="value">옛 → 새 (301)</div>
+          <div class="meta">GitHub Pages 자동 처리<br>SEO 권위 자연 이전 채널</div>
+        </div>
+        <div class="status-card">
+          <span class="check">✓</span>
+          <div class="label">개념 문서</div>
+          <div class="value">concepts.md + migration.html</div>
+          <div class="meta">DNS·CNAME·apex 등<br>운영자 reference</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 1단계 — 사이트 코드 일괄 갱신 ============ -->
+    <section>
+      <h2><span class="badge">1단계</span> 사이트 코드 일괄 갱신</h2>
+      <p class="section-sub"><span class="pill todo">TODO</span> 자동 처리 · 약 30분 · 100여 파일 sed 일괄 + 수동 2 + 신규 1</p>
+
+      <div class="phase-block auto">
+        <div class="phase-head">
+          <div class="phase-num">A</div>
+          <div>
+            <div class="phase-title">Tier A · 자동 sed 일괄 (active 인프라)</div>
+            <div class="phase-meta">canonical · og · twitter · JSON-LD url 일괄 — GitHub repo URL은 보호 패턴으로 안 건드림</div>
+          </div>
+        </div>
+
+        <div class="file-matrix">
+          <div class="file-card">
+            <div class="ic">📄</div>
+            <div class="nm">도구·hub HTML</div>
+            <div class="ds">tools/text/image/pdf/video</div>
+            <div class="cnt">60+ 파일</div>
+          </div>
+          <div class="file-card">
+            <div class="ic">🗂</div>
+            <div class="nm">루트 페이지</div>
+            <div class="ds">privacy · terms · dash</div>
+            <div class="cnt">3 파일</div>
+          </div>
+          <div class="file-card">
+            <div class="ic">🗺</div>
+            <div class="nm">sitemap · robots</div>
+            <div class="ds">sitemap.xml · robots.txt</div>
+            <div class="cnt">2 파일</div>
+          </div>
+          <div class="file-card">
+            <div class="ic">⚙</div>
+            <div class="nm">빌드 스크립트</div>
+            <div class="ds">build-sitemap.sh · indexnow-ping.sh</div>
+            <div class="cnt">2 파일</div>
+          </div>
+          <div class="file-card">
+            <div class="ic">🌐</div>
+            <div class="nm">영어 Pilot</div>
+            <div class="ds">en/index · en/tools</div>
+            <div class="cnt">4 파일</div>
+          </div>
+          <div class="file-card">
+            <div class="ic">📚</div>
+            <div class="nm">운영 가이드</div>
+            <div class="ds">README · HANDOFF · SEO_SETUP · etc</div>
+            <div class="cnt">7 파일</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-block auto">
+        <div class="phase-head">
+          <div class="phase-num">B</div>
+          <div>
+            <div class="phase-title">수동 갱신 + SW v bump</div>
+            <div class="phase-meta">자동 sed 대상 외 — 정밀 변경</div>
+          </div>
+        </div>
+
+        <ul>
+          <li><code>common/site-chrome.js:14·55</code> — <code>mirrorWarn</code> 메시지 안의 "정품 도메인" 새 도메인으로</li>
+          <li><code>common/site-chrome.js:121·418</code> — <code>ALLOWED</code> 옛 도메인 <b>유지</b> (전환기 안전망)</li>
+          <li><code>sw.js:14</code> — <code>taystudio-v12</code> → <code>taystudio-v13</code> (common/* 변경 정책 §7.4)</li>
+        </ul>
+      </div>
+
+      <div class="phase-block auto">
+        <div class="phase-head">
+          <div class="phase-num">C</div>
+          <div>
+            <div class="phase-title">신규 시점 분기 기록</div>
+            <div class="phase-meta">history는 옛 도메인 보존 + 이 시점부터 새 도메인 작성</div>
+          </div>
+        </div>
+
+        <ul>
+          <li><code>history/seo/2026-05-09-domain-migration.md</code> — 분기 시점 기록 (결정 배경·작업·검증·재등록 가이드)</li>
+          <li><code>history/migration/index.html</code> — <b>지금 보고 있는 페이지</b></li>
+        </ul>
+      </div>
+
+      <div class="card warn">
+        <div class="card-title">⚠ 영어 Pilot 작업 일시 격리</div>
+        영어 Pilot 변경분(en/ + 5 tracked)은 <code>git stash</code>로 보존 후 도메인 작업 단일 commit. 도메인 정합 끝나면 <code>git stash pop</code>으로 복원 → 영어 분기 작업 재개.
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">💡 단일 commit 방침</div>
+        Tier A + 수동 + 신규 모두 한 commit ("domain migration"). 부분 적용 시 canonical 불일치로 SEO 일시 혼란.
+      </div>
+    </section>
+
+    <!-- ============ 2단계 — 검색엔진 4채널 ============ -->
+    <section>
+      <h2><span class="badge user">2단계</span> 검색엔진 4채널 재등록</h2>
+      <p class="section-sub"><span class="pill user">사용자 액션</span> 채널별 ~15분 · 권위 이전 영향도순 (Google 우선) · 메타 태그 삽입은 자동</p>
+
+      <div class="engine-grid">
+
+        <div class="engine-card">
+          <div class="order">9-1 우선</div>
+          <div class="engine-name">🔍 Google Search Console</div>
+          <div class="impact"><span class="stars">★★★★★</span> 가장 결정적</div>
+          <ul class="actions">
+            <li>새 property (Domain) 등록 · DNS TXT 검증</li>
+            <li><b>Change of Address</b> 도구 (옛 → 새)</li>
+            <li>새 sitemap 제출</li>
+            <li>주요 hub 5개 Request Indexing</li>
+          </ul>
+          <a class="console-link" href="https://search.google.com/search-console" target="_blank">콘솔 열기 →</a>
+        </div>
+
+        <div class="engine-card">
+          <div class="order">9-2</div>
+          <div class="engine-name">🟢 Naver Search Advisor</div>
+          <div class="impact"><span class="stars">★★★★</span> 한국 트래픽 절반</div>
+          <ul class="actions">
+            <li>새 사이트 등록 · HTML 메타 검증</li>
+            <li>사이트맵 제출</li>
+            <li>주요 hub 5~10개 수집 요청</li>
+            <li>IndexNow 활성 확인</li>
+          </ul>
+          <a class="console-link" href="https://searchadvisor.naver.com" target="_blank">콘솔 열기 →</a>
+        </div>
+
+        <div class="engine-card">
+          <div class="order">9-3</div>
+          <div class="engine-name">🅱 Bing Webmaster Tools</div>
+          <div class="impact"><span class="stars">★★★</span> + IndexNow 자동 cover</div>
+          <ul class="actions">
+            <li>새 사이트 등록 · msvalidate.01 갱신</li>
+            <li><b>Site Move</b> 도구 (옛 → 새)</li>
+            <li>새 sitemap 제출</li>
+          </ul>
+          <a class="console-link" href="https://www.bing.com/webmasters" target="_blank">콘솔 열기 →</a>
+        </div>
+
+        <div class="engine-card">
+          <div class="order">9-4</div>
+          <div class="engine-name">💬 카카오 OG flush</div>
+          <div class="impact"><span class="stars">★★★</span> 카톡 미리보기 직결</div>
+          <ul class="actions">
+            <li>주요 페이지 5~10개 URL 입력</li>
+            <li>"미리보기 캐시 삭제" 클릭</li>
+            <li>루트·hub·인기 도구 우선</li>
+          </ul>
+          <a class="console-link" href="https://developers.kakao.com/tool/clear/og" target="_blank">디버거 열기 →</a>
+        </div>
+
+      </div>
+
+      <div class="card tip" style="margin-top:18px">
+        <div class="card-title">💡 권위 이전 핵심 = Google "Change of Address"</div>
+        SC의 이 도구가 가장 강력한 권위 이전 신호. 양쪽 property verify + 301 redirect 작동 전제 — 둘 다 충족됨. 이 한 번이 백링크·검색 노출의 자연 이전을 가속.
+      </div>
+    </section>
+
+    <!-- ============ 사용자 vs 자동 ============ -->
+    <section>
+      <h2><span class="badge plain">분리</span> 사용자 vs 자동 — 누가 무엇을 하나</h2>
+      <p class="section-sub">사용자 액션 = 검색엔진 콘솔 5~6개 UI 클릭만. 메타 태그·검증·redirect는 모두 자동.</p>
+
+      <div class="split">
+        <div class="split-col auto">
+          <h4>🤖 자동 (Claude)</h4>
+          <ul>
+            <li>100여 파일 도메인 sed 일괄 (보호 패턴 포함)</li>
+            <li><strong>mirrorWarn</strong> 메시지 + SW v12 → v13</li>
+            <li>신규 history entry 작성</li>
+            <li>영어 Pilot stash → pop</li>
+            <li>검증 (grep · curl · sitemap · JSON-LD)</li>
+            <li>단일 commit + push</li>
+            <li>IndexNow 새 도메인 ping</li>
+            <li>Naver / Bing 검증 메타 태그 head 삽입</li>
+            <li>301 redirect 작동 확인</li>
+          </ul>
+        </div>
+        <div class="split-col user">
+          <h4>👤 사용자 (UI 클릭)</h4>
+          <ul>
+            <li>GitHub Settings → Custom domain·Enforce HTTPS <span class="pill done" style="margin-left:6px">완료</span></li>
+            <li>Cloudflare DNS 5 records 등록 <span class="pill done" style="margin-left:6px">완료</span></li>
+            <li><strong>Google SC</strong> 새 property + Change of Address</li>
+            <li><strong>Naver Search Advisor</strong> 새 사이트 + 검증</li>
+            <li><strong>Bing Webmaster Tools</strong> Site Move</li>
+            <li><strong>카카오 OG flush</strong> 5~10 URL</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 타임라인 ============ -->
+    <section>
+      <h2><span class="badge plain">⏱</span> 타임라인</h2>
+      <p class="section-sub">권위 이전 자체는 1~3개월 천천히 진행. 즉시 작업은 1.5시간.</p>
+
+      <div class="timeline">
+        <div class="timeline-row">
+          <div class="when">~5월 9일</div>
+          <div class="what"><b>도메인 구매 · DNS · CNAME · 가드 배포</b> — Cloudflare + GitHub Pages 작동 시작</div>
+          <div class="who both">완료</div>
+        </div>
+        <div class="timeline-row">
+          <div class="when">+30분</div>
+          <div class="what"><b>1단계 자동 처리</b> — sed 일괄 + mirrorWarn + SW + 신규 history → push → 배포</div>
+          <div class="who auto">자동</div>
+        </div>
+        <div class="timeline-row">
+          <div class="when">+1시간</div>
+          <div class="what"><b>2단계 검색엔진 재등록</b> — Google · Naver · Bing · 카카오 (채널별 15분)</div>
+          <div class="who user">사용자</div>
+        </div>
+        <div class="timeline-row">
+          <div class="when">+1주</div>
+          <div class="what"><b>SC 첫 노출 변화</b> — Change of Address 효과 시작. 새 property에 데이터 들어옴</div>
+          <div class="who both">관찰</div>
+        </div>
+        <div class="timeline-row">
+          <div class="when">+1개월</div>
+          <div class="what"><b>주요 페이지 새 도메인 인덱스</b> — Google·Naver SERP에서 새 URL이 다수 차지</div>
+          <div class="who both">관찰</div>
+        </div>
+        <div class="timeline-row">
+          <div class="when">+3개월</div>
+          <div class="what"><b>권위 이전 안정화</b> — 옛 도메인 자연 deindex. 새 도메인이 정식 권위 보유</div>
+          <div class="who both">관찰</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 검증 체크리스트 ============ -->
+    <section>
+      <h2><span class="badge plain">✓</span> push 후 검증 체크리스트</h2>
+      <p class="section-sub">단일 commit push 직후 즉시 확인. 모두 ☑ 되어야 검색엔진 재등록 진입.</p>
+
+      <ul class="check-list">
+        <li>grep 'taystudio.github.io' Tier A·B 대상 → 0건</li>
+        <li>sitemap.xml 67 URL 모두 새 도메인</li>
+        <li>curl https://taystudios.com/ → 200 OK</li>
+        <li>curl https://taystudios.com/sitemap.xml → 새 호스트 67 URL</li>
+        <li>curl https://taystudios.com/{key}.txt → 200 + 정확한 key body</li>
+        <li>curl -I https://taystudio.github.io/ → 301 → 새 도메인</li>
+        <li>HTML 태그 밸런스 sample 5</li>
+        <li>JSON-LD parse 핵심 5개 (root + 카테고리 hub)</li>
+        <li>canonical/og:url 일관성 random sample 5</li>
+        <li>IndexNow ping 새 도메인 → HTTP 202</li>
+        <li>OG 프리뷰 sample (페이스북·X·카톡)</li>
+      </ul>
+    </section>
+
+    <!-- ============ Rollback ============ -->
+    <section>
+      <h2><span class="badge plain">↻</span> Rollback 시나리오</h2>
+      <p class="section-sub">치명적 문제 시 단계별 복귀. 양쪽 도메인 모두 작동 중이라 즉시 복구 가능.</p>
+
+      <table class="cmp">
+        <thead>
+          <tr><th style="width:25%">상황</th><th style="width:35%">증상</th><th style="width:40%">대응</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>cert 발급 실패</td>
+            <td>https 인식 X · browser warning</td>
+            <td>Settings → Custom domain 비우고 다시 입력 → DNS 재검증 → 30분~24h 대기</td>
+          </tr>
+          <tr>
+            <td>https↔http loop</td>
+            <td>ERR_TOO_MANY_REDIRECTS</td>
+            <td>Cloudflare SSL/TLS 모드 = <b>Full</b> 확인. Flexible이면 즉시 변경</td>
+          </tr>
+          <tr>
+            <td>sed 후 canonical 깨짐</td>
+            <td>HTML 태그 밸런스 fail</td>
+            <td><code>git reset --hard HEAD~1</code> (push 전) 또는 revert commit (push 후)</td>
+          </tr>
+          <tr>
+            <td>SC 노출수 80%+ 폭락 (1주 후)</td>
+            <td>301 redirect 미작동 또는 Change of Address 누락</td>
+            <td>옛 도메인 페이지에서 <code>curl -I</code>로 301 확인. 안 나오면 GitHub Pages custom domain 재설정</td>
+          </tr>
+          <tr>
+            <td>IndexNow ping 실패</td>
+            <td>HTTP 403 / 422</td>
+            <td>{key}.txt curl 200 확인 → indexnow-ping.sh의 host 변수 갱신 재확인</td>
+          </tr>
+          <tr>
+            <td>전면 rollback (최후)</td>
+            <td>모든 신호 망가짐</td>
+            <td>Settings에서 custom domain 비우기 → 옛 도메인만 작동. <b>SEO 권위 일부 손실 영구</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============ 다음 액션 ============ -->
+    <section>
+      <h2><span class="badge">▶</span> 지금 다음 액션</h2>
+      <p class="section-sub">현재 위치 = 1단계 진입 직전. 영어 Pilot stash 후 sed 시작.</p>
+
+      <div class="card warn">
+        <div class="card-title">📌 Step 1 → 영어 Pilot 변경분 stash</div>
+        en/ untracked + 5 tracked 변경분을 <code>english-pilot-wip</code> stash로 격리. 도메인 작업 끝난 후 <code>git stash pop</code>으로 복원.
+      </div>
+
+      <div class="card tip">
+        <div class="card-title">📌 Step 2 → 100여 파일 자동 sed</div>
+        보호 패턴(GitHub repo URL 보존) 적용한 perl 일괄. 검증 후 commit 직전 미리 보여줌.
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="doc-footer">
+    작성 2026-05-09 · 운영자 전용 noindex · TAYSTUDIO history/migration<br>
+    참고 = <a href="/history/seo/concept-domain-migration.html">concept-domain-migration.html</a> ·
+    <a href="/history/seo/concepts.md">concepts.md 도메인 섹션</a> ·
+    <a href="/history/seo/concept-indexnow.html">concept-indexnow.html</a>
+  </footer>
+
+</body>
+</html>
