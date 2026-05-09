@@ -9,14 +9,13 @@
 #
 # 사전 조건:
 #   1. {key}.txt 파일이 GitHub Pages에 deploy되어 있어야 함 (commit+push 필수)
-#   2. https://taystudios.com/{key}.txt 가 200 응답해야 함 (배포 후 ~1분)
+#   2. ${KEY_LOCATION} 가 200 응답해야 함 (배포 후 ~1분)
 
 set -euo pipefail
 
-DOMAIN="https://taystudios.com"
-HOST="taystudios.com"
-KEY="b762f70e61da4ac199b51566e31748b3"
-KEY_LOCATION="${DOMAIN}/${KEY}.txt"
+# 도메인·키 단일 source — DOMAIN/HOST/KEY/KEY_LOCATION은 config.sh에서.
+source "$(cd "$(dirname "$0")" && pwd)/config.sh"
+
 ENDPOINT="https://api.indexnow.org/indexnow"
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"

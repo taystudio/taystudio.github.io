@@ -8,7 +8,9 @@
 
 set -euo pipefail
 
-DOMAIN="https://taystudios.com"
+# 도메인 단일 source — DOMAIN 변수는 config.sh에서 가져옴.
+source "$(cd "$(dirname "$0")" && pwd)/config.sh"
+
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="${REPO_ROOT}/sitemap.xml"
 

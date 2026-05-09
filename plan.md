@@ -906,6 +906,28 @@ GA4·AdSense 도메인 추가도 같은 시점에. 자세한 단계 = `history/m
 3. 영어 분기 stash pop → en/ 안 옛 도메인 ~40건을 새 도메인으로 갱신
 4. memory `project_taystudio.md` 도메인 = `taystudios.com` (Cloudflare Registrar) 갱신
 
+### 9.5.7 도메인 단일 관리 인프라 (2026-05-09 후속)
+
+migration 직후, 다음 도메인 변경 시 수동 sed 부담 제거 위해 도구 3종 도입. HTML 절대 URL은 SEO 안전상 정적 유지(Naver·Bing·카톡 OG·X 봇 일부 JS 미실행 → runtime 주입 X). 빌드 단계 도입 X (현 main 직배포 워크플로 보존).
+
+| 파일 | 역할 |
+|---|---|
+| `scripts/config.sh` (신규) | `DOMAIN_SCHEME`·`DOMAIN_HOST`·`INDEXNOW_KEY` 단일 source. `DOMAIN`·`HOST`·`KEY`·`KEY_LOCATION` 합성 후 export |
+| `scripts/migrate-domain.sh OLD NEW` (신규) | git 추적 파일 중 `*.html`·`*.svg`·`*.xml`·`robots.txt`·`*.txt` 일괄 sed. exclude = `history/`·`dash-tay9k3m/`·`common/site-chrome.js`·`scripts/`. `--dry-run` 옵션 지원 |
+| `scripts/verify-domain.sh OLD` (신규) | git 추적 파일 grep. 의도적 잔존(history·dash·site-chrome·plan.md·README·INDEXING_CHECKLIST)은 분류, 의도 외 잔존은 exit 1 |
+| `scripts/build-sitemap.sh` (갱신) | 11번 줄 `DOMAIN=` 제거 → `source config.sh` |
+| `scripts/indexnow-ping.sh` (갱신) | 16-19번 줄 4개 변수 제거 → `source config.sh` |
+
+**다음 도메인 변경 흐름** (1명령):
+1. `bash scripts/migrate-domain.sh --dry-run OLD NEW` — 영향 범위 확인
+2. `bash scripts/migrate-domain.sh OLD NEW` — sed 적용
+3. `scripts/config.sh`의 `DOMAIN_HOST` 수동 갱신 (단일 source)
+4. `common/site-chrome.js` ALLOWED·mirrorWarn 정책 결정 (전환기 false positive 정책)
+5. `bash scripts/verify-domain.sh OLD` — 잔존 검증 (exit 0 기대)
+6. `bash scripts/build-sitemap.sh` — sitemap 재생성 + IndexNow ping
+
+**검증 통과** = 5 스크립트 syntax ✓ / config.sh source 후 4 변수 정상 / sitemap 67 URL 동일(lastmod 외 구조 동일) / IndexNow dry-run host·key·67 URL 동일 / verify-domain.sh `taystudio.github.io` = 의도적 잔존 21개·의도 외 0개 exit 0 / migrate-domain.sh dry-run 76개 대상 + 2개 exclude 정상 분류
+
 ---
 
 ## 10. 참고 문서
