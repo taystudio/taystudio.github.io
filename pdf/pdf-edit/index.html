@@ -160,6 +160,7 @@
     .loading::after { content:''; display:inline-block; width:14px; height:14px; border:2px solid var(--border); border-top-color:var(--primary); border-radius:50%; margin-left:8px; animation:spin .8s linear infinite; vertical-align:-3px; }
     @keyframes spin { to { transform:rotate(360deg); } }
   </style>
+<script src="/common/site-chrome.js"></script>
 </head>
 <body>
   <site-header></site-header>
@@ -333,6 +334,5 @@
   <site-footer></site-footer>
   <script src="/pdf/vendor/pdf-lib.min.js" defer></script>
   <script src="./pdf-edit.js" type="module"></script>
-  <script src="/common/site-chrome.js" defer></script>
 </body>
 </html>

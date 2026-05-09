@@ -47,6 +47,19 @@ body {
   padding: 32px 20px 80px;
 }
 
+/* 헤더 깜박임 방지 — site-chrome.js로 inner가 주입되기 전 빈 공간·배경 미리 예약.
+   site-chrome.js가 defer 로드라 첫 paint에서 <site-header> 0px → JS 실행 후 ~64px로 layout shift 발생.
+   같은 bg·border를 outer에 미리 박아두면 visual·layout 모두 안정. */
+site-header {
+  display: block;
+  min-height: 64px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+@media (max-width: 480px) {
+  site-header { min-height: 80px; }  /* 모바일 = 2-row grid (logo+install / nav 5분할) */
+}
+
 .site-header {
   display: flex;
   align-items: center;

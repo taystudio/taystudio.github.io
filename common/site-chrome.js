@@ -157,6 +157,8 @@ const installButtonRefs = [];
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
+    // 한 번이라도 install 가능하면 다음 페이지 로드부터 flicker 없이 즉시 노출 (localStorage 캐시).
+    try { localStorage.setItem('ts-pwa-eligible', '1'); } catch (_) {}
     syncInstallButtons();
   });
   window.addEventListener('appinstalled', () => {
@@ -190,13 +192,17 @@ function isInstalled() {
   if (isStandalone()) return true;
   try { return localStorage.getItem('ts-installed') === '1'; } catch (_) { return false; }
 }
+// 이전 페이지에서 beforeinstallprompt 받은 적 있으면 true. 페이지 이동 시 flicker 방지.
+function wasInstallEligible() {
+  try { return localStorage.getItem('ts-pwa-eligible') === '1'; } catch (_) { return false; }
+}
 
 function syncInstallButtons() {
   // 카카오·라인·페북 등 in-app 브라우저 = "외부 열기" 모드 (PWA install 미지원)
-  // 미지원 환경(prompt X·iOS X·미설치) = 숨김 / 설치됨 = 비활성 "✓ 설치됨" / 미설치 = 활성 "웹앱 설치"
+  // 미지원 환경(prompt X·iOS X·미설치·이전 eligible 캐시 X) = 숨김 / 설치됨 = 비활성 "✓ 설치됨" / 미설치 = 활성 "웹앱 설치"
   const installed = isInstalled();
   const inApp = isInAppBrowser();
-  const supported = inApp || deferredPrompt !== null || isIOS() || installed;
+  const supported = inApp || deferredPrompt !== null || isIOS() || installed || wasInstallEligible();
   for (const btn of installButtonRefs) {
     btn.hidden = !supported;
     if (inApp && !installed) {
