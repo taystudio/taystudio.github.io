@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /dash-tay9k3m/
+Disallow: /*.md$
 
 Sitemap: https://taystudios.com/sitemap.xml
 

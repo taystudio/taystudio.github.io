@@ -85,14 +85,14 @@
 #### 수정 후
 
 ```html
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456" crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
 ```
 
 #### 30개 페이지에 일괄 적용 (Python 스크립트)
 
 ```bash
 # tools/ 디렉토리에서
-PUB_ID="ca-pub-1234567890123456"
+PUB_ID="ca-pub-XXXXXXXXXXXXXXXX"
 find . -name "index.html" -exec sed -i '' "s|<!-- AdSense.*승인 후.*-->|<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=$PUB_ID\" crossorigin=\"anonymous\"></script>|g" {} \;
 ```
 
@@ -116,7 +116,7 @@ AdSense 콘솔에서 광고 단위를 미리 만들어두고, 그 코드를 사�
 ```html
 <ins class="adsbygoogle"
      style="display:block"
-     data-ad-client="ca-pub-1234567890123456"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
      data-ad-slot="0123456789"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
@@ -150,7 +150,7 @@ AdSense 콘솔에서 광고 단위를 미리 만들어두고, 그 코드를 사�
 ```html
 <ins class="adsbygoogle"
      style="display:block"
-     data-ad-client="ca-pub-1234567890123456"
+     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
      data-ad-slot="0123456789"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
@@ -349,7 +349,7 @@ google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
 """AdSense 광고 코드 일괄 삽입"""
 import re, glob
 
-PUBLISHER_ID = "ca-pub-1234567890123456"
+PUBLISHER_ID = "ca-pub-XXXXXXXXXXXXXXXX"
 SLOT_RESULT_TOP = "0123456789"
 SLOT_BOTTOM = "9876543210"
 
