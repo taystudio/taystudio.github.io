@@ -282,6 +282,33 @@
 
   <main class="container">
 
+    <!-- 🚨 사용자 액션 TODO callout (최상단) -->
+    <section style="margin-bottom: 32px;">
+      <div class="card danger" style="border-left-width: 6px; padding: 22px 26px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+          <span style="font-size:24px;">🚨</span>
+          <div style="font-weight:800; font-size:18px; color:#8B1318;">사용자 액션 TODO — AdSense 신청 → 승인 시 affiliate UI hide 풀기</div>
+        </div>
+        <div style="font-size:13.5px; color:#5a3a3d; line-height:1.7;">
+          <p style="margin:0 0 10px;"><b>현 상태</b>: 쿠팡 위젯 4 + 추천링크 4 코드 박힘 라이브. 단 <code>common/css/style.css</code> 끝의 두 번째 hide 블록으로 <b>UI는 hide 처리</b> (AdSense 리뷰어가 affiliate 비중 오인할 위험 차단).</p>
+          <p style="margin:0 0 6px;"><b>다음 단계</b> (사용자 직접):</p>
+          <ol style="margin:0 0 12px 0; padding-left:24px;">
+            <li><b>AdSense 신청</b> — <a href="https://www.google.com/adsense" target="_blank">google.com/adsense</a> → 사이트 추가(<code>taystudios.com</code>) → 광고 코드 발급</li>
+            <li>리뷰 1~7일 대기</li>
+            <li><b>승인 메일 받으면 즉시 plan.md §7.5 절차대로</b>:
+              <ul style="margin:6px 0 0 0; padding-left:20px;">
+                <li><code>common/css/style.css</code> 끝의 <b>두 hide 블록 모두 삭제</b> (ad-slot + affiliate)</li>
+                <li><code>&lt;script&gt;</code> 39개 일괄 주석 해제 (perl one-liner)</li>
+                <li>60 <code>.ad-slot</code>에 <code>&lt;ins class="adsbygoogle"&gt;</code> 코드 삽입</li>
+                <li>SW <code>CACHE_VERSION</code> v2→v3 bump → 쿠팡 위젯 + AdSense 동시 라이브</li>
+              </ul>
+            </li>
+          </ol>
+          <p style="margin:0; font-size:12.5px; color:#7a4d50;"><b>왜 지금 신청 적기</b>: 사이트 콘텐츠 풍부도(60 도구·계산식·FAQ·sources) + AdSense 60 placeholder 박힘 + affiliate hide 처리 → 리뷰 통과 가능성 ★★★. 신청 안 하면 쿠팡 매출조차 0 (UI hide 상태).</p>
+        </div>
+      </div>
+    </section>
+
     <!-- 가입 결과 -->
     <section>
       <h2><span class="badge done">완료</span> 1단계 — 가입 + 활동 활성화</h2>
