@@ -901,10 +901,10 @@ GA4·AdSense 도메인 추가도 같은 시점에. 자세한 단계 = `history/m
 
 ### 9.5.6 남은 작업 (다음 세션 진입 시 "재개해줘")
 
-1. §9.5.3 검수 → §9.5.4 commit·push·IndexNow ping·curl 검증
-2. §9.5.5 검색엔진 4채널 등록 (사용자 액션)
-3. 영어 분기 stash pop → en/ 안 옛 도메인 ~40건을 새 도메인으로 갱신
-4. memory `project_taystudio.md` 도메인 = `taystudios.com` (Cloudflare Registrar) 갱신
+1. ✅ §9.5.3 검수 → §9.5.4 commit·push·IndexNow ping·curl 검증 (2026-05-09 완료)
+2. ✅ §9.5.5 검색엔진 4채널 등록 + AdSense + GA4까지 (2026-05-09 완료)
+3. ⏳ 영어 분기 stash pop → en/ 안 옛 도메인 ~40건을 새 도메인으로 갱신 (`stash@{0}: english-pilot-wip` 살아 있음)
+4. ✅ memory `project_taystudio.md` 도메인 = `taystudios.com` 갱신 (2026-05-09 완료)
 
 ### 9.5.7 도메인 단일 관리 인프라 (2026-05-09 후속)
 
@@ -1008,6 +1008,33 @@ curl -sS https://taystudios.com/ | grep -E 'google-site-verification|naver-site-
 ```
 
 **캘린더 알림 권장** = 2026-11-09 즈음 plan.md §9.5.9 재방문. 6개월 시점에 트래픽 트렌드 보고 정리 진행 여부 판단.
+
+### 9.5.10 최종 검증 결과 (2026-05-09 17:30 — 11 카테고리)
+
+migration 전체 자가검증 결과. 의도 외 잔존 = 0건, 의도적 잔존만 13개 파일.
+
+| # | 카테고리 | 결과 | 비고 |
+|---|---|---|---|
+| 1 | DNS · HTTPS · redirect | ✅ | http→https 301 / 옛 도메인→신규 301 / www→apex 301 / https 200 |
+| 2 | sitemap · robots · IndexNow key · ads.txt | ✅ | sitemap 67 URL, 옛 도메인 잔존 0 / robots Sitemap 줄 정상 / key 200 + body 일치 / ads.txt 200 |
+| 3 | 5 카테고리 hub + 법적 페이지 8건 canonical | ✅ | 모두 신규 도메인 |
+| 4 | 검증 메타 6종 (head) | ✅ | google-site (옛+신규) / naver-site (옛+신규) / msvalidate.01 / google-adsense-account |
+| 5 | AdSense 100% 커버 | ✅ | meta 68/68 + script 68/68, 옛 commented 패턴 0 (history 문서 내 1건은 의도적) |
+| 6 | GA4 라이브 fire | ✅ | site-chrome.js 200 + GA_ID = `G-79C40NJRYT` + 모든 페이지 로드 |
+| 7 | 옛 도메인 잔존 (의도 외) | ✅ 0건 | active HTML 0 / sitemap·robots·CNAME 0 / `common/site-chrome.js` 의도적(ALLOWED·mirrorWarn) |
+| 8 | CNAME · SW version | ✅ | `taystudios.com` / `taystudio-v13` |
+| 9 | 영어 분기 stash | ⏳ | `stash@{0}: english-pilot-wip` 살아 있음 — pop 후 en/ ~40건 sed 갱신 필요 |
+| 10 | memory `project_taystudio.md` | ✅ | 신규 도메인·pub ID·measurement ID·IndexNow key·migration 완료 시점 갱신 |
+| 11 | history/migration sub-dashboard 5건 | ✅ | google-search-console·naver-search-advisor·bing-webmaster-tools·adsense·ga4 모두 commit |
+
+**의도적 잔존** (정책상 보존 — `verify-domain.sh` 분류와 일치):
+- `common/site-chrome.js` ALLOWED·mirrorWarn — 전환기 false positive 차단
+- `dash-tay9k3m/index.html` GA·Looker·repo URL 안내 — 운영자 dashboard 인지용 (1건)
+- `history/migration/*` 시점 분기 entry + sub-dashboard — migration 자체 기록 (9건)
+
+**남은 단 1건** = §9.5.6 #3 영어 분기 stash. 다음 세션 시작 시 `git stash pop` → en/ 디렉토리에 `bash scripts/migrate-domain.sh taystudio.github.io taystudios.com` 적용 → en/ 영역만 추가 commit.
+
+**전체 진행 = 99% (인프라 완료, en/ 분기만 잔여)**.
 
 ---
 
