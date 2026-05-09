@@ -1418,3 +1418,11 @@ button:hover {
    승인 후 이 블록 삭제하면 `.ad-slot` 위치가 다시 노출됩니다. */
 .ad-slot { display: none !important; }
 
+/* AdSense 미승인 — 쿠팡 파트너스 추천 카드 영역 임시 숨김 (tools/monitor + 향후 storage/baby/pet).
+   AdSense 리뷰어가 affiliate 비중 오인할 위험 차단. 승인 후 이 블록 삭제하면 모두 재노출됩니다.
+   영향 범위: .purpose-grid (4 카드 그리드) · .partner-disclosure (정책 박스) · .affiliate-section-title/intro (h3·intro 텍스트). */
+.affiliate-section-title,
+.affiliate-section-intro,
+.purpose-grid,
+.partner-disclosure { display: none !important; }
+

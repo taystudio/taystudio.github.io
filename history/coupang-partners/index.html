@@ -274,8 +274,8 @@
       <div class="meta-row">
         <span><b>가입일</b> 2026-05-09</span>
         <span><b>회원 ID</b> AF4086854</span>
-        <span><b>상태</b> 활동 중 + 라이브 광고 운영 중</span>
-        <span><b>첫 도구</b> 모니터 PPI·시야거리 (위젯 4개 + 추천링크 4개 라이브)</span>
+        <span><b>상태</b> 활동 중 + 코드 박힘 (CSS hide — AdSense 승인 대기)</span>
+        <span><b>첫 도구</b> 모니터 PPI·시야거리 (위젯 4 + 추천링크 4 코드 라이브, UI 일시 숨김)</span>
       </div>
     </div>
   </header>
@@ -492,7 +492,9 @@
         <li class="done"><b>자동</b> — #coupang-*-link 4개 → link.coupang.com/a/eFY* 단축링크 4개 교체</li>
         <li class="done"><b>자동</b> — sitemap.xml rebuild (67 → 68 URL — monitor 추가)</li>
         <li class="done"><b>자동</b> — commit + push + IndexNow ping</li>
-        <li class="todo"><b>1주 후 검증</b> — 쿠팡 콘솔 실시간 트래킹에서 클릭·구매 데이터 확인 (CTR·CR·매출)</li>
+        <li class="done"><b>AdSense 미승인 동안 affiliate 영역 CSS hide</b> — `common/css/style.css` 끝에 두 번째 hide 블록 추가 (`.purpose-grid · .partner-disclosure · .affiliate-section-title/intro`). AdSense 리뷰어가 affiliate 비중 오인할 위험 차단. 코드·iframe·단축링크는 그대로 — CSS만. **AdSense 승인 후 단일 블록 삭제로 즉시 unhide**</li>
+        <li class="todo"><b>AdSense 신청·승인 대기</b> — 승인 후 즉시: ① 두 hide 블록 삭제(ad-slot + affiliate) ② AdSense `<script>` 39개 주석 해제 ③ 60개 .ad-slot에 AdSense 코드 삽입 ④ SW CACHE_VERSION bump (상세 = `plan.md §7.5`)</li>
+        <li class="todo"><b>AdSense 승인 후 — 쿠팡 affiliate 1주 후 검증</b> — 쿠팡 콘솔 실시간 트래킹에서 클릭·구매 데이터 확인 (CTR·CR·매출)</li>
         <li class="todo"><b>(선택) 백로그</b> — 저장공간 도구(<code>tools/storage/</code>)에도 추천 카드 영역 추가 (5 카드: SD카드/USB · 256GB SSD · 1TB SSD · 4TB HDD · NAS) — <a href="./widget-howto.html">widget-howto.html</a> 절차 그대로 반복</li>
         <li class="todo"><b>(선택) 미래</b> — baby(분유) · pet(사료) 재구매 단가 도구 + 다른 디지털·기기 도구 후보 (스마트폰 화면 비교·노트북 사양 비교 등 §5.5.4 convert 카테고리와 별개로 계산기 형식으로 흡수 가능)</li>
       </ul>
