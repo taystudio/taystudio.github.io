@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://staticimgly.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="Background Remover | AI Photo Cutout, Transparent PNG, Free">
+  <meta property="og:description" content="Remove a photo's background with AI → transparent PNG. All processing in your browser. Images never leave your device.">
+  <meta property="og:url" content="https://taystudios.com/en/image/bg-remove/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Background Remover | AI Cutout, Transparent PNG, Free">
+  <meta name="twitter:description" content="AI removes photo backgrounds → transparent PNG. Browser-based.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Background Remover | AI Photo Cutout, Transparent PNG, Free</title>
+  <meta name="description" content="Automatically remove a photo's background with AI → transparent PNG. People, pets, products. All processing in your browser via ONNX Runtime Web. Images never uploaded.">
+  <meta name="keywords" content="background remover, photo cutout, remove background, transparent PNG, AI background removal free, online image cutout">
+  <link rel="canonical" href="https://taystudios.com/en/image/bg-remove/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/bg-remove/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/bg-remove/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/bg-remove/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Background Remover | AI Photo Cutout",
+      "description": "Remove backgrounds with AI (@imgly/background-removal, ONNX Runtime Web) → transparent PNG. Runs in your browser.",
+      "url": "https://taystudios.com/en/image/bg-remove/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript, WebAssembly, modern browser",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "AI auto-removal of backgrounds (@imgly/background-removal)",
+        "Transparent PNG output",
+        "No upload — AI inference in your browser",
+        "WebGPU acceleration on supported browsers"
+      ],
+      "dateModified": "2026-05-09",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/en/image/" },
+        { "@type": "ListItem", "position": 3, "name": "Background Remover", "item": "https://taystudios.com/en/image/bg-remove/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are my images uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Images stay on your device. AI inference runs entirely in the browser via ONNX Runtime Web (WASM). The model file and WASM runtime are downloaded from staticimgly.com on first use, then cached in the browser's IndexedDB / HTTP cache (offline thereafter). The site operator cannot see your images."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the first run slow?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "On first use, the AI model (small ~43MB) and ONNX runtime WASM files are downloaded. After that, they're cached and subsequent runs start instantly. Avoid the first run on cellular data — use Wi-Fi once to warm the cache."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What kind of photos work well?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "People, pets, and product photos generally work well. Higher color/brightness contrast between subject and background = cleaner results. Fine details like hair / fur are limited by the small model (medium and large models are more accurate but heavier downloads)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if the result is unsatisfactory?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "① Use photos with strong subject/background contrast (white background works great) ② if the subject is small, crop closer first ③ heavy shadows or reflections may leave residue ④ for fine hair detail, the medium model would help, but its 80MB download isn't currently offered ⑤ width under 1500px is fastest."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What format is the result?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PNG (to preserve transparency). If transparency isn't needed (e.g. compositing onto a solid background), open it in any graphics tool, place it on the new background, and save as JPG. The Image Compress tool here can also convert PNG → JPG."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Maximum image size?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No hard limit. On mobile, images wider than ~2000px may run out of memory. Desktop Chrome handles up to 4000px reliably. For large images, use the Resize tool to shrink to 1500–2000px width first — it's faster and safer."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .ai-disclaimer { padding:12px 14px; margin:14px 0; background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.32); border-radius:8px; font-size:13px; line-height:1.55; }
+    .ai-disclaimer .label { color:#b45309; font-weight:700; }
+    @media (prefers-color-scheme: dark) { .ai-disclaimer .label { color:#fbbf24; } }
+    .progress-wrap { margin:14px 0; }
+    .progress-bar { height:8px; background:var(--border); border-radius:4px; overflow:hidden; }
+    .progress-fill { height:100%; background:var(--primary); transition:width .25s; width:0; }
+    .progress-text { font-size:12.5px; color:var(--muted); margin-top:6px; }
+    .preview-pair { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+    @media (max-width:520px) { .preview-pair { grid-template-columns:1fr; } }
+    .preview-pair .preview-cell { padding:10px; background:rgba(15,23,42,0.04); border:1px solid var(--border); border-radius:10px; text-align:center; }
+    @media (prefers-color-scheme:dark) { .preview-pair .preview-cell { background:rgba(255,255,255,0.03); } }
+    .preview-pair .preview-cell .label { font-size:11.5px; color:var(--muted); margin-bottom:6px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; }
+    .preview-pair img { display:block; max-width:100%; max-height:360px; margin:0 auto; border-radius:6px; }
+    .preview-pair .checkered { background-image: linear-gradient(45deg,#ddd 25%,transparent 25%),linear-gradient(-45deg,#ddd 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ddd 75%),linear-gradient(-45deg,transparent 75%,#ddd 75%); background-size:16px 16px; background-position:0 0,0 8px,8px -8px,-8px 0px; }
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Image</a> · Background Remover</div>
+    <h1>Background Remover</h1>
+    <p class="subtitle">AI auto-removes the background → transparent PNG. People, pets, products — all in your browser.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Images never leave your device.</b> AI inference runs in the browser via ONNX Runtime Web (WASM). The model and runtime are downloaded once from <code>staticimgly.com</code>, then cached in IndexedDB.</div>
+    </div>
+
+    <div class="ai-disclaimer">
+      <span class="label">⚠️ First-run notice</span> — On first use, the AI model (~43MB) + WASM runtime download. <b>Wi-Fi recommended.</b> Cached afterwards for fast starts. Quality varies by photo — fine details like hair / fur have small-model limits.
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">✂️</div>
+        <div class="drop-title" id="dropTitle">Drag a photo here, or click to choose</div>
+        <div class="drop-hint">JPG · PNG · WebP — width 1500–2000px recommended</div>
+        <input type="file" id="fileInput" accept="image/*">
+      </label>
+
+      <div class="image-actions">
+        <button type="button" id="removeBtn" disabled>Remove background</button>
+        <button type="button" id="clearBtn">Reset</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText">Preparing...</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense slot ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="preview-pair">
+        <div class="preview-cell">
+          <div class="label">Original</div>
+          <img id="origImg" alt="Original">
+        </div>
+        <div class="preview-cell checkered">
+          <div class="label">Background removed</div>
+          <img id="resultImg" alt="Background removed">
+        </div>
+      </div>
+      <div class="image-meta">
+        <span>Processing time <b id="elapsedTime">—</b></span>
+        <span>Resolution <b id="dimText">—</b></span>
+        <span>Result size <b id="resultSize">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ Download PNG (transparent)</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>Photos that work well vs. don't</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Good results</th><th>Weaker results</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Person or product on a white / clean background</td>
+              <td>Subject and background are similar in color</td>
+            </tr>
+            <tr>
+              <td>Subject fills 60%+ of the frame</td>
+              <td>Subject is far away / small</td>
+            </tr>
+            <tr>
+              <td>Sharp outlines (pets, objects)</td>
+              <td>Long hair / fur details (small-model limits)</td>
+            </tr>
+            <tr>
+              <td>Even lighting</td>
+              <td>Strong shadows / reflections / backlight</td>
+            </tr>
+            <tr>
+              <td>1000–2000px wide</td>
+              <td>Under 500px (low res) or 4000+ (memory)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../compress/">Image Compress<span class="desc">Transparent PNG → smaller JPG</span></a>
+        <a href="../resize/">Image Resize<span class="desc">Shrink to 1500px first</span></a>
+        <a href="/pdf/img-to-pdf/">Image → PDF<span class="desc">Bundle the cutout into a PDF</span></a>
+        <a href="../ocr/">Image OCR<span class="desc">Text extraction (background-agnostic)</span></a>
+        <a href="../id-photo/">ID / Passport Photo<span class="desc">Crop to standard sizes</span></a>
+        <a href="../">All image tools<span class="desc">QR · PDF · OCR</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>About @imgly/background-removal</summary>
+        <div class="answer">
+          <a href="https://github.com/imgly/background-removal-js" rel="nofollow noopener" target="_blank">@imgly/background-removal</a> by IMG.LY (AGPL-3.0 / Commercial). Used here as GPL-compatible free use; the model and WASM are downloaded from <code>staticimgly.com</code> CDN and cached in your browser.
+        </div>
+      </details>
+      <details>
+        <summary>Why download model files from staticimgly.com?</summary>
+        <div class="answer">
+          The AI model (43MB+) and ONNX Runtime WebAssembly assets are too heavy to commit directly into the repo. Same pattern as OCR (Tesseract): vendor only the small library (82KB) and fetch model + WASM on first use, cached in IndexedDB / HTTP cache afterwards. <b>Your images are never sent anywhere.</b>
+        </div>
+      </details>
+      <details>
+        <summary>WebAssembly + SharedArrayBuffer requirements</summary>
+        <div class="answer">
+          AI inference uses WASM and (when available) SharedArrayBuffer. Modern Chrome / Firefox / Edge / Safari (15+) all support these. Without SharedArrayBuffer it falls back to single-thread, which is slower.
+        </div>
+      </details>
+      <details>
+        <summary>Tips for large photos</summary>
+        <div class="answer">
+          AI inference time / memory scales with input size squared. <b>1500–2000px wide is the sweet spot.</b> 4000px+ may take 30+ seconds or OOM even on desktop Chrome. Use the resize tool to shrink first.
+        </div>
+      </details>
+      <details>
+        <summary>I want better accuracy</summary>
+        <div class="answer">
+          Currently the small model (~43MB). Medium (~80MB) and large (~180MB) aren't offered yet due to download cost. Toggle for opt-in is under consideration based on user feedback. Reach out via GitHub issue or email if you need higher accuracy.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently Asked Questions</h2>
+
+      <details>
+        <summary>Are my images uploaded to a server?</summary>
+        <div class="answer">
+          <b>Images stay on your device.</b> AI inference runs entirely in the browser via <b>ONNX Runtime Web (WASM)</b>.
+          The model file and WASM runtime are downloaded from <code>staticimgly.com</code> on first use, then cached in the browser's IndexedDB / HTTP cache (offline thereafter).
+          The site operator cannot see your images.
+        </div>
+      </details>
+
+      <details>
+        <summary>Why is the first run slow?</summary>
+        <div class="answer">
+          On first use, the <b>AI model (small ~43MB) + ONNX runtime WASM</b> download.
+          After that, they're cached and subsequent runs start instantly.
+          Avoid the first run on cellular data — use Wi-Fi once to warm the cache.
+        </div>
+      </details>
+
+      <details>
+        <summary>What kind of photos work well?</summary>
+        <div class="answer">
+          <b>People, pets, and product photos</b> generally work well. Higher color/brightness contrast between subject and background = cleaner results.
+          Fine details like hair / fur are limited by the small model (medium and large models are more accurate but heavier downloads).
+        </div>
+      </details>
+
+      <details>
+        <summary>What if the result is unsatisfactory?</summary>
+        <div class="answer">
+          ① Use photos with strong subject/background contrast (white background works great) ② if the subject is small, crop closer first ③ heavy shadows or reflections may leave residue
+          ④ for fine hair detail, the medium model would help, but its 80MB download isn't currently offered
+          ⑤ width under 1500px is fastest.
+        </div>
+      </details>
+
+      <details>
+        <summary>What format is the result?</summary>
+        <div class="answer">
+          <b>PNG</b>, to preserve transparency.
+          If transparency isn't needed (e.g. compositing onto a solid background), open it in any graphics tool, place it on the new background, and save as JPG.
+          The Image Compress tool here can also convert PNG → JPG.
+        </div>
+      </details>
+
+      <details>
+        <summary>Maximum image size?</summary>
+        <div class="answer">
+          No hard limit. On mobile, images wider than ~2000px may run out of memory. Desktop Chrome handles up to 4000px reliably.
+          <b>For large images, use the Resize tool to shrink to 1500–2000px width first</b> — it's faster and safer.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last reviewed: 2026-05-09 / @imgly/background-removal v1.7 (small model).</div>
+      <ul>
+        <li>@imgly/background-removal — <a href="https://github.com/imgly/background-removal-js" rel="nofollow noopener" target="_blank">GitHub</a> (AGPL-3.0 / Commercial)</li>
+        <li>ONNX Runtime Web — <a href="https://onnxruntime.ai/" rel="nofollow noopener" target="_blank">onnxruntime.ai</a> (MIT)</li>
+        <li>Model + WASM hosting — <code>staticimgly.com</code> (IMG.LY)</li>
+      </ul>
+      <div class="note">⚠️ AI results vary by photo and aren't guaranteed. For commercial or official material, review and touch up the result by hand.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ All image tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script type="module" src="./bg-remove.js"></script>
+</body>
+</html>

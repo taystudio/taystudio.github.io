@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO PDF">
+  <meta property="og:title" content="Split PDF | Extract Page Ranges From a PDF — Free">
+  <meta property="og:description" content="Extract specific pages or ranges from a PDF using formats like '1-3,5,7-10'. All processing in your browser. No watermark, no signup.">
+  <meta property="og:url" content="https://taystudios.com/en/pdf/pdf-split/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Split PDF | Extract Page Ranges, Free">
+  <meta name="twitter:description" content="Extract pages from a PDF in your browser. Nothing uploaded.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Split PDF | Extract Page Ranges From a PDF — Free</title>
+  <meta name="description" content="Extract chosen pages from a PDF using ranges like '1-3,5,7-10'. All processing happens in your browser. No watermark, no signup, no install.">
+  <meta name="keywords" content="split pdf, extract pdf pages, pdf splitter, pdf page extract, pdf range extract">
+  <link rel="canonical" href="https://taystudios.com/en/pdf/pdf-split/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/pdf/pdf-split/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-split/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/pdf/pdf-split/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Split PDF | Extract Page Ranges",
+      "description": "Extract specific pages from a PDF using range syntax ('1-3,5,7-10'). Runs in your browser.",
+      "url": "https://taystudios.com/en/pdf/pdf-split/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "Extract pages from a PDF",
+        "Range syntax (e.g. 3-7)",
+        "No upload — all processing in your browser"
+      ],
+      "dateModified": "2026-05-05",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "PDF", "item": "https://taystudios.com/en/pdf/" },
+        { "@type": "ListItem", "position": 3, "name": "Split PDF", "item": "https://taystudios.com/en/pdf/pdf-split/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I enter page ranges?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Page numbers are 1-based. Single pages are plain numbers (e.g. 5); contiguous ranges use a hyphen (e.g. 3-7); multiple groups are separated by commas (e.g. 1-3,5,8-10). Whitespace is ignored. Pages appear in the result PDF in the order you typed them."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I split a PDF into one page per file?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Currently the tool produces a single output PDF per run. Auto-splitting into N single-page files is planned. For now, extract one page at a time (e.g. type '1', download, then '2', download), or use your OS print dialog with 'Save as PDF' to set different ranges each time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the original PDF uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. PDF processing happens inside your browser using pdf-lib. Even the site operator cannot see the contents. Safe for contracts, resumes, and sensitive documents."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I split password-protected PDFs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Password-locked PDFs may not process. Unlock the PDF in a viewer first, then upload. This tool does not provide decryption."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I change the page order?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Pages appear in the result PDF in the order you typed them. For example '5,1-3' produces a 4-page PDF in the order 5 → 1 → 2 → 3. You can also include the same page twice."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why isn't the output much smaller than the original?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "pdf-lib copies page objects as-is, so even when extracting a few pages, internal resources like fonts and images may still be embedded. Run the result through a separate PDF compressor if you need a smaller file."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .pages-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:8px; margin-top:6px; }
+    .pages-grid .stat-cell { padding:10px; }
+    .pages-grid .num { font-size:18px; }
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">PDF</a> · Split PDF</div>
+    <h1>Split PDF</h1>
+    <p class="subtitle">Extract only the pages you need — using ranges like '1-3,5,7-10'.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Your PDFs never leave your browser.</b> All processing happens locally on your device.</div>
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">📑</div>
+        <div class="drop-title" id="dropTitle">Drag a PDF file here, or click to select</div>
+        <div class="drop-hint">PDF only — single file</div>
+        <input type="file" id="fileInput" accept="application/pdf">
+      </label>
+
+      <div id="pdfMeta" class="pages-grid" hidden>
+        <div class="stat-cell"><div id="origPages" class="num">—</div><div class="lab">Total pages</div></div>
+        <div class="stat-cell"><div id="origSize" class="num">—</div><div class="lab">Original size</div></div>
+      </div>
+
+      <div class="field" id="rangeField" hidden>
+        <label for="rangeIn">Page range to extract</label>
+        <input type="text" id="rangeIn" placeholder="e.g. 1-3,5,7-10">
+        <p class="small" style="color:var(--muted);margin-top:6px">1-based pages. Single = number / range = <code>1-3</code> / multiple groups = <code>1-3,5,8-10</code></p>
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="splitBtn" disabled>Extract</button>
+        <button type="button" id="clearBtn">Reset</button>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense — PDF Tools ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="image-meta">
+        <span>Pages extracted <b id="newPages">—</b></span>
+        <span>Output size <b id="newSize">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ Download extracted PDF</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>Range syntax examples</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Input</th><th>Output pages</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>3</code></td><td>page 3 (1 page)</td><td>Single page</td></tr>
+            <tr><td><code>1-5</code></td><td>pages 1-2-3-4-5 (5 pages)</td><td>Contiguous range</td></tr>
+            <tr><td><code>1,3,5</code></td><td>pages 1, 3, 5 (3 pages)</td><td>Specific pages only</td></tr>
+            <tr><td><code>1-3,7,10-12</code></td><td>pages 1, 2, 3, 7, 10, 11, 12 (7 pages)</td><td>Mixed</td></tr>
+            <tr><td><code>5-1</code></td><td>pages 5, 4, 3, 2, 1 (5 pages)</td><td>Reverse order (start &gt; end)</td></tr>
+            <tr><td><code>5,1-3</code></td><td>pages 5, 1, 2, 3 (4 pages)</td><td>Order matches your input</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../pdf-merge/">Merge PDF<span class="desc">Combine multiple PDFs into one</span></a>
+        <a href="../pdf-edit/">PDF Edit<span class="desc">Delete, reorder, rotate pages</span></a>
+        <a href="../pdf-to-image/">PDF to Image<span class="desc">Pages to PNG / JPG</span></a>
+        <a href="../">All PDF tools<span class="desc">Merge, split, edit, convert</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>Invalid page input</summary>
+        <div class="answer">
+          Out-of-range pages (e.g. '120' on a 100-page PDF) and malformed inputs trigger an error message. Zero and negatives are not allowed; whitespace is auto-trimmed.
+        </div>
+      </details>
+      <details>
+        <summary>How reverse extraction works</summary>
+        <div class="answer">
+          When start is greater than end (e.g. <code>5-1</code>), the range is interpreted in reverse: 5, 4, 3, 2, 1. Useful for moving the last few pages to the front.
+        </div>
+      </details>
+      <details>
+        <summary>No page preview?</summary>
+        <div class="answer">
+          The current tool does not render previews (rendering would add ~2MB to the page). Open the original PDF in a viewer first to confirm page numbers, then enter your range here.
+        </div>
+      </details>
+      <details>
+        <summary>About the pdf-lib library</summary>
+        <div class="answer">
+          <a href="https://github.com/Hopding/pdf-lib" rel="nofollow noopener" target="_blank">pdf-lib</a> (Andrew Dillon, MIT). About 700KB, 100% client-side. The same library powers PDF Merge and Split.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently asked questions</h2>
+
+      <details>
+        <summary>How do I enter page ranges?</summary>
+        <div class="answer">
+          Pages are <b>1-based</b>. Single page = a number (e.g. <code>5</code>); contiguous range = hyphen (e.g. <code>3-7</code>); multiple groups = comma-separated (e.g. <code>1-3,5,8-10</code>).
+          Whitespace is ignored. Pages appear in the output in the order you typed them.
+        </div>
+      </details>
+
+      <details>
+        <summary>Can I split a PDF into one page per file?</summary>
+        <div class="answer">
+          Currently this tool produces a <b>single output PDF</b> per run. Auto-splitting into N single-page files is planned.
+          For now, extract one page at a time (e.g. type '1' → download → '2' → download), or use your OS print dialog with 'Save as PDF' to set different ranges.
+        </div>
+      </details>
+
+      <details>
+        <summary>Is the original PDF uploaded to a server?</summary>
+        <div class="answer">
+          No. PDF processing runs entirely in the <b>pdf-lib library inside your browser</b>. Even the site operator cannot see the contents.
+          Safe for contracts, resumes, and sensitive documents.
+        </div>
+      </details>
+
+      <details>
+        <summary>Can I split password-protected PDFs?</summary>
+        <div class="answer">
+          <b>Password-locked PDFs may not process.</b> Unlock the PDF in your viewer first, then upload.
+          This tool does not provide decryption.
+        </div>
+      </details>
+
+      <details>
+        <summary>Can I change the page order?</summary>
+        <div class="answer">
+          Yes. <b>Pages appear in the output in the order you typed</b>. For example <code>5,1-3</code> produces a 4-page PDF: 5 → 1 → 2 → 3.
+          You can also include the same page twice.
+        </div>
+      </details>
+
+      <details>
+        <summary>Why isn't the output much smaller than the original?</summary>
+        <div class="answer">
+          pdf-lib copies page objects as-is, so <b>extracting a few pages still embeds internal resources</b> like fonts and images.
+          Run the result through a separate PDF compressor if you need a smaller file.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last reviewed: 2026-05-05 / Powered by pdf-lib (MIT).</div>
+      <ul>
+        <li>pdf-lib (MIT) — <a href="https://github.com/Hopding/pdf-lib" rel="nofollow noopener" target="_blank">GitHub</a></li>
+        <li>PDF specification — ISO 32000-1 / ISO 32000-2</li>
+      </ul>
+      <div class="note">⚠️ Download the result and open in a PDF reader to confirm the pages match your intent.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ See all PDF tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="/pdf/vendor/pdf-lib.min.js" defer></script>
+  <script src="./pdf-split.js" defer></script>
+</body>
+</html>

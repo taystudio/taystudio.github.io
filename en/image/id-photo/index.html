@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="ID / Passport Photo Maker | US Passport, Schengen, LinkedIn">
+  <meta property="og:description" content="Auto-crop a photo to standard ID sizes — US passport (2×2 in), Schengen visa (35×45 mm), LinkedIn (400×400). 300 DPI output. White-background option. All in your browser.">
+  <meta property="og:url" content="https://taystudios.com/en/image/id-photo/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ID / Passport Photo Maker | US Passport, Schengen">
+  <meta name="twitter:description" content="Auto-crop to standard ID photo sizes at 300 DPI. Browser-only.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>ID / Passport Photo Maker | US Passport, Schengen, LinkedIn — Free Crop</title>
+  <meta name="description" content="Auto-crop photos to standard ID sizes — US Passport (2×2 in / 51×51 mm), Schengen Visa (35×45 mm), LinkedIn / profile (400×400 px), and custom mm sizes at 300 DPI. Face guide overlay + white background option. All processing in your browser, no signup, no watermark.">
+  <meta name="keywords" content="ID photo maker, passport photo, US passport photo, Schengen visa photo, LinkedIn profile photo, 2x2 photo, 35x45 photo, ID photo size, headshot crop">
+  <link rel="canonical" href="https://taystudios.com/en/image/id-photo/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/id-photo/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/id-photo/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/id-photo/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "ID / Passport Photo Maker",
+      "description": "Auto-crop photos to standard ID sizes (US passport, Schengen visa, LinkedIn) at 300 DPI. Runs in your browser.",
+      "url": "https://taystudios.com/en/image/id-photo/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "Standard sizes (US Passport, Schengen, UK Visa, China Visa, LinkedIn, Custom)",
+        "Direct mm input option",
+        "300 DPI auto pixel conversion",
+        "Face position guides (top of head, eyes, chin)",
+        "Optional white-background fill",
+        "No upload — processed in your browser"
+      ],
+      "dateModified": "2026-05-09",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/en/image/" },
+        { "@type": "ListItem", "position": 3, "name": "ID / Passport Photo", "item": "https://taystudios.com/en/image/id-photo/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are my photos uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Cropping uses the canvas API in the browser only. Even the site operator cannot see your photos. This tool only crops — for ID-document photos, sensitive material stays local."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which standard sizes are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "US Passport (51×51 mm / 2×2 in) / Schengen Visa (35×45 mm) / UK Visa (35×45 mm) / China Visa (33×48 mm) / LinkedIn / profile (400×400 px) / Custom mm input. All output at 300 DPI for print compatibility."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are pixel sizes auto-set?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Print standard is 300 DPI. Multiply mm by 300 / 25.4 ≈ 11.81 to get pixels. Example: 35mm × 11.81 ≈ 413px, 45mm × 11.81 ≈ 531px → 35×45mm = 413×531 px @ 300dpi. This is the resolution photo labs and printers expect."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I align the face?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Inside the crop frame, dotted guide lines mark the top of head, eye level, and chin. Drag inside the frame to move; corner handles resize. Common requirements: small space above the head, eyes at ~40% from the top, chin near the bottom."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the white-background option work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This tool only crops. If your original background isn't white, the result won't be white either. To produce a clean white background, first run the photo through the Background Remover tool, then bring the transparent PNG here. The white-background option fills only transparent pixels with white."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I print at a photo lab?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The output is at standard size and 300 DPI, so any photo lab or printer can print it. Note that government ID issuance often requires photos taken at an authorized photo studio (US passport requires photos within 6 months, etc.). This tool is best for resumes, profiles, applications, and unofficial uses."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to make an ID / passport photo",
+      "description": "Crop a photo to international ID standards (US Passport, Schengen Visa, UK Visa, China Visa, LinkedIn).",
+      "totalTime": "PT45S",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Upload photo", "text": "Drag-and-drop or click to select one photo with your face clearly visible." },
+        { "@type": "HowToStep", "position": 2, "name": "Pick a size", "text": "Select a standard preset (US Passport 51×51 mm, Schengen 35×45 mm, UK Visa, China Visa, LinkedIn 1:1) or enter a custom size in millimeters." },
+        { "@type": "HowToStep", "position": 3, "name": "Adjust the frame", "text": "Drag the frame to align with the guide lines (top of head, eyes, chin). Use corner handles to resize." },
+        { "@type": "HowToStep", "position": 4, "name": "Download", "text": "Download as 300 DPI PNG/JPG — ready for photo-lab printing or digital submissions." }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .opt-row { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:10px; margin-top:14px; }
+    .opt-row .field label { display:block; margin-bottom:4px; font-size:12.5px; color:var(--muted); }
+    .opt-row .field select, .opt-row .field input[type="number"], .opt-row .field input[type="text"] { width:100%; padding:8px 10px; font-size:14px; border:1px solid var(--border); border-radius:6px; background:var(--card); color:var(--text); }
+    .preset-buttons { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+    .preset-btn { padding:6px 12px; font-size:13px; background:var(--card); border:1px solid var(--border); border-radius:6px; cursor:pointer; color:var(--muted); transition:all .12s; }
+    .preset-btn.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+    .preset-btn:hover:not(.active) { border-color:var(--primary); color:var(--primary); }
+    .preset-btn .dim { font-size:11px; opacity:.75; margin-left:4px; }
+    .custom-mm-row { display:none; grid-column:1/-1; grid-template-columns:repeat(2, 1fr); gap:10px; }
+    .custom-mm-row.show { display:grid; }
+
+    .crop-stage { position:relative; margin-top:14px; background:#0006; border-radius:8px; overflow:hidden; user-select:none; -webkit-user-select:none; touch-action:none; }
+    .crop-stage canvas { display:block; max-width:100%; height:auto; }
+    .crop-overlay { position:absolute; inset:0; pointer-events:none; }
+    .crop-rect { position:absolute; border:2px solid var(--primary); box-shadow:0 0 0 9999px rgba(0,0,0,.55); pointer-events:auto; cursor:move; box-sizing:border-box; }
+    .crop-handle { position:absolute; width:14px; height:14px; background:#fff; border:2px solid var(--primary); border-radius:3px; box-shadow:0 1px 3px rgba(0,0,0,.4); pointer-events:auto; box-sizing:border-box; }
+    .crop-handle.tl { top:-8px; left:-8px; cursor:nwse-resize; }
+    .crop-handle.tr { top:-8px; right:-8px; cursor:nesw-resize; }
+    .crop-handle.bl { bottom:-8px; left:-8px; cursor:nesw-resize; }
+    .crop-handle.br { bottom:-8px; right:-8px; cursor:nwse-resize; }
+    /* Guide lines — top of head, eyes, chin */
+    .crop-guide { position:absolute; inset:0; pointer-events:none; }
+    .guide-h { position:absolute; left:0; right:0; height:0; border-top:1px dashed rgba(255,255,255,.6); }
+    .guide-h.top { top:18%; }    /* small space above head */
+    .guide-h.eye { top:42%; }    /* eye line */
+    .guide-h.chin { top:78%; }   /* chin */
+    .guide-v { position:absolute; top:0; bottom:0; left:50%; width:0; border-left:1px dashed rgba(255,255,255,.5); }
+    .guide-label { position:absolute; left:6px; font-size:10px; color:rgba(255,255,255,.85); background:rgba(0,0,0,.45); padding:1px 6px; border-radius:3px; pointer-events:none; }
+
+    .info-row { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:10px; margin-top:10px; }
+    .info-cell { padding:8px 10px; background:var(--card); border:1px solid var(--border); border-radius:6px; font-size:12.5px; color:var(--muted); text-align:center; }
+    .info-cell b { display:block; color:var(--text); font-size:14px; margin-top:2px; font-variant-numeric:tabular-nums; }
+
+    /* Photo ↔ options separation */
+    .card { display:flex; flex-direction:column; gap:20px; }
+    .card > .file-drop-zone { order:0; }
+    .card > .crop-stage     { order:1; margin-top:0; border:1px solid var(--border); }
+    .card > .opt-row        { order:2; margin-top:0; }
+    .card > .info-row       { order:3; margin-top:0; }
+    .card > .image-actions  { order:4; margin-top:0; }
+    .crop-stage canvas { max-height:55vh; }
+
+    .card > .opt-row {
+      position:relative;
+      padding:22px 16px 14px;
+      background:rgba(127, 127, 127, .05);
+      border:1px solid var(--border);
+      border-radius:10px;
+    }
+    .card > .opt-row::before {
+      content:'⚙ Options';
+      position:absolute;
+      top:-9px; left:14px;
+      padding:1px 10px;
+      background:var(--card);
+      font-size:10.5px; font-weight:700; color:var(--muted);
+      letter-spacing:.2em;
+      border:1px solid var(--border);
+      border-radius:999px;
+    }
+
+    @media (min-width: 900px) {
+      .card {
+        display:grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+        grid-template-areas:
+          "drop  drop"
+          "opts  stage"
+          "info  info"
+          "act   act";
+        gap:18px 24px;
+        align-items:start;
+      }
+      .card > .file-drop-zone { grid-area:drop; }
+      .card > .opt-row        { grid-area:opts; }
+      .card > .info-row       { grid-area:info; }
+      .card > .image-actions  { grid-area:act; }
+      .card > .crop-stage     { grid-area:stage; align-self:start; }
+    }
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Image</a> · ID / Passport Photo</div>
+    <h1>ID / Passport Photo Maker</h1>
+    <p class="subtitle">US Passport, Schengen, LinkedIn — auto-crop to standard sizes at 300 DPI for print.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Photos never leave your device.</b> Sensitive ID-related material is processed entirely in your browser.</div>
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">🪪</div>
+        <div class="drop-title" id="dropTitle">Drag a photo here, or click to choose</div>
+        <div class="drop-hint">JPG · PNG · HEIC (if browser supports it) — face clearly visible</div>
+        <input type="file" id="fileInput" accept="image/*">
+      </label>
+
+      <div class="opt-row" id="optRow" hidden>
+        <div class="field" style="grid-column:1/-1">
+          <label>Standard size</label>
+          <div class="preset-buttons" id="presetButtons">
+            <button type="button" class="preset-btn active" data-w="51" data-h="51">US Passport<span class="dim">51×51mm (2×2 in)</span></button>
+            <button type="button" class="preset-btn" data-w="35" data-h="45">Schengen Visa<span class="dim">35×45mm</span></button>
+            <button type="button" class="preset-btn" data-w="35" data-h="45">UK Visa<span class="dim">35×45mm</span></button>
+            <button type="button" class="preset-btn" data-w="33" data-h="48">China Visa<span class="dim">33×48mm</span></button>
+            <button type="button" class="preset-btn" data-w="51" data-h="51">LinkedIn / Profile<span class="dim">1:1 (51×51mm)</span></button>
+            <button type="button" class="preset-btn" data-w="0" data-h="0">Custom<span class="dim">mm</span></button>
+          </div>
+        </div>
+
+        <div class="custom-mm-row" id="customMmRow">
+          <div class="field">
+            <label for="customW">Width (mm)</label>
+            <input type="number" id="customW" min="10" max="200" step="1" value="51">
+          </div>
+          <div class="field">
+            <label for="customH">Height (mm)</label>
+            <input type="number" id="customH" min="10" max="200" step="1" value="51">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="formatSel">Output format</label>
+          <select id="formatSel">
+            <option value="jpeg" selected>JPG (for photo lab)</option>
+            <option value="png">PNG (lossless / web)</option>
+          </select>
+        </div>
+        <div class="field" id="qualityRow">
+          <label for="qualityIn">JPG quality (1–100): <b id="qualityVal">95</b></label>
+          <input type="range" id="qualityIn" min="1" max="100" step="1" value="95">
+        </div>
+        <div class="field" style="display:flex;align-items:center;padding-top:18px">
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);cursor:pointer">
+            <input type="checkbox" id="whiteBgChk"> Add white background (PNG transparent areas only)
+          </label>
+        </div>
+      </div>
+
+      <div class="info-row" id="infoRow" hidden>
+        <div class="info-cell">Standard size<b id="mmInfo">—</b></div>
+        <div class="info-cell">Output pixels (300 DPI)<b id="pxInfo">—</b></div>
+        <div class="info-cell">Current frame<b id="frameInfo">—</b></div>
+      </div>
+
+      <div class="crop-stage" id="cropStage" hidden>
+        <canvas id="srcCanvas"></canvas>
+        <div class="crop-overlay" id="cropOverlay">
+          <div class="crop-rect" id="cropRect">
+            <div class="crop-guide">
+              <div class="guide-h top"></div>
+              <div class="guide-h eye"></div>
+              <div class="guide-h chin"></div>
+              <div class="guide-v"></div>
+              <span class="guide-label" style="top:14%">Top</span>
+              <span class="guide-label" style="top:38%">Eyes</span>
+              <span class="guide-label" style="top:74%">Chin</span>
+            </div>
+            <span class="crop-handle tl" data-handle="tl"></span>
+            <span class="crop-handle tr" data-handle="tr"></span>
+            <span class="crop-handle bl" data-handle="bl"></span>
+            <span class="crop-handle br" data-handle="br"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-actions" id="actionBar" hidden>
+        <button type="button" id="cropBtn">Crop</button>
+        <button type="button" id="clearBtn">Reset</button>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense slot ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="image-meta">
+        <span>Output size <b id="outSize">—</b></span>
+        <span>Resolution <b>300 DPI</b></span>
+        <span>File size <b id="newBytes">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ Download ID photo</a>
+      </div>
+      <div style="margin-top:14px;text-align:center">
+        <img id="resultPreview" alt="ID photo preview" style="max-width:240px;max-height:320px;border:1px solid var(--border);border-radius:6px;background:#fff">
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>Standard ID photo sizes (300 DPI)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Use</th><th>Physical size</th><th>Pixels (300 DPI)</th></tr></thead>
+          <tbody>
+            <tr><td>US Passport · US Visa · Green Card</td><td>51 × 51 mm (2 × 2 in)</td><td>602 × 602 px</td></tr>
+            <tr><td>Schengen Visa · UK Visa</td><td>35 × 45 mm</td><td>413 × 531 px</td></tr>
+            <tr><td>China Visa</td><td>33 × 48 mm</td><td>390 × 567 px</td></tr>
+            <tr><td>India Passport · OCI</td><td>51 × 51 mm</td><td>602 × 602 px</td></tr>
+            <tr><td>LinkedIn / Profile photo</td><td>51 × 51 mm (1:1 square)</td><td>400–600 px square</td></tr>
+            <tr><td>Resume / general headshot</td><td>30 × 40 mm</td><td>354 × 472 px</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small" style="color:var(--muted);margin-top:8px">300 DPI = 1 mm × (300 / 25.4) ≈ 11.81 px. Standard for photo labs and print services. Most authorities require photos taken within the last 6 months.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../bg-remove/">Background Remover<span class="desc">Make a clean white background</span></a>
+        <a href="../crop/">Image Crop<span class="desc">Free aspect-ratio crop</span></a>
+        <a href="../resize/">Image Resize<span class="desc">Fine-tune size further</span></a>
+        <a href="../compress/">Image Compress<span class="desc">Shrink file size</span></a>
+        <a href="../heic-to-jpg/">HEIC → JPG<span class="desc">Convert iPhone photos first</span></a>
+        <a href="../">All image tools<span class="desc">Compress · QR · OCR</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>Can I make an official passport-compliant photo?</summary>
+        <div class="answer">
+          This tool standardizes size and resolution only. Official rules (head height 32–36mm, frontal view, ears visible, neutral expression, white background, taken within 6 months) are your responsibility. Check your government's official guidelines (e.g. <a href="https://travel.state.gov/content/travel/en/passports/how-apply/photos.html" rel="nofollow noopener" target="_blank">US Department of State</a>) or use an authorized photo studio. This tool is best for <b>resumes, profiles, applications, and unofficial use</b>.
+        </div>
+      </details>
+      <details>
+        <summary>Handles are too small to grab</summary>
+        <div class="answer">
+          The 4 corner handles are 14×14px but have +8px padding. On mobile, if precise resizing is hard, <b>drag inside the rectangle</b> to move only. A larger screen helps.
+        </div>
+      </details>
+      <details>
+        <summary>Are the guide lines accurate?</summary>
+        <div class="answer">
+          The guides (top of head 18%, eyes 42%, chin 78%) reflect typical ID-photo recommendations. Official rules vary by authority — for official submissions, always check the issuing authority's guidelines. The guides are good for resumes, profiles, and applications.
+        </div>
+      </details>
+      <details>
+        <summary>How does the white-background option work?</summary>
+        <div class="answer">
+          When checked, transparent pixels (alpha = 0) in the result PNG are filled with white. Since this tool only crops, it has no effect if the original has no transparency. To get a clean white background from a normal photo, run it through the <a href="../bg-remove/">Background Remover</a> first, then bring the transparent PNG here.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently Asked Questions</h2>
+
+      <details>
+        <summary>Are my photos uploaded to a server?</summary>
+        <div class="answer">
+          No. Cropping uses the <b>canvas API</b> in the browser only. Even the site operator cannot see your photos.
+          This tool only crops — for ID-document photos, sensitive material stays local.
+        </div>
+      </details>
+
+      <details>
+        <summary>Which standard sizes are supported?</summary>
+        <div class="answer">
+          <b>US Passport (51×51 mm / 2×2 in) / Schengen Visa (35×45 mm) / UK Visa (35×45 mm) / China Visa (33×48 mm) / LinkedIn / profile (square) / Custom mm input</b>.
+          All output at 300 DPI for print compatibility.
+        </div>
+      </details>
+
+      <details>
+        <summary>Why are pixel sizes auto-set?</summary>
+        <div class="answer">
+          Print standard is <b>300 DPI</b>. Multiply mm by 300 / 25.4 ≈ 11.81 to get pixels.
+          Example: 35mm × 11.81 ≈ 413px, 45mm × 11.81 ≈ 531px → <b>35×45mm = 413×531 px @ 300dpi</b>. This is the resolution photo labs and printers expect.
+        </div>
+      </details>
+
+      <details>
+        <summary>How do I align the face?</summary>
+        <div class="answer">
+          Inside the crop frame, dotted <b>guide lines</b> mark the top of head, eye level, and chin. Drag inside the frame to move; corner handles resize.
+          Common requirements: small space above the head, eyes at ~40% from the top, chin near the bottom.
+        </div>
+      </details>
+
+      <details>
+        <summary>How does the white-background option work?</summary>
+        <div class="answer">
+          This tool only crops. If your original background isn't white, the result won't be either. To produce a clean white background, first run the photo through the <b>Background Remover</b>, then bring the transparent PNG here. The white-background option fills only transparent pixels with white.
+        </div>
+      </details>
+
+      <details>
+        <summary>Can I print at a photo lab?</summary>
+        <div class="answer">
+          The output is at <b>standard size and 300 DPI</b>, so any photo lab or printer can print it.
+          Note that government ID issuance often requires photos taken at an authorized photo studio (US passport requires photos within 6 months, etc.). This tool is best for <b>resumes, profiles, applications, and unofficial use</b>.
+          For official IDs, follow the issuing authority's guidelines.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last reviewed: 2026-05-09 / Common ID-photo standards + ISO 300 DPI print standard.</div>
+      <ul>
+        <li>US passport photo guidelines — <a href="https://travel.state.gov/content/travel/en/passports/how-apply/photos.html" rel="nofollow noopener" target="_blank">U.S. Department of State</a> (2×2 in, within 6 months, etc.)</li>
+        <li>Schengen visa photo specs — European Commission</li>
+        <li>UK passport / visa photo guidelines — <a href="https://www.gov.uk/photos-for-passports" rel="nofollow noopener" target="_blank">GOV.UK</a></li>
+        <li>Print resolution standard — 300 DPI</li>
+        <li>Canvas 2D API · drawImage / toBlob — <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API" rel="nofollow noopener" target="_blank">MDN</a></li>
+      </ul>
+      <div class="note">⚠️ For official ID and passport submissions, always confirm the issuing authority's exact rules (head position, expression, background, attire). This tool focuses on size and resolution standardization only.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ All image tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="./id-photo.js" defer></script>
+</body>
+</html>

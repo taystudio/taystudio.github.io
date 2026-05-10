@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO">
+  <meta property="og:title" content="Video Tools | TAYSTUDIO Video">
+  <meta property="og:description" content="Compress, trim, rotate, convert to GIF, extract MP3 — all in your browser. Your video never leaves your device.">
+  <meta property="og:url" content="https://taystudios.com/en/video/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Video Tools | TAYSTUDIO Video">
+  <meta name="twitter:description" content="Compress, trim, GIF — all processing in your browser. Your video never leaves your device.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Video Tools | TAYSTUDIO Video</title>
+  <meta name="description" content="Compress, trim, rotate videos, convert to GIF, extract MP3 — all in your browser. Your video never leaves your device. Free, no signup, no install.">
+  <meta name="keywords" content="video compress, reduce video file size, trim video, MP4 trimmer, rotate video, vertical to horizontal, video to GIF, GIF maker, extract MP3 from video, audio extractor, browser video tools, no upload">
+  <link rel="canonical" href="https://taystudios.com/en/video/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/video/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/video/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/video/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "TAYSTUDIO Video",
+      "url": "https://taystudios.com/en/video/",
+      "description": "Browser-based video tools: compress, trim, rotate, GIF, MP3 extraction — all client-side.",
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Video", "item": "https://taystudios.com/en/video/" }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "name": "Video tools",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Compress Video", "url": "https://taystudios.com/en/video/compress/" },
+        { "@type": "ListItem", "position": 2, "name": "Trim Video", "url": "https://taystudios.com/en/video/trim/" },
+        { "@type": "ListItem", "position": 3, "name": "Rotate Video", "url": "https://taystudios.com/en/video/rotate/" },
+        { "@type": "ListItem", "position": 4, "name": "Video to GIF", "url": "https://taystudios.com/en/video/to-gif/" },
+        { "@type": "ListItem", "position": 5, "name": "Extract MP3", "url": "https://taystudios.com/en/video/to-mp3/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Is the video I upload really not sent anywhere?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. All processing happens in your browser via ffmpeg.wasm. The site operator never sees the contents. Only the ffmpeg library itself (~32MB) is downloaded from the jsdelivr CDN on first use; the video itself never leaves your device." } },
+        { "@type": "Question", "name": "Why do mobile browsers fail more often?", "acceptedAnswer": { "@type": "Answer", "text": "Single-thread WASM has memory and CPU limits. iOS Safari caps tabs around 500MB; Android Chrome around 1GB. Decoding plus encoding has to fit in that budget, so 1080p videos can fail with out-of-memory errors. We recommend ≤ 720p and ≤ 1 minute on mobile, or use desktop Chrome for larger files." } },
+        { "@type": "Question", "name": "Why is processing slow?", "acceptedAnswer": { "@type": "Answer", "text": "GitHub Pages can't enable SharedArrayBuffer (no COOP/COEP headers), so ffmpeg.wasm runs single-threaded. Compressing a 5-minute video takes about 1 to 3 minutes on desktop. Mobile is 2 to 3 times slower." } },
+        { "@type": "Question", "name": "Can I process copyrighted videos?", "acceptedAnswer": { "@type": "Answer", "text": "Technically yes, but please use only on videos you own or have a license for. Audio extraction in particular carries copyright risk — illegal use is prohibited." } },
+        { "@type": "Question", "name": "Which video formats are supported?", "acceptedAnswer": { "@type": "Answer", "text": "Inputs include MP4, MOV, WebM, MKV, AVI, and most other formats ffmpeg supports. Outputs are MP4 (H.264), GIF, or MP3 depending on the tool." } }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <section class="hero">
+      <h1>Video Tools</h1>
+      <p class="subtitle">All processing happens in your browser. Your video never leaves your device.</p>
+    </section>
+
+    <div class="privacy-box" style="margin-top:18px">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Your video never leaves your browser.</b> Uploaded clips stay in browser memory and are processed by ffmpeg.wasm — even the site operator can't see the contents.</div>
+    </div>
+
+    <div class="ad-slot">[ AdSense — Video tools category ]</div>
+
+    <section class="category-section">
+      <div class="header">
+        <div class="title">🎬 Video tools</div>
+        <div class="count">5</div>
+      </div>
+      <div class="tool-grid">
+        <a class="tool-card" href="./compress/" data-keywords="compress video reduce file size MP4 messenger"><div class="icon">🗜️</div><div class="name">Compress Video</div><div class="desc">Shrink file size with resolution and quality — fits email and messaging limits</div></a>
+        <a class="tool-card" href="./trim/" data-keywords="trim video MP4 cut clip timestamps"><div class="icon">✂️</div><div class="name">Trim Video</div><div class="desc">Cut by start and end times — Fast mode finishes in seconds</div></a>
+        <a class="tool-card" href="./rotate/" data-keywords="rotate video flip horizontal vertical mirror"><div class="icon">🔄</div><div class="name">Rotate Video</div><div class="desc">90°/180° rotation + horizontal/vertical flip — fix sideways phone clips</div></a>
+        <a class="tool-card" href="./to-gif/" data-keywords="video to gif animated gif maker reactions stickers"><div class="icon">🎞️</div><div class="name">Video to GIF</div><div class="desc">Turn a short clip into a GIF — for social, reactions, stickers</div></a>
+        <a class="tool-card" href="./to-mp3/" data-keywords="extract mp3 audio from video personal use"><div class="icon">🎵</div><div class="name">Extract MP3</div><div class="desc">Pull MP3 audio from your own videos — 5 bitrate presets (copyright notice)</div></a>
+      </div>
+    </section>
+
+    <section class="hub-intro">
+      <p class="hub-intro-eyebrow">— Powered by ffmpeg.wasm</p>
+      <p class="hub-intro-lead">Your video <span class="hl">never leaves your browser</span> — compress, trim, rotate, GIF, MP3.</p>
+      <p class="hub-intro-body">
+        Tools like ezgif, freeconvert, and clideo upload to the cloud. This site uses ffmpeg.wasm (WebAssembly) to process videos entirely inside your browser. Five tools — compress, trim, rotate, GIF conversion, MP3 extraction — free and no signup. The first run downloads the ffmpeg library (~32MB) and caches it. <b>Desktop Chrome is recommended</b> (mobile memory limits).
+      </p>
+      <div class="hub-intro-meta">
+        <span>Last updated: 2026-05-05</span>
+        <span>5 tools</span>
+        <span>Your video stays local</span>
+      </div>
+    </section>
+
+    <section class="hub-faq">
+      <h2>Frequently asked questions</h2>
+      <details>
+        <summary>Is the video I upload really not sent anywhere?</summary>
+        <div class="answer">Yes. All processing happens in your browser via ffmpeg.wasm (WebAssembly). The site operator never sees the contents. Only the ffmpeg library (~32MB) is downloaded from the jsdelivr CDN on first use; the video itself never leaves your device.</div>
+      </details>
+      <details>
+        <summary>Why do mobile browsers fail more often?</summary>
+        <div class="answer">Single-thread WASM has memory and CPU limits. iOS Safari caps tabs around 500MB; Android Chrome around 1GB. Decoding plus encoding has to fit in that budget, so 1080p videos can fail with out-of-memory errors. We recommend ≤ 720p and ≤ 1 minute on mobile, or use desktop Chrome for larger files. In-app browsers and older browsers have stricter limits — Chrome or desktop is preferred.</div>
+      </details>
+      <details>
+        <summary>Why is processing slow?</summary>
+        <div class="answer">GitHub Pages can't enable SharedArrayBuffer (no COOP/COEP headers), so ffmpeg.wasm runs single-threaded — about 0.3 to 1× the speed of multi-threaded. Compressing a 5-minute video takes about 1 to 3 minutes on desktop Chrome. Mobile is 2 to 3 times slower.</div>
+      </details>
+      <details>
+        <summary>Can I process copyrighted videos?</summary>
+        <div class="answer">Technically yes, but please use only on videos you own or have a license for. Audio extraction in particular carries copyright risk — illegal use is prohibited.</div>
+      </details>
+      <details>
+        <summary>Which video formats are supported?</summary>
+        <div class="answer">Inputs include MP4, MOV, WebM, MKV, AVI, and most other formats ffmpeg supports. Outputs are MP4 (H.264), GIF, or MP3 depending on the tool.</div>
+      </details>
+    </section>
+
+    <section class="tool-article" style="margin-top:32px">
+      <h2>Good to know</h2>
+      <ul style="line-height:1.8;color:var(--muted)">
+        <li><b>First run downloads ~32MB</b> — the ffmpeg.wasm library (the video processing engine). Wi-Fi recommended. After download, it's cached and subsequent visits start instantly.</li>
+        <li><b>Mobile memory limit ~100MB working set</b> — iOS Safari and older Android can stall on large videos (typically 30+ minutes or 1080p). Desktop Chrome is recommended.</li>
+        <li><b>Single-threaded processing</b> — multi-threading isn't available due to browser security policy. Compressing a 5-minute video takes about 1 to 3 minutes (relative to source).</li>
+        <li><b>Personal use only</b> — please use on content you own and respect audio/video copyright.</li>
+      </ul>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="/en/tools/" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ Calculators</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+</body>
+</html>

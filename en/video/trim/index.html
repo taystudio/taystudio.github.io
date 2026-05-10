@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Video">
+  <meta property="og:title" content="Trim Video | Cut MP4 by start and end timestamps">
+  <meta property="og:description" content="Cut a clip out of an MP4, MOV, or WebM video by start and end times. Fast mode (no re-encode) finishes in seconds. All processing happens in your browser.">
+  <meta property="og:url" content="https://taystudios.com/en/video/trim/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Trim Video | Cut clip by timestamps">
+  <meta name="twitter:description" content="Save just the part you want. Fast or precise mode. All processing in your browser.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Trim Video | Cut MP4 by start and end times — free, in browser</title>
+  <meta name="description" content="Cut a section out of MP4, MOV, or WebM videos by specifying start and end times. Fast mode finishes in seconds without re-encoding; precise mode cuts at frame accuracy. All processing in your browser — your video never leaves your device.">
+  <meta name="keywords" content="trim video online, cut video by timestamps, MP4 trimmer, video clipper free, online video trim no upload, browser video editor">
+  <link rel="canonical" href="https://taystudios.com/en/video/trim/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/video/trim/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/video/trim/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/video/trim/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Trim Video | Cut clip by timestamps",
+      "description": "Cut MP4, MOV, or WebM videos by start and end times. Fast mode (no re-encode) and precise mode (frame-accurate). Runs in browser via ffmpeg.wasm.",
+      "url": "https://taystudios.com/en/video/trim/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "MP4, MOV, WebM, MKV input",
+        "Direct timestamp input (HH:MM:SS / MM:SS / seconds)",
+        "Fast mode — no re-encode, keyframe-aligned (seconds-level processing)",
+        "Precise mode — frame-accurate re-encode",
+        "Your video never leaves your browser"
+      ],
+      "dateModified": "2026-05-05",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Video", "item": "https://taystudios.com/en/video/" },
+        { "@type": "ListItem", "position": 3, "name": "Trim Video", "item": "https://taystudios.com/en/video/trim/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is my video uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The video is processed entirely in your browser via ffmpeg.wasm (WebAssembly). The site operator never sees the contents. Only the ffmpeg library itself (~32MB) is downloaded on first use; the video itself never leaves your device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between Fast and Precise mode?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fast mode keeps the original codec (no re-encoding) and finishes a 1GB video in seconds to tens of seconds. The catch: cuts are aligned to H.264 keyframes (typically 1 to 5 seconds apart), so a timestamp between keyframes snaps to the nearest one. Precise mode cuts exactly at the requested timestamp by re-encoding to H.264 — slower (about 0.3 to 1× the clip duration)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I enter the times?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "HH:MM:SS, MM:SS, or seconds — all three formats work. Examples: 1:23:45 (1 hour 23 minutes 45 seconds), 4:30 (4 minutes 30 seconds), 90 (90 seconds). Decimals are allowed — 90.5 means 90.5 seconds."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the output format?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Output is always MP4 (H.264 + AAC) — playable on virtually any device or messaging app. Fast mode just rewraps the existing codec into MP4 even if the input wasn't H.264/AAC."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fast mode: independent of file size — even a 1GB video usually finishes in seconds to tens of seconds. Precise mode: about 0.3 to 1× the trimmed clip's length on desktop Chrome. Mobile is 2 to 3 times slower due to the single-thread limit."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .progress-wrap { margin-top:16px }
+    .progress-bar {
+      width:100%; height:8px; background:var(--border); border-radius:4px;
+      overflow:hidden; position:relative;
+    }
+    .progress-fill {
+      height:100%; background:var(--primary); width:0%;
+      transition: width .25s ease;
+    }
+    .progress-text {
+      margin-top:8px; font-size:13px; color:var(--muted);
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .video-preview {
+      margin-top:14px; border:1px solid var(--border); border-radius:10px;
+      overflow:hidden; background:#000;
+    }
+    .video-preview video { width:100%; display:block; max-height:60vh; }
+    .video-meta {
+      display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:14px;
+      font-size:14px; color:var(--muted);
+    }
+    .video-meta b { color:var(--text); font-weight:600 }
+    .first-time-notice {
+      background:rgba(245,158,11,0.08);
+      border:1px solid rgba(245,158,11,0.3);
+      border-radius:10px; padding:14px 16px; margin-top:14px;
+      font-size:13.5px; line-height:1.65; color:var(--text);
+    }
+    .first-time-notice b { color:#d97706 }
+    @media (prefers-color-scheme: dark) {
+      .first-time-notice b { color:#fbbf24 }
+    }
+    .source-preview {
+      margin-top:14px; border:1px solid var(--border); border-radius:10px;
+      overflow:hidden; background:#000;
+    }
+    .source-preview video { width:100%; display:block; max-height:50vh; }
+    .time-row {
+      display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;
+    }
+    .time-row .field { flex:1 1 200px; margin-bottom:0 }
+    .duration-hint {
+      font-size:13px; color:var(--muted); margin-top:6px;
+    }
+    .pick-btn {
+      margin-top:6px; font-size:12.5px; padding:5px 10px;
+      background:var(--surface); border:1px solid var(--border);
+      border-radius:6px; cursor:pointer; color:var(--text);
+    }
+    .pick-btn:hover { border-color:var(--primary); color:var(--primary) }
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Video</a> · Trim Video</div>
+    <h1>Trim Video</h1>
+    <p class="subtitle">Save just the segment you want by start and end times — Fast mode finishes in seconds.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Your video never leaves your browser.</b> All processing happens locally via ffmpeg.wasm (WebAssembly).</div>
+    </div>
+
+    <div class="first-time-notice">
+      <b>First use:</b> the video processing engine (ffmpeg.wasm, ~32MB) downloads automatically. <b>Wi-Fi recommended.</b> After that, it's cached and starts instantly.<br><br><b>📱 Mobile:</b> we recommend videos at 720p or below and under 1 minute — for larger files, <b>desktop Chrome</b> is more reliable.
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">✂️</div>
+        <div class="drop-title" id="dropTitle">Drag a video file here, or click to choose</div>
+        <div class="drop-hint">MP4 · MOV · WebM · MKV · AVI — recommended ≤ 500MB (mobile) / ≤ 1.5GB (desktop)</div>
+        <input type="file" id="fileInput" accept="video/*">
+      </label>
+
+      <div class="source-preview" id="sourcePreviewWrap" hidden>
+        <video id="sourceVideo" controls playsinline preload="metadata"></video>
+      </div>
+      <div class="duration-hint" id="durationHint" hidden></div>
+
+      <div class="time-row" style="margin-top:16px">
+        <div class="field">
+          <label for="startTime">Start time</label>
+          <input type="text" id="startTime" placeholder="e.g. 0:30 or 30">
+          <button type="button" class="pick-btn" id="pickStart">⏱ Use current playback position</button>
+        </div>
+        <div class="field">
+          <label for="endTime">End time</label>
+          <input type="text" id="endTime" placeholder="e.g. 1:30 or 90">
+          <button type="button" class="pick-btn" id="pickEnd">⏱ Use current playback position</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="mode">Mode</label>
+        <select id="mode">
+          <option value="copy" selected>Fast — no re-encode (seconds, keyframe-aligned)</option>
+          <option value="reencode">Precise — frame-accurate re-encode (slower)</option>
+        </select>
+        <p class="small" style="color:var(--muted);margin-top:6px">Fast mode is enough for most cases. Use Precise only when the start time has to land exactly.</p>
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="trimBtn" disabled>Trim</button>
+        <button type="button" id="clearBtn">Reset</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText">Waiting...</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense slot ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="video-preview"><video id="resultVideo" controls playsinline></video></div>
+      <div class="video-meta">
+        <span>Original <b id="origSize">—</b></span>
+        <span>Trimmed <b id="trimSize">—</b></span>
+        <span>Duration <b id="durText">—</b></span>
+        <span>Mode <b id="modeText">—</b></span>
+        <span>Time <b id="elapsedTime">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>Which mode to pick?</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Situation</th><th>Recommended mode</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Quick clip from a large video</td><td>Fast</td><td>Even 1GB finishes in seconds. ±1~5 second alignment is acceptable.</td></tr>
+            <tr><td>Lecture / interview — exact speech segment</td><td>Precise</td><td>Frame-accurate cut even between keyframes</td></tr>
+            <tr><td>Multiple clips of identical length</td><td>Precise</td><td>Fast mode result lengths can vary slightly with keyframe alignment</td></tr>
+            <tr><td>Social / messenger attachment</td><td>Fast</td><td>Speed wins; 1~2 second drift is irrelevant</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../compress/">Compress Video<span class="desc">Shrink file size with resolution and quality</span></a>
+        <a href="../rotate/">Rotate Video<span class="desc">90°/180° rotation, horizontal/vertical flip</span></a>
+        <a href="../to-gif/">Video to GIF<span class="desc">Turn the trimmed clip into a GIF</span></a>
+        <a href="../to-mp3/">Extract MP3<span class="desc">Pull audio out of your own videos</span></a>
+        <a href="../">All video tools<span class="desc">Compress, trim, rotate, GIF, MP3</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>Why does Fast mode sometimes miss the start time?</summary>
+        <div class="answer">
+          Codecs like H.264 use <b>keyframes (I-frames)</b> as independent reference frames; the rest are stored as differences from neighbors. Cutting without re-encoding only works at keyframe boundaries (typically 1 to 5 seconds apart) — otherwise the output breaks. In Fast mode, your start point may snap back to the nearest preceding keyframe.
+        </div>
+      </details>
+      <details>
+        <summary>Can I close the page mid-process?</summary>
+        <div class="answer">
+          Closing the page cancels the in-progress job. The downloaded ffmpeg library stays cached, so the next visit reuses it without redownloading.
+        </div>
+      </details>
+      <details>
+        <summary>Why isn't multi-threaded (faster) processing supported?</summary>
+        <div class="answer">
+          Static hosts like GitHub Pages can't set <code>Cross-Origin-Opener-Policy</code> / <code>Cross-Origin-Embedder-Policy</code> headers, which disables SharedArrayBuffer. This mostly affects Precise mode (re-encoding on a single thread); Fast mode skips decoding so the impact is small.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently asked questions</h2>
+      <details>
+        <summary>Is my video uploaded to a server?</summary>
+        <div class="answer">
+          No. The video is processed entirely in your browser via <b>ffmpeg.wasm (WebAssembly)</b>. The site operator never sees the contents. Only the ffmpeg library itself (~32MB) is downloaded on first use; the video itself never leaves your device.
+        </div>
+      </details>
+      <details>
+        <summary>What's the difference between Fast and Precise mode?</summary>
+        <div class="answer">
+          <b>Fast mode</b> keeps the original codec (no re-encoding), so even a 1GB video finishes in seconds to tens of seconds. The catch: cuts are aligned to H.264 keyframes (typically 1 to 5 seconds apart), so a timestamp between keyframes snaps to the nearest one. <b>Precise mode</b> cuts exactly at the requested timestamp by re-encoding to H.264 — slower.
+        </div>
+      </details>
+      <details>
+        <summary>How do I enter the times?</summary>
+        <div class="answer">
+          <b>HH:MM:SS, MM:SS, or seconds</b> — all three formats work.<br>
+          Examples: <code>1:23:45</code> = 1 hour 23 minutes 45 seconds / <code>4:30</code> = 4 minutes 30 seconds / <code>90</code> = 90 seconds. Decimals are allowed — <code>90.5</code> means 90.5 seconds.<br>
+          You can also use the buttons that copy the <b>current playback position</b> from the source preview into start/end fields.
+        </div>
+      </details>
+      <details>
+        <summary>What is the output format?</summary>
+        <div class="answer">
+          Output is always <b>MP4</b> — playable on virtually any device or messaging app. Fast mode just rewraps the existing codec into MP4 even if the input wasn't H.264/AAC.
+        </div>
+      </details>
+      <details>
+        <summary>How long does it take?</summary>
+        <div class="answer">
+          <b>Fast mode</b>: independent of file size — even a 1GB video finishes in seconds to tens of seconds. <b>Precise mode</b>: about 0.3 to 1× the trimmed clip's duration on desktop Chrome. Mobile is 2 to 3 times slower.
+        </div>
+      </details>
+      <details>
+        <summary>Can it handle large videos?</summary>
+        <div class="answer">
+          On desktop Chrome, around 1 to 2GB. Mobile browsers may become unstable above ~500MB due to memory limits.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last verified: 2026-05-05 / Powered by ffmpeg.wasm (WebAssembly).</div>
+      <ul>
+        <li>ffmpeg.wasm — <a href="https://ffmpegwasm.netlify.app/" rel="nofollow noopener" target="_blank">official site</a> (BSD/LGPL)</li>
+        <li>Seek options (-ss, -to, -c copy) — <a href="https://trac.ffmpeg.org/wiki/Seeking" rel="nofollow noopener" target="_blank">FFmpeg Wiki: Seeking</a></li>
+        <li>Keyframes (I-frames) — H.264/AVC standard ISO/IEC 14496-10</li>
+      </ul>
+      <div class="note">⚠️ For personal use only. Respect copyright when working with videos you don't own.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ All video tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script type="module" src="./trim.js"></script>
+</body>
+</html>

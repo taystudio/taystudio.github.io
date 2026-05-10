@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO">
+  <meta property="og:title" content="Loan Calculator | Monthly Payment, Total Interest, Amortization">
+  <meta property="og:description" content="Enter loan amount, rate, and term to instantly compute monthly payment and total interest. Supports equal monthly payment (PMT) and equal principal repayment.">
+  <meta property="og:url" content="https://taystudios.com/en/tools/loan/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Loan Calculator | Monthly Payment, Total Interest, Amortization">
+  <meta name="twitter:description" content="Monthly payment, total interest, amortization for any loan — equal monthly or equal principal.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Loan Calculator | Monthly Payment, Total Interest, Amortization</title>
+  <meta name="description" content="Enter loan amount, rate, and term to instantly compute monthly payment and total interest. Supports equal monthly payment (PMT) and equal principal repayment. Free, no signup, runs entirely in your browser.">
+  <meta name="keywords" content="loan calculator, mortgage calculator, monthly payment, amortization, total interest, equal monthly payment, equal principal, PMT formula">
+  <link rel="canonical" href="https://taystudios.com/en/tools/loan/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/tools/loan/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/loan/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/tools/loan/">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Loan Calculator | Monthly Payment, Total Interest, Amortization",
+      "description": "Monthly payment and total interest for any loan with equal monthly or equal principal repayment.",
+      "url": "https://taystudios.com/en/tools/loan/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Tools", "item": "https://taystudios.com/en/tools/" },
+        { "@type": "ListItem", "position": 2, "name": "Finance", "item": "https://taystudios.com/en/tools/" },
+        { "@type": "ListItem", "position": 3, "name": "Loan Calculator", "item": "https://taystudios.com/en/tools/loan/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Equal monthly payment vs equal principal — which is better?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Total interest is lower with equal-principal repayment. For a $300K, 4.5%, 30-year mortgage, equal-monthly totals about $247K interest while equal-principal totals about $203K — a roughly $44K difference. However, equal-principal has a higher first payment ($1,960 vs $1,520), so it suits borrowers with stable cash flow."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much difference does loan term make (20 vs 30 years)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For a $300K mortgage at 4.5% (equal monthly): 30-year = $1,520/month with $247K total interest, 20-year = $1,898/month with $156K total interest. A 10-year shorter term raises the monthly payment by about $378 but saves about $91K in total interest."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does a 1 percentage point rate difference matter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "On a $300K, 30-year loan, going from 4.5% to 5.5% raises the monthly payment from $1,520 to $1,703 (+$183) and total interest from $247K to $313K (+$66K). Over 30 years, a 1pp change equals roughly $60K–$100K in lifetime interest."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between APR and the interest rate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The interest rate is the cost of borrowing the principal expressed as a percentage. APR (Annual Percentage Rate) includes the interest rate plus most fees (origination, points, mortgage insurance) expressed as an annualized rate. Use APR when comparing loan offers — it captures more of the true cost. This calculator computes payments based on the interest rate only."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are there fees this calculator doesn't capture?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Real loans typically add origination or processing fees (often 0.5–1% of principal), discount points, appraisal fees, recording / lien fees, and (for mortgages) mandatory hazard insurance. Some loans also have prepayment penalties for early payoff in the first few years. Compare offers using APR for a closer apples-to-apples view."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Fixed vs variable rate — which should I pick?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fixed-rate loans keep the same rate for the full term, protecting against rate hikes — typically 0.3–0.5pp higher than starting variable rates. Variable / ARM loans reset every 1–10 years (after an initial fixed period), benefiting borrowers if rates fall. Hybrid ARMs (5/1, 7/1) are popular: fixed for 5 or 7 years, variable thereafter. Pick fixed if you plan to stay long-term and prefer payment certainty."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">Tools</a> · Finance · Loan</div>
+    <h1>Loan Calculator <span class="basis-badge">Standard formulas</span></h1>
+    <p class="subtitle">Mortgages, auto loans, personal loans — equal monthly or equal principal supported.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label for="principal">Loan amount <span class="hint">$</span></label>
+        <input type="number" id="principal" placeholder="e.g. 300000" min="0" step="100" required>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="rate">Annual rate (%)</label>
+          <input type="number" id="rate" placeholder="e.g. 6.5" min="0" step="0.01" required>
+        </div>
+        <div class="field">
+          <label for="years">Term (years)</label>
+          <input type="number" id="years" placeholder="e.g. 30" min="1" step="1" required>
+        </div>
+      </div>
+      <div class="field">
+        <label>Repayment method</label>
+        <div class="radio-group">
+          <label><input type="radio" name="method" value="equal" checked>Equal monthly payment (PMT)</label>
+          <label><input type="radio" name="method" value="principal">Equal principal</label>
+        </div>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">Monthly payment</div>
+        <div id="monthly" class="result-value">$0</div>
+        <div id="monthlyLabel" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row" id="firstLast" style="display:none"><span class="label">Last payment (equal principal)</span><span id="lastMonth" class="value">$0</span></div>
+        <div class="breakdown-row"><span class="label">Total interest</span><span id="totalInt" class="value">$0</span></div>
+        <div class="breakdown-row total"><span class="label">Total repayment</span><span id="totalRepay" class="value">$0</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ Real loans include additional costs (origination, points, mortgage insurance, recording fees, hazard insurance for mortgages, possible prepayment penalty). Use APR when comparing offers. This calculator uses the pure mathematical loan formula and ignores fees and insurance.
+    </div>
+
+    <section class="tool-article">
+      <h2>Repayment Method Comparison</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Method</th><th>Monthly</th><th>Total interest</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Equal monthly (PMT)</td><td>Same every month ($1,520)</td><td>$247K</td><td>Predictable budgeting; higher total interest</td></tr>
+            <tr><td>Equal principal</td><td>$1,960 first → $1,003 last</td><td class="highlight">$203K (−$44K)</td><td>Higher early load; lower total interest</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">Example: $300,000 / 4.5% / 30 years. Equal-monthly uses the PMT formula; equal-principal uses constant principal each month.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>Monthly Payment by Loan Amount (4.5% / 30 yr / equal monthly)</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Amount</th><th>Monthly</th><th>Total interest</th><th>Total repaid</th></tr></thead>
+          <tbody>
+            <tr><td>$100,000</td><td>$507</td><td>$82,407</td><td class="highlight">$182,407</td></tr>
+            <tr><td>$200,000</td><td>$1,013</td><td>$164,813</td><td class="highlight">$364,813</td></tr>
+            <tr><td>$300,000</td><td>$1,520</td><td>$247,220</td><td class="highlight">$547,220</td></tr>
+            <tr><td>$400,000</td><td>$2,027</td><td>$329,627</td><td class="highlight">$729,627</td></tr>
+            <tr><td>$500,000</td><td>$2,533</td><td>$412,034</td><td class="highlight">$912,034</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">Monthly payment and total interest scale linearly with loan amount. Roughly $507/month and $82K total interest per $100K borrowed at 4.5% / 30 years.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>Learn More</h2>
+
+      <details>
+        <summary>Term comparison ($300K / 4.5%)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>Term</th><th>Monthly</th><th>Total interest</th></tr></thead>
+              <tbody>
+                <tr><td>10 years</td><td>$3,109</td><td>$73,098</td></tr>
+                <tr><td>15 years</td><td>$2,295</td><td>$113,096</td></tr>
+                <tr><td>20 years</td><td>$1,898</td><td>$155,508</td></tr>
+                <tr><td>25 years</td><td>$1,667</td><td>$200,249</td></tr>
+                <tr><td>30 years</td><td class="highlight">$1,520</td><td class="highlight">$247,220</td></tr>
+                <tr><td>35 years</td><td>$1,420</td><td>$296,303</td></tr>
+                <tr><td>40 years</td><td>$1,349</td><td>$347,370</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">Longer term lowers the monthly payment but raises total interest sharply. From 30 to 40 years saves $171/month but adds $100K in total interest.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Rate comparison ($300K / 30 years / equal monthly)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>Rate</th><th>Monthly</th><th>Total interest</th><th>Δ vs 4.5%</th></tr></thead>
+              <tbody>
+                <tr><td>3.0%</td><td>$1,265</td><td>$155,332</td><td>−$92K</td></tr>
+                <tr><td>3.5%</td><td>$1,347</td><td>$184,968</td><td>−$62K</td></tr>
+                <tr><td>4.0%</td><td>$1,432</td><td>$215,609</td><td>−$32K</td></tr>
+                <tr><td>4.5% (baseline)</td><td class="highlight">$1,520</td><td class="highlight">$247,220</td><td>—</td></tr>
+                <tr><td>5.0%</td><td>$1,610</td><td>$279,767</td><td>+$33K</td></tr>
+                <tr><td>5.5%</td><td>$1,703</td><td>$313,212</td><td>+$66K</td></tr>
+                <tr><td>6.0%</td><td>$1,799</td><td>$347,515</td><td>+$100K</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">A 1 percentage-point rate change shifts total interest by $60K–$100K over 30 years. Even 0.1pp adds up to $6K–$10K — worth shopping rates carefully.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>APR vs interest rate</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>Interest rate</b>The cost of borrowing principal as a percentage. Drives the monthly payment.</div>
+            <div class="case"><b>APR</b>Includes interest plus most upfront fees (origination, discount points, mortgage insurance) annualized. Always higher than the interest rate.</div>
+            <div class="case"><b>Use APR to compare</b>Two loans at "the same rate" can have different APRs because of fees. APR is the closer apples-to-apples comparison.</div>
+            <div class="case"><b>This calculator</b>Uses the interest rate only — actual real-world cost will be higher once fees are included.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Common loan fees and add-ons</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>Origination / processing</b>Often 0.5–1% of the principal, paid at closing.</div>
+            <div class="case"><b>Discount points</b>Each "point" = 1% of the loan, paid upfront to lower the rate (typically by 0.25pp).</div>
+            <div class="case"><b>Appraisal &amp; recording (mortgages)</b>$300–$600 appraisal; $50–$200 recording; depends on jurisdiction.</div>
+            <div class="case"><b>Mortgage insurance (PMI)</b>Required when down payment &lt;20% on a conventional mortgage. Typically 0.5–1.5% of the loan annually.</div>
+            <div class="case"><b>Hazard / homeowners insurance</b>Required by mortgage lenders. Typically $1,000–$3,000/year.</div>
+            <div class="case"><b>Prepayment penalty</b>Some loans charge for paying off in the first 1–3 years. Federal law restricts these on most mortgages, but check the contract.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Fixed vs variable / ARM</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>Fixed</b>Same rate for the entire term. Predictable. Typically 0.3–0.5pp higher than initial variable rates.</div>
+            <div class="case"><b>Variable / ARM</b>Resets periodically (every 1, 5, 7, or 10 years) using a benchmark (SOFR + margin in the US). Benefits borrowers if rates fall.</div>
+            <div class="case"><b>Hybrid ARM (5/1, 7/1, 10/1)</b>Fixed for the first 5/7/10 years, variable after. Common when borrowers expect to move or refinance.</div>
+            <div class="case"><b>Rate caps</b>ARMs typically have caps on per-adjustment increase (e.g., 2pp), per-year, and lifetime maximum. Read the disclosure.</div>
+            <div class="case"><b>Refi opportunity</b>If rates drop ≥ 0.75–1pp, refinancing can save tens of thousands over the remaining term.</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related Calculators</h2>
+      <div class="related-calc">
+        <a href="../compound/">Compound Interest<span class="desc">Lump sum + monthly future value</span></a>
+        <a href="../savings/">Savings Calculator<span class="desc">Simple / compound maturity</span></a>
+        <a href="../bmi/">BMI Calculator<span class="desc">Body mass index</span></a>
+        <a href="../calorie/">Calorie (BMR / TDEE)<span class="desc">Daily calories</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently Asked Questions</h2>
+
+      <details>
+        <summary>Equal monthly payment vs equal principal — which is better?</summary>
+        <div class="answer">
+          <b>Total interest is lower with equal principal.</b> For a $300K, 4.5%, 30-year mortgage,
+          equal-monthly totals about $247K interest while equal-principal totals about $203K — a
+          roughly $44K difference. However, equal-principal has a higher first payment ($1,960 vs
+          $1,520), so it suits borrowers with stable cash flow.
+        </div>
+      </details>
+
+      <details>
+        <summary>How much difference does loan term make (20 vs 30 years)?</summary>
+        <div class="answer">
+          $300K at 4.5% (equal monthly): 30-year = $1,520/month, $247K total interest;
+          20-year = $1,898/month, $156K total interest. A 10-year shorter term raises the monthly
+          payment by about $378 but saves about <b>$91K</b> in total interest.
+        </div>
+      </details>
+
+      <details>
+        <summary>How much does a 1 percentage point rate difference matter?</summary>
+        <div class="answer">
+          On $300K / 30 years, going 4.5% → 5.5% raises the monthly payment $1,520 → $1,703 (+$183),
+          total interest $247K → $313K (<b>+$66K</b>). Over 30 years, a 1pp change equals roughly
+          $60K–$100K in lifetime interest.
+        </div>
+      </details>
+
+      <details>
+        <summary>What's the difference between APR and the interest rate?</summary>
+        <div class="answer">
+          The interest rate drives your monthly payment. <b>APR</b> includes interest plus most upfront
+          fees (origination, points, mortgage insurance) expressed as an annualized rate. Always use
+          APR when comparing loan offers. This calculator uses the interest rate only.
+        </div>
+      </details>
+
+      <details>
+        <summary>Are there fees this calculator doesn't capture?</summary>
+        <div class="answer">
+          Yes — origination / processing (typically 0.5–1%), discount points, appraisal, recording,
+          mortgage insurance (PMI when down payment &lt; 20%), hazard insurance, and possible
+          prepayment penalty. Compare offers using APR for a closer apples-to-apples view.
+        </div>
+      </details>
+
+      <details>
+        <summary>Fixed vs variable rate — which should I pick?</summary>
+        <div class="answer">
+          Fixed-rate loans keep the same rate for the full term — predictable, typically 0.3–0.5pp
+          higher than starting variable rates. Variable / ARM loans reset periodically and benefit
+          borrowers if rates fall. Hybrid ARMs (5/1, 7/1) are common — fixed for an initial period,
+          variable after. Pick fixed if you plan to stay long-term and prefer payment certainty.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>Formulas &amp; References</h2>
+      <div class="updated">Last reviewed: 2026-05-10</div>
+      <ul>
+        <li><b>Equal monthly payment (PMT)</b> — P × r × (1+r)<sup>n</sup> / ((1+r)<sup>n</sup>−1) [equivalent to Excel's PMT function]</li>
+        <li><b>Equal principal</b> — Monthly principal = P/n, monthly interest = remaining balance × r</li>
+        <li><b>P</b> = loan amount, <b>r</b> = monthly rate (annual ÷ 12), <b>n</b> = total months</li>
+        <li><b>APR &amp; Truth in Lending (US)</b> — <a href="https://www.consumerfinance.gov/" target="_blank" rel="noopener">consumerfinance.gov</a></li>
+      </ul>
+      <div class="note">
+        ⚠️ This calculator uses pure mathematical loan formulas. Real-world borrowing costs include APR fees, insurance, and possible prepayment penalties not reflected here.
+      </div>
+    </section>
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ View all calculators</a>
+    </nav>
+  </main>
+  <script src="./loan.js" defer></script>
+  <site-footer></site-footer>
+</body>
+</html>

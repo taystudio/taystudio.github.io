@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO">
+  <meta property="og:title" content="D-Day Calculator | Days Between Two Dates">
+  <meta property="og:description" content="Calculate days, weeks, months, and years between two dates. Anniversary, deadline, milestone — D-Day countdown and elapsed days.">
+  <meta property="og:url" content="https://taystudios.com/en/tools/dday/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="D-Day Calculator | Days Between Two Dates">
+  <meta name="twitter:description" content="Days, weeks, months, years between two dates. Anniversary, deadline, milestone.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>D-Day Calculator | Days Between Two Dates</title>
+  <meta name="description" content="Calculate days, weeks, months, and years between two dates. Anniversary, deadline, milestone — supports D-Day countdown and elapsed days. Free, no signup, runs entirely in your browser.">
+  <meta name="keywords" content="D-day calculator, days between dates, date difference calculator, countdown calculator, anniversary calculator, deadline calculator">
+  <link rel="canonical" href="https://taystudios.com/en/tools/dday/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/tools/dday/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/dday/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/tools/dday/">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "D-Day Calculator | Days Between Two Dates",
+      "description": "Calculate days, weeks, months, and years between two dates. Supports D-Day countdown and elapsed days.",
+      "url": "https://taystudios.com/en/tools/dday/",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Tools", "item": "https://taystudios.com/en/tools/" },
+        { "@type": "ListItem", "position": 2, "name": "Lifestyle", "item": "https://taystudios.com/en/tools/" },
+        { "@type": "ListItem", "position": 3, "name": "D-Day Calculator", "item": "https://taystudios.com/en/tools/dday/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does D-Day stand for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "D-Day is the day a planned event occurs (D-0). One day before is D-1; one day after is D+1. The 'D' simply stands for 'Day,' first used in WWI U.S. Army field orders and made famous by the 1944 Normandy landings. Today it's a generic countdown / elapsed-day notation: 9 days before an exam = D-9, 100 days after a wedding = D+100."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are weeks, months, and years calculated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Total days are converted using averages: 30.4375 days/month and 365.25 days/year (accounting for leap years). These are not exact calendar differences but useful approximations for everyday use ('about 6 months')."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are leap years handled automatically?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The day count uses JavaScript's Date object in milliseconds, so leap years and varying month lengths are handled automatically. Expect a +1 day shift roughly every 4 years across long ranges."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I track 100-day, 1000-day, or anniversary milestones?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Enter the original event date as the start, and any future date (start + N days, or any anniversary) as the end. The calculator returns the exact day count. For relationship milestones, just put the start date in the start field and the milestone date in the end field."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use today's date automatically?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The start field is pre-filled with today's date. Change either field to whatever you need. The result also shows a 'today vs target' badge (D-N / D-Day / D+N) regardless of which dates you enter."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">Tools</a> · Lifestyle · D-Day</div>
+    <h1>D-Day Calculator</h1>
+    <p class="subtitle">Days, weeks, months, and years between two dates — at a glance.</p>
+
+    <form id="form" class="card">
+      <div class="row">
+        <div class="field">
+          <label for="start">Start date</label>
+          <input type="date" id="start" required>
+        </div>
+        <div class="field">
+          <label for="end">End date (target)</label>
+          <input type="date" id="end" required>
+        </div>
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">Today vs target</div>
+        <div id="dday" class="result-value">D-0</div>
+        <div id="ddayLabel" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">Total days</span><span id="totalDays" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">Weeks</span><span id="totalWeeks" class="value">-</span></div>
+        <div class="breakdown-row"><span class="label">Months (avg)</span><span id="totalMonths" class="value">-</span></div>
+        <div class="breakdown-row total"><span class="label">Years (avg)</span><span id="totalYears" class="value">-</span></div>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>D-Day Notation</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Notation</th><th>Meaning</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>D-Day</td><td>Target day itself (D-0)</td><td>Exam day, wedding, launch day</td></tr>
+            <tr><td>D-N</td><td>N days before the target</td><td>9 days before exam = D-9</td></tr>
+            <tr><td>D+N</td><td>N days after the target</td><td>100 days since starting work = D+100</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">Originally used in U.S. Army field orders (the 'D' simply means 'Day'); popularized by the 1944 Normandy landings.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>Common Use Cases</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Use case</th><th>Start date</th><th>End date</th></tr></thead>
+          <tbody>
+            <tr><td>Exam / deadline countdown</td><td>Today</td><td>Exam date</td></tr>
+            <tr><td>Anniversary milestone</td><td>Original date</td><td>Today (or future date)</td></tr>
+            <tr><td>Project lifetime</td><td>Project start</td><td>Project end</td></tr>
+            <tr><td>Travel days remaining</td><td>Today</td><td>Departure date</td></tr>
+            <tr><td>Subscription / contract elapsed</td><td>Start of term</td><td>Today</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">Either order works — the result shows total days regardless of date order, plus a today-vs-target badge.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related Calculators</h2>
+      <div class="related-calc">
+        <a href="../bmi/">BMI Calculator<span class="desc">Body mass index</span></a>
+        <a href="../calorie/">Calorie (BMR / TDEE)<span class="desc">Daily calories</span></a>
+        <a href="../compound/">Compound Interest<span class="desc">Future value calculator</span></a>
+        <a href="../savings/">Savings Calculator<span class="desc">Simple / compound maturity</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently Asked Questions</h2>
+
+      <details>
+        <summary>What does D-Day stand for?</summary>
+        <div class="answer">
+          D-Day is the day a planned event occurs (D-0). One day before is D-1; one day after is D+1.
+          The 'D' simply stands for <b>'Day'</b>, first used in WWI U.S. Army field orders and made famous
+          by the 1944 Normandy landings. Today it's a generic countdown / elapsed-day notation:
+          9 days before an exam = D-9, 100 days after a wedding = D+100.
+        </div>
+      </details>
+
+      <details>
+        <summary>How are weeks, months, and years calculated?</summary>
+        <div class="answer">
+          Total days are converted using averages: <b>30.4375 days/month</b> and <b>365.25 days/year</b>
+          (accounting for leap years). Not exact calendar differences but useful approximations for
+          everyday use ("about 6 months").
+        </div>
+      </details>
+
+      <details>
+        <summary>Are leap years handled automatically?</summary>
+        <div class="answer">
+          Yes. The day count uses JavaScript's Date object in milliseconds, so <b>leap years and varying
+          month lengths are handled automatically</b>. Expect a +1 day shift roughly every 4 years across
+          long ranges.
+        </div>
+      </details>
+
+      <details>
+        <summary>How do I track 100-day, 1000-day, or anniversary milestones?</summary>
+        <div class="answer">
+          Enter the original event date as the start, and any future date (start + N days, or any
+          anniversary) as the end. The calculator returns the exact day count. For relationship
+          milestones, just put the start date in the start field and the milestone date in the end field.
+        </div>
+      </details>
+
+      <details>
+        <summary>Can I use today's date automatically?</summary>
+        <div class="answer">
+          Yes. The start field is <b>pre-filled with today's date</b>. Change either field to whatever
+          you need. The result also shows a 'today vs target' badge (D-N / D-Day / D+N) regardless of
+          which dates you enter.
+        </div>
+      </details>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ View all calculators</a>
+    </nav>
+  </main>
+  <script src="./dday.js" defer></script>
+  <site-footer></site-footer>
+</body>
+</html>

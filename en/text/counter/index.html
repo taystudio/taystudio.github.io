@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Text">
+  <meta property="og:title" content="Character Counter | Words, Lines, Bytes & Social Media Limits">
+  <meta property="og:description" content="Real-time character, word, line, sentence, and UTF-8 byte counter. Compare against Twitter/X, Instagram, LinkedIn, Facebook, Threads, and YouTube limits. Free, no signup, runs entirely in your browser.">
+  <meta property="og:url" content="https://taystudios.com/en/text/counter/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Character Counter | Words, Lines, Bytes & Social Media Limits">
+  <meta name="twitter:description" content="Real-time character, word, line, sentence, and UTF-8 byte counter with social media limit comparison.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Character Counter | Words, Lines, Bytes & Social Media Limits</title>
+  <meta name="description" content="Real-time character counter — with/without spaces, words, lines, sentences, UTF-8 bytes. Auto-compares your text against Twitter/X, Instagram, LinkedIn, Facebook, Threads, and YouTube limits. Free, no signup.">
+  <meta name="keywords" content="character counter, word counter, letter count, twitter character count, instagram caption length, linkedin post limit, byte counter, utf-8 bytes">
+  <link rel="canonical" href="https://taystudios.com/en/text/counter/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/text/counter/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/text/counter/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/text/counter/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Character Counter | Words, Lines, Bytes & Social Media Limits",
+      "description": "Real-time character counter — with/without spaces, words, lines, sentences, UTF-8 bytes. Auto-compares text against Twitter/X, Instagram, LinkedIn, Facebook, Threads, and YouTube limits.",
+      "url": "https://taystudios.com/en/text/counter/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Text", "item": "https://taystudios.com/en/text/" },
+        { "@type": "ListItem", "position": 3, "name": "Character Counter", "item": "https://taystudios.com/en/text/counter/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What's the difference between counting with and without spaces?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "\"With spaces\" counts every space, tab, and newline as one character. \"Without spaces\" excludes all whitespace. Most platforms (Twitter/X, Instagram, etc.) count with spaces. Cover letters and personal statements vary by employer — always follow the published guideline."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the byte count larger than the character count?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In UTF-8 encoding, ASCII letters and digits use 1 byte each, accented Latin characters use 2 bytes, most CJK (Chinese, Japanese, Korean) characters use 3 bytes, and emoji often use 4 bytes. So 'Hi' is 2 chars / 2 bytes, but '안녕' or '你好' is 2 chars / 6 bytes. Database VARCHAR columns and SMS limits often constrain bytes rather than characters."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are emoji and CJK characters counted?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This counter uses Unicode codepoint counting. Compound emoji like '👨‍👩‍👧' (joined with ZWJ) count as multiple codepoints (typically 5), which can differ from how Twitter/X displays them as 1 'character'. CJK letters (Chinese, Japanese, Korean) each count as 1 character — same as Latin letters."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are line breaks included in the count?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, in the 'with spaces' count (newline character \\n is 1 character). They're excluded from 'without spaces'. This may differ slightly from Microsoft Word's word/character statistics, which typically excludes line breaks from its 'characters' count."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my text uploaded anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All counting happens in your browser via JavaScript. Your text never leaves your device. Cover letters, drafts, and confidential content are safe to paste."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know if my Twitter/X post will fit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Twitter/X allows 280 characters. URLs are auto-shortened to 23 characters regardless of original length, but this counter shows the raw character count — so subtract the URL difference manually if needed. Premium accounts have a 25,000 character limit."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .counter-input {
+      width: 100%;
+      min-height: 220px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--card);
+      color: var(--text);
+      font-size: 16px; /* >=16px prevents iOS Safari auto-zoom on focus */
+      font-family: inherit;
+      line-height: 1.6;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    .counter-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    }
+    .counter-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .counter-actions button {
+      width: auto;
+      flex: 0 0 auto;
+      padding: 8px 14px;
+      font-size: 14px;
+      font-weight: 500;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .counter-actions button:hover {
+      background: var(--border);
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .stat-cell {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      text-align: center;
+    }
+    .stat-cell .num {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+    .stat-cell .lab {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .limit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .limit-row {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .limit-row.over { border-color: #dc2626; }
+    .limit-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .limit-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .limit-count {
+      font-size: 13px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    .limit-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .limit-fill {
+      height: 100%;
+      background: var(--primary);
+      transition: width 0.15s ease;
+    }
+    .limit-row.over .limit-fill { background: #dc2626; }
+    .limit-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 4px 8px;
+      margin-top: 6px;
+      font-size: 12px;
+    }
+    .limit-status { color: var(--muted); font-weight: 500; flex: 0 0 auto; }
+    .limit-row.over .limit-status { color: #dc2626; }
+    .limit-hint { color: var(--muted); text-align: right; flex: 1 1 auto; min-width: 0; }
+  </style>
+  <script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Text</a> · Character Counter</div>
+    <h1>Character Counter</h1>
+    <p class="subtitle">With/without spaces, words, lines, sentences, bytes — plus social media limits, in real time.</p>
+
+    <div class="card">
+      <div class="field">
+        <label for="input">Your text</label>
+        <textarea id="input" class="counter-input" placeholder="Paste or type your text here. Nothing is sent anywhere — counting runs entirely in your browser."></textarea>
+        <div class="counter-actions">
+          <button type="button" id="copyBtn">Copy</button>
+          <button type="button" id="clearBtn">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense slot ]</div>
+
+    <div id="result" class="result">
+      <div class="result-headline">
+        <div class="result-label">Characters (with spaces)</div>
+        <div id="charsWithSpace" class="result-value">0</div>
+        <div class="result-sub">chars</div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-cell"><div id="charsNoSpace" class="num">0</div><div class="lab">Without spaces</div></div>
+        <div class="stat-cell"><div id="words" class="num">0</div><div class="lab">Words</div></div>
+        <div class="stat-cell"><div id="sentences" class="num">0</div><div class="lab">Sentences</div></div>
+        <div class="stat-cell"><div id="lines" class="num">0</div><div class="lab">Lines</div></div>
+        <div class="stat-cell"><div id="bytesUtf8" class="num">0</div><div class="lab">Bytes (UTF-8)</div></div>
+        <div class="stat-cell"><div id="letters" class="num">0</div><div class="lab">Latin letters</div></div>
+        <div class="stat-cell"><div id="digits" class="num">0</div><div class="lab">Digits</div></div>
+        <div class="stat-cell"><div id="cjk" class="num">0</div><div class="lab">CJK (Chinese/Japanese/Korean)</div></div>
+        <div class="stat-cell"><div id="other" class="num">0</div><div class="lab">Other / symbols</div></div>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>Social Media &amp; Cover Letter Limits</h2>
+      <p class="small">See how your current character count (with spaces) tracks against each platform's limit. Limits as of 2026-05.</p>
+      <div id="limits" class="limit-list"></div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Characters vs Bytes — UTF-8 Encoding</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Example</th><th>Characters</th><th>UTF-8 Bytes</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Hi</td><td>2</td><td>2</td><td>ASCII = 1 byte each</td></tr>
+            <tr><td>café</td><td>4</td><td>5</td><td>é = 2 bytes</td></tr>
+            <tr><td>안녕</td><td>2</td><td>6</td><td>Hangul = 3 bytes each</td></tr>
+            <tr><td>你好</td><td>2</td><td>6</td><td>CJK ideograph = 3 bytes each</td></tr>
+            <tr><td>👋</td><td>1</td><td>4</td><td>Emoji = 4 bytes (surrogate pair)</td></tr>
+            <tr><td>Hello 안녕</td><td>8 (with space)</td><td>13</td><td>Mixed</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">This counter uses UTF-8. Some legacy systems use UTF-16 (Java strings, JavaScript .length) where most characters are 2 bytes and some emoji are 4 bytes — values may differ. When in doubt, follow the platform's documentation.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>Common Limits at a Glance</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Platform</th><th>Limit (chars)</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Twitter / X</td><td>280</td><td>25,000 for Premium accounts; URLs counted as 23</td></tr>
+            <tr><td>Threads</td><td>500</td><td>Per post</td></tr>
+            <tr><td>Bluesky</td><td>300</td><td>Per post</td></tr>
+            <tr><td>Mastodon</td><td>500</td><td>Default; varies by instance</td></tr>
+            <tr><td>Instagram caption</td><td>2,200</td><td>Up to 30 hashtags</td></tr>
+            <tr><td>Instagram bio</td><td>150</td><td></td></tr>
+            <tr><td>LinkedIn post</td><td>3,000</td><td>"…see more" after ~140</td></tr>
+            <tr><td>LinkedIn headline</td><td>220</td><td></td></tr>
+            <tr><td>Facebook post</td><td>63,206</td><td>"See more" after ~477</td></tr>
+            <tr><td>YouTube title</td><td>100</td><td></td></tr>
+            <tr><td>YouTube description</td><td>5,000</td><td>First ~150 visible without expand</td></tr>
+            <tr><td>TikTok caption</td><td>2,200</td><td>Per video</td></tr>
+            <tr><td>SMS (1 segment)</td><td>160 GSM-7 / 70 UCS-2</td><td>UCS-2 used when any non-ASCII present</td></tr>
+            <tr><td>Email subject (best practice)</td><td>50–60</td><td>Mobile clients truncate longer subjects</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">⚠️ Platform limits change. Verify on the official help page before publishing high-stakes content.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related Tools</h2>
+      <div class="related-calc">
+        <a href="../">Text tools<span class="desc">More text utilities</span></a>
+        <a href="/en/tools/compound/">Compound Interest<span class="desc">Future value calculator</span></a>
+        <a href="/en/tools/">All calculators<span class="desc">Finance, health, time</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently Asked Questions</h2>
+
+      <details>
+        <summary>What's the difference between counting with and without spaces?</summary>
+        <div class="answer">
+          <b>With spaces</b> counts every space, tab, and newline as one character. <b>Without spaces</b> excludes all whitespace. Most social platforms (Twitter/X, Instagram, etc.) count with spaces. Cover letters and personal statements vary — always follow the employer's published guideline.
+        </div>
+      </details>
+
+      <details>
+        <summary>Why is the byte count larger than the character count?</summary>
+        <div class="answer">
+          In UTF-8: ASCII letters and digits = 1 byte, accented Latin (é, ü, ñ) = 2 bytes, most CJK (Chinese, Japanese, Korean) = <b>3 bytes</b>, emoji often = 4 bytes. So <code>Hi</code> is 2 chars / 2 bytes, but <code>안녕</code> or <code>你好</code> is 2 chars / 6 bytes. Database <code>VARCHAR</code> columns and SMS limits often constrain bytes rather than characters.
+        </div>
+      </details>
+
+      <details>
+        <summary>How are emoji and CJK characters counted?</summary>
+        <div class="answer">
+          This counter uses <b>Unicode codepoint counting</b>. Compound emoji like <code>👨‍👩‍👧</code> (joined with ZWJ) count as multiple codepoints (typically 5), which can differ from how Twitter/X displays them as 1 "character". CJK letters (Chinese, Japanese, Korean) each count as 1 character — same as Latin letters.
+        </div>
+      </details>
+
+      <details>
+        <summary>Are line breaks included in the count?</summary>
+        <div class="answer">
+          Yes, in the "with spaces" count (the newline character <code>\n</code> is 1 character). They're excluded from "without spaces". This may differ slightly from Microsoft Word's character statistics, which typically excludes line breaks from its "characters" total.
+        </div>
+      </details>
+
+      <details>
+        <summary>How do I know if my Twitter/X post will fit?</summary>
+        <div class="answer">
+          Twitter/X allows <b>280 characters</b> (25,000 for Premium). URLs are auto-shortened to <b>23 characters</b> regardless of original length, but this counter shows the raw character count — subtract the URL difference manually if you have long URLs. Emoji typically count as 1–2 characters on X.
+        </div>
+      </details>
+
+      <details>
+        <summary>Is my text uploaded anywhere?</summary>
+        <div class="answer">
+          No. All counting happens in your <b>browser</b> via JavaScript. Your text never leaves your device. Cover letters, drafts, and confidential content are safe to paste.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last reviewed: 2026-05-10 · Platform limits per official help pages.</div>
+      <ul>
+        <li>UTF-8 encoding spec — <a href="https://datatracker.ietf.org/doc/html/rfc3629" rel="nofollow noopener" target="_blank">RFC 3629</a></li>
+        <li>Unicode Hangul Syllables block (가-힣, U+AC00–U+D7A3) — Unicode standard</li>
+        <li>Twitter/X 280 chars — <a href="https://help.twitter.com/en/using-x/how-to-tweet" rel="nofollow noopener" target="_blank">X Help</a></li>
+        <li>Instagram caption 2,200 chars — <a href="https://help.instagram.com/" rel="nofollow noopener" target="_blank">Instagram Help</a></li>
+        <li>LinkedIn post 3,000 chars — <a href="https://www.linkedin.com/help/linkedin" rel="nofollow noopener" target="_blank">LinkedIn Help</a></li>
+      </ul>
+      <div class="note">⚠️ Each platform's limit can change. Verify on the official help page before publishing.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ View all text tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="./counter.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO">
+  <meta property="og:title" content="Compound Interest Calculator | Lump Sum + Monthly Future Value">
+  <meta property="og:description" content="Calculate future value of a lump sum and monthly contributions with compound interest. See total profit, return multiple, and growth over time.">
+  <meta property="og:url" content="https://taystudios.com/en/tools/compound/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Compound Interest Calculator | Lump Sum + Monthly Future Value">
+  <meta name="twitter:description" content="Calculate future value of a lump sum and monthly contributions with compound interest. See total profit, return multiple, and growth over time.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Compound Interest Calculator | Lump Sum + Monthly Future Value</title>
+  <meta name="description" content="Calculate future value of a lump sum and monthly contributions with compound interest. See total profit, return multiple, and growth over time. Free, no signup, runs entirely in your browser.">
+  <meta name="keywords" content="compound interest calculator, future value calculator, monthly contribution, investment calculator, FV formula, retirement planning">
+  <link rel="canonical" href="https://taystudios.com/en/tools/compound/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/tools/compound/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/compound/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/tools/compound/">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Compound Interest Calculator | Lump Sum + Monthly Future Value",
+      "description": "Calculate future value of a lump sum and monthly contributions with compound interest. See total profit, return multiple, and growth over time.",
+      "url": "https://taystudios.com/en/tools/compound/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taystudios.com/en/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Finance",
+          "item": "https://taystudios.com/en/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Compound Interest Calculator",
+          "item": "https://taystudios.com/en/tools/compound/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What's the difference between simple and compound interest?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Simple interest applies only to the original principal, while compound interest applies to both the principal and accumulated interest. For $100,000 at 7% over 30 years: simple interest yields $310,000, while compound yields $761,226 — a $451,226 difference. The longer the period, the more dramatic the gap (this is what Warren Buffett calls the 'snowball')."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "If I save $500 a month for 30 years, will I really have $610,000?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "At a 7% annual return, $500/month over 30 years ($180,000 invested) grows to approximately $609,985 (3.4× the principal). Over 5 years it's only 1.2×, and over 10 years 1.4× — but 30 years yields 3.4× because compound growth eats time. Note: these figures don't account for inflation or taxes, so real purchasing power is roughly 70% of the nominal."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does a 1 percentage point difference in return really matter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Significantly. For $1,000/month over 30 years: 5% returns $832,259, 7% returns $1,219,971, and 10% returns $2,260,488. A 1 percentage point difference creates $150K–$400K gaps over 30 years. In long-term investing, even a 0.5% expense ratio compounds into massive losses."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Rule of 72?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "72 ÷ annual return rate = approximate years for principal to double. At 7%, that's about 10.3 years; at 9%, about 8 years; at 12%, about 6 years. The exact formula ln(2)/ln(1+r) differs by less than a year. Useful as a quick mental-math heuristic."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do taxes affect compound interest?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Taxes vary by country and account type. In tax-deferred accounts (401(k), Traditional IRA), gains compound untaxed until withdrawal. In taxable brokerage accounts, dividends and realized gains are taxed annually, lowering the effective rate. This calculator computes pre-tax compound growth — your real return depends on jurisdiction and account structure."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are tax-advantaged retirement accounts worth it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, substantially. In a 401(k), Roth IRA, or similar account, gains compound without annual tax drag. Over 30 years, the difference between taxable and tax-advantaged compounding can exceed 25% of the final balance — often hundreds of thousands of dollars. Maximize tax-advantaged contributions before taxable accounts."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="../index.html">Tools</a> · Finance · Compound Interest</div>
+    <h1>Compound Interest Calculator</h1>
+    <p class="subtitle">Lump sum + monthly contributions, computed together. See your future value at a glance.</p>
+
+    <form id="form" class="card">
+      <div class="field">
+        <label for="principal">Initial Principal <span class="hint">$ / leave 0 if none</span></label>
+        <input type="number" id="principal" placeholder="0" min="0" step="100" value="0">
+      </div>
+      <div class="field">
+        <label for="monthly">Monthly Contribution <span class="hint">$</span></label>
+        <input type="number" id="monthly" placeholder="e.g. 500" min="0" step="10" value="0">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="rate">Annual Return (%)</label>
+          <input type="number" id="rate" placeholder="e.g. 7" min="0" step="0.1" required>
+        </div>
+        <div class="field">
+          <label for="years">Years</label>
+          <input type="number" id="years" placeholder="e.g. 20" min="1" step="1" required>
+        </div>
+      </div>
+      <button type="submit">Calculate Future Value</button>
+    </form>
+
+    <div class="ad-slot">[ AdSense — Finance ]</div>
+
+    <div id="result" class="result" style="display:none">
+      <div class="result-headline">
+        <div class="result-label">Future Value (FV)</div>
+        <div id="totalFV" class="result-value">$0</div>
+        <div id="multiple" class="result-sub">-</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-row"><span class="label">Total Invested</span><span id="invested" class="value">$0</span></div>
+        <div class="breakdown-row"><span class="label">— FV from Lump Sum</span><span id="principalPart" class="value">$0</span></div>
+        <div class="breakdown-row"><span class="label">— FV from Monthly</span><span id="monthlyPart" class="value">$0</span></div>
+        <div class="breakdown-row total"><span class="label">Total Profit</span><span id="profit" class="value">$0</span></div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ Pre-tax estimate, ignoring inflation. Real-world returns are reduced by taxes (capital gains, dividends), inflation, and market volatility. Equity/ETF investments carry risk.
+    </div>
+
+    <section class="tool-article">
+      <h2>The Compound Interest Formula</h2>
+      <div class="formula-list">
+        <ol>
+          <li><b>Lump sum</b>: <code>FV = P × (1 + r)<sup>n</sup></code></li>
+          <li><b>Monthly contributions</b>: <code>FV = M × ((1 + r)<sup>n</sup> − 1) ÷ r</code></li>
+          <li>P = principal, M = monthly contribution, r = monthly rate (annual ÷ 12), n = total months</li>
+        </ol>
+      </div>
+      <p class="small">Equivalent to Excel's FV function. Both annual and monthly compounding are unified by converting to a monthly rate.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>$500/month at 7% — Growth by Period</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Period</th><th>Total Invested</th><th>Future Value</th><th>Net Profit</th><th>Multiple</th></tr></thead>
+          <tbody>
+            <tr><td>5 years</td><td>$30,000</td><td>$35,797</td><td>$5,797</td><td>×1.19</td></tr>
+            <tr><td>10 years</td><td>$60,000</td><td>$86,541</td><td>$26,541</td><td>×1.44</td></tr>
+            <tr><td>15 years</td><td>$90,000</td><td>$158,481</td><td>$68,481</td><td>×1.76</td></tr>
+            <tr><td>20 years</td><td>$120,000</td><td>$260,463</td><td>$140,463</td><td>×2.17</td></tr>
+            <tr><td>25 years</td><td>$150,000</td><td>$405,036</td><td>$255,036</td><td>×2.70</td></tr>
+            <tr><td>30 years</td><td>$180,000</td><td class="highlight">$609,985</td><td>$429,985</td><td>×3.39</td></tr>
+            <tr><td>40 years</td><td>$240,000</td><td class="highlight">$1,312,407</td><td>$1,072,407</td><td>×5.47</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">From 5 to 30 years, principal grows 6× but future value grows 17×. Compound interest eats time.</p>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>Learn More</h2>
+
+      <details>
+        <summary>Return rate comparison ($1,000/month, 30 years)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>Annual Return</th><th>Total Invested</th><th>Future Value</th><th>Net Profit</th></tr></thead>
+              <tbody>
+                <tr><td>3%</td><td>$360,000</td><td>$582,737</td><td>$222,737</td></tr>
+                <tr><td>5%</td><td>$360,000</td><td>$832,259</td><td>$472,259</td></tr>
+                <tr><td>7%</td><td>$360,000</td><td class="highlight">$1,219,971</td><td>$859,971</td></tr>
+                <tr><td>10%</td><td>$360,000</td><td class="highlight">$2,260,488</td><td>$1,900,488</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">A 1 percentage point difference compounds into $150K–$400K over 30 years. Even a 0.5% ETF expense ratio matters significantly long-term.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>$100,000 lump sum at 7%</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>Period</th><th>Future Value</th><th>Multiple</th></tr></thead>
+              <tbody>
+                <tr><td>5 years</td><td>$140,255</td><td>×1.40</td></tr>
+                <tr><td>10 years</td><td>$196,715</td><td>×1.97</td></tr>
+                <tr><td>15 years</td><td>$275,903</td><td>×2.76</td></tr>
+                <tr><td>20 years</td><td>$386,968</td><td>×3.87</td></tr>
+                <tr><td>25 years</td><td>$542,743</td><td>×5.43</td></tr>
+                <tr><td>30 years</td><td class="highlight">$761,226</td><td>×7.61</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">At 7% compound, money roughly doubles every 10 years; over 30 years it grows ~8×. (Reference: S&amp;P 500 long-term average ~7–10%.)</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Rule of 72 (years to double)</summary>
+        <div class="body">
+          <p>Estimate quickly with «72 ÷ annual return rate». Matches the exact formula ln(2) ÷ ln(1 + r) within fractions of a year.</p>
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>Annual Return</th><th>Rule of 72</th><th>Exact Value</th></tr></thead>
+              <tbody>
+                <tr><td>3%</td><td>24 years</td><td>23.45 years</td></tr>
+                <tr><td>5%</td><td>14.4 years</td><td>14.21 years</td></tr>
+                <tr><td>6%</td><td>12 years</td><td>11.90 years</td></tr>
+                <tr><td>7%</td><td>10.3 years</td><td>10.24 years</td></tr>
+                <tr><td>9%</td><td>8 years</td><td>8.04 years</td></tr>
+                <tr><td>12%</td><td>6 years</td><td>6.12 years</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">For rates ≥10%, the Rule of 70 is slightly more accurate; for rates ≤5%, the Rule of 69 is best. But 72 has more divisors, making it easier for mental math.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Simple vs Compound ($100K, 7%, 30 years)</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>Type</th><th>After 30 Years</th><th>Difference</th></tr></thead>
+              <tbody>
+                <tr><td>Simple (principal + 7% × 30)</td><td>$310,000</td><td>—</td></tr>
+                <tr><td>Compound (1.07<sup>30</sup>)</td><td class="highlight">$761,226</td><td>+$451,226</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">The gap grows exponentially with time. Under 5 years, simple and compound differ little; over 20 years, the difference is decisive.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Real return after inflation and taxes</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>Inflation</b>Long-term US average ~2–3%. Nominal 7% return − 2.5% inflation = real return ~4.5%.</div>
+            <div class="case"><b>Taxable accounts</b>Dividends and realized capital gains are taxed annually, reducing effective return. Long-term capital gains rates (US): 0%, 15%, or 20%.</div>
+            <div class="case"><b>Tax-deferred (401(k), Traditional IRA)</b>Contributions reduce taxable income; gains compound untaxed until withdrawal. Withdrawals taxed as ordinary income.</div>
+            <div class="case"><b>Tax-free (Roth IRA, Roth 401(k))</b>Contributions made post-tax; qualified withdrawals are completely tax-free, including all gains.</div>
+            <div class="case"><b>Expense ratios</b>A 0.5% annual fee compounds into 15%+ erosion over 30 years. Index ETFs (0.03–0.10%) crush actively managed funds (0.5–1.5%).</div>
+            <div class="case"><b>Inflation-adjusted FV</b>Multiply this calculator's result by (1.025)<sup>−n</sup> to see purchasing power in today's dollars.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>5 principles of long-term investing</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>1. Start early</b>Starting in your 20s vs 30s — same monthly contribution, ~2× difference at retirement. Time is the most powerful variable.</div>
+            <div class="case"><b>2. Automate</b>Don't rely on willpower. Set up automatic transfers the day you get paid.</div>
+            <div class="case"><b>3. Low-cost index funds</b>A 0.5pp expense difference compounds to 6 figures over 30 years. Passive index ETFs typically beat active funds.</div>
+            <div class="case"><b>4. Maximize tax-advantaged accounts</b>401(k) match → Roth IRA → 401(k) max → taxable brokerage. Always capture the employer match first (free money).</div>
+            <div class="case"><b>5. Don't time the market</b>Market-timing attempts almost always underperform buy-and-hold. Stick with dollar-cost averaging (DCA).</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related Calculators</h2>
+      <div class="related-calc">
+        <a href="../">More calculators<span class="desc">Coming soon — BMI, savings, loan, and more</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently Asked Questions</h2>
+
+      <details>
+        <summary>What's the difference between simple and compound interest?</summary>
+        <div class="answer">
+          Simple interest applies only to the original principal, while compound interest applies to <b>both the principal and accumulated interest</b>. For $100,000 at 7% over 30 years: simple yields $310,000, while compound yields $761,226 — a $451,226 difference. The longer the period, the more dramatic the gap (this is what Warren Buffett calls the 'snowball').
+        </div>
+      </details>
+
+      <details>
+        <summary>If I save $500 a month for 30 years, will I really have $610,000?</summary>
+        <div class="answer">
+          At a 7% annual return, $500/month over 30 years ($180,000 invested) grows to <b>approximately $609,985</b> (3.4× the principal). Over 5 years it's only 1.2×, and over 10 years 1.4× — but 30 years yields 3.4× because compound growth eats time. Note: this doesn't account for inflation or taxes, so real purchasing power is roughly 70% of the nominal value.
+        </div>
+      </details>
+
+      <details>
+        <summary>Does a 1 percentage point difference in return really matter?</summary>
+        <div class="answer">
+          Significantly. For $1,000/month over 30 years: 5% returns $832,259, 7% returns $1,219,971, and 10% returns $2,260,488. A 1 percentage point difference creates <b>$150K–$400K gaps</b> over 30 years. In long-term investing, even a 0.5% expense ratio compounds into massive losses.
+        </div>
+      </details>
+
+      <details>
+        <summary>What is the Rule of 72?</summary>
+        <div class="answer">
+          <b>72 ÷ annual return rate</b> = approximate years for principal to double. At 7% → ~10.3 years, 9% → 8 years, 12% → 6 years. The exact formula ln(2)/ln(1+r) differs by less than a year. Useful as a quick mental-math heuristic.
+        </div>
+      </details>
+
+      <details>
+        <summary>How do taxes affect compound interest?</summary>
+        <div class="answer">
+          Taxes vary by country and account type. In tax-deferred accounts (401(k), Traditional IRA), gains compound untaxed until withdrawal. In taxable brokerage accounts, dividends and realized gains are taxed annually, lowering the effective rate. This calculator computes <b>pre-tax</b> compound growth — your real return depends on jurisdiction and account structure.
+        </div>
+      </details>
+
+      <details>
+        <summary>Are tax-advantaged retirement accounts worth it?</summary>
+        <div class="answer">
+          Yes, substantially. In a 401(k), Roth IRA, or similar account, gains compound without annual tax drag. Over 30 years, the difference between taxable and tax-advantaged compounding can exceed <b>25% of the final balance</b> — often hundreds of thousands of dollars. Maximize tax-advantaged contributions before taxable accounts.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>Formulas &amp; References</h2>
+      <div class="updated">Last reviewed: 2026-05-08</div>
+      <ul>
+        <li><b>Lump-sum future value</b> — FV = P × (1 + r)<sup>n</sup> [equivalent to Excel's FV function]</li>
+        <li><b>Monthly contribution future value</b> — FV = M × ((1 + r)<sup>n</sup> − 1) / r [annuity future value]</li>
+        <li><b>r</b> = monthly rate (annual ÷ 12), <b>n</b> = total months</li>
+        <li><b>Tax-advantaged accounts (US)</b> — <a href="https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins/updated-3" target="_blank" rel="noopener">SEC investor.gov</a></li>
+        <li><b>Long-term capital gains (US)</b> — IRS Publication 550, IRS Topic 409</li>
+      </ul>
+      <div class="note">
+        ⚠️ This calculator uses pure mathematical formulas. Real-world returns differ due to volatility, inflation, and taxes specific to your jurisdiction.
+      </div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../index.html" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ View all calculators</a>
+    </nav>
+  </main>
+  <script src="./compound.js" defer></script>
+  <site-footer></site-footer>
+  <script src="/common/site-chrome.js" defer></script>
+</body>
+</html>

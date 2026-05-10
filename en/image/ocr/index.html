@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://tessdata.projectnaptha.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="Image OCR | Free English & Korean Text Extraction">
+  <meta property="og:description" content="Extract text from images and screenshots — English, Korean, and more. Tesseract.js WASM, all processing in your browser.">
+  <meta property="og:url" content="https://taystudios.com/en/image/ocr/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Image OCR | Free English & Korean Text Extraction">
+  <meta name="twitter:description" content="Extract text from images. Tesseract.js WASM, browser-based.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Image OCR | Free Text Extraction (English, Korean) — Browser-Based</title>
+  <meta name="description" content="Extract text from images, screenshots, and photos — English, Korean, and more. Tesseract.js WASM in-browser OCR. All processing on your device, images never uploaded.">
+  <meta name="keywords" content="image text extract, OCR online, photo to text, screenshot OCR, English OCR, free OCR, Tesseract.js">
+  <link rel="canonical" href="https://taystudios.com/en/image/ocr/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/ocr/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/ocr/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/ocr/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Image OCR | Free Text Extraction",
+      "description": "Extract text from images. Tesseract.js WASM in-browser. English, Korean, and more.",
+      "url": "https://taystudios.com/en/image/ocr/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "Image / PDF text extraction (Tesseract.js)",
+        "English, Korean, numerals",
+        "PDF page-by-page text separation",
+        "No upload — runs in your browser"
+      ],
+      "dateModified": "2026-05-09",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/en/image/" },
+        { "@type": "ListItem", "position": 3, "name": "Image OCR", "item": "https://taystudios.com/en/image/ocr/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are my images uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Images stay on your device. OCR runs entirely in the browser via the Tesseract.js WASM engine. The OCR worker code and language training data (around 10–13MB) are downloaded once from the jsdelivr CDN on first use, then cached in IndexedDB for offline use. The site operator cannot see your images."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the first run slow?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The OCR engine core (WASM) and language training data (10–13MB) download on first use. After that, IndexedDB caches them and subsequent runs start instantly. Avoid the first run on cellular data — use Wi-Fi once to warm the cache."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is accuracy 100%?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "OCR is a statistical inference task and does not guarantee 100%. With Tesseract.js, clean printed/digital text typically scores 80–95%. Handwriting, vertical text, or distorted documents drop significantly. Always have a human review the results — for legal or critical material, type it in manually."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which languages are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Currently English, Korean, and English + Korean mixed. Mixed mode downloads both language models, so the first run takes longer. Other languages like Japanese and Chinese are planned."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Output looks garbled.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "① Re-shoot if the photo is blurry or skewed ② crop just the text area to avoid background noise ③ enlarge the image if the font is too small ④ if your text mixes English with another language, use the mixed mode."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I OCR a PDF?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This tool currently accepts images only (JPG / PNG / WebP). If your PDF already has digital text, copy it directly from a PDF viewer. For scanned PDFs, export each page as an image (e.g. screenshot) and bring it here."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .ocr-disclaimer { padding:12px 14px; margin:14px 0; background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.32); border-radius:8px; font-size:13px; line-height:1.55; }
+    .ocr-disclaimer .label { color:#b45309; font-weight:700; }
+    @media (prefers-color-scheme: dark) { .ocr-disclaimer .label { color:#fbbf24; } }
+    .progress-wrap { margin:14px 0; }
+    .progress-bar { height:8px; background:var(--border); border-radius:4px; overflow:hidden; }
+    .progress-fill { height:100%; background:var(--primary); transition:width .25s; width:0; }
+    .progress-text { font-size:12.5px; color:var(--muted); margin-top:6px; }
+    .ocr-result-text { width:100%; min-height:200px; padding:14px; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--text); font-size:14px; font-family:inherit; line-height:1.7; box-sizing:border-box; resize:vertical; }
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Image</a> · Image OCR</div>
+    <h1>Image OCR (text extraction)</h1>
+    <p class="subtitle">Photos and screenshots → text. Tesseract.js WASM running entirely in your browser.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Images never leave your device.</b> OCR runs in the browser via a WASM engine. The engine and language data (~10–13MB) are downloaded once from a CDN, then cached in IndexedDB.</div>
+    </div>
+
+    <div class="ocr-disclaimer">
+      <span class="label">⚠️ Accuracy notice</span> — OCR accuracy depends on image quality, fonts, and language (typically 80–95%). <b>Always review the result by hand</b>, and for legal documents or precise figures, double-check manually.
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">🔡</div>
+        <div class="drop-title" id="dropTitle">Drag an image here, or click to choose</div>
+        <div class="drop-hint">JPG · PNG · WebP — one image at a time</div>
+        <input type="file" id="fileInput" accept="image/*">
+      </label>
+
+      <div class="image-preview" id="previewBox" hidden>
+        <img id="previewImg" alt="Input image">
+      </div>
+
+      <div class="field" style="margin-top:14px">
+        <label for="lang">Recognition language</label>
+        <select id="lang">
+          <option value="eng" selected>English</option>
+          <option value="kor">Korean</option>
+          <option value="kor+eng">Korean + English (mixed)</option>
+        </select>
+        <p class="small" style="color:var(--muted);margin-top:6px">First run downloads training data — English ~10MB, Korean ~13MB. Wi-Fi recommended.</p>
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="ocrBtn" disabled>Extract text</button>
+        <button type="button" id="clearBtn">Reset</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText">Preparing...</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense slot ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="image-meta">
+        <span>Confidence <b id="confValue">—</b></span>
+        <span>Characters <b id="charCount">—</b></span>
+      </div>
+      <textarea id="ocrText" class="ocr-result-text" placeholder="—"></textarea>
+      <div class="image-actions">
+        <button type="button" id="copyBtn">📋 Copy text</button>
+        <a id="downloadBtn" class="download-btn" download>⬇ Download TXT</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>Factors that affect OCR accuracy</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Factor</th><th>Good</th><th>Bad</th></tr></thead>
+          <tbody>
+            <tr><td>Resolution</td><td>1000+ px wide</td><td>under 500 px</td></tr>
+            <tr><td>Contrast</td><td>White background, black text</td><td>Colored background, faint text</td></tr>
+            <tr><td>Angle</td><td>Frontal, level</td><td>Skewed, perspective-distorted</td></tr>
+            <tr><td>Font</td><td>Standard print fonts (sans / serif)</td><td>Handwriting, cursive</td></tr>
+            <tr><td>Layout</td><td>Single-column horizontal text</td><td>Vertical text, multi-column, tables</td></tr>
+            <tr><td>Noise</td><td>None</td><td>Lines, smudges, glare, shadows</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../qr-scan/">QR Code Scanner<span class="desc">QR-specific decoding</span></a>
+        <a href="../compress/">Image Compress<span class="desc">Shrink before OCR</span></a>
+        <a href="../resize/">Image Resize<span class="desc">Scale large photos down</span></a>
+        <a href="../crop/">Image Crop<span class="desc">Isolate the text area</span></a>
+        <a href="../">All image tools<span class="desc">QR · PDF · OCR</span></a>
+        <a href="/en/tools/">All calculators<span class="desc">Compound interest and more</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>About Tesseract.js</summary>
+        <div class="answer">
+          <a href="https://github.com/naptha/tesseract.js" rel="nofollow noopener" target="_blank">Tesseract.js</a> is the Tesseract OCR engine (originally Google's) compiled to WebAssembly for the browser. Apache-2.0 license. Runs 100% client-side.
+        </div>
+      </details>
+      <details>
+        <summary>What is "traineddata"?</summary>
+        <div class="answer">
+          A model file containing per-language character-shape statistics. English ~10MB, Korean ~13MB. This tool downloads them from the jsdelivr CDN (<code>tessdata.projectnaptha.com</code>) and caches them in IndexedDB — instant start on subsequent runs.
+        </div>
+      </details>
+      <details>
+        <summary>Does it work offline?</summary>
+        <div class="answer">
+          Yes, once the training data is cached. IndexedDB may be cleared after long inactivity or by browser data clearing — that triggers a re-download next time.
+        </div>
+      </details>
+      <details>
+        <summary>Processing time for large images</summary>
+        <div class="answer">
+          Time grows with resolution. 4000×3000+ images can take a minute or more. The accuracy/time sweet spot is around 1500–2000px wide. Use the resize tool to shrink first, then OCR — it's significantly faster.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently Asked Questions</h2>
+
+      <details>
+        <summary>Are my images uploaded to a server?</summary>
+        <div class="answer">
+          <b>Images stay on your device.</b> OCR runs entirely in the browser via the Tesseract.js WASM engine.
+          The OCR worker code and language training data (around 10–13MB) are downloaded once from the jsdelivr CDN on first use, then cached in IndexedDB for offline use.
+          The site operator cannot see your images.
+        </div>
+      </details>
+
+      <details>
+        <summary>Why is the first run slow?</summary>
+        <div class="answer">
+          The <b>OCR engine core (WASM) and language training data (10–13MB)</b> download on first use.
+          After that, IndexedDB caches them and subsequent runs start instantly.
+          Avoid the first run on cellular data — use Wi-Fi once to warm the cache.
+        </div>
+      </details>
+
+      <details>
+        <summary>Is accuracy 100%?</summary>
+        <div class="answer">
+          OCR is a <b>statistical inference</b> task and does not guarantee 100%.
+          With Tesseract.js, clean printed/digital text typically scores 80–95%.
+          Handwriting, vertical text, or distorted documents drop significantly.
+          <b>Always have a human review the results</b> — for legal or critical material, type it in manually.
+        </div>
+      </details>
+
+      <details>
+        <summary>Which languages are supported?</summary>
+        <div class="answer">
+          Currently <b>English, Korean, and English + Korean mixed</b>.
+          Mixed mode downloads both language models, so the first run takes longer.
+          Other languages like Japanese and Chinese are planned.
+        </div>
+      </details>
+
+      <details>
+        <summary>Output looks garbled.</summary>
+        <div class="answer">
+          ① Re-shoot if the photo is blurry or skewed
+          ② crop just the text area to avoid background noise
+          ③ enlarge the image if the font is too small
+          ④ if your text mixes English with another language, use the mixed mode.
+        </div>
+      </details>
+
+      <details>
+        <summary>Can I OCR a PDF?</summary>
+        <div class="answer">
+          This tool currently accepts <b>images (JPG / PNG / WebP)</b> only. If your PDF already has digital text, copy it directly from a PDF viewer.
+          For scanned PDFs, export each page as an image (e.g. screenshot) and bring it here.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last reviewed: 2026-05-09 / Tesseract.js (Apache-2.0) WASM engine.</div>
+      <ul>
+        <li>Tesseract.js (Apache-2.0) — <a href="https://github.com/naptha/tesseract.js" rel="nofollow noopener" target="_blank">GitHub</a></li>
+        <li>Tesseract OCR engine — <a href="https://github.com/tesseract-ocr/tesseract" rel="nofollow noopener" target="_blank">GitHub</a> (Apache-2.0)</li>
+        <li>Training data — <a href="https://github.com/tesseract-ocr/tessdata" rel="nofollow noopener" target="_blank">tessdata</a></li>
+      </ul>
+      <div class="note">⚠️ The recognized text is not warranted by this tool. Users must review and correct the output before relying on it.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ All image tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="/image/vendor/tesseract.min.js" defer></script>
+  <script src="./ocr.js" defer></script>
+</body>
+</html>

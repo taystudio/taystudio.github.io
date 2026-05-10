@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="QR Code Scanner | Extract Text from Camera or Image">
+  <meta property="og:description" content="Upload a QR image or point your camera at one — instantly extract URL, text, or Wi-Fi credentials. All processing in your browser.">
+  <meta property="og:url" content="https://taystudios.com/en/image/qr-scan/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="QR Code Scanner | Extract Text from Camera or Image">
+  <meta name="twitter:description" content="QR image or camera → text / URL / Wi-Fi. Browser-based.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>QR Code Scanner | Extract Text from Camera or Image</title>
+  <meta name="description" content="Upload a QR code image or use your webcam / phone camera to decode it instantly. Open URLs with one click. All processing in your browser, no upload of inputs.">
+  <meta name="keywords" content="QR scanner, QR decoder, read QR image, webcam QR, QR scan online, free QR reader">
+  <link rel="canonical" href="https://taystudios.com/en/image/qr-scan/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/qr-scan/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/qr-scan/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/qr-scan/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "QR Code Scanner | Extract Text from Camera or Image",
+      "description": "Upload a QR image or use your camera to decode it. Auto-detects URLs, Wi-Fi, etc. Runs in your browser.",
+      "url": "https://taystudios.com/en/image/qr-scan/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "Real-time QR scan via camera",
+        "Image-file decoding",
+        "Local processing — no upload"
+      ],
+      "dateModified": "2026-05-09",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/en/image/" },
+        { "@type": "ListItem", "position": 3, "name": "QR Code Scanner", "item": "https://taystudios.com/en/image/qr-scan/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "The camera won't turn on.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Make sure you allowed camera permissions. Camera access also requires HTTPS (this site is HTTPS). On iOS Safari, tap the lock icon in the address bar to re-enable camera access. If permissions are blocked, unblock them in your browser's site settings."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "QR image won't decode.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "① Crop or zoom so the QR fills more of the frame ② check that contrast is sufficient (blur or tiny size fails) ③ rotation and skew usually work, but heavy perspective distortion is hard ④ if it's a phone photo, reduce shake and re-shoot."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are the image / camera frames sent to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All decoding happens in the browser via the jsQR library. Camera frames are only displayed on screen — never uploaded. Stopping the camera ends the stream immediately."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it handle multiple QRs in one image?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Currently only the first detected QR is decoded. To read multiple, crop each one separately and upload one at a time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I tell if the result is a URL or just text?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This tool auto-classifies decoded content — URL (http/https), phone (tel:), SMS, email (mailto:), Wi-Fi (WIFI:), map (geo:), or plain text. URLs activate an 'Open' button. Note: opening external URLs is at your own risk — verify the source first."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wi-Fi QR decoded but won't auto-connect.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This tool only decodes the text. Auto-connect for Wi-Fi works only with the OS camera app (the phone's native camera). PCs and web browsers don't have OS-level permission for that — copy the SSID and password and connect manually."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .scan-tabs { display:flex; gap:4px; margin-bottom:10px; background:var(--border); padding:4px; border-radius:10px; }
+    .scan-tabs button { width:auto; flex:1; padding:8px 10px; background:transparent; color:var(--muted); border:0; border-radius:7px; font-size:13px; font-weight:500; cursor:pointer; }
+    .scan-tabs button.active { background:var(--card); color:var(--text); box-shadow:var(--shadow); }
+    .video-wrap { position:relative; background:#000; border-radius:10px; overflow:hidden; aspect-ratio:1/1; max-width:480px; margin:0 auto; }
+    .video-wrap video { width:100%; height:100%; object-fit:cover; display:block; }
+    .video-wrap .scan-overlay { position:absolute; inset:0; pointer-events:none; box-shadow: inset 0 0 0 3px rgba(255,255,255,.25); }
+    .scan-result { padding:14px; border-radius:10px; background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.28); margin-top:14px; word-break:break-all; line-height:1.6; }
+    .scan-result.error { background:rgba(220,38,38,0.06); border-color:rgba(220,38,38,0.3); }
+    .scan-type { display:inline-block; padding:2px 8px; border-radius:4px; background:var(--primary); color:#fff; font-size:11px; font-weight:600; letter-spacing:.04em; margin-bottom:8px; }
+    .scan-content { font-family: ui-monospace, SFMono-Regular, monospace; font-size:13.5px; }
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Image</a> · QR Code Scanner</div>
+    <h1>QR Code Scanner</h1>
+    <p class="subtitle">Point your camera or upload an image — instantly extract text, URL, or Wi-Fi credentials.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Image / camera frames never leave your device.</b> All decoding happens entirely in your browser.</div>
+    </div>
+
+    <div class="card">
+      <div class="scan-tabs" role="tablist">
+        <button type="button" class="active" data-mode="image" role="tab">📁 Upload image</button>
+        <button type="button" data-mode="camera" role="tab">📷 Camera</button>
+      </div>
+
+      <div id="imagePanel">
+        <label class="file-drop-zone" id="dropZone">
+          <div class="drop-icon" aria-hidden="true">📁</div>
+          <div class="drop-title" id="dropTitle">Drag a QR code image here, or click to choose</div>
+          <div class="drop-hint">JPG · PNG · WebP — one image at a time</div>
+          <input type="file" id="fileInput" accept="image/*">
+        </label>
+      </div>
+
+      <div id="cameraPanel" hidden>
+        <div class="video-wrap">
+          <video id="video" playsinline muted></video>
+          <div class="scan-overlay" aria-hidden="true"></div>
+        </div>
+        <p class="small" style="text-align:center;color:var(--muted);margin-top:10px">Point the QR code at the camera. It will be detected automatically.</p>
+        <div class="image-actions" style="justify-content:center">
+          <button type="button" id="startCam">Start camera</button>
+          <button type="button" id="stopCam" disabled>Stop</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense slot ]</div>
+
+    <div id="result" class="result" hidden>
+      <div id="scanResult" class="scan-result">
+        <div id="scanType" class="scan-type">Text</div>
+        <div id="scanContent" class="scan-content">—</div>
+      </div>
+      <div class="image-actions">
+        <button type="button" id="copyBtn">📋 Copy</button>
+        <a id="openBtn" class="download-btn" target="_blank" rel="noopener" style="display:none">🔗 Open</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>Decoded result types</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Type</th><th>Prefix / pattern</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>URL</td><td><code>http://</code> · <code>https://</code></td><td>'Open' opens in new tab</td></tr>
+            <tr><td>Phone</td><td><code>tel:</code></td><td>'Open' triggers phone app (mobile)</td></tr>
+            <tr><td>SMS</td><td><code>sms:</code></td><td>'Open' triggers messaging app (mobile)</td></tr>
+            <tr><td>Email</td><td><code>mailto:</code></td><td>'Open' triggers email app</td></tr>
+            <tr><td>Wi-Fi</td><td><code>WIFI:</code></td><td>Copy SSID / password and connect manually</td></tr>
+            <tr><td>Map</td><td><code>geo:</code></td><td>'Open' triggers maps app (mobile)</td></tr>
+            <tr><td>Plain text</td><td>(other)</td><td>Copy button only</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../qr-gen/">QR Code Generator<span class="desc">URL · Wi-Fi → PNG / SVG</span></a>
+        <a href="../ocr/">Image OCR<span class="desc">General text extraction</span></a>
+        <a href="../compress/">Image Compress<span class="desc">Shrink the QR screenshot</span></a>
+        <a href="../">All image tools<span class="desc">QR · PDF · OCR</span></a>
+        <a href="../bg-remove/">Background Remover<span class="desc">Clean QR for posters</span></a>
+        <a href="/en/tools/">All calculators<span class="desc">Compound interest and more</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>Be careful with external URLs</summary>
+        <div class="answer">
+          QR-decoded URLs may lead to <b>phishing or malicious sites</b>. Verify the domain shown in the result before clicking 'Open'. If unsure, scan the URL with a service like VirusTotal first.
+        </div>
+      </details>
+      <details>
+        <summary>When detection fails</summary>
+        <div class="answer">
+          ① Re-shoot if the photo is blurry ② fill at least 60% of the frame with the QR ③ ensure good lighting / contrast ④ for screen captures, increase pixel size before uploading ⑤ in camera mode, give autofocus a moment to lock.
+        </div>
+      </details>
+      <details>
+        <summary>Camera permission and privacy</summary>
+        <div class="answer">
+          The browser will ask for camera permission. Even when allowed, frames are <b>only displayed on-screen</b> and never sent anywhere. Stopping the camera or leaving the page ends the stream immediately. No background recording or transmission.
+        </div>
+      </details>
+      <details>
+        <summary>About the jsQR library</summary>
+        <div class="answer">
+          A pure-JavaScript open-source QR decoder by Cosmo Wolfe (Apache-2.0). About 50KB, fully client-side. Handles any standard QR (versions 1–40, all error-correction levels).
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently Asked Questions</h2>
+
+      <details>
+        <summary>The camera won't turn on.</summary>
+        <div class="answer">
+          Make sure you allowed camera permissions. Camera access also requires <b>HTTPS</b> (this site is HTTPS).
+          On iOS Safari, tap the lock icon in the address bar to re-enable camera access. If permissions are blocked, unblock them in your browser's site settings.
+        </div>
+      </details>
+
+      <details>
+        <summary>QR image won't decode.</summary>
+        <div class="answer">
+          ① Crop or zoom so the QR fills more of the frame ② check that contrast is sufficient (blur or tiny size fails) ③ rotation and skew usually work, but heavy perspective distortion is hard
+          ④ if it's a phone photo, reduce shake and re-shoot.
+        </div>
+      </details>
+
+      <details>
+        <summary>Are the image / camera frames sent to a server?</summary>
+        <div class="answer">
+          No. All decoding happens in the browser via the <b>jsQR library</b>. Camera frames are only displayed on screen — never uploaded.
+          Stopping the camera ends the stream immediately.
+        </div>
+      </details>
+
+      <details>
+        <summary>Does it handle multiple QRs in one image?</summary>
+        <div class="answer">
+          Currently only the <b>first detected QR</b> is decoded. To read multiple, crop each one separately and upload one at a time.
+        </div>
+      </details>
+
+      <details>
+        <summary>How do I tell if the result is a URL or just text?</summary>
+        <div class="answer">
+          This tool auto-classifies decoded content — URL (http/https), phone (tel:), SMS, email (mailto:), Wi-Fi (WIFI:), map (geo:), or plain text.
+          URLs activate an 'Open' button. <b>Opening external URLs is at your own risk</b> — verify the source first.
+        </div>
+      </details>
+
+      <details>
+        <summary>Wi-Fi QR decoded but won't auto-connect.</summary>
+        <div class="answer">
+          This tool only decodes the <b>text</b>. Auto-connect for Wi-Fi works only with the OS camera app (the phone's native camera).
+          PCs and web browsers don't have OS-level permission for that — copy the SSID and password and connect manually.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last reviewed: 2026-05-09 / jsQR (Cosmo Wolfe, Apache-2.0) library.</div>
+      <ul>
+        <li>jsQR (Apache-2.0) — <a href="https://github.com/cozmo/jsQR" rel="nofollow noopener" target="_blank">GitHub</a></li>
+        <li>QR Code standard — ISO/IEC 18004</li>
+        <li>MediaDevices.getUserMedia() — <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia" rel="nofollow noopener" target="_blank">MDN</a></li>
+      </ul>
+      <div class="note">⚠️ Always verify the domain of decoded URLs before opening. Don't click links from unknown sources.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ All image tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="/image/vendor/jsQR.min.js" defer></script>
+  <script src="./qr-scan.js" defer></script>
+</body>
+</html>

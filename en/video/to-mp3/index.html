@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Video">
+  <meta property="og:title" content="Extract MP3 from Video | Pull audio out of your own clips">
+  <meta property="og:description" content="Extract the audio track of your own MP4, MOV, or WebM videos to MP3. All processing in your browser. For personal use only — respect copyright.">
+  <meta property="og:url" content="https://taystudios.com/en/video/to-mp3/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Extract MP3 from Video | Personal use only">
+  <meta name="twitter:description" content="Extract MP3 audio from your own videos. All processing in your browser.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Extract MP3 from Video | Audio extraction (personal use only — free)</title>
+  <meta name="description" content="Extract the audio track of MP4, MOV, WebM, MKV videos you've shot yourself to MP3. Pick a bitrate from 96 to 320 kbps. All processing in your browser — your video never leaves your device. For personal use only — respect copyright when extracting audio from videos you don't own.">
+  <meta name="keywords" content="extract MP3 from video, video to MP3 free, MP4 audio extractor, online video to mp3 no upload, audio rip from video, browser audio extractor">
+  <link rel="canonical" href="https://taystudios.com/en/video/to-mp3/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/video/to-mp3/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/video/to-mp3/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/video/to-mp3/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Extract MP3 from Video | Audio extraction",
+      "description": "Extract MP3 audio from MP4, MOV, WebM, MKV video files you own. Five bitrate presets. Runs in browser via ffmpeg.wasm. For personal use only — respect copyright.",
+      "url": "https://taystudios.com/en/video/to-mp3/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "MP4, MOV, WebM, MKV, AVI input",
+        "MP3 bitrate (96, 128, 192, 256, 320 kbps)",
+        "In-page audio preview + download",
+        "Your video never leaves your browser",
+        "For personal use only — respect copyright"
+      ],
+      "dateModified": "2026-05-05",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Video", "item": "https://taystudios.com/en/video/" },
+        { "@type": "ListItem", "position": 3, "name": "Extract MP3", "item": "https://taystudios.com/en/video/to-mp3/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "When is this tool legal to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Only on videos you own — content you recorded yourself (family events, travel clips, original content). Extracting audio from third-party works (YouTube, TV, films, music videos) is a copyright violation in most jurisdictions, even for personal listening. The site never uploads your video; usage responsibility is on the user."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my video uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The video is processed entirely in your browser via ffmpeg.wasm (WebAssembly). The site operator never sees the contents. Only the ffmpeg library itself (~32MB) is downloaded on first use; the video itself never leaves your device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How should I pick a bitrate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Voice / lectures: 96 to 128 kbps (small). General music: 192 kbps (recommended). High-quality music: 256 to 320 kbps (small difference, large file). Setting a bitrate higher than the source audio doesn't improve fidelity (it's capped by the source)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why MP3 only? What about AAC or WAV?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MP3 has the broadest compatibility (every car stereo, Bluetooth speaker, old MP3 player). AAC is slightly better at the same bitrate but isn't universally supported on older devices. WAV is lossless but 10× the size. We optimize for compatibility and ship MP3 only."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does extraction take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MP3 encoding is much lighter than video compression — a 5-minute video takes 10 to 30 seconds on desktop Chrome. Mobile finishes in under a minute. Only the first run pays the ~32MB ffmpeg download."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .progress-wrap { margin-top:16px }
+    .progress-bar {
+      width:100%; height:8px; background:var(--border); border-radius:4px;
+      overflow:hidden; position:relative;
+    }
+    .progress-fill {
+      height:100%; background:var(--primary); width:0%;
+      transition: width .25s ease;
+    }
+    .progress-text {
+      margin-top:8px; font-size:13px; color:var(--muted);
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .audio-preview {
+      margin-top:14px; padding:18px; border:1px solid var(--border); border-radius:10px;
+      background:var(--surface);
+    }
+    .audio-preview audio { width:100%; display:block; }
+    .video-meta {
+      display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:14px;
+      font-size:14px; color:var(--muted);
+    }
+    .video-meta b { color:var(--text); font-weight:600 }
+    .first-time-notice {
+      background:rgba(245,158,11,0.08);
+      border:1px solid rgba(245,158,11,0.3);
+      border-radius:10px; padding:14px 16px; margin-top:14px;
+      font-size:13.5px; line-height:1.65; color:var(--text);
+    }
+    .first-time-notice b { color:#d97706 }
+    @media (prefers-color-scheme: dark) {
+      .first-time-notice b { color:#fbbf24 }
+    }
+    .copyright-warning {
+      background:rgba(220,38,38,0.07);
+      border:1.5px solid rgba(220,38,38,0.35);
+      border-radius:10px; padding:16px 18px; margin-top:14px;
+      font-size:14px; line-height:1.65; color:var(--text);
+    }
+    .copyright-warning .cw-title {
+      font-weight:700; color:#dc2626; margin-bottom:6px;
+      display:flex; align-items:center; gap:8px;
+    }
+    @media (prefers-color-scheme: dark) {
+      .copyright-warning .cw-title { color:#f87171 }
+    }
+    .copyright-warning ul { margin:8px 0 0; padding-left:22px; }
+    .copyright-warning li { margin-bottom:4px; }
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Video</a> · Extract MP3</div>
+    <h1>Extract MP3 from Video</h1>
+    <p class="subtitle">Pull the audio track out of your own clips — family events, travel videos, original recordings.</p>
+
+    <div class="copyright-warning">
+      <div class="cw-title">⚠️ Personal use only — copyright notice</div>
+      <div>This tool is intended for <b>videos you own and have the rights to</b>. The following are not allowed and may violate copyright law:</div>
+      <ul>
+        <li>Extracting audio from <b>third-party content</b> on YouTube, TV broadcasts, films, music videos, etc.</li>
+        <li>Extracting and redistributing soundtracks, lectures, or music from videos you don't own</li>
+        <li>Even for personal listening, <b>extracting copyrighted audio without the rights holder's permission</b> is generally illegal</li>
+      </ul>
+      <div style="margin-top:10px;font-size:13.5px;color:var(--muted)">The site does not upload your video; responsibility for use is entirely on the user.</div>
+    </div>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Your video never leaves your browser.</b> All processing happens locally via ffmpeg.wasm (WebAssembly).</div>
+    </div>
+
+    <div class="first-time-notice">
+      <b>First use:</b> the video processing engine (ffmpeg.wasm, ~32MB) downloads automatically. <b>Wi-Fi recommended.</b> After that, it's cached and starts instantly.<br><br><b>📱 Mobile:</b> we recommend videos at 720p or below and under 1 minute — for larger files, <b>desktop Chrome</b> is more reliable.
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">🎵</div>
+        <div class="drop-title" id="dropTitle">Drag your own video here, or click to choose</div>
+        <div class="drop-hint">MP4 · MOV · WebM · MKV · AVI — recommended ≤ 1GB</div>
+        <input type="file" id="fileInput" accept="video/*">
+      </label>
+
+      <div class="field" style="margin-top:16px">
+        <label for="bitrate">MP3 bitrate</label>
+        <select id="bitrate">
+          <option value="96">96 kbps (voice / lectures, small)</option>
+          <option value="128">128 kbps (general)</option>
+          <option value="192" selected>192 kbps (music, recommended)</option>
+          <option value="256">256 kbps (high quality)</option>
+          <option value="320">320 kbps (highest, large file)</option>
+        </select>
+        <p class="small" style="color:var(--muted);margin-top:6px">Setting a bitrate higher than the source audio doesn't improve fidelity (it's capped by the source).</p>
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="extractBtn" disabled>Extract MP3</button>
+        <button type="button" id="clearBtn">Reset</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText">Waiting...</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense slot ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="audio-preview"><audio id="resultAudio" controls preload="metadata"></audio></div>
+      <div class="video-meta">
+        <span>Source video <b id="origSize">—</b></span>
+        <span>MP3 <b id="mp3Size">—</b></span>
+        <span>Bitrate <b id="brText">—</b></span>
+        <span>Time <b id="elapsedTime">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>Bitrate guide</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Bitrate</th><th>Estimated size (5 min)</th><th>Use case</th></tr></thead>
+          <tbody>
+            <tr><td>96 kbps</td><td>~3.5 MB</td><td>Voice memos / lectures / recordings (speech only)</td></tr>
+            <tr><td>128 kbps</td><td>~4.7 MB</td><td>General — radio quality</td></tr>
+            <tr><td>192 kbps</td><td>~7 MB</td><td>Music — recommended (close to CD quality)</td></tr>
+            <tr><td>256 kbps</td><td>~9.4 MB</td><td>High-quality music (when the source is good)</td></tr>
+            <tr><td>320 kbps</td><td>~11.7 MB</td><td>MP3 max — small audible difference vs 256</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../trim/">Trim Video<span class="desc">Cut the audio segment first, then extract</span></a>
+        <a href="../compress/">Compress Video<span class="desc">Shrink file size with resolution and quality</span></a>
+        <a href="../to-gif/">Video to GIF<span class="desc">Make a short clip into a GIF</span></a>
+        <a href="../">All video tools<span class="desc">Compress, trim, rotate, GIF, MP3</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>Legal vs illegal use</summary>
+        <div class="answer">
+          <b>Legal</b>: family events you recorded yourself, your own original videos, lectures or interviews where you are the recorder/participant.<br><br>
+          <b>Illegal</b>: extracting BGM from third-party YouTube videos, ripping audio from TV broadcasts/films/music videos, extracting and redistributing audio from online courses (paid or free). <b>Even personal listening typically requires permission</b> from the rights holder.
+        </div>
+      </details>
+      <details>
+        <summary>Why MP3 only?</summary>
+        <div class="answer">
+          MP3 has the broadest compatibility (every car stereo, Bluetooth speaker, old MP3 player, smartphone). AAC is slightly better at the same bitrate but isn't supported on some older devices. WAV is lossless but ~10× the size — heavy for storage and sharing. We optimize for compatibility and ship MP3 only.
+        </div>
+      </details>
+      <details>
+        <summary>Can I close the page mid-process?</summary>
+        <div class="answer">
+          Closing the page cancels the in-progress job. The downloaded ffmpeg library stays cached, so the next visit reuses it without redownloading.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently asked questions</h2>
+      <details>
+        <summary>When is this tool legal to use?</summary>
+        <div class="answer">
+          Only on <b>videos you own</b> (family events, travel clips, original content). Extracting audio from third-party works (YouTube, TV, films, music videos) is a copyright violation in most jurisdictions, even for personal listening. The site never uploads your video; usage responsibility is on the user.
+        </div>
+      </details>
+      <details>
+        <summary>Is my video uploaded to a server?</summary>
+        <div class="answer">
+          No. The video is processed entirely in your browser via <b>ffmpeg.wasm (WebAssembly)</b>. The site operator never sees the contents. Only the ffmpeg library itself (~32MB) is downloaded on first use; the video itself never leaves your device.
+        </div>
+      </details>
+      <details>
+        <summary>How should I pick a bitrate?</summary>
+        <div class="answer">
+          Voice / lectures = <b>96~128 kbps</b> (small). General music = <b>192 kbps</b> (recommended). High-quality music = <b>256~320 kbps</b> (small difference, larger file). Setting a bitrate higher than the source audio doesn't improve fidelity (it's capped by the source).
+        </div>
+      </details>
+      <details>
+        <summary>How long does it take?</summary>
+        <div class="answer">
+          MP3 encoding is much lighter than video compression — <b>a 5-minute video takes 10 to 30 seconds</b> on desktop Chrome. Mobile finishes in under a minute. Only the first run pays the ~32MB ffmpeg download.
+        </div>
+      </details>
+      <details>
+        <summary>Can it handle large videos (1GB+)?</summary>
+        <div class="answer">
+          On desktop Chrome, around 1 to 2GB. Mobile browsers may become unstable above ~500MB due to memory limits. For large videos, use <a href="../trim/">Trim Video</a> to cut just the audio segment first — much safer.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last verified: 2026-05-05 / Powered by ffmpeg.wasm (WebAssembly) + LAME MP3 encoder.</div>
+      <ul>
+        <li>ffmpeg.wasm — <a href="https://ffmpegwasm.netlify.app/" rel="nofollow noopener" target="_blank">official site</a> (BSD/LGPL)</li>
+        <li>LAME MP3 encoder — <a href="https://lame.sourceforge.io/" rel="nofollow noopener" target="_blank">official site</a> (LGPL)</li>
+        <li>MP3 standard — ISO/IEC 11172-3, ISO/IEC 13818-3</li>
+        <li>U.S. Copyright Office — <a href="https://www.copyright.gov/" rel="nofollow noopener" target="_blank">copyright.gov</a></li>
+      </ul>
+      <div class="note">⚠️ For personal use only. Extracting audio from videos you don't own may violate copyright law.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ All video tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script type="module" src="./to-mp3.js"></script>
+</body>
+</html>

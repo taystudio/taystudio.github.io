@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Video">
+  <meta property="og:title" content="Rotate Video | 90°/180° rotation, horizontal/vertical flip">
+  <meta property="og:description" content="Rotate vertical phone videos to landscape, fix upside-down clips, mirror selfies. 90°/180° rotation plus horizontal/vertical flip. All in your browser.">
+  <meta property="og:url" content="https://taystudios.com/en/video/rotate/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rotate Video | 90°/180° + flip">
+  <meta name="twitter:description" content="Rotate or flip videos. All processing in your browser.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Rotate Video | 90°/180° rotation + horizontal/vertical flip (free)</title>
+  <meta name="description" content="Rotate MP4, MOV, and WebM videos by 90° or 180°, or flip horizontally/vertically. Fix sideways or upside-down phone videos. All processing in your browser — your video never leaves your device.">
+  <meta name="keywords" content="rotate video online, flip video horizontal, mirror video, rotate MP4, vertical to horizontal video, fix upside down video, browser video rotation">
+  <link rel="canonical" href="https://taystudios.com/en/video/rotate/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/video/rotate/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/video/rotate/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/video/rotate/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Rotate Video | 90°/180° rotation + flip",
+      "description": "Rotate MP4, MOV, and WebM videos 90° or 180°, or flip horizontally/vertically. Runs in browser via ffmpeg.wasm.",
+      "url": "https://taystudios.com/en/video/rotate/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "MP4, MOV, WebM, MKV input",
+        "90° clockwise / 90° counter-clockwise / 180° rotation",
+        "Horizontal flip (mirror)",
+        "Vertical flip",
+        "Audio is copied losslessly — same fidelity",
+        "Your video never leaves your browser"
+      ],
+      "dateModified": "2026-05-05",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Video", "item": "https://taystudios.com/en/video/" },
+        { "@type": "ListItem", "position": 3, "name": "Rotate Video", "item": "https://taystudios.com/en/video/rotate/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is my video uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The video is processed entirely in your browser via ffmpeg.wasm (WebAssembly). The site operator never sees the contents. Only the ffmpeg library itself (~32MB) is downloaded on first use; the video itself never leaves your device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does rotation take time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rotation rearranges pixels, so the codec must decode → rotate → re-encode. Setting only a metadata rotation flag (rotation tag) is interpreted inconsistently across players and is often ignored when uploading to social platforms — so we rotate the actual pixels. Expect roughly 0.3 to 1× of the source duration on desktop Chrome."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the audio preserved?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — audio is copied losslessly (-c:a copy) without re-encoding. Only the video track is rotated, so audio fidelity is unchanged. Some input codecs (AC-3, DTS) aren't compatible with the MP4 container and will fall back to AAC automatically."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which input formats are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MP4, MOV, WebM, MKV, AVI, and most other formats supported by ffmpeg. Output is always MP4 (H.264) — playable on virtually any device."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .progress-wrap { margin-top:16px }
+    .progress-bar {
+      width:100%; height:8px; background:var(--border); border-radius:4px;
+      overflow:hidden; position:relative;
+    }
+    .progress-fill {
+      height:100%; background:var(--primary); width:0%;
+      transition: width .25s ease;
+    }
+    .progress-text {
+      margin-top:8px; font-size:13px; color:var(--muted);
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .video-preview {
+      margin-top:14px; border:1px solid var(--border); border-radius:10px;
+      overflow:hidden; background:#000;
+      display:flex; align-items:center; justify-content:center;
+      min-height:240px;
+    }
+    .video-preview video {
+      display:block; max-width:100%; max-height:60vh;
+      transition: transform .3s ease;
+      transform-origin: center center;
+    }
+    /* Rotation preview — render the same visual effect via CSS transform instantly */
+    .video-preview.rot-cw90 video  { transform: rotate(90deg); }
+    .video-preview.rot-ccw90 video { transform: rotate(-90deg); }
+    .video-preview.rot-rot180 video { transform: rotate(180deg); }
+    .video-preview.rot-hflip video { transform: scaleX(-1); }
+    .video-preview.rot-vflip video { transform: scaleY(-1); }
+    /* When rotated 90°, the same-sized box gets longer horizontally;
+       cap horizontal extent for vertical sources to keep the preview visible */
+    .video-preview.rot-cw90 video,
+    .video-preview.rot-ccw90 video {
+      max-height: 50vh;
+    }
+    .preview-hint {
+      font-size:12.5px; color:var(--muted); margin-top:6px; text-align:center;
+    }
+    .video-meta {
+      display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:14px;
+      font-size:14px; color:var(--muted);
+    }
+    .video-meta b { color:var(--text); font-weight:600 }
+    .first-time-notice {
+      background:rgba(245,158,11,0.08);
+      border:1px solid rgba(245,158,11,0.3);
+      border-radius:10px; padding:14px 16px; margin-top:14px;
+      font-size:13.5px; line-height:1.65; color:var(--text);
+    }
+    .first-time-notice b { color:#d97706 }
+    @media (prefers-color-scheme: dark) {
+      .first-time-notice b { color:#fbbf24 }
+    }
+    .rotate-grid {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+      gap:10px; margin-top:8px;
+    }
+    .rotate-opt {
+      display:flex; flex-direction:column; align-items:center;
+      padding:14px 10px; border:1.5px solid var(--border); border-radius:10px;
+      cursor:pointer; background:var(--surface); transition:all .15s;
+      text-align:center;
+    }
+    .rotate-opt:hover { border-color:var(--primary); }
+    .rotate-opt input[type=radio] { display:none; }
+    .rotate-opt input[type=radio]:checked + .rotate-icon-wrap {
+      color: var(--primary); font-weight:600;
+    }
+    .rotate-opt:has(input:checked) {
+      border-color:var(--primary);
+      background:rgba(37,99,235,0.06);
+    }
+    .rotate-icon { font-size:26px; line-height:1; margin-bottom:6px; }
+    .rotate-label { font-size:13.5px; color:var(--text); }
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Video</a> · Rotate Video</div>
+    <h1>Rotate Video</h1>
+    <p class="subtitle">Turn vertical phone videos sideways, fix upside-down footage — 90°/180° rotation plus horizontal/vertical flip.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Your video never leaves your browser.</b> All processing happens locally via ffmpeg.wasm (WebAssembly).</div>
+    </div>
+
+    <div class="first-time-notice">
+      <b>First use:</b> the video processing engine (ffmpeg.wasm, ~32MB) downloads automatically. <b>Wi-Fi recommended.</b> After that, it's cached and starts instantly.<br><br><b>📱 Mobile:</b> we recommend videos at 720p or below and under 1 minute — for larger files, <b>desktop Chrome</b> is more reliable.
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">🔄</div>
+        <div class="drop-title" id="dropTitle">Drag a video file here, or click to choose</div>
+        <div class="drop-hint">MP4 · MOV · WebM · MKV · AVI — recommended ≤ 500MB (mobile) / ≤ 1.5GB (desktop)</div>
+        <input type="file" id="fileInput" accept="video/*">
+      </label>
+
+      <div class="video-preview" id="sourcePreviewWrap" hidden>
+        <video id="sourceVideo" controls playsinline preload="metadata" muted></video>
+      </div>
+      <div class="preview-hint" id="previewHint" hidden>↑ Changing the rotation option updates the preview instantly (CSS simulation — actual processing runs when you press "Rotate").</div>
+
+      <div class="field" style="margin-top:16px">
+        <label>Rotation / flip</label>
+        <div class="rotate-grid" role="radiogroup" aria-label="Rotation method">
+          <label class="rotate-opt">
+            <input type="radio" name="rot" value="cw90" checked>
+            <span class="rotate-icon-wrap"><div class="rotate-icon">↻</div><div class="rotate-label">90° clockwise</div></span>
+          </label>
+          <label class="rotate-opt">
+            <input type="radio" name="rot" value="ccw90">
+            <span class="rotate-icon-wrap"><div class="rotate-icon">↺</div><div class="rotate-label">90° counter-clockwise</div></span>
+          </label>
+          <label class="rotate-opt">
+            <input type="radio" name="rot" value="rot180">
+            <span class="rotate-icon-wrap"><div class="rotate-icon">⤿</div><div class="rotate-label">180°</div></span>
+          </label>
+          <label class="rotate-opt">
+            <input type="radio" name="rot" value="hflip">
+            <span class="rotate-icon-wrap"><div class="rotate-icon">⇆</div><div class="rotate-label">Horizontal flip (mirror)</div></span>
+          </label>
+          <label class="rotate-opt">
+            <input type="radio" name="rot" value="vflip">
+            <span class="rotate-icon-wrap"><div class="rotate-icon">⇅</div><div class="rotate-label">Vertical flip</div></span>
+          </label>
+          <label class="rotate-opt">
+            <input type="radio" name="rot" value="none">
+            <span class="rotate-icon-wrap"><div class="rotate-icon">□</div><div class="rotate-label">No change</div></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:16px">
+        <label for="scale">Output resolution</label>
+        <select id="scale">
+          <option value="orig">Keep original (desktop recommended)</option>
+          <option value="1080">1080p (FHD)</option>
+          <option value="720" selected>720p (HD · mobile recommended)</option>
+          <option value="480">480p (SD · lightest)</option>
+        </select>
+        <div style="font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.5">
+          On mobile, <b>720p or below is recommended</b> — single-thread WASM can hit memory limits when re-encoding large videos.
+        </div>
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="rotateBtn" disabled>Rotate</button>
+        <button type="button" id="clearBtn">Reset</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText">Waiting...</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense slot ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="video-preview"><video id="resultVideo" controls playsinline></video></div>
+      <div class="video-meta">
+        <span>Original <b id="origSize">—</b></span>
+        <span>Result <b id="outSize">—</b></span>
+        <span>Operation <b id="opText">—</b></span>
+        <span>Time <b id="elapsedTime">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>When to use which option</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Situation</th><th>Choose</th></tr></thead>
+          <tbody>
+            <tr><td>Phone video shot vertically but shows sideways on PC</td><td>90° clockwise or counter-clockwise (depending on direction)</td></tr>
+            <tr><td>Upside-down footage (held the phone wrong)</td><td>180°</td></tr>
+            <tr><td>Mirror effect (un-flip a selfie)</td><td>Horizontal flip</td></tr>
+            <tr><td>Drone or action cam mounted upside down</td><td>Vertical flip (or 180°)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../compress/">Compress Video<span class="desc">Shrink file size with resolution and quality</span></a>
+        <a href="../trim/">Trim Video<span class="desc">Cut by start and end timestamps</span></a>
+        <a href="../to-gif/">Video to GIF<span class="desc">Make a short clip into a GIF</span></a>
+        <a href="../to-mp3/">Extract MP3<span class="desc">Pull audio out of your own videos</span></a>
+        <a href="../">All video tools<span class="desc">Compress, trim, rotate, GIF, MP3</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>Why does rotation take as long as compression?</summary>
+        <div class="answer">
+          Rotation rearranges pixels, so the codec must <b>decode → rotate → re-encode</b>. Setting only a metadata rotation flag is interpreted inconsistently across players and is often ignored when uploading to social platforms — so we rotate the actual pixels.
+        </div>
+      </details>
+      <details>
+        <summary>Is the audio preserved?</summary>
+        <div class="answer">
+          Audio is copied losslessly (<code>-c:a copy</code>) without re-encoding. Only the video track is rotated, so audio fidelity is unchanged. Some codecs (AC-3, DTS) aren't compatible with MP4 and will fall back to AAC automatically.
+        </div>
+      </details>
+      <details>
+        <summary>Why isn't multi-threaded (faster) processing supported?</summary>
+        <div class="answer">
+          Static hosts like GitHub Pages can't set <code>Cross-Origin-Opener-Policy</code> / <code>Cross-Origin-Embedder-Policy</code> headers, which disables SharedArrayBuffer. That forces single-threaded execution — safe but slower (about 0.3 to 1× the source duration).
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently asked questions</h2>
+      <details>
+        <summary>Is my video uploaded to a server?</summary>
+        <div class="answer">
+          No. The video is processed entirely in your browser via <b>ffmpeg.wasm (WebAssembly)</b>. The site operator never sees the contents. Only the ffmpeg library itself (~32MB) is downloaded on first use; the video itself never leaves your device.
+        </div>
+      </details>
+      <details>
+        <summary>Can I rotate and compress in one step?</summary>
+        <div class="answer">
+          The rotate tool currently has no quality slider (CRF is fixed at 23 to preserve original quality). To shrink the rotated file, run the result through <a href="../compress/">Compress Video</a>. We may merge these in the future.
+        </div>
+      </details>
+      <details>
+        <summary>What is the output format?</summary>
+        <div class="answer">
+          Output is always <b>MP4 (H.264)</b> — playable on virtually any device. Audio is copied as-is when possible, falling back to AAC only when the codec isn't MP4-compatible.
+        </div>
+      </details>
+      <details>
+        <summary>How long does it take?</summary>
+        <div class="answer">
+          On a single thread, about 0.3 to 1× the source duration on desktop Chrome. A 5-minute 1080p video takes 1 to 3 minutes. Mobile is 2 to 3 times slower.
+        </div>
+      </details>
+      <details>
+        <summary>Can it handle large videos?</summary>
+        <div class="answer">
+          On desktop Chrome, around 1 to 2GB. Mobile browsers may become unstable above ~500MB due to memory limits.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last verified: 2026-05-05 / Powered by ffmpeg.wasm (WebAssembly).</div>
+      <ul>
+        <li>ffmpeg.wasm — <a href="https://ffmpegwasm.netlify.app/" rel="nofollow noopener" target="_blank">official site</a> (BSD/LGPL)</li>
+        <li>transpose filter — <a href="https://ffmpeg.org/ffmpeg-filters.html#transpose" rel="nofollow noopener" target="_blank">FFmpeg Filters Documentation</a></li>
+        <li>H.264/AVC standard — ISO/IEC 14496-10</li>
+      </ul>
+      <div class="note">⚠️ For personal use only. Respect copyright when working with videos you don't own.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ All video tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script type="module" src="./rotate.js"></script>
+</body>
+</html>

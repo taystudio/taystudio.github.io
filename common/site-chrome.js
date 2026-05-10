@@ -96,9 +96,27 @@ const I18N = {
 
 const T = I18N[LANG];
 
-// Phase A whitelist — 영어판 존재하는 path. Phase B에서 도구 추가될 때마다 갱신.
+// 영어판 존재하는 path whitelist — Phase A(2026-05-10) + Phase B-1~4(2026-05-10).
+// 도구 추가 시 여기에 한국 path 추가. en/<path>는 단순 prefix 변환이라 자동 매핑.
 const TRANSLATED_PATHS = new Set([
-  '/', '/tools/', '/tools/compound/'
+  '/',
+  // Calculators (8 universal — 한국 38선 중 universal subset만)
+  '/tools/',
+  '/tools/compound/', '/tools/bmi/', '/tools/calorie/', '/tools/body-fat/',
+  '/tools/ideal-weight/', '/tools/savings/', '/tools/loan/', '/tools/dday/',
+  // Image (9선 전부)
+  '/image/',
+  '/image/compress/', '/image/resize/', '/image/heic-to-jpg/', '/image/crop/',
+  '/image/id-photo/', '/image/qr-gen/', '/image/qr-scan/', '/image/ocr/', '/image/bg-remove/',
+  // PDF (5선 전부)
+  '/pdf/',
+  '/pdf/pdf-merge/', '/pdf/pdf-split/', '/pdf/pdf-edit/', '/pdf/pdf-to-image/', '/pdf/img-to-pdf/',
+  // Video (5선 전부)
+  '/video/',
+  '/video/compress/', '/video/trim/', '/video/rotate/', '/video/to-gif/', '/video/to-mp3/',
+  // Text (1선만 universal — counter)
+  '/text/',
+  '/text/counter/'
 ]);
 
 // 현재 path에 대응하는 반대 언어 URL 계산. 없으면 hub fallback.

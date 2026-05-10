@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Video">
+  <meta property="og:title" content="Compress Video | Reduce MP4 file size in your browser">
+  <meta property="og:description" content="Resize and re-encode MP4/MOV/WebM videos to shrink file size for email and messaging. All processing in your browser — your video never leaves your device.">
+  <meta property="og:url" content="https://taystudios.com/en/video/compress/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Compress Video | Reduce file size">
+  <meta name="twitter:description" content="Adjust resolution and quality to shrink MP4/MOV/WebM. All processing in your browser.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Compress Video | Reduce MP4 file size — free, in your browser</title>
+  <meta name="description" content="Lower the resolution and quality of MP4, MOV, and WebM videos to reduce file size. Fits email (25MB) and messenger attachment limits. All processing happens in your browser — your video never leaves your device.">
+  <meta name="keywords" content="compress video online, reduce video file size, MP4 compress free, video compressor browser, shrink video for email, online video compression no upload">
+  <link rel="canonical" href="https://taystudios.com/en/video/compress/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/video/compress/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/video/compress/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/video/compress/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Compress Video | Reduce MP4 file size",
+      "description": "Adjust resolution and quality on MP4, MOV, and WebM videos to shrink file size for email and messaging. Runs in the browser via ffmpeg.wasm.",
+      "url": "https://taystudios.com/en/video/compress/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "MP4, MOV, WebM, MKV input",
+        "Resolution presets (original, 1080p, 720p, 480p)",
+        "Quality slider (CRF 18~32)",
+        "Your video never leaves your browser"
+      ],
+      "dateModified": "2026-05-05",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Video", "item": "https://taystudios.com/en/video/" },
+        { "@type": "ListItem", "position": 3, "name": "Compress Video", "item": "https://taystudios.com/en/video/compress/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is my video uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The video is processed entirely in your browser via ffmpeg.wasm (WebAssembly). The site operator never sees the contents. Only the ffmpeg library itself (~32MB) is downloaded on first use; the video itself never leaves your device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does compression take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "On a single thread, a 5-minute 1080p video takes about 1 to 3 minutes on desktop Chrome. Mobile is 2 to 3 times slower. Raising CRF from 28 to 32 or downscaling to 720p makes it faster."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which input formats are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MP4, MOV, WebM, MKV, AVI, and most other formats supported by ffmpeg. Output is always MP4 (H.264 + AAC) — playable on virtually any device or messaging app."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is CRF and what value should I use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Constant Rate Factor — H.264's quality knob. 0 is lossless, 51 is worst, and 23 to 28 is the typical sweet spot. The default here is 28 (visually nearly identical, 30~60% smaller). Use 18 to 22 for archival-grade quality, 30 to 32 for messenger-friendly small files."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can it handle large videos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "On desktop Chrome, around 1 to 2GB. Mobile browsers (especially iOS Safari) can become unstable above ~500MB due to memory limits. For large videos, downscale to 720p first or use the Trim tool to split the video into shorter pieces."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the audio preserved?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Audio is re-encoded to AAC at 128 kbps by default. If audio fidelity matters (e.g. music videos), choose 'Copy original (lossless)'. Some input codecs (AC-3, DTS) can't be copied into MP4 and will fall back to AAC automatically."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to compress a video",
+      "description": "Re-encode MP4, MOV, or WebM videos to H.264 to shrink file size — handy for email (25MB) and messenger attachment limits.",
+      "totalTime": "PT3M",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Pick the video file", "text": "Drag and drop or click to select an MP4, MOV, WebM, MKV, or AVI file." },
+        { "@type": "HowToStep", "position": 2, "name": "Choose the resolution", "text": "Original / 1080p / 720p / 480p / 360p. For mobile and email, 720p or below is recommended." },
+        { "@type": "HowToStep", "position": 3, "name": "Adjust the quality (CRF)", "text": "Pick a value between 18 and 35 on the slider. 28 is the default; lower values look better but produce larger files. 26 to 30 is a balanced range." },
+        { "@type": "HowToStep", "position": 4, "name": "Choose audio handling", "text": "AAC re-encode (compatible, smaller) / Copy original (lossless) / Remove audio (silent video)." },
+        { "@type": "HowToStep", "position": 5, "name": "Run compression", "text": "Press the Compress button. ffmpeg.wasm re-encodes the video as H.264 in your browser. A 5-minute video takes roughly 1 to 3 minutes on desktop." },
+        { "@type": "HowToStep", "position": 6, "name": "Download the result", "text": "Preview the result and compare original vs compressed sizes. Download as MP4." }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .progress-wrap { margin-top:16px }
+    .progress-bar {
+      width:100%; height:8px; background:var(--border); border-radius:4px;
+      overflow:hidden; position:relative;
+    }
+    .progress-fill {
+      height:100%; background:var(--primary); width:0%;
+      transition: width .25s ease;
+    }
+    .progress-text {
+      margin-top:8px; font-size:13px; color:var(--muted);
+      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .video-preview {
+      margin-top:14px; border:1px solid var(--border); border-radius:10px;
+      overflow:hidden; background:#000;
+    }
+    .video-preview video { width:100%; display:block; max-height:60vh; }
+    .video-meta {
+      display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:14px;
+      font-size:14px; color:var(--muted);
+    }
+    .video-meta b { color:var(--text); font-weight:600 }
+    .first-time-notice {
+      background:rgba(245,158,11,0.08);
+      border:1px solid rgba(245,158,11,0.3);
+      border-radius:10px; padding:14px 16px; margin-top:14px;
+      font-size:13.5px; line-height:1.65; color:var(--text);
+    }
+    .first-time-notice b { color:#d97706 }
+    @media (prefers-color-scheme: dark) {
+      .first-time-notice b { color:#fbbf24 }
+    }
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Video</a> · Compress Video</div>
+    <h1>Compress Video</h1>
+    <p class="subtitle">Lower the resolution and quality to shrink the file size — for email, messengers, and social media attachments.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Your video never leaves your browser.</b> All processing happens locally via ffmpeg.wasm (WebAssembly).</div>
+    </div>
+
+    <div class="first-time-notice">
+      <b>First use:</b> the video processing engine (ffmpeg.wasm, ~32MB) downloads automatically. <b>Wi-Fi recommended.</b> After that, it's cached in your browser and starts instantly.<br><br><b>📱 Mobile:</b> we recommend videos at 720p or below and under 1 minute — for larger files, <b>desktop Chrome</b> is more reliable.
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">🎬</div>
+        <div class="drop-title" id="dropTitle">Drag a video file here, or click to choose</div>
+        <div class="drop-hint">MP4 · MOV · WebM · MKV · AVI — recommended ≤ 500MB (mobile) / ≤ 1.5GB (desktop)</div>
+        <input type="file" id="fileInput" accept="video/*">
+      </label>
+
+      <div class="field" style="margin-top:16px">
+        <label for="resolution">Resolution</label>
+        <select id="resolution">
+          <option value="0" selected>Keep original</option>
+          <option value="1080">1080p (Full HD)</option>
+          <option value="720">720p (HD, recommended)</option>
+          <option value="480">480p (SD, lightweight)</option>
+          <option value="360">360p (messenger-friendly)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="crf">Quality (CRF — lower means higher quality)</label>
+        <div class="range-row">
+          <input type="range" id="crf" min="18" max="35" step="1" value="28">
+          <span class="range-value" id="crfValue">28</span>
+        </div>
+        <p class="small" style="color:var(--muted);margin-top:6px">Recommended: 26~30 (visually near-identical, 30~60% smaller). 18 = nearly lossless, 35 = aggressive compression.</p>
+      </div>
+
+      <div class="field">
+        <label for="audio">Audio handling</label>
+        <select id="audio">
+          <option value="aac" selected>AAC 128 kbps re-encode (compatible)</option>
+          <option value="copy">Copy original (lossless, when possible)</option>
+          <option value="none">Remove audio (silent video)</option>
+        </select>
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="compressBtn" disabled>Compress</button>
+        <button type="button" id="clearBtn">Reset</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText">Waiting...</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense slot ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="video-preview"><video id="resultVideo" controls playsinline></video></div>
+      <div class="video-meta">
+        <span>Original <b id="origSize">—</b></span>
+        <span>Compressed <b id="compSize">—</b></span>
+        <span>Reduction <b id="reduceRate">—</b></span>
+        <span>Resolution <b id="dimText">—</b></span>
+        <span>Time <b id="elapsedTime">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>File-size guide by resolution and CRF</h2>
+      <p class="small">Estimated for a 5-minute 1080p source (~250MB). Actual size depends on video complexity (motion, detail).</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Resolution</th><th>CRF</th><th>Estimated size</th><th>Use case</th></tr></thead>
+          <tbody>
+            <tr><td>1080p</td><td>23</td><td>180~220MB</td><td>Archival / YouTube upload</td></tr>
+            <tr><td>1080p</td><td>28</td><td>80~120MB</td><td>Web default — visually lossless</td></tr>
+            <tr><td>720p</td><td>28</td><td>40~60MB</td><td>Plenty for messaging and social</td></tr>
+            <tr><td>720p</td><td>32</td><td>20~35MB</td><td>Close to email attachment limit (25MB)</td></tr>
+            <tr><td>480p</td><td>30</td><td>15~25MB</td><td>Messenger / preview clips</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../trim/">Trim Video<span class="desc">Cut by start and end timestamps</span></a>
+        <a href="../rotate/">Rotate Video<span class="desc">90°/180° rotation, horizontal/vertical flip</span></a>
+        <a href="../to-gif/">Video to GIF<span class="desc">Make a short clip into a GIF</span></a>
+        <a href="../to-mp3/">Extract MP3<span class="desc">Pull audio out of your own videos</span></a>
+        <a href="../">All video tools<span class="desc">Compress, trim, rotate, GIF, MP3</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>Why does the first run download ~32MB?</summary>
+        <div class="answer">
+          Unlike images, videos can't be re-encoded with native browser APIs — we need <b>ffmpeg.wasm</b>, a WebAssembly build of ffmpeg. The core engine (~32MB) is downloaded once and cached in IndexedDB so subsequent visits start instantly. The video itself never leaves your device.
+        </div>
+      </details>
+      <details>
+        <summary>Can I close the page mid-compression?</summary>
+        <div class="answer">
+          Closing the page cancels the in-progress job. The downloaded ffmpeg library stays cached, so the next visit reuses it without redownloading.
+        </div>
+      </details>
+      <details>
+        <summary>Why isn't multi-threaded (faster) processing supported?</summary>
+        <div class="answer">
+          Static hosts like GitHub Pages can't set <code>Cross-Origin-Opener-Policy</code> / <code>Cross-Origin-Embedder-Policy</code> headers, which disables SharedArrayBuffer. That forces single-threaded execution — safe but slower (about 0.3 to 1× the source duration). For faster processing, use desktop and downscale to 720p or lower.
+        </div>
+      </details>
+      <details>
+        <summary>iOS Safari hangs on large videos.</summary>
+        <div class="answer">
+          iOS Safari caps single-tab memory at around 500MB, so 1080p videos longer than ~30 minutes may be force-killed. On mobile, stick to <b>720p or below + 5 to 10 minutes</b>; use desktop for larger files.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently asked questions</h2>
+      <details>
+        <summary>Is my video uploaded to a server?</summary>
+        <div class="answer">
+          No. The video is processed entirely in your browser via <b>ffmpeg.wasm (WebAssembly)</b>. The site operator never sees the contents. Only the ffmpeg library itself (~32MB) is downloaded on first use; the video itself never leaves your device.
+        </div>
+      </details>
+      <details>
+        <summary>How long does it take?</summary>
+        <div class="answer">
+          On a single thread, a <b>5-minute 1080p video takes about 1 to 3 minutes</b> on desktop Chrome. Mobile is 2 to 3 times slower. Raising CRF from 28 to 32 or downscaling to 720p makes it faster.
+        </div>
+      </details>
+      <details>
+        <summary>Which input formats are supported?</summary>
+        <div class="answer">
+          MP4, MOV, WebM, MKV, AVI, and most formats ffmpeg supports. Output is always <b>MP4 (H.264 + AAC)</b> — playable on virtually any device or messaging app.
+        </div>
+      </details>
+      <details>
+        <summary>What is CRF and how should I pick a value?</summary>
+        <div class="answer">
+          <b>Constant Rate Factor</b> — H.264's quality knob. 0 is lossless, 51 is worst, 23 to 28 is the usual range. The default here is 28 (visually nearly identical, 30~60% smaller). Use 18 to 22 for archival-grade, 30 to 32 for messenger-friendly small files.
+        </div>
+      </details>
+      <details>
+        <summary>Can it handle large videos?</summary>
+        <div class="answer">
+          On desktop Chrome, around 1 to 2GB. Mobile browsers may become unstable above ~500MB. For large videos, downscale to 720p first or use <a href="../trim/">Trim Video</a> to split into shorter pieces.
+        </div>
+      </details>
+      <details>
+        <summary>Is the audio preserved?</summary>
+        <div class="answer">
+          Default is AAC 128 kbps re-encode. For music videos where audio fidelity matters, choose <b>Copy original (lossless)</b>. Some codecs (AC-3, DTS) can't be copied into MP4 and will fall back to AAC automatically.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last verified: 2026-05-05 / Powered by ffmpeg.wasm (WebAssembly).</div>
+      <ul>
+        <li>ffmpeg.wasm — <a href="https://ffmpegwasm.netlify.app/" rel="nofollow noopener" target="_blank">official site</a> (BSD/LGPL)</li>
+        <li>H.264/AVC standard — ISO/IEC 14496-10</li>
+        <li>CRF guide — <a href="https://trac.ffmpeg.org/wiki/Encode/H.264" rel="nofollow noopener" target="_blank">FFmpeg Wiki</a></li>
+      </ul>
+      <div class="note">⚠️ For personal use only. Respect copyright when working with videos you don't own.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ All video tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script type="module" src="./compress.js"></script>
+</body>
+</html>

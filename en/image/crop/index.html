@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="Image Crop | Photo Crop & Aspect Ratios, Free">
+  <meta property="og:description" content="Crop photos to any aspect ratio. Presets for 1:1 / 4:3 / 16:9 / 9:16 / 3:2 + free crop + rotation. All processing in your browser. No watermark.">
+  <meta property="og:url" content="https://taystudios.com/en/image/crop/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Image Crop | Photo Crop & Aspect Ratios, Free">
+  <meta name="twitter:description" content="Crop photos to any ratio. 1:1 / 4:3 / 16:9 / 9:16 + rotate. Browser-based.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Image Crop | Photo Crop & Aspect Ratios, Free, No Watermark</title>
+  <meta name="description" content="Crop photos to any aspect ratio. Presets for 1:1 (Instagram), 4:3, 16:9 (YouTube), 9:16 (TikTok / Reels), 3:2, plus free crop and 90/180/270° rotation. All processing in your browser.">
+  <meta name="keywords" content="image crop, photo crop, aspect ratio, Instagram square, 16:9 crop, 9:16 crop, photo rotate, photo size change">
+  <link rel="canonical" href="https://taystudios.com/en/image/crop/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/crop/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/crop/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/crop/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Image Crop | Photo Crop & Aspect Ratios",
+      "description": "Crop photos to any aspect ratio. Social presets + free crop + rotation. Runs in your browser.",
+      "url": "https://taystudios.com/en/image/crop/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "Drag + 8-handle free crop",
+        "6 ratio presets (free, 1:1, 4:3, 16:9, 9:16, 3:2)",
+        "90 / 180 / 270° rotate + horizontal / vertical flip",
+        "JPG / PNG / WebP output",
+        "No upload — processed in your browser"
+      ],
+      "dateModified": "2026-05-09",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/en/image/" },
+        { "@type": "ListItem", "position": 3, "name": "Image Crop", "item": "https://taystudios.com/en/image/crop/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are my photos uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Cropping uses the canvas API in the browser only. Even the site operator cannot see your photos. Safe for personal, family, and sensitive images."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What aspect-ratio presets are available?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Free / 1:1 (Instagram, profile) / 4:3 (cameras) / 16:9 (YouTube thumbnail, landscape video) / 9:16 (Reels, TikTok, Shorts) / 3:2 (DSLR / film) / 4:5 (Instagram portrait). When ratio is locked, handles preserve the chosen ratio."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Recommended ratios per platform?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Instagram square = 1:1, Instagram landscape = 1.91:1 (close to 16:9), Instagram portrait = 4:5, Reels / Stories / TikTok = 9:16, YouTube thumbnail / landscape video = 16:9, Twitter (X) = 16:9 or 1:1, Facebook post = 1.91:1."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does rotation work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "0 / 90 / 180 / 270 degrees + horizontal / vertical flip. Rotation is applied first, then you crop the rotated image. Convenient when an iPhone photo opens sideways."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it handle very large images?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Normal photos (under 20MB) work on desktop and mobile. Very large images (50MB+ or 100+ megapixels) may slow due to memory limits. Resize to 4000–5000px width first using the resize tool, then crop."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does cropping reduce quality?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PNG and WebP are lossless; JPG uses the quality slider (default 90). Cropping extracts pixels exactly, so there's no extra quality loss. Rotation may introduce slight blur via interpolation, but 90 / 180 / 270° rotations align pixels exactly with no loss."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to crop an image",
+      "description": "Crop a photo to your preferred aspect ratio and rotate.",
+      "totalTime": "PT30S",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Choose image", "text": "Drag and drop or click to select a single photo." },
+        { "@type": "HowToStep", "position": 2, "name": "Set ratio & area", "text": "Pick a ratio preset, then drag the corners or edges to adjust. Rotate or flip if needed." },
+        { "@type": "HowToStep", "position": 3, "name": "Crop", "text": "Click 'Crop' — canvas API extracts the selected area into a new image." },
+        { "@type": "HowToStep", "position": 4, "name": "Download", "text": "Download as JPG / PNG / WebP. No upload to any server." }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .opt-row { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:10px; margin-top:14px; }
+    .opt-row .field label { display:block; margin-bottom:4px; font-size:12.5px; color:var(--muted); }
+    .opt-row .field select, .opt-row .field input[type="number"] { width:100%; padding:8px 10px; font-size:14px; border:1px solid var(--border); border-radius:6px; background:var(--card); color:var(--text); }
+    .opt-row .field input[type="range"] { width:100%; }
+    .ratio-buttons { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+    .ratio-btn { padding:6px 12px; font-size:13px; background:var(--card); border:1px solid var(--border); border-radius:6px; cursor:pointer; color:var(--muted); transition:all .12s; }
+    .ratio-btn.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+    .ratio-btn:hover:not(.active) { border-color:var(--primary); color:var(--primary); }
+    .rotate-buttons { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; }
+    .rotate-btn { padding:6px 10px; font-size:13px; background:var(--card); border:1px solid var(--border); border-radius:6px; cursor:pointer; color:var(--muted); }
+    .rotate-btn:hover { border-color:var(--primary); color:var(--primary); }
+
+    .crop-stage { position:relative; margin-top:14px; background:#0006; border-radius:8px; overflow:hidden; user-select:none; -webkit-user-select:none; touch-action:none; }
+    .crop-stage canvas { display:block; max-width:100%; height:auto; }
+    .crop-overlay { position:absolute; inset:0; pointer-events:none; }
+    .crop-rect { position:absolute; border:2px solid var(--primary); box-shadow:0 0 0 9999px rgba(0,0,0,.55); pointer-events:auto; cursor:move; box-sizing:border-box; }
+    .crop-rect::before, .crop-rect::after { content:''; position:absolute; background:rgba(255,255,255,.4); pointer-events:none; }
+    .crop-rect::before { left:0; right:0; top:33.33%; bottom:66.66%; height:1px; }
+    .crop-rect::after { top:0; bottom:0; left:33.33%; right:66.66%; width:1px; }
+    .crop-handle { position:absolute; width:14px; height:14px; background:#fff; border:2px solid var(--primary); border-radius:3px; box-shadow:0 1px 3px rgba(0,0,0,.4); pointer-events:auto; box-sizing:border-box; }
+    .crop-handle.tl { top:-8px; left:-8px; cursor:nwse-resize; }
+    .crop-handle.tr { top:-8px; right:-8px; cursor:nesw-resize; }
+    .crop-handle.bl { bottom:-8px; left:-8px; cursor:nesw-resize; }
+    .crop-handle.br { bottom:-8px; right:-8px; cursor:nwse-resize; }
+    .crop-handle.tm { top:-8px; left:50%; transform:translateX(-50%); cursor:ns-resize; }
+    .crop-handle.bm { bottom:-8px; left:50%; transform:translateX(-50%); cursor:ns-resize; }
+    .crop-handle.lm { left:-8px; top:50%; transform:translateY(-50%); cursor:ew-resize; }
+    .crop-handle.rm { right:-8px; top:50%; transform:translateY(-50%); cursor:ew-resize; }
+    .crop-info { font-size:12.5px; color:var(--muted); margin-top:8px; text-align:center; font-variant-numeric:tabular-nums; }
+
+    /* Photo ↔ options separation. Mobile = photo on top, options below. Desktop = options left, photo right. */
+    .card { display:flex; flex-direction:column; gap:20px; }
+    .card > .file-drop-zone { order:0; }
+    .card > .crop-stage     { order:1; margin-top:0; border:1px solid var(--border); }
+    .card > .opt-row        { order:2; margin-top:0; }
+    .card > .crop-info      { order:3; margin-top:0; }
+    .card > .image-actions  { order:4; margin-top:0; }
+    .crop-stage canvas { max-height:60vh; }
+
+    /* Options block — fieldset-style box */
+    .card > .opt-row {
+      position:relative;
+      padding:22px 16px 14px;
+      background:rgba(127, 127, 127, .05);
+      border:1px solid var(--border);
+      border-radius:10px;
+    }
+    .card > .opt-row::before {
+      content:'⚙ Options';
+      position:absolute;
+      top:-9px; left:14px;
+      padding:1px 10px;
+      background:var(--card);
+      font-size:10.5px; font-weight:700; color:var(--muted);
+      letter-spacing:.2em;
+      border:1px solid var(--border);
+      border-radius:999px;
+    }
+
+    @media (min-width: 900px) {
+      .card {
+        display:grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+        grid-template-areas:
+          "drop  drop"
+          "opts  stage"
+          "info  info"
+          "act   act";
+        gap:18px 24px;
+        align-items:start;
+      }
+      .card > .file-drop-zone { grid-area:drop; }
+      .card > .opt-row        { grid-area:opts; }
+      .card > .crop-info      { grid-area:info; }
+      .card > .image-actions  { grid-area:act; }
+      .card > .crop-stage     { grid-area:stage; align-self:start; }
+    }
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Image</a> · Image Crop</div>
+    <h1>Image Crop</h1>
+    <p class="subtitle">Social aspect-ratio presets + free crop + rotation — Instagram, YouTube, Reels, TikTok in one place.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Photos never leave your device.</b> All processing uses the browser's canvas API.</div>
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">🖼️</div>
+        <div class="drop-title" id="dropTitle">Drag a photo here, or click to choose</div>
+        <div class="drop-hint">JPG · PNG · WebP · HEIC (if browser supports it) — single file</div>
+        <input type="file" id="fileInput" accept="image/*">
+      </label>
+
+      <div class="opt-row" id="optRow" hidden>
+        <div class="field" style="grid-column:1/-1">
+          <label>Aspect ratio</label>
+          <div class="ratio-buttons" id="ratioButtons">
+            <button type="button" class="ratio-btn active" data-ratio="0">Free</button>
+            <button type="button" class="ratio-btn" data-ratio="1">1:1</button>
+            <button type="button" class="ratio-btn" data-ratio="1.3333">4:3</button>
+            <button type="button" class="ratio-btn" data-ratio="1.7778">16:9</button>
+            <button type="button" class="ratio-btn" data-ratio="0.5625">9:16</button>
+            <button type="button" class="ratio-btn" data-ratio="1.5">3:2</button>
+            <button type="button" class="ratio-btn" data-ratio="0.8">4:5</button>
+          </div>
+        </div>
+
+        <div class="field" style="grid-column:1/-1">
+          <label>Rotate / Flip</label>
+          <div class="rotate-buttons">
+            <button type="button" class="rotate-btn" data-act="rotate-cw">↻ 90°</button>
+            <button type="button" class="rotate-btn" data-act="rotate-ccw">↺ 90°</button>
+            <button type="button" class="rotate-btn" data-act="rotate-180">180°</button>
+            <button type="button" class="rotate-btn" data-act="flip-h">↔ Horizontal</button>
+            <button type="button" class="rotate-btn" data-act="flip-v">↕ Vertical</button>
+            <button type="button" class="rotate-btn" data-act="reset">Reset</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="formatSel">Output format</label>
+          <select id="formatSel">
+            <option value="jpeg" selected>JPG (smaller)</option>
+            <option value="png">PNG (lossless)</option>
+            <option value="webp">WebP (efficient)</option>
+          </select>
+        </div>
+        <div class="field quality-row" id="qualityRow">
+          <label for="qualityIn">Quality (1–100): <b id="qualityVal">90</b></label>
+          <input type="range" id="qualityIn" min="1" max="100" step="1" value="90">
+        </div>
+      </div>
+
+      <div class="crop-stage" id="cropStage" hidden>
+        <canvas id="srcCanvas"></canvas>
+        <div class="crop-overlay" id="cropOverlay">
+          <div class="crop-rect" id="cropRect">
+            <span class="crop-handle tl" data-handle="tl"></span>
+            <span class="crop-handle tr" data-handle="tr"></span>
+            <span class="crop-handle bl" data-handle="bl"></span>
+            <span class="crop-handle br" data-handle="br"></span>
+            <span class="crop-handle tm" data-handle="tm"></span>
+            <span class="crop-handle bm" data-handle="bm"></span>
+            <span class="crop-handle lm" data-handle="lm"></span>
+            <span class="crop-handle rm" data-handle="rm"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="crop-info" id="cropInfo" hidden>—</div>
+
+      <div class="image-actions" id="actionBar" hidden>
+        <button type="button" id="cropBtn">Crop</button>
+        <button type="button" id="clearBtn">Reset</button>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense slot ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="image-meta">
+        <span>Crop size <b id="newSize">—</b></span>
+        <span>File size <b id="newBytes">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ Download cropped image</a>
+      </div>
+      <div style="margin-top:14px;text-align:center">
+        <img id="resultPreview" alt="Cropped preview" style="max-width:100%;max-height:480px;border:1px solid var(--border);border-radius:8px">
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>Recommended ratios by platform</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Platform</th><th>Use</th><th>Recommended ratio</th></tr></thead>
+          <tbody>
+            <tr><td>Instagram</td><td>Square feed</td><td>1:1</td></tr>
+            <tr><td>Instagram</td><td>Reels / Stories</td><td>9:16</td></tr>
+            <tr><td>YouTube</td><td>Thumbnail / landscape video</td><td>16:9</td></tr>
+            <tr><td>YouTube</td><td>Shorts</td><td>9:16</td></tr>
+            <tr><td>TikTok</td><td>Vertical video</td><td>9:16</td></tr>
+            <tr><td>Twitter (X)</td><td>Image post</td><td>16:9 or 1:1</td></tr>
+            <tr><td>Facebook</td><td>Landscape feed</td><td>1.91:1 (~16:9)</td></tr>
+            <tr><td>DSLR / film camera</td><td>Standard photo</td><td>3:2</td></tr>
+            <tr><td>Print photo</td><td>4×6 inch</td><td>3:2</td></tr>
+            <tr><td>Print photo</td><td>5×7 inch</td><td>~4:5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../resize/">Image Resize<span class="desc">Change size & resolution</span></a>
+        <a href="../compress/">Image Compress<span class="desc">Shrink further after cropping</span></a>
+        <a href="../id-photo/">ID / Passport Photo<span class="desc">Standard sizes at 300 DPI</span></a>
+        <a href="../heic-to-jpg/">HEIC → JPG<span class="desc">Convert iPhone photos first</span></a>
+        <a href="../bg-remove/">Background Remover<span class="desc">Crop, then remove background</span></a>
+        <a href="../">All image tools<span class="desc">Compress · QR · OCR</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>Handles are too small on mobile</summary>
+        <div class="answer">
+          The 8 handles (4 corners + 4 edges) are 14×14px but have +8px padding around them, so the touch target is ~30×30. If precise tweaks are still hard, <b>drag inside the rectangle</b> to move the crop without resizing. A larger screen helps.
+        </div>
+      </details>
+      <details>
+        <summary>Locked ratio gives a strange size</summary>
+        <div class="answer">
+          The crop snaps to the largest rectangle that fits the chosen ratio at the current location. Switching ratios re-centers the crop, so set the ratio first, then fine-tune.
+        </div>
+      </details>
+      <details>
+        <summary>Crop looks awkward after rotating</summary>
+        <div class="answer">
+          When you rotate, the image is re-rasterized and the crop is reset. Apply rotation and flips first, then set the crop area.
+        </div>
+      </details>
+      <details>
+        <summary>What can canvas API actually do?</summary>
+        <div class="answer">
+          All cropping, rotation, and encoding goes through <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API" rel="nofollow noopener" target="_blank">Canvas 2D API</a>'s <code>drawImage</code> and <code>toBlob</code>. No external libraries or servers. Inputs: any format your browser supports; outputs: JPG / PNG / WebP.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently Asked Questions</h2>
+
+      <details>
+        <summary>Are my photos uploaded to a server?</summary>
+        <div class="answer">
+          No. Cropping uses the <b>canvas API</b> in the browser only. Even the site operator cannot see your photos.
+          Safe for personal, family, and sensitive images.
+        </div>
+      </details>
+
+      <details>
+        <summary>What aspect-ratio presets are available?</summary>
+        <div class="answer">
+          <b>Free / 1:1 (Instagram, profile) / 4:3 (cameras) / 16:9 (YouTube, landscape video) / 9:16 (Reels, TikTok) / 3:2 (DSLR, film) / 4:5 (Instagram portrait)</b> — 7 presets.
+          When ratio is locked, the handles preserve the chosen ratio.
+        </div>
+      </details>
+
+      <details>
+        <summary>Recommended ratios per platform?</summary>
+        <div class="answer">
+          Instagram square = <b>1:1</b>, Reels / Stories / TikTok / Shorts = <b>9:16</b>, YouTube landscape = <b>16:9</b>, Twitter (X) = 16:9 or 1:1, Facebook post = 1.91:1.
+          See the table above.
+        </div>
+      </details>
+
+      <details>
+        <summary>How does rotation work?</summary>
+        <div class="answer">
+          <b>0 / 90 / 180 / 270 degrees + horizontal / vertical flip</b>. Rotation is applied first, then you crop the rotated image.
+          Convenient when an iPhone photo opens sideways.
+        </div>
+      </details>
+
+      <details>
+        <summary>Does it handle very large images?</summary>
+        <div class="answer">
+          Normal photos (under 20MB) work on desktop and mobile. Very large images (50MB+ or 100+ megapixels) may slow due to memory limits.
+          Resize to 4000–5000px width first using the resize tool, then crop.
+        </div>
+      </details>
+
+      <details>
+        <summary>Does cropping reduce quality?</summary>
+        <div class="answer">
+          PNG and WebP are lossless; JPG uses the quality slider (default 90). Cropping <b>extracts pixels exactly</b>, so no extra quality loss.
+          Rotation may introduce slight blur via interpolation, but 90 / 180 / 270° rotations are pixel-aligned and lossless.
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last reviewed: 2026-05-09 / Canvas API + drag-and-drop UX implemented directly.</div>
+      <ul>
+        <li>Canvas 2D API · drawImage / toBlob — <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API" rel="nofollow noopener" target="_blank">MDN</a></li>
+        <li>Pointer Events — <a href="https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events" rel="nofollow noopener" target="_blank">MDN</a></li>
+      </ul>
+      <div class="note">⚠️ Verify the cropped output's size and resolution before social uploads. Platform recommendations change — confirm current values per platform.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ All image tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="./crop.js" defer></script>
+</body>
+</html>
