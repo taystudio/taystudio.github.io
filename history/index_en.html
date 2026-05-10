@@ -122,7 +122,7 @@
     <p class="subtitle">TAYSTUDIO 영어 사이트(<code>/en/</code>) 진행 이력 — Pilot 결정·도메인 migration·Phase A·B 일괄 출시·SEO audit까지 시간 역순.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
       <b>마지막 갱신</b>: 2026-05-10 ·
-      <span style="opacity:.7">Phase A·B + SEO audit + home fix + Gap 2 manifest + audit 후속 보강 4 step + <b>5 카테고리 번역 검수 doc 풀세트</b> — universal 28선 LIVE(image 9·PDF 5·video 5·text 1·calculator 8) + 4 카테고리 hub + 102 sitemap URL + Korean 31파일 hreflang + HowTo schema 한·영 9/9 parity + <code>/en/manifest.webmanifest</code> 다국어(scope=/en/) + <b>5 hub cross-category nav 4 link</b> + <b>한국 manifest "TayTools" → "TAYSTUDIO" 통일</b> + <b><code>og-image-en.png</code> 영어 변형(34 file 갱신)</b> + <b>5 카테고리 검수 doc 87KB</b>(image·pdf·video·text·calc). 핵심 SEO 시그널 34/34 production-ready. commit <code>a6a60a8</code>·<code>ea9e3bc</code> + 후속 5 step (commit 대기). 한국판 변경 이력은 <a href="./" style="color:var(--primary)">history/index.html</a> 참고. 영어판 운영 plan = <a href="./plan/plan_en.md" style="color:var(--primary)"><code>history/plan/plan_en.md</code></a>.</span>
+      <span style="opacity:.7">Phase A·B + SEO audit + home fix + Gap 2 manifest + audit 후속 보강 4 step + 5 카테고리 번역 검수 doc + <b>Smart lang banner + 헤더 토글 강조</b> — universal 28선 LIVE(image 9·PDF 5·video 5·text 1·calculator 8) + 4 카테고리 hub + 102 sitemap URL + Korean 31파일 hreflang + HowTo schema 한·영 9/9 parity + <code>/en/manifest.webmanifest</code> 다국어(scope=/en/) + 5 hub cross-category nav + 한국 manifest 브랜드 통일 + <code>og-image-en.png</code> 영어 변형 + 5 카테고리 검수 doc 87KB + <b>BROWSER_LANG mismatch banner(dismiss·CTA·localStorage 기억, 양방향 ko↔en)</b> + <b>헤더 lang-toggle 글로브+box 강조</b>. 핵심 SEO 시그널 34/34 production-ready. commit <code>a6a60a8</code>·<code>ea9e3bc</code> + 후속 6 step (commit 대기). 한국판 변경 이력은 <a href="./" style="color:var(--primary)">history/index.html</a> 참고. 영어판 운영 plan = <a href="./plan/plan_en.md" style="color:var(--primary)"><code>history/plan/plan_en.md</code></a>.</span>
     </p>
 
     <div class="ctx-card">
@@ -143,6 +143,8 @@
         <span class="pill live">KO manifest 브랜드 통일 ✅</span>
         <span class="pill live">og-image-en ✅</span>
         <span class="pill live">5 카테고리 검수 doc 풀세트 ✅</span>
+        <span class="pill live">Smart lang banner ✅</span>
+        <span class="pill live">헤더 토글 글로브 강조 ✅</span>
         <span class="pill todo">AdSense 검토 1~7일 대기</span>
         <span class="pill todo">번역 사용자 review (다음 1순위)</span>
       </div>
@@ -155,6 +157,56 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-10</span>
+            <span class="tl-tag feature">Smart lang banner + 헤더 토글 강조</span>
+            <span class="tl-tag">외국인 root UX</span>
+          </div>
+          <div class="tl-title">🌐 외국인 root 진입 친화 — BROWSER_LANG mismatch 감지 banner + 헤더 lang-toggle 글로브·box 강조 (양방향 ko↔en, SEO 무영향)</div>
+          <div class="tl-summary">
+            사용자 결정: "맨 앞 페이지가 한글이라 외국인이 들어왔을 때 영어/한글 분기점 확실히 + UX 좋게". 4 옵션(Smart banner + 토글 강조 / Auto redirect / Picker landing / 토글만 강조) 중 <b>Smart banner + 토글 강조</b> 채택. <b>fix</b>: <code>common/site-chrome.js</code>에 <code>BROWSER_LANG</code> 상수(<code>navigator.languages[0]</code>) + <code>shouldShowLangBanner()</code>(페이지 LANG ≠ 브라우저 언어 mismatch 시 노출) + <code>SiteHeader</code> markup에 banner slot(disclaimer 패턴 mirror, 파란 accent) + 3 event handler(close → <code>lang-banner-dismissed</code>, CTA → <code>lang-pref</code>, 헤더 토글 → <code>lang-pref</code>). I18N에 <code>langBannerForEnUser</code>(타겟 언어로 작성)·<code>langBannerForKoUser</code>·CTA·dismiss 추가. <code>common/css/style.css</code>의 <code>.lang-toggle</code>에 글로브 emoji prefix + box style 강조(padding·border·background·hover transform). <b>SEO 안전</b> = auto redirect 안 함, 정적 HTML에 banner markup 0건(DOM 동적 삽입). <b>한국 사용자 영향 0</b> = 브라우저 mismatch 시에만 노출.
+          </div>
+          <details class="tl-detail">
+            <summary>상세 — banner 동작 시나리오 + scope 밖 비채택 이유</summary>
+            <div class="tl-detail-body">
+              <h3>왜 root 진입 UX 강화가 필요했나</h3>
+              <p>5/10 영어판 일괄 launch 후 외국인이 SERP·직접 입력으로 <code>taystudios.com/</code> 진입 시 한국어 home 노출 → 헤더 lang-toggle("EN" 텍스트 link)이 작은 nav 안 마지막이라 발견 어려움 → 이탈 위험. 영어판 28선 LIVE 됐는데 진입 동선이 막히면 트래픽 누수.</p>
+              <h3>Smart banner 동작 시나리오</h3>
+              <ul>
+                <li>영어 브라우저 사용자가 root(/) 진입 → 헤더 위 sticky banner "🌐 This site is also available in <b>English</b> · View English version →" + dismiss × 버튼</li>
+                <li>한국어 브라우저 사용자가 /en/ 진입 → "🌐 이 사이트는 <b>한국어</b>로도 볼 수 있어요 · 한국어로 보기 →" (양방향)</li>
+                <li>같은 언어 사용자(한국 브라우저 + 한국 페이지) → mismatch X, banner 안 노출</li>
+                <li>dismiss × 클릭 → <code>localStorage.taystudio.lang-banner-dismissed = '1'</code> → 다음 방문 banner 안 보임</li>
+                <li>CTA 클릭 또는 헤더 lang-toggle 클릭 → <code>localStorage.taystudio.lang-pref = altLang</code> → 사용자 명시 선택 학습, 다음 방문 banner 안 보임</li>
+              </ul>
+              <h3>SEO 안전 검증</h3>
+              <ul>
+                <li>정적 HTML에 banner markup <b>0건</b> (<code>grep -c ts-lang-banner</code> root·/en/ 모두 0). banner는 site-chrome.js DOM 동적 삽입이라 search bot 보는 정적 HTML 무영향</li>
+                <li>auto redirect 안 함 → Google bot이 한국·영어 페이지 각각 정상 인덱싱 (canonical·hreflang 무영향)</li>
+                <li>localhost 검증: 한·영 home lang(<code>ko</code>·<code>en</code>) + canonical(<code>taystudios.com/</code>·<code>taystudios.com/en/</code>) 그대로</li>
+              </ul>
+              <h3>scope 밖 (의식적 비채택)</h3>
+              <ul>
+                <li><b>Auto redirect</b> — Accept-Language 자동 redirect는 SEO 위험(Google bot redirect penalty) + 한국 영어 OS 사용자가 의도치 않게 영어 페이지로 떨어짐</li>
+                <li><b>Language picker landing</b> — root가 KO/EN 선택 화면이면 한국 시장 SEO 권위 약화(home 분산) + 한국 사용자 1 클릭 friction 추가</li>
+                <li><b>국가 emoji (🇺🇸/🇰🇷)</b> — Taiwan·HK 등 정치 민감 회피 위해 universal <code>🌐</code> 채택</li>
+                <li><b>다른 언어 추가 (중국어·일본어 등)</b> — 본 작업은 ko/en 양방향만. 추가 언어는 별도 Phase</li>
+              </ul>
+              <h3>관련 파일 변경</h3>
+              <ul>
+                <li><code>common/site-chrome.js</code>: I18N + BROWSER_LANG + shouldShowLangBanner() + banner markup + 3 event handler + langToggleLabel 글로브</li>
+                <li><code>common/css/style.css</code>: .lang-toggle box style 강조 (padding·border·background·hover transform)</li>
+                <li>모든 HTML 70+ 페이지: <b>변경 없음</b> (component 자동 적용)</li>
+              </ul>
+              <p>plan_en.md §9.9 참고. <b>다음 1순위</b> = 5 카테고리 검수 doc 사용자 review.</p>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item">

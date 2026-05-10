@@ -2,8 +2,8 @@
 
 > 영어 사이트(`/en/`) 전용 운영 plan. 한국판 [plan.md](./plan.md)와 분리 — 한국판은 한국 시장 60 도구·세금·부동산·노동법 본체, 영어판은 universal subset만 다룸. 본 문서 = 한국판 plan.md 핵심 요약 + 영어 진입 의사결정·로드맵·진행 기록.
 
-**최종 갱신**: 2026-05-10 (Phase B 완료 + SEO audit + HowTo parity + `/en/` home Phase B 반영 + Gap 2 manifest 다국어 + 후속 보강 4 step + **5 카테고리 검수 doc 풀세트** image·pdf·video·text·calculators)
-**현재 상태**: **Phase A + B 완료 + SEO audit 통과 + home 카드 5종 LIVE + 영어 PWA manifest 격리 + 후속 보강 4 step 완료 + 5 카테고리 검수 doc 풀세트** — 영어 universal 28선 전부 live + 4 카테고리 hub + Korean source 31파일 hreflang + `TRANSLATED_PATHS` whitelist 33 path + sitemap.xml 71→102 URL + HowTo schema 한·영 9/9 parity + `/en/` home hub-grid 5/5 LIVE + `/en/manifest.webmanifest` 신규(scope=/en/, lang=en-US, shortcuts 4 영어 path) + 5 hub cross-category nav 4 link씩 + 한국 manifest "TayTools" → "TAYSTUDIO" 통일 + `/og-image-en.png` 영어 변형(34 file 갱신) + 검수 doc 5종(image 26KB · pdf 15KB · video 15KB · text 5KB · calculators 26KB, 총 87KB)
+**최종 갱신**: 2026-05-10 (Phase B 완료 + SEO audit + HowTo parity + `/en/` home Phase B 반영 + Gap 2 manifest 다국어 + 후속 보강 4 step + 5 카테고리 검수 doc 풀세트 + **lang banner + 헤더 토글 강조 (외국인 root 진입 UX)**)
+**현재 상태**: **Phase A + B 완료 + SEO audit 통과 + home 카드 5종 LIVE + 영어 PWA manifest 격리 + 후속 보강 4 step 완료 + 5 카테고리 검수 doc 풀세트 + 양방향 lang banner** — 영어 universal 28선 전부 live + 4 카테고리 hub + Korean source 31파일 hreflang + `TRANSLATED_PATHS` whitelist 33 path + sitemap.xml 71→102 URL + HowTo schema 한·영 9/9 parity + `/en/` home hub-grid 5/5 LIVE + `/en/manifest.webmanifest` 신규(scope=/en/, lang=en-US, shortcuts 4 영어 path) + 5 hub cross-category nav 4 link씩 + 한국 manifest "TayTools" → "TAYSTUDIO" 통일 + `/og-image-en.png` 영어 변형(34 file 갱신) + 검수 doc 5종(87KB) + **smart lang banner (BROWSER_LANG mismatch 감지 · localStorage 기억 · 양방향 ko↔en) + 헤더 lang-toggle 글로브 강조**
 **다음 진입 후보**: AI 번역 검수 사용자 review (5 카테고리 doc 준비됨) → IndexNow ping `/en/*` → Phase C 외부 채널
 
 ---
@@ -323,7 +323,24 @@
   - 사용자 review 후 어색한 표현·도메인 용어 패치 진입점. Python 추출 script 동일 패턴 (재실행 가능)
 - **검증**: 5 hub 모두 4 cross-link 정상 · 한국 manifest JSON validity OK · 영어 OG PNG 1200×630 RGB · stale `og-image.png` in en/ = 0건 / 새 `og-image-en.png` 34 file 103 occurrences · Image hub HowTo·FAQ 추출 정상
 
-### 9.9 다음 세션 진입 후보
+### 9.9 2026-05-10 — Smart lang banner + 헤더 토글 강조 (외국인 root UX) ✅
+- **사용자 결정**: "맨 앞 페이지 index.html이 한글로 되어 있잖아. 영어 한글 분기점 확실히 치고 외국인 들어왔을 때 좋게" — 4 옵션 중 "Smart banner + 헤더 토글 강조 (Recommended)" 채택
+- **문제**: 외국인이 `taystudios.com/` 직접 진입 시 한글 home → 헤더 lang-toggle("EN" 텍스트 link)이 작은 nav 안 마지막이라 발견 어려움 → 이탈 위험
+- **fix 내용 (`common/site-chrome.js`)**:
+  - **`BROWSER_LANG` 상수** 신규 — `navigator.languages[0]` 분석. Accept-Language 첫 우선 언어
+  - **`shouldShowLangBanner()`** 신규 — 페이지 LANG ≠ BROWSER_LANG mismatch 시 banner 노출 (root 한국 페이지에 영어 브라우저 → 영어 banner / `/en/`에 한국어 브라우저 → 한국어 banner). localStorage `lang-pref` (사용자 명시 선택)·`lang-banner-dismissed` (사용자 dismiss) 체크해 재방문 시 반복 노출 방지
+  - **I18N 추가**: `langBannerForEnUser`/`langBannerForKoUser`(타겟 언어로 작성 — 그 사용자가 읽을 수 있게) + `langBannerCTAFor*` + `langBannerDismiss`
+  - **SiteHeader.connectedCallback** banner markup 추가 — 헤더 위 sticky bar (disclaimer banner 패턴 mirror, 파란 accent `rgba(37,99,235,0.08)`). CTA → `getAltLangUrl()`로 반대 언어 home, dismiss × 버튼
+  - **3 event handler**: ① close → `lang-banner-dismissed=1` ② CTA → `lang-pref=altLang` ③ 헤더 lang-toggle → `lang-pref=altLang` (사용자 명시 선택 학습)
+- **fix 내용 (`common/css/style.css`)**:
+  - `.site-nav .lang-toggle` 강조 — 글로브 emoji prefix(I18N에서) + `padding: 5px 10px` + `background: var(--card)` + `border-radius: 6px` + hover `transform: translateY(-1px)` + `background: var(--primary)` (외국인 자력 발견 가능하게)
+  - I18N `langToggleLabel` = `🌐 English`(ko 페이지)·`🌐 한국어`(en 페이지) — W3C 권장 native language name
+- **SEO 안전**: auto redirect 안 함 → 정적 HTML에 banner markup 0건(`grep -c ts-lang-banner` root·/en/ 모두 0). DOM 동적 삽입이라 search bot은 한국·영어 페이지 각각 정상 인덱싱. canonical·hreflang 무영향
+- **검증**: localhost server 200 OK 4/4 · BROWSER_LANG·shouldShowLangBanner·I18N 코드 정상 · CSS box style 적용 · 정적 HTML에 banner 0건 (SEO 무영향) · 한·영 home lang/canonical 그대로
+- **한국 사용자 영향 0**: 한국 브라우저면 mismatch X → banner 안 노출. 헤더 토글만 box 스타일 강조됨 (한국 사용자에게도 시각 개선)
+- **scope 밖 (의식적 비채택)**: ① auto redirect — SEO 위험 + 한국 영어 OS 사용자 의도치 않은 redirect ② language picker landing — 한국 시장 SEO 권위 약화 + 한국 사용자 1 클릭 friction ③ 국가 emoji (🇺🇸/🇰🇷) — Taiwan/HK 등 정치 민감 회피, universal `🌐` 채택 ④ 다른 언어 (중국어·일본어 등) — 본 작업은 ko/en 양방향만
+
+### 9.10 다음 세션 진입 후보
 - **사용자 검수 — AI 초안 번역 품질 review** (1순위, **5 카테고리 doc 풀세트 준비됨**) — `history/seo/2026-05-10-en-{image,pdf,video,text,calculators}-translation-review.md` 5개 보고 어색한 표현·도메인 용어·FAQ 답변 점검. 우선순위 = image → pdf → video → calculators → text (영어 시장 hot 순). 사용자 결정 시 patch 진행
 - **IndexNow ping `/en/*` 신규 32 URL** — sitemap 갱신 직후 가능. `bash scripts/indexnow-ping.sh`
 - **Phase C-1: Reddit 시드 게시 1회** — Pilot 검증 1~2주 후 (사용자 결정). r/InternetIsBeautiful·r/usefulwebsites 권장

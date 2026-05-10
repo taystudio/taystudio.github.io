@@ -9,6 +9,12 @@ const LANG = (() => {
   return 'ko';
 })();
 
+// 브라우저 우선 언어 — Accept-Language 분석. 페이지 언어와 mismatch 시 lang banner 노출 판단.
+const BROWSER_LANG = (() => {
+  const langs = navigator.languages || [navigator.language || ''];
+  return (langs[0] || '').toLowerCase();
+})();
+
 const I18N = {
   ko: {
     mirrorWarn: '⚠️ 비공식 미러 사이트입니다. 정품: <a href="https://taystudios.com" style="color:#fff;font-weight:700;text-decoration:underline">taystudios.com</a>',
@@ -48,8 +54,12 @@ const I18N = {
     privacy: '개인정보처리방침',
     terms: '이용약관',
     footerNote: '입력값은 브라우저 안에서만 처리됩니다',
-    langToggleLabel: 'EN',
+    langToggleLabel: '🌐 English',
     langToggleTitle: 'View in English',
+    // 영어 브라우저 사용자가 한국 페이지에 들어왔을 때 노출 (banner 카피는 영어 — 그 언어 사용자가 읽음)
+    langBannerForEnUser: '🌐 This site is also available in <b>English</b>',
+    langBannerCTAForEnUser: 'View English version →',
+    langBannerDismiss: 'Dismiss',
   },
   en: {
     mirrorWarn: '⚠️ Unofficial mirror site. Official: <a href="https://taystudios.com" style="color:#fff;font-weight:700;text-decoration:underline">taystudios.com</a>',
@@ -89,8 +99,12 @@ const I18N = {
     privacy: 'Privacy Policy',
     terms: 'Terms of Service',
     footerNote: 'All inputs are processed only in your browser',
-    langToggleLabel: 'KO',
+    langToggleLabel: '🌐 한국어',
     langToggleTitle: '한국어로 보기',
+    // 한국어 브라우저 사용자가 영어 페이지에 들어왔을 때 노출 (banner 카피는 한국어 — 그 언어 사용자가 읽음)
+    langBannerForKoUser: '🌐 이 사이트는 <b>한국어</b>로도 볼 수 있어요',
+    langBannerCTAForKoUser: '한국어로 보기 →',
+    langBannerDismiss: '닫기',
   }
 };
 
@@ -118,6 +132,21 @@ const TRANSLATED_PATHS = new Set([
   '/text/',
   '/text/counter/'
 ]);
+
+// 브라우저 언어가 페이지 언어와 mismatch + 사용자가 명시 dismiss·선택 안 했으면 lang banner 노출.
+// SEO 안전 — auto redirect 안 함, 사용자 액션이라 search bot은 한국·영어 페이지 각각 정상 인덱싱.
+function shouldShowLangBanner() {
+  const isEnBrowser = BROWSER_LANG.startsWith('en');
+  const isKoBrowser = BROWSER_LANG.startsWith('ko');
+  const mismatch = (LANG === 'ko' && isEnBrowser) || (LANG === 'en' && isKoBrowser);
+  if (!mismatch) return false;
+  try {
+    // 사용자가 토글·CTA로 명시 선택한 언어가 현재 페이지면 banner 안 보임
+    if (localStorage.getItem('taystudio.lang-pref') === LANG) return false;
+    if (localStorage.getItem('taystudio.lang-banner-dismissed') === '1') return false;
+  } catch (_) {}
+  return true;
+}
 
 // 현재 path에 대응하는 반대 언어 URL 계산. 없으면 hub fallback.
 function getAltLangUrl() {
@@ -371,6 +400,16 @@ class SiteHeader extends HTMLElement {
         </nav>
       </header>
     `;
+    const showLangBanner = shouldShowLangBanner();
+    const langBannerCopy = LANG === 'ko' ? T.langBannerForEnUser : T.langBannerForKoUser;
+    const langBannerCTA = LANG === 'ko' ? T.langBannerCTAForEnUser : T.langBannerCTAForKoUser;
+    const langBannerHTML = !showLangBanner ? '' : `
+      <div id="ts-lang-banner" role="note" style="position:relative;background:rgba(37,99,235,0.08);border-bottom:1px solid rgba(37,99,235,0.25);padding:9px 44px 9px 20px;text-align:center;font-size:13px;line-height:1.5;color:var(--text)">
+        ${langBannerCopy}
+        · <a href="${altUrl}" id="ts-lang-banner-cta" style="color:var(--primary);font-weight:600;text-decoration:none">${langBannerCTA}</a>
+        <button id="ts-lang-banner-close" type="button" aria-label="${T.langBannerDismiss}" title="${T.langBannerDismiss}" style="position:absolute;top:50%;right:8px;transform:translateY(-50%);width:auto;padding:2px 8px;font-size:18px;font-weight:400;line-height:1;background:transparent;color:var(--muted);border:none;border-radius:4px;cursor:pointer">×</button>
+      </div>
+    `;
     const disclaimerHTML = !isToolsPage() ? '' : `
       <div id="ts-disclaimer" role="note" style="position:relative;background:rgba(245,158,11,0.08);border-bottom:1px solid rgba(245,158,11,0.25);padding:8px 44px 8px 20px;text-align:center;font-size:12.5px;line-height:1.5;color:var(--text)">
         ${T.disclaimerHTML}
@@ -378,7 +417,27 @@ class SiteHeader extends HTMLElement {
         <button id="ts-disclaimer-close" type="button" aria-label="${T.closeAriaLabel}" title="${T.closeTitle}" style="position:absolute;top:50%;right:8px;transform:translateY(-50%);width:auto;padding:2px 8px;font-size:18px;font-weight:400;line-height:1;background:transparent;color:var(--muted);border:none;border-radius:4px;cursor:pointer">×</button>
       </div>
     `;
-    this.innerHTML = headerHTML + disclaimerHTML;
+    this.innerHTML = headerHTML + langBannerHTML + disclaimerHTML;
+    // lang banner: close (localStorage dismissed), CTA (lang-pref 저장), 헤더 토글 (lang-pref 저장)
+    const langClose = this.querySelector('#ts-lang-banner-close');
+    if (langClose) {
+      langClose.addEventListener('click', () => {
+        try { localStorage.setItem('taystudio.lang-banner-dismissed', '1'); } catch (_) {}
+        this.querySelector('#ts-lang-banner')?.remove();
+      });
+    }
+    const langCta = this.querySelector('#ts-lang-banner-cta');
+    if (langCta) {
+      langCta.addEventListener('click', () => {
+        try { localStorage.setItem('taystudio.lang-pref', LANG === 'ko' ? 'en' : 'ko'); } catch (_) {}
+      });
+    }
+    const langToggle = this.querySelector('.lang-toggle');
+    if (langToggle) {
+      langToggle.addEventListener('click', () => {
+        try { localStorage.setItem('taystudio.lang-pref', LANG === 'ko' ? 'en' : 'ko'); } catch (_) {}
+      });
+    }
     const closeBtn = this.querySelector('#ts-disclaimer-close');
     if (closeBtn) {
       closeBtn.addEventListener('click', () => {
