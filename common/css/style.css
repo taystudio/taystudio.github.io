@@ -198,6 +198,7 @@ site-header {
     padding: 10px 12px 0;
     column-gap: 8px;
     row-gap: 4px;
+    position: relative;
   }
   .site-header .logo {
     grid-column: 1;
@@ -212,6 +213,17 @@ site-header {
     grid-template-columns: repeat(5, 1fr);
     gap: 0;
     border-top: 1px solid var(--border);
+  }
+  /* lang-toggle: 모바일에선 nav grid 6번째 칼럼이 부족해 다음 줄로 떨어짐 → 헤더 첫 줄 우측으로 absolute 띄움.
+     PC(≥481px)는 nav 안 마지막 아이템 그대로 유지 (스크린샷 PC 모양 유지).
+     모바일 스케일: 폰트·패딩 축소 → 박스 ~26px → 로고(24px)와 수직 중앙 맞추기 위해 top:9px. */
+  .site-nav .lang-toggle {
+    position: absolute;
+    top: 9px;
+    right: 12px;
+    margin-left: 0;
+    font-size: 11px;
+    padding: 3px 8px;
   }
   .site-nav .nav-link {
     font-size: 12px;
@@ -245,6 +257,10 @@ site-header {
   .site-nav .nav-link {
     font-size: 11px;
     padding: 9px 2px;
+  }
+  .site-nav .lang-toggle {
+    top: 6px;
+    right: 8px;
   }
 }
 
