@@ -122,7 +122,7 @@
     <p class="subtitle">TAYSTUDIO 영어 사이트(<code>/en/</code>) 진행 이력 — Pilot 결정·도메인 migration·Phase A·B 일괄 출시·SEO audit까지 시간 역순.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
       <b>마지막 갱신</b>: 2026-05-10 ·
-      <span style="opacity:.7">Phase B 일괄 출시 + SEO audit 통과 — universal 28선 LIVE(image 9·PDF 5·video 5·text 1·calculator 8) + 4 카테고리 hub + 102 sitemap URL + Korean 31파일 hreflang + HowTo schema 한·영 9/9 parity. 핵심 SEO 시그널 34/34 production-ready. 한국판 변경 이력은 <a href="./" style="color:var(--primary)">history/index.html</a> 참고. 영어판 운영 plan = <a href="./plan/plan_en.md" style="color:var(--primary)"><code>history/plan/plan_en.md</code></a>.</span>
+      <span style="opacity:.7">Phase A·B + SEO audit + home fix + Gap 2 manifest 일괄 — universal 28선 LIVE(image 9·PDF 5·video 5·text 1·calculator 8) + 4 카테고리 hub + 102 sitemap URL + Korean 31파일 hreflang + HowTo schema 한·영 9/9 parity + <code>/en/manifest.webmanifest</code> 다국어(scope=/en/, lang=en-US, shortcuts 4 영어 path). 핵심 SEO 시그널 34/34 production-ready. commit <code>a6a60a8</code>(launch 104 file)·<code>ea9e3bc</code>(Gap 2 + Image fix). 한국판 변경 이력은 <a href="./" style="color:var(--primary)">history/index.html</a> 참고. 영어판 운영 plan = <a href="./plan/plan_en.md" style="color:var(--primary)"><code>history/plan/plan_en.md</code></a>.</span>
     </p>
 
     <div class="ctx-card">
@@ -138,8 +138,9 @@
         <span class="pill live">SEO 9 영역 audit 통과</span>
         <span class="pill live">HowTo 한·영 9/9 parity</span>
         <span class="pill live">taystudios.com migration DONE</span>
+        <span class="pill live">Gap 2 manifest 다국어 ✅</span>
         <span class="pill todo">AdSense 검토 1~7일 대기</span>
-        <span class="pill todo">manifest 다국어 (Gap 2 next)</span>
+        <span class="pill todo">cross-category nav (다음 1순위)</span>
       </div>
     </div>
 
@@ -150,6 +151,84 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-10</span>
+            <span class="tl-tag infra">PWA manifest 다국어 (Gap 2)</span>
+            <span class="tl-tag fix">Image row 라벨 wrap fix</span>
+            <span class="tl-tag">commit ea9e3bc</span>
+          </div>
+          <div class="tl-title">📱 영어 PWA manifest 분리 — <code>scope=/en/</code> 격리 + shortcuts 4 영어 path · Image quick-list 한 줄 fit</div>
+          <div class="tl-summary">
+            <code>/en/manifest.webmanifest</code> 신규 — name=TAYSTUDIO·lang=en-US·<b>scope=/en/</b>(영어 PWA 격리, PWA spec 다국어 표준 패턴)·start_url=/en/·shortcuts 4 영어 path(<code>/en/tools/compound/</code>·<code>/en/tools/bmi/</code>·<code>/en/image/compress/</code>·<code>/en/pdf/pdf-merge/</code>). 34 <code>/en/*.html</code>의 <code>&lt;link rel="manifest"&gt;</code> href를 일괄 sed. 한국 manifest 무영향(lang=ko-KR·scope=/ 유지). 사이드 fix = <code>en/index.html</code> quick-list Image row "Background remove" → "Remove BG"(17→9 char) — 라벨 길어 "All →"이 둘째 줄로 떨어지던 wrap 해소.
+          </div>
+          <details class="tl-detail">
+            <summary>상세 — 왜 Gap 2가 1순위였나 + scope 격리 효과</summary>
+            <div class="tl-detail-body">
+              <h3>Phase B 직후 SEO audit에서 검출된 Gap</h3>
+              <ul>
+                <li>34개 <code>/en/*</code> 영어 페이지가 한국어 <code>/manifest.webmanifest</code> 참조 중</li>
+                <li>영어 사용자가 PWA 설치 시 ① 앱 이름 "TayTools — 자주 쓰는 무료 도구" 한국어 노출 ② <code>lang: "ko-KR"</code> 시그널 mismatch ③ shortcuts 4개 한국 path(<code>/tools/salary/</code>·<code>/tools/age/</code>) — 영어판에 미존재 → 클릭 시 한국 페이지·404 ④ description "59가지+저장공간" 한국 시장 메시지</li>
+              </ul>
+              <h3>핵심 결정 — <code>scope=/en/</code> 격리</h3>
+              <p>한국·영어 manifest가 같은 <code>/</code> scope를 두면 브라우저 동작 모호. PWA spec 다국어 패턴 = <b>path-scoped manifest가 표준</b>. 영어 PWA 설치자가 한국 토글 클릭 시 PWA 밖으로 navigate(일반 브라우저). 한국 사용자는 기존 <code>/</code> scope manifest 그대로 사용 → 한·영 PWA 동작 분리.</p>
+              <h3>shortcuts 영어 도구 선정</h3>
+              <p>한국 manifest의 <code>/tools/salary/</code>·<code>/tools/age/</code>(한국 특화) → 영어권 hot으로 대치: <b>Compound interest</b>(투자 핵심)·<b>BMI</b>(헬스 universal)·<b>Image compress</b>(파일 크기 보편 needs)·<b>Merge PDF</b>(생산성 핵심). 모바일/데스크톱 PWA 아이콘 길게 누름 시 quick-action 메뉴.</p>
+              <h3>icons는 공유</h3>
+              <p>아이콘은 절대 경로(<code>/pwa-icon.svg</code>·<code>/pwa-icon-192.png</code>·<code>/pwa-icon-512.png</code>)라 한국과 동일 4 entry 그대로 사용. brand-only(<code>TAYSTUDIO</code> SVG)라 영어판 별도 디자인 불요. 향후 영어 카피 추가 시 <code>/en/pwa-icon-*</code> 분기.</p>
+              <h3>Image row 라벨 wrap 사이드 fix</h3>
+              <p>quick-list 5 row 중 Image row만 둘째 줄로 wrap. "Background remove" 17 char로 길어 5 link + "All →"이 한 줄에 못 들어감. → "Remove BG"(<a href="https://remove.bg" target="_blank" rel="noopener">remove.bg</a> 사이트 관습 라벨) 9 char로 단축 → 한 줄 fit.</p>
+              <h3>scope 밖 (별도 작업)</h3>
+              <ul>
+                <li>한국 manifest "TayTools" 브랜드 → "TAYSTUDIO" 통일</li>
+                <li>영어 전용 PWA 아이콘 디자인 (현재 brand-only 재사용 OK)</li>
+                <li><code>common/site-chrome.js</code> 자동 swap 로직 — 정적 link로 충분</li>
+              </ul>
+              <p>plan_en.md §9.7 참고. <b>다음 1순위</b> = cross-category nav 보강 (5 hub 상호 link, internal linking 권위 분배).</p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-10</span>
+            <span class="tl-tag fix">home Phase B 반영 누락분 fix</span>
+            <span class="tl-tag">commit a6a60a8 — 영어판 첫 launch</span>
+          </div>
+          <div class="tl-title">🏠 영어 home <code>/en/</code> 5 카드 LIVE 활성화 — Phase B 마무리 누락분 fix · 첫 launch commit 104 file 일괄</div>
+          <div class="tl-summary">
+            사용자 지적: "/en/index.html 카드 활성화 안 되어 있는 거 같은데?" — 정확. Phase B(<a href="#">§9.4</a>)에서 image/PDF/video/text 4 카테고리 hub + 28선 LIVE 됐는데 home은 Phase A 시점(<code>coming</code> class 4 카드 + quick-list "coming soon" 4 row) 그대로 멈춰있음. <b>fix</b> = hub-grid 5 카드 LIVE 활성(Calculators 8/Image 9/PDF 5/Video 5/Text 1) + quick-list 19 link + SEO meta·JSON-LD <code>hasPart</code> 5 entry. commit <code>a6a60a8</code>(영어판 첫 launch — 104 file, +19295 −24)에 5/9~5/10 일괄(Phase A baseline·Phase B·SEO audit·home fix + 한국 source 31 hreflang + sitemap·infra)이 한 번에 묶여 들어감.
+          </div>
+          <details class="tl-detail">
+            <summary>상세 — 진입점 죽은 카드 위험 + 첫 launch commit 구성</summary>
+            <div class="tl-detail-body">
+              <h3>왜 critical fix였나</h3>
+              <p>home은 영어판 <b>모든 진입점</b>(5 카드 + quick-list)이라 죽은 카드로 표시되면 클릭 → coming soon → 이탈. Phase B에서 28선 다 LIVE 했는데 home에서 "Coming soon" 노출되면 사용자가 도구가 없다고 판단·이탈. plan_en.md §9.6 누락 항목.</p>
+              <h3>fix 내용</h3>
+              <ul>
+                <li><code>en/index.html</code> hub-grid 5/5 LIVE: <code>&lt;div class="hub-card coming"&gt;</code> → <code>&lt;a class="hub-card" href="./&lt;cat&gt;/"&gt;</code> + LIVE dot + tool count</li>
+                <li>quick-list 19 link: Calculators 5(compound·bmi·calorie·loan·savings) + Image 5(heic-to-jpg·crop·id-photo·compress·bg-remove) + PDF 4(merge·split·edit·pdf-to-image) + Video 5(compress·trim·rotate·to-gif·to-mp3) + Text 1(counter)</li>
+                <li>SEO meta 일관성: og:title·og:description·meta description·twitter:description "28 tools live" 반영. JSON-LD WebSite <code>hasPart</code> Image·PDF·Video·Text 4 entry 추가(기존 Calculators 1 entry → 5 entry). hub-intro body stale 표현("calculators are live now, image/PDF/video next") 제거</li>
+              </ul>
+              <h3>commit <code>a6a60a8</code> 구성 (104 file · +19,295 / −24)</h3>
+              <ul>
+                <li>en/ 35 file 신규: home + 4 카테고리 hub + 28 도구 + index + vendor + JS</li>
+                <li>한국 source 30 file hreflang 양방향 (image/pdf/video/text/tools 등)</li>
+                <li>인프라: <code>common/site-chrome.js</code> <code>TRANSLATED_PATHS</code> 33 path · <code>sitemap.xml</code> 71→102 URL</li>
+                <li>history/index_en.html dashboard 신설 + history/migration/concept/ 이동 + <code>history/plan/</code> 디렉토리 신설(plan.md 이동·plan_en.md 신설)</li>
+                <li>Stash pop conflict 4 file resolve(<code>index.html</code>·<code>tools/index.html</code>·<code>tools/compound/index.html</code>·<code>plan.md → history/plan/plan.md</code> rename)</li>
+              </ul>
+              <p>plan_en.md §9.6 참고.</p>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item">

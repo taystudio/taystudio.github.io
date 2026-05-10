@@ -281,7 +281,7 @@
   - SEO meta 일관성: og:title에 text 추가 / og:description·meta description·twitter:description = "28 tools live" 반영 / JSON-LD WebSite hasPart에 Image·PDF·Video·Text 4 entry 추가 (기존 Calculators 1 entry → 5 entry) / hub-intro body 본문 stale 표현("calculators are live now, image/PDF/video next") 제거 → "28 everyday tools" 단일 메시지로 통일
 - **잔여 CSS**: `.hub-card.coming` / `.ql-row.coming` rule은 둠 (향후 새 카테고리 추가 시 재사용 가능, 한국판도 동일 패턴)
 - **검증**: `grep coming` markup 0건 (CSS 4 라인만), 카드 5/5 LIVE, quick-list 19 link, hreflang·canonical 변동 없음
-- **commit 안 함** — 사용자 검토 후 결정 (memory feedback: commit/push은 명시 요청 시에만)
+- **commit**: `a6a60a8 feat: 영어판 28선 launch — en/ 35 file + 5 hub + home 5/5 LIVE + i18n` (104 file · +19295 -24, 영어판 첫 launch commit으로 5/9~5/10 작업 일괄 + Korean source hreflang + sitemap + history dashboard·plan doc 이동 묶음)
 
 ### 9.7 2026-05-10 — Gap 2 `/en/manifest.webmanifest` 다국어 PWA ✅
 - **사용자 결정 (이전 turn)**: home Phase B 반영 fix(§9.6) 후 Gap 2 진입
@@ -293,6 +293,8 @@
   - **34 `/en/*.html` link 갱신** — `<link rel="manifest" href="/manifest.webmanifest">` → `/en/manifest.webmanifest`. find + sed 일괄
 - **scope 격리 효과**: 영어 PWA 설치자가 한국 토글 클릭 시 PWA 밖으로 navigate(일반 브라우저), 한국 사용자는 기존 `/` scope manifest 그대로 사용 → 한·영 PWA 동작 분리
 - **검증**: `python3 -m json.tool` JSON validity OK · stale `/manifest.webmanifest` 0건 · 새 `/en/manifest.webmanifest` 34건
+- **사이드 fix (같은 commit ea9e3bc)**: `en/index.html` quick-list Image row "Background remove" → "Remove BG" (17→9 char). flex-wrap 발생해 "All →"이 둘째 줄로 떨어지던 문제 해소 — 5 link + All → 한 줄 fit. remove.bg 사이트 관습 라벨 차용
+- **commit**: `ea9e3bc feat: 영어판 PWA manifest 다국어 (Gap 2) + Image row 라벨 fix` (36 file · +124 -45)
 - **scope 밖 (별도 작업)**: 한국 manifest "TayTools" 브랜드 → "TAYSTUDIO" 통일, 영어 전용 PWA 아이콘 디자인, `common/site-chrome.js` 자동 swap 로직 추가 (정적 link로 충분)
 
 ### 9.8 다음 세션 진입 후보

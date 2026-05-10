@@ -132,14 +132,14 @@
 <body>
   <header class="site-header">
     <a href="../" class="logo">TAYSTUDIO</a>
-    <nav><a href="../tools/" style="margin-right:16px">Tools</a><a href="./" style="color:var(--primary)">History</a></nav>
+    <nav><a href="../tools/" style="margin-right:16px">Tools</a><a href="./" style="color:var(--primary);margin-right:16px">History</a><a href="./index_en.html">영어판 (EN) →</a></nav>
   </header>
   <main class="container">
     <div class="breadcrumb"><a href="../">Home</a> · 변경 이력</div>
     <h1>📜 변경 이력</h1>
     <p class="subtitle">사이트에서 일어난 일을 시간 역순으로 — 도구 추가, 세율 갱신, SEO·인프라 작업까지.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
-      <b>마지막 갱신</b>: 2026-05-09 · <span style="opacity:.7">tools/monitor 신규(PPI·시야거리·4K 변별 + 4 사용 목적별 추천 카드) · 쿠팡 파트너스 가입(AF4086854) + 위젯 4·추천링크 4 박힘(AdSense 승인 전까지 CSS hide) · 사이트 일관성 38선/60도구 · 헤더 깜박임 완전 해결(70 HTML script head·blocking 이동 + min-height 예약 + install 버튼 캐시) · index.html PDF 라벨 vertical line 정렬. 도구 <b>60선</b>, sitemap <b>68 URL</b>, SW <b>v14</b>. 개별 article은 작성·정리 시점이 다를 수 있으며, 정확한 시각이 기록된 경우에만 표시합니다</span>
+      <b>마지막 갱신</b>: 2026-05-10 · <span style="opacity:.7"><b>영어판 <code>/en/</code> 28선 일괄 launch</b>(image 9·PDF 5·video 5·text 1·calc 7 + 4 카테고리 hub) + Phase A·B + SEO audit + home fix + Gap 2 PWA manifest 다국어. 한 세션 22분 wall time(5 agent 병렬). 한국 source 31파일 hreflang · sitemap 71→102 URL · site-chrome.js i18n. commit <code>a6a60a8</code>·<code>ea9e3bc</code>. 한국 시장 무영향. <b>5/9 작업</b>: tools/monitor 신규 + 쿠팡 파트너스 위젯 8개(AdSense 승인 전 CSS hide) + 사이트 일관성 38선/60도구 + 헤더 깜박임 완전 해결. 도구 <b>한국 60선 + 영어 28선</b>, sitemap <b>102 URL</b>, SW <b>v14</b>. 영어판 진행 이력 = <a href="./index_en.html" style="color:var(--primary)">history/index_en.html</a> · 영어판 plan = <a href="./plan/plan_en.md" style="color:var(--primary)"><code>history/plan/plan_en.md</code></a></span>
     </p>
 
     <div class="legend">
@@ -149,6 +149,48 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item major">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-10</span>
+            <span class="tl-tag feature">영어판 <code>/en/</code> 28선 일괄 launch</span>
+            <span class="tl-tag">commit a6a60a8 · ea9e3bc</span>
+          </div>
+          <div class="tl-title">🌐 영어판 <code>/en/</code> 28선 일괄 launch + Gap 2 PWA manifest 다국어 — 한 세션 22분 wall time(5 agent 병렬), 한국 시장 무영향</div>
+          <div class="tl-summary">
+            한국 시장 본체와 별도 트랙. 5/10 한 세션에 영어 universal <b>28선 전부 LIVE</b> + 4 카테고리 hub(<code>/en/image/</code>·<code>/en/pdf/</code>·<code>/en/video/</code>·<code>/en/text/</code>·<code>/en/tools/</code>) + Phase B 일괄(image 9·PDF 5·video 5·text 1·calc 7) + SEO audit 9 영역 통과 + home Phase B 반영 fix + Gap 2 PWA manifest 다국어(<code>scope=/en/</code>). 5 agent 병렬 dispatch로 sequential 8시간 작업을 22분으로 단축. 한국 source 31파일 hreflang 양방향 · sitemap 71→102 URL · <code>common/site-chrome.js</code> i18n(언어 감지·토글·<code>TRANSLATED_PATHS</code> 33 path) · <code>history/plan/plan_en.md</code> 운영 doc 분리. 영어판 상세 = <a href="./index_en.html" style="color:var(--primary)">영어판 진행 이력 (EN) →</a>
+          </div>
+          <details class="tl-detail">
+            <summary>상세 — 의사결정·commit 구성·한국 시장 영향 0</summary>
+            <div class="tl-detail-body">
+              <h3>왜 5/10에 영어판을 일괄 출시했나</h3>
+              <p>5/7 stash로 보관한 영어 Pilot scaffold(compound 1선) → 5/10 stash pop·도메인 갱신·conflict resolve 후 Phase A baseline 복원. 사용자 결정 = "다 만들어줘" — image/PDF/video/text/calculator universal 28선 한 세션에 일괄 출시. 이유 = ① 28선 모두 한국판 universal 도구라 코드 재사용(~47%) ② UI 라벨만 영어로 번역하면 됨 ③ 5 agent 병렬 dispatch로 작업 단축 가능. 권장 시점 조건(한국 5000+ MAU·AdSense 안정 수익) 미충족 상태에서 사용자 조기 진입 결정.</p>
+              <h3>commit 2개 구성</h3>
+              <ul>
+                <li><b><code>a6a60a8</code></b> (영어판 첫 launch): 104 file · +19,295 / −24. en/ 35 file 신규 + 한국 source 30 file hreflang + 인프라 + history doc 이동 + stash pop conflict resolve 4 file</li>
+                <li><b><code>ea9e3bc</code></b> (Gap 2 + Image fix): 36 file · +124 / −45. <code>/en/manifest.webmanifest</code> 신규(scope=/en/, lang=en-US, shortcuts 4 영어 path) + 34 <code>/en/*.html</code> manifest href sed + <code>en/index.html</code> quick-list Image row "Background remove" → "Remove BG" 라벨 wrap fix</li>
+              </ul>
+              <h3>한국 시장 영향 = 0</h3>
+              <ul>
+                <li>한국 manifest 변경 없음 (lang=ko-KR · scope=/ 유지) → 한국 PWA 무영향</li>
+                <li>한국 페이지 본문 변경 없음 (hreflang 3줄만 추가 — Google 다국어 시그널 향상)</li>
+                <li>도메인 권위 — <code>taystudios.com</code>의 한국 시장 권위 일부를 영어판 흡수(Google subdirectory 패턴), 한국에 손해 없음</li>
+                <li>monetization 트랙 — AdSense·쿠팡 파트너스(한국)는 영어판과 별개. 영어판 affiliate는 추후 Amazon Associates 등 별도 트랙</li>
+              </ul>
+              <h3>다음 진입 후보 (영어판 §9.8)</h3>
+              <ol>
+                <li>cross-category nav 보강 (5 hub 상호 link, internal linking 권위 분배) — 1순위</li>
+                <li>AI 초안 번역 품질 사용자 검수 (image 우선)</li>
+                <li>IndexNow ping <code>/en/*</code> 신규 32 URL</li>
+                <li>Phase C-1 Reddit 시드 게시 (Pilot 검증 1~2주 후, r/InternetIsBeautiful 등)</li>
+              </ol>
+              <p>한국 plan §10 항목 10 갱신본 + 영어판 plan(<a href="./plan/plan_en.md" style="color:var(--primary)"><code>history/plan/plan_en.md</code></a>) §9.1~§9.8 + 영어 dashboard(<a href="./index_en.html" style="color:var(--primary)">history/index_en.html</a>) 5/10 article 4개 참고.</p>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item">
