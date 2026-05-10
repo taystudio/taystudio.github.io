@@ -1,0 +1,70 @@
+{
+  "name": "TAYSTUDIO — Free privacy-first browser tools",
+  "short_name": "TAYSTUDIO",
+  "description": "28 free everyday tools — calculators, image, PDF, video, and text utilities. All processing in your browser, no upload, no signup.",
+  "start_url": "/en/",
+  "scope": "/en/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f1115",
+  "theme_color": "#7c3aed",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["finance", "productivity", "utilities", "multimedia", "photo"],
+  "icons": [
+    {
+      "src": "/pwa-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Compound interest calculator",
+      "short_name": "Compound",
+      "description": "Future value with compound growth",
+      "url": "/en/tools/compound/",
+      "icons": [{ "src": "/pwa-icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "BMI calculator",
+      "short_name": "BMI",
+      "description": "Body Mass Index — WHO classification",
+      "url": "/en/tools/bmi/",
+      "icons": [{ "src": "/pwa-icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Image compress",
+      "short_name": "Compress",
+      "description": "Reduce JPG/PNG size in your browser",
+      "url": "/en/image/compress/",
+      "icons": [{ "src": "/pwa-icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Merge PDF",
+      "short_name": "Merge PDF",
+      "description": "Combine multiple PDFs into one",
+      "url": "/en/pdf/pdf-merge/",
+      "icons": [{ "src": "/pwa-icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

@@ -2,9 +2,9 @@
 
 > 영어 사이트(`/en/`) 전용 운영 plan. 한국판 [plan.md](./plan.md)와 분리 — 한국판은 한국 시장 60 도구·세금·부동산·노동법 본체, 영어판은 universal subset만 다룸. 본 문서 = 한국판 plan.md 핵심 요약 + 영어 진입 의사결정·로드맵·진행 기록.
 
-**최종 갱신**: 2026-05-10 (Phase B 완료 + SEO audit + HowTo parity + `/en/` home Phase B 반영)
-**현재 상태**: **Phase A + B 완료 + SEO audit 통과 + home 카드 5종 LIVE** — 영어 universal 28선 전부 live + 4 카테고리 hub + Korean source 31파일 hreflang + `TRANSLATED_PATHS` whitelist 33 path + sitemap.xml 71→102 URL + HowTo schema 한·영 9/9 parity + `/en/` home hub-grid 5/5 LIVE + quick-list 19 도구 link 노출
-**다음 진입 후보**: Gap 2 (`/en/manifest.webmanifest` 다국어) → cross-category nav 보강 → Phase C 외부 채널
+**최종 갱신**: 2026-05-10 (Phase B 완료 + SEO audit + HowTo parity + `/en/` home Phase B 반영 + Gap 2 manifest 다국어)
+**현재 상태**: **Phase A + B 완료 + SEO audit 통과 + home 카드 5종 LIVE + 영어 PWA manifest 격리** — 영어 universal 28선 전부 live + 4 카테고리 hub + Korean source 31파일 hreflang + `TRANSLATED_PATHS` whitelist 33 path + sitemap.xml 71→102 URL + HowTo schema 한·영 9/9 parity + `/en/` home hub-grid 5/5 LIVE + `/en/manifest.webmanifest` 신규(scope=/en/, lang=en-US, shortcuts 4 영어 path)
+**다음 진입 후보**: cross-category nav 보강 → AI 번역 검수 → Phase C 외부 채널
 
 ---
 
@@ -117,7 +117,7 @@
 - ✅ **`<html lang>`·`<og:locale>` 자동 감지** = 모든 영어 페이지 path 명시 기준 동작
 - ✅ **AdSense·GA4** = path별 자동 측정 (코드 변경 X)
 - ✅ **HowTo JSON-LD parity** = 한·영 9/9 일치 (5/10 추가 fix). `image/id-photo`·`image/qr-gen` 영어판 누락분 보강 — SERP rich snippet 후보 회복
-- ⚠ **`manifest.webmanifest` 다국어** = `/en/manifest.webmanifest` 별도 신규 + 34파일 link 갱신 (다음 진입 = **Gap 2**). PWA 설치 UX + mobile-friendly 시그널
+- ✅ **`manifest.webmanifest` 다국어 (Gap 2)** = `/en/manifest.webmanifest` 신규(scope=/en/, lang=en-US, shortcuts 4 영어 path) + 34파일 link 갱신 (5/10 처리, §9.7). PWA 설치 시 영어 메타·영어 단축키 노출, scope 격리로 한·영 PWA 분리
 - ⚠ og-image 영어 변형 — 현재 brand-only(`TAYSTUDIO`)라 재사용 OK, 영어 카피 추가 시 별도 SVG 생성 (보류)
 - ⚠ IndexNow ping `/en/*` URL — Pilot 검증(1~2주) 후 결정. 진입 명령:
   ```bash
@@ -283,16 +283,25 @@
 - **검증**: `grep coming` markup 0건 (CSS 4 라인만), 카드 5/5 LIVE, quick-list 19 link, hreflang·canonical 변동 없음
 - **commit 안 함** — 사용자 검토 후 결정 (memory feedback: commit/push은 명시 요청 시에만)
 
-### 9.7 다음 세션 진입 후보
-- **🎯 Gap 2 — `/en/manifest.webmanifest` 다국어** (다음 1순위, 사용자 결정 대기)
-  - 영어 manifest 신규 작성 (name·short_name·description 영어, lang=en-US, shortcuts → universal 도구로 갱신)
-  - 34 `/en/*` HTML의 `<link rel="manifest">` 갱신
-  - PWA 설치 UX + mobile-friendly SEO 시그널 강화
-- **cross-category nav 보강** — `en/image/`·`en/pdf/`·`en/video/`·`en/text/`·`en/tools/` 5 hub의 related-nav 상호 link (internal linking)
+### 9.7 2026-05-10 — Gap 2 `/en/manifest.webmanifest` 다국어 PWA ✅
+- **사용자 결정 (이전 turn)**: home Phase B 반영 fix(§9.6) 후 Gap 2 진입
+- **문제**: `/en/*` 34 HTML 모두 한국어 `manifest.webmanifest` 참조 중 → 영어 PWA 설치 시 ① name "TayTools — 자주 쓰는 무료 도구" 한국어 ② lang=ko-KR 시그널 mismatch ③ shortcuts 4개 한국 path(`/tools/salary/`·`/tools/age/`) — 영어판에 미존재 → 클릭 시 한국 페이지·404 ④ description "59가지+저장공간" 한국 시장 메시지
+- **fix 내용**:
+  - **`/en/manifest.webmanifest` 신규** — name=TAYSTUDIO, short_name=TAYSTUDIO, description="28 free everyday tools..." 영어, start_url=`/en/`, **scope=`/en/`** (영어 PWA 격리, PWA spec 다국어 표준 패턴), lang=en-US, dir=ltr, theme_color/background_color 한국과 동일 (브랜드 일관)
+  - **icons 4 entry** = 한국 manifest와 동일 (`/pwa-icon.svg`·`/pwa-icon-192.png`·`/pwa-icon-512.png` any/maskable). 절대 경로라 변경 불요
+  - **shortcuts 4** = `/en/tools/compound/`(Compound interest)·`/en/tools/bmi/`(BMI)·`/en/image/compress/`(Image compress)·`/en/pdf/pdf-merge/`(Merge PDF). 한국 mirror 패턴(salary→compound, age→BMI 영어권 hot 도구로 대치)
+  - **34 `/en/*.html` link 갱신** — `<link rel="manifest" href="/manifest.webmanifest">` → `/en/manifest.webmanifest`. find + sed 일괄
+- **scope 격리 효과**: 영어 PWA 설치자가 한국 토글 클릭 시 PWA 밖으로 navigate(일반 브라우저), 한국 사용자는 기존 `/` scope manifest 그대로 사용 → 한·영 PWA 동작 분리
+- **검증**: `python3 -m json.tool` JSON validity OK · stale `/manifest.webmanifest` 0건 · 새 `/en/manifest.webmanifest` 34건
+- **scope 밖 (별도 작업)**: 한국 manifest "TayTools" 브랜드 → "TAYSTUDIO" 통일, 영어 전용 PWA 아이콘 디자인, `common/site-chrome.js` 자동 swap 로직 추가 (정적 link로 충분)
+
+### 9.8 다음 세션 진입 후보
+- **cross-category nav 보강** (1순위) — `en/image/`·`en/pdf/`·`en/video/`·`en/text/`·`en/tools/` 5 hub의 related-nav 상호 link (internal linking 권위 분배)
 - **사용자 검수 — AI 초안 번역 품질 review** — 카테고리별 어색한 표현·도메인 용어·FAQ 답변 점검. 첫 리뷰 = image (사용자 우선순위 1순위)
 - **IndexNow ping `/en/*` 신규 32 URL** — sitemap 갱신 직후 가능. `bash scripts/indexnow-ping.sh`
 - **Phase C-1: Reddit 시드 게시 1회** — Pilot 검증 1~2주 후 (사용자 결정). r/InternetIsBeautiful·r/usefulwebsites 권장
 - **사용자 검토 후속**: kbd-convert·sns-format(text/) ko-only 유지 결정 재확인, `id-photo` preset 변경 검토
+- **한국 manifest "TayTools" → "TAYSTUDIO" 통일** (Gap 2 scope 밖, 별도)
 
 ---
 
