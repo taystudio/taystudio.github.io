@@ -494,6 +494,36 @@ class SiteFooter extends HTMLElement {
 customElements.define('site-header', SiteHeader);
 customElements.define('site-footer', SiteFooter);
 
+// 언어 환영 카드 — root·/en/ home hero에 박힌 <aside.lang-welcome-card data-target-lang="...">.
+// shouldShowLangBanner()와 같은 조건(브라우저 mismatch + dismiss·lang-pref 미설정)에서 visible.
+// banner와 localStorage 키 공유 → 카드 dismiss 또는 CTA 클릭 시 banner도 함께 사라짐 (UX 일관).
+function setupLangWelcomeCard() {
+  if (!shouldShowLangBanner()) return;
+  const targetLang = LANG === 'ko' ? 'en' : 'ko';
+  const card = document.querySelector(`.lang-welcome-card[data-target-lang="${targetLang}"]`);
+  if (!card) return;
+  card.removeAttribute('hidden');
+  const cta = card.querySelector('[data-card-cta]');
+  if (cta) {
+    cta.addEventListener('click', () => {
+      try { localStorage.setItem('taystudio.lang-pref', targetLang); } catch (_) {}
+    });
+  }
+  const dismiss = card.querySelector('[data-card-dismiss]');
+  if (dismiss) {
+    dismiss.addEventListener('click', () => {
+      try { localStorage.setItem('taystudio.lang-banner-dismissed', '1'); } catch (_) {}
+      card.setAttribute('hidden', '');
+      document.querySelector('#ts-lang-banner')?.remove();
+    });
+  }
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupLangWelcomeCard);
+} else {
+  setupLangWelcomeCard();
+}
+
 // PWA Service Worker — 사이트 전체 scope `/`. 60+ 페이지에 인라인 register 두는 대신 한 군데로 통합.
 // 기존 `/tools/sw.js`(scope `./tools/`) 등록은 자동 정리 — root SW로 마이그레이션.
 (function registerServiceWorker() {

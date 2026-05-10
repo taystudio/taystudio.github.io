@@ -2,7 +2,7 @@
 
 > 영어 사이트(`/en/`) 전용 운영 plan. 한국판 [plan.md](./plan.md)와 분리 — 한국판은 한국 시장 60 도구·세금·부동산·노동법 본체, 영어판은 universal subset만 다룸. 본 문서 = 한국판 plan.md 핵심 요약 + 영어 진입 의사결정·로드맵·진행 기록.
 
-**최종 갱신**: 2026-05-10 (Phase B 완료 + SEO audit + HowTo parity + `/en/` home Phase B 반영 + Gap 2 manifest 다국어 + 후속 보강 4 step + 5 카테고리 검수 doc 풀세트 + **lang banner + 헤더 토글 강조 (외국인 root 진입 UX)**)
+**최종 갱신**: 2026-05-10 (Phase B 완료 + SEO audit + HowTo parity + `/en/` home Phase B 반영 + Gap 2 manifest 다국어 + 후속 보강 4 step + 5 카테고리 검수 doc 풀세트 + lang banner + 헤더 토글 강조 + **hero 환영 카드** (외국인 root 진입 시 "한 번에 발견" UX 강화))
 **현재 상태**: **Phase A + B 완료 + SEO audit 통과 + home 카드 5종 LIVE + 영어 PWA manifest 격리 + 후속 보강 4 step 완료 + 5 카테고리 검수 doc 풀세트 + 양방향 lang banner** — 영어 universal 28선 전부 live + 4 카테고리 hub + Korean source 31파일 hreflang + `TRANSLATED_PATHS` whitelist 33 path + sitemap.xml 71→102 URL + HowTo schema 한·영 9/9 parity + `/en/` home hub-grid 5/5 LIVE + `/en/manifest.webmanifest` 신규(scope=/en/, lang=en-US, shortcuts 4 영어 path) + 5 hub cross-category nav 4 link씩 + 한국 manifest "TayTools" → "TAYSTUDIO" 통일 + `/og-image-en.png` 영어 변형(34 file 갱신) + 검수 doc 5종(87KB) + **smart lang banner (BROWSER_LANG mismatch 감지 · localStorage 기억 · 양방향 ko↔en) + 헤더 lang-toggle 글로브 강조**
 **다음 진입 후보**: AI 번역 검수 사용자 review (5 카테고리 doc 준비됨) → IndexNow ping `/en/*` → Phase C 외부 채널
 
@@ -340,7 +340,20 @@
 - **한국 사용자 영향 0**: 한국 브라우저면 mismatch X → banner 안 노출. 헤더 토글만 box 스타일 강조됨 (한국 사용자에게도 시각 개선)
 - **scope 밖 (의식적 비채택)**: ① auto redirect — SEO 위험 + 한국 영어 OS 사용자 의도치 않은 redirect ② language picker landing — 한국 시장 SEO 권위 약화 + 한국 사용자 1 클릭 friction ③ 국가 emoji (🇺🇸/🇰🇷) — Taiwan/HK 등 정치 민감 회피, universal `🌐` 채택 ④ 다른 언어 (중국어·일본어 등) — 본 작업은 ko/en 양방향만
 
-### 9.10 다음 세션 진입 후보
+### 9.10 2026-05-10 — Hero 환영 카드 (외국인 root 진입 "한 번에 발견" UX) ✅
+- **사용자 추가 결정**: lang banner(§9.9)는 좋지만 작아서 놓칠 수 있음 → "한 번에 알 수 있는" 강화 필요. 4 옵션(Welcome modal / Hero 환영 카드 / banner 확대 / Floating button) 중 **Hero 환영 카드** 채택 (Recommended)
+- **fix 내용**:
+  - **`index.html` (한국 home) hero 안에 영어 환영 카드** — `<aside class="lang-welcome-card" data-target-lang="en" hidden>` 추가. 카피: "🌐 You're viewing the Korean version" + sub "All 28 tools are also available in English — privacy-first, no upload, no signup." + CTA `Switch to English →` (큰 파란 버튼) + dismiss × 버튼
+  - **`en/index.html` 영어 home hero 안에 한국어 환영 카드** — 동일 패턴, `data-target-lang="ko"`. 카피: "🌐 한국어 페이지가 따로 있어요" + sub "28개 도구 모두 한국어로 이용 가능합니다" + CTA `한국어로 보기 →` + ×
+  - **`common/css/style.css` `.lang-welcome-card` 스타일** — flex layout (icon + body + actions) · 파란 accent linear-gradient 배경 + border-radius 14px · CTA 버튼 box-shadow + hover transform · 모바일 ≤640px wrap 대응 (actions full width)
+  - **`common/site-chrome.js` `setupLangWelcomeCard()`** 신규 — `shouldShowLangBanner()` 같은 조건 재사용 (브라우저 mismatch + dismiss·lang-pref 미설정). 카드 found 시 hidden 제거 + CTA 클릭(lang-pref 저장) + dismiss 클릭(lang-banner-dismissed 저장 + banner도 함께 사라짐, UX 일관). DOMContentLoaded 또는 즉시 호출
+- **localStorage 키 공유**: lang banner와 동일 키 (`lang-banner-dismissed`·`lang-pref`) → 카드 dismiss 한 번에 banner도 사라짐, 한 시그널 — 기억 일관
+- **SEO 무영향**: 카드 markup은 정적 HTML이지만 `hidden` 속성으로 default 비표시. CSS `[hidden] { display: none; }`이라 search bot이 보더라도 페이지 본문 영향 X. canonical·hreflang 무영향
+- **검증**: localhost 200 OK 4/4 · root에 영어 카드 markup 1건 (`hidden` 적용) · /en/에 한국어 카드 1건 · CSS·JS 적용 · 한·영 home lang/canonical 그대로
+- **이중 안전망**: lang banner(헤더 위 sticky 좁은 bar) + hero 카드(본문 hero 안 큰 카드) → 외국인이 1순위로 카드 인지, banner는 보조. dismiss 시 둘 다 사라짐
+- **한국 사용자 영향 0**: 한국 브라우저면 mismatch X → 카드 안 노출
+
+### 9.11 다음 세션 진입 후보
 - **사용자 검수 — AI 초안 번역 품질 review** (1순위, **5 카테고리 doc 풀세트 준비됨**) — `history/seo/2026-05-10-en-{image,pdf,video,text,calculators}-translation-review.md` 5개 보고 어색한 표현·도메인 용어·FAQ 답변 점검. 우선순위 = image → pdf → video → calculators → text (영어 시장 hot 순). 사용자 결정 시 patch 진행
 - **IndexNow ping `/en/*` 신규 32 URL** — sitemap 갱신 직후 가능. `bash scripts/indexnow-ping.sh`
 - **Phase C-1: Reddit 시드 게시 1회** — Pilot 검증 1~2주 후 (사용자 결정). r/InternetIsBeautiful·r/usefulwebsites 권장

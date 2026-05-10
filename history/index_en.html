@@ -122,7 +122,7 @@
     <p class="subtitle">TAYSTUDIO 영어 사이트(<code>/en/</code>) 진행 이력 — Pilot 결정·도메인 migration·Phase A·B 일괄 출시·SEO audit까지 시간 역순.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
       <b>마지막 갱신</b>: 2026-05-10 ·
-      <span style="opacity:.7">Phase A·B + SEO audit + home fix + Gap 2 manifest + audit 후속 보강 4 step + 5 카테고리 번역 검수 doc + <b>Smart lang banner + 헤더 토글 강조</b> — universal 28선 LIVE(image 9·PDF 5·video 5·text 1·calculator 8) + 4 카테고리 hub + 102 sitemap URL + Korean 31파일 hreflang + HowTo schema 한·영 9/9 parity + <code>/en/manifest.webmanifest</code> 다국어(scope=/en/) + 5 hub cross-category nav + 한국 manifest 브랜드 통일 + <code>og-image-en.png</code> 영어 변형 + 5 카테고리 검수 doc 87KB + <b>BROWSER_LANG mismatch banner(dismiss·CTA·localStorage 기억, 양방향 ko↔en)</b> + <b>헤더 lang-toggle 글로브+box 강조</b>. 핵심 SEO 시그널 34/34 production-ready. commit <code>a6a60a8</code>·<code>ea9e3bc</code> + 후속 6 step (commit 대기). 한국판 변경 이력은 <a href="./" style="color:var(--primary)">history/index.html</a> 참고. 영어판 운영 plan = <a href="./plan/plan_en.md" style="color:var(--primary)"><code>history/plan/plan_en.md</code></a>.</span>
+      <span style="opacity:.7">Phase A·B + SEO audit + home fix + Gap 2 manifest + audit 후속 보강 4 step + 5 카테고리 번역 검수 doc + Smart lang banner + 헤더 토글 강조 + <b>Hero 환영 카드</b> — universal 28선 LIVE(image 9·PDF 5·video 5·text 1·calculator 8) + 4 카테고리 hub + 102 sitemap URL + Korean 31파일 hreflang + HowTo schema 한·영 9/9 parity + <code>/en/manifest.webmanifest</code> 다국어(scope=/en/) + 5 hub cross-category nav + 한국 manifest 브랜드 통일 + <code>og-image-en.png</code> 영어 변형 + 5 카테고리 검수 doc 87KB + BROWSER_LANG mismatch banner(양방향 ko↔en) + 헤더 lang-toggle 글로브+box + <b>hero 안 큰 환영 카드(CTA 버튼·dismiss × · banner와 dismiss 키 공유)</b>. 핵심 SEO 시그널 34/34 production-ready. commit <code>a6a60a8</code>·<code>ea9e3bc</code>·<code>4bce701</code> + hero 카드 (commit 대기). 한국판 변경 이력은 <a href="./" style="color:var(--primary)">history/index.html</a> 참고. 영어판 운영 plan = <a href="./plan/plan_en.md" style="color:var(--primary)"><code>history/plan/plan_en.md</code></a>.</span>
     </p>
 
     <div class="ctx-card">
@@ -145,6 +145,7 @@
         <span class="pill live">5 카테고리 검수 doc 풀세트 ✅</span>
         <span class="pill live">Smart lang banner ✅</span>
         <span class="pill live">헤더 토글 글로브 강조 ✅</span>
+        <span class="pill live">Hero 환영 카드 ✅</span>
         <span class="pill todo">AdSense 검토 1~7일 대기</span>
         <span class="pill todo">번역 사용자 review (다음 1순위)</span>
       </div>
@@ -157,6 +158,57 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-10</span>
+            <span class="tl-tag feature">Hero 환영 카드</span>
+            <span class="tl-tag">외국인 "한 번에 발견" UX 강화</span>
+          </div>
+          <div class="tl-title">🎯 Hero 안 큰 환영 카드 — banner는 작아서 놓칠 수 있어 본문 hero에 박은 카드로 즉시 발견 (양방향 ko↔en, banner와 dismiss 키 공유)</div>
+          <div class="tl-summary">
+            사용자 추가 결정: 직전 commit(<code>4bce701</code>)의 lang banner는 좋지만 작아서 놓칠 수 있음 → "한 번에 알 수 있는" 강화. 4 옵션(Welcome modal / Hero 환영 카드 / banner 확대 / Floating button) 중 <b>Hero 환영 카드</b> 채택 (페이지 본문에 박혀 발견 100%, friction 없음). <code>index.html</code>(한국 home) hero에 영어 환영 카드 + <code>en/index.html</code>(영어 home) hero에 한국어 환영 카드. 큰 CTA 버튼(파란 box-shadow) + dismiss ×. <code>common/css/style.css</code>에 <code>.lang-welcome-card</code> 스타일(linear-gradient 배경·flex layout·모바일 wrap). <code>common/site-chrome.js</code>에 <code>setupLangWelcomeCard()</code>(<code>shouldShowLangBanner()</code> 조건 재사용 + DOMContentLoaded 호출). banner와 localStorage 키 공유(<code>lang-banner-dismissed</code>·<code>lang-pref</code>) → dismiss 한 번에 둘 다 사라짐. 이중 안전망 (banner = 헤더 위 sticky 좁은 bar / 카드 = 본문 hero 안 큰 카드).
+          </div>
+          <details class="tl-detail">
+            <summary>상세 — banner+카드 이중 안전망 + dismiss 키 공유 디자인</summary>
+            <div class="tl-detail-body">
+              <h3>왜 banner만으로 부족했나</h3>
+              <p>직전 commit의 lang banner는 헤더 위 sticky 좁은 bar(font-size 13px, padding 9px). 시선이 본문에 가 있는 외국인은 상단 bar를 못 보고 페이지 탐색·이탈. "한 번에 발견" 보장이 안 됨. → hero 영역(페이지 첫 화면 중앙)에 큰 카드로 박아 무조건 시야에 들어오게.</p>
+              <h3>카드 디자인</h3>
+              <ul>
+                <li>위치 = hero 안 (eyebrow + title + tagline 다음). 첫 화면 중앙</li>
+                <li>flex layout: 🌐 icon · 본문(title + sub) · actions(CTA + ×)</li>
+                <li>배경 = 파란 linear-gradient 은은한 강조 (rgba(37,99,235,0.08) → rgba(99,102,241,0.06))</li>
+                <li>CTA = 큰 파란 버튼 + box-shadow + hover transform</li>
+                <li>모바일 ≤640px = wrap, actions full width 분할</li>
+              </ul>
+              <h3>visibility 제어 (site-chrome.js)</h3>
+              <ul>
+                <li>카드 markup은 정적 HTML이지만 default <code>hidden</code> 속성</li>
+                <li><code>setupLangWelcomeCard()</code>에서 <code>shouldShowLangBanner()</code> 같은 조건 재사용 — 브라우저 mismatch + dismiss·lang-pref 미설정</li>
+                <li>조건 만족 시 <code>card.removeAttribute('hidden')</code> → 자연스럽게 노출</li>
+                <li>CTA 클릭 → <code>lang-pref</code> 저장 (사용자 명시 선택 학습)</li>
+                <li>dismiss × 클릭 → <code>lang-banner-dismissed</code> 저장 + 카드 hidden + <b>banner도 함께 제거</b> (UX 일관)</li>
+              </ul>
+              <h3>이중 안전망</h3>
+              <table>
+                <tr><th></th><th>위치</th><th>크기</th><th>역할</th></tr>
+                <tr><td>banner</td><td>헤더 위 sticky bar</td><td>좁음 (font 13px)</td><td>스크롤해도 따라옴, 보조</td></tr>
+                <tr><td>hero 카드</td><td>본문 hero 안</td><td>큰 카드 (CTA 버튼)</td><td>첫 화면 100% 발견, 1순위</td></tr>
+              </table>
+              <h3>SEO 무영향</h3>
+              <ul>
+                <li>카드 markup이 정적 HTML이지만 <code>hidden</code> 속성으로 default 비표시. CSS <code>[hidden] { display: none; }</code>이라 search bot이 본문으로 인식해도 노이즈 적음</li>
+                <li>canonical·hreflang·robots·sitemap 변동 0</li>
+                <li>localhost 검증 — 한·영 home lang/canonical 그대로</li>
+              </ul>
+              <p>plan_en.md §9.10 참고. <b>다음 1순위</b>는 5 카테고리 검수 doc 사용자 review.</p>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item">
