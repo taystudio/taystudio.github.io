@@ -160,3 +160,91 @@ NOW                     +1 (안정화 후)            +2 (또 안정화 후)
 ## 참고 — 메모리에 박은 평가 룰
 
 신규 도구 평가 시 5필터 자동 적용 룰을 메모리에 보관(`feedback_tool_candidate_filter.md`). 다음 검토 시 동일 함정 회피.
+
+---
+
+# 실행 결과 — 2026-05-10 (당일 완료)
+
+**실행 모드**: 사용자 결정으로 functional 5개 일괄 build (원래 plan은 1개씩 안정화 후 다음). 통합 timeline의 **선택지 A 변형** — functional 우선이지만 통상임금은 보류.
+
+## ✅ 완료한 것
+
+### Functional 도구 5개 (KO + EN)
+| URL | 검색량 | 상태 |
+|---|---|---|
+| `/image/format-convert/` (WebP/AVIF ↔ JPG/PNG) | 80k~150k | ✅ KO + EN |
+| `/image/watermark/` (텍스트·로고) | 30k~50k | ✅ KO + EN |
+| `/image/merge/` (가로·세로·격자 + 줌 컨트롤) | 40k~70k | ✅ KO + EN |
+| `/image/mosaic/` (블러·픽셀·검정 + 줌·강도 라이브) | 25k~40k | ✅ KO + EN |
+| `/pdf/pdf-stamp/` (워터마크·번호·**메타데이터** 편집) | 50k~90k | ✅ KO + EN |
+
+비밀번호 보호는 정적 환경의 PDF 암호화 라이브러리 한계로 컷 → 메타데이터 편집(제목·저자·키워드)으로 대체.
+
+### 인프라
+- ✅ NEW 배지 CSS (`.tool-card[data-new]::after`, 그라디언트·pulse)
+- ✅ image hub 9 → 13 카드 + ItemList schema 갱신
+- ✅ pdf hub 5 → 6 카드 + ItemList schema 갱신
+- ✅ KO ↔ EN 양방향 hreflang (5개 신규 도구)
+- ✅ sitemap.xml: 104 → 114 URL (KO 5 + EN 5 추가)
+
+### 계획 외 추가 작업 (사용자 ad-hoc 요청)
+- ✅ Hub 검색 필터 — 8 hub × 2 lang (image·pdf·text·video, KO + EN)
+  - `data-keywords` 데이터 소스 활용, site-chrome.js 자동 활성
+  - "/" 단축키 포커스, Esc 클리어, ✕ 버튼
+- ✅ tools/·en/tools/ 검색 마크업 통일 (.tool-search 컴포넌트)
+- ✅ Mosaic 좌표·사이즈 fix (rect-based scale)
+- ✅ Merge 세로 모드 잘림 fix (canvas aspect ratio, align-items)
+- ✅ 모바일 헤더 lang-toggle 우측 정렬 + 스케일 축소
+
+### 문서
+- ✅ `history/guide/monitoring/ga4-cloudflare-realtime.html`
+- ✅ `history/guide/monitoring/concept-cloudflare-analytics.html`
+- ✅ `history/current_sitemap_path/2026-05-10-sitemap-urls.md`
+- ✅ Cloudflare Web Analytics 셋업 (token `412699582bf74c0bbb767378e033c0ce`)
+
+## ⏳ 보류 (다음 재검토 시점)
+
+| 항목 | 사유 |
+|---|---|
+| **통상임금 계산기** | 노무 vertical 보강 1순위 — functional 5개 효과 데이터 회수 후 결정 |
+| **야근수당 계산기** | 통상임금 후속 (의존성: 통상임금 input value) |
+| **MP3 자르기 / 벨소리** | dwell 최장 후보, audio 카테고리 신규. 초기 5개 트래픽 안정화 후 검토 |
+| **유튜브 썸네일 다운로더** | ToS 회색지대 검토 + 트래픽 데이터 봐야 |
+
+## ❌ 명시적으로 컷한 것
+
+| 항목 | 컷 사유 |
+|---|---|
+| **글로벌 사이트 전역 검색** | 5필터 F1·F3·F5 fail. 카테고리 nav(헤더) + hub 검색(8곳) + related tools(도구별) 3겹으로 발견성 충분. 헤더 공간·manifest 유지보수 부담 |
+| **PDF 비밀번호 보호** | 정적 환경의 PDF 암호화 라이브러리 한계. Adobe Acrobat 권장 안내로 대체 |
+| **PDF 전자서명** | 한국 PASS·공인인증서 문화로 천장 낮음 |
+
+## 차이점 (계획 → 실행)
+
+1. **단일 출시 → 일괄 build**: 계획은 "1개씩 안정화 후 다음"이었으나 사용자 명시 요청 + 외부 에이전트 검증 통과 후 5개 일괄. 신중 모드 원칙과 약간 충돌하지만 candidates 자체는 5필터 통과한 안전 카드만.
+2. **PDF 비밀번호 → 메타데이터 편집**: pdf-lib 라이브러리 한계 발견 후 옵션 A 선택 (사용자 합의).
+3. **Hub 검색 신설**: 계획에 없었음. data-keywords 토대 이미 있어 저비용 구현, AdSense impression·dwell 부수효과 기대.
+4. **통상임금 후순위 전환**: 원래 1순위였으나 functional → 효과 측정 → 결정 흐름으로 변경.
+
+## 푸시한 commits (2026-05-10)
+
+| hash | 내용 |
+|---|---|
+| `c224583` | image·PDF 신규 도구 5개 (KO+EN) + NEW 배지 + 후보지 문서 |
+| `8663ae6` | hub 도구 검색 필터 — 8 hub × 2 lang |
+| `6846cc3` | tools/ · en/tools/ 검색창 형태 통일 |
+
+이전 동일 일자 commit:
+- `b890b3c` 모바일 헤더 lang-toggle 우측 정렬·스케일 축소 + Cloudflare Analytics 개념 문서
+- `f70a488` feat guide
+- `1dd0dd2` cloudflare update
+
+## 다음 재검토 시점 — 업데이트
+
+기존 트리거 + 추가:
+- ⏳ **2~4주 후 신규 5개 도구 실측 트래픽** — 추정치 ($800·$600·$320·$180·$600/월) 대비 실제. 추정 70%↓이면 vertical 다시 평가
+- ⏳ **WebP/AVIF SEO 검색결과 ranking 진입** — 1~3개월
+- ⏳ Hub 검색 사용률 — Cloudflare Web Analytics referrer + 자체 이벤트 (필요 시 추가)
+- AdSense 승인 결과 (수익 모델 검증)
+- 쿠팡 unhide
+- 검토 후 6개월 (2026-11-10)
