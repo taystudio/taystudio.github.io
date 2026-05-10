@@ -247,20 +247,27 @@ function wasInstallEligible() {
 function syncInstallButtons() {
   // 카카오·라인·페북 등 in-app 브라우저 = "외부 열기" 모드 (PWA install 미지원)
   // 미지원 환경(prompt X·iOS X·미설치·이전 eligible 캐시 X) = 숨김 / 설치됨 = 비활성 "✓ 설치됨" / 미설치 = 활성 "웹앱 설치"
+  // hero install card markup = <button class="install-cta"><span class="install-icon">⬇</span><span class="install-label">웹앱 설치</span></button>
+  // → 라벨 변경은 .install-label만 (icon 보존). legacy 단일 버튼은 .install-label 없으면 btn 자체 textContent fallback.
   const installed = isInstalled();
   const inApp = isInAppBrowser();
   const supported = inApp || deferredPrompt !== null || isIOS() || installed || wasInstallEligible();
   for (const btn of installButtonRefs) {
     btn.hidden = !supported;
+    const labelEl = btn.querySelector('.install-label') || btn;
     if (inApp && !installed) {
       btn.disabled = false;
-      btn.textContent = T.installExternal;
+      labelEl.textContent = T.installExternal;
       btn.title = T.installInAppTitle;
     } else {
       btn.disabled = installed;
-      btn.textContent = installed ? T.installDone : T.installPrompt;
+      labelEl.textContent = installed ? T.installDone : T.installPrompt;
       btn.title = installed ? T.installAlreadyTitle : T.installPromptTitle;
     }
+  }
+  // hero install container — 안 button이 visible해야 container도 visible (margin·gap 공간 차지 방지)
+  for (const container of document.querySelectorAll('.hero-install')) {
+    container.hidden = !container.querySelector('.install-cta:not([hidden])');
   }
 }
 
@@ -395,7 +402,6 @@ class SiteHeader extends HTMLElement {
           <a href="${LANG === 'en' ? BASE + '/en/image/' : BASE + '/image/'}" class="${cls('image')}">${T.navImage}</a>
           <a href="${LANG === 'en' ? BASE + '/en/pdf/' : BASE + '/pdf/'}" class="${cls('pdf')}">${T.navPdf}</a>
           <a href="${LANG === 'en' ? BASE + '/en/video/' : BASE + '/video/'}" class="${cls('video')}">${T.navVideo}</a>
-          <button type="button" id="ts-install-btn" class="install-btn" hidden title="${T.installPromptTitle}">${T.installPrompt}</button>
           <a href="${altUrl}" class="lang-toggle" title="${T.langToggleTitle}" rel="alternate" hreflang="${LANG === 'en' ? 'ko' : 'en'}">${T.langToggleLabel}</a>
         </nav>
       </header>
@@ -445,33 +451,28 @@ class SiteHeader extends HTMLElement {
         if (banner) banner.style.display = 'none';
       });
     }
-    const installBtn = this.querySelector('#ts-install-btn');
-    if (installBtn) {
-      installButtonRefs.push(installBtn);
-      installBtn.addEventListener('click', handleInstallClick);
-      syncInstallButtons();
-    }
-
-    // ≤480px = install을 header 직접 자식으로 옮김 → grid 2줄 layout에서 자유 배치.
-    // >480px = install을 nav 안 마지막 자식으로 (기존 데스크톱 위치 100% 보존).
-    // matchMedia change로 viewport rotation·DevTools resize 시에도 즉시 재배치.
-    const headerEl = this.querySelector('.site-header');
-    const navEl = this.querySelector('.site-nav');
-    if (installBtn && headerEl && navEl) {
-      const mq = window.matchMedia('(max-width: 480px)');
-      const placeInstall = () => {
-        if (mq.matches) {
-          if (installBtn.parentElement !== headerEl) headerEl.appendChild(installBtn);
-        } else {
-          if (installBtn.parentElement !== navEl) navEl.appendChild(installBtn);
-        }
-      };
-      placeInstall();
-      try { mq.addEventListener('change', placeInstall); }
-      catch (_) { mq.addListener(placeInstall); /* Safari < 14 */ }
-    }
   }
 }
+
+// Hero install card 자동 등록 — `[data-install-cta]` 마크업이 home (/, /en/) hero에 있음.
+// site-chrome.js는 `<head>` blocking이라 body parsing 전 실행 → DOMContentLoaded 대기.
+// 이전: 헤더에 install 버튼 박혀 layout shift (영/한 토글과 함께 자리 변동) → 5/10 hero로 이전.
+(function registerHeroInstallButtons() {
+  function init() {
+    const buttons = document.querySelectorAll('[data-install-cta]');
+    if (!buttons.length) return;
+    for (const btn of buttons) {
+      installButtonRefs.push(btn);
+      btn.addEventListener('click', handleInstallClick);
+    }
+    syncInstallButtons();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 
 class SiteFooter extends HTMLElement {
   connectedCallback() {

@@ -110,48 +110,6 @@ site-header {
   font-weight: 600;
 }
 
-/* PWA "웹앱 설치" 버튼 — 보라(#7c3aed)로 favicon blue·향후 native green과 강한 시각 구분.
-   manifest theme_color·pwa-icon.svg와 동일 색.
-   향후 native 안드로이드 앱 다운 버튼은 Play green(#01875F)으로 별도 색·텍스트(예: ".play-btn"). */
-.site-nav .install-btn {
-  font-size: 13px;
-  font-weight: 600;
-  color: #fff;
-  background: #7c3aed;
-  border: none;
-  padding: 6px 12px;
-  margin-left: 6px;
-  border-radius: 6px;
-  cursor: pointer;
-  white-space: nowrap;
-  font-family: inherit;
-  transition: background .15s, transform .1s;
-}
-
-.site-nav .install-btn:hover {
-  background: #6d28d9;
-}
-
-.site-nav .install-btn:active {
-  transform: scale(0.97);
-}
-
-.site-nav .install-btn[hidden] {
-  display: none;
-}
-
-/* 설치 완료 = 비활성 회색. 사용자에게 "이미 설치됨" 시각 피드백. */
-.site-nav .install-btn:disabled {
-  background: var(--muted);
-  cursor: not-allowed;
-  opacity: 0.85;
-}
-
-.site-nav .install-btn:disabled:hover {
-  background: var(--muted);
-  transform: none;
-}
-
 /* 언어 토글 — 헤더 우측, install 버튼 다음. 글로브 + 텍스트 box (외국인 자력 발견 가능하도록 강조). */
 .site-nav .lang-toggle {
   font-size: 12.5px;
@@ -246,15 +204,6 @@ site-header {
     grid-row: 1;
     font-size: 15px;
   }
-  /* install이 header 직접 자식일 때만 grid 1행 우측에 배치 (모바일 한정) */
-  .site-header > .install-btn {
-    grid-column: 2;
-    grid-row: 1;
-    margin-left: 0;
-    font-size: 12px;
-    padding: 5px 10px;
-    justify-self: end;
-  }
   .site-nav {
     grid-column: 1 / -1;
     grid-row: 2;
@@ -289,10 +238,6 @@ site-header {
   }
   .site-header .logo {
     font-size: 14px;
-  }
-  .site-header > .install-btn {
-    font-size: 11px;
-    padding: 4px 8px;
   }
   .site-nav {
     margin: 6px -8px 0;
@@ -1482,6 +1427,116 @@ button:hover {
   .hub-intro-body { font-size: 13.5px; line-height: 1.75; }
   .hub-faq summary { padding: 12px 14px; font-size: 13.5px; }
   .hub-faq .answer { padding: 0 14px 14px; font-size: 13px; }
+}
+
+
+/* PWA install CTA — home (/, /en/) hero 안 큰 카드 위치.
+   2026-05-10: 헤더 install 버튼 layout shift 일으켜 hero로 이전.
+   미래 native Android 다운 버튼은 같은 .hero-install flex container 안 .install-cta.android로 옆 추가 가능.
+   브랜드 색 = #7c3aed (PWA violet, manifest theme_color·pwa-icon.svg와 동일). */
+.hero-install {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 28px auto 0;
+}
+.hero-install[hidden] {
+  display: none;
+}
+
+.install-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  gap: 8px;
+  padding: 8px 14px 8px 12px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: -.01em;
+  box-shadow: 0 3px 12px rgba(124, 58, 237, 0.26);
+  transition: transform .15s ease, box-shadow .2s ease, background .15s;
+}
+.install-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.36);
+}
+.install-cta:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.28);
+}
+.install-cta[hidden] {
+  display: none;
+}
+/* 설치 완료 = 비활성 회색. 사용자에게 "이미 설치됨" 시각 피드백 */
+.install-cta:disabled {
+  background: var(--muted);
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.85;
+}
+.install-cta:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+.install-cta .install-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  line-height: 1;
+}
+.install-cta .install-icon svg,
+.install-cta .install-action svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.install-cta .install-label {
+  font-size: 13px;
+  line-height: 1.2;
+}
+/* 우측 다운로드 액션 아이콘 — 살짝 떨어뜨려 "클릭" affordance */
+.install-cta .install-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  margin-left: 2px;
+  opacity: 0.92;
+  line-height: 1;
+}
+.install-cta:hover .install-action {
+  transform: translateY(1px);
+  transition: transform .2s ease;
+}
+
+@media (max-width: 480px) {
+  .hero-install { margin-top: 22px; gap: 8px; }
+  .install-cta { padding: 7px 12px 7px 10px; gap: 7px; }
+  .install-cta .install-label { font-size: 12.5px; }
+  .install-cta .install-icon { width: 16px; height: 16px; }
+  .install-cta .install-action { width: 13px; height: 13px; }
+}
+
+@media (prefers-color-scheme: dark) {
+  .install-cta {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.32);
+  }
+  .install-cta:hover {
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.42);
+  }
 }
 
 
