@@ -122,7 +122,7 @@
     <p class="subtitle">TAYSTUDIO 영어 사이트(<code>/en/</code>) 진행 이력 — Pilot 결정·도메인 migration·Phase A·B 일괄 출시·SEO audit까지 시간 역순.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
       <b>마지막 갱신</b>: 2026-05-10 ·
-      <span style="opacity:.7">Phase A·B + SEO audit + home fix + Gap 2 manifest + audit 후속 보강 4 step + 5 카테고리 번역 검수 doc + Smart lang banner + 헤더 토글 강조 + <b>Hero 환영 카드</b> — universal 28선 LIVE(image 9·PDF 5·video 5·text 1·calculator 8) + 4 카테고리 hub + 102 sitemap URL + Korean 31파일 hreflang + HowTo schema 한·영 9/9 parity + <code>/en/manifest.webmanifest</code> 다국어(scope=/en/) + 5 hub cross-category nav + 한국 manifest 브랜드 통일 + <code>og-image-en.png</code> 영어 변형 + 5 카테고리 검수 doc 87KB + BROWSER_LANG mismatch banner(양방향 ko↔en) + 헤더 lang-toggle 글로브+box + <b>hero 안 큰 환영 카드(CTA 버튼·dismiss × · banner와 dismiss 키 공유)</b>. 핵심 SEO 시그널 34/34 production-ready. commit <code>a6a60a8</code>·<code>ea9e3bc</code>·<code>4bce701</code> + hero 카드 (commit 대기). 한국판 변경 이력은 <a href="./" style="color:var(--primary)">history/index.html</a> 참고. 영어판 운영 plan = <a href="./plan/plan_en.md" style="color:var(--primary)"><code>history/plan/plan_en.md</code></a>.</span>
+      <span style="opacity:.7">Phase A·B + SEO audit + home fix + Gap 2 manifest + audit 후속 보강 4 step + 5 카테고리 번역 검수 doc + Smart lang banner + 헤더 토글 강조 + Hero 환영 카드 + 외국인 사용자 구별법 concept doc + <b>영어 privacy/terms 신규 + <code>plan_integration.md</code> 신설(한·영 양방향 그라운드 룰)</b> — universal 28선 LIVE(image 9·PDF 5·video 5·text 1·calculator 8) + 4 카테고리 hub + <b>104 sitemap URL</b>(<code>/en/privacy/</code>·<code>/en/terms/</code> +2) + Korean 31파일 hreflang + HowTo schema 한·영 9/9 parity + <code>/en/manifest.webmanifest</code> 다국어(scope=/en/) + 5 hub cross-category nav + 한국 manifest 브랜드 통일 + <code>og-image-en.png</code> 영어 변형 + 5 카테고리 검수 doc 87KB + BROWSER_LANG mismatch banner(양방향 ko↔en) + 헤더 lang-toggle 글로브+box + hero 안 큰 환영 카드(CTA 버튼·dismiss ×) + <a href="./seo/2026-05-10-foreign-user-detection.md" style="color:var(--primary)">외국인 구별법 concept doc</a> + <b><a href="./plan/plan_integration.md" style="color:var(--primary)"><code>plan_integration.md</code></a>(331줄, 한·영 분류·체크리스트·monetization 룰 §9 — AdSense 공통/쿠팡 한국 전용/Amazon Associates 미래 EN-only)</b> + <code>/en/privacy/</code>·<code>/en/terms/</code>(GDPR·CCPA·COPPA 적응) + KO privacy/terms hreflang 양방향. 핵심 SEO 시그널 34/34 production-ready. commit <code>a6a60a8</code>·<code>ea9e3bc</code>·<code>4bce701</code>·<code>89ed2ba</code> + 영어 privacy/terms·plan_integration.md (commit 대기). 한국판 변경 이력은 <a href="./" style="color:var(--primary)">history/index.html</a> 참고. 영어판 운영 plan = <a href="./plan/plan_en.md" style="color:var(--primary)"><code>history/plan/plan_en.md</code></a>.</span>
     </p>
 
     <div class="ctx-card">
@@ -146,6 +146,9 @@
         <span class="pill live">Smart lang banner ✅</span>
         <span class="pill live">헤더 토글 글로브 강조 ✅</span>
         <span class="pill live">Hero 환영 카드 ✅</span>
+        <span class="pill live">외국인 구별법 doc ✅</span>
+        <span class="pill live">영어 privacy/terms ✅</span>
+        <span class="pill live">plan_integration.md ✅</span>
         <span class="pill todo">AdSense 검토 1~7일 대기</span>
         <span class="pill todo">번역 사용자 review (다음 1순위)</span>
       </div>
@@ -158,6 +161,94 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item feature">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-10</span>
+            <span class="tl-tag">governance</span>
+            <span class="tl-tag">한·영 양방향 그라운드 룰</span>
+          </div>
+          <div class="tl-title">📐 <code>plan_integration.md</code> 신설 + 영어 privacy/terms 신규 launch — 양방향 운영 ground rule 명문화</div>
+          <div class="tl-summary">
+            영어판 footer가 <code>/en/privacy/</code>·<code>/en/terms/</code>로 link 거는데 target 부재로 production 404 발견 → 한국 source mirror 후 GDPR·CCPA·COPPA 적응 영어판 신규 작성. 시행일 2026-05-10(영어 launch 시점, 한국 시행일과 독립). KO privacy/terms hreflang 양방향 alternate 보강 + sitemap.xml 102→104 URL. 동시에 양 시장 운영 그라운드 룰 누락 인지 → <code>history/plan/plan_integration.md</code> 신설(331줄): §0 핵심 원칙·§1 분류 결정 트리·§2 카테고리 현황·§3 신규 추가 체크리스트·§4 기존 수정 동기화·§5 양방향 검수 명령·§6 anti-pattern·§7 Q&A·§8 세션 진입 절차·§9 monetization 양방향 룰. AdSense 공통/쿠팡 한국 전용/Amazon Associates 미래 EN-only 분류 명문화.
+          </div>
+          <details class="tl-detail">
+            <summary>상세 — 3 plan doc 역할 분담 + monetization 분류 + 검수 결과</summary>
+            <div class="tl-detail-body">
+              <h3>왜 ground rule doc이 필요했나</h3>
+              <p>Phase B 일괄 launch (5/10) 시 영어 privacy/terms 누락이 같은 패턴 — 분류 룰 부재 + 양 시장 동시 작업 default 부재. 이번 작업으로 같은 누락이 다음에 반복되지 않도록 그라운드 룰 doc 신설. 한·영 사이트는 한 코드베이스의 두 시장 — 시작 단계에서 분류, 작업 단계에서 양쪽 동시, 끝 단계에서 양쪽 plan 반영을 default로.</p>
+              <h3>3 plan doc 역할 분담</h3>
+              <ul>
+                <li><code>plan.md</code> = 한국 시장 본체 (도구 60선·로드맵·migration·결정 기록)</li>
+                <li><code>plan_en.md</code> = 영어 시장 본체 (영어 진입·Phase·번역 검수·영어 후속)</li>
+                <li><code>plan_integration.md</code> = 양방향 그라운드 룰 (분류·체크리스트·monetization 룰) — 신규 도구·UI·monetization 작업 진입 전 통과해야 하는 결정 doc</li>
+              </ul>
+              <h3>§9 Monetization 분류 (사용자 요청)</h3>
+              <ul>
+                <li><b>AdSense (공통)</b> — <code>ca-pub-3553250610781349</code> 한 ID로 한·영 양쪽. 같은 도메인이니 단일 publisher 정책</li>
+                <li><b>쿠팡 파트너스 (한국 전용)</b> — <code>AF4086854</code>. 한국 retail 한정 → 영어 page 노출 X. 영어 사용자 무의미 + 신뢰 손상 위험</li>
+                <li><b>Amazon Associates (미래 EN-only)</b> — Phase B 후 별도 트랙. 영어 트래픽 100+ /일 + AdSense RPM 누적 후 진입</li>
+                <li><b>GA4·GSC (공통)</b> — 도메인 단위 추적, lang param으로 분리 분석</li>
+                <li><b>Naver SA (한국)</b> · <b>Bing WMT·IndexNow (양쪽)</b></li>
+              </ul>
+              <h3>영어 privacy/terms 작성 원칙</h3>
+              <p>한국 source 8/9 section 동일 골격 mirror + 영어권 컴플라이언스 적응(COPPA 13세 + Korean PIPA 14세 양쪽 명시·GDPR/CCPA opt-out link·governing law는 한국법 기반이되 "to the extent permitted by your local mandatory law" 단서·한국 전용 도구는 영어판 미포함 명시).</p>
+              <h3>검수 결과 (localhost:8000)</h3>
+              <p>4 페이지(<code>/privacy/</code>·<code>/terms/</code>·<code>/en/privacy/</code>·<code>/en/terms/</code>) + 9 asset(favicon 4·manifest·og-image-en·CSS·JS·hub 5 link) 모두 200. hreflang 양방향 4/4 페이지 정합. sitemap 102→104 URL.</p>
+              <h3>매 세션 진입 시 본 doc 강제 read</h3>
+              <p>plan.md §0 + plan_en.md 헤더에 "🔁 매 세션 진입 시 plan_integration.md 같이 읽기" pin. 신규 도구·UI·monetization 작업은 <code>plan_integration.md §1</code> 결정 트리 + <code>§9</code> monetization 분류를 먼저 통과한 뒤 착수.</p>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ============================================================ -->
+      <article class="tl-item minor">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-10</span>
+            <span class="tl-tag">concept doc</span>
+            <span class="tl-tag">외국인 사용자 구별법 정리</span>
+          </div>
+          <div class="tl-title">📄 외국인 사용자 구별법 concept doc 신설 — <code>history/seo/2026-05-10-foreign-user-detection.md</code></div>
+          <div class="tl-summary">
+            사용자 질문 "한국어 사용자인지 외국인인지 어떻게 판단함?" + playwright 4 시나리오 시각 검증 후 메커니즘·한계·자가 검증 방법을 concept doc으로 분리 정리. 8 섹션: ① 한 줄 답변(<code>navigator.languages[0]</code>) ② OS·브라우저 결정 chain ③ 사용자별 실제 판단 결과 표 ④ 한계(영/한 only·false positive·VPN 무관·SW 캐시) ⑤ 5 시뮬·자가 검증 방법(DevTools Sensors·시크릿 창·Console·SW 격리·playwright) ⑥ localStorage 키(<code>lang-pref</code>·<code>lang-banner-dismissed</code>) 정리 ⑦ "안 보이는데?" 자가 진단 체크리스트 ⑧ 관련 파일 reference. lang banner(§9.9) + hero 환영 카드(§9.10)의 부산 doc.
+          </div>
+          <details class="tl-detail">
+            <summary>상세 — playwright 시뮬 결과 + 자가 진단 체크리스트</summary>
+            <div class="tl-detail-body">
+              <h3>왜 이 doc이 필요했나</h3>
+              <p>5/10 lang banner + hero 카드 출시 후 사용자가 "한국어 사용자인지 외국인인지 어떻게 판단?" 질문 → playwright로 4 시나리오(ko↔en mismatch 2 + control 2) 시각 검증. mismatch 2건 모두 banner·카드 노출 OK, control 2건 모두 hidden OK. 그러나 사용자(한국 macOS)가 <code>/en/</code> 직접 접속 시 안 보이는 케이스 발생 → SW v14 캐시·Chrome 자체 언어 설정·localStorage 잔존 가능성 진단. 메커니즘·한계·자가 검증 방법이 흩어져 있어 doc으로 통합.</p>
+              <h3>핵심 메커니즘 한 줄</h3>
+              <pre>const BROWSER_LANG = (navigator.languages?.[0] || navigator.language || '').toLowerCase();
+const isEnBrowser = BROWSER_LANG.startsWith('en');
+const isKoBrowser = BROWSER_LANG.startsWith('ko');
+const mismatch = (LANG === 'ko' && isEnBrowser) || (LANG === 'en' && isKoBrowser);</pre>
+              <h3>5 시뮬·자가 검증 방법 (doc 5장)</h3>
+              <ol>
+                <li><b>Chrome DevTools Sensors</b> — F12 → Cmd+Shift+P → "Show Sensors" → Locale 변경 → Hard reload (가장 빠름)</li>
+                <li><b>시크릿 창</b> — localStorage·SW 영향 격리 (Cmd+Shift+N)</li>
+                <li><b>DevTools Console</b> — <code>navigator.languages</code> + <code>localStorage.getItem('taystudio.lang-pref')</code> 직접 확인</li>
+                <li><b>SW 격리</b> — Application → Service Workers → Unregister → reload</li>
+                <li><b>playwright</b> — locale + Accept-Language headers로 영어/한국어 사용자 시뮬 (5/10 4 시나리오 검증에 사용)</li>
+              </ol>
+              <h3>자가 진단 체크리스트 (doc 7장)</h3>
+              <p>"안 보이는데?" 케이스 진단 순서:</p>
+              <ol>
+                <li>시크릿 창 시도 → 보이면 localStorage 또는 SW 캐시 문제</li>
+                <li>Console <code>navigator.languages</code> → 첫 값이 <code>en*</code>/<code>ko*</code> 아니면 한계 4.1(영/한 only)</li>
+                <li><code>lang-pref</code> getItem → <code>'ko'</code>/<code>'en'</code>이면 사용자 명시 선택. <code>removeItem</code> 후 reload</li>
+                <li><code>lang-banner-dismissed</code> getItem → <code>'1'</code>이면 dismiss 한 적 있음. 동상</li>
+                <li>SW 캐시 → DevTools Application → Service Workers → Update/Unregister → reload</li>
+                <li>Hard reload (Cmd+Shift+R)</li>
+              </ol>
+              <p>plan_en.md §9.10 참고. 다음 1순위 = 5 카테고리 검수 doc 사용자 review.</p>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item">

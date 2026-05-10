@@ -139,7 +139,7 @@
     <h1>📜 변경 이력</h1>
     <p class="subtitle">사이트에서 일어난 일을 시간 역순으로 — 도구 추가, 세율 갱신, SEO·인프라 작업까지.</p>
     <p style="font-size:12.5px;color:var(--muted);margin-top:-12px;margin-bottom:8px">
-      <b>마지막 갱신</b>: 2026-05-10 · <span style="opacity:.7"><b>영어판 <code>/en/</code> 28선 일괄 launch</b>(image 9·PDF 5·video 5·text 1·calc 7 + 4 카테고리 hub) + Phase A·B + SEO audit + home fix + Gap 2 PWA manifest 다국어. 한 세션 22분 wall time(5 agent 병렬). 한국 source 31파일 hreflang · sitemap 71→102 URL · site-chrome.js i18n. commit <code>a6a60a8</code>·<code>ea9e3bc</code>. 한국 시장 무영향. <b>5/9 작업</b>: tools/monitor 신규 + 쿠팡 파트너스 위젯 8개(AdSense 승인 전 CSS hide) + 사이트 일관성 38선/60도구 + 헤더 깜박임 완전 해결. 도구 <b>한국 60선 + 영어 28선</b>, sitemap <b>102 URL</b>, SW <b>v14</b>. 영어판 진행 이력 = <a href="./index_en.html" style="color:var(--primary)">history/index_en.html</a> · 영어판 plan = <a href="./plan/plan_en.md" style="color:var(--primary)"><code>history/plan/plan_en.md</code></a></span>
+      <b>마지막 갱신</b>: 2026-05-10 · <span style="opacity:.7"><b>영어판 <code>/en/</code> 28선 일괄 launch</b>(image 9·PDF 5·video 5·text 1·calc 7 + 4 카테고리 hub) + Phase A·B + SEO audit + home fix + Gap 2 PWA manifest 다국어 + <b>영어 privacy/terms 신규 + <code>plan_integration.md</code> 신설(한·영 양방향 그라운드 룰)</b>. 한 세션 22분 wall time(5 agent 병렬). 한국 source 31파일 hreflang · sitemap 71→102→<b>104 URL</b>(<code>/en/privacy/</code>·<code>/en/terms/</code> +2) · site-chrome.js i18n · KO privacy/terms hreflang 양방향 보강. commit <code>a6a60a8</code>·<code>ea9e3bc</code> + 후속 commit 대기. 한국 시장 무영향. <b>5/9 작업</b>: tools/monitor 신규 + 쿠팡 파트너스 위젯 8개(AdSense 승인 전 CSS hide) + 사이트 일관성 38선/60도구 + 헤더 깜박임 완전 해결. 도구 <b>한국 60선 + 영어 28선</b>, sitemap <b>104 URL</b>, SW <b>v14</b>. 영어판 진행 이력 = <a href="./index_en.html" style="color:var(--primary)">history/index_en.html</a> · 영어판 plan = <a href="./plan/plan_en.md" style="color:var(--primary)"><code>history/plan/plan_en.md</code></a> · <b>한·영 양방향 그라운드 룰 = <a href="./plan/plan_integration.md" style="color:var(--primary)"><code>history/plan/plan_integration.md</code></a></b></span>
     </p>
 
     <div class="legend">
@@ -149,6 +149,51 @@
     </div>
 
     <div class="timeline">
+
+      <!-- ============================================================ -->
+      <article class="tl-item feature">
+        <div class="tl-card">
+          <div class="tl-head">
+            <span class="tl-date">2026-05-10</span>
+            <span class="tl-tag">governance</span>
+            <span class="tl-tag">한·영 양방향 그라운드 룰</span>
+          </div>
+          <div class="tl-title">📐 <code>plan_integration.md</code> 신설 + 영어 privacy/terms 신규 launch — 양방향 운영 ground rule 명문화</div>
+          <div class="tl-summary">
+            영어판 footer가 <code>/en/privacy/</code>·<code>/en/terms/</code>로 link 거는데 target 부재로 production 404 발견 → 한국 source mirror 후 GDPR·CCPA·COPPA 적응 영어판 신규 작성. KO privacy/terms hreflang 양방향 alternate 보강 + sitemap.xml 102→104 URL. 동시에 양 시장 운영 그라운드 룰 누락 인지 → <code>history/plan/plan_integration.md</code> 신설(331줄): §0~§8 한·영 분류·체크리스트·검수·anti-pattern + <b>§9 monetization 양방향 룰</b>(AdSense 공통 / 쿠팡 한국 전용 / Amazon Associates 미래 EN-only / GA4·GSC 공통 / Naver SA 한국 / Bing·IndexNow 양쪽). plan.md §0 + plan_en.md 헤더에 "🔁 매 세션 진입 시 plan_integration.md 같이 읽기" pin.
+          </div>
+          <details class="tl-detail">
+            <summary>상세 — 3 plan doc 역할 + monetization 분류 + 한국 시장 영향 0</summary>
+            <div class="tl-detail-body">
+              <h3>왜 ground rule doc이 필요했나</h3>
+              <p>Phase B 일괄 launch (5/10) 시 영어 privacy/terms 누락이 같은 패턴 — 분류 룰 부재 + 양 시장 동시 작업 default 부재. 같은 누락 반복 차단 위해 그라운드 룰 doc 신설. 한·영 사이트는 한 코드베이스의 두 시장 — 시작 단계에서 분류, 작업 단계에서 양쪽 동시, 끝 단계에서 양쪽 plan 반영을 default로.</p>
+              <h3>3 plan doc 역할 분담</h3>
+              <ul>
+                <li><code>plan.md</code> = 한국 시장 본체 (도구 60선·로드맵·migration·결정 기록)</li>
+                <li><code>plan_en.md</code> = 영어 시장 본체 (영어 진입·Phase·번역 검수·영어 후속)</li>
+                <li><code>plan_integration.md</code> = 양방향 그라운드 룰 (분류·체크리스트·monetization 룰) — 신규 도구·UI·monetization 작업 진입 전 통과해야 하는 결정 doc</li>
+              </ul>
+              <h3>§9 Monetization 분류 (사용자 요청)</h3>
+              <ul>
+                <li><b>AdSense (공통)</b> — <code>ca-pub-3553250610781349</code> 한 ID로 한·영 양쪽. 같은 도메인이니 단일 publisher 정책</li>
+                <li><b>쿠팡 파트너스 (한국 전용)</b> — <code>AF4086854</code>. 한국 retail 한정 → 영어 page 노출 X. 영어 사용자에게 무의미 + 신뢰 손상 위험. 신규 한국 도구 추가 시 affiliate 친화 카테고리(가전·디지털·생활)면 쿠팡 추천 카드 후보, 영어판에는 동일 위치에 빈 자리 또는 다른 콘텐츠</li>
+                <li><b>Amazon Associates (미래 EN-only)</b> — Phase B 후 별도 트랙. 영어 트래픽 100+ /일 + AdSense RPM 누적 후 진입. 진입 시 GDPR·CCPA cookie banner 추가</li>
+                <li><b>GA4·GSC (공통)</b> · <b>Naver SA (한국)</b> · <b>Bing WMT·IndexNow (양쪽)</b></li>
+              </ul>
+              <h3>한국 시장 영향 = 0</h3>
+              <ul>
+                <li>한국 도구·hub·UI 본문 변경 없음 (privacy/terms는 hreflang 3줄만 추가)</li>
+                <li>한국 monetization 정책 변경 없음 (현 룰 명문화일 뿐, 쿠팡 위젯 hide 정책 그대로)</li>
+                <li>plan_integration.md = governance doc 추가, 한국 시장 운영에 새 부담 0 (오히려 분류 누락 차단으로 운영 안정성 ↑)</li>
+              </ul>
+              <h3>영어 privacy/terms 작성 원칙</h3>
+              <p>한국 source 8/9 section 동일 골격 mirror + 영어권 컴플라이언스 적응(COPPA 13세 + Korean PIPA 14세 양쪽 명시·GDPR/CCPA opt-out link·governing law는 한국법 기반이되 "to the extent permitted by your local mandatory law" 단서·한국 전용 도구는 영어판 미포함 명시). 시행일 2026-05-10(영어 launch 시점, 한국 시행일 2026-04-30·최종 개정 2026-05-06과 독립).</p>
+              <h3>관련 doc</h3>
+              <p>한·영 양방향 그라운드 룰 = <a href="./plan/plan_integration.md" style="color:var(--primary)"><code>history/plan/plan_integration.md</code></a>. 영어판 진행 이력 = <a href="./index_en.html" style="color:var(--primary)">영어판 history (EN) →</a>.</p>
+            </div>
+          </details>
+        </div>
+      </article>
 
       <!-- ============================================================ -->
       <article class="tl-item major">

@@ -415,6 +415,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://taystudios.com/en/privacy/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://taystudios.com/en/terms/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://taystudios.com/en/tools/</loc>
     <lastmod>2026-05-10</lastmod>
     <changefreq>weekly</changefreq>

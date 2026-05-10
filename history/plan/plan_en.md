@@ -1,10 +1,12 @@
 # Plan EN — 영어판 로드맵
 
 > 영어 사이트(`/en/`) 전용 운영 plan. 한국판 [plan.md](./plan.md)와 분리 — 한국판은 한국 시장 60 도구·세금·부동산·노동법 본체, 영어판은 universal subset만 다룸. 본 문서 = 한국판 plan.md 핵심 요약 + 영어 진입 의사결정·로드맵·진행 기록.
+>
+> **🔁 매 세션 진입 시 [`plan_integration.md`](./plan_integration.md)도 무조건 같이 읽을 것** — 한·영 양방향 그라운드 룰 + monetization 분류 룰 단일 source. 신규 도구·UI·monetization 작업은 `plan_integration.md §1` 결정 트리 + `§9` monetization 분류를 먼저 통과한 뒤 착수한다.
 
-**최종 갱신**: 2026-05-10 (Phase B 완료 + SEO audit + HowTo parity + `/en/` home Phase B 반영 + Gap 2 manifest 다국어 + 후속 보강 4 step + 5 카테고리 검수 doc 풀세트 + lang banner + 헤더 토글 강조 + **hero 환영 카드** (외국인 root 진입 시 "한 번에 발견" UX 강화))
-**현재 상태**: **Phase A + B 완료 + SEO audit 통과 + home 카드 5종 LIVE + 영어 PWA manifest 격리 + 후속 보강 4 step 완료 + 5 카테고리 검수 doc 풀세트 + 양방향 lang banner** — 영어 universal 28선 전부 live + 4 카테고리 hub + Korean source 31파일 hreflang + `TRANSLATED_PATHS` whitelist 33 path + sitemap.xml 71→102 URL + HowTo schema 한·영 9/9 parity + `/en/` home hub-grid 5/5 LIVE + `/en/manifest.webmanifest` 신규(scope=/en/, lang=en-US, shortcuts 4 영어 path) + 5 hub cross-category nav 4 link씩 + 한국 manifest "TayTools" → "TAYSTUDIO" 통일 + `/og-image-en.png` 영어 변형(34 file 갱신) + 검수 doc 5종(87KB) + **smart lang banner (BROWSER_LANG mismatch 감지 · localStorage 기억 · 양방향 ko↔en) + 헤더 lang-toggle 글로브 강조**
-**다음 진입 후보**: AI 번역 검수 사용자 review (5 카테고리 doc 준비됨) → IndexNow ping `/en/*` → Phase C 외부 채널
+**최종 갱신**: 2026-05-10 (Phase B 완료 + SEO audit + HowTo parity + `/en/` home Phase B 반영 + Gap 2 manifest 다국어 + 후속 보강 4 step + 5 카테고리 검수 doc 풀세트 + lang banner + 헤더 토글 강조 + hero 환영 카드 + 외국인 사용자 구별법 doc + **영어 privacy/terms 신규 launch + plan_integration.md 신규 (한·영 양방향 그라운드 룰)**)
+**현재 상태**: **Phase A + B 완료 + SEO audit 통과 + home 카드 5종 LIVE + 영어 PWA manifest 격리 + 후속 보강 4 step 완료 + 5 카테고리 검수 doc 풀세트 + 양방향 lang banner + 영어 privacy/terms 신규** — 영어 universal 28선 전부 live + 4 카테고리 hub + Korean source 31파일 hreflang + `TRANSLATED_PATHS` whitelist 33 path + sitemap.xml 71→102→**104** URL(`/en/privacy/`·`/en/terms/` 추가) + HowTo schema 한·영 9/9 parity + `/en/` home hub-grid 5/5 LIVE + `/en/manifest.webmanifest` 신규(scope=/en/, lang=en-US, shortcuts 4 영어 path) + 5 hub cross-category nav 4 link씩 + 한국 manifest "TayTools" → "TAYSTUDIO" 통일 + `/og-image-en.png` 영어 변형(34 file 갱신) + 검수 doc 5종(87KB) + **smart lang banner (BROWSER_LANG mismatch 감지 · localStorage 기억 · 양방향 ko↔en) + 헤더 lang-toggle 글로브 강조 + `/en/privacy/`·`/en/terms/` 신규(GDPR·CCPA·COPPA 적응) + KO privacy/terms hreflang 양방향 보강 + plan_integration.md 신규(331줄, 한·영 양방향 그라운드 룰 + monetization 분류 §9)**
+**다음 진입 후보**: AI 번역 검수 사용자 review (5 카테고리 doc 준비됨) → IndexNow ping `/en/*`(privacy·terms 포함 71 URL) → Phase C 외부 채널
 
 ---
 
@@ -352,10 +354,45 @@
 - **검증**: localhost 200 OK 4/4 · root에 영어 카드 markup 1건 (`hidden` 적용) · /en/에 한국어 카드 1건 · CSS·JS 적용 · 한·영 home lang/canonical 그대로
 - **이중 안전망**: lang banner(헤더 위 sticky 좁은 bar) + hero 카드(본문 hero 안 큰 카드) → 외국인이 1순위로 카드 인지, banner는 보조. dismiss 시 둘 다 사라짐
 - **한국 사용자 영향 0**: 한국 브라우저면 mismatch X → 카드 안 노출
+- **playwright 4 시나리오 시각 검증** (mismatch ko↔en 2 + control 2): mismatch 2건 banner+카드 노출 OK, control 2건 모두 hidden OK. screenshot 결과 사용자 확인 완료
+- **관련 concept doc**: `history/seo/2026-05-10-foreign-user-detection.md` 신규 — 외국인 판단 메커니즘(`navigator.languages`·Accept-Language·OS/브라우저 chain) + 사용자별 실제 판단 결과 표 + 한계(영/한 only·false positive·VPN 무관·SW 캐시) + 5 시뮬·자가 검증 방법(DevTools Sensors·시크릿 창·Console·SW 격리·playwright) + localStorage 키 정리 + 자가 진단 체크리스트
 
-### 9.11 다음 세션 진입 후보
+### 9.11 2026-05-10 — 영어 privacy/terms 신규 launch ✅
+- **누락 발견**: site-chrome.js footer가 `/en/privacy/`·`/en/terms/`로 link 거는데 target 부재 → production 404
+- **원인**: Phase B 일괄 launch 시 정책 페이지 누락. universal subset 도구만 mirror하고 root 정책은 한국판 그대로 fallback 의도 X — 영어 사용자에게 한국어 정책 페이지 노출은 GDPR·CCPA 컴플라이언스 위반 위험
+- **작성**: 한국 source mirror 후 영어 적응
+  - **privacy**: 한국 8 section 동일 골격(수집 X·browser 처리·third-party·쿠키·공유·권리·아동·운영자) + COPPA(13세) + Korean PIPA(14세) 양쪽 명시 + GDPR/CCPA 권리 link
+  - **terms**: 한국 9 section 동일 골격(서비스·정확성·책임제한·광고·저작권·금지·변경·준거법·운영자) + 한국 전용 도구 미포함 명시("Korean tax law/real estate law/labor law are available on the Korean version (/) and are not translated") + governing law는 한국법 기반이되 "to the extent permitted by your local mandatory law" 단서
+- **시행일**: 2026-05-10 (영어 launch 시점, 한국 시행일 2026-04-30·최종 개정 2026-05-06과 독립)
+- **양방향 hreflang 보강**: KO `/privacy/`·`/terms/`도 hreflang en/ko/x-default alternate 추가(영어판 신설로 양방향 alternate 정합)
+- **sitemap.xml**: `/en/privacy/`·`/en/terms/` 2 URL 추가 (102→104, EN URL 34→36)
+- **검증**: localhost로 4 페이지 + 9 asset(favicon·manifest·og-image-en·CSS·JS·hub 5 link) 모두 200
+- **plan_integration.md §3 적용 1차 사례** — 분류 = 공통(universal) 정책 페이지. 체크리스트 (코드·SEO·hub·plan) 4 영역 모두 통과
+
+### 9.12 2026-05-10 — `plan_integration.md` 신규 (한·영 양방향 그라운드 룰) ✅
+- **동기**: plan.md·plan_en.md 분리 후 양 시장 운영 그라운드 룰 누락. 신규 도구·UI·monetization 작업 시 분류 누락 또는 한쪽만 작업하는 mismatch 위험. 본 작업의 EN privacy/terms 누락도 같은 맥락(Phase B 시 분류 룰 부재)
+- **위치**: `history/plan/plan_integration.md` (331줄 / 11KB)
+- **구조**:
+  - §0 핵심 원칙 — 양쪽 default·분류 우선·컨센서스 일치
+  - §1 결정 트리 — KO 종속? · 영어권 1:1 가능? · EN 종속?
+  - §2 카테고리 현황 — universal 28선 / KO-only / EN-only 분류
+  - §3 신규 추가 체크리스트 — 분류별(공통·KO 전용·EN 전용)
+  - §4 기존 수정 동기화 — 공통 코드·도구별 페이지·정책 페이지·SEO 자산
+  - §5 양방향 검수 bash 명령 — hreflang·sitemap·manifest·privacy/terms 일치 확인
+  - §6 anti-pattern — 한쪽만 commit·universal 한국에만·KO 전용 영어 자동 번역·plan 누락
+  - §7 Q&A 빠른 결정 — 8개 빈출 질문
+  - §8 세션 진입 절차 — plan.md → plan_en.md → plan_integration.md 순
+  - **§9 monetization 양방향 룰** (사용자 요청으로 추가) — AdSense 공통(같은 publisher ID)·쿠팡 한국 전용(영어 page 박지 말 것)·Amazon Associates 미래 EN-only·GA4·GSC 공통·Naver SA 한국·Bing/IndexNow 양쪽·신규 채널 결정 트리·monetization anti-pattern
+- **운영 룰**: plan.md §0 + plan_en.md 헤더에 "🔁 매 세션 진입 시 plan_integration.md 같이 읽기" pin
+- **세 plan doc 역할 분담**:
+  - `plan.md` = 한국 시장 본체 (도구 60선·로드맵·migration·결정 기록)
+  - `plan_en.md` = 영어 시장 본체 (영어 진입·Phase·번역 검수·영어 후속)
+  - `plan_integration.md` = 양방향 그라운드 룰 (분류·체크리스트·monetization 룰) — 신규 도구·UI·monetization 작업 진입 전 통과해야 하는 결정 doc
+
+### 9.13 다음 세션 진입 후보
 - **사용자 검수 — AI 초안 번역 품질 review** (1순위, **5 카테고리 doc 풀세트 준비됨**) — `history/seo/2026-05-10-en-{image,pdf,video,text,calculators}-translation-review.md` 5개 보고 어색한 표현·도메인 용어·FAQ 답변 점검. 우선순위 = image → pdf → video → calculators → text (영어 시장 hot 순). 사용자 결정 시 patch 진행
-- **IndexNow ping `/en/*` 신규 32 URL** — sitemap 갱신 직후 가능. `bash scripts/indexnow-ping.sh`
+- **사용자 검수 — 영어 privacy/terms 검수** (2순위) — AI 작성 초안. GDPR·CCPA·COPPA 표현 + governing law 단서 점검. 한국판과 본질 일치·언어권 컴플라이언스 차이 의도된 부분 확인
+- **IndexNow ping `/en/*` 신규 34 URL** (privacy·terms 포함 71 URL 일괄) — sitemap 갱신 직후 가능. `bash scripts/indexnow-ping.sh`
 - **Phase C-1: Reddit 시드 게시 1회** — Pilot 검증 1~2주 후 (사용자 결정). r/InternetIsBeautiful·r/usefulwebsites 권장
 - **사용자 검토 후속**: kbd-convert·sns-format(text/) ko-only 유지 결정 재확인, `id-photo` preset 변경 검토
 
