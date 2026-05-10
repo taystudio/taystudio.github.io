@@ -482,6 +482,63 @@ class SiteHeader extends HTMLElement {
   }
 })();
 
+// 도구 검색 필터 — hub 페이지의 #toolSearch 발견 시 자동 활성.
+// data-keywords + name + desc 매칭. body 파싱 끝난 뒤 실행되도록 DOMContentLoaded 대기.
+(function toolSearchFilter() {
+  function init() {
+    const search = document.getElementById('toolSearch');
+    if (!search) return;
+    const cards = Array.from(document.querySelectorAll('.tool-grid .tool-card'));
+    if (!cards.length) return;
+    const wrap = search.closest('.tool-search');
+    const clearBtn = wrap && wrap.querySelector('.ts-clear');
+    const noResultEl = document.getElementById('toolNoResult');
+
+    function filter() {
+      const q = search.value.trim().toLowerCase();
+      let visible = 0;
+      for (const c of cards) {
+        const text = (c.textContent + ' ' + (c.dataset.keywords || '')).toLowerCase();
+        const match = !q || text.includes(q);
+        c.style.display = match ? '' : 'none';
+        if (match) visible++;
+      }
+      if (wrap) wrap.classList.toggle('has-value', q.length > 0);
+      if (noResultEl) noResultEl.hidden = visible > 0 || q.length === 0;
+    }
+
+    search.addEventListener('input', filter);
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        search.value = '';
+        filter();
+        search.focus();
+      });
+    }
+    // "/" 단축키로 포커스 (입력 중인 다른 필드 제외)
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target;
+      if (t === search) return;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+      e.preventDefault();
+      search.focus();
+    });
+    // Esc로 클리어
+    search.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && search.value) {
+        search.value = '';
+        filter();
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
 class SiteFooter extends HTMLElement {
   connectedCallback() {
     const privacyHref = LANG === 'en' ? `${BASE}/en/privacy/` : `${BASE}/privacy/`;
