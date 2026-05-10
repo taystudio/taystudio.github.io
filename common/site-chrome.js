@@ -193,6 +193,14 @@ function getAltLangUrl() {
   window.gtag('config', GA_ID);
 })();
 
+(function () {
+  const s = document.createElement('script');
+  s.defer = true;
+  s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  s.setAttribute('data-cf-beacon', '{"token": "412699582bf74c0bbb767378e033c0ce"}');
+  document.head.appendChild(s);
+})();
+
 const BASE = '';
 
 // PWA install 버튼 — beforeinstallprompt 받아서 deferredPrompt 보관 후 클릭 시 native prompt.
