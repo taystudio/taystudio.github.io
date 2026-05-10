@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>실시간 트래픽 모니터링 가이드 — GA4 + Cloudflare Web Analytics — TAYSTUDIO</title>
+  <meta name="description" content="GA4 Realtime + Cloudflare Web Analytics 셋업·사용 절차 — 어느 검색엔진(구글·네이버·빙)에서 실시간으로 트래픽이 들어오는지 확인하는 완전 가이드.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://taystudios.com/history/guide/monitoring/ga4-cloudflare-realtime.html">
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .doc { max-width: 920px; margin: 0 auto; padding: 32px 20px 64px; }
+    .doc-breadcrumb { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+    .doc-breadcrumb a { color: var(--muted); text-decoration: none; }
+    .doc-breadcrumb a:hover { color: var(--primary); }
+    .doc h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; line-height: 1.3; }
+    .doc-meta { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+    .doc h2 {
+      font-size: 22px; font-weight: 700; margin-top: 48px; margin-bottom: 14px;
+      padding-bottom: 8px; border-bottom: 2px solid var(--border);
+    }
+    .doc h3 { font-size: 17px; font-weight: 700; margin-top: 28px; margin-bottom: 10px; }
+    .doc h4 { font-size: 15px; font-weight: 700; margin-top: 18px; margin-bottom: 8px; color: var(--muted); }
+    .doc p { line-height: 1.7; margin-bottom: 12px; }
+    .doc ul, .doc ol { margin-left: 22px; margin-bottom: 12px; line-height: 1.7; }
+    .doc li { margin-bottom: 4px; }
+    .doc strong { color: var(--text); font-weight: 700; }
+    .doc code {
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 1px 6px; border-radius: 4px; font-size: 0.9em;
+      font-family: 'SF Mono', 'Menlo', monospace;
+    }
+    .doc pre {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 16px; overflow-x: auto;
+      font-size: 13px; line-height: 1.55; margin: 12px 0;
+      font-family: 'SF Mono', 'Menlo', monospace;
+    }
+    .doc pre code { background: none; border: none; padding: 0; font-size: inherit; }
+    .doc table {
+      width: 100%; border-collapse: collapse; margin: 12px 0;
+      background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+      overflow: hidden;
+    }
+    .doc th, .doc td {
+      padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border);
+      font-size: 14px; vertical-align: top;
+    }
+    .doc th { background: var(--bg); font-weight: 700; }
+    .doc tr:last-child td { border-bottom: none; }
+    .doc .callout {
+      background: var(--bg); border-left: 4px solid var(--primary);
+      padding: 12px 16px; border-radius: 4px; margin: 16px 0;
+    }
+    .doc .callout.warn { border-left-color: #f59e0b; }
+    .doc .callout.note { border-left-color: #10b981; }
+    .doc .callout strong { display: block; margin-bottom: 4px; font-size: 13px; }
+    .doc .tldr {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 22px; margin: 20px 0 28px;
+      box-shadow: var(--shadow);
+    }
+    .doc .tldr h3 {
+      margin-top: 0; margin-bottom: 10px; font-size: 14px;
+      color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .doc .tldr ul { margin-bottom: 0; }
+
+    /* === UI Mockup Components === */
+    .mockup {
+      background: #fff; border: 1px solid #d0d5dd; border-radius: 10px;
+      margin: 16px 0 24px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1a1a1a;
+    }
+    .mockup-titlebar {
+      background: linear-gradient(180deg, #f4f5f7 0%, #e8eaed 100%);
+      padding: 8px 14px; border-bottom: 1px solid #d0d5dd;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .mockup-dots { display: flex; gap: 6px; }
+    .mockup-dots span {
+      width: 11px; height: 11px; border-radius: 50%;
+      background: #ccc; display: inline-block;
+    }
+    .mockup-dots span:nth-child(1) { background: #ff5f57; }
+    .mockup-dots span:nth-child(2) { background: #febc2e; }
+    .mockup-dots span:nth-child(3) { background: #28c840; }
+    .mockup-url {
+      flex: 1; background: #fff; border: 1px solid #d0d5dd; border-radius: 6px;
+      padding: 5px 12px; font-size: 12px; color: #444; font-family: monospace;
+    }
+    .mockup-body {
+      display: grid; grid-template-columns: 220px 1fr; min-height: 360px;
+      background: #fafbfc;
+    }
+    .mockup-sidebar {
+      background: #fff; border-right: 1px solid #e5e7eb; padding: 14px 0;
+      font-size: 13px;
+    }
+    .mockup-sidebar .ms-brand {
+      font-weight: 700; color: #1a73e8; padding: 0 16px 14px;
+      border-bottom: 1px solid #f0f2f5; margin-bottom: 8px; font-size: 14px;
+    }
+    .mockup-sidebar .ms-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 16px; color: #444; cursor: default;
+    }
+    .mockup-sidebar .ms-item.active {
+      background: #e8f0fe; color: #1a73e8; font-weight: 600;
+      border-right: 3px solid #1a73e8;
+    }
+    .mockup-sidebar .ms-item .ms-icon {
+      width: 18px; text-align: center; font-size: 14px;
+    }
+    .mockup-content { padding: 20px 24px; color: #1a1a1a; }
+    .mockup-h1 { font-size: 18px; font-weight: 700; margin-bottom: 4px; color: #1a1a1a; }
+    .mockup-sub { font-size: 12px; color: #666; margin-bottom: 18px; }
+    .mockup-cards {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+      margin-bottom: 16px;
+    }
+    .mockup-card {
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .mockup-card-title {
+      font-size: 11px; color: #666; text-transform: uppercase;
+      letter-spacing: 0.4px; font-weight: 600; margin-bottom: 8px;
+    }
+    .mockup-bignum { font-size: 32px; font-weight: 700; color: #1a73e8; line-height: 1; }
+    .mockup-card .mockup-bignum.green { color: #34a853; }
+    .mockup-card .mockup-bignum.orange { color: #fb8c00; }
+    .mockup-card .mockup-trend {
+      font-size: 11px; color: #666; margin-top: 6px;
+    }
+    .mockup-table {
+      width: 100%; border-collapse: collapse; font-size: 12px;
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 8px;
+      overflow: hidden; margin-top: 8px;
+    }
+    .mockup-table th, .mockup-table td {
+      padding: 8px 12px; text-align: left;
+      border-bottom: 1px solid #f0f2f5;
+    }
+    .mockup-table th { background: #f8f9fa; color: #666; font-weight: 600; font-size: 11px; }
+    .mockup-table tr:last-child td { border-bottom: none; }
+    .mockup-table .num { text-align: right; font-weight: 600; color: #1a73e8; }
+    .mockup-bar {
+      display: inline-block; height: 8px; background: #1a73e8; border-radius: 2px;
+      vertical-align: middle; margin-right: 6px;
+    }
+    .mockup-callout {
+      background: #fef3c7; border-left: 3px solid #f59e0b;
+      padding: 8px 12px; font-size: 12px; color: #78350f;
+      margin: 12px 0; border-radius: 4px;
+    }
+    .mockup-tag {
+      display: inline-block; padding: 2px 8px; border-radius: 10px;
+      font-size: 10px; font-weight: 600; margin-left: 6px;
+    }
+    .mockup-tag.organic { background: #d1fae5; color: #065f46; }
+    .mockup-tag.referral { background: #dbeafe; color: #1e40af; }
+    .mockup-tag.direct { background: #f3f4f6; color: #4b5563; }
+
+    /* Cloudflare style overrides */
+    .mockup.cf .mockup-sidebar .ms-brand { color: #f6821f; }
+    .mockup.cf .mockup-sidebar .ms-item.active {
+      background: #fff7ed; color: #f6821f; border-right-color: #f6821f;
+    }
+    .mockup.cf .mockup-bignum { color: #f6821f; }
+    .mockup.cf .mockup-table .num { color: #f6821f; }
+    .mockup.cf .mockup-bar { background: #f6821f; }
+
+    .step {
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px 18px; margin: 14px 0;
+    }
+    .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--primary); color: #fff;
+      font-weight: 700; font-size: 13px; margin-right: 10px;
+    }
+    .step-title { display: inline; font-weight: 700; font-size: 15px; }
+    .step-body { margin-top: 10px; }
+    .step-body p:last-child { margin-bottom: 0; }
+
+    .compare-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0;
+    }
+    .compare-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 16px;
+    }
+    .compare-card h4 {
+      margin-top: 0; margin-bottom: 10px; font-size: 14px;
+      padding-bottom: 6px; border-bottom: 1px solid var(--border);
+    }
+    .compare-card.ga h4 { color: #1a73e8; }
+    .compare-card.cf h4 { color: #f6821f; }
+    .compare-card ul { font-size: 13px; margin-left: 18px; }
+
+    @media (max-width: 720px) {
+      .mockup-body { grid-template-columns: 1fr; }
+      .mockup-sidebar { border-right: 0; border-bottom: 1px solid #e5e7eb; }
+      .compare-grid { grid-template-columns: 1fr; }
+    }
+
+    .doc-back {
+      display: inline-block; margin-top: 32px; padding: 8px 16px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+      color: var(--text); text-decoration: none; font-size: 14px;
+    }
+    .doc-back:hover { background: var(--bg); }
+  </style>
+</head>
+<body>
+  <article class="doc">
+    <div class="doc-breadcrumb">
+      <a href="/">TAYSTUDIO</a> · <a href="/history/">history</a> · guide · monitoring · GA4 + Cloudflare 실시간
+    </div>
+    <h1>실시간 트래픽 모니터링 가이드 — GA4 + Cloudflare Web Analytics</h1>
+    <div class="doc-meta">2026-05-10 작성 / 카테고리: 운영 가이드 / 목적: <code>구글·네이버·빙 어디서 실시간 트래픽이 오는지</code> 한눈에 보기</div>
+
+    <div class="tldr">
+      <h3>한 줄 정리</h3>
+      <ul>
+        <li><strong>GA4 Realtime</strong> = 30분 윈도우, 이미 셋업됨 (<code>G-79C40NJRYT</code>). 가장 빠른 답</li>
+        <li><strong>Cloudflare Web Analytics</strong> = 분 단위, 무료, 5분 셋업. 쿠키리스 + GDPR 동의 불요</li>
+        <li>둘 병행: <strong>GA4는 깊이</strong>, <strong>Cloudflare는 즉시성</strong>. 자체 API 서버 X</li>
+        <li>키워드 단위는 <strong>Search Console·Bing Webmaster·Naver Search Advisor</strong> (각 검색엔진 따로)</li>
+      </ul>
+    </div>
+
+    <h2>0. 현재 셋업 상태</h2>
+
+    <table>
+      <thead><tr><th>도구</th><th>상태</th><th>위치 / 식별자</th></tr></thead>
+      <tbody>
+        <tr><td>GA4</td><td>✅ 활성</td><td><code>common/site-chrome.js:185</code> · <code>G-79C40NJRYT</code></td></tr>
+        <tr><td>Google Search Console</td><td>✅ 활성</td><td>taystudios.com 등록</td></tr>
+        <tr><td>Cloudflare Web Analytics</td><td>✅ 활성</td><td><code>common/site-chrome.js:196</code> · token <code>412699582bf74c0bbb767378e033c0ce</code></td></tr>
+        <tr><td>Bing Webmaster Tools</td><td>⚠️ 확인 필요</td><td>bing.com/webmasters</td></tr>
+        <tr><td>Naver Search Advisor</td><td>⚠️ 확인 필요</td><td>searchadvisor.naver.com</td></tr>
+      </tbody>
+    </table>
+
+    <h2>1. GA4 Realtime — 즉시 보는 법</h2>
+
+    <p>가장 빠른 답. <strong>"지금 누가 어디서 들어왔나"</strong> = 30분 안 활성 사용자 + source 즉시 표시.</p>
+
+    <h3>1-A. 진입 경로</h3>
+    <ol>
+      <li><a href="https://analytics.google.com" target="_blank" rel="noopener">https://analytics.google.com</a> 로그인</li>
+      <li>좌상단 속성 선택 → <strong>TAYSTUDIO</strong> (G-79C40NJRYT)</li>
+      <li>좌측 사이드바 첫 메뉴 <strong>"실시간"</strong> (시계 ⏱ 아이콘) 클릭</li>
+    </ol>
+
+    <h3>1-B. 화면 — 이렇게 생겼다</h3>
+
+    <div class="mockup">
+      <div class="mockup-titlebar">
+        <div class="mockup-dots"><span></span><span></span><span></span></div>
+        <div class="mockup-url">analytics.google.com/analytics/web/#/p123/realtime/overview</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-sidebar">
+          <div class="ms-brand">▲ Google Analytics</div>
+          <div class="ms-item active"><span class="ms-icon">⏱</span>실시간</div>
+          <div class="ms-item"><span class="ms-icon">📊</span>보고서</div>
+          <div class="ms-item"><span class="ms-icon">🔍</span>탐색</div>
+          <div class="ms-item"><span class="ms-icon">📢</span>광고</div>
+          <div class="ms-item"><span class="ms-icon">⚙</span>관리자</div>
+        </div>
+        <div class="mockup-content">
+          <div class="mockup-h1">실시간 개요</div>
+          <div class="mockup-sub">최근 30분 동안 활성 사용자 · 분 단위 새로고침</div>
+
+          <div class="mockup-cards">
+            <div class="mockup-card">
+              <div class="mockup-card-title">활성 사용자 (지난 30분)</div>
+              <div class="mockup-bignum green">12</div>
+              <div class="mockup-trend">↑ 1분 전보다 +3</div>
+            </div>
+            <div class="mockup-card">
+              <div class="mockup-card-title">조회 (지난 30분)</div>
+              <div class="mockup-bignum">47</div>
+              <div class="mockup-trend">평균 페이지/사용자 3.9</div>
+            </div>
+          </div>
+
+          <div class="mockup-card-title" style="margin-top:8px">트래픽 소스 (지난 30분 활성 사용자)</div>
+          <table class="mockup-table">
+            <thead><tr><th>소스 / 매체</th><th class="num">사용자</th></tr></thead>
+            <tbody>
+              <tr><td>google / organic <span class="mockup-tag organic">organic</span></td><td class="num"><span class="mockup-bar" style="width:70px"></span>6</td></tr>
+              <tr><td>naver / organic <span class="mockup-tag organic">organic</span></td><td class="num"><span class="mockup-bar" style="width:35px"></span>3</td></tr>
+              <tr><td>(direct) / (none) <span class="mockup-tag direct">direct</span></td><td class="num"><span class="mockup-bar" style="width:24px"></span>2</td></tr>
+              <tr><td>bing / organic <span class="mockup-tag organic">organic</span></td><td class="num"><span class="mockup-bar" style="width:12px"></span>1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <h3>1-C. 핵심 카드 4가지</h3>
+    <ol>
+      <li><strong>활성 사용자 (30분)</strong> — 지금 사이트 보고 있는 사람 수</li>
+      <li><strong>트래픽 소스 / 첫 사용자 소스</strong> — google/organic, naver/organic, bing/organic, (direct)/(none) 등 진입 경로 ★ 가장 원하는 답</li>
+      <li><strong>국가 / 도시</strong> — 지리 분포</li>
+      <li><strong>이벤트 카운트</strong> — page_view, click, scroll 등 발생 빈도</li>
+    </ol>
+
+    <h3>1-D. source/medium 값 해석</h3>
+    <table>
+      <thead><tr><th>표시값</th><th>의미</th></tr></thead>
+      <tbody>
+        <tr><td><code>google / organic</code></td><td>구글 검색결과 클릭으로 진입</td></tr>
+        <tr><td><code>naver / organic</code></td><td>네이버 검색결과 클릭</td></tr>
+        <tr><td><code>bing / organic</code></td><td>빙 검색결과 클릭</td></tr>
+        <tr><td><code>duckduckgo / organic</code></td><td>덕덕고</td></tr>
+        <tr><td><code>(direct) / (none)</code></td><td>북마크·URL 직접 입력·앱·메신저(referrer 누락) 등</td></tr>
+        <tr><td><code>t.co / referral</code></td><td>트위터/X 링크 클릭</td></tr>
+        <tr><td><code>l.facebook.com / referral</code></td><td>페이스북 링크</td></tr>
+        <tr><td><code>(not set) / (not set)</code></td><td>GA가 source 못 잡음 (캐시·쿠키차단·prerender 등 — 비율 ↑이면 셋업 점검)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>1-E. 한계 / 주의</h3>
+    <ul>
+      <li><strong>30분 윈도우</strong> — "오늘 누적 200명 중 80명 네이버" 같은 누적은 못 봄. 그건 표준 보고서(다음 날) 또는 Cloudflare</li>
+      <li><strong>광고 차단·쿠키 차단</strong> 사용자 = GA에 안 잡힘. 실제보다 작게 보임 (보통 10~30%↓)</li>
+      <li><strong>iOS/Safari ITP</strong> = referrer 일부 누락 → <code>(not set)</code> 비율 ↑ 가능</li>
+      <li><strong>네이버 앱 in-app browser</strong> = referrer가 <code>m.search.naver.com</code> 또는 <code>(not set)</code>로 잡히기도</li>
+    </ul>
+
+    <h2>2. Cloudflare Web Analytics — 5분 셋업</h2>
+
+    <p>도메인이 이미 Cloudflare에 위임돼 있으면 <strong>script 1줄</strong>만 추가하면 끝. 무료 · 분 단위 · 쿠키리스.</p>
+
+    <h3>2-A. 셋업 절차</h3>
+
+    <div class="step">
+      <span class="step-num">1</span>
+      <span class="step-title">Cloudflare 대시보드 진입</span>
+      <div class="step-body">
+        <p><a href="https://dash.cloudflare.com" target="_blank" rel="noopener">https://dash.cloudflare.com</a> 로그인 → 좌측 상단 계정 선택.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">2</span>
+      <span class="step-title">Analytics &amp; Logs → Web Analytics 메뉴</span>
+      <div class="step-body">
+        <p>좌측 사이드바 <strong>Analytics &amp; Logs</strong> 펼치기 → <strong>Web Analytics</strong>.</p>
+      </div>
+    </div>
+
+    <div class="mockup cf">
+      <div class="mockup-titlebar">
+        <div class="mockup-dots"><span></span><span></span><span></span></div>
+        <div class="mockup-url">dash.cloudflare.com/account/analytics/web</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-sidebar">
+          <div class="ms-brand">☁ Cloudflare</div>
+          <div class="ms-item"><span class="ms-icon">🌐</span>Websites</div>
+          <div class="ms-item"><span class="ms-icon">✉</span>Email</div>
+          <div class="ms-item active"><span class="ms-icon">📊</span>Analytics &amp; Logs</div>
+          <div class="ms-item" style="padding-left:42px;color:#f6821f">› Web Analytics</div>
+          <div class="ms-item" style="padding-left:42px">› Logs</div>
+          <div class="ms-item"><span class="ms-icon">🔒</span>Security</div>
+        </div>
+        <div class="mockup-content">
+          <div class="mockup-h1">Web Analytics</div>
+          <div class="mockup-sub">Free privacy-first analytics for any website</div>
+
+          <div style="background:#fff7ed;border:1px dashed #f6821f;border-radius:8px;padding:18px;text-align:center;margin-top:12px">
+            <div style="font-size:14px;font-weight:600;margin-bottom:8px">아직 등록된 사이트 없음</div>
+            <div style="font-size:12px;color:#666;margin-bottom:14px">script 한 줄로 추적 시작</div>
+            <button style="background:#f6821f;color:#fff;border:none;padding:9px 20px;border-radius:6px;font-weight:600;font-size:13px">+ Add a site</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">3</span>
+      <span class="step-title">+ Add a site 클릭 → 도메인 입력 → RUM 모드 선택</span>
+      <div class="step-body">
+        <p>호스트네임: <code>taystudios.com</code> 입력. 다음 화면에서 RUM 옵션 4가지 중 선택:</p>
+        <ul>
+          <li><strong>Enable</strong> — Cloudflare edge에서 자동 주입. Proxied(주황 구름) 도메인 전용. token 안 보여줌</li>
+          <li>Enable, excluding visitor data in the EU — 위와 동일하지만 EU 사용자 제외</li>
+          <li><strong>Enable with JS Snippet installation</strong> — 수동 삽입. token + script tag 발급 ★ <strong>우리가 선택</strong></li>
+          <li>Disable — 끔</li>
+        </ul>
+        <div class="callout warn">
+          <strong>왜 Manual인가</strong>
+          GitHub Pages는 자체 CDN(Fastly) + Let's Encrypt 자동 갱신을 쓰는데, Cloudflare proxy(주황 구름)를 켜면 SSL 종료가 Cloudflare에서 일어나 ACME challenge 통과 실패 → 인증서 갱신 깨질 수 있음. 그래서 GitHub 권장 = <strong>DNS only(회색 구름)</strong>. proxy off면 Cloudflare가 트래픽을 못 보니 자동 주입 X → Manual 필수.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">4</span>
+      <span class="step-title">Beacon token 발급 → 스크립트 복사</span>
+      <div class="step-body">
+        <p>Cloudflare가 다음 형태의 script tag를 줌:</p>
+        <pre><code>&lt;script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token": "abc123def456..."}'&gt;&lt;/script&gt;</code></pre>
+        <p>이 token이 사이트별 식별자.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">5</span>
+      <span class="step-title">site-chrome.js의 GA4 블록 옆에 추가</span>
+      <div class="step-body">
+        <p>Cloudflare가 준 원본 tag:</p>
+        <pre><code>&lt;script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "412699582bf74c0bbb767378e033c0ce"}'&gt;&lt;/script&gt;</code></pre>
+        <p>모든 페이지에 정적으로 삽입하지 않고 <code>common/site-chrome.js</code>의 GA4 IIFE(<code>:185</code>) 직후에 같은 동적 로드 패턴으로 추가 — 1곳 수정으로 전 페이지 적용:</p>
+        <pre><code>(function () {
+  const s = document.createElement('script');
+  s.defer = true;
+  s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  s.setAttribute('data-cf-beacon', '{"token": "412699582bf74c0bbb767378e033c0ce"}');
+  document.head.appendChild(s);
+})();</code></pre>
+        <div class="callout note">
+          <strong>왜 setAttribute인가</strong>
+          <code>s.dataset.cfBeacon = ...</code>도 동일하게 동작하지만 JSON 문자열을 그대로 보존하기 위해 <code>setAttribute</code>를 사용. 빈 dataset 키 변환(camel→kebab) 헷갈림 방지 목적도 있음.
+        </div>
+        <p>token은 client-side에 노출되지만 beacon 특성상 정상(모든 방문자 브라우저가 받아감 — 비밀이 아님).</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">6</span>
+      <span class="step-title">commit · push → 5분 후 데이터 수집 시작</span>
+      <div class="step-body">
+        <p>GitHub Pages 배포 후 본인 또는 다른 디바이스로 사이트 방문 → 5~10분 후 Cloudflare 대시보드에 페이지뷰 카운터 1↑ 확인.</p>
+      </div>
+    </div>
+
+    <h3>2-B. 화면 — 이렇게 생겼다</h3>
+
+    <div class="mockup cf">
+      <div class="mockup-titlebar">
+        <div class="mockup-dots"><span></span><span></span><span></span></div>
+        <div class="mockup-url">dash.cloudflare.com/account/analytics/web/taystudios.com</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-sidebar">
+          <div class="ms-brand">☁ Cloudflare</div>
+          <div class="ms-item active"><span class="ms-icon">📊</span>Web Analytics</div>
+          <div class="ms-item" style="padding-left:32px;color:#f6821f">› taystudios.com</div>
+          <div class="ms-item" style="padding-left:42px">— Overview</div>
+          <div class="ms-item" style="padding-left:42px">— Sources</div>
+          <div class="ms-item" style="padding-left:42px">— Pages</div>
+          <div class="ms-item" style="padding-left:42px">— Devices</div>
+        </div>
+        <div class="mockup-content">
+          <div class="mockup-h1">taystudios.com — 지난 24시간</div>
+          <div class="mockup-sub">분 단위 업데이트 · 쿠키리스 · 동의 불요</div>
+
+          <div class="mockup-cards" style="grid-template-columns:repeat(3,1fr)">
+            <div class="mockup-card">
+              <div class="mockup-card-title">방문자</div>
+              <div class="mockup-bignum">438</div>
+              <div class="mockup-trend">↑ 12% (전일대비)</div>
+            </div>
+            <div class="mockup-card">
+              <div class="mockup-card-title">페이지뷰</div>
+              <div class="mockup-bignum">1,247</div>
+              <div class="mockup-trend">평균 2.85 / 방문</div>
+            </div>
+            <div class="mockup-card">
+              <div class="mockup-card-title">활성 (5분)</div>
+              <div class="mockup-bignum orange">14</div>
+              <div class="mockup-trend">실시간</div>
+            </div>
+          </div>
+
+          <div class="mockup-card-title" style="margin-top:8px">Top referrers (24h)</div>
+          <table class="mockup-table">
+            <thead><tr><th>출처</th><th class="num">방문</th></tr></thead>
+            <tbody>
+              <tr><td>google.com</td><td class="num"><span class="mockup-bar" style="width:90px"></span>192</td></tr>
+              <tr><td>search.naver.com</td><td class="num"><span class="mockup-bar" style="width:55px"></span>113</td></tr>
+              <tr><td>bing.com</td><td class="num"><span class="mockup-bar" style="width:25px"></span>52</td></tr>
+              <tr><td>(direct)</td><td class="num"><span class="mockup-bar" style="width:18px"></span>38</td></tr>
+              <tr><td>duckduckgo.com</td><td class="num"><span class="mockup-bar" style="width:8px"></span>17</td></tr>
+              <tr><td>t.co</td><td class="num"><span class="mockup-bar" style="width:5px"></span>11</td></tr>
+            </tbody>
+          </table>
+
+          <div class="mockup-callout">📌 광고차단 · 쿠키차단 사용자도 잡힘 — GA4 대비 보통 10~30% 더 큰 수치</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>2-C. 핵심 패널</h3>
+    <ul>
+      <li><strong>Overview</strong> — 방문자·페이지뷰·활성(5분)·전일대비 +/-</li>
+      <li><strong>Sources / Referrers</strong> — google.com·search.naver.com·bing.com·(direct) 등 ★ 가장 원하는 답</li>
+      <li><strong>Pages</strong> — 어떤 페이지가 많이 보였나 (URL별)</li>
+      <li><strong>Devices / Countries / Browsers</strong> — 디바이스·국가·브라우저 분포</li>
+      <li><strong>Time range</strong> — 1h / 24h / 7d / 30d 토글 (GA4 Realtime은 30분 고정)</li>
+    </ul>
+
+    <h2>3. 두 도구 어떻게 같이 쓰나</h2>
+
+    <div class="compare-grid">
+      <div class="compare-card ga">
+        <h4>GA4 — 깊이</h4>
+        <ul>
+          <li>이벤트 추적 (page_view·click·scroll·custom)</li>
+          <li>전환 funnel·attribution</li>
+          <li>사용자 행동 시퀀스 (탐색)</li>
+          <li>디바이스 ID 기반 cohort</li>
+          <li>Realtime 30분 윈도우</li>
+        </ul>
+      </div>
+      <div class="compare-card cf">
+        <h4>Cloudflare — 즉시성</h4>
+        <ul>
+          <li>분 단위 업데이트</li>
+          <li>광고차단 무관 (잡힘)</li>
+          <li>쿠키 0 → GDPR 동의 불요</li>
+          <li>심플한 referrer / pages / devices</li>
+          <li>가벼움 (3KB 미만)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>3-A. 권장 routine</h3>
+    <table>
+      <thead><tr><th>시점</th><th>도구</th><th>보는 것</th></tr></thead>
+      <tbody>
+        <tr><td>매일 아침</td><td>Cloudflare Web Analytics</td><td>전일 24시간 — referrer top 5, pageview 추이</td></tr>
+        <tr><td>새 페이지 발행 직후</td><td>GA4 Realtime</td><td>30분 안 진입자 + source 모니터</td></tr>
+        <tr><td>주 1회</td><td>GA4 보고서 → Acquisition</td><td>주간 누적 source/medium·conversion</td></tr>
+        <tr><td>월 1회</td><td>Search Console + Bing/Naver Webmaster</td><td>키워드별 노출·CTR·평균 순위</td></tr>
+        <tr><td>이상 발생 시</td><td>둘 다 비교</td><td>GA4↓ but Cloudflare↑ = 광고차단·쿠키차단 영향. 둘 다 ↓ = 실제 트래픽 ↓</td></tr>
+      </tbody>
+    </table>
+
+    <h3>3-B. 데이터 차이가 나면?</h3>
+    <ul>
+      <li><strong>Cloudflare 200, GA4 130</strong> → 정상. 광고/쿠키차단 사용자 미수집 차이 (보통 GA4가 70~80%)</li>
+      <li><strong>두 곳 모두 갑자기 ↓</strong> → 실제 트래픽 감소 또는 sitemap·검색엔진 색인 문제. Search Console 점검</li>
+      <li><strong>GA4만 갑자기 ↓</strong> → GA4 셋업 깨짐. <code>site-chrome.js</code> GA_ID·gtag 호출 점검, GA 콘솔 "데이터 스트림" 상태 확인</li>
+      <li><strong>Cloudflare만 갑자기 ↓</strong> → beacon script 에러. DevTools Network 탭에서 <code>cloudflareinsights.com</code> request 확인</li>
+    </ul>
+
+    <h2>4. 키워드 단위는 별도 — Webmaster Tools</h2>
+
+    <p>"네이버에서 어떤 키워드로 들어왔나"는 GA·Cloudflare 둘 다 못 알려줌(검색엔진이 query를 referrer에 넣지 않음). 각 검색엔진의 webmaster console에서만 제공.</p>
+
+    <table>
+      <thead><tr><th>도구</th><th>URL</th><th>제공 데이터</th></tr></thead>
+      <tbody>
+        <tr><td>Google Search Console</td><td><a href="https://search.google.com/search-console" target="_blank" rel="noopener">search.google.com/search-console</a></td><td>구글 query·impression·CTR·position</td></tr>
+        <tr><td>Bing Webmaster Tools</td><td><a href="https://bing.com/webmasters" target="_blank" rel="noopener">bing.com/webmasters</a></td><td>빙·덕덕고(Bing 기반) query·impression</td></tr>
+        <tr><td>Naver Search Advisor</td><td><a href="https://searchadvisor.naver.com" target="_blank" rel="noopener">searchadvisor.naver.com</a></td><td>네이버 query·노출·CTR·진단</td></tr>
+        <tr><td>Yandex Webmaster</td><td><a href="https://webmaster.yandex.com" target="_blank" rel="noopener">webmaster.yandex.com</a></td><td>러시아·CIS 진출 시</td></tr>
+      </tbody>
+    </table>
+
+    <p>각각 sitemap.xml 등록 → 1~2주 데이터 쌓이면 keyword 단위 분석 가능. 셋업은 별도 turn에서.</p>
+
+    <h2>5. Troubleshooting</h2>
+
+    <h3>GA4 Realtime에 활성 사용자 0인데 사이트 트래픽 있음</h3>
+    <ul>
+      <li>본인 브라우저에서 사이트 열어 자가 테스트 → 1분 내 Realtime에 1↑ 떠야 함</li>
+      <li>안 뜨면 GA가 측정 안 되는 것. DevTools Console에 <code>gtag is not defined</code> 같은 에러 확인</li>
+      <li><code>common/site-chrome.js:185-193</code> GA4 init 블록 정상 실행되는지 점검 — <code>window.dataLayer</code>·<code>window.gtag</code> 존재해야 함</li>
+      <li>광고차단 ON이면 본인이 안 잡힐 수 있음. 시크릿 창 + 차단 OFF로 재시도</li>
+    </ul>
+
+    <h3>Cloudflare Web Analytics에 0이 계속 뜸</h3>
+    <ul>
+      <li>script가 GitHub Pages에 배포됐는지 — <code>view-source:</code>로 HTML 확인. <code>cloudflareinsights.com</code> beacon 보여야 함</li>
+      <li>token이 도메인과 매칭 — Cloudflare 대시보드 site detail에서 token 재확인</li>
+      <li>도메인 hostname mismatch — <code>www.taystudios.com</code> vs <code>taystudios.com</code> 등록 차이 확인</li>
+      <li>5분 캐시 — push 직후 즉시 안 뜸. 10분 후 재확인</li>
+    </ul>
+
+    <h3>(direct) / (none) 비율이 너무 높다</h3>
+    <ul>
+      <li>북마크·URL 직접 입력 = 정상</li>
+      <li>인앱 브라우저(KAKAO·Line·NAVER inapp)에서 referrer 누락 = 흔함</li>
+      <li>HTTPS → HTTP 점프(이젠 거의 없음) = referrer drop</li>
+      <li>50% 넘으면 의심 — UTM 파라미터 사용 또는 referrer-policy meta 점검</li>
+    </ul>
+
+    <h2>6. 다음 단계</h2>
+    <ol>
+      <li>✅ <s>Cloudflare 대시보드에서 token 발급</s> (2026-05-10 완료)</li>
+      <li>✅ <s>token을 <code>site-chrome.js</code>에 추가</s> (2026-05-10 완료, <code>:196</code>)</li>
+      <li><strong>⏳ commit·push</strong> → 배포 후 10분 뒤 Cloudflare 대시보드에서 첫 PV 확인</li>
+      <li>Bing Webmaster · Naver Search Advisor 셋업 (별도 turn)</li>
+      <li>(선택) GA4와 Cloudflare 수치 비교 — 차이 30% 이상이면 광고차단 영향, §3-B 가이드 따라 진단</li>
+    </ol>
+
+    <h2>7. 관련 문서</h2>
+    <ul>
+      <li><a href="/history/seo/concept-search-console.html">Google Search Console 개념정리</a> — GOOGLE 색인 vs 실시간 테스트</li>
+      <li><a href="/history/seo/concept-indexnow.html">IndexNow 개념정리</a> — Bing·Naver·Yandex push 채널</li>
+      <li><a href="/history/seo/strategy.md">SEO 전략 본체</a></li>
+    </ul>
+
+    <a class="doc-back" href="/history/">← history 인덱스</a>
+  </article>
+</body>
+</html>
