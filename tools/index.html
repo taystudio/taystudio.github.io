@@ -134,13 +134,12 @@
     <section class="hero">
       <h1>실생활 계산기 38선</h1>
       <p class="subtitle">필요한 도구를 빠르게 — 가입·설치 없이 즉시 사용</p>
-      <div class="search-box">
-        <div class="search-input-wrapper">
-          <span class="search-icon" aria-hidden="true">🔍</span>
-          <input type="search" id="search" placeholder="계산기 이름으로 검색 (예: 양도세, 연봉, 만 나이)" autocomplete="off">
-        </div>
-        <span class="hint">입력값은 브라우저 안에서만 처리되며 서버로 전송되지 않습니다</span>
+      <div class="tool-search">
+        <span class="ts-icon" aria-hidden="true">🔍</span>
+        <input type="search" id="search" placeholder="계산기 이름으로 검색 (예: 양도세, 연봉, 만 나이)" aria-label="계산기 검색" autocomplete="off" spellcheck="false">
+        <button type="button" class="ts-clear" aria-label="지우기">✕</button>
       </div>
+      <p class="ts-privacy-hint">입력값은 브라우저 안에서만 처리되며 서버로 전송되지 않습니다</p>
     </section>
 
     <section class="featured-section">
@@ -194,9 +193,8 @@
       <a class="pill" href="#cat-life">🗓️ 생활<span class="count">2</span></a>
     </nav>
 
-    <div id="empty" class="empty-state">
-      <div class="icon">🔍</div>
-      <div>검색 결과가 없어요. 다른 단어로 시도해보세요.</div>
+    <div id="empty" class="tool-no-result" style="display:none">
+      <strong>검색 결과 없음</strong> — 다른 키워드로 시도해보세요.
     </div>
 
     <section class="category-section" id="cat-real-estate">
@@ -360,12 +358,15 @@
       const featured = document.querySelector('.featured-section');
       const season = document.querySelector('.season-banner');
       const pills = document.querySelector('.category-pills');
+      const wrap = search.closest('.tool-search');
+      const clearBtn = wrap && wrap.querySelector('.ts-clear');
 
       function normalize(s) { return (s || '').toLowerCase().replace(/\s+/g, ''); }
 
       search.addEventListener('input', () => {
         const q = normalize(search.value);
         let total = 0;
+        if (wrap) wrap.classList.toggle('has-value', search.value.length > 0);
 
         if (!q) {
           cards.forEach(c => c.classList.remove('hidden'));
@@ -403,6 +404,14 @@
 
         empty.style.display = total === 0 ? 'block' : 'none';
       });
+
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          search.value = '';
+          search.dispatchEvent(new Event('input'));
+          search.focus();
+        });
+      }
 
       // 부드러운 스크롤
       document.querySelectorAll('.category-pills a').forEach(a => {

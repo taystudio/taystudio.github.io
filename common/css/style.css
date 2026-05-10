@@ -804,6 +804,12 @@ button:hover {
   margin: 14px 0;
 }
 .tool-no-result strong { color: var(--text); font-weight: 600; }
+.ts-privacy-hint {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin: -16px 0 24px;
+}
 @media (max-width: 600px) {
   .tool-search .ts-hint { display: none; }
 }
