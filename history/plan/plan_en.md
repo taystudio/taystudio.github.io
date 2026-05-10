@@ -2,9 +2,9 @@
 
 > 영어 사이트(`/en/`) 전용 운영 plan. 한국판 [plan.md](./plan.md)와 분리 — 한국판은 한국 시장 60 도구·세금·부동산·노동법 본체, 영어판은 universal subset만 다룸. 본 문서 = 한국판 plan.md 핵심 요약 + 영어 진입 의사결정·로드맵·진행 기록.
 
-**최종 갱신**: 2026-05-10 (Phase B 완료 + SEO audit + HowTo parity + `/en/` home Phase B 반영 + Gap 2 manifest 다국어 + 후속 보강 4 step: cross-category nav · KO manifest 브랜드 통일 · og-image 영어 변형 · image 번역 검수 doc)
-**현재 상태**: **Phase A + B 완료 + SEO audit 통과 + home 카드 5종 LIVE + 영어 PWA manifest 격리 + 후속 보강 4 step 완료** — 영어 universal 28선 전부 live + 4 카테고리 hub + Korean source 31파일 hreflang + `TRANSLATED_PATHS` whitelist 33 path + sitemap.xml 71→102 URL + HowTo schema 한·영 9/9 parity + `/en/` home hub-grid 5/5 LIVE + `/en/manifest.webmanifest` 신규(scope=/en/, lang=en-US, shortcuts 4 영어 path) + 5 hub cross-category nav 4 link씩 + 한국 manifest "TayTools" → "TAYSTUDIO" 통일 + `/og-image-en.png` 영어 변형(34 file 갱신) + `2026-05-10-en-image-translation-review.md` 사용자 검수 doc
-**다음 진입 후보**: AI 번역 검수 사용자 review (image 1순위, doc 준비됨) → IndexNow ping `/en/*` → Phase C 외부 채널
+**최종 갱신**: 2026-05-10 (Phase B 완료 + SEO audit + HowTo parity + `/en/` home Phase B 반영 + Gap 2 manifest 다국어 + 후속 보강 4 step + **5 카테고리 검수 doc 풀세트** image·pdf·video·text·calculators)
+**현재 상태**: **Phase A + B 완료 + SEO audit 통과 + home 카드 5종 LIVE + 영어 PWA manifest 격리 + 후속 보강 4 step 완료 + 5 카테고리 검수 doc 풀세트** — 영어 universal 28선 전부 live + 4 카테고리 hub + Korean source 31파일 hreflang + `TRANSLATED_PATHS` whitelist 33 path + sitemap.xml 71→102 URL + HowTo schema 한·영 9/9 parity + `/en/` home hub-grid 5/5 LIVE + `/en/manifest.webmanifest` 신규(scope=/en/, lang=en-US, shortcuts 4 영어 path) + 5 hub cross-category nav 4 link씩 + 한국 manifest "TayTools" → "TAYSTUDIO" 통일 + `/og-image-en.png` 영어 변형(34 file 갱신) + 검수 doc 5종(image 26KB · pdf 15KB · video 15KB · text 5KB · calculators 26KB, 총 87KB)
+**다음 진입 후보**: AI 번역 검수 사용자 review (5 카테고리 doc 준비됨) → IndexNow ping `/en/*` → Phase C 외부 채널
 
 ---
 
@@ -313,14 +313,18 @@
   - 이모지 제거 — `rsvg-convert`에 컬러 이모지 폰트 없어 박스로 깨지므로 컬러 dot으로 대체 (한국 OG도 동일 깨짐, fallback 일관)
   - 영어 페이지 34 HTML의 `og:image`·`og:image:secure_url`·`twitter:image` 일괄 sed (`og-image.png` → `og-image-en.png`) + `en/index.html` JSON-LD Organization image도 영어판으로 갱신
   - 효과: 영어 SERP·Twitter card·Facebook share 미리보기에서 영어 카피 노출 → CTR 향상 기대
-- **Step 4 — image 카테고리 번역 검수 candidate doc 도출** ✅
-  - `history/seo/2026-05-10-en-image-translation-review.md` 신규 (26KB) — image 9 도구 + 1 hub의 SEO meta(title/desc/OG/Twitter) + H1 + subtitle + privacy box + FAQ + HowTo step 추출
-  - 사용자 review 후 어색한 표현·도메인 용어 패치 진입점
+- **Step 4 — 5 카테고리 번역 검수 candidate doc 풀세트** ✅
+  - `history/seo/2026-05-10-en-image-translation-review.md` (26KB · image 9 도구 + hub)
+  - `history/seo/2026-05-10-en-pdf-translation-review.md` (15KB · pdf 5 도구 + hub)
+  - `history/seo/2026-05-10-en-video-translation-review.md` (15KB · video 5 도구 + hub)
+  - `history/seo/2026-05-10-en-text-translation-review.md` (5KB · text 1 도구 + hub)
+  - `history/seo/2026-05-10-en-calculators-translation-review.md` (26KB · calc 8 도구 + hub)
+  - 각 file 추출 항목: SEO meta(title/desc/OG/Twitter) + H1 + subtitle + privacy box + FAQ Q/A + HowTo step
+  - 사용자 review 후 어색한 표현·도메인 용어 패치 진입점. Python 추출 script 동일 패턴 (재실행 가능)
 - **검증**: 5 hub 모두 4 cross-link 정상 · 한국 manifest JSON validity OK · 영어 OG PNG 1200×630 RGB · stale `og-image.png` in en/ = 0건 / 새 `og-image-en.png` 34 file 103 occurrences · Image hub HowTo·FAQ 추출 정상
 
 ### 9.9 다음 세션 진입 후보
-- **사용자 검수 — AI 초안 번역 품질 review** (1순위, doc 준비됨) — `history/seo/2026-05-10-en-image-translation-review.md` 보고 image 카테고리부터 어색한 표현·도메인 용어·FAQ 답변 점검. 사용자 결정 시 patch 진행
-- **카테고리 확장 검수 doc** — image 검수 끝나면 같은 패턴으로 PDF·Video·Text·Calculators review doc 생성 권장
+- **사용자 검수 — AI 초안 번역 품질 review** (1순위, **5 카테고리 doc 풀세트 준비됨**) — `history/seo/2026-05-10-en-{image,pdf,video,text,calculators}-translation-review.md` 5개 보고 어색한 표현·도메인 용어·FAQ 답변 점검. 우선순위 = image → pdf → video → calculators → text (영어 시장 hot 순). 사용자 결정 시 patch 진행
 - **IndexNow ping `/en/*` 신규 32 URL** — sitemap 갱신 직후 가능. `bash scripts/indexnow-ping.sh`
 - **Phase C-1: Reddit 시드 게시 1회** — Pilot 검증 1~2주 후 (사용자 결정). r/InternetIsBeautiful·r/usefulwebsites 권장
 - **사용자 검토 후속**: kbd-convert·sns-format(text/) ko-only 유지 결정 재확인, `id-photo` preset 변경 검토
