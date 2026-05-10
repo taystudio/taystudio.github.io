@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/en/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="Combine Images | Free Photo Stitching (Vertical / Horizontal / Grid)">
+  <meta property="og:description" content="Combine multiple photos into one — vertical, horizontal, or grid. For chat captures, comparison shots, Instagram 9-grid. Browser-based.">
+  <meta property="og:url" content="https://taystudios.com/en/image/merge/">
+  <meta property="og:image" content="https://taystudios.com/og-image-en.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image-en.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Combine Images | Free Photo Stitching">
+  <meta name="twitter:description" content="Combine photos vertically, horizontally, or in grid.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Combine Images | Free Photo Stitching (Vertical / Horizontal / Grid)</title>
+  <meta name="description" content="Combine multiple photos into one image — vertical, horizontal, or grid layouts with adjustable gap and background color. For chat capture stitching, before/after, Instagram 9-grid. Browser-based, no signup.">
+  <meta name="keywords" content="combine images, photo stitching, vertical photo combine, instagram 9 grid, before after photo, image collage, screenshot stitch">
+  <link rel="canonical" href="https://taystudios.com/en/image/merge/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/merge/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/merge/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/merge/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Combine Images",
+      "description": "Combine multiple photos into one. Vertical, horizontal, or grid layout with adjustable gap and background. Browser-based.",
+      "url": "https://taystudios.com/en/image/merge/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": ["Horizontal stitching", "Vertical stitching (capture-friendly)", "Grid layout (2x2, 3x3, etc.)", "Adjustable gap and background color", "Drag-reorder", "No upload to external servers"],
+      "dateModified": "2026-05-10",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/en/image/" },
+        { "@type": "ListItem", "position": 3, "name": "Combine images", "item": "https://taystudios.com/en/image/merge/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Are my files uploaded?", "acceptedAnswer": { "@type": "Answer", "text": "No. All processing runs in your browser via Canvas API." } },
+        { "@type": "Question", "name": "Can I combine multiple chat screenshots into one?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Vertical mode + gap 0px gives a seamless single image. Stitching messenger captures is a core use case." } },
+        { "@type": "Question", "name": "What if my photos have different sizes?", "acceptedAnswer": { "@type": "Answer", "text": "Horizontal: matches first photo's height, scales the rest proportionally. Vertical: matches first photo's width. Grid: cell size = first photo, contain-fit." } },
+        { "@type": "Question", "name": "Can I reorder photos?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the ↑↓ buttons in the file list. Preview updates immediately." } },
+        { "@type": "Question", "name": "What's the max number of photos?", "acceptedAnswer": { "@type": "Answer", "text": "No hard limit, but the result canvas must stay under browser limit (~16k×16k). Generally 20-30 photos work fine." } }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .file-list { display:flex; flex-direction:column; gap:8px; margin-top:14px; }
+    .file-item { display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--card); border:1px solid var(--border); border-radius:8px; }
+    .file-item .order { width:24px; height:24px; display:flex; align-items:center; justify-content:center; background:var(--border); color:var(--muted); border-radius:50%; font-size:12px; font-weight:600; flex:0 0 auto; }
+    .file-item .name { flex:1 1 auto; font-size:13.5px; word-break:break-all; line-height:1.4; }
+    .file-item .size { font-size:12px; color:var(--muted); flex:0 0 auto; font-variant-numeric:tabular-nums; }
+    .file-item .row-actions { display:flex; gap:4px; flex:0 0 auto; }
+    .file-item .row-actions button { width:30px; height:30px; padding:0; font-size:14px; line-height:1; background:transparent; color:var(--muted); border:1px solid var(--border); border-radius:6px; cursor:pointer; }
+    .opt-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:12px; margin-top:14px; }
+    .opt-grid .field label { display:block; margin-bottom:4px; font-size:12.5px; color:var(--muted); }
+    .opt-grid .field input, .opt-grid .field select { width:100%; padding:8px 10px; font-size:14px; border:1px solid var(--border); border-radius:6px; background:var(--card); color:var(--text); }
+    .preview-wrap { margin-top:14px; background:#fff; border:1px solid var(--border); border-radius:8px; padding:8px; display:flex; align-items:flex-start; justify-content:center; min-height:280px; max-height:60vh; overflow:auto; }
+    .preview-wrap canvas { max-width:100%; border:1px dashed var(--border); display:block; }
+    .grid-cells-row { display:none; }
+    .grid-cells-row[data-show] { display:block; }
+    .zoom-row { display:flex; align-items:center; gap:10px; margin-top:14px; padding:8px 12px; background:var(--bg); border:1px solid var(--border); border-radius:8px; }
+    .zoom-row label { font-size:12.5px; color:var(--muted); white-space:nowrap; }
+    .zoom-row input[type="range"] { flex:1; min-width:80px; }
+    .zoom-row .zval { font-size:12.5px; font-weight:600; min-width:54px; text-align:right; font-variant-numeric:tabular-nums; }
+    .zoom-row button { padding:4px 10px; font-size:13px; background:var(--card); border:1px solid var(--border); border-radius:5px; cursor:pointer; color:var(--text); }
+    .zoom-row button:hover { border-color:var(--primary); color:var(--primary); }
+    .zoom-row .dim { font-size:11px; color:var(--muted); padding-left:8px; border-left:1px solid var(--border); white-space:nowrap; }
+    @media (max-width: 600px) {
+      .zoom-row { flex-wrap:wrap; }
+      .zoom-row .dim { width:100%; padding-left:0; border-left:none; padding-top:6px; border-top:1px solid var(--border); margin-top:2px; }
+    }
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Image</a> · Combine images</div>
+    <h1>Combine Images (Photo Stitching)</h1>
+    <p class="subtitle">Combine multiple photos into one — chat screenshot stitching, before/after, Instagram 9-grid.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Your images are not uploaded to any server.</b> All processing runs in your browser.</div>
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">🧩</div>
+        <div class="drop-title">Drag-drop photos or click to select (2 or more)</div>
+        <div class="drop-hint">JPG, PNG, WebP — reorderable</div>
+        <input type="file" id="fileInput" accept="image/*" multiple>
+      </label>
+
+      <div id="fileList" class="file-list"></div>
+
+      <div class="opt-grid" id="optRow" hidden>
+        <div class="field">
+          <label for="modeSel">Layout mode</label>
+          <select id="modeSel">
+            <option value="vertical" selected>Vertical (capture stitch)</option>
+            <option value="horizontal">Horizontal</option>
+            <option value="grid">Grid</option>
+          </select>
+        </div>
+        <div class="field grid-cells-row" id="gridColsField">
+          <label for="gridCols">Grid columns</label>
+          <input type="number" id="gridCols" min="1" max="10" value="2">
+        </div>
+        <div class="field">
+          <label for="gapIn">Gap (px): <b id="gapVal">0</b></label>
+          <input type="range" id="gapIn" min="0" max="80" step="2" value="0">
+        </div>
+        <div class="field">
+          <label for="bgColor">Background color</label>
+          <input type="color" id="bgColor" value="#ffffff">
+        </div>
+        <div class="field">
+          <label for="formatSel">Output format</label>
+          <select id="formatSel">
+            <option value="image/jpeg" selected>JPG (smaller size)</option>
+            <option value="image/png">PNG (lossless)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="zoom-row" id="zoomRow" hidden>
+        <label>Preview size</label>
+        <button type="button" id="zoomMinus" title="Zoom out">−</button>
+        <input type="range" id="zoomIn" min="0.3" max="3" step="0.1" value="1">
+        <button type="button" id="zoomPlus" title="Zoom in">+</button>
+        <span class="zval" id="zoomVal">100%</span>
+        <button type="button" id="zoomFit" title="Reset to default">Fit</button>
+        <span class="dim" id="dimVal"></span>
+      </div>
+
+      <div class="preview-wrap" id="previewWrap" hidden>
+        <canvas id="previewCanvas"></canvas>
+      </div>
+
+      <div class="image-actions" id="actionBar" hidden>
+        <button type="button" id="applyBtn">Combine + Download</button>
+        <button type="button" id="clearBtn">Clear all</button>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense ad slot ]</div>
+
+    <section class="tool-article">
+      <h2>Common use cases</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Situation</th><th>Recommended mode</th></tr></thead>
+          <tbody>
+            <tr><td>Stitch chat screenshots into one image</td><td>Vertical + gap 0px + white background</td></tr>
+            <tr><td>Add multiple photos to a marketplace review</td><td>Vertical or grid + gap 5-10px</td></tr>
+            <tr><td>Instagram 9-grid (3×3)</td><td>Grid + 3 columns + gap 0px</td></tr>
+            <tr><td>Before / After comparison</td><td>Horizontal + gap 4px</td></tr>
+            <tr><td>Product multi-shot composite</td><td>Grid + white background + gap 8px</td></tr>
+            <tr><td>App tutorial flow capture</td><td>Vertical + gap 12px + gray background</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../format-convert/">Format convert<span class="desc">webp / jpg after combine</span></a>
+        <a href="../compress/">Image compress<span class="desc">Reduce result size</span></a>
+        <a href="../resize/">Resize<span class="desc">SNS / blog dimensions</span></a>
+        <a href="../crop/">Crop<span class="desc">Trim before combining</span></a>
+        <a href="../watermark/">Watermark<span class="desc">Anti-theft on combined image</span></a>
+        <a href="../">All image tools<span class="desc">View all</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently asked questions</h2>
+
+      <details><summary>Are my files uploaded?</summary><div class="answer">No. All processing runs in <b>your browser via Canvas API</b>.</div></details>
+      <details><summary>Can I combine chat screenshots?</summary><div class="answer">Yes. Vertical mode + gap 0px gives a seamless single image. Stitching messenger captures is a core use case.</div></details>
+      <details><summary>What if my photos have different sizes?</summary><div class="answer">Horizontal: scaled to first photo's height. Vertical: scaled to first photo's width. Grid: contain-fit to cell size.</div></details>
+      <details><summary>Can I reorder photos?</summary><div class="answer">Yes. Use ↑↓ in the file list. Preview updates immediately.</div></details>
+      <details><summary>How many photos can I combine?</summary><div class="answer">No hard limit. Result canvas must stay under browser limit (~16k×16k). Generally 20-30 works fine.</div></details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last verified: 2026-05-10 / Browser native Canvas API (no external libraries).</div>
+      <div class="note">⚠️ If result is large (20MB+), consider JPG output + image compression for upload.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ View all image tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="./merge.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/en/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO PDF">
+  <meta property="og:title" content="PDF Watermark, Page Numbers, Metadata Editor | Free PDF Stamp">
+  <meta property="og:description" content="Add watermark, insert page numbers, and edit PDF metadata (title, author, keywords) all in one tool. Browser-based.">
+  <meta property="og:url" content="https://taystudios.com/en/pdf/pdf-stamp/">
+  <meta property="og:image" content="https://taystudios.com/og-image-en.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image-en.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PDF Watermark / Page Numbers / Metadata">
+  <meta name="twitter:description" content="3-in-1 PDF stamp tool, browser-based.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>PDF Watermark, Page Numbers, Metadata Editor | Free PDF Stamp Tool</title>
+  <meta name="description" content="Add watermark, insert page numbers, and edit PDF metadata (title, author, subject, keywords) — all in one page. For company documents, contracts, resumes. Batch processing, browser-based.">
+  <meta name="keywords" content="pdf watermark, pdf page numbers, pdf add page numbers, pdf metadata edit, pdf change title, pdf change author, pdf stamp">
+  <link rel="canonical" href="https://taystudios.com/en/pdf/pdf-stamp/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/pdf/pdf-stamp/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-stamp/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/pdf/pdf-stamp/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "PDF Watermark, Page Numbers, Metadata Editor",
+      "description": "Add watermark, page numbers, and edit PDF metadata in one tool. Browser-based.",
+      "url": "https://taystudios.com/en/pdf/pdf-stamp/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": ["PDF watermark (text, diagonal, repeat)", "Page numbers (position + format)", "PDF metadata edit (title, author, subject, keywords)", "Batch processing", "No upload to external servers"],
+      "dateModified": "2026-05-10",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "PDF", "item": "https://taystudios.com/en/pdf/" },
+        { "@type": "ListItem", "position": 3, "name": "PDF Stamp (Watermark / Numbers / Metadata)", "item": "https://taystudios.com/en/pdf/pdf-stamp/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "Are my PDFs uploaded?", "acceptedAnswer": { "@type": "Answer", "text": "No. All processing runs in your browser via pdf-lib (WebAssembly). The site operator cannot see your PDF content." } },
+        { "@type": "Question", "name": "Is the watermark applied to all pages?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. In watermark mode, every page gets the same watermark. Configurable text, position, rotation, and opacity." } },
+        { "@type": "Question", "name": "Can I customize page number format?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. 4 formats: '1' (simple) / '1 / 10' (fraction) / 'Page 1 of 10' / '- 1 -' (dashes). 6 position options." } },
+        { "@type": "Question", "name": "Why does metadata matter?", "acceptedAnswer": { "@type": "Answer", "text": "Title, author, and keywords appear in PDF viewer tabs, search, and document management. A PDF with title 'Untitled' or unknown author looks unprofessional. Standardize for cleanliness." } },
+        { "@type": "Question", "name": "Can I set a PDF password?", "acceptedAnswer": { "@type": "Answer", "text": "Password encryption is NOT supported (limitation of static-site PDF encryption libraries). Use Adobe Acrobat or a desktop tool for password protection." } }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .file-list { display:flex; flex-direction:column; gap:8px; margin-top:14px; }
+    .file-item { display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--card); border:1px solid var(--border); border-radius:8px; }
+    .file-item .order { width:24px; height:24px; display:flex; align-items:center; justify-content:center; background:var(--border); color:var(--muted); border-radius:50%; font-size:12px; font-weight:600; flex:0 0 auto; }
+    .file-item .name { flex:1 1 auto; font-size:13.5px; word-break:break-all; line-height:1.4; }
+    .file-item .size { font-size:12px; color:var(--muted); flex:0 0 auto; font-variant-numeric:tabular-nums; }
+    .file-item .row-actions button { width:30px; height:30px; padding:0; font-size:14px; line-height:1; background:transparent; color:var(--muted); border:1px solid var(--border); border-radius:6px; cursor:pointer; }
+    .mode-tabs { display:flex; gap:4px; margin-top:14px; border-bottom:1px solid var(--border); }
+    .mode-tabs button { background:transparent; border:none; padding:10px 16px; cursor:pointer; font-size:14px; color:var(--muted); border-bottom:2px solid transparent; }
+    .mode-tabs button.active { color:var(--primary); border-bottom-color:var(--primary); font-weight:600; }
+    .mode-panel { display:none; padding:14px 0; }
+    .mode-panel.active { display:block; }
+    .opt-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:12px; }
+    .opt-grid .field label { display:block; margin-bottom:4px; font-size:12.5px; color:var(--muted); }
+    .opt-grid .field input, .opt-grid .field select, .opt-grid .field textarea {
+      width:100%; padding:8px 10px; font-size:14px; border:1px solid var(--border); border-radius:6px; background:var(--card); color:var(--text);
+      font-family:inherit;
+    }
+    .opt-grid .field textarea { min-height:60px; resize:vertical; }
+    .opt-grid .field input[type="range"] { padding:0; }
+    .progress-wrap { margin-top:14px; }
+    .progress-wrap .bar { height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+    .progress-wrap .fill { height:100%; background:var(--primary); transition:width .15s; }
+    .progress-wrap .text { font-size:12px; color:var(--muted); margin-top:4px; text-align:center; }
+    .img-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:14px; margin-top:14px; }
+    .img-card { border:1px solid var(--border); border-radius:8px; padding:8px; background:var(--card); }
+    .img-card-meta { font-size:12px; color:var(--text); padding:8px 0; text-align:center; word-break:break-all; }
+    .img-card-dl { display:block; padding:6px 0; text-align:center; font-size:13px; background:var(--primary); color:#fff; border-radius:5px; text-decoration:none; }
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">PDF</a> · Watermark / Numbers / Metadata</div>
+    <h1>PDF Watermark, Page Numbers, Metadata Editor</h1>
+    <p class="subtitle">3-in-1: add watermark, insert page numbers, edit title / author / keywords.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Your PDFs are not uploaded to any server.</b> All processing runs in your browser via pdf-lib (WebAssembly).</div>
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone">
+        <div class="drop-icon" aria-hidden="true">📄</div>
+        <div class="drop-title">Drag-drop PDF or click to select</div>
+        <div class="drop-hint">Multiple PDFs supported</div>
+        <input type="file" id="fileInput" accept="application/pdf,.pdf" multiple>
+      </label>
+
+      <div id="fileList" class="file-list"></div>
+
+      <div class="mode-tabs" id="modeTabs" hidden>
+        <button type="button" class="active" data-mode="watermark">Watermark</button>
+        <button type="button" data-mode="pagenum">Page numbers</button>
+        <button type="button" data-mode="meta">Metadata</button>
+      </div>
+
+      <div class="mode-panel active" id="panelWatermark" hidden>
+        <div class="opt-grid">
+          <div class="field" style="grid-column:1/-1">
+            <label for="wmText">Watermark text</label>
+            <input type="text" id="wmText" value="CONFIDENTIAL" maxlength="40">
+          </div>
+          <div class="field">
+            <label for="wmFontSize">Size (pt): <b id="wmFontSizeVal">60</b></label>
+            <input type="range" id="wmFontSize" min="20" max="160" step="2" value="60">
+          </div>
+          <div class="field">
+            <label for="wmOpacity">Opacity (%): <b id="wmOpacityVal">25</b></label>
+            <input type="range" id="wmOpacity" min="10" max="100" step="5" value="25">
+          </div>
+          <div class="field">
+            <label for="wmRotate">Rotation (°): <b id="wmRotateVal">-30</b></label>
+            <input type="range" id="wmRotate" min="-90" max="90" step="15" value="-30">
+          </div>
+          <div class="field">
+            <label for="wmColor">Color</label>
+            <select id="wmColor">
+              <option value="gray" selected>Gray</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="black">Black</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="mode-panel" id="panelPagenum" hidden>
+        <div class="opt-grid">
+          <div class="field">
+            <label for="pnFormat">Number format</label>
+            <select id="pnFormat">
+              <option value="num" selected>1</option>
+              <option value="frac">1 / 10</option>
+              <option value="page">Page 1 of 10</option>
+              <option value="dash">- 1 -</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="pnPosition">Position</label>
+            <select id="pnPosition">
+              <option value="bc" selected>Bottom center</option>
+              <option value="bl">Bottom left</option>
+              <option value="br">Bottom right</option>
+              <option value="tc">Top center</option>
+              <option value="tl">Top left</option>
+              <option value="tr">Top right</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="pnSize">Size (pt): <b id="pnSizeVal">11</b></label>
+            <input type="range" id="pnSize" min="8" max="20" step="1" value="11">
+          </div>
+          <div class="field">
+            <label for="pnStart">Start number</label>
+            <input type="number" id="pnStart" min="1" max="999" value="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="mode-panel" id="panelMeta" hidden>
+        <div class="opt-grid">
+          <div class="field" style="grid-column:1/-1">
+            <label for="metaTitle">Title</label>
+            <input type="text" id="metaTitle" placeholder="Leave blank to keep original">
+          </div>
+          <div class="field" style="grid-column:1/-1">
+            <label for="metaAuthor">Author</label>
+            <input type="text" id="metaAuthor" placeholder="Leave blank to keep original">
+          </div>
+          <div class="field" style="grid-column:1/-1">
+            <label for="metaSubject">Subject</label>
+            <input type="text" id="metaSubject" placeholder="Leave blank to keep original">
+          </div>
+          <div class="field" style="grid-column:1/-1">
+            <label for="metaKeywords">Keywords (comma-separated)</label>
+            <textarea id="metaKeywords" placeholder="Leave blank to keep original"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-actions" id="actionBar" hidden>
+        <button type="button" id="applyBtn">Apply</button>
+        <button type="button" id="clearBtn">Clear all</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
+        <div class="text" id="progressText">0 / 0</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense ad slot ]</div>
+
+    <div id="result" class="result" hidden>
+      <div class="image-meta">
+        <span>Done <b id="newCount">—</b></span>
+      </div>
+      <div class="image-actions">
+        <button type="button" id="downloadAllBtn" class="download-btn">⬇ Download all</button>
+      </div>
+      <div class="img-grid" id="imgGrid"></div>
+    </div>
+
+    <section class="tool-article">
+      <h2>Common use cases</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Situation</th><th>Recommended mode</th></tr></thead>
+          <tbody>
+            <tr><td>Internal document security marking</td><td>Watermark "CONFIDENTIAL"</td></tr>
+            <tr><td>Quote / contract draft</td><td>Watermark "DRAFT"</td></tr>
+            <tr><td>Resume / portfolio page numbers</td><td>Page numbers "1 / N" bottom center</td></tr>
+            <tr><td>Legal documents, evidence</td><td>Page numbers "Page 1 of N" + watermark</td></tr>
+            <tr><td>Clean up unknown-author PDF</td><td>Metadata → set title / author</td></tr>
+            <tr><td>Standardize company portfolio PDFs</td><td>Metadata → unify author as company name</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../pdf-merge/">PDF merge<span class="desc">Combine first, then watermark</span></a>
+        <a href="../pdf-split/">PDF split<span class="desc">Extract specific pages</span></a>
+        <a href="../pdf-edit/">PDF edit<span class="desc">Rotate / delete pages</span></a>
+        <a href="../pdf-to-image/">PDF to image<span class="desc">Extract pages as PNG</span></a>
+        <a href="../">All PDF tools<span class="desc">View all</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently asked questions</h2>
+
+      <details><summary>Are my PDFs uploaded?</summary><div class="answer">No. All processing runs in your browser via <b>pdf-lib (WebAssembly)</b>.</div></details>
+      <details><summary>Is the watermark applied to all pages?</summary><div class="answer">Yes. Every page gets the same watermark. Configurable text, position, rotation, opacity.</div></details>
+      <details><summary>Can I customize page number format?</summary><div class="answer">4 formats: <b>1 / 1 / 10 / Page 1 of 10 / - 1 -</b>. 6 position options.</div></details>
+      <details><summary>Why does metadata matter?</summary><div class="answer">Title / author / keywords appear in viewer tabs, search, document management. 'Untitled' or unknown author looks unprofessional.</div></details>
+      <details><summary>Can I set a PDF password?</summary><div class="answer">Password encryption is <b>NOT supported</b> (limitation of static-site PDF encryption libraries). Use Adobe Acrobat or a desktop tool.</div></details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last verified: 2026-05-10 / pdf-lib (MIT) WebAssembly library.</div>
+      <ul>
+        <li>pdf-lib (MIT) — <a href="https://github.com/Hopding/pdf-lib" rel="nofollow noopener" target="_blank">GitHub</a></li>
+        <li>PDF 1.7 standard — ISO 32000-1</li>
+      </ul>
+      <div class="note">⚠️ Some PDF viewers may show slight position differences after watermark / page numbers. Verified against Adobe Acrobat and Chrome PDF viewer.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ View all PDF tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="/pdf/vendor/pdf-lib.min.js" defer></script>
+  <script src="./pdf-stamp.js" defer></script>
+</body>
+</html>
