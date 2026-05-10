@@ -2,9 +2,9 @@
 
 > 영어 사이트(`/en/`) 전용 운영 plan. 한국판 [plan.md](./plan.md)와 분리 — 한국판은 한국 시장 60 도구·세금·부동산·노동법 본체, 영어판은 universal subset만 다룸. 본 문서 = 한국판 plan.md 핵심 요약 + 영어 진입 의사결정·로드맵·진행 기록.
 
-**최종 갱신**: 2026-05-10 (Phase B 완료 + SEO audit + HowTo parity + `/en/` home Phase B 반영 + Gap 2 manifest 다국어)
-**현재 상태**: **Phase A + B 완료 + SEO audit 통과 + home 카드 5종 LIVE + 영어 PWA manifest 격리** — 영어 universal 28선 전부 live + 4 카테고리 hub + Korean source 31파일 hreflang + `TRANSLATED_PATHS` whitelist 33 path + sitemap.xml 71→102 URL + HowTo schema 한·영 9/9 parity + `/en/` home hub-grid 5/5 LIVE + `/en/manifest.webmanifest` 신규(scope=/en/, lang=en-US, shortcuts 4 영어 path)
-**다음 진입 후보**: cross-category nav 보강 → AI 번역 검수 → Phase C 외부 채널
+**최종 갱신**: 2026-05-10 (Phase B 완료 + SEO audit + HowTo parity + `/en/` home Phase B 반영 + Gap 2 manifest 다국어 + 후속 보강 4 step: cross-category nav · KO manifest 브랜드 통일 · og-image 영어 변형 · image 번역 검수 doc)
+**현재 상태**: **Phase A + B 완료 + SEO audit 통과 + home 카드 5종 LIVE + 영어 PWA manifest 격리 + 후속 보강 4 step 완료** — 영어 universal 28선 전부 live + 4 카테고리 hub + Korean source 31파일 hreflang + `TRANSLATED_PATHS` whitelist 33 path + sitemap.xml 71→102 URL + HowTo schema 한·영 9/9 parity + `/en/` home hub-grid 5/5 LIVE + `/en/manifest.webmanifest` 신규(scope=/en/, lang=en-US, shortcuts 4 영어 path) + 5 hub cross-category nav 4 link씩 + 한국 manifest "TayTools" → "TAYSTUDIO" 통일 + `/og-image-en.png` 영어 변형(34 file 갱신) + `2026-05-10-en-image-translation-review.md` 사용자 검수 doc
+**다음 진입 후보**: AI 번역 검수 사용자 review (image 1순위, doc 준비됨) → IndexNow ping `/en/*` → Phase C 외부 채널
 
 ---
 
@@ -118,13 +118,13 @@
 - ✅ **AdSense·GA4** = path별 자동 측정 (코드 변경 X)
 - ✅ **HowTo JSON-LD parity** = 한·영 9/9 일치 (5/10 추가 fix). `image/id-photo`·`image/qr-gen` 영어판 누락분 보강 — SERP rich snippet 후보 회복
 - ✅ **`manifest.webmanifest` 다국어 (Gap 2)** = `/en/manifest.webmanifest` 신규(scope=/en/, lang=en-US, shortcuts 4 영어 path) + 34파일 link 갱신 (5/10 처리, §9.7). PWA 설치 시 영어 메타·영어 단축키 노출, scope 격리로 한·영 PWA 분리
-- ⚠ og-image 영어 변형 — 현재 brand-only(`TAYSTUDIO`)라 재사용 OK, 영어 카피 추가 시 별도 SVG 생성 (보류)
+- ✅ og-image 영어 변형 — `og-image-en.png`(1200×630, "Useful things." + "Your file never leaves your browser" + 5 카테고리 pill) 신규 + 영어 34 file의 `og:image`·`twitter:image`·Organization image 갱신 (5/10 §9.8 step 3)
 - ⚠ IndexNow ping `/en/*` URL — Pilot 검증(1~2주) 후 결정. 진입 명령:
   ```bash
   bash scripts/indexnow-ping.sh  # sitemap 갱신됐으니 자동 감지·신규 32 URL 포함 가능
   ```
 - ⚠ Search Console international targeting — 영어 트래픽 신호 후 설정 (현재 `taystudios.com` URL prefix property 검증 완료 — path별 자동 측정 가능)
-- ⚠ cross-category nav 보강 — `/en/image/`·`/en/pdf/`·`/en/video/`·`/en/text/`·`/en/tools/` 5 hub 상호 link (internal linking 권위 분배)
+- ✅ cross-category nav 보강 — `/en/image/`·`/en/pdf/`·`/en/video/`·`/en/text/`·`/en/tools/` 5 hub 모두 자기 제외 4 cross-link (5/10 §9.8 step 1, internal linking 권위 분배)
 
 ---
 
@@ -295,15 +295,35 @@
 - **검증**: `python3 -m json.tool` JSON validity OK · stale `/manifest.webmanifest` 0건 · 새 `/en/manifest.webmanifest` 34건
 - **사이드 fix (같은 commit ea9e3bc)**: `en/index.html` quick-list Image row "Background remove" → "Remove BG" (17→9 char). flex-wrap 발생해 "All →"이 둘째 줄로 떨어지던 문제 해소 — 5 link + All → 한 줄 fit. remove.bg 사이트 관습 라벨 차용
 - **commit**: `ea9e3bc feat: 영어판 PWA manifest 다국어 (Gap 2) + Image row 라벨 fix` (36 file · +124 -45)
-- **scope 밖 (별도 작업)**: 한국 manifest "TayTools" 브랜드 → "TAYSTUDIO" 통일, 영어 전용 PWA 아이콘 디자인, `common/site-chrome.js` 자동 swap 로직 추가 (정적 link로 충분)
+- **scope 밖 (별도 작업)**: 영어 전용 PWA 아이콘 디자인, `common/site-chrome.js` 자동 swap 로직 추가 (정적 link로 충분)
+- **추가 후속 (이번 turn 직후, 같은 commit 묶음 권장)**: ✅ 한국 `manifest.webmanifest` 브랜드 통일 — `name`·`short_name` "TayTools" → "TAYSTUDIO" (사이트 본문·헤더 로고·footer와 일관성 회복). 5/5 PWA 작업 시점에 운영자명+용도 결합으로 "TayTools" 채택했으나 이후 도메인·브랜드 통합으로 stale
 
-### 9.8 다음 세션 진입 후보
-- **cross-category nav 보강** (1순위) — `en/image/`·`en/pdf/`·`en/video/`·`en/text/`·`en/tools/` 5 hub의 related-nav 상호 link (internal linking 권위 분배)
-- **사용자 검수 — AI 초안 번역 품질 review** — 카테고리별 어색한 표현·도메인 용어·FAQ 답변 점검. 첫 리뷰 = image (사용자 우선순위 1순위)
+### 9.8 2026-05-10 — 영어판 후속 보강 4 step (audit 권장 보강) ✅
+- **사용자 결정**: 영어/한국 사이트 audit 후 권장 보강 항목을 "순차적으로 ㄱㄱ"
+- **Step 1 — 5 hub cross-category nav 보강** ✅
+  - 기존 영어 4 hub(`en/image/`·`en/pdf/`·`en/video/`·`en/text/`)의 related-nav가 `→ Calculators` 1 link만 → 자기 카테고리 제외 4 link로 확장 (`→ Image · → PDF · → Video · → Text · → Calculators` 중 자기 제외)
+  - `en/tools/index.html`은 related-nav 자체가 없어 신규 추가
+  - 효과: 5 hub 상호 internal linking 권위 분배 (Google PageRank 분산), 사용자 도구 발견성 향상
+- **Step 2 — 한국 `manifest.webmanifest` 브랜드 "TayTools" → "TAYSTUDIO" 통일** ✅
+  - `name`·`short_name` 필드 sed (1 file). 5/5 PWA 작업 시점에 운영자명+용도 결합으로 "TayTools" 채택했으나 이후 도메인·브랜드 통합으로 stale → 사이트 본문·헤더 로고·footer와 일관성 회복
+  - 한국 PWA 설치자가 보는 앱 이름이 사이트 본문과 일치
+- **Step 3 — `og-image-en.png` 영어 변형 신규** ✅
+  - `og-image-en.svg` 신규 디자인 (한국 SVG 패턴 mirror) — 카피: "Useful things." (영어 home과 일치) + "Your file never leaves your browser" (privacy-first 차별화) + 5 카테고리 pill (Calculators · Image · PDF · Video · Text 컬러 dot accent) + URL footer "taystudios.com/en"
+  - `rsvg-convert -w 1200 -h 630 og-image-en.svg -o og-image-en.png`로 PNG 변환 (1200×630 OG 표준)
+  - 이모지 제거 — `rsvg-convert`에 컬러 이모지 폰트 없어 박스로 깨지므로 컬러 dot으로 대체 (한국 OG도 동일 깨짐, fallback 일관)
+  - 영어 페이지 34 HTML의 `og:image`·`og:image:secure_url`·`twitter:image` 일괄 sed (`og-image.png` → `og-image-en.png`) + `en/index.html` JSON-LD Organization image도 영어판으로 갱신
+  - 효과: 영어 SERP·Twitter card·Facebook share 미리보기에서 영어 카피 노출 → CTR 향상 기대
+- **Step 4 — image 카테고리 번역 검수 candidate doc 도출** ✅
+  - `history/seo/2026-05-10-en-image-translation-review.md` 신규 (26KB) — image 9 도구 + 1 hub의 SEO meta(title/desc/OG/Twitter) + H1 + subtitle + privacy box + FAQ + HowTo step 추출
+  - 사용자 review 후 어색한 표현·도메인 용어 패치 진입점
+- **검증**: 5 hub 모두 4 cross-link 정상 · 한국 manifest JSON validity OK · 영어 OG PNG 1200×630 RGB · stale `og-image.png` in en/ = 0건 / 새 `og-image-en.png` 34 file 103 occurrences · Image hub HowTo·FAQ 추출 정상
+
+### 9.9 다음 세션 진입 후보
+- **사용자 검수 — AI 초안 번역 품질 review** (1순위, doc 준비됨) — `history/seo/2026-05-10-en-image-translation-review.md` 보고 image 카테고리부터 어색한 표현·도메인 용어·FAQ 답변 점검. 사용자 결정 시 patch 진행
+- **카테고리 확장 검수 doc** — image 검수 끝나면 같은 패턴으로 PDF·Video·Text·Calculators review doc 생성 권장
 - **IndexNow ping `/en/*` 신규 32 URL** — sitemap 갱신 직후 가능. `bash scripts/indexnow-ping.sh`
 - **Phase C-1: Reddit 시드 게시 1회** — Pilot 검증 1~2주 후 (사용자 결정). r/InternetIsBeautiful·r/usefulwebsites 권장
 - **사용자 검토 후속**: kbd-convert·sns-format(text/) ko-only 유지 결정 재확인, `id-photo` preset 변경 검토
-- **한국 manifest "TayTools" → "TAYSTUDIO" 통일** (Gap 2 scope 밖, 별도)
 
 ---
 
