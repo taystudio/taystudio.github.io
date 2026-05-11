@@ -123,18 +123,26 @@ site-header {
   font-weight: 600;
 }
 
-/* 언어 토글 — 헤더 우측, install 버튼 다음. 글로브 + 텍스트 box (외국인 자력 발견 가능하도록 강조). */
-.site-nav .lang-toggle {
+/* lang-toggle + theme-toggle 공통 base — 두 박스 시각 크기 통일 (높이·padding·border·radius·font 같게). */
+.site-nav .lang-toggle,
+.site-nav .theme-toggle {
+  height: 28px;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 12.5px;
   font-weight: 600;
+  line-height: 1;
   color: var(--text);
-  text-decoration: none;
-  padding: 5px 10px;
-  margin-left: 6px;
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 6px;
-  background: var(--card);
   white-space: nowrap;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  margin-left: 6px;
   transition: color .15s, border-color .15s, background .15s, transform .15s;
 }
 .site-nav .lang-toggle:hover {
@@ -142,21 +150,6 @@ site-header {
   border-color: var(--primary);
   background: var(--primary);
   transform: translateY(-1px);
-}
-
-/* 테마 토글 — lang-toggle 옆 작은 emoji 버튼. 2-state: 현재 보이는 색 반대로 즉시 전환. */
-.site-nav .theme-toggle {
-  font-size: 14px;
-  padding: 4px 8px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--card);
-  color: var(--text);
-  cursor: pointer;
-  white-space: nowrap;
-  font-family: inherit;
-  line-height: 1;
-  transition: border-color .15s, background .15s, transform .15s;
 }
 .site-nav .theme-toggle:hover {
   border-color: var(--primary);
@@ -262,13 +255,12 @@ site-header {
     right: 12px;
     margin-left: 0;
   }
-  .site-nav .lang-toggle {
-    font-size: 11px;
-    padding: 3px 8px;
-  }
+  /* 모바일 통일 — 두 토글 동일 크기 유지 */
+  .site-nav .lang-toggle,
   .site-nav .theme-toggle {
-    font-size: 13px;
-    padding: 2px 6px;
+    height: 24px;
+    padding: 0 8px;
+    font-size: 11px;
   }
   .site-nav .nav-link {
     font-size: 12px;
