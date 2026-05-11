@@ -93,21 +93,21 @@
   });
   strengthIn.addEventListener('input', () => { strengthVal.textContent = strengthIn.value; redraw(); });
 
-  // 마우스/터치 드래그로 박스 그리기.
+  // Pointer Events로 마우스·터치·펜 통합. setPointerCapture로 캔버스 밖 추적까지 안전.
   // rect.width = 실제 렌더된 CSS width, cv.width = native pixel. 둘 비율로 정확한 native 좌표 환산.
   function evtPos(e) {
     const rect = cv.getBoundingClientRect();
-    const t = e.touches ? e.touches[0] : e;
     const sx = cv.width / rect.width;
     const sy = cv.height / rect.height;
-    const x = (t.clientX - rect.left) * sx;
-    const y = (t.clientY - rect.top) * sy;
+    const x = (e.clientX - rect.left) * sx;
+    const y = (e.clientY - rect.top) * sy;
     return { x: Math.max(0, Math.min(cv.width, x)), y: Math.max(0, Math.min(cv.height, y)) };
   }
 
   function startDraw(e) {
     if (!state.bitmap) return;
     e.preventDefault();
+    if (e.pointerId !== undefined && cv.setPointerCapture) cv.setPointerCapture(e.pointerId);
     const p = evtPos(e);
     state.drawing = { x: p.x, y: p.y, w: 0, h: 0 };
   }
@@ -139,12 +139,10 @@
     redraw();
   }
 
-  cv.addEventListener('mousedown', startDraw);
-  window.addEventListener('mousemove', moveDraw);
-  window.addEventListener('mouseup', endDraw);
-  cv.addEventListener('touchstart', startDraw, { passive: false });
-  cv.addEventListener('touchmove', moveDraw, { passive: false });
-  cv.addEventListener('touchend', endDraw, { passive: false });
+  cv.addEventListener('pointerdown', startDraw);
+  cv.addEventListener('pointermove', moveDraw);
+  cv.addEventListener('pointerup', endDraw);
+  cv.addEventListener('pointercancel', endDraw);
 
   function redraw(showDrawing) {
     if (!state.bitmap) return;
