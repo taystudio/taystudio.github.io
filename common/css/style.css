@@ -12,8 +12,9 @@
   --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
+/* OS 다크 모드 — 사용자가 명시 light 안 한 경우만. data-theme=light 면 OS 무시. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #0f1115;
     --card: #1a1d23;
     --text: #e5e7eb;
@@ -24,6 +25,18 @@
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
   }
+}
+/* 사용자 명시 다크 — OS 무관 */
+:root[data-theme="dark"] {
+  --bg: #0f1115;
+  --card: #1a1d23;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --border: #2a2e36;
+  --primary: #3b82f6;
+  --primary-hover: #60a5fa;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -131,6 +144,33 @@ site-header {
   transform: translateY(-1px);
 }
 
+/* 테마 토글 — lang-toggle 옆 작은 emoji 버튼. 2-state: 현재 보이는 색 반대로 즉시 전환. */
+.site-nav .theme-toggle {
+  font-size: 14px;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  line-height: 1;
+  transition: border-color .15s, background .15s, transform .15s;
+}
+.site-nav .theme-toggle:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+/* lang-toggle + theme-toggle 묶음 wrapper — 항상 한 단위로 이동. PC는 nav 흐름, 모바일은 absolute. */
+.site-nav .header-actions {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  margin-left: 6px;
+}
+.site-nav .header-actions .lang-toggle { margin-left: 0; }
+
 /* 언어 환영 카드 — root·/en/ home hero에 박힘. site-chrome.js가 BROWSER_LANG mismatch 시 hidden 제거.
    외국인이 root 진입 시 hero 안에 즉시 노출 → "한 번에 발견" UX. 한국 사용자는 안 보임. */
 .lang-welcome-card {
@@ -214,16 +254,21 @@ site-header {
     gap: 0;
     border-top: 1px solid var(--border);
   }
-  /* lang-toggle: 모바일에선 nav grid 6번째 칼럼이 부족해 다음 줄로 떨어짐 → 헤더 첫 줄 우측으로 absolute 띄움.
-     PC(≥481px)는 nav 안 마지막 아이템 그대로 유지 (스크린샷 PC 모양 유지).
-     모바일 스케일: 폰트·패딩 축소 → 박스 ~26px → 로고(24px)와 수직 중앙 맞추기 위해 top:9px. */
-  .site-nav .lang-toggle {
+  /* header-actions: lang-toggle + theme-toggle을 묶어 한 단위로 absolute. nav grid 칼럼 충돌 없음.
+     순서는 [lang | theme] 좌→우 — theme이 가장 우측. PC(≥481px)는 nav 흐름 유지. */
+  .site-nav .header-actions {
     position: absolute;
     top: 9px;
     right: 12px;
     margin-left: 0;
+  }
+  .site-nav .lang-toggle {
     font-size: 11px;
     padding: 3px 8px;
+  }
+  .site-nav .theme-toggle {
+    font-size: 13px;
+    padding: 2px 6px;
   }
   .site-nav .nav-link {
     font-size: 12px;
@@ -258,7 +303,7 @@ site-header {
     font-size: 11px;
     padding: 9px 2px;
   }
-  .site-nav .lang-toggle {
+  .site-nav .header-actions {
     top: 6px;
     right: 8px;
   }
@@ -1366,8 +1411,9 @@ button:hover {
 }
 
 @media (prefers-color-scheme: dark) {
-  .image-preview { background: rgba(255, 255, 255, 0.03); }
+  :root:not([data-theme="light"]) .image-preview { background: rgba(255, 255, 255, 0.03); }
 }
+:root[data-theme="dark"] .image-preview { background: rgba(255, 255, 255, 0.03); }
 
 .image-preview img,
 .image-preview canvas {
@@ -1654,13 +1700,20 @@ button:hover {
 }
 
 @media (prefers-color-scheme: dark) {
-  .install-cta {
+  :root:not([data-theme="light"]) .install-cta {
     background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
     box-shadow: 0 4px 14px rgba(139, 92, 246, 0.32);
   }
-  .install-cta:hover {
+  :root:not([data-theme="light"]) .install-cta:hover {
     box-shadow: 0 6px 20px rgba(139, 92, 246, 0.42);
   }
+}
+:root[data-theme="dark"] .install-cta {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.32);
+}
+:root[data-theme="dark"] .install-cta:hover {
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.42);
 }
 
 

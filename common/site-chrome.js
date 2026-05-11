@@ -1,6 +1,16 @@
 // TAYSTUDIO common chrome — header & footer web components.
 // Uses absolute paths under / so depth-agnostic across all pages.
 
+// 테마 토글 — FOUC 방지용 즉시 적용. localStorage 'taystudio.theme' 명시값(light/dark) 있으면 attribute 부여, 없으면 OS prefers-color-scheme 따라감.
+(function () {
+  try {
+    const t = localStorage.getItem('taystudio.theme');
+    if (t === 'light' || t === 'dark') {
+      document.documentElement.setAttribute('data-theme', t);
+    }
+  } catch (_) {}
+})();
+
 // i18n — /en/ path 또는 <html lang="en">이면 영어 모드.
 const LANG = (() => {
   const path = window.location.pathname;
@@ -60,6 +70,11 @@ const I18N = {
     langBannerForEnUser: '🌐 This site is also available in <b>English</b>',
     langBannerCTAForEnUser: 'View English version →',
     langBannerDismiss: 'Dismiss',
+    // 테마 토글 — 현재 보이는 색 반대로 즉시 전환. 아이콘은 "다음에 갈 모드" (라이트 중이면 🌙, 다크 중이면 ☀️).
+    themeLight: '☀️',
+    themeDark: '🌙',
+    themeTitleToLight: '라이트 모드로 전환',
+    themeTitleToDark: '다크 모드로 전환',
   },
   en: {
     mirrorWarn: '⚠️ Unofficial mirror site. Official: <a href="https://taystudios.com" style="color:#fff;font-weight:700;text-decoration:underline">taystudios.com</a>',
@@ -105,6 +120,11 @@ const I18N = {
     langBannerForKoUser: '🌐 이 사이트는 <b>한국어</b>로도 볼 수 있어요',
     langBannerCTAForKoUser: '한국어로 보기 →',
     langBannerDismiss: '닫기',
+    // 테마 토글 — 현재 보이는 색 반대로 즉시 전환. 아이콘은 "다음에 갈 모드".
+    themeLight: '☀️',
+    themeDark: '🌙',
+    themeTitleToLight: 'Switch to light mode',
+    themeTitleToDark: 'Switch to dark mode',
   }
 };
 
@@ -401,6 +421,13 @@ class SiteHeader extends HTMLElement {
     const cls = (slug) => 'nav-link' + (isCat(slug) ? ' active' : '');
     const altUrl = getAltLangUrl();
     const termsBase = LANG === 'en' ? `${BASE}/en/terms/` : `${BASE}/terms/`;
+    // 테마 토글 초기 아이콘·타이틀 — 현재 화면이 다크/라이트 중 어느 쪽인지 판단해서 "반대"로 갈 아이콘 표시.
+    // data-theme 명시값 우선, 없으면 OS prefers-color-scheme 따라감.
+    const darkNow = document.documentElement.getAttribute('data-theme') === 'dark' ||
+      (!document.documentElement.hasAttribute('data-theme') &&
+       window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const themeIcon = darkNow ? T.themeLight : T.themeDark;
+    const themeTitle = darkNow ? T.themeTitleToLight : T.themeTitleToDark;
     const headerHTML = `
       <header class="site-header">
         <a href="${LANG === 'en' ? BASE + '/en/' : BASE + '/'}" class="logo">TAYSTUDIO</a>
@@ -410,7 +437,10 @@ class SiteHeader extends HTMLElement {
           <a href="${LANG === 'en' ? BASE + '/en/image/' : BASE + '/image/'}" class="${cls('image')}">${T.navImage}</a>
           <a href="${LANG === 'en' ? BASE + '/en/pdf/' : BASE + '/pdf/'}" class="${cls('pdf')}">${T.navPdf}</a>
           <a href="${LANG === 'en' ? BASE + '/en/video/' : BASE + '/video/'}" class="${cls('video')}">${T.navVideo}</a>
-          <a href="${altUrl}" class="lang-toggle" title="${T.langToggleTitle}" rel="alternate" hreflang="${LANG === 'en' ? 'ko' : 'en'}">${T.langToggleLabel}</a>
+          <span class="header-actions">
+            <a href="${altUrl}" class="lang-toggle" title="${T.langToggleTitle}" rel="alternate" hreflang="${LANG === 'en' ? 'ko' : 'en'}">${T.langToggleLabel}</a>
+            <button type="button" class="theme-toggle" title="${themeTitle}" aria-label="${themeTitle}">${themeIcon}</button>
+          </span>
         </nav>
       </header>
     `;
@@ -450,6 +480,25 @@ class SiteHeader extends HTMLElement {
     if (langToggle) {
       langToggle.addEventListener('click', () => {
         try { localStorage.setItem('taystudio.lang-pref', LANG === 'ko' ? 'en' : 'ko'); } catch (_) {}
+      });
+    }
+    // 테마 토글 — 현재 보이는 색 반대로 즉시 전환. 첫 클릭부터 항상 시각 변화 발생.
+    // data-theme attribute 명시값 우선, 없으면 OS prefers-color-scheme 기준.
+    const themeToggle = this.querySelector('.theme-toggle');
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        const darkCur = document.documentElement.getAttribute('data-theme') === 'dark' ||
+          (!document.documentElement.hasAttribute('data-theme') &&
+           window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        const next = darkCur ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('taystudio.theme', next); } catch (_) {}
+        // 아이콘·title 갱신 — 다음 클릭 시 도달할 모드 표시.
+        const newDark = next === 'dark';
+        themeToggle.textContent = newDark ? T.themeLight : T.themeDark;
+        const newTitle = newDark ? T.themeTitleToLight : T.themeTitleToDark;
+        themeToggle.title = newTitle;
+        themeToggle.setAttribute('aria-label', newTitle);
       });
     }
     const closeBtn = this.querySelector('#ts-disclaimer-close');
