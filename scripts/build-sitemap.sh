@@ -42,6 +42,9 @@ CATEGORIES=("tools" "text" "image" "pdf" "video")
 # 루트 직속 단일 페이지 — privacy·terms 같이 카테고리 아닌 정책 페이지. AdSense·표준 관행상 root 위치.
 ROOT_PAGES=("privacy" "terms")
 
+# 언어별 prefix — 빈 문자열은 root(한국어), "en/"는 영문 미러. 새 언어 추가 시 여기 추가.
+LANG_PREFIXES=("" "en/")
+
 # noindex 메타가 있는 파일은 sitemap에 포함하지 않음 (이전 stub 등).
 is_noindex() {
   grep -qE '<meta[[:space:]]+name="robots"[[:space:]]+content="[^"]*noindex' "$1" 2>/dev/null
@@ -51,15 +54,16 @@ is_noindex() {
 classify() {
   local url="$1"
   case "$url" in
-    "${DOMAIN}/")              echo "1.0 weekly" ;;
-    *"/privacy/"*)             echo "0.3 yearly" ;;
-    *"/terms/"*)               echo "0.3 yearly" ;;
-    # 카테고리 허브 (/tools/, /text/, /image/, /pdf/, /video/) — 깊이 4
-    "${DOMAIN}/tools/")               echo "1.0 weekly" ;;
-    "${DOMAIN}/text/")                echo "1.0 weekly" ;;
-    "${DOMAIN}/image/")               echo "1.0 weekly" ;;
-    "${DOMAIN}/pdf/")                 echo "1.0 weekly" ;;
-    "${DOMAIN}/video/")               echo "1.0 weekly" ;;
+    # 홈 (한국어·영문)
+    "${DOMAIN}/"|"${DOMAIN}/en/")     echo "1.0 weekly" ;;
+    *"/privacy/"*)                    echo "0.3 yearly" ;;
+    *"/terms/"*)                      echo "0.3 yearly" ;;
+    # 카테고리 허브 (/tools/, /text/, /image/, /pdf/, /video/) — 한국어·영문
+    "${DOMAIN}/tools/"|"${DOMAIN}/en/tools/")     echo "1.0 weekly" ;;
+    "${DOMAIN}/text/"|"${DOMAIN}/en/text/")       echo "1.0 weekly" ;;
+    "${DOMAIN}/image/"|"${DOMAIN}/en/image/")     echo "1.0 weekly" ;;
+    "${DOMAIN}/pdf/"|"${DOMAIN}/en/pdf/")         echo "1.0 weekly" ;;
+    "${DOMAIN}/video/"|"${DOMAIN}/en/video/")     echo "1.0 weekly" ;;
     # 개별 도구 상세 페이지 — 깊이 5+
     *"/tools/"*|*"/text/"*|*"/image/"*|*"/pdf/"*|*"/video/"*) echo "0.95 monthly" ;;
     *)                         echo "0.5 monthly" ;;
@@ -88,37 +92,42 @@ emit_url() {
   echo '<?xml version="1.0" encoding="UTF-8"?>'
   echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
 
-  # Root index
-  if [ -f "index.html" ] && ! is_noindex "index.html"; then
-    URL=$(canonical_of "index.html" "${DOMAIN}/")
-    emit_url "$URL" "$(last_mod index.html)"
-  fi
-
-  # 루트 직속 단일 페이지 (privacy/terms)
-  for slug in "${ROOT_PAGES[@]}"; do
-    file="${slug}/index.html"
-    [ -f "$file" ] || continue
-    is_noindex "$file" && continue
-    URL=$(canonical_of "$file" "${DOMAIN}/${slug}/")
-    emit_url "$URL" "$(last_mod "$file")"
-  done
-
-  # 각 카테고리 — 허브(<cat>/index.html) + 도구별 상세(<cat>/<slug>/index.html)
-  for cat in "${CATEGORIES[@]}"; do
-    hub="${cat}/index.html"
-    if [ -f "$hub" ] && ! is_noindex "$hub"; then
-      URL=$(canonical_of "$hub" "${DOMAIN}/${cat}/")
-      emit_url "$URL" "$(last_mod "$hub")"
+  # 언어별 prefix 순회 — root("") = 한국어, "en/" = 영문 미러.
+  # 각 언어마다 동일 로직: 홈 → root pages(privacy/terms) → 카테고리 허브 + 도구.
+  for prefix in "${LANG_PREFIXES[@]}"; do
+    # 홈 (한국어 = index.html, 영문 = en/index.html)
+    root_file="${prefix}index.html"
+    if [ -f "$root_file" ] && ! is_noindex "$root_file"; then
+      URL=$(canonical_of "$root_file" "${DOMAIN}/${prefix}")
+      emit_url "$URL" "$(last_mod "$root_file")"
     fi
 
-    for dir in "${cat}"/*/; do
-      file="${dir}index.html"
+    # 루트 직속 단일 페이지 (privacy/terms)
+    for slug in "${ROOT_PAGES[@]}"; do
+      file="${prefix}${slug}/index.html"
       [ -f "$file" ] || continue
       is_noindex "$file" && continue
-      name=$(basename "$dir")
-      fallback="${DOMAIN}/${cat}/${name}/"
-      URL=$(canonical_of "$file" "$fallback")
+      URL=$(canonical_of "$file" "${DOMAIN}/${prefix}${slug}/")
       emit_url "$URL" "$(last_mod "$file")"
+    done
+
+    # 각 카테고리 — 허브(<prefix><cat>/index.html) + 도구별 상세
+    for cat in "${CATEGORIES[@]}"; do
+      hub="${prefix}${cat}/index.html"
+      if [ -f "$hub" ] && ! is_noindex "$hub"; then
+        URL=$(canonical_of "$hub" "${DOMAIN}/${prefix}${cat}/")
+        emit_url "$URL" "$(last_mod "$hub")"
+      fi
+
+      for dir in "${prefix}${cat}"/*/; do
+        file="${dir}index.html"
+        [ -f "$file" ] || continue
+        is_noindex "$file" && continue
+        name=$(basename "$dir")
+        fallback="${DOMAIN}/${prefix}${cat}/${name}/"
+        URL=$(canonical_of "$file" "$fallback")
+        emit_url "$URL" "$(last_mod "$file")"
+      done
     done
   done
 
