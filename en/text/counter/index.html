@@ -35,7 +35,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
   <title>Character Counter | Words, Lines, Bytes & Social Media Limits</title>
-  <meta name="description" content="Real-time character counter — with/without spaces, words, lines, sentences, UTF-8 bytes. Auto-compares your text against Twitter/X, Instagram, LinkedIn, Facebook, Threads, and YouTube limits. Free, no signup.">
+  <meta name="description" content="Real-time character counter. With/without spaces, words, lines, UTF-8 bytes. Twitter 280, Instagram 2,200, resume limits auto-compare. Browser-only.">
   <meta name="keywords" content="character counter, word counter, letter count, twitter character count, instagram caption length, linkedin post limit, byte counter, utf-8 bytes">
   <link rel="canonical" href="https://taystudios.com/en/text/counter/">
   <link rel="alternate" hreflang="en" href="https://taystudios.com/en/text/counter/">
@@ -53,16 +53,35 @@
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "inLanguage": "en-US",
       "isAccessibleForFree": true
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
-        { "@type": "ListItem", "position": 2, "name": "Text", "item": "https://taystudios.com/en/text/" },
-        { "@type": "ListItem", "position": 3, "name": "Character Counter", "item": "https://taystudios.com/en/text/counter/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Text",
+          "item": "https://taystudios.com/en/text/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Character Counter",
+          "item": "https://taystudios.com/en/text/counter/"
+        }
       ]
     },
     {
@@ -115,6 +134,38 @@
             "@type": "Answer",
             "text": "Twitter/X allows 280 characters. URLs are auto-shortened to 23 characters regardless of original length, but this counter shows the raw character count — so subtract the URL difference manually if needed. Premium accounts have a 25,000 character limit."
           }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to count characters",
+      "description": "Count characters, words, lines in real time.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Enter text",
+          "text": "Type or paste text to count."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Real-time counter",
+          "text": "With/without spaces, words, lines, UTF-8 bytes, Korean/English separate are shown instantly."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Compare limits",
+          "text": "Auto-compare with Twitter 280, Instagram 2,200, resume limits."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Review result",
+          "text": "Red warning if limit exceeded, green if safe."
         }
       ]
     }
@@ -332,6 +383,7 @@
     <section class="tool-article">
       <h2>Related Tools</h2>
       <div class="related-calc">
+        <a href="/en/image/ocr/">Image OCR<span class="desc">Extract text from screenshots, then count characters</span></a>
         <a href="../">Text tools<span class="desc">More text utilities</span></a>
         <a href="/en/tools/compound/">Compound Interest<span class="desc">Future value calculator</span></a>
         <a href="/en/tools/">All calculators<span class="desc">Finance, health, time</span></a>

@@ -34,7 +34,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <title>동영상 GIF 변환 | 영상→GIF, 짤·움짤 만들기 (무료)</title>
-  <meta name="description" content="MP4·MOV·WebM 동영상의 짧은 구간을 GIF로 변환합니다. 짤·움짤·SNS·이모티콘용. fps와 너비를 조절해 용량을 최적화. 모든 처리는 브라우저 안에서, 영상 외부 전송 없음.">
+  <meta name="description" content="MP4·MOV·WebM 동영상의 짧은 구간을 GIF로 변환. fps 5~30 + 너비 240~720px 조절. ffmpeg.wasm + 팔레트 최적화. 짤·움짤·SNS·이모티콘용. 브라우저 안에서 처리.">
   <meta name="keywords" content="동영상 GIF 변환, 영상 GIF, 짤 만들기, 움짤 만들기, MP4 GIF, 영상 GIF로 변환, 카톡 움짤, 영상 캡처 GIF">
   <link rel="canonical" href="https://taystudios.com/video/to-gif/">
   <link rel="alternate" hreflang="ko" href="https://taystudios.com/video/to-gif/">
@@ -52,7 +52,11 @@
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
       "inLanguage": "ko-KR",
       "isAccessibleForFree": true,
       "featureList": [
@@ -69,9 +73,24 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Video", "item": "https://taystudios.com/video/" },
-        { "@type": "ListItem", "position": 3, "name": "동영상 GIF 변환", "item": "https://taystudios.com/video/to-gif/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Video",
+          "item": "https://taystudios.com/video/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "동영상 GIF 변환",
+          "item": "https://taystudios.com/video/to-gif/"
+        }
       ]
     },
     {
@@ -116,6 +135,38 @@
             "@type": "Answer",
             "text": "5초·480p·fps 15 GIF = 데스크톱 Chrome 기준 10~30초. GIF 생성은 압축보다 무거워 단일 스레드에서도 시간이 더 걸립니다. 모바일은 2~3배 더 걸립니다. 권장은 10초 이내 + 480px 이하."
           }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "동영상을 GIF로 변환하는 방법",
+      "description": "동영상의 짧은 구간을 GIF로 변환합니다.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "영상 업로드",
+          "text": "변환할 MP4·MOV·WebM 영상을 업로드."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "구간·옵션 선택",
+          "text": "시작·끝 시각 + fps 5~30 + 너비 240~720px 조절."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "변환",
+          "text": "ffmpeg.wasm + 팔레트 최적화로 GIF 생성."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "GIF 다운로드",
+          "text": "생성된 GIF를 다운로드. 짤·움짤·SNS·이모티콘 사용."
         }
       ]
     }

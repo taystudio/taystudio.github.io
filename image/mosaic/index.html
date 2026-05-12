@@ -34,7 +34,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <title>모자이크·블러 처리 | 얼굴 가리기·번호판·개인정보 무료 가리기</title>
-  <meta name="description" content="사진의 얼굴·번호판·개인정보를 모자이크 또는 블러로 가리기. 박스 그리기로 영역 선택. 중고거래·인증샷·SNS 게시 전 privacy. 가입·설치·워터마크 없음.">
+  <meta name="description" content="사진의 얼굴·번호판·개인정보를 모자이크·블러·검정 박스로 가림. 박스 그리기로 영역 지정, 강도 1~50px 조절. 중고거래·인증샷·SNS privacy. 브라우저 안에서 처리.">
   <meta name="keywords" content="얼굴 모자이크, 사진 블러처리, 모자이크 처리, 사진 가리기, 번호판 가리기, 개인정보 가리기, 인증샷 모자이크, 중고나라 사진 가리기">
   <link rel="canonical" href="https://taystudios.com/image/mosaic/">
   <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/mosaic/">
@@ -51,28 +51,113 @@
       "url": "https://taystudios.com/image/mosaic/",
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
       "inLanguage": "ko-KR",
       "isAccessibleForFree": true,
-      "featureList": ["픽셀화 모자이크", "가우시안 블러", "박스 영역 선택 (다중)", "강도 조정", "원본 외부 업로드 없음"],
+      "featureList": [
+        "픽셀화 모자이크",
+        "가우시안 블러",
+        "박스 영역 선택 (다중)",
+        "강도 조정",
+        "원본 외부 업로드 없음"
+      ],
       "dateModified": "2026-05-10",
       "softwareVersion": "2026.05"
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/image/" },
-        { "@type": "ListItem", "position": 3, "name": "모자이크/블러", "item": "https://taystudios.com/image/mosaic/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image",
+          "item": "https://taystudios.com/image/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "모자이크/블러",
+          "item": "https://taystudios.com/image/mosaic/"
+        }
       ]
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "이미지가 외부 서버로 전송되나요?", "acceptedAnswer": { "@type": "Answer", "text": "전송되지 않습니다. 모든 처리는 브라우저 Canvas API에서 이뤄집니다. 사이트 운영자도 사진을 볼 수 없습니다." } },
-        { "@type": "Question", "name": "모자이크와 블러 차이는 뭔가요?", "acceptedAnswer": { "@type": "Answer", "text": "모자이크 = 픽셀화. 강한 차단력, 디자인적 정직성. 블러 = 가우시안 흐림. 자연스러운 가림, 부드러운 영상 룩. 얼굴·번호판 차단은 모자이크, 배경 흐림은 블러 권장." } },
-        { "@type": "Question", "name": "여러 영역을 동시에 가릴 수 있나요?", "acceptedAnswer": { "@type": "Answer", "text": "네. 사진 위에 박스를 마우스/터치 드래그로 여러 개 그릴 수 있고, 각 박스는 독립적으로 처리됩니다." } },
-        { "@type": "Question", "name": "복원될 가능성이 있나요?", "acceptedAnswer": { "@type": "Answer", "text": "강도 충분히 적용 시 복원 거의 불가. 모자이크 픽셀 10px+ / 블러 강도 20+ 권장. 단 파일 메타데이터(EXIF)에 원본 일부 남을 수 있어 SNS 업로드 전 EXIF 제거 함께 권장." } }
+        {
+          "@type": "Question",
+          "name": "이미지가 외부 서버로 전송되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. 모든 처리는 브라우저 Canvas API에서 이뤄집니다. 사이트 운영자도 사진을 볼 수 없습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "모자이크와 블러 차이는 뭔가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "모자이크 = 픽셀화. 강한 차단력, 디자인적 정직성. 블러 = 가우시안 흐림. 자연스러운 가림, 부드러운 영상 룩. 얼굴·번호판 차단은 모자이크, 배경 흐림은 블러 권장."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "여러 영역을 동시에 가릴 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네. 사진 위에 박스를 마우스/터치 드래그로 여러 개 그릴 수 있고, 각 박스는 독립적으로 처리됩니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "복원될 가능성이 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "강도 충분히 적용 시 복원 거의 불가. 모자이크 픽셀 10px+ / 블러 강도 20+ 권장. 단 파일 메타데이터(EXIF)에 원본 일부 남을 수 있어 SNS 업로드 전 EXIF 제거 함께 권장."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "얼굴·번호판·개인정보 가리는 방법",
+      "description": "사진에 모자이크·블러·검정 박스를 적용해 개인정보를 가립니다.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "사진 업로드",
+          "text": "가릴 영역이 있는 사진을 업로드."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "영역 선택",
+          "text": "마우스 또는 손가락 드래그로 가릴 영역에 박스 그리기. 여러 영역 추가 가능."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "효과·강도 선택",
+          "text": "모자이크·블러·검정 중 선택, 강도 1~50px 조절."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "다운로드",
+          "text": "처리된 이미지를 다운로드. 원본은 그대로 보관."
+        }
       ]
     }
   ]

@@ -33,7 +33,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <title>이미지 압축 | 사진 용량 줄이기 — 카톡·이메일 첨부 한도</title>
-  <meta name="description" content="JPG·PNG·WebP 이미지 화질 조정으로 용량 줄이기. 카톡 5MB·이메일 25MB 한도에 맞춰 압축. 모든 처리는 브라우저 안에서, 파일 외부 전송 없음.">
+  <meta name="description" content="JPG·PNG·WebP 이미지 압축. 품질 0.6~0.9 슬라이더로 30~60% 용량 감소. 카톡 5MB·이메일 25MB·블로그 1~2MB 한도 맞춤. 브라우저 안에서 처리, 외부 전송 없음.">
   <meta name="keywords" content="이미지 압축, 사진 용량 줄이기, 카톡 사진 5MB, JPG 압축 무료, WebP 변환, 이미지 용량 줄이기">
   <link rel="canonical" href="https://taystudios.com/image/compress/">
   <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/compress/">
@@ -51,7 +51,11 @@
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
       "inLanguage": "ko-KR",
       "isAccessibleForFree": true,
       "featureList": [
@@ -66,9 +70,24 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/image/" },
-        { "@type": "ListItem", "position": 3, "name": "이미지 압축", "item": "https://taystudios.com/image/compress/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image",
+          "item": "https://taystudios.com/image/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "이미지 압축",
+          "item": "https://taystudios.com/image/compress/"
+        }
       ]
     },
     {
@@ -121,6 +140,38 @@
             "@type": "Answer",
             "text": "최신 브라우저(Chrome·Edge·Firefox·Safari 14+)와 최근 윈도우·맥OS는 모두 지원합니다. 단 카카오톡·일부 메신저·구버전 윈도우 사진 뷰어에서는 미지원일 수 있습니다. 호환성이 중요하면 JPEG, 용량이 중요하면 WebP를 선택하세요."
           }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "JPG·PNG·WebP 이미지 압축 방법",
+      "description": "이미지 화질을 조정해 용량을 줄입니다.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "이미지 파일 선택",
+          "text": "JPG·PNG·WebP 파일을 드래그·드롭하거나 클릭해 선택."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "품질 조정",
+          "text": "품질 슬라이더(0.1~1.0)를 움직여 용량과 화질의 균형 조정. 0.7~0.8 권장."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "압축",
+          "text": "압축 버튼을 누르면 브라우저 안에서 Canvas API로 즉시 처리. 원본 대비 30~60% 감소."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "다운로드",
+          "text": "압축된 이미지 다운로드. 원본은 그대로 보관 권장."
         }
       ]
     }
@@ -213,6 +264,7 @@
       <h2>관련 도구</h2>
       <div class="related-calc">
         <a href="../resize/">이미지 리사이즈<span class="desc">px·% 크기 변경 + 포맷 변환</span></a>
+        <a href="/video/compress/">동영상 압축<span class="desc">같은 기능 영상용 — 카톡 300MB 한도</span></a>
         <a href="../">이미지 도구 모음<span class="desc">QR·PDF·OCR (준비 중)</span></a>
         <a href="/text/counter/">글자수 카운터<span class="desc">자소서·SNS 글자수</span></a>
         <a href="/tools/dday/">D-day 계산기<span class="desc">제출 마감일 카운트</span></a>

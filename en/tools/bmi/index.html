@@ -34,7 +34,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
   <title>BMI Calculator | Body Mass Index with WHO Classification</title>
-  <meta name="description" content="Calculate Body Mass Index (BMI) instantly from height and weight. WHO 4-tier classification (Underweight, Normal, Overweight, Obese), healthy weight range, and ideal weight at BMI 22. Free, no signup, runs entirely in your browser.">
+  <meta name="description" content="Calculate BMI from height and weight. WHO Asia-Pacific 6-stage classification (underweight <18.5, normal, overweight, obese class 1/2/3) + healthy weight range.">
   <meta name="keywords" content="BMI calculator, body mass index calculator, healthy weight, ideal weight, WHO classification, obesity calculator, underweight, overweight">
   <link rel="canonical" href="https://taystudios.com/en/tools/bmi/">
   <link rel="alternate" hreflang="en" href="https://taystudios.com/en/tools/bmi/">
@@ -64,9 +64,24 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Tools", "item": "https://taystudios.com/en/tools/" },
-        { "@type": "ListItem", "position": 2, "name": "Health", "item": "https://taystudios.com/en/tools/" },
-        { "@type": "ListItem", "position": 3, "name": "BMI Calculator", "item": "https://taystudios.com/en/tools/bmi/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Tools",
+          "item": "https://taystudios.com/en/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Health",
+          "item": "https://taystudios.com/en/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "BMI Calculator",
+          "item": "https://taystudios.com/en/tools/bmi/"
+        }
       ]
     },
     {
@@ -111,6 +126,91 @@
             "@type": "Answer",
             "text": "The WHO BMI classification (Underweight <18.5, Normal 18.5–24.9, Overweight 25–29.9, Obese ≥30) is based on global epidemiological data correlating BMI with mortality and chronic disease risk. Some regional health bodies (e.g., Asia-Pacific) use a stricter threshold of 23 due to differences in body fat distribution."
           }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to calculate BMI",
+      "description": "Calculate Body Mass Index from height and weight.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Enter height",
+          "text": "Input height in cm."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Enter weight",
+          "text": "Input weight in kg."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Calculate",
+          "text": "BMI = weight(kg) / height(m)² computed automatically."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Review classification",
+          "text": "WHO Asia-Pacific 6-stage classification (underweight <18.5, normal, overweight, obese class 1/2/3) + healthy weight range displayed."
+        }
+      ]
+    },
+    {
+      "@type": "Dataset",
+      "name": "WHO Asia-Pacific BMI 6-Stage Classification",
+      "description": "BMI classification thresholds adapted for Asian populations (Korean adults reference).",
+      "spatialCoverage": {
+        "@type": "Place",
+        "name": "Asia-Pacific"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Korean Society for the Study of Obesity (referencing WHO Asia-Pacific guideline)"
+      },
+      "license": "WHO Asia-Pacific guideline (referenced)",
+      "keywords": [
+        "BMI",
+        "Body Mass Index",
+        "Asian classification",
+        "WHO Asia-Pacific",
+        "obesity"
+      ],
+      "variableMeasured": [
+        {
+          "@type": "PropertyValue",
+          "name": "Underweight",
+          "value": "BMI < 18.5"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Normal",
+          "value": "18.5 <= BMI < 23"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Overweight (Pre-obese)",
+          "value": "23 <= BMI < 25"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Obese Class 1",
+          "value": "25 <= BMI < 30"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Obese Class 2",
+          "value": "30 <= BMI < 35"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Obese Class 3 (Severely obese)",
+          "value": "BMI >= 35"
         }
       ]
     }

@@ -40,7 +40,7 @@ canonical_of() {
 CATEGORIES=("tools" "text" "image" "pdf" "video")
 
 # 루트 직속 단일 페이지 — privacy·terms 같이 카테고리 아닌 정책 페이지. AdSense·표준 관행상 root 위치.
-ROOT_PAGES=("privacy" "terms")
+ROOT_PAGES=("about" "privacy" "terms")
 
 # 언어별 prefix — 빈 문자열은 root(한국어), "en/"는 영문 미러. 새 언어 추가 시 여기 추가.
 LANG_PREFIXES=("" "en/")

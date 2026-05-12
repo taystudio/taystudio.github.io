@@ -35,7 +35,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
   <title>QR Code Scanner | Extract Text from Camera or Image</title>
-  <meta name="description" content="Upload a QR code image or use your webcam / phone camera to decode it instantly. Open URLs with one click. All processing in your browser, no upload of inputs.">
+  <meta name="description" content="Decode QR codes — upload image or scan with webcam/smartphone camera. Extracts URL, text, Wi-Fi. Click to open URL. Browser-only, no upload.">
   <meta name="keywords" content="QR scanner, QR decoder, read QR image, webcam QR, QR scan online, free QR reader">
   <link rel="canonical" href="https://taystudios.com/en/image/qr-scan/">
   <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/qr-scan/">
@@ -53,7 +53,11 @@
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "inLanguage": "en-US",
       "isAccessibleForFree": true,
       "featureList": [
@@ -67,9 +71,24 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
-        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/en/image/" },
-        { "@type": "ListItem", "position": 3, "name": "QR Code Scanner", "item": "https://taystudios.com/en/image/qr-scan/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image",
+          "item": "https://taystudios.com/en/image/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "QR Code Scanner",
+          "item": "https://taystudios.com/en/image/qr-scan/"
+        }
       ]
     },
     {
@@ -122,6 +141,38 @@
             "@type": "Answer",
             "text": "This tool only decodes the text. Auto-connect for Wi-Fi works only with the OS camera app (the phone's native camera). PCs and web browsers don't have OS-level permission for that — copy the SSID and password and connect manually."
           }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to decode QR codes",
+      "description": "Extract URL, text, or Wi-Fi info from QR code images or camera scan.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Choose input method",
+          "text": "Upload QR code image file or enable webcam/smartphone camera."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Auto decode",
+          "text": "Point camera at QR or upload image — decodes instantly."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "View result",
+          "text": "Extracted URL, text, or Wi-Fi credentials displayed."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Open URL",
+          "text": "If URL, click to open in new tab."
         }
       ]
     }

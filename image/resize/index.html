@@ -33,7 +33,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <title>이미지 리사이즈 | px·% 크기 변경, JPG/PNG/WebP 포맷 변환</title>
-  <meta name="description" content="이미지 가로·세로 px 또는 % 입력으로 크기 변경. 비율 유지 옵션 + JPG·PNG·WebP 포맷 변환. 여권·이력서 사진 사이즈 맞추기. 브라우저 안에서 처리, 파일 외부 전송 없음.">
+  <meta name="description" content="이미지 가로·세로 px 또는 % 입력으로 크기 변경. 비율 유지 옵션 + JPG·PNG·WebP 포맷 변환. 여권 413×531px·증명사진 295×413px·인스타 1080×1080 정확. 브라우저 안에서 처리.">
   <meta name="keywords" content="이미지 리사이즈, 사진 크기 변경, 이력서 사진 px, 여권 사진 사이즈, JPG PNG 변환, WebP 변환">
   <link rel="canonical" href="https://taystudios.com/image/resize/">
   <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/resize/">
@@ -51,7 +51,11 @@
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
       "inLanguage": "ko-KR",
       "isAccessibleForFree": true,
       "featureList": [
@@ -66,9 +70,24 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/image/" },
-        { "@type": "ListItem", "position": 3, "name": "이미지 리사이즈·포맷 변환", "item": "https://taystudios.com/image/resize/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image",
+          "item": "https://taystudios.com/image/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "이미지 리사이즈·포맷 변환",
+          "item": "https://taystudios.com/image/resize/"
+        }
       ]
     },
     {
@@ -121,6 +140,38 @@
             "@type": "Answer",
             "text": "전송되지 않습니다. 모든 처리는 브라우저 안의 canvas API로 이루어지며, 사이트 운영자도 파일을 볼 수 없습니다. 신분증·이력서·여권 사진 등 민감 이미지도 안심하고 사용하세요."
           }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "이미지 크기 변경 방법",
+      "description": "이미지의 가로·세로 크기를 px 또는 %로 변경합니다.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "이미지 파일 선택",
+          "text": "크기 조정할 이미지를 업로드."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "크기 입력",
+          "text": "가로·세로 px 또는 % 입력. 비율 유지 옵션 체크 시 한 쪽만 입력해도 자동 비율."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "변환",
+          "text": "변환 버튼으로 즉시 처리. JPG·PNG·WebP 포맷 선택 가능."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "다운로드",
+          "text": "크기 조정된 이미지를 다운로드."
         }
       ]
     }

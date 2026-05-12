@@ -35,7 +35,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
   <title>Mosaic / Blur | Free Photo Censoring (Faces, License Plates, Private Info)</title>
-  <meta name="description" content="Pixelate or blur faces, license plates, private info in photos. Draw rectangles to select areas. Adjustable strength. For SNS uploads, marketplace listings, screenshots. No signup, browser-based.">
+  <meta name="description" content="Pixelate, blur, or black-out faces, license plates, private info in photos. Box selection, strength 1-50px. Marketplace, screenshots, social media privacy. Browser-only.">
   <meta name="keywords" content="face mosaic, blur photo, photo pixelate, hide faces, censor license plate, private info censor, screenshot censor, marketplace photo censor">
   <link rel="canonical" href="https://taystudios.com/en/image/mosaic/">
   <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/mosaic/">
@@ -52,28 +52,114 @@
       "url": "https://taystudios.com/en/image/mosaic/",
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "inLanguage": "en-US",
       "isAccessibleForFree": true,
-      "featureList": ["Pixelate mosaic", "Gaussian blur", "Solid black box", "Multi-box selection", "Strength slider (live)", "No upload to external servers"],
+      "featureList": [
+        "Pixelate mosaic",
+        "Gaussian blur",
+        "Solid black box",
+        "Multi-box selection",
+        "Strength slider (live)",
+        "No upload to external servers"
+      ],
       "dateModified": "2026-05-10",
       "softwareVersion": "2026.05"
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
-        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/en/image/" },
-        { "@type": "ListItem", "position": 3, "name": "Mosaic / Blur", "item": "https://taystudios.com/en/image/mosaic/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image",
+          "item": "https://taystudios.com/en/image/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Mosaic / Blur",
+          "item": "https://taystudios.com/en/image/mosaic/"
+        }
       ]
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "Are my files uploaded?", "acceptedAnswer": { "@type": "Answer", "text": "No. All processing runs in your browser via Canvas API. The site operator cannot see your photos." } },
-        { "@type": "Question", "name": "Mosaic vs blur — what's the difference?", "acceptedAnswer": { "@type": "Answer", "text": "Mosaic = pixelation. Strong block, geometric look. Blur = Gaussian smoothing. Soft, natural. Solid black box = irreversible, safest. Use mosaic / black for faces / plates; blur for soft background." } },
-        { "@type": "Question", "name": "Can I cover multiple regions?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Click-drag (or touch) to draw boxes — multiple boxes per image, each processed independently." } },
-        { "@type": "Question", "name": "Can the censoring be reversed?", "acceptedAnswer": { "@type": "Answer", "text": "With sufficient strength, recovery is essentially impossible. Recommend mosaic pixel size 10+ / blur strength 20+. For ID numbers / license plates, solid black is the safest option. Note that EXIF metadata may retain partial originals — strip EXIF before SNS upload." } }
+        {
+          "@type": "Question",
+          "name": "Are my files uploaded?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All processing runs in your browser via Canvas API. The site operator cannot see your photos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Mosaic vs blur — what's the difference?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mosaic = pixelation. Strong block, geometric look. Blur = Gaussian smoothing. Soft, natural. Solid black box = irreversible, safest. Use mosaic / black for faces / plates; blur for soft background."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I cover multiple regions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Click-drag (or touch) to draw boxes — multiple boxes per image, each processed independently."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can the censoring be reversed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "With sufficient strength, recovery is essentially impossible. Recommend mosaic pixel size 10+ / blur strength 20+. For ID numbers / license plates, solid black is the safest option. Note that EXIF metadata may retain partial originals — strip EXIF before SNS upload."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to blur faces, license plates, private info",
+      "description": "Apply pixelation, blur, or black-out boxes to hide sensitive areas.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Upload photo",
+          "text": "Upload a photo with areas to hide."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Select areas",
+          "text": "Drag with mouse or finger to draw boxes over areas to hide. Add multiple boxes."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Choose effect and strength",
+          "text": "Pick mosaic, blur, or black-out. Adjust strength 1-50px."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Download",
+          "text": "Download the processed image. Keep original safely."
+        }
       ]
     }
   ]

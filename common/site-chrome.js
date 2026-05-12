@@ -11,6 +11,22 @@
   } catch (_) {}
 })();
 
+// dns-prefetch — 외부 도메인 사전 조회. 페이지 head 진입 직후 link 동적 주입.
+(function () {
+  const hosts = [
+    'https://www.googletagmanager.com',
+    'https://static.cloudflareinsights.com',
+    'https://cdn.staticimgly.com',
+    'https://esm.sh',
+  ];
+  hosts.forEach(host => {
+    const link = document.createElement('link');
+    link.rel = 'dns-prefetch';
+    link.href = host;
+    document.head.appendChild(link);
+  });
+})();
+
 // i18n — /en/ path 또는 <html lang="en">이면 영어 모드.
 const LANG = (() => {
   const path = window.location.pathname;
@@ -61,6 +77,7 @@ const I18N = {
     disclaimerLink: '자세히',
     closeAriaLabel: '공지 닫기',
     closeTitle: '닫기',
+    about: '운영자 소개',
     privacy: '개인정보처리방침',
     terms: '이용약관',
     footerNote: '입력값은 브라우저 안에서만 처리됩니다',
@@ -111,6 +128,7 @@ const I18N = {
     disclaimerLink: 'Learn more',
     closeAriaLabel: 'Close notice',
     closeTitle: 'Close',
+    about: 'About',
     privacy: 'Privacy Policy',
     terms: 'Terms of Service',
     footerNote: 'All inputs are processed only in your browser',
@@ -134,6 +152,7 @@ const T = I18N[LANG];
 // 도구 추가 시 여기에 한국 path 추가. en/<path>는 단순 prefix 변환이라 자동 매핑.
 const TRANSLATED_PATHS = new Set([
   '/',
+  '/about/',
   // Calculators (8 universal — 한국 38선 중 universal subset만)
   '/tools/',
   '/tools/compound/', '/tools/bmi/', '/tools/calorie/', '/tools/body-fat/',
@@ -590,11 +609,14 @@ class SiteHeader extends HTMLElement {
 
 class SiteFooter extends HTMLElement {
   connectedCallback() {
+    const aboutHref = LANG === 'en' ? `${BASE}/en/about/` : `${BASE}/about/`;
     const privacyHref = LANG === 'en' ? `${BASE}/en/privacy/` : `${BASE}/privacy/`;
     const termsHref = LANG === 'en' ? `${BASE}/en/terms/` : `${BASE}/terms/`;
     this.innerHTML = `
       <footer style="margin-top:48px;padding:32px 20px;border-top:1px solid var(--border);text-align:center;color:var(--muted)">
         <div style="font-size:13px;margin-bottom:18px">
+          <a href="${aboutHref}" style="color:var(--muted);text-decoration:none;margin:0 8px">${T.about}</a>
+          ·
           <a href="${privacyHref}" style="color:var(--muted);text-decoration:none;margin:0 8px">${T.privacy}</a>
           ·
           <a href="${termsHref}" style="color:var(--muted);text-decoration:none;margin:0 8px">${T.terms}</a>

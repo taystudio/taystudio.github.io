@@ -35,7 +35,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
   <title>PDF Watermark, Page Numbers, Metadata Editor | Free PDF Stamp Tool</title>
-  <meta name="description" content="Add watermark, insert page numbers, and edit PDF metadata (title, author, subject, keywords) — all in one page. For company documents, contracts, resumes. Batch processing, browser-based.">
+  <meta name="description" content="PDF watermark + page numbers + metadata 3-in-1 editor. pdf-lib WebAssembly. Standardize company docs, contracts, resumes. Batch processing. Browser-only.">
   <meta name="keywords" content="pdf watermark, pdf page numbers, pdf add page numbers, pdf metadata edit, pdf change title, pdf change author, pdf stamp">
   <link rel="canonical" href="https://taystudios.com/en/pdf/pdf-stamp/">
   <link rel="alternate" hreflang="en" href="https://taystudios.com/en/pdf/pdf-stamp/">
@@ -53,29 +53,121 @@
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "inLanguage": "en-US",
       "isAccessibleForFree": true,
-      "featureList": ["PDF watermark (text, diagonal, repeat)", "Page numbers (position + format)", "PDF metadata edit (title, author, subject, keywords)", "Batch processing", "No upload to external servers"],
+      "featureList": [
+        "PDF watermark (text, diagonal, repeat)",
+        "Page numbers (position + format)",
+        "PDF metadata edit (title, author, subject, keywords)",
+        "Batch processing",
+        "No upload to external servers"
+      ],
       "dateModified": "2026-05-10",
       "softwareVersion": "2026.05"
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
-        { "@type": "ListItem", "position": 2, "name": "PDF", "item": "https://taystudios.com/en/pdf/" },
-        { "@type": "ListItem", "position": 3, "name": "PDF Stamp (Watermark / Numbers / Metadata)", "item": "https://taystudios.com/en/pdf/pdf-stamp/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "PDF",
+          "item": "https://taystudios.com/en/pdf/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "PDF Stamp (Watermark / Numbers / Metadata)",
+          "item": "https://taystudios.com/en/pdf/pdf-stamp/"
+        }
       ]
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "Are my PDFs uploaded?", "acceptedAnswer": { "@type": "Answer", "text": "No. All processing runs in your browser via pdf-lib (WebAssembly). The site operator cannot see your PDF content." } },
-        { "@type": "Question", "name": "Is the watermark applied to all pages?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. In watermark mode, every page gets the same watermark. Configurable text, position, rotation, and opacity." } },
-        { "@type": "Question", "name": "Can I customize page number format?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. 4 formats: '1' (simple) / '1 / 10' (fraction) / 'Page 1 of 10' / '- 1 -' (dashes). 6 position options." } },
-        { "@type": "Question", "name": "Why does metadata matter?", "acceptedAnswer": { "@type": "Answer", "text": "Title, author, and keywords appear in PDF viewer tabs, search, and document management. A PDF with title 'Untitled' or unknown author looks unprofessional. Standardize for cleanliness." } },
-        { "@type": "Question", "name": "Can I set a PDF password?", "acceptedAnswer": { "@type": "Answer", "text": "Password encryption is NOT supported (limitation of static-site PDF encryption libraries). Use Adobe Acrobat or a desktop tool for password protection." } }
+        {
+          "@type": "Question",
+          "name": "Are my PDFs uploaded?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All processing runs in your browser via pdf-lib (WebAssembly). The site operator cannot see your PDF content."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the watermark applied to all pages?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. In watermark mode, every page gets the same watermark. Configurable text, position, rotation, and opacity."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I customize page number format?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. 4 formats: '1' (simple) / '1 / 10' (fraction) / 'Page 1 of 10' / '- 1 -' (dashes). 6 position options."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does metadata matter?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Title, author, and keywords appear in PDF viewer tabs, search, and document management. A PDF with title 'Untitled' or unknown author looks unprofessional. Standardize for cleanliness."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I set a PDF password?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Password encryption is NOT supported (limitation of static-site PDF encryption libraries). Use Adobe Acrobat or a desktop tool for password protection."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to edit PDF watermark, page numbers, metadata",
+      "description": "Add watermark, page numbers, or edit PDF metadata.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Select PDF",
+          "text": "Drag-drop or multi-select PDF files to edit."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Choose mode",
+          "text": "Select watermark, page numbers, or metadata editor mode."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Adjust options",
+          "text": "Set watermark text/position/opacity, OR page number format, OR title/author/keywords."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Download",
+          "text": "Download edited PDF. Batch processing for multiple files."
+        }
       ]
     }
   ]

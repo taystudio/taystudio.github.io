@@ -36,7 +36,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
   <title>Video to GIF | Convert MP4 to animated GIF — free, in your browser</title>
-  <meta name="description" content="Convert short segments of MP4, MOV, and WebM videos into animated GIFs for social media, reactions, and stickers. Adjust fps and width to balance file size and quality. All processing in your browser — your video never leaves your device.">
+  <meta name="description" content="Convert short video clips to GIF. fps 5-30 + width 240-720px. ffmpeg.wasm + palette optimization. Memes, social media, emojis. Browser-only.">
   <meta name="keywords" content="video to GIF online, MP4 to GIF, make animated GIF, GIF maker free, online GIF converter no upload, browser GIF maker">
   <link rel="canonical" href="https://taystudios.com/en/video/to-gif/">
   <link rel="alternate" hreflang="en" href="https://taystudios.com/en/video/to-gif/">
@@ -54,7 +54,11 @@
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "inLanguage": "en-US",
       "isAccessibleForFree": true,
       "featureList": [
@@ -71,9 +75,24 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
-        { "@type": "ListItem", "position": 2, "name": "Video", "item": "https://taystudios.com/en/video/" },
-        { "@type": "ListItem", "position": 3, "name": "Video to GIF", "item": "https://taystudios.com/en/video/to-gif/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Video",
+          "item": "https://taystudios.com/en/video/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Video to GIF",
+          "item": "https://taystudios.com/en/video/to-gif/"
+        }
       ]
     },
     {
@@ -118,6 +137,38 @@
             "@type": "Answer",
             "text": "A 5-second 480p 15 fps GIF takes about 10 to 30 seconds on desktop Chrome. GIF generation is heavier than compression, so even on a single thread it takes a bit longer. Mobile is 2 to 3 times slower. Stick to ≤ 10 seconds + ≤ 480px."
           }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to convert video to GIF",
+      "description": "Convert short video clips to animated GIF.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Upload video",
+          "text": "Upload MP4, MOV, or WebM video."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Adjust options",
+          "text": "Set start/end time + fps 5-30 + width 240-720px."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Convert",
+          "text": "ffmpeg.wasm + palette optimization generates GIF."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Download GIF",
+          "text": "Download the GIF. Use for memes, social media, emojis."
         }
       ]
     }

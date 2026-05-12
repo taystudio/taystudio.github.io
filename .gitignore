@@ -4,3 +4,6 @@
 
 # Windows
 Thumbs.db
+
+# Playwright MCP — 브라우저 자동화 일회성 artifacts (console·snapshot 캐시)
+.playwright-mcp/

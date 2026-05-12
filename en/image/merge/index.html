@@ -35,7 +35,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
   <title>Combine Images | Free Photo Stitching (Vertical / Horizontal / Grid)</title>
-  <meta name="description" content="Combine multiple photos into one image — vertical, horizontal, or grid layouts with adjustable gap and background color. For chat capture stitching, before/after, Instagram 9-grid. Browser-based, no signup.">
+  <meta name="description" content="Combine multiple photos into one. Horizontal, vertical, grid (2×2, 3×3) layout + spacing, background color. Use cases: collage, comparison, screenshots. Browser-only.">
   <meta name="keywords" content="combine images, photo stitching, vertical photo combine, instagram 9 grid, before after photo, image collage, screenshot stitch">
   <link rel="canonical" href="https://taystudios.com/en/image/merge/">
   <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/merge/">
@@ -52,29 +52,122 @@
       "url": "https://taystudios.com/en/image/merge/",
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "inLanguage": "en-US",
       "isAccessibleForFree": true,
-      "featureList": ["Horizontal stitching", "Vertical stitching (capture-friendly)", "Grid layout (2x2, 3x3, etc.)", "Adjustable gap and background color", "Drag-reorder", "No upload to external servers"],
+      "featureList": [
+        "Horizontal stitching",
+        "Vertical stitching (capture-friendly)",
+        "Grid layout (2x2, 3x3, etc.)",
+        "Adjustable gap and background color",
+        "Drag-reorder",
+        "No upload to external servers"
+      ],
       "dateModified": "2026-05-10",
       "softwareVersion": "2026.05"
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
-        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/en/image/" },
-        { "@type": "ListItem", "position": 3, "name": "Combine images", "item": "https://taystudios.com/en/image/merge/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image",
+          "item": "https://taystudios.com/en/image/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Combine images",
+          "item": "https://taystudios.com/en/image/merge/"
+        }
       ]
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type": "Question", "name": "Are my files uploaded?", "acceptedAnswer": { "@type": "Answer", "text": "No. All processing runs in your browser via Canvas API." } },
-        { "@type": "Question", "name": "Can I combine multiple chat screenshots into one?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Vertical mode + gap 0px gives a seamless single image. Stitching messenger captures is a core use case." } },
-        { "@type": "Question", "name": "What if my photos have different sizes?", "acceptedAnswer": { "@type": "Answer", "text": "Horizontal: matches first photo's height, scales the rest proportionally. Vertical: matches first photo's width. Grid: cell size = first photo, contain-fit." } },
-        { "@type": "Question", "name": "Can I reorder photos?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the ↑↓ buttons in the file list. Preview updates immediately." } },
-        { "@type": "Question", "name": "What's the max number of photos?", "acceptedAnswer": { "@type": "Answer", "text": "No hard limit, but the result canvas must stay under browser limit (~16k×16k). Generally 20-30 photos work fine." } }
+        {
+          "@type": "Question",
+          "name": "Are my files uploaded?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All processing runs in your browser via Canvas API."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I combine multiple chat screenshots into one?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Vertical mode + gap 0px gives a seamless single image. Stitching messenger captures is a core use case."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if my photos have different sizes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Horizontal: matches first photo's height, scales the rest proportionally. Vertical: matches first photo's width. Grid: cell size = first photo, contain-fit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I reorder photos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Use the ↑↓ buttons in the file list. Preview updates immediately."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the max number of photos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No hard limit, but the result canvas must stay under browser limit (~16k×16k). Generally 20-30 photos work fine."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to combine multiple photos into one",
+      "description": "Merge multiple images in horizontal, vertical, or grid layout.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Select photos",
+          "text": "Drag-drop or multi-select photos. Reorder as needed."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Choose layout",
+          "text": "Select horizontal, vertical, or grid (2×2, 3×3) + adjust spacing and background color."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Merge",
+          "text": "Click merge — Canvas API composites in browser instantly."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Download",
+          "text": "Download the combined image as PNG or JPG."
+        }
       ]
     }
   ]

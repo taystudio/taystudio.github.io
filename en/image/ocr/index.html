@@ -37,7 +37,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
   <title>Image OCR | Free Text Extraction (English, Korean) — Browser-Based</title>
-  <meta name="description" content="Extract text from images, screenshots, and photos — English, Korean, and more. Tesseract.js WASM in-browser OCR. All processing on your device, images never uploaded.">
+  <meta name="description" content="Extract text (Korean, English) from images, screenshots, photos. Tesseract.js v5 WebAssembly. Convert paper/PDF documents to editable text. Browser-only.">
   <meta name="keywords" content="image text extract, OCR online, photo to text, screenshot OCR, English OCR, free OCR, Tesseract.js">
   <link rel="canonical" href="https://taystudios.com/en/image/ocr/">
   <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/ocr/">
@@ -55,7 +55,11 @@
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "inLanguage": "en-US",
       "isAccessibleForFree": true,
       "featureList": [
@@ -70,9 +74,24 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
-        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/en/image/" },
-        { "@type": "ListItem", "position": 3, "name": "Image OCR", "item": "https://taystudios.com/en/image/ocr/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image",
+          "item": "https://taystudios.com/en/image/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Image OCR",
+          "item": "https://taystudios.com/en/image/ocr/"
+        }
       ]
     },
     {
@@ -125,6 +144,38 @@
             "@type": "Answer",
             "text": "This tool currently accepts images only (JPG / PNG / WebP). If your PDF already has digital text, copy it directly from a PDF viewer. For scanned PDFs, export each page as an image (e.g. screenshot) and bring it here."
           }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to extract text from images",
+      "description": "Read Korean or English text from screenshots and photos.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Upload image",
+          "text": "Upload image, screenshot, or photo containing text."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Select language",
+          "text": "Choose Korean, English, or both for mixed-language documents."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Run OCR",
+          "text": "Tesseract.js v5 WebAssembly engine recognizes in browser. Larger images take a few seconds."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Copy text",
+          "text": "Copy extracted text or download as .txt file."
         }
       ]
     }

@@ -36,7 +36,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
   <title>Extract MP3 from Video | Audio extraction (personal use only — free)</title>
-  <meta name="description" content="Extract MP3 audio from your MP4, MOV, WebM, MKV videos. Choose 96-320 kbps bitrate. All processing in your browser. For personal use only.">
+  <meta name="description" content="Extract MP3 audio from your own MP4, MOV, WebM, MKV videos. Bitrate 96/128/192/256/320 kbps. ffmpeg.wasm + lamejs. Personal use only.">
   <meta name="keywords" content="extract MP3 from video, video to MP3 free, MP4 audio extractor, online video to mp3 no upload, audio rip from video, browser audio extractor">
   <link rel="canonical" href="https://taystudios.com/en/video/to-mp3/">
   <link rel="alternate" hreflang="en" href="https://taystudios.com/en/video/to-mp3/">
@@ -54,7 +54,11 @@
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "inLanguage": "en-US",
       "isAccessibleForFree": true,
       "featureList": [
@@ -70,9 +74,24 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
-        { "@type": "ListItem", "position": 2, "name": "Video", "item": "https://taystudios.com/en/video/" },
-        { "@type": "ListItem", "position": 3, "name": "Extract MP3", "item": "https://taystudios.com/en/video/to-mp3/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Video",
+          "item": "https://taystudios.com/en/video/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Extract MP3",
+          "item": "https://taystudios.com/en/video/to-mp3/"
+        }
       ]
     },
     {
@@ -117,6 +136,38 @@
             "@type": "Answer",
             "text": "MP3 encoding is much lighter than video compression — a 5-minute video takes 10 to 30 seconds on desktop Chrome. Mobile finishes in under a minute. Only the first run pays the ~32MB ffmpeg download."
           }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to extract MP3 audio from video",
+      "description": "Extract audio track from your own videos to MP3.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Upload video",
+          "text": "Upload MP4, MOV, WebM, or MKV video."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Choose bitrate",
+          "text": "Pick 96, 128, 192, 256, or 320 kbps. 128 for voice, 192-256 for music."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Extract",
+          "text": "ffmpeg.wasm + lamejs encode audio in browser."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Download MP3",
+          "text": "Download extracted MP3. Personal use only — no copyrighted content."
         }
       ]
     }

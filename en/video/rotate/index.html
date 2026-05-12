@@ -36,7 +36,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
   <title>Rotate Video | 90°/180° rotation + horizontal/vertical flip (free)</title>
-  <meta name="description" content="Rotate MP4, MOV, and WebM videos by 90° or 180°, or flip horizontally/vertically. Fix sideways or upside-down phone videos. All processing in your browser — your video never leaves your device.">
+  <meta name="description" content="Rotate videos 90°/180°/270° or flip horizontal/vertical. Fix sideways or upside-down recordings. ffmpeg.wasm. MP4, MOV, WebM. Browser-only.">
   <meta name="keywords" content="rotate video online, flip video horizontal, mirror video, rotate MP4, vertical to horizontal video, fix upside down video, browser video rotation">
   <link rel="canonical" href="https://taystudios.com/en/video/rotate/">
   <link rel="alternate" hreflang="en" href="https://taystudios.com/en/video/rotate/">
@@ -54,7 +54,11 @@
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "inLanguage": "en-US",
       "isAccessibleForFree": true,
       "featureList": [
@@ -71,9 +75,24 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
-        { "@type": "ListItem", "position": 2, "name": "Video", "item": "https://taystudios.com/en/video/" },
-        { "@type": "ListItem", "position": 3, "name": "Rotate Video", "item": "https://taystudios.com/en/video/rotate/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Video",
+          "item": "https://taystudios.com/en/video/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Rotate Video",
+          "item": "https://taystudios.com/en/video/rotate/"
+        }
       ]
     },
     {
@@ -110,6 +129,38 @@
             "@type": "Answer",
             "text": "MP4, MOV, WebM, MKV, AVI, and most other formats supported by ffmpeg. Output is always MP4 (H.264) — playable on virtually any device."
           }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to rotate or flip videos",
+      "description": "Rotate sideways or upside-down videos to correct orientation.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Upload video",
+          "text": "Upload MP4, MOV, or WebM video to rotate."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Choose rotation",
+          "text": "Select 90°, 180°, or 270° rotation, or horizontal/vertical flip."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Apply",
+          "text": "ffmpeg.wasm processes in browser."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Download",
+          "text": "Download the rotated video."
         }
       ]
     }

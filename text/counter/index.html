@@ -33,7 +33,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <title>글자수 카운터 | 공백 포함·제외, 바이트, SNS·자소서 한도</title>
-  <meta name="description" content="실시간 글자수 카운터. 공백 포함·제외, 단어수, 줄수, UTF-8 바이트, 한글·영문 분리. 트위터·인스타·자소서 한도 자동 비교.">
+  <meta name="description" content="실시간 글자수 카운터. 공백 포함/제외·단어수·줄수·UTF-8 바이트·한글/영문 분리. 트위터 280자·인스타 2,200자·자소서 한도 자동 비교. 브라우저 안에서 처리.">
   <meta name="keywords" content="글자수 세기, 글자수 카운터, 자소서 글자수, 트위터 글자수, 바이트 계산, 공백 포함 제외">
   <link rel="canonical" href="https://taystudios.com/text/counter/">
   <link rel="alternate" hreflang="ko" href="https://taystudios.com/text/counter/">
@@ -51,16 +51,35 @@
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
       "inLanguage": "ko-KR",
       "isAccessibleForFree": true
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Text", "item": "https://taystudios.com/text/" },
-        { "@type": "ListItem", "position": 3, "name": "글자수 카운터", "item": "https://taystudios.com/text/counter/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Text",
+          "item": "https://taystudios.com/text/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "글자수 카운터",
+          "item": "https://taystudios.com/text/counter/"
+        }
       ]
     },
     {
@@ -113,6 +132,38 @@
             "@type": "Answer",
             "text": "전송되지 않습니다. 모든 계산은 브라우저 안에서 처리되며 서버로 보내지 않습니다. 자소서·계약서 등 민감한 글도 안심하고 붙여넣어도 됩니다."
           }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "글자수 카운트 방법",
+      "description": "텍스트의 글자수·단어수·줄수·바이트를 실시간 측정합니다.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "텍스트 입력",
+          "text": "카운트할 텍스트를 입력하거나 붙여넣기."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "실시간 카운터",
+          "text": "공백 포함/제외·단어수·줄수·UTF-8 바이트·한글/영문 분리가 즉시 표시."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "한도 비교",
+          "text": "트위터 280자·인스타 2,200자·자소서 1,500자 등 플랫폼 한도와 자동 비교."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "결과 확인",
+          "text": "한도 초과 시 빨간색 경고, 안전 시 녹색 표시."
         }
       ]
     }
@@ -302,6 +353,7 @@
     <section class="tool-article">
       <h2>관련 도구</h2>
       <div class="related-calc">
+        <a href="/image/ocr/">이미지 OCR<span class="desc">사진·스크린샷 텍스트 추출 후 글자수</span></a>
         <a href="../">텍스트 도구 모음<span class="desc">한↔영 변환·마크다운·JSON 등</span></a>
         <a href="/tools/age/">만 나이 계산기<span class="desc">자소서·이력서 작성 시</span></a>
         <a href="/tools/salary/">연봉 실수령액<span class="desc">이력서 희망연봉 산정</span></a>

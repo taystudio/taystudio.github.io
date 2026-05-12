@@ -36,7 +36,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
   <title>Trim Video | Cut MP4 by start and end times — free, in browser</title>
-  <meta name="description" content="Cut a section out of MP4, MOV, or WebM videos by specifying start and end times. Fast mode finishes in seconds without re-encoding; precise mode cuts at frame accuracy. All processing in your browser — your video never leaves your device.">
+  <meta name="description" content="Trim video clip by start/end time. Fast mode (no re-encoding, seconds) or precise mode (frame-accurate). ffmpeg.wasm. TikTok, Reels content editing. Browser-only.">
   <meta name="keywords" content="trim video online, cut video by timestamps, MP4 trimmer, video clipper free, online video trim no upload, browser video editor">
   <link rel="canonical" href="https://taystudios.com/en/video/trim/">
   <link rel="alternate" hreflang="en" href="https://taystudios.com/en/video/trim/">
@@ -54,7 +54,11 @@
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "inLanguage": "en-US",
       "isAccessibleForFree": true,
       "featureList": [
@@ -70,9 +74,24 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
-        { "@type": "ListItem", "position": 2, "name": "Video", "item": "https://taystudios.com/en/video/" },
-        { "@type": "ListItem", "position": 3, "name": "Trim Video", "item": "https://taystudios.com/en/video/trim/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Video",
+          "item": "https://taystudios.com/en/video/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Trim Video",
+          "item": "https://taystudios.com/en/video/trim/"
+        }
       ]
     },
     {
@@ -117,6 +136,38 @@
             "@type": "Answer",
             "text": "Fast mode: independent of file size — even a 1GB video usually finishes in seconds to tens of seconds. Precise mode: about 0.3 to 1× the trimmed clip's length on desktop Chrome. Mobile is 2 to 3 times slower due to the single-thread limit."
           }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to trim video clips",
+      "description": "Cut a video by specifying start and end times.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Upload video",
+          "text": "Upload MP4, MOV, or WebM video file."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Enter start and end times",
+          "text": "Type timestamps or use slider to select the clip."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Choose mode",
+          "text": "Fast mode (no re-encoding, seconds) or precise mode (frame-accurate)."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Download",
+          "text": "ffmpeg.wasm processes and downloads the trimmed clip."
         }
       ]
     }

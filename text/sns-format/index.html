@@ -33,7 +33,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <title>SNS 글 정리 | 인스타 줄바꿈·해시태그·특수 글씨</title>
-  <meta name="description" content="인스타 줄바꿈 보존, 해시태그 중복 제거·끝으로 모으기, Bold·Italic·Script 등 특수 글씨 변환. 인스타·트위터·블로그 작성 도구.">
+  <meta name="description" content="인스타 줄바꿈 보존(invisible separator), 해시태그 중복 제거·끝으로 정리, Bold·Italic·Script 등 12종 유니코드 특수 글씨 변환. 인스타·트위터·블로그 작성 도구.">
   <meta name="keywords" content="SNS 글 정리, 인스타 줄바꿈, 해시태그 정리, 특수 글씨, 인스타 글씨체, 트위터 글씨">
   <link rel="canonical" href="https://taystudios.com/text/sns-format/">
   <link rel="alternate" hreflang="ko" href="https://taystudios.com/text/sns-format/">
@@ -50,16 +50,35 @@
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
       "inLanguage": "ko-KR",
       "isAccessibleForFree": true
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Text", "item": "https://taystudios.com/text/" },
-        { "@type": "ListItem", "position": 3, "name": "SNS 글 정리", "item": "https://taystudios.com/text/sns-format/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Text",
+          "item": "https://taystudios.com/text/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SNS 글 정리",
+          "item": "https://taystudios.com/text/sns-format/"
+        }
       ]
     },
     {
@@ -68,32 +87,82 @@
         {
           "@type": "Question",
           "name": "인스타에서 줄바꿈이 왜 사라지나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "인스타그램은 캡션·댓글에서 연속된 빈 줄을 자동으로 압축합니다. '줄바꿈 보존' 옵션을 켜면 빈 줄에 보이지 않는 한글 채움 문자(U+3164)를 삽입해 압축을 우회합니다. 결과를 그대로 인스타 입력창에 붙여넣으면 줄바꿈이 유지됩니다." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "인스타그램은 캡션·댓글에서 연속된 빈 줄을 자동으로 압축합니다. '줄바꿈 보존' 옵션을 켜면 빈 줄에 보이지 않는 한글 채움 문자(U+3164)를 삽입해 압축을 우회합니다. 결과를 그대로 인스타 입력창에 붙여넣으면 줄바꿈이 유지됩니다."
+          }
         },
         {
           "@type": "Question",
           "name": "특수 글씨가 검색·접근성에 영향이 있나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "있습니다. 𝐁𝐨𝐥𝐝·𝓢𝓬𝓻𝓲𝓹𝓽 같은 특수 글씨는 일반 영문(B·o·l·d)이 아닌 별개 유니코드 문자라 SNS 검색·해시태그 매칭이 안 되고, 스크린리더가 글자를 제대로 읽지 못할 수 있습니다. 시각적 강조용으로만 사용하고, 본문이나 해시태그에는 일반 글씨를 권장합니다." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "있습니다. 𝐁𝐨𝐥𝐝·𝓢𝓬𝓻𝓲𝓹𝓽 같은 특수 글씨는 일반 영문(B·o·l·d)이 아닌 별개 유니코드 문자라 SNS 검색·해시태그 매칭이 안 되고, 스크린리더가 글자를 제대로 읽지 못할 수 있습니다. 시각적 강조용으로만 사용하고, 본문이나 해시태그에는 일반 글씨를 권장합니다."
+          }
         },
         {
           "@type": "Question",
           "name": "한글도 특수 글씨로 변환되나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "변환되지 않습니다. 유니코드 Mathematical Alphanumeric Symbols 블록은 라틴 영문(A-Z, a-z)과 숫자(0-9)에만 정의됩니다. 한글·한자·일본어는 fancy 글씨가 존재하지 않아 그대로 출력됩니다." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "변환되지 않습니다. 유니코드 Mathematical Alphanumeric Symbols 블록은 라틴 영문(A-Z, a-z)과 숫자(0-9)에만 정의됩니다. 한글·한자·일본어는 fancy 글씨가 존재하지 않아 그대로 출력됩니다."
+          }
         },
         {
           "@type": "Question",
           "name": "해시태그를 끝으로 모으면 검색에 불리한가요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "위치는 검색 노출에 영향이 적습니다. 본문 중간에 있든 끝에 있든 인스타·트위터는 동일하게 인덱싱합니다. 다만 본문 가독성을 위해 끝에 모으는 게 미관상 보편적입니다. 인스타는 캡션 해시태그 30개까지 허용하며, 첫 줄에 점·기호로 구분된 빈 줄 후 해시태그를 두는 패턴이 흔합니다." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "위치는 검색 노출에 영향이 적습니다. 본문 중간에 있든 끝에 있든 인스타·트위터는 동일하게 인덱싱합니다. 다만 본문 가독성을 위해 끝에 모으는 게 미관상 보편적입니다. 인스타는 캡션 해시태그 30개까지 허용하며, 첫 줄에 점·기호로 구분된 빈 줄 후 해시태그를 두는 패턴이 흔합니다."
+          }
         },
         {
           "@type": "Question",
           "name": "보이지 않는 문자(U+3164)는 무엇인가요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "한글 채움 문자(Hangul Filler)로, 너비를 가진 보이지 않는 문자입니다. 인스타·페이스북이 빈 줄로 인식하지 않아 줄바꿈 압축을 우회할 수 있습니다. 닉네임·프로필에 '빈 칸'으로 입력하는 용도로도 쓰입니다. 단 검색·인덱싱 회피 목적의 남용은 권장하지 않습니다." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "한글 채움 문자(Hangul Filler)로, 너비를 가진 보이지 않는 문자입니다. 인스타·페이스북이 빈 줄로 인식하지 않아 줄바꿈 압축을 우회할 수 있습니다. 닉네임·프로필에 '빈 칸'으로 입력하는 용도로도 쓰입니다. 단 검색·인덱싱 회피 목적의 남용은 권장하지 않습니다."
+          }
         },
         {
           "@type": "Question",
           "name": "입력한 글이 외부로 전송되나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "전송되지 않습니다. 모든 변환은 브라우저 안에서 처리되며 서버로 보내지 않습니다." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. 모든 변환은 브라우저 안에서 처리되며 서버로 보내지 않습니다."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "SNS 텍스트 포맷 변환 방법",
+      "description": "인스타·트위터·블로그용 텍스트를 포맷합니다.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "텍스트 입력",
+          "text": "포맷할 원본 텍스트를 입력."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "포맷 옵션 선택",
+          "text": "인스타 줄바꿈 보존, 해시태그 정리, Bold·Italic·Script 유니코드 변환 중 선택."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "변환",
+          "text": "선택한 옵션에 따라 즉시 변환."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "복사",
+          "text": "변환된 텍스트를 SNS에 붙여넣기."
         }
       ]
     }

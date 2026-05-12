@@ -34,7 +34,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <title>이미지 워터마크 만들기 | 사진·블로그·중고거래 도용 방지 무료 워터마크</title>
-  <meta name="description" content="사진에 텍스트·로고 워터마크를 무료로. 위치·투명도·크기·회전·반복 조정. 블로거·작가·중고거래 도용 방지. 다중 파일 일괄, 가입·설치·워터마크 없음.">
+  <meta name="description" content="사진에 텍스트·로고 워터마크 무료 적용. 위치 9방향·투명도 0~100%·크기·회전·반복 옵션. 블로그·중고거래·작가 도용 방지. 다중 파일 일괄, 브라우저 안에서 처리.">
   <meta name="keywords" content="사진 워터마크, 이미지 워터마크 만들기, 블로그 사진 도용 방지, 인스타 워터마크, 중고거래 사진 보호, 로고 추가, 텍스트 추가">
   <link rel="canonical" href="https://taystudios.com/image/watermark/">
   <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/watermark/">
@@ -52,7 +52,11 @@
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
       "inLanguage": "ko-KR",
       "isAccessibleForFree": true,
       "featureList": [
@@ -69,9 +73,24 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/image/" },
-        { "@type": "ListItem", "position": 3, "name": "워터마크", "item": "https://taystudios.com/image/watermark/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image",
+          "item": "https://taystudios.com/image/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "워터마크",
+          "item": "https://taystudios.com/image/watermark/"
+        }
       ]
     },
     {
@@ -80,27 +99,74 @@
         {
           "@type": "Question",
           "name": "이미지가 외부 서버로 업로드되나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "전송되지 않습니다. 모든 처리는 브라우저 Canvas API에서 이뤄집니다. 사이트 운영자도 사진을 볼 수 없습니다." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. 모든 처리는 브라우저 Canvas API에서 이뤄집니다. 사이트 운영자도 사진을 볼 수 없습니다."
+          }
         },
         {
           "@type": "Question",
           "name": "워터마크는 얼마나 강하게 도용을 막나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "포토샵으로 크롭·블러·복원할 수는 있지만 시간이 들어 대부분의 도용을 막습니다. 강력한 보호는 (1) 반복 패턴(타일) (2) 사진 중앙 가로지름 (3) 적당한 투명도(40~60%) 조합. 본 도구는 모두 지원."}
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "포토샵으로 크롭·블러·복원할 수는 있지만 시간이 들어 대부분의 도용을 막습니다. 강력한 보호는 (1) 반복 패턴(타일) (2) 사진 중앙 가로지름 (3) 적당한 투명도(40~60%) 조합. 본 도구는 모두 지원."
+          }
         },
         {
           "@type": "Question",
           "name": "텍스트와 로고 이미지 둘 다 워터마크로 쓸 수 있나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "네. 모드 전환으로 (1) 텍스트(폰트·크기·색상) (2) 로고 이미지(투명 PNG 권장) 중 선택. 브랜드 운영자는 로고 PNG, 블로거는 닉네임 텍스트가 일반적." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네. 모드 전환으로 (1) 텍스트(폰트·크기·색상) (2) 로고 이미지(투명 PNG 권장) 중 선택. 브랜드 운영자는 로고 PNG, 블로거는 닉네임 텍스트가 일반적."
+          }
         },
         {
           "@type": "Question",
           "name": "여러 사진에 같은 워터마크를 한 번에 적용할 수 있나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "네. 여러 파일을 드래그·드롭 후 워터마크 설정 1번만 → 일괄 적용. 미리보기로 위치 확인 가능." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네. 여러 파일을 드래그·드롭 후 워터마크 설정 1번만 → 일괄 적용. 미리보기로 위치 확인 가능."
+          }
         },
         {
           "@type": "Question",
           "name": "원본 화질은 유지되나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "원본 픽셀 그대로에 워터마크만 합성. JPG 출력 시 품질 95 권장(육안 차이 거의 없음). PNG 출력 시 무손실." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "원본 픽셀 그대로에 워터마크만 합성. JPG 출력 시 품질 95 권장(육안 차이 거의 없음). PNG 출력 시 무손실."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "이미지 워터마크 적용 방법",
+      "description": "사진에 텍스트·로고 워터마크를 추가합니다.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "이미지 파일 선택",
+          "text": "워터마크를 넣을 사진을 드래그·드롭 또는 다중 선택."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "워터마크 설정",
+          "text": "텍스트 또는 로고 이미지, 위치 9방향, 투명도 0~100%, 크기·회전·반복 옵션 조정."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "적용",
+          "text": "적용 버튼을 누르면 모든 사진에 일괄 워터마크 추가."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "다운로드",
+          "text": "워터마크 적용된 이미지를 개별 또는 전체 다운로드."
         }
       ]
     }

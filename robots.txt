@@ -3,7 +3,35 @@ Allow: /
 Disallow: /dash-tay9k3m/
 Disallow: /*.md$
 
+# LLM crawler — 명시적 Allow (학습·검색 모두 허용, 운영자 dashboard만 차단)
+User-agent: GPTBot
+Allow: /
+Disallow: /dash-tay9k3m/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /dash-tay9k3m/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /dash-tay9k3m/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /dash-tay9k3m/
+
+User-agent: CCBot
+Allow: /
+Disallow: /dash-tay9k3m/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /dash-tay9k3m/
+
 Sitemap: https://taystudios.com/sitemap.xml
 
 # IndexNow key location (Bing·Yandex·Naver·Seznam 즉시 인덱스 알림 검증용)
 # Key file: https://taystudios.com/b762f70e61da4ac199b51566e31748b3.txt
+
+# LLM 친화 site map (markdown)
+# https://taystudios.com/llms.txt

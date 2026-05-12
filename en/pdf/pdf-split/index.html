@@ -35,7 +35,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
   <title>Split PDF | Extract Page Ranges From a PDF — Free</title>
-  <meta name="description" content="Extract chosen pages from a PDF using ranges like '1-3,5,7-10'. All processing happens in your browser. No watermark, no signup, no install.">
+  <meta name="description" content="Extract specific pages from PDF. '1-3,5,7-10' range notation. pdf-lib WebAssembly. Document chapter splits, evidence page extraction. Browser-only.">
   <meta name="keywords" content="split pdf, extract pdf pages, pdf splitter, pdf page extract, pdf range extract">
   <link rel="canonical" href="https://taystudios.com/en/pdf/pdf-split/">
   <link rel="alternate" hreflang="en" href="https://taystudios.com/en/pdf/pdf-split/">
@@ -53,7 +53,11 @@
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
       "inLanguage": "en-US",
       "isAccessibleForFree": true,
       "featureList": [
@@ -67,9 +71,24 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
-        { "@type": "ListItem", "position": 2, "name": "PDF", "item": "https://taystudios.com/en/pdf/" },
-        { "@type": "ListItem", "position": 3, "name": "Split PDF", "item": "https://taystudios.com/en/pdf/pdf-split/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "PDF",
+          "item": "https://taystudios.com/en/pdf/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Split PDF",
+          "item": "https://taystudios.com/en/pdf/pdf-split/"
+        }
       ]
     },
     {
@@ -122,6 +141,38 @@
             "@type": "Answer",
             "text": "pdf-lib copies page objects as-is, so even when extracting a few pages, internal resources like fonts and images may still be embedded. Run the result through a separate PDF compressor if you need a smaller file."
           }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to split PDF pages",
+      "description": "Extract specific pages from a PDF.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Upload PDF",
+          "text": "Upload the PDF file to split."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Enter page range",
+          "text": "Specify pages with notation like '1-3,5,7-10'."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Extract",
+          "text": "pdf-lib WebAssembly processes instantly."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Download",
+          "text": "Download new PDF containing only selected pages."
         }
       ]
     }

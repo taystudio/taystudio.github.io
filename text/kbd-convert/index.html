@@ -33,7 +33,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <title>한↔영 키보드 변환 | 잘못 친 한영키 즉시 복구</title>
-  <meta name="description" content="한영키 안 누르고 친 글을 한글·영문 양방향 자동 변환. 두벌식 표준 매핑. 받침·복합 자모(ㅘ·ㅙ·ㄺ·ㅄ 등)까지 정확.">
+  <meta name="description" content="한영키 잘못 눌러 친 글을 한글·영문 양방향 자동 변환. 두벌식 표준 매핑(KS X 5002). 받침·복합 자모(ㅘ·ㅙ·ㄺ·ㅄ 등)까지 정확. dkssudgktpdy → 안녕하세요.">
   <meta name="keywords" content="한영 변환, 키보드 변환, 한영키 안 누르고, dkssudgktpdy, 한글 영문 변환, 두벌식">
   <link rel="canonical" href="https://taystudios.com/text/kbd-convert/">
   <link rel="alternate" hreflang="ko" href="https://taystudios.com/text/kbd-convert/">
@@ -50,16 +50,35 @@
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      },
       "inLanguage": "ko-KR",
       "isAccessibleForFree": true
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Text", "item": "https://taystudios.com/text/" },
-        { "@type": "ListItem", "position": 3, "name": "한↔영 키보드 변환", "item": "https://taystudios.com/text/kbd-convert/" }
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TAYSTUDIO",
+          "item": "https://taystudios.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Text",
+          "item": "https://taystudios.com/text/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "한↔영 키보드 변환",
+          "item": "https://taystudios.com/text/kbd-convert/"
+        }
       ]
     },
     {
@@ -68,32 +87,82 @@
         {
           "@type": "Question",
           "name": "어떤 키보드 자판 기준인가요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "두벌식(2-Set) 표준 자판입니다. Microsoft IME·macOS 한글 자판·삼성 키보드 등 한국에서 쓰는 거의 모든 PC·모바일 한글 자판이 두벌식이며 매핑이 동일합니다. 세벌식·천지인 등은 지원하지 않습니다." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "두벌식(2-Set) 표준 자판입니다. Microsoft IME·macOS 한글 자판·삼성 키보드 등 한국에서 쓰는 거의 모든 PC·모바일 한글 자판이 두벌식이며 매핑이 동일합니다. 세벌식·천지인 등은 지원하지 않습니다."
+          }
         },
         {
           "@type": "Question",
           "name": "받침이나 복합 자모도 정확한가요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "예. 단일 받침(ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅅ ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ + ㄲ ㅆ)뿐만 아니라 복합 받침(ㄳ ㄵ ㄶ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅄ)과 복합 모음(ㅘ ㅙ ㅚ ㅝ ㅞ ㅟ ㅢ)도 정확히 처리합니다. '닭·값·왔다·의자' 같은 단어가 모두 양방향 라운드트립 OK." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "예. 단일 받침(ㄱ ㄴ ㄷ ㄹ ㅁ ㅂ ㅅ ㅇ ㅈ ㅊ ㅋ ㅌ ㅍ ㅎ + ㄲ ㅆ)뿐만 아니라 복합 받침(ㄳ ㄵ ㄶ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅄ)과 복합 모음(ㅘ ㅙ ㅚ ㅝ ㅞ ㅟ ㅢ)도 정확히 처리합니다. '닭·값·왔다·의자' 같은 단어가 모두 양방향 라운드트립 OK."
+          }
         },
         {
           "@type": "Question",
           "name": "양방향이 모두 표시되는데 어떻게 쓰나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "사용자가 키보드 모드를 어디 두고 쳤는지 모를 때를 위해 '한글로 변환'·'영문으로 변환' 두 결과를 동시에 보여줍니다. 둘 중 의미 있는 쪽을 골라서 복사 버튼으로 복사하세요. 한·영 섞여 있는 글에서도 의도한 방향만 골라 활용 가능." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "사용자가 키보드 모드를 어디 두고 쳤는지 모를 때를 위해 '한글로 변환'·'영문으로 변환' 두 결과를 동시에 보여줍니다. 둘 중 의미 있는 쪽을 골라서 복사 버튼으로 복사하세요. 한·영 섞여 있는 글에서도 의도한 방향만 골라 활용 가능."
+          }
         },
         {
           "@type": "Question",
           "name": "특수문자·숫자·이모지는 어떻게 처리되나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "키보드 매핑에 없는 문자(숫자·기호·이모지·공백)는 그대로 출력됩니다. 변환은 자모 매핑 가능한 문자에만 적용됩니다." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "키보드 매핑에 없는 문자(숫자·기호·이모지·공백)는 그대로 출력됩니다. 변환은 자모 매핑 가능한 문자에만 적용됩니다."
+          }
         },
         {
           "@type": "Question",
           "name": "한·영 섞인 글도 변환되나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "네. 두 결과를 동시 출력하기 때문에 'Hello dkssud' 같은 글도 'Hello 안녕(영→한)' / 'ㅗ디ㅣㅐ 안녕(한→영, 한글은 영문으로 변환)'이 동시에 보입니다. 다만 '한·영 자동 감지 + 부분만 변환' 모드는 의도가 모호해 지원하지 않습니다." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네. 두 결과를 동시 출력하기 때문에 'Hello dkssud' 같은 글도 'Hello 안녕(영→한)' / 'ㅗ디ㅣㅐ 안녕(한→영, 한글은 영문으로 변환)'이 동시에 보입니다. 다만 '한·영 자동 감지 + 부분만 변환' 모드는 의도가 모호해 지원하지 않습니다."
+          }
         },
         {
           "@type": "Question",
           "name": "입력한 글이 외부로 전송되나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "전송되지 않습니다. 모든 변환은 브라우저 안에서 처리되며 서버로 보내지 않습니다." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "전송되지 않습니다. 모든 변환은 브라우저 안에서 처리되며 서버로 보내지 않습니다."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "한영키 잘못 친 글 변환 방법",
+      "description": "한영키 안 누르고 친 글을 한글·영문 양방향 변환합니다.",
+      "totalTime": "PT1M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "텍스트 입력",
+          "text": "한영키 잘못 눌러 친 글 (예: dkssudgktpdy) 입력."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "방향 선택",
+          "text": "자동 감지 또는 한글→영문/영문→한글 방향 명시."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "변환",
+          "text": "두벌식 표준(KS X 5002) 매핑으로 즉시 변환. 받침·복합 자모까지 정확."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "복사",
+          "text": "변환된 텍스트를 클립보드로 복사."
         }
       ]
     }
