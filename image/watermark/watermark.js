@@ -266,6 +266,10 @@
       alert('로고 이미지를 먼저 선택하세요.');
       return;
     }
+    if (state.mode === 'text' && !wmText.value.trim()) {
+      alert('워터마크 텍스트를 입력하세요.');
+      return;
+    }
     applyBtn.disabled = true;
     clearBtn.disabled = true;
     state.results.forEach(r => URL.revokeObjectURL(r.url));
@@ -319,7 +323,7 @@
     for (const r of state.results) {
       const a = document.createElement('a');
       a.href = r.url;
-      a.download = r.name;
+      a.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(r.name) : r.name);
       document.body.appendChild(a);
       a.click();
       a.remove();

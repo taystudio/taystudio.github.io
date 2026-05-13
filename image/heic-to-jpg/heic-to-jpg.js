@@ -133,16 +133,21 @@ async function convert() {
         toType: mime,
         quality,
       });
-      // heic2any는 단일 Blob 또는 Blob[] 반환 (다중 페이지 HEIC). 첫 항목만.
-      const blob = Array.isArray(out) ? out[0] : out;
-      const url = URL.createObjectURL(blob);
+      // heic2any는 단일 Blob 또는 Blob[] 반환 — 다중 페이지(burst·Live Photo) 모두 변환.
+      const blobs = Array.isArray(out) ? out : [out];
       const baseName = entry.file.name.replace(/\.(heic|heif)$/i, '');
-      const filename = baseName + '.' + ext;
-      resultUrls.push({ url, filename, blob, srcName: entry.file.name });
-      addImgCard(url, filename, blob.size);
-      totalBytes += blob.size;
+      blobs.forEach((blob, pageIdx) => {
+        const url = URL.createObjectURL(blob);
+        const filename = blobs.length > 1
+          ? `${baseName}-${String(pageIdx + 1).padStart(2, '0')}.${ext}`
+          : `${baseName}.${ext}`;
+        resultUrls.push({ url, filename, blob, srcName: entry.file.name });
+        addImgCard(url, filename, blob.size);
+        totalBytes += blob.size;
+      });
       okCount += 1;
       entry.status = 'done';
+      if (blobs.length > 1) entry.errMsg = `${blobs.length}장 변환됨`;
     } catch (e) {
       entry.status = 'err';
       entry.errMsg = (e && e.message) || '알 수 없는 오류';
@@ -186,7 +191,7 @@ function addImgCard(url, filename, size) {
   const dl = document.createElement('a');
   dl.className = 'img-card-dl';
   dl.href = url;
-  dl.download = filename;
+  dl.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(filename) : filename);
   dl.textContent = '⬇ 다운로드';
   card.appendChild(dl);
 
@@ -199,7 +204,7 @@ function downloadAll() {
     setTimeout(() => {
       const a = document.createElement('a');
       a.href = r.url;
-      a.download = r.filename;
+      a.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(r.filename) : r.filename);
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

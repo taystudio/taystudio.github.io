@@ -343,7 +343,7 @@ async function applyCrop() {
     resultUrl = URL.createObjectURL(blob);
     const stem = (originalFile.name || 'image').replace(/\.[^/.]+$/, '');
     downloadBtn.href = resultUrl;
-    downloadBtn.download = stem + '-cropped.' + ext;
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(stem + '-cropped.' + ext) : stem + '-cropped.' + ext);
     resultPreview.src = resultUrl;
     newSize.textContent = out.width + ' × ' + out.height + ' px';
     newBytes.textContent = fmtBytes(blob.size);

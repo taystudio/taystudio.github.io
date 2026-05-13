@@ -27,6 +27,33 @@
   });
 })();
 
+// 파일명 sanitize — Windows·macOS·Linux 호환. 도구 다운로드 파일명 안전화.
+// 사용: window.TayStudio.sanitizeFilename(rawName)
+(function () {
+  function sanitizeFilename(name) {
+    if (!name || typeof name !== 'string') return 'download';
+    let s = name
+      .replace(/[\x00-\x1f\x7f]/g, '')   // 제어문자
+      .replace(/[<>:"\/\\|?*]/g, '_')    // OS 예약 문자 (Windows critical)
+      .replace(/^\.+/, '_')              // dotfile 방지
+      .replace(/[\s.]+$/, '')            // 끝 공백·점 (Windows shell 호환)
+      .trim();
+    if (!s) s = 'download';
+    if (s.length > 200) {
+      const dot = s.lastIndexOf('.');
+      if (dot > 0 && dot > s.length - 12) {
+        const ext = s.slice(dot);
+        s = s.slice(0, 200 - ext.length) + ext;
+      } else {
+        s = s.slice(0, 200);
+      }
+    }
+    return s;
+  }
+  window.TayStudio = window.TayStudio || {};
+  window.TayStudio.sanitizeFilename = sanitizeFilename;
+})();
+
 // i18n — /en/ path 또는 <html lang="en">이면 영어 모드.
 const LANG = (() => {
   const path = window.location.pathname;

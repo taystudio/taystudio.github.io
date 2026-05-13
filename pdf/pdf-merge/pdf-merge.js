@@ -95,6 +95,13 @@ async function merge() {
     alert('PDF 라이브러리가 아직 로드되지 않았습니다. 잠시 후 다시 시도하세요.');
     return;
   }
+  // 100MB 총 size 체크 (브라우저 메모리 한계 안전 마진)
+  const totalSize = files.reduce((sum, entry) => sum + entry.file.size, 0);
+  const MAX_TOTAL = 100 * 1024 * 1024;
+  if (totalSize > MAX_TOTAL) {
+    const mb = Math.round(totalSize / 1024 / 1024);
+    if (!confirm(`총 ${mb}MB — 권장 한도 100MB 초과. 메모리 부족·실패 가능. 계속하시겠습니까?`)) return;
+  }
   mergeBtn.disabled = true;
   const orig = mergeBtn.textContent;
   mergeBtn.textContent = '처리 중...';
@@ -115,7 +122,7 @@ async function merge() {
     const blob = new Blob([merged], { type: 'application/pdf' });
     resultUrl = URL.createObjectURL(blob);
     downloadBtn.href = resultUrl;
-    downloadBtn.download = 'merged-' + new Date().toISOString().slice(0, 10) + '.pdf';
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename('merged-' + new Date().toISOString().slice(0, 10) + '.pdf') : 'merged-' + new Date().toISOString().slice(0, 10) + '.pdf');
 
     mergedCount.textContent = files.length + '개';
     mergedPages.textContent = pageTotal + '쪽';

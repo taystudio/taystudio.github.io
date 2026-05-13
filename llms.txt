@@ -34,7 +34,7 @@
 - [동영상 압축](https://taystudios.com/video/compress/): 카톡 300MB·디스코드 100MB·이메일 25MB 한도. ffmpeg.wasm.
 - [동영상 자르기](https://taystudios.com/video/trim/): 시작·끝 시각 트리밍. 빠른 모드(재인코딩 X) + 정확 모드(프레임 단위).
 - [동영상 회전](https://taystudios.com/video/rotate/): 90°/180°/270° 회전 + 좌우/상하 반전.
-- [동영상 → MP3](https://taystudios.com/video/to-mp3/): 본인 영상 오디오 추출. 96-320 kbps. 저작권 영상 금지.
+- [동영상 → MP3](https://taystudios.com/video/to-mp3/): 본인 영상 오디오 추출. 96-320 kbps (ffmpeg libmp3lame). 저작권 영상 금지.
 - [동영상 → GIF](https://taystudios.com/video/to-gif/): 짤·움짤·SNS. fps 5-30, 너비 240-720px.
 
 ## Text Tools
@@ -91,7 +91,7 @@
 ## Tech Stack
 
 - 100% 정적 사이트 (GitHub Pages)
-- 모든 파일 처리는 브라우저 안 (Canvas API, WebAssembly: pdf-lib, ffmpeg.wasm, Tesseract.js, lamejs)
+- 모든 파일 처리는 브라우저 안 (Canvas API, WebAssembly: pdf-lib, ffmpeg.wasm, Tesseract.js)
 - 외부 서버로 파일 전송 0
 - 한국어 메인 + 영어 미러 (28 도구 영문 번역)
 - AdSense·Google Analytics 외 추적 코드 없음

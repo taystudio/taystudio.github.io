@@ -235,7 +235,7 @@ async function save() {
     resultUrl = URL.createObjectURL(blob);
     downloadBtn.href = resultUrl;
     const stem = (originalFile.name || 'edited').replace(/\.pdf$/i, '');
-    downloadBtn.download = stem + '-edited.pdf';
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(stem + '-edited.pdf') : stem + '-edited.pdf');
 
     newPages.textContent = active.length + '쪽';
     newSize.textContent = fmtBytes(blob.size);

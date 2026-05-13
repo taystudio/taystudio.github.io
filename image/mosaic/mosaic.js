@@ -202,7 +202,7 @@
       const a = document.createElement('a');
       a.href = url;
       const base = state.fileName.replace(/\.[^.]+$/, '');
-      a.download = `${base}_mosaic.jpg`;
+      a.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(`${base}_mosaic.jpg`) : `${base}_mosaic.jpg`);
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     }, 'image/jpeg', 0.95);

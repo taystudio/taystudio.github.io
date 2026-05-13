@@ -208,7 +208,7 @@ async function convert() {
     resultUrl = URL.createObjectURL(blob);
 
     downloadBtn.href = resultUrl;
-    downloadBtn.download = 'images-' + new Date().toISOString().slice(0, 10) + '.pdf';
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename('images-' + new Date().toISOString().slice(0, 10) + '.pdf') : 'images-' + new Date().toISOString().slice(0, 10) + '.pdf');
 
     convCount.textContent = files.length + '장';
     convPages.textContent = doc.getPageCount() + '쪽';

@@ -214,7 +214,7 @@ runBtn.addEventListener('click', async () => {
     const stem = (currentFile.name || 'image').replace(/\.[^.]+$/, '');
     const ext = format === 'png' ? 'png' : 'jpg';
     downloadBtn.href = resultBlobURL;
-    downloadBtn.download = `${stem}-upscaled-${scale}x.${ext}`;
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(`${stem}-upscaled-${scale}x.${ext}`) : `${stem}-upscaled-${scale}x.${ext}`);
     downloadBtn.textContent = `⬇ ${ext.toUpperCase()} 다운로드 (${scale}배 업스케일)`;
 
     result.hidden = false;

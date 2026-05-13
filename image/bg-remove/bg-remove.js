@@ -48,11 +48,12 @@ function setProgress(key, current, total) {
     pct = Math.round((current / total) * 100);
   }
   progressFill.style.width = pct + '%';
-  // key 예: 'fetch:onnx/onnx_wasm_simd_threaded.jsep.mjs', 'fetch:isnet_quint8.onnx', 'compute:foreground'
+  // 내부 경로 노출 없이 사용자 친화 메시지로 변환
   let label = key;
   if (typeof key === 'string') {
-    if (key.startsWith('fetch:')) label = '다운로드 — ' + key.slice(6).split('/').pop();
-    else if (key.startsWith('compute:')) label = '추론 — ' + key.slice(8);
+    if (key.startsWith('fetch:')) label = 'AI 모델 다운로드 중';
+    else if (key.startsWith('compute:')) label = '배경 분석 중';
+    else if (key === 'starting') label = '준비 중';
   }
   progressText.textContent = label + ' — ' + (Number.isFinite(pct) ? pct + '%' : '...');
 }
@@ -105,7 +106,7 @@ async function run() {
 
     const baseName = (currentFile.name || 'image').replace(/\.[^./]+$/, '');
     downloadBtn.href = resultUrl;
-    downloadBtn.download = baseName + '-no-bg.png';
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(baseName + '-no-bg.png') : baseName + '-no-bg.png');
 
     progressFill.style.width = '100%';
     progressText.textContent = '완료 ✓ (' + (ms / 1000).toFixed(1) + 's)';

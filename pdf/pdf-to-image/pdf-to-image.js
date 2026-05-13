@@ -68,8 +68,10 @@ function parseRange(text, total) {
       if (!Number.isFinite(a) || !Number.isFinite(b) || a < 1 || b < 1 || a > total || b > total) {
         throw new Error(`'${part}'는 유효하지 않은 범위입니다(1~${total} 허용).`);
       }
-      const step = a <= b ? 1 : -1;
-      for (let i = a; step > 0 ? i <= b : i >= b; i += step) {
+      if (a > b) {
+        throw new Error(`'${part}'는 역방향 범위입니다. 작은 페이지부터 입력하세요 (예: ${b}-${a}).`);
+      }
+      for (let i = a; i <= b; i++) {
         out.push(i - 1);
       }
     } else {
@@ -215,7 +217,7 @@ function addImgCard(url, filename, pageNum, size, sourceCanvas) {
   const dl = document.createElement('a');
   dl.className = 'img-card-dl';
   dl.href = url;
-  dl.download = filename;
+  dl.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(filename) : filename);
   dl.textContent = '⬇ 다운로드';
   card.appendChild(dl);
 
@@ -229,7 +231,7 @@ function downloadAll() {
     setTimeout(() => {
       const a = document.createElement('a');
       a.href = r.url;
-      a.download = r.filename;
+      a.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(r.filename) : r.filename);
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

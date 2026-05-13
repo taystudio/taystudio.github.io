@@ -124,6 +124,9 @@
   }
   window.addEventListener('resize', drawPreview);
 
+  // 브라우저 canvas 한계 (Chrome·Safari ~16384, Firefox ~11000). 안전 마진 두고 16000으로 검증.
+  const MAX_CANVAS_DIM = 16000;
+
   function compose() {
     const mode = modeSel.value;
     const gap = parseInt(gapIn.value, 10);
@@ -135,6 +138,10 @@
       const targetH = bitmaps[0].height;
       const widths = bitmaps.map(b => Math.round(b.width * (targetH / b.height)));
       const totalW = widths.reduce((a, b) => a + b, 0) + gap * (bitmaps.length - 1);
+      if (totalW > MAX_CANVAS_DIM || targetH > MAX_CANVAS_DIM) {
+        alert(`결과 캔버스 (${totalW}×${targetH}) 가 브라우저 한계 ${MAX_CANVAS_DIM}px 를 초과. 사진 수 줄이기 또는 작은 사진 사용 권장.`);
+        return null;
+      }
       const cv = document.createElement('canvas');
       cv.width = totalW; cv.height = targetH;
       const ctx = cv.getContext('2d');
@@ -150,6 +157,10 @@
       const targetW = bitmaps[0].width;
       const heights = bitmaps.map(b => Math.round(b.height * (targetW / b.width)));
       const totalH = heights.reduce((a, b) => a + b, 0) + gap * (bitmaps.length - 1);
+      if (totalH > MAX_CANVAS_DIM || targetW > MAX_CANVAS_DIM) {
+        alert(`결과 캔버스 (${targetW}×${totalH}) 가 브라우저 한계 ${MAX_CANVAS_DIM}px 를 초과. 사진 수 줄이기 또는 작은 사진 사용 권장.`);
+        return null;
+      }
       const cv = document.createElement('canvas');
       cv.width = targetW; cv.height = totalH;
       const ctx = cv.getContext('2d');
@@ -169,6 +180,10 @@
       const cellH = bitmaps[0].height;
       const totalW = cellW * cols + gap * (cols - 1);
       const totalH = cellH * rows + gap * (rows - 1);
+      if (totalW > MAX_CANVAS_DIM || totalH > MAX_CANVAS_DIM) {
+        alert(`결과 캔버스 (${totalW}×${totalH}) 가 브라우저 한계 ${MAX_CANVAS_DIM}px 를 초과. 격자 칸 수·사진 크기 줄이기 권장.`);
+        return null;
+      }
       const cv = document.createElement('canvas');
       cv.width = totalW; cv.height = totalH;
       const ctx = cv.getContext('2d');
@@ -195,7 +210,7 @@
     const blob = await new Promise(res => cv.toBlob(res, fmt, 0.92));
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = `merged_${Date.now()}.${ext}`;
+    a.href = url; a.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(`merged_${Date.now()}.${ext}`) : `merged_${Date.now()}.${ext}`);
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   });

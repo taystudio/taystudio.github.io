@@ -122,7 +122,7 @@ function generate() {
   const pngUrl = qrCanvas.toDataURL('image/png');
   downloadPng.href = pngUrl;
   const baseName = activeType === 'wifi' ? 'wifi-qr' : 'qrcode';
-  downloadPng.download = baseName + '.png';
+  downloadPng.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(baseName + '.png') : baseName + '.png');
 
   // SVG
   const svgText = makeSvg(qr, cellSize, margin);
@@ -130,7 +130,7 @@ function generate() {
   const blob = new Blob([svgText], { type: 'image/svg+xml' });
   svgUrl = URL.createObjectURL(blob);
   downloadSvg.href = svgUrl;
-  downloadSvg.download = baseName + '.svg';
+  downloadSvg.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(baseName + '.svg') : baseName + '.svg');
 
   result.hidden = false;
 }

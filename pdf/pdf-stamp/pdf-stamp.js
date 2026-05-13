@@ -120,6 +120,8 @@
     state.results.forEach(r => URL.revokeObjectURL(r.url));
     state.results = [];
     imgGrid.innerHTML = '';
+    progressWrap.hidden = true;
+    result.hidden = true;
     refreshFileList(); toggleUI();
   });
 
@@ -150,6 +152,9 @@
     const lib = window.PDFLib;
     const buf = await file.arrayBuffer();
     const pdf = await lib.PDFDocument.load(buf, { ignoreEncryption: true });
+    if (pdf.isEncrypted) {
+      throw new Error(`암호로 보호된 PDF (${file.name})는 처리할 수 없습니다. Adobe Acrobat 등으로 암호 해제 후 다시 시도하세요.`);
+    }
     const font = await pdf.embedFont(lib.StandardFonts.Helvetica);
 
     if (state.mode === 'watermark') {
@@ -255,6 +260,7 @@
 
     applyBtn.disabled = false;
     clearBtn.disabled = false;
+    setTimeout(() => { progressWrap.hidden = true; }, 800);
     if (ok > 0) {
       newCount.textContent = `${ok}개`;
       result.hidden = false;
@@ -280,7 +286,7 @@
   downloadAllBtn.addEventListener('click', async () => {
     for (const r of state.results) {
       const a = document.createElement('a');
-      a.href = r.url; a.download = r.name;
+      a.href = r.url; a.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(r.name) : r.name);
       document.body.appendChild(a); a.click(); a.remove();
       await new Promise(res => setTimeout(res, 150));
     }

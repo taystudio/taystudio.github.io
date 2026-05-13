@@ -254,7 +254,7 @@
     for (const r of state.results) {
       const a = document.createElement('a');
       a.href = r.url;
-      a.download = r.name;
+      a.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(r.name) : r.name);
       document.body.appendChild(a);
       a.click();
       a.remove();

@@ -67,6 +67,9 @@ function parseTime(str) {
   if (parts.some((p) => p === '' || !/^\d+(\.\d+)?$/.test(p))) return NaN;
   const nums = parts.map(Number);
   if (nums.some((n) => !Number.isFinite(n) || n < 0)) return NaN;
+  // MM:SS·HH:MM:SS에서 분·초는 60 미만이어야. "1:90" 같은 입력 거절.
+  if (nums.length === 2 && nums[1] >= 60) return NaN;
+  if (nums.length === 3 && (nums[1] >= 60 || nums[2] >= 60)) return NaN;
   if (nums.length === 1) return nums[0];
   if (nums.length === 2) return nums[0] * 60 + nums[1];
   if (nums.length === 3) return nums[0] * 3600 + nums[1] * 60 + nums[2];
@@ -229,7 +232,7 @@ async function run() {
 
     const baseName = (currentFile.name || 'video').replace(/\.[^./]+$/, '');
     downloadBtn.href = resultUrl;
-    downloadBtn.download = baseName + '-trim.mp4';
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(baseName + '-trim.mp4') : baseName + '-trim.mp4');
 
     progressFill.style.width = '100%';
     progressText.textContent = '완료 ✓ (' + (ms / 1000).toFixed(1) + 's)';

@@ -102,7 +102,7 @@ async function runOcr() {
     txtBlobUrl = URL.createObjectURL(blob);
     const baseName = (currentFile.name || 'image').replace(/\.[^./]+$/, '');
     downloadBtn.href = txtBlobUrl;
-    downloadBtn.download = baseName + '-ocr.txt';
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(baseName + '-ocr.txt') : baseName + '-ocr.txt');
 
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
