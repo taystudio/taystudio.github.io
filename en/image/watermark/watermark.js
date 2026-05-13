@@ -35,6 +35,7 @@
   const wmRotate = document.getElementById('wmRotate');
   const wmRotateVal = document.getElementById('wmRotateVal');
   const wmRepeat = document.getElementById('wmRepeat');
+  const wmFormat = document.getElementById('wmFormat');
   const posGrid = document.getElementById('posGrid');
 
   const state = {
@@ -98,6 +99,7 @@
   async function addFiles(files) {
     for (const file of Array.from(files)) {
       if (!file.type.startsWith('image/')) continue;
+      if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'Image')) continue;
       try {
         const bitmap = await createImageBitmap(file);
         state.files.push({ id: uid(), file, bitmap });
@@ -268,17 +270,32 @@
     progressFill.style.width = '0%';
     progressText.textContent = `0 / ${state.files.length}`;
 
+    const outMime = (wmFormat && wmFormat.value) || 'image/jpeg';
+    const outExt = outMime === 'image/png' ? 'png' : outMime === 'image/webp' ? 'webp' : 'jpg';
+    const outQuality = outMime === 'image/png' ? undefined : 0.95;
+
     let done = 0;
     for (const f of state.files) {
       const cv = document.createElement('canvas');
       cv.width = f.bitmap.width;
       cv.height = f.bitmap.height;
       const ctx = cv.getContext('2d');
+      // JPG has no transparency → fill white background (avoid black bg)
+      if (outMime === 'image/jpeg') {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, cv.width, cv.height);
+      }
       ctx.drawImage(f.bitmap, 0, 0);
       drawWatermark(ctx, cv.width, cv.height);
-      const blob = await new Promise(res => cv.toBlob(res, 'image/jpeg', 0.95));
+      const blob = await new Promise(res => cv.toBlob(res, outMime, outQuality));
+      if (!blob) {
+        alert('Encoding failed (browser unsupported). Try JPG.');
+        applyBtn.disabled = false;
+        clearBtn.disabled = false;
+        return;
+      }
       const url = URL.createObjectURL(blob);
-      const name = f.file.name.replace(/\.[^.]+$/, '') + '_watermark.jpg';
+      const name = f.file.name.replace(/\.[^.]+$/, '') + '_watermark.' + outExt;
       state.results.push({ name, blob, url });
 
       done++;

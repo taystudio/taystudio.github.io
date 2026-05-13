@@ -83,6 +83,7 @@ function updateButtonState() {
 function addFiles(list) {
   for (const f of list) {
     if (f.type !== 'application/pdf' && !/\.pdf$/i.test(f.name)) continue;
+    if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(f, 100, 'PDF')) continue;
     files.push({ id: nextId++, file: f });
   }
   render();

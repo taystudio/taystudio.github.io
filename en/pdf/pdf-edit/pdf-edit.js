@@ -163,6 +163,7 @@ async function loadPdf(file) {
     alert('Only PDF files can be uploaded.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'PDF')) return;
   originalFile = file;
   originalBytes = await file.arrayBuffer();
   loading.hidden = false;

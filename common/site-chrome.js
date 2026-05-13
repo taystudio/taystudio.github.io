@@ -32,12 +32,23 @@
 //   - sizeMB: 권장 한계 (MB 단위)
 //   - label: alert 메시지에 표시될 도구·파일 타입 이름 (예: 'PDF', '이미지', '동영상')
 (function () {
+  function isEnglish() {
+    // html lang 또는 path가 /en/로 시작하면 영문 메시지
+    const lang = (document.documentElement.lang || '').toLowerCase();
+    if (lang.startsWith('en')) return true;
+    if (location.pathname.startsWith('/en/')) return true;
+    return false;
+  }
   function checkFileSize(file, sizeMB, label) {
     if (!file) return false;
     const maxBytes = sizeMB * 1024 * 1024;
     if (file.size > maxBytes) {
       const actualMB = (file.size / 1024 / 1024).toFixed(1);
-      alert(`${label || '파일'} 크기 ${actualMB}MB — 권장 한계 ${sizeMB}MB 초과. 브라우저 메모리 한계로 처리 불안정·실패 가능. 더 작은 파일 사용 권장.`);
+      if (isEnglish()) {
+        alert(`${label || 'File'} is ${actualMB}MB — exceeds the ${sizeMB}MB recommended limit. Browser memory limits may make processing unstable. Use a smaller file.`);
+      } else {
+        alert(`${label || '파일'} 크기 ${actualMB}MB — 권장 한계 ${sizeMB}MB 초과. 브라우저 메모리 한계로 처리 불안정·실패 가능. 더 작은 파일 사용 권장.`);
+      }
       return false;
     }
     return true;

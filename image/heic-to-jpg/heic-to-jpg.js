@@ -88,6 +88,7 @@ function addFiles(list) {
       // 타입 누락(특히 일부 모바일)을 대비해 확장자 한 번 더 본 후도 안 맞으면 스킵
       continue;
     }
+    if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(f, 100, 'HEIC')) continue;
     files.push({ id: nextId++, file: f, status: 'pending' });
   }
   renderFileList();

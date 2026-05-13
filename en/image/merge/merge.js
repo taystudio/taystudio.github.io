@@ -37,6 +37,7 @@
   async function addFiles(files) {
     for (const file of Array.from(files)) {
       if (!file.type.startsWith('image/')) continue;
+      if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'Image')) continue;
       try {
         const bitmap = await createImageBitmap(file);
         state.files.push({ id: uid(), file, bitmap });

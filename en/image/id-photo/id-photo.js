@@ -133,6 +133,7 @@ function loadFile(file) {
     alert('Please choose an image file.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 50, 'Image')) return;
   originalFile = file;
   const url = URL.createObjectURL(file);
   const img = new Image();

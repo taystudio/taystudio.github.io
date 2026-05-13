@@ -178,6 +178,20 @@ export async function loadFFmpeg(onProgress) {
 }
 
 /**
+ * Terminate ffmpeg worker + reset singleton — for user cancellation.
+ * Next loadFFmpeg builds a new instance; core/wasm/worker are still IndexedDB-cached,
+ * so no network re-download — only module instantiation + WASM init.
+ */
+export async function terminateFFmpeg() {
+  const inst = ffmpegInstance;
+  ffmpegInstance = null;
+  loadingPromise = null;
+  if (inst && typeof inst.terminate === 'function') {
+    try { inst.terminate(); } catch (_) {}
+  }
+}
+
+/**
  * File/Blob → Uint8Array (for ffmpeg.writeFile).
  */
 export async function toUint8Array(blob) {

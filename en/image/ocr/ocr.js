@@ -19,6 +19,7 @@ const previewBox = document.getElementById('previewBox');
 const previewImg = document.getElementById('previewImg');
 const langSel = document.getElementById('lang');
 const ocrBtn = document.getElementById('ocrBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 const clearBtn = document.getElementById('clearBtn');
 const progressWrap = document.getElementById('progressWrap');
 const progressFill = document.getElementById('progressFill');
@@ -33,6 +34,7 @@ const downloadBtn = document.getElementById('downloadBtn');
 let currentFile = null;
 let currentObjectURL = null;
 let txtBlobUrl = null;
+let currentWorker = null;
 
 const STATUS_LABEL = {
   'loading tesseract core': 'Loading OCR engine',
@@ -55,6 +57,7 @@ function loadFile(file) {
     alert('Please choose an image file.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 50, 'Image')) return;
   currentFile = file;
   dropTitle.textContent = file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)';
   if (currentObjectURL) URL.revokeObjectURL(currentObjectURL);
@@ -75,17 +78,21 @@ async function runOcr() {
   ocrBtn.disabled = true;
   const orig = ocrBtn.textContent;
   ocrBtn.textContent = 'Processing...';
+  cancelBtn.hidden = false;
   setProgress('starting', 0);
 
+  const lang = langSel.value;
+  let worker = null;
   try {
-    const lang = langSel.value;
-    const { data } = await window.Tesseract.recognize(currentFile, lang, {
+    worker = await window.Tesseract.createWorker(lang, 1, {
       logger: (m) => {
-        if (m && typeof m.progress === 'number') {
-          setProgress(m.status, m.progress);
-        }
+        if (m && typeof m.progress === 'number') setProgress(m.status, m.progress);
       }
     });
+    currentWorker = worker;
+    const { data } = await worker.recognize(currentFile);
+
+    if (currentWorker !== worker) return;
 
     progressFill.style.width = '100%';
     progressText.textContent = 'Done ✓';
@@ -102,18 +109,37 @@ async function runOcr() {
     txtBlobUrl = URL.createObjectURL(blob);
     const baseName = (currentFile.name || 'image').replace(/\.[^./]+$/, '');
     downloadBtn.href = txtBlobUrl;
-    downloadBtn.download = baseName + '-ocr.txt';
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(baseName + '-ocr.txt') : baseName + '-ocr.txt');
 
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (e) {
-    progressText.textContent = 'Failed: ' + (e && e.message ? e.message : 'unknown error');
-    progressFill.style.width = '0%';
-    alert('OCR failed: ' + (e && e.message ? e.message : 'network or browser issue') + '\nRefresh the page and try again, or test with a different image.');
+    const msg = e && e.message ? e.message : '';
+    if (/terminat|abort/i.test(msg) || currentWorker !== worker) {
+      progressText.textContent = 'Cancelled';
+    } else {
+      progressText.textContent = 'Failed: ' + (msg || 'unknown error');
+      progressFill.style.width = '0%';
+      alert('OCR failed: ' + (msg || 'network or browser issue') + '\nRefresh the page and try again, or test with a different image.');
+    }
   } finally {
+    if (worker && currentWorker === worker) {
+      try { await worker.terminate(); } catch {}
+      currentWorker = null;
+    }
+    cancelBtn.hidden = true;
     ocrBtn.textContent = orig;
     ocrBtn.disabled = false;
   }
+}
+
+async function cancelOcr() {
+  if (!currentWorker) return;
+  const w = currentWorker;
+  currentWorker = null;
+  try { await w.terminate(); } catch {}
+  progressText.textContent = 'Cancelled';
+  cancelBtn.hidden = true;
 }
 
 function clearAll() {
@@ -147,6 +173,7 @@ dropZone.addEventListener('drop', (e) => {
 });
 
 ocrBtn.addEventListener('click', runOcr);
+cancelBtn.addEventListener('click', cancelOcr);
 clearBtn.addEventListener('click', clearAll);
 
 copyBtn.addEventListener('click', async () => {

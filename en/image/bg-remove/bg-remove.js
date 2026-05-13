@@ -62,6 +62,7 @@ function loadFile(file) {
     alert('Please choose an image file.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 30, 'Image')) return;
   currentFile = file;
   dropTitle.textContent = file.name + ' (' + fmtBytes(file.size) + ')';
   if (origUrl) URL.revokeObjectURL(origUrl);

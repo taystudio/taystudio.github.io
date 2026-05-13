@@ -12,13 +12,14 @@
  * 저작권 정책: 페이지 인라인 .copyright-warning 박스로 본인 영상 한정 안내.
  */
 
-import { loadFFmpeg, toUint8Array, formatVideoError } from '/video/vendor/ffmpeg-loader.mjs';
+import { loadFFmpeg, toUint8Array, formatVideoError, terminateFFmpeg } from '/video/vendor/ffmpeg-loader.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const dropTitle = document.getElementById('dropTitle');
 const bitrateSel = document.getElementById('bitrate');
 const extractBtn = document.getElementById('extractBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 const clearBtn = document.getElementById('clearBtn');
 const progressWrap = document.getElementById('progressWrap');
 const progressFill = document.getElementById('progressFill');
@@ -33,6 +34,8 @@ const downloadBtn = document.getElementById('downloadBtn');
 
 let currentFile = null;
 let resultUrl = null;
+let runSeq = 0;
+let activeRun = 0;
 
 function fmtBytes(n) {
   if (n < 1024) return n + ' B';
@@ -101,6 +104,9 @@ async function run() {
   clearBtn.disabled = true;
   const orig = extractBtn.textContent;
   extractBtn.textContent = '처리 중...';
+  cancelBtn.hidden = false;
+  const myRun = ++runSeq;
+  activeRun = myRun;
   setProgress({ key: 'init', current: 0, total: 1 });
   const t0 = performance.now();
 
@@ -147,18 +153,32 @@ async function run() {
     try { await ffmpeg.deleteFile(inputName); } catch (_) {}
     try { await ffmpeg.deleteFile(outputName); } catch (_) {}
   } catch (e) {
-    const { title, body } = formatVideoError(e, {
-      toolName: 'MP3 추출',
-      toolHint: '• 영상에 오디오 트랙이 있는지 확인 (음소거 영상은 추출 불가)\n• 큰 영상은 동영상 자르기로 먼저 짧게 자른 후 추출',
-    });
-    progressText.textContent = '실패: ' + title;
-    progressFill.style.width = '0%';
-    alert(title + '\n\n' + body);
+    if (myRun !== activeRun) {
+      progressText.textContent = '취소됨';
+      progressFill.style.width = '0%';
+    } else {
+      const { title, body } = formatVideoError(e, {
+        toolName: 'MP3 추출',
+        toolHint: '• 영상에 오디오 트랙이 있는지 확인 (음소거 영상은 추출 불가)\n• 큰 영상은 동영상 자르기로 먼저 짧게 자른 후 추출',
+      });
+      progressText.textContent = '실패: ' + title;
+      progressFill.style.width = '0%';
+      alert(title + '\n\n' + body);
+    }
   } finally {
+    cancelBtn.hidden = true;
     extractBtn.textContent = orig;
     extractBtn.disabled = !currentFile;
     clearBtn.disabled = false;
   }
+}
+
+async function cancelRun() {
+  if (!activeRun) return;
+  activeRun = 0;
+  await terminateFFmpeg();
+  progressText.textContent = '취소됨';
+  cancelBtn.hidden = true;
 }
 
 // 파일 선택
@@ -187,4 +207,5 @@ dropZone.addEventListener('drop', (e) => {
 
 // 액션
 extractBtn.addEventListener('click', run);
+cancelBtn.addEventListener('click', cancelRun);
 clearBtn.addEventListener('click', clearAll);

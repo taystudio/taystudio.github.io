@@ -72,6 +72,7 @@
   function addFiles(files) {
     Array.from(files).forEach(file => {
       if (file.type === 'application/pdf' || /\.pdf$/i.test(file.name)) {
+        if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'PDF')) return;
         state.files.push({ id: uid(), file });
       }
     });

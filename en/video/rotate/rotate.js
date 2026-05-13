@@ -13,7 +13,7 @@
  * Audio uses -c:a copy (lossless). If incompatible with the MP4 container, it auto-falls back to AAC.
  */
 
-import { loadFFmpeg, toUint8Array, formatVideoError } from '/en/video/vendor/ffmpeg-loader.mjs';
+import { loadFFmpeg, toUint8Array, formatVideoError, terminateFFmpeg } from '/en/video/vendor/ffmpeg-loader.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -22,6 +22,7 @@ const sourcePreviewWrap = document.getElementById('sourcePreviewWrap');
 const sourceVideo = document.getElementById('sourceVideo');
 const previewHint = document.getElementById('previewHint');
 const rotateBtn = document.getElementById('rotateBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 const clearBtn = document.getElementById('clearBtn');
 const progressWrap = document.getElementById('progressWrap');
 const progressFill = document.getElementById('progressFill');
@@ -39,6 +40,8 @@ const ROT_CLASSES = ['rot-cw90', 'rot-ccw90', 'rot-rot180', 'rot-hflip', 'rot-vf
 let currentFile = null;
 let sourceUrl = null;
 let resultUrl = null;
+let runSeq = 0;
+let activeRun = 0;
 
 const OP_LABEL = {
   cw90: '90° clockwise',
@@ -96,6 +99,7 @@ function loadFile(file) {
     alert('Please select a video file.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 1000, 'Video')) return;
   currentFile = file;
   dropTitle.textContent = file.name + ' (' + fmtBytes(file.size) + ')';
   rotateBtn.disabled = false;
@@ -178,6 +182,9 @@ async function run() {
   clearBtn.disabled = true;
   const orig = rotateBtn.textContent;
   rotateBtn.textContent = 'Processing...';
+  cancelBtn.hidden = false;
+  const myRun = ++runSeq;
+  activeRun = myRun;
   setProgress({ key: 'init', current: 0, total: 1 });
   const t0 = performance.now();
 
@@ -224,15 +231,29 @@ async function run() {
     try { await ffmpeg.deleteFile(inputName); } catch (_) {}
     try { await ffmpeg.deleteFile(outputName); } catch (_) {}
   } catch (e) {
-    const { title, body } = formatVideoError(e, { toolName: 'Rotate Video' });
-    progressText.textContent = 'Failed: ' + title;
-    progressFill.style.width = '0%';
-    alert(title + '\n\n' + body);
+    if (myRun !== activeRun) {
+      progressText.textContent = 'Cancelled';
+      progressFill.style.width = '0%';
+    } else {
+      const { title, body } = formatVideoError(e, { toolName: 'Rotate Video' });
+      progressText.textContent = 'Failed: ' + title;
+      progressFill.style.width = '0%';
+      alert(title + '\n\n' + body);
+    }
   } finally {
+    cancelBtn.hidden = true;
     rotateBtn.textContent = orig;
     rotateBtn.disabled = !currentFile;
     clearBtn.disabled = false;
   }
+}
+
+async function cancelRun() {
+  if (!activeRun) return;
+  activeRun = 0;
+  await terminateFFmpeg();
+  progressText.textContent = 'Cancelled';
+  cancelBtn.hidden = true;
 }
 
 // File picker
@@ -266,4 +287,5 @@ document.querySelectorAll('input[name="rot"]').forEach((r) => {
 
 // Actions
 rotateBtn.addEventListener('click', run);
+cancelBtn.addEventListener('click', cancelRun);
 clearBtn.addEventListener('click', clearAll);

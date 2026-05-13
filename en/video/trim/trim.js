@@ -9,7 +9,7 @@
  *      → seek after -i decodes for frame-accurate cut, then re-encodes to H.264
  */
 
-import { loadFFmpeg, toUint8Array, formatVideoError } from '/en/video/vendor/ffmpeg-loader.mjs';
+import { loadFFmpeg, toUint8Array, formatVideoError, terminateFFmpeg } from '/en/video/vendor/ffmpeg-loader.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -23,6 +23,7 @@ const pickStartBtn = document.getElementById('pickStart');
 const pickEndBtn = document.getElementById('pickEnd');
 const modeSel = document.getElementById('mode');
 const trimBtn = document.getElementById('trimBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 const clearBtn = document.getElementById('clearBtn');
 const progressWrap = document.getElementById('progressWrap');
 const progressFill = document.getElementById('progressFill');
@@ -40,6 +41,8 @@ let currentFile = null;
 let sourceUrl = null;
 let resultUrl = null;
 let videoDuration = 0;
+let runSeq = 0;
+let activeRun = 0;
 
 function fmtBytes(n) {
   if (n < 1024) return n + ' B';
@@ -93,6 +96,7 @@ function loadFile(file) {
     alert('Please select a video file.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 1000, 'Video')) return;
   currentFile = file;
   dropTitle.textContent = file.name + ' (' + fmtBytes(file.size) + ')';
   trimBtn.disabled = false;
@@ -191,6 +195,9 @@ async function run() {
   clearBtn.disabled = true;
   const orig = trimBtn.textContent;
   trimBtn.textContent = 'Processing...';
+  cancelBtn.hidden = false;
+  const myRun = ++runSeq;
+  activeRun = myRun;
   setProgress({ key: 'init', current: 0, total: 1 });
   const t0 = performance.now();
 
@@ -239,18 +246,32 @@ async function run() {
     try { await ffmpeg.deleteFile(inputName); } catch (_) {}
     try { await ffmpeg.deleteFile(outputName); } catch (_) {}
   } catch (e) {
-    const { title, body } = formatVideoError(e, {
-      toolName: 'Trim Video',
-      toolHint: '• Verify the time inputs (start < end, within total length)\n• Try switching from Fast to Precise mode',
-    });
-    progressText.textContent = 'Failed: ' + title;
-    progressFill.style.width = '0%';
-    alert(title + '\n\n' + body);
+    if (myRun !== activeRun) {
+      progressText.textContent = 'Cancelled';
+      progressFill.style.width = '0%';
+    } else {
+      const { title, body } = formatVideoError(e, {
+        toolName: 'Trim Video',
+        toolHint: '• Verify the time inputs (start < end, within total length)\n• Try switching from Fast to Precise mode',
+      });
+      progressText.textContent = 'Failed: ' + title;
+      progressFill.style.width = '0%';
+      alert(title + '\n\n' + body);
+    }
   } finally {
+    cancelBtn.hidden = true;
     trimBtn.textContent = orig;
     trimBtn.disabled = !currentFile;
     clearBtn.disabled = false;
   }
+}
+
+async function cancelRun() {
+  if (!activeRun) return;
+  activeRun = 0;
+  await terminateFFmpeg();
+  progressText.textContent = 'Cancelled';
+  cancelBtn.hidden = true;
 }
 
 // File picker
@@ -287,4 +308,5 @@ pickEndBtn.addEventListener('click', () => {
 
 // Actions
 trimBtn.addEventListener('click', run);
+cancelBtn.addEventListener('click', cancelRun);
 clearBtn.addEventListener('click', clearAll);

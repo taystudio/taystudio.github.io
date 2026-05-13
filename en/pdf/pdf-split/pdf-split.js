@@ -70,6 +70,7 @@ async function loadFile(file) {
     alert('Please select a PDF file.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'PDF')) return;
   if (!window.PDFLib) {
     alert('PDF library is still loading. Please try again in a moment.');
     return;

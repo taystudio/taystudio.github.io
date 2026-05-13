@@ -12,7 +12,7 @@
  * 2-pass 따로 호출하지 않고 한 번에 — 중간 palette.png 파일 불필요.
  */
 
-import { loadFFmpeg, toUint8Array, formatVideoError } from '/video/vendor/ffmpeg-loader.mjs';
+import { loadFFmpeg, toUint8Array, formatVideoError, terminateFFmpeg } from '/video/vendor/ffmpeg-loader.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -27,6 +27,7 @@ const pickEndBtn = document.getElementById('pickEnd');
 const fpsSel = document.getElementById('fps');
 const widthSel = document.getElementById('width');
 const convertBtn = document.getElementById('convertBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 const clearBtn = document.getElementById('clearBtn');
 const progressWrap = document.getElementById('progressWrap');
 const progressFill = document.getElementById('progressFill');
@@ -52,6 +53,8 @@ let currentFile = null;
 let sourceUrl = null;
 let resultUrl = null;
 let videoDuration = 0;
+let runSeq = 0;
+let activeRun = 0;
 
 function fmtBytes(n) {
   if (n < 1024) return n + ' B';
@@ -197,6 +200,9 @@ async function run() {
   clearBtn.disabled = true;
   const orig = convertBtn.textContent;
   convertBtn.textContent = '처리 중...';
+  cancelBtn.hidden = false;
+  const myRun = ++runSeq;
+  activeRun = myRun;
   setProgress({ key: 'init', current: 0, total: 1 });
   const t0 = performance.now();
 
@@ -245,18 +251,32 @@ async function run() {
     try { await ffmpeg.deleteFile(inputName); } catch (_) {}
     try { await ffmpeg.deleteFile(outputName); } catch (_) {}
   } catch (e) {
-    const { title, body } = formatVideoError(e, {
-      toolName: 'GIF 변환',
-      toolHint: '• 구간을 짧게 (5초 이내) 또는 너비 480px 이하로 시도\n• 시각 입력값 확인 (시작 < 끝, 영상 길이 이내)',
-    });
-    progressText.textContent = '실패: ' + title;
-    progressFill.style.width = '0%';
-    alert(title + '\n\n' + body);
+    if (myRun !== activeRun) {
+      progressText.textContent = '취소됨';
+      progressFill.style.width = '0%';
+    } else {
+      const { title, body } = formatVideoError(e, {
+        toolName: 'GIF 변환',
+        toolHint: '• 구간을 짧게 (5초 이내) 또는 너비 480px 이하로 시도\n• 시각 입력값 확인 (시작 < 끝, 영상 길이 이내)',
+      });
+      progressText.textContent = '실패: ' + title;
+      progressFill.style.width = '0%';
+      alert(title + '\n\n' + body);
+    }
   } finally {
+    cancelBtn.hidden = true;
     convertBtn.textContent = orig;
     convertBtn.disabled = !currentFile;
     clearBtn.disabled = false;
   }
+}
+
+async function cancelRun() {
+  if (!activeRun) return;
+  activeRun = 0;
+  await terminateFFmpeg();
+  progressText.textContent = '취소됨';
+  cancelBtn.hidden = true;
 }
 
 // 파일 선택
@@ -293,4 +313,5 @@ pickEndBtn.addEventListener('click', () => {
 
 // 액션
 convertBtn.addEventListener('click', run);
+cancelBtn.addEventListener('click', cancelRun);
 clearBtn.addEventListener('click', clearAll);

@@ -12,13 +12,14 @@
  * Copyright policy: see the inline .copyright-warning box on the page — personal use only.
  */
 
-import { loadFFmpeg, toUint8Array, formatVideoError } from '/en/video/vendor/ffmpeg-loader.mjs';
+import { loadFFmpeg, toUint8Array, formatVideoError, terminateFFmpeg } from '/en/video/vendor/ffmpeg-loader.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const dropTitle = document.getElementById('dropTitle');
 const bitrateSel = document.getElementById('bitrate');
 const extractBtn = document.getElementById('extractBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 const clearBtn = document.getElementById('clearBtn');
 const progressWrap = document.getElementById('progressWrap');
 const progressFill = document.getElementById('progressFill');
@@ -33,6 +34,8 @@ const downloadBtn = document.getElementById('downloadBtn');
 
 let currentFile = null;
 let resultUrl = null;
+let runSeq = 0;
+let activeRun = 0;
 
 function fmtBytes(n) {
   if (n < 1024) return n + ' B';
@@ -61,6 +64,7 @@ function loadFile(file) {
     alert('Please select a video file.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 1000, 'Video')) return;
   currentFile = file;
   dropTitle.textContent = file.name + ' (' + fmtBytes(file.size) + ')';
   extractBtn.disabled = false;
@@ -100,6 +104,9 @@ async function run() {
   clearBtn.disabled = true;
   const orig = extractBtn.textContent;
   extractBtn.textContent = 'Processing...';
+  cancelBtn.hidden = false;
+  const myRun = ++runSeq;
+  activeRun = myRun;
   setProgress({ key: 'init', current: 0, total: 1 });
   const t0 = performance.now();
 
@@ -146,18 +153,32 @@ async function run() {
     try { await ffmpeg.deleteFile(inputName); } catch (_) {}
     try { await ffmpeg.deleteFile(outputName); } catch (_) {}
   } catch (e) {
-    const { title, body } = formatVideoError(e, {
-      toolName: 'MP3 extraction',
-      toolHint: '• Make sure the video has an audio track (silent videos can\'t be extracted)\n• For large videos, use Trim Video to cut a shorter segment first',
-    });
-    progressText.textContent = 'Failed: ' + title;
-    progressFill.style.width = '0%';
-    alert(title + '\n\n' + body);
+    if (myRun !== activeRun) {
+      progressText.textContent = 'Cancelled';
+      progressFill.style.width = '0%';
+    } else {
+      const { title, body } = formatVideoError(e, {
+        toolName: 'MP3 extraction',
+        toolHint: '• Make sure the video has an audio track (silent videos can\'t be extracted)\n• For large videos, use Trim Video to cut a shorter segment first',
+      });
+      progressText.textContent = 'Failed: ' + title;
+      progressFill.style.width = '0%';
+      alert(title + '\n\n' + body);
+    }
   } finally {
+    cancelBtn.hidden = true;
     extractBtn.textContent = orig;
     extractBtn.disabled = !currentFile;
     clearBtn.disabled = false;
   }
+}
+
+async function cancelRun() {
+  if (!activeRun) return;
+  activeRun = 0;
+  await terminateFFmpeg();
+  progressText.textContent = 'Cancelled';
+  cancelBtn.hidden = true;
 }
 
 // File picker
@@ -186,4 +207,5 @@ dropZone.addEventListener('drop', (e) => {
 
 // Actions
 extractBtn.addEventListener('click', run);
+cancelBtn.addEventListener('click', cancelRun);
 clearBtn.addEventListener('click', clearAll);

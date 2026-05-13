@@ -107,6 +107,7 @@
     const arr = Array.from(fileList);
     arr.forEach(file => {
       if (!file.type.startsWith('image/') && !/\.(webp|avif|jpe?g|png|gif)$/i.test(file.name)) return;
+      if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, '이미지')) return;
       state.files.push({ id: uid(), file, status: 'pending' });
     });
     refreshFileList();

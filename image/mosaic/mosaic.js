@@ -39,6 +39,7 @@
 
   async function loadFile(file) {
     if (!file.type.startsWith('image/')) return;
+    if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, '이미지')) return;
     state.bitmap = await createImageBitmap(file);
     state.fileName = file.name;
     state.boxes = [];

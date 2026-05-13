@@ -72,6 +72,7 @@ async function loadFile(file) {
     alert('PDF 파일만 선택해주세요.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'PDF')) return;
   if (!window.PDFLib) {
     alert('PDF 라이브러리가 아직 로드되지 않았습니다. 잠시 후 다시 시도하세요.');
     return;

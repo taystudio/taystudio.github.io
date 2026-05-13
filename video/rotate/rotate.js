@@ -13,7 +13,7 @@
  * 오디오는 -c:a copy (무손실, 음질 그대로). MP4 컨테이너 호환 안 되는 경우 자동 AAC fallback.
  */
 
-import { loadFFmpeg, toUint8Array, formatVideoError } from '/video/vendor/ffmpeg-loader.mjs';
+import { loadFFmpeg, toUint8Array, formatVideoError, terminateFFmpeg } from '/video/vendor/ffmpeg-loader.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -22,6 +22,7 @@ const sourcePreviewWrap = document.getElementById('sourcePreviewWrap');
 const sourceVideo = document.getElementById('sourceVideo');
 const previewHint = document.getElementById('previewHint');
 const rotateBtn = document.getElementById('rotateBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 const clearBtn = document.getElementById('clearBtn');
 const progressWrap = document.getElementById('progressWrap');
 const progressFill = document.getElementById('progressFill');
@@ -39,6 +40,8 @@ const ROT_CLASSES = ['rot-cw90', 'rot-ccw90', 'rot-rot180', 'rot-hflip', 'rot-vf
 let currentFile = null;
 let sourceUrl = null;
 let resultUrl = null;
+let runSeq = 0;
+let activeRun = 0;
 
 const OP_LABEL = {
   cw90: '90° 시계방향',
@@ -179,6 +182,9 @@ async function run() {
   clearBtn.disabled = true;
   const orig = rotateBtn.textContent;
   rotateBtn.textContent = '처리 중...';
+  cancelBtn.hidden = false;
+  const myRun = ++runSeq;
+  activeRun = myRun;
   setProgress({ key: 'init', current: 0, total: 1 });
   const t0 = performance.now();
 
@@ -225,15 +231,29 @@ async function run() {
     try { await ffmpeg.deleteFile(inputName); } catch (_) {}
     try { await ffmpeg.deleteFile(outputName); } catch (_) {}
   } catch (e) {
-    const { title, body } = formatVideoError(e, { toolName: '동영상 회전' });
-    progressText.textContent = '실패: ' + title;
-    progressFill.style.width = '0%';
-    alert(title + '\n\n' + body);
+    if (myRun !== activeRun) {
+      progressText.textContent = '취소됨';
+      progressFill.style.width = '0%';
+    } else {
+      const { title, body } = formatVideoError(e, { toolName: '동영상 회전' });
+      progressText.textContent = '실패: ' + title;
+      progressFill.style.width = '0%';
+      alert(title + '\n\n' + body);
+    }
   } finally {
+    cancelBtn.hidden = true;
     rotateBtn.textContent = orig;
     rotateBtn.disabled = !currentFile;
     clearBtn.disabled = false;
   }
+}
+
+async function cancelRun() {
+  if (!activeRun) return;
+  activeRun = 0;
+  await terminateFFmpeg();
+  progressText.textContent = '취소됨';
+  cancelBtn.hidden = true;
 }
 
 // 파일 선택
@@ -267,4 +287,5 @@ document.querySelectorAll('input[name="rot"]').forEach((r) => {
 
 // 액션
 rotateBtn.addEventListener('click', run);
+cancelBtn.addEventListener('click', cancelRun);
 clearBtn.addEventListener('click', clearAll);

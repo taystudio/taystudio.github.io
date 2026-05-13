@@ -92,6 +92,7 @@ async function loadFile(file) {
     alert('Please select a PDF file.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'PDF')) return;
   result.hidden = true;
   imgGrid.innerHTML = '';
   revokeAll();

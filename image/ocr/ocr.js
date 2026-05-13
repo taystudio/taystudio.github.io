@@ -19,6 +19,7 @@ const previewBox = document.getElementById('previewBox');
 const previewImg = document.getElementById('previewImg');
 const langSel = document.getElementById('lang');
 const ocrBtn = document.getElementById('ocrBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 const clearBtn = document.getElementById('clearBtn');
 const progressWrap = document.getElementById('progressWrap');
 const progressFill = document.getElementById('progressFill');
@@ -33,6 +34,7 @@ const downloadBtn = document.getElementById('downloadBtn');
 let currentFile = null;
 let currentObjectURL = null;
 let txtBlobUrl = null;
+let currentWorker = null;
 
 const STATUS_KO = {
   'loading tesseract core': 'OCR 엔진 로딩',
@@ -76,17 +78,22 @@ async function runOcr() {
   ocrBtn.disabled = true;
   const orig = ocrBtn.textContent;
   ocrBtn.textContent = '처리 중...';
+  cancelBtn.hidden = false;
   setProgress('starting', 0);
 
+  const lang = langSel.value;
+  let worker = null;
   try {
-    const lang = langSel.value;
-    const { data } = await window.Tesseract.recognize(currentFile, lang, {
+    worker = await window.Tesseract.createWorker(lang, 1, {
       logger: (m) => {
-        if (m && typeof m.progress === 'number') {
-          setProgress(m.status, m.progress);
-        }
+        if (m && typeof m.progress === 'number') setProgress(m.status, m.progress);
       }
     });
+    currentWorker = worker;
+    const { data } = await worker.recognize(currentFile);
+
+    // 취소 후 결과 도착 — 무시
+    if (currentWorker !== worker) return;
 
     progressFill.style.width = '100%';
     progressText.textContent = '완료 ✓';
@@ -108,13 +115,33 @@ async function runOcr() {
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (e) {
-    progressText.textContent = '실패: ' + (e && e.message ? e.message : '알 수 없는 오류');
-    progressFill.style.width = '0%';
-    alert('OCR 처리 실패: ' + (e && e.message ? e.message : '네트워크 또는 브라우저 문제') + '\n페이지를 새로고침 후 다시 시도하거나 다른 이미지로 테스트하세요.');
+    const msg = e && e.message ? e.message : '';
+    // terminate 시 worker 메시지 채널 끊김 → 정상 취소 분기
+    if (/terminat|abort/i.test(msg) || currentWorker !== worker) {
+      progressText.textContent = '취소됨';
+    } else {
+      progressText.textContent = '실패: ' + (msg || '알 수 없는 오류');
+      progressFill.style.width = '0%';
+      alert('OCR 처리 실패: ' + (msg || '네트워크 또는 브라우저 문제') + '\n페이지를 새로고침 후 다시 시도하거나 다른 이미지로 테스트하세요.');
+    }
   } finally {
+    if (worker && currentWorker === worker) {
+      try { await worker.terminate(); } catch {}
+      currentWorker = null;
+    }
+    cancelBtn.hidden = true;
     ocrBtn.textContent = orig;
     ocrBtn.disabled = false;
   }
+}
+
+async function cancelOcr() {
+  if (!currentWorker) return;
+  const w = currentWorker;
+  currentWorker = null;
+  try { await w.terminate(); } catch {}
+  progressText.textContent = '취소됨';
+  cancelBtn.hidden = true;
 }
 
 function clearAll() {
@@ -148,6 +175,7 @@ dropZone.addEventListener('drop', (e) => {
 });
 
 ocrBtn.addEventListener('click', runOcr);
+cancelBtn.addEventListener('click', cancelOcr);
 clearBtn.addEventListener('click', clearAll);
 
 copyBtn.addEventListener('click', async () => {

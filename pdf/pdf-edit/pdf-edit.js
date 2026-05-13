@@ -163,6 +163,7 @@ async function loadPdf(file) {
     alert('PDF 파일만 업로드 가능합니다.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'PDF')) return;
   originalFile = file;
   originalBytes = await file.arrayBuffer();
   loading.hidden = false;

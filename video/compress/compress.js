@@ -9,7 +9,7 @@
  *  4. 결과 readFile → Blob → preview + download link
  */
 
-import { loadFFmpeg, toUint8Array, formatVideoError } from '/video/vendor/ffmpeg-loader.mjs';
+import { loadFFmpeg, toUint8Array, formatVideoError, terminateFFmpeg } from '/video/vendor/ffmpeg-loader.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -19,6 +19,7 @@ const crfInput = document.getElementById('crf');
 const crfValue = document.getElementById('crfValue');
 const audioSel = document.getElementById('audio');
 const compressBtn = document.getElementById('compressBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 const clearBtn = document.getElementById('clearBtn');
 const progressWrap = document.getElementById('progressWrap');
 const progressFill = document.getElementById('progressFill');
@@ -34,6 +35,8 @@ const downloadBtn = document.getElementById('downloadBtn');
 
 let currentFile = null;
 let resultUrl = null;
+let runSeq = 0;
+let activeRun = 0;
 
 function fmtBytes(n) {
   if (n < 1024) return n + ' B';
@@ -120,6 +123,9 @@ async function run() {
   clearBtn.disabled = true;
   const orig = compressBtn.textContent;
   compressBtn.textContent = '처리 중...';
+  cancelBtn.hidden = false;
+  const myRun = ++runSeq;
+  activeRun = myRun;
   setProgress({ key: 'init', current: 0, total: 1 });
   const t0 = performance.now();
 
@@ -175,15 +181,29 @@ async function run() {
     try { await ffmpeg.deleteFile(inputName); } catch (_) {}
     try { await ffmpeg.deleteFile(outputName); } catch (_) {}
   } catch (e) {
-    const { title, body } = formatVideoError(e, { toolName: '동영상 압축' });
-    progressText.textContent = '실패: ' + title;
-    progressFill.style.width = '0%';
-    alert(title + '\n\n' + body);
+    if (myRun !== activeRun) {
+      progressText.textContent = '취소됨';
+      progressFill.style.width = '0%';
+    } else {
+      const { title, body } = formatVideoError(e, { toolName: '동영상 압축' });
+      progressText.textContent = '실패: ' + title;
+      progressFill.style.width = '0%';
+      alert(title + '\n\n' + body);
+    }
   } finally {
+    cancelBtn.hidden = true;
     compressBtn.textContent = orig;
     compressBtn.disabled = !currentFile;
     clearBtn.disabled = false;
   }
+}
+
+async function cancelRun() {
+  if (!activeRun) return;
+  activeRun = 0;
+  await terminateFFmpeg();
+  progressText.textContent = '취소됨';
+  cancelBtn.hidden = true;
 }
 
 // 파일 선택
@@ -219,4 +239,5 @@ crfInput.addEventListener('input', () => {
 
 // 액션
 compressBtn.addEventListener('click', run);
+cancelBtn.addEventListener('click', cancelRun);
 clearBtn.addEventListener('click', clearAll);

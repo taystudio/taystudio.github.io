@@ -9,7 +9,7 @@
  *      → -i 뒤 seek는 디코드해서 정확한 프레임에서 잘리며 H.264로 재인코딩
  */
 
-import { loadFFmpeg, toUint8Array, formatVideoError } from '/video/vendor/ffmpeg-loader.mjs';
+import { loadFFmpeg, toUint8Array, formatVideoError, terminateFFmpeg } from '/video/vendor/ffmpeg-loader.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -23,6 +23,7 @@ const pickStartBtn = document.getElementById('pickStart');
 const pickEndBtn = document.getElementById('pickEnd');
 const modeSel = document.getElementById('mode');
 const trimBtn = document.getElementById('trimBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 const clearBtn = document.getElementById('clearBtn');
 const progressWrap = document.getElementById('progressWrap');
 const progressFill = document.getElementById('progressFill');
@@ -40,6 +41,8 @@ let currentFile = null;
 let sourceUrl = null;
 let resultUrl = null;
 let videoDuration = 0;
+let runSeq = 0;
+let activeRun = 0;
 
 function fmtBytes(n) {
   if (n < 1024) return n + ' B';
@@ -195,6 +198,9 @@ async function run() {
   clearBtn.disabled = true;
   const orig = trimBtn.textContent;
   trimBtn.textContent = '처리 중...';
+  cancelBtn.hidden = false;
+  const myRun = ++runSeq;
+  activeRun = myRun;
   setProgress({ key: 'init', current: 0, total: 1 });
   const t0 = performance.now();
 
@@ -243,18 +249,32 @@ async function run() {
     try { await ffmpeg.deleteFile(inputName); } catch (_) {}
     try { await ffmpeg.deleteFile(outputName); } catch (_) {}
   } catch (e) {
-    const { title, body } = formatVideoError(e, {
-      toolName: '동영상 자르기',
-      toolHint: '• 시각 입력값 확인 (시작 < 끝, 영상 길이 이내)\n• 빠른 모드 → 정확 모드로 전환 시도',
-    });
-    progressText.textContent = '실패: ' + title;
-    progressFill.style.width = '0%';
-    alert(title + '\n\n' + body);
+    if (myRun !== activeRun) {
+      progressText.textContent = '취소됨';
+      progressFill.style.width = '0%';
+    } else {
+      const { title, body } = formatVideoError(e, {
+        toolName: '동영상 자르기',
+        toolHint: '• 시각 입력값 확인 (시작 < 끝, 영상 길이 이내)\n• 빠른 모드 → 정확 모드로 전환 시도',
+      });
+      progressText.textContent = '실패: ' + title;
+      progressFill.style.width = '0%';
+      alert(title + '\n\n' + body);
+    }
   } finally {
+    cancelBtn.hidden = true;
     trimBtn.textContent = orig;
     trimBtn.disabled = !currentFile;
     clearBtn.disabled = false;
   }
+}
+
+async function cancelRun() {
+  if (!activeRun) return;
+  activeRun = 0;
+  await terminateFFmpeg();
+  progressText.textContent = '취소됨';
+  cancelBtn.hidden = true;
 }
 
 // 파일 선택
@@ -291,4 +311,5 @@ pickEndBtn.addEventListener('click', () => {
 
 // 액션
 trimBtn.addEventListener('click', run);
+cancelBtn.addEventListener('click', cancelRun);
 clearBtn.addEventListener('click', clearAll);

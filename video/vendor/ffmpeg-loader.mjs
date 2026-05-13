@@ -178,6 +178,20 @@ export async function loadFFmpeg(onProgress) {
 }
 
 /**
+ * ffmpeg worker 종료 + singleton 초기화 — 사용자 cancel 처리용.
+ * 다음 호출 시 loadFFmpeg가 새 instance를 만들지만, core·wasm·worker는 IndexedDB 캐시되어 있어
+ * 네트워크 재다운로드는 없음 (모듈 인스턴스화 + WASM 초기화만 다시).
+ */
+export async function terminateFFmpeg() {
+  const inst = ffmpegInstance;
+  ffmpegInstance = null;
+  loadingPromise = null;
+  if (inst && typeof inst.terminate === 'function') {
+    try { inst.terminate(); } catch (_) {}
+  }
+}
+
+/**
  * File·Blob → Uint8Array (ffmpeg.writeFile 입력용).
  */
 export async function toUint8Array(blob) {

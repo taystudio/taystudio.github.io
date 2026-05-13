@@ -98,6 +98,7 @@ function updateButtonState() {
 function addFiles(list) {
   for (const f of list) {
     if (!f.type.startsWith('image/')) continue;
+    if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(f, 50, '이미지')) continue;
     files.push({
       id: nextId++,
       file: f,

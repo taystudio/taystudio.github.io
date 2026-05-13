@@ -85,6 +85,7 @@ function loadImageFile(file) {
     alert('Please choose an image file.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 20, 'Image')) return;
   dropTitle.textContent = file.name;
   const url = URL.createObjectURL(file);
   const img = new Image();

@@ -88,6 +88,7 @@ function addFiles(list) {
       // Some mobile browsers omit MIME type — re-check by extension and skip if it still doesn't match.
       continue;
     }
+    if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(f, 100, 'HEIC')) continue;
     files.push({ id: nextId++, file: f, status: 'pending' });
   }
   renderFileList();
