@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>audit-13 — N10 폴더 drop 안내 + N11 paste 지원 — 2026-05-14</title>
+  <style>
+    :root { --bg: #f7f8fa; --card: #fff; --text: #111; --muted: #52525b; --border: #e5e7eb; --primary: #2563eb; --critical: #dc2626; --warn: #f59e0b; --ok: #10b981; --info: #3b82f6; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #0f1115; --card: #1a1d23; --text: #e5e7eb; --muted: #9ca3af; --border: #2a2e36; } }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Pretendard", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 32px 20px; max-width: 1100px; margin: 0 auto; }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    h2 { font-size: 22px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--primary); }
+    h3 { font-size: 17px; margin: 20px 0 10px; color: var(--text); }
+    code { font-family: ui-monospace, "SF Mono", Monaco, monospace; background: var(--border); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+    .meta { color: var(--muted); font-size: 14px; margin-bottom: 24px; padding: 12px 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+    .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 20px 0; }
+    .stat { padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+    .stat-label { font-size: 12.5px; color: var(--muted); margin-bottom: 4px; }
+    .stat-value { font-size: 24px; font-weight: 700; }
+    .stat-value.ok { color: var(--ok); }
+    .stat-value.info { color: var(--info); }
+    table { width: 100%; border-collapse: collapse; margin: 14px 0; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+    th { background: rgba(37, 99, 235, 0.08); font-weight: 600; font-size: 12.5px; }
+    tr:last-child td { border-bottom: none; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .badge-ok { background: rgba(16, 185, 129, 0.12); color: var(--ok); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-info { background: rgba(59, 130, 246, 0.12); color: var(--info); border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge-gray { background: rgba(100, 116, 139, 0.12); color: var(--muted); border: 1px solid rgba(100, 116, 139, 0.3); }
+    .callout { padding: 14px 18px; margin: 16px 0; border-left: 4px solid var(--ok); background: rgba(16, 185, 129, 0.06); border-radius: 0 8px 8px 0; }
+    .callout-title { font-weight: 700; margin-bottom: 6px; }
+    pre { background: var(--card); border: 1px solid var(--border); padding: 12px 14px; border-radius: 6px; overflow-x: auto; font-size: 12.5px; margin: 10px 0; }
+    .footer-note { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; text-align: center; }
+    ul, ol { padding-left: 22px; line-height: 1.9; }
+  </style>
+</head>
+<body>
+
+<h1>✅ audit-13 — N10 폴더 drop 안내 + N11 paste 지원</h1>
+<div class="meta">
+  <b>일자</b>: 2026-05-14 ·
+  <b>대상</b>: audit-5에서 보류된 마지막 N case 2건 (N10·N11) ·
+  <b>방법</b>: utility 3종 추가 + 71곳 일괄 패치 + Playwright KO/EN spot-check ·
+  <b>결과</b>: 모든 N case 정리 완료 (5/5)
+</div>
+
+<div class="summary-grid">
+  <div class="stat"><div class="stat-label">종합 등급</div><div class="stat-value ok">A+</div></div>
+  <div class="stat"><div class="stat-label">N case 해결</div><div class="stat-value ok">5/5</div></div>
+  <div class="stat"><div class="stat-label">drop guard</div><div class="stat-value ok">47곳</div></div>
+  <div class="stat"><div class="stat-label">paste handler</div><div class="stat-value ok">24곳</div></div>
+  <div class="stat"><div class="stat-label">Playwright</div><div class="stat-value ok">9/9</div></div>
+  <div class="stat"><div class="stat-label">syntax fail</div><div class="stat-value ok">0</div></div>
+</div>
+
+<h2>1. 배경</h2>
+
+<p>audit-5에서 발굴된 5개 N case 중 N10·N11이 미처리 상태로 남아 있었음. 두 건 모두 <i>결함</i>이라기보다 <i>기능 부재</i>에 가까워 보류돼 있었으나, macOS Finder에서 폴더 drag는 흔한 패턴이라 "고장난 도구"로 오인될 수 있다는 사용자 판단으로 진행.</p>
+
+<table>
+  <thead><tr><th>코드</th><th>케이스</th><th>위치</th><th>이전 상태</th></tr></thead>
+  <tbody>
+    <tr><td><b>N10</b></td><td>drag-drop 폴더 → <code>file.type=''</code> → 조용히 skip → 사용자 혼동</td><td>drop zone 27곳</td><td><span class="badge badge-gray">Low</span> 보류</td></tr>
+    <tr><td><b>N11</b></td><td>Clipboard paste 이미지 (Ctrl+V) → 핸들러 자체 없음</td><td>image 13 도구</td><td><span class="badge badge-gray">Low</span> 기능 미지원</td></tr>
+  </tbody>
+</table>
+
+<h2>2. 작업</h2>
+
+<h3>2-1. site-chrome.js — utility 3종 추가</h3>
+
+<p><code>common/site-chrome.js</code>에 IIFE 격리된 3개 공용 함수 추가. 기존 <code>checkFileSize</code>·<code>escapeHtml</code>·<code>sanitizeFilename</code> 패턴 따름.</p>
+
+<table>
+  <thead><tr><th>API</th><th>역할</th><th>사용 패턴</th></tr></thead>
+  <tbody>
+    <tr><td><code>TayStudio.showToast(msg, opts)</code></td><td>화면 하단 중앙 비파괴적 toast (alert 대안). <code>role=status</code>·<code>aria-live=polite</code>·safe-area 대응</td><td>일반 안내</td></tr>
+    <tr><td><code>TayStudio.rejectFolderDrop(event)</code></td><td><code>dataTransfer</code> 검사 → 폴더면 toast + <code>true</code> 반환</td><td><code>if (rejectFolderDrop(e)) return;</code></td></tr>
+    <tr><td><code>TayStudio.bindPasteImage(cb, opts)</code></td><td>document <code>paste</code> 이벤트에서 <code>image/*</code> 추출 → cb(files) 호출. input/textarea 안에서는 무시</td><td>image 도구 진입 함수 연결</td></tr>
+  </tbody>
+</table>
+
+<p>KO·EN 메시지 자동 분기 (<code>&lt;html lang&gt;</code> + path).</p>
+
+<h3>2-2. N10 — drop handler 일괄 패치 (47곳)</h3>
+
+<table>
+  <thead><tr><th>카테고리</th><th>파일 수 (KO+EN)</th><th>패턴</th></tr></thead>
+  <tbody>
+    <tr><td>image</td><td>13 + 12</td><td rowspan="3">drop 첫 줄에 <code>if (TayStudio.rejectFolderDrop(e)) return;</code></td></tr>
+    <tr><td>pdf</td><td>6 + 6 (pdf-edit 내부 reorder 제외)</td></tr>
+    <tr><td>video</td><td>5 + 5</td></tr>
+  </tbody>
+</table>
+
+<p>자동화: python 정규식 일괄 처리 (multi-line / one-liner 두 패턴). pdf-edit의 내부 drop handler(<code>card.addEventListener('drop')</code> — 페이지 reorder용)는 <code>count=1</code>로 의도적 미적용.</p>
+
+<h3>2-3. N11 — clipboard paste 지원 (24곳)</h3>
+
+<p>image 카테고리 12개 도구 × KO+EN = 24 파일에 paste 핸들러 추가. 각 도구의 진입 함수에 자동 연결.</p>
+
+<table>
+  <thead><tr><th>진입 함수 패턴</th><th>도구</th><th>적용</th></tr></thead>
+  <tbody>
+    <tr><td><code>loadFile(files[0])</code> (single)</td><td>bg-remove · compress · crop · id-photo · mosaic · ocr · resize</td><td><span class="badge badge-ok">14/14</span></td></tr>
+    <tr><td><code>addFiles(files)</code> (multi)</td><td>format-convert · heic-to-jpg · merge · watermark</td><td><span class="badge badge-ok">8/8</span></td></tr>
+    <tr><td><code>loadImageFile(files[0])</code> (custom)</td><td>qr-scan</td><td><span class="badge badge-ok">2/2</span></td></tr>
+    <tr><td><b>제외</b></td><td>qr-gen (텍스트 입력) · upscale (stub)</td><td><span class="badge badge-gray">의도</span></td></tr>
+  </tbody>
+</table>
+
+<p>anchor: <code>dropZone.addEventListener('keydown'</code> 라인 바로 앞. IIFE indent 자동 보존.</p>
+
+<h3>2-4. SW CACHE_VERSION</h3>
+
+<p><code>taystudio-v19</code> → <code>taystudio-v20</code>. site-chrome.js 변경이 캐시 invalidation 필요.</p>
+
+<h2>3. 검증 (Playwright spot-check)</h2>
+
+<h3>KO 페이지 — <code>/image/compress/</code></h3>
+
+<table>
+  <thead><tr><th>#</th><th>항목</th><th>기대</th><th>결과</th></tr></thead>
+  <tbody>
+    <tr><td>T1</td><td>utility 4종 로드 (<code>showToast</code>·<code>dropIsFolder</code>·<code>rejectFolderDrop</code>·<code>bindPasteImage</code>)</td><td>모두 function</td><td><span class="badge badge-ok">PASS</span> 4/4</td></tr>
+    <tr><td>T2</td><td>폴더 simulated drop (<code>webkitGetAsEntry.isDirectory=true</code>)</td><td><code>dropIsFolder</code> true</td><td><span class="badge badge-ok">PASS</span></td></tr>
+    <tr><td>T3</td><td>정상 파일 simulated drop</td><td><code>dropIsFolder</code> false</td><td><span class="badge badge-ok">PASS</span></td></tr>
+    <tr><td>T4</td><td>폴더 drop → toast 표시 (KO)</td><td>opacity=1 + KO 카피</td><td><span class="badge badge-ok">PASS</span> "📁 폴더는 지원하지 않아요. 개별 파일을 떨어뜨려 주세요."</td></tr>
+    <tr><td>T5</td><td><code>bindPasteImage</code> callback chain → caller (compress.js loadFile)</td><td>callback fired + caller 도달</td><td><span class="badge badge-ok">PASS</span> 가짜 png blob → "디코딩 불가" alert (의도)</td></tr>
+  </tbody>
+</table>
+
+<h3>EN 페이지 — <code>/en/image/merge/</code></h3>
+
+<table>
+  <thead><tr><th>#</th><th>항목</th><th>기대</th><th>결과</th></tr></thead>
+  <tbody>
+    <tr><td>T6</td><td><code>rejectFolderDrop</code> EN 메시지</td><td>EN 카피 표시</td><td><span class="badge badge-ok">PASS</span> "📁 Folder drop is not supported. Please drop individual files."</td></tr>
+    <tr><td>T7</td><td>paste → addFiles (multi) 연결</td><td>callback fired</td><td><span class="badge badge-ok">PASS</span> caller 도달</td></tr>
+    <tr><td>T8</td><td>paste toast (EN)</td><td>"Pasted 1 image"</td><td><span class="badge badge-ok">PASS</span></td></tr>
+    <tr><td>T9</td><td><code>bindPasteImage</code> 존재</td><td>function</td><td><span class="badge badge-ok">PASS</span></td></tr>
+  </tbody>
+</table>
+
+<p>콘솔 errors 3건은 localhost 외부 차단 (Google Ads + Cloudflare RUM) — 코드 무관.</p>
+
+<h3>syntax 검증</h3>
+
+<p><code>node --check</code>로 47 패치 파일 + site-chrome.js + sw.js 전수 통과. 오류 0건.</p>
+
+<div class="callout">
+  <div class="callout-title">✅ 71 패치 + 9 시나리오 PASS</div>
+  drop 47곳 + paste 24곳 모두 자동 패치 적용. Playwright KO·EN 9/9 PASS. syntax 회귀 0건. 모든 N case 정리 완료.
+</div>
+
+<h2>4. 영향</h2>
+
+<h3>사용자 편의성</h3>
+<ul>
+  <li><b>폴더 drop</b>: 이전엔 무반응 → "고장난 도구" 오인 가능. 이제 명확한 toast 안내.</li>
+  <li><b>Ctrl+V paste</b>: 스크린샷 → 바로 압축·변환·크롭 등으로 이어지는 흐름이 한 단계 단축. 데스크톱 사용자에게 큰 가치.</li>
+</ul>
+
+<h3>일관성</h3>
+<ul>
+  <li>47곳 drop handler에 동일 가드 한 줄. 향후 신규 도구 추가 시 같은 한 줄만 넣으면 됨.</li>
+  <li>24곳 paste handler 동일 패턴. 새 image 도구는 <code>bindPasteImage</code> 한 블록만 추가.</li>
+</ul>
+
+<h3>기존 동작 보존</h3>
+<ul>
+  <li>정상 파일 drop: 기존 동작 유지 (<code>rejectFolderDrop</code> false 반환 → 진행).</li>
+  <li><code>pdf-edit</code> 페이지 reorder: 미변경 (내부 drag, 외부 파일 drop 아님).</li>
+  <li>input/textarea 안 Ctrl+V: 무시 (텍스트 입력 흐름 보호).</li>
+</ul>
+
+<h2>5. 통과율 변화</h2>
+
+<table>
+  <thead><tr><th>카테고리</th><th>audit-12</th><th>audit-13</th></tr></thead>
+  <tbody>
+    <tr><td>일반 시나리오</td><td>A+</td><td>A+</td></tr>
+    <tr><td>Edge</td><td>A+</td><td>A+</td></tr>
+    <tr><td><b>사용자 편의성</b></td><td>A</td><td><b>A+</b></td></tr>
+    <tr><td><b>N case 미해결</b></td><td>2건 (N10·N11)</td><td><b>0건</b></td></tr>
+    <tr><td><b>종합</b></td><td>99%+</td><td><b>99%+ (정성적 개선)</b></td></tr>
+  </tbody>
+</table>
+
+<p>audit-12 시점에서 통과율은 사실상 천장. audit-13은 <i>수치 개선</i>보다 <i>마지막 미해결 N case 처리</i>와 <i>편의성 한 단계 상승</i>에 의미.</p>
+
+<h2>6. 다음 단계</h2>
+
+<ol>
+  <li>⭐ <b>외부 작업</b> — GSC Batch 6 잔여 9개 + Bing WMT → Naver SA → 백링크</li>
+  <li><b>AdSense 승인 모니터링</b> (1-2주 대기)</li>
+  <li>(Optional) GA 데이터로 paste·folder drop 실 사용 패턴 확인 → 폴더 unfold 등 후속 결정</li>
+</ol>
+
+<div class="footer-note">
+  📄 본 보고서는 운영자 전용 (<code>noindex, nofollow</code>) ·
+  <code>history/audit/audit-13-n10-n11-folder-paste.html</code> ·
+  TAYSTUDIO 2026-05-14
+</div>
+
+</body>
+</html>

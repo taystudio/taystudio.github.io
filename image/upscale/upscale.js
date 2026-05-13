@@ -101,6 +101,7 @@ fileInput.addEventListener('change', (e) => {
   });
 });
 dropZone.addEventListener('drop', (e) => {
+  if (window.TayStudio && TayStudio.rejectFolderDrop(e)) return;
   const f = e.dataTransfer?.files?.[0];
   if (f) loadFile(f);
 });

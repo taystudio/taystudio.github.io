@@ -114,9 +114,14 @@ fileInput.addEventListener('change', (e) => {
   dropZone.addEventListener(ev, (e) => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('dragover'); });
 });
 dropZone.addEventListener('drop', (e) => {
+  if (window.TayStudio && TayStudio.rejectFolderDrop(e)) return;
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadImageFile(f);
 });
+// Ctrl+V 이미지 붙여넣기
+if (window.TayStudio && TayStudio.bindPasteImage) {
+  TayStudio.bindPasteImage(files => { loadImageFile(files[0]); });
+}
 dropZone.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' || e.key === ' ') {
     e.preventDefault();

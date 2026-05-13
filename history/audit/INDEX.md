@@ -93,6 +93,21 @@ audit 보고서 진행 순서. 같은 일자에 여러 audit이 발생하면 작
 
 ---
 
+## 2026-05-14
+
+### audit-13: n10-n11-folder-paste (마지막 N case)
+- **파일**: [`audit-13-n10-n11-folder-paste.md`](audit-13-n10-n11-folder-paste.md) · [`audit-13-n10-n11-folder-paste.html`](audit-13-n10-n11-folder-paste.html)
+- **컨텍스트**: 사용자 결정 "조용히 스킵되면 안 되는 기능들 있으니까 앱의 편의성도 고려해야함" — audit-5에서 보류됐던 N10·N11 처리
+- **작업**:
+  - site-chrome.js utility 3종 추가 (`showToast`·`rejectFolderDrop`·`bindPasteImage`, KO+EN 분기)
+  - N10: drop handler 47곳 (image 25 + pdf 12 + video 10) 폴더 감지 가드 일괄 적용 (pdf-edit 내부 reorder 제외)
+  - N11: image 12 도구 × KO+EN = 24 파일에 Ctrl+V paste 핸들러 (single/multi/qr-scan 패턴별 자동 연결)
+  - SW v19 → v20
+- **검증**: Playwright KO·EN spot-check 9/9 PASS · `node --check` 47 파일 syntax 0 fail
+- **결과**: 모든 N case 정리 완료 (5/5) · 편의성 카테고리 A → A+
+
+---
+
 ## 통과율 변화 흐름
 
 ```
@@ -106,14 +121,15 @@ audit-9  (OCR singleton)       → 95%+   (성능 카테고리)
 audit-10 (잔여 6% fix)         → 97~98% (+2~3)
 audit-11 (final test)          → 98~99% (+1)
 audit-12 (Medium+Low 검증)     → 99%+   (Medium 13+Low 12)
+audit-13 (N10·N11 처리)        → 99%+   (편의성 A → A+, N case 5/5 완료)
 ```
 
 ---
 
 ## 다음 단계
 
-코드 작업 사실상 완료 (A+ 등급). 다음:
+코드 작업 사실상 완료 (A+ 등급) · 모든 N case 정리. 다음:
 
 1. ⭐ **외부 작업** — GSC Batch 6 → Bing WMT → Naver SA → 백링크
 2. **AdSense 승인 모니터링** (1-2주 대기)
-3. 사용자 needs 데이터 회수 후 N case (N10 drag-drop 폴더·N11 clipboard paste) 결정
+3. (Optional) GA 데이터로 paste·folder drop 실 사용 패턴 확인 → 폴더 unfold 등 후속 결정

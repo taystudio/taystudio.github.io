@@ -325,6 +325,7 @@ fileInput.addEventListener('change', (e) => {
   dropZone.addEventListener(ev, (e) => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('dragover'); });
 });
 dropZone.addEventListener('drop', (e) => {
+  if (window.TayStudio && TayStudio.rejectFolderDrop(e)) return;
   if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) loadPdf(e.dataTransfer.files[0]);
 });
 dropZone.addEventListener('keydown', (e) => {

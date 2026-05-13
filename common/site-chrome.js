@@ -100,6 +100,141 @@
   window.TayStudio.sanitizeFilename = sanitizeFilename;
 })();
 
+// toast — 화면 하단 중앙에 잠시 떴다 사라지는 비파괴적 안내. alert 대안.
+// 사용: TayStudio.showToast('메시지', { duration: 3000 })
+(function () {
+  function showToast(message, opts) {
+    opts = opts || {};
+    const duration = typeof opts.duration === 'number' ? opts.duration : 3000;
+    let toast = document.getElementById('taystudio-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'taystudio-toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      toast.style.cssText = [
+        'position:fixed', 'left:50%',
+        'bottom:max(24px, env(safe-area-inset-bottom, 24px))',
+        'transform:translateX(-50%)', 'z-index:99999',
+        'background:rgba(20,20,20,0.94)', 'color:#fff',
+        'padding:12px 20px', 'border-radius:8px',
+        'font-size:14px', 'line-height:1.5', 'max-width:90vw',
+        'box-shadow:0 4px 24px rgba(0,0,0,0.3)',
+        'opacity:0', 'transition:opacity 0.2s ease',
+        'pointer-events:none',
+      ].join(';');
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    void toast.offsetWidth;
+    toast.style.opacity = '1';
+    clearTimeout(toast._tsTimer);
+    toast._tsTimer = setTimeout(() => { toast.style.opacity = '0'; }, duration);
+  }
+  window.TayStudio = window.TayStudio || {};
+  window.TayStudio.showToast = showToast;
+})();
+
+// drop 폴더 감지 — drag-drop으로 폴더가 들어왔는지 검사 + toast 안내.
+// 사용: if (TayStudio.rejectFolderDrop(e)) return;
+//   - true 반환 시 toast 자동 표시. caller는 즉시 return해서 폴더 처리 시도 차단.
+//   - webkitGetAsEntry 우선, file.type=='' && size==0 fallback.
+(function () {
+  function dropIsFolder(event) {
+    const dt = event && event.dataTransfer;
+    if (!dt) return false;
+    if (dt.items && dt.items.length) {
+      for (let i = 0; i < dt.items.length; i++) {
+        const item = dt.items[i];
+        if (typeof item.webkitGetAsEntry === 'function') {
+          try {
+            const entry = item.webkitGetAsEntry();
+            if (entry && entry.isDirectory) return true;
+          } catch (_) {}
+        }
+      }
+    }
+    if (dt.files && dt.files.length) {
+      for (let i = 0; i < dt.files.length; i++) {
+        const f = dt.files[i];
+        if (f && f.type === '' && f.size === 0) return true;
+      }
+    }
+    return false;
+  }
+  function isEnglishPage() {
+    const lang = (document.documentElement.lang || '').toLowerCase();
+    if (lang.startsWith('en')) return true;
+    if (location.pathname.startsWith('/en/')) return true;
+    return false;
+  }
+  function rejectFolderDrop(event) {
+    if (!dropIsFolder(event)) return false;
+    const msg = isEnglishPage()
+      ? '📁 Folder drop is not supported. Please drop individual files.'
+      : '📁 폴더는 지원하지 않아요. 개별 파일을 떨어뜨려 주세요.';
+    if (window.TayStudio && window.TayStudio.showToast) {
+      window.TayStudio.showToast(msg, { duration: 3500 });
+    }
+    return true;
+  }
+  window.TayStudio = window.TayStudio || {};
+  window.TayStudio.dropIsFolder = dropIsFolder;
+  window.TayStudio.rejectFolderDrop = rejectFolderDrop;
+})();
+
+// clipboard paste 이미지 — Ctrl+V로 이미지 붙여넣기 지원. image 카테고리 도구용.
+// 사용: TayStudio.bindPasteImage(files => handleFiles(files))
+//   - 페이지 전역 paste 이벤트 1회 바인딩. clipboardData에서 image/* 만 추출해 콜백 호출.
+//   - 텍스트 입력 중인 input/textarea/contenteditable 안에서의 paste는 무시 (caret 방해 방지).
+(function () {
+  function isEnglishPage() {
+    const lang = (document.documentElement.lang || '').toLowerCase();
+    if (lang.startsWith('en')) return true;
+    if (location.pathname.startsWith('/en/')) return true;
+    return false;
+  }
+  function inTextInput(el) {
+    if (!el) return false;
+    const tag = (el.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea') return true;
+    if (el.isContentEditable) return true;
+    return false;
+  }
+  function bindPasteImage(callback, opts) {
+    opts = opts || {};
+    const target = opts.target || document;
+    function handler(e) {
+      if (inTextInput(e.target)) return;
+      if (!e.clipboardData) return;
+      const items = e.clipboardData.items;
+      if (!items || !items.length) return;
+      const files = [];
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        if (item.kind === 'file' && (item.type || '').indexOf('image/') === 0) {
+          const f = item.getAsFile();
+          if (f) files.push(f);
+        }
+      }
+      if (!files.length) return;
+      e.preventDefault();
+      const en = isEnglishPage();
+      const msg = en
+        ? `📋 Pasted ${files.length} image${files.length > 1 ? 's' : ''}`
+        : `📋 ${files.length}장 붙여넣음`;
+      if (window.TayStudio && window.TayStudio.showToast) {
+        window.TayStudio.showToast(msg, { duration: 1500 });
+      }
+      try { callback(files); } catch (err) { console.error('paste handler:', err); }
+    }
+    target.addEventListener('paste', handler);
+    return () => target.removeEventListener('paste', handler);
+  }
+  window.TayStudio = window.TayStudio || {};
+  window.TayStudio.bindPasteImage = bindPasteImage;
+})();
+
 // i18n — /en/ path 또는 <html lang="en">이면 영어 모드.
 const LANG = (() => {
   const path = window.location.pathname;

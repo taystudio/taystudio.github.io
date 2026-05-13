@@ -100,7 +100,11 @@
   });
   dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
   dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-  dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); if (e.dataTransfer.files) addFiles(e.dataTransfer.files); });
+  dropZone.addEventListener('drop', e => { e.preventDefault(); if (window.TayStudio && TayStudio.rejectFolderDrop(e)) return; dropZone.classList.remove('drag-over'); if (e.dataTransfer.files) addFiles(e.dataTransfer.files); });
+  // Ctrl+V 이미지 붙여넣기
+  if (window.TayStudio && TayStudio.bindPasteImage) {
+    TayStudio.bindPasteImage(files => { addFiles(files); });
+  }
   dropZone.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
