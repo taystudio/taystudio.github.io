@@ -165,6 +165,7 @@ const I18N = {
     themeDark: '🌙',
     themeTitleToLight: '라이트 모드로 전환',
     themeTitleToDark: '다크 모드로 전환',
+    skipToMain: '본문 바로가기',
   },
   en: {
     mirrorWarn: '⚠️ Unofficial mirror site. Official: <a href="https://taystudios.com" style="color:#fff;font-weight:700;text-decoration:underline">taystudios.com</a>',
@@ -216,6 +217,7 @@ const I18N = {
     themeDark: '🌙',
     themeTitleToLight: 'Switch to light mode',
     themeTitleToDark: 'Switch to dark mode',
+    skipToMain: 'Skip to main content',
   }
 };
 
@@ -520,6 +522,8 @@ class SiteHeader extends HTMLElement {
        window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
     const themeIcon = darkNow ? T.themeLight : T.themeDark;
     const themeTitle = darkNow ? T.themeTitleToLight : T.themeTitleToDark;
+    // 키보드 사용자가 헤더 nav 건너뛰고 본문으로 바로 점프. 평소 화면 밖, focus 시에만 표시 (CSS .skip-link).
+    const skipLinkHTML = `<a href="#main-content" class="skip-link">${T.skipToMain}</a>`;
     const headerHTML = `
       <header class="site-header">
         <a href="${LANG === 'en' ? BASE + '/en/' : BASE + '/'}" class="logo">TAYSTUDIO</a>
@@ -553,7 +557,7 @@ class SiteHeader extends HTMLElement {
         <button id="ts-disclaimer-close" type="button" aria-label="${T.closeAriaLabel}" title="${T.closeTitle}" style="position:absolute;top:50%;right:8px;transform:translateY(-50%);width:auto;padding:2px 8px;font-size:18px;font-weight:400;line-height:1;background:transparent;color:var(--muted);border:none;border-radius:4px;cursor:pointer">×</button>
       </div>
     `;
-    this.innerHTML = headerHTML + langBannerHTML + disclaimerHTML;
+    this.innerHTML = skipLinkHTML + headerHTML + langBannerHTML + disclaimerHTML;
     // lang banner: close (localStorage dismissed), CTA (lang-pref 저장), 헤더 토글 (lang-pref 저장)
     const langClose = this.querySelector('#ts-lang-banner-close');
     if (langClose) {
@@ -703,6 +707,21 @@ class SiteFooter extends HTMLElement {
 
 customElements.define('site-header', SiteHeader);
 customElements.define('site-footer', SiteFooter);
+
+// a11y skip-link 타겟 — 모든 페이지의 첫 <main>에 id="main-content" 자동 부여.
+// 60+ 페이지에 일일이 마크업 박을 필요 없이 site-chrome.js 한 곳에서 처리.
+// 이미 id 있는 경우(다른 용도) 덮어쓰지 않음 — 빈 경우만 채움.
+(function ensureMainId() {
+  function apply() {
+    const main = document.querySelector('main');
+    if (main && !main.id) main.id = 'main-content';
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', apply);
+  } else {
+    apply();
+  }
+})();
 
 // 언어 환영 카드 — root·/en/ home hero에 박힌 <aside.lang-welcome-card data-target-lang="...">.
 // shouldShowLangBanner()와 같은 조건(브라우저 mismatch + dismiss·lang-pref 미설정)에서 visible.

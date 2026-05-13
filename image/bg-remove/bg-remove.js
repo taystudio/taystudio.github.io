@@ -19,6 +19,7 @@ const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const dropTitle = document.getElementById('dropTitle');
 const removeBtn = document.getElementById('removeBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 const clearBtn = document.getElementById('clearBtn');
 const progressWrap = document.getElementById('progressWrap');
 const progressFill = document.getElementById('progressFill');
@@ -34,6 +35,9 @@ const downloadBtn = document.getElementById('downloadBtn');
 let currentFile = null;
 let origUrl = null;
 let resultUrl = null;
+// ONNX Runtime Web 추론은 진짜 중단 불가 — UX cancel로만 처리 (결과 도착 시 무시)
+let runSeq = 0;
+let activeRun = 0;
 
 function fmtBytes(n) {
   if (n < 1024) return n + ' B';
@@ -42,6 +46,8 @@ function fmtBytes(n) {
 }
 
 function setProgress(key, current, total) {
+  // 취소된 run의 진행률 업데이트 무시 (백그라운드 추론은 계속 돌지만 UI에는 반영 안 함)
+  if (activeRun === 0) return;
   progressWrap.hidden = false;
   let pct = 0;
   if (total > 0 && Number.isFinite(current)) {
@@ -81,7 +87,10 @@ function loadFile(file) {
 
 async function run() {
   if (!currentFile) return;
+  const myRun = ++runSeq;
+  activeRun = myRun;
   removeBtn.disabled = true;
+  cancelBtn.hidden = false;
   const orig = removeBtn.textContent;
   removeBtn.textContent = '처리 중...';
   setProgress('starting', 0, 1);
@@ -99,6 +108,9 @@ async function run() {
       output: { format: 'image/png', quality: 0.9 },
       progress: setProgress
     });
+
+    // 취소된 run의 결과 도착 — 무시 (UX cancel)
+    if (myRun !== activeRun) return;
 
     const ms = Math.round(performance.now() - t0);
     if (resultUrl) URL.revokeObjectURL(resultUrl);
@@ -119,15 +131,27 @@ async function run() {
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (e) {
+    // 취소된 run의 예외 — 무시
+    if (myRun !== activeRun) return;
     progressText.textContent = '실패: ' + (e && e.message ? e.message : '알 수 없는 오류');
     progressFill.style.width = '0%';
     if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', 0);
     const msg = (e && e.message) ? e.message : '';
     alert('배경 제거 실패: ' + msg + '\n\n해결 시도:\n• 페이지 새로고침 후 다시 시도\n• 더 작은 이미지로 시도 (가로 1500px 이하)\n• 다른 브라우저(Chrome·Edge·Firefox 최신) 사용\n• 네트워크 점검 (첫 실행은 모델 다운로드 필요)');
   } finally {
+    if (myRun === activeRun) activeRun = 0;
+    cancelBtn.hidden = true;
     removeBtn.textContent = orig;
     removeBtn.disabled = !currentFile;
   }
+}
+
+function cancelRun() {
+  if (activeRun === 0) return;
+  activeRun = 0;
+  cancelBtn.hidden = true;
+  progressText.textContent = '취소됨 — 백그라운드 처리는 끝까지 진행되지만 결과는 무시됩니다. 메모리 누적 시 페이지 새로고침 권장.';
+  removeBtn.disabled = !currentFile;
 }
 
 function clearAll() {
@@ -167,4 +191,5 @@ dropZone.addEventListener('keydown', (e) => {
 });
 
 removeBtn.addEventListener('click', run);
+cancelBtn.addEventListener('click', cancelRun);
 clearBtn.addEventListener('click', clearAll);

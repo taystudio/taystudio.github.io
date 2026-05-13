@@ -19,6 +19,7 @@ const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const dropTitle = document.getElementById('dropTitle');
 const removeBtn = document.getElementById('removeBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 const clearBtn = document.getElementById('clearBtn');
 const progressWrap = document.getElementById('progressWrap');
 const progressFill = document.getElementById('progressFill');
@@ -34,6 +35,9 @@ const downloadBtn = document.getElementById('downloadBtn');
 let currentFile = null;
 let origUrl = null;
 let resultUrl = null;
+// ONNX Runtime Web inference can't be truly aborted — UX-only cancel (ignore result on arrival)
+let runSeq = 0;
+let activeRun = 0;
 
 function fmtBytes(n) {
   if (n < 1024) return n + ' B';
@@ -42,6 +46,8 @@ function fmtBytes(n) {
 }
 
 function setProgress(key, current, total) {
+  // Ignore progress updates from cancelled run (background inference keeps running but UI stays idle)
+  if (activeRun === 0) return;
   progressWrap.hidden = false;
   let pct = 0;
   if (total > 0 && Number.isFinite(current)) {
@@ -80,7 +86,10 @@ function loadFile(file) {
 
 async function run() {
   if (!currentFile) return;
+  const myRun = ++runSeq;
+  activeRun = myRun;
   removeBtn.disabled = true;
+  cancelBtn.hidden = false;
   const orig = removeBtn.textContent;
   removeBtn.textContent = 'Processing...';
   setProgress('starting', 0, 1);
@@ -98,6 +107,9 @@ async function run() {
       output: { format: 'image/png', quality: 0.9 },
       progress: setProgress
     });
+
+    // Cancelled run completed — ignore (UX cancel)
+    if (myRun !== activeRun) return;
 
     const ms = Math.round(performance.now() - t0);
     if (resultUrl) URL.revokeObjectURL(resultUrl);
@@ -118,15 +130,27 @@ async function run() {
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (e) {
+    // Cancelled run threw — ignore
+    if (myRun !== activeRun) return;
     progressText.textContent = 'Failed: ' + (e && e.message ? e.message : 'unknown error');
     progressFill.style.width = '0%';
     progressWrap.setAttribute('aria-valuenow', '0');
     const msg = (e && e.message) ? e.message : '';
     alert('Background removal failed: ' + msg + '\n\nTry:\n• Refresh and retry\n• Use a smaller image (under 1500px wide)\n• Use a recent browser (Chrome / Edge / Firefox)\n• Check your network (first run downloads the model)');
   } finally {
+    if (myRun === activeRun) activeRun = 0;
+    cancelBtn.hidden = true;
     removeBtn.textContent = orig;
     removeBtn.disabled = !currentFile;
   }
+}
+
+function cancelRun() {
+  if (activeRun === 0) return;
+  activeRun = 0;
+  cancelBtn.hidden = true;
+  progressText.textContent = 'Cancelled — background task finishes silently, result ignored. Reload the page if memory builds up.';
+  removeBtn.disabled = !currentFile;
 }
 
 function clearAll() {
@@ -166,4 +190,5 @@ dropZone.addEventListener('keydown', (e) => {
 });
 
 removeBtn.addEventListener('click', run);
+cancelBtn.addEventListener('click', cancelRun);
 clearBtn.addEventListener('click', clearAll);

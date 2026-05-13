@@ -289,17 +289,17 @@
 
       <div class="opt-grid" id="commonOpts" style="margin-top:14px" hidden>
         <div class="field">
-          <label>위치</label>
-          <div class="pos-grid" id="posGrid">
-            <button type="button" data-pos="tl">↖</button>
-            <button type="button" data-pos="tc">↑</button>
-            <button type="button" data-pos="tr">↗</button>
-            <button type="button" data-pos="ml">←</button>
-            <button type="button" data-pos="center" class="active">●</button>
-            <button type="button" data-pos="mr">→</button>
-            <button type="button" data-pos="bl">↙</button>
-            <button type="button" data-pos="bc">↓</button>
-            <button type="button" data-pos="br">↘</button>
+          <label id="posGridLabel">위치</label>
+          <div class="pos-grid" id="posGrid" role="group" aria-labelledby="posGridLabel">
+            <button type="button" data-pos="tl" aria-label="좌상">↖</button>
+            <button type="button" data-pos="tc" aria-label="상단 중앙">↑</button>
+            <button type="button" data-pos="tr" aria-label="우상">↗</button>
+            <button type="button" data-pos="ml" aria-label="왼쪽 중앙">←</button>
+            <button type="button" data-pos="center" class="active" aria-label="중앙" aria-pressed="true">●</button>
+            <button type="button" data-pos="mr" aria-label="오른쪽 중앙">→</button>
+            <button type="button" data-pos="bl" aria-label="좌하">↙</button>
+            <button type="button" data-pos="bc" aria-label="하단 중앙">↓</button>
+            <button type="button" data-pos="br" aria-label="우하">↘</button>
           </div>
         </div>
         <div class="field">

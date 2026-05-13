@@ -15,6 +15,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">  <link rel="manifest" href="/manifest.webmanifest">
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="TAYSTUDIO PDF">
@@ -112,7 +113,7 @@
           "name": "한 번에 모든 페이지를 다운로드할 수 있나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "변환 후 페이지별 다운로드 링크가 표시됩니다. '전체 다운로드' 버튼을 누르면 모든 페이지가 순차로 다운로드됩니다. 브라우저가 5개 이상 동시 다운로드를 차단할 경우 권한을 허용하거나 페이지별로 클릭하세요. ZIP 일괄 다운로드는 차후 추가 예정."
+            "text": "변환 후 페이지별 다운로드 링크가 표시됩니다. 'ZIP으로 묶어 다운로드' 버튼을 누르면 모든 페이지가 1개 ZIP 파일로 묶여 다운로드됩니다(권장). '전체 다운로드 (개별)' 버튼은 페이지별로 순차 다운로드합니다 — 브라우저가 5개 이상 동시 다운로드를 차단할 수 있습니다."
           }
         },
         {
@@ -236,8 +237,10 @@
         <span>총 용량 <b id="newSize">—</b></span>
       </div>
       <div class="image-actions">
-        <button type="button" id="downloadAllBtn" class="download-btn">⬇ 전체 다운로드</button>
+        <button type="button" id="downloadZipBtn" class="download-btn">📦 ZIP으로 묶어 다운로드</button>
+        <button type="button" id="downloadAllBtn" class="download-btn">⬇ 전체 다운로드 (개별)</button>
       </div>
+      <p class="small" style="color:var(--muted);margin-top:6px;font-size:12.5px">결과가 많을 때는 <b>[📦 ZIP으로 묶어 다운로드]</b>를 사용하면 파일 1개로 받습니다.</p>
       <div class="img-grid" id="imgGrid"></div>
     </div>
 
@@ -334,8 +337,8 @@
       <details>
         <summary>한 번에 모든 페이지를 다운로드할 수 있나요?</summary>
         <div class="answer">
-          변환 후 페이지별 다운로드 링크가 표시됩니다. <b>'전체 다운로드' 버튼</b>을 누르면 모든 페이지가 순차로 다운로드됩니다.
-          브라우저가 5개 이상 동시 다운로드를 차단할 경우 권한을 허용하거나 페이지별로 클릭하세요. ZIP 일괄 다운로드는 차후 추가 예정.
+          변환 후 페이지별 다운로드 링크가 표시됩니다. <b>'📦 ZIP으로 묶어 다운로드' 버튼</b>이 권장 — 파일 1개로 모든 페이지가 묶여 받아집니다.
+          개별 다운로드를 원하면 <b>'전체 다운로드 (개별)'</b>을 누르세요. 브라우저가 5개 이상 동시 다운로드를 차단할 경우 권한을 허용하거나 페이지별로 클릭하세요.
         </div>
       </details>
 

@@ -16,6 +16,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/en/manifest.webmanifest">
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="ko_KR">
@@ -114,7 +115,7 @@
           "name": "Can I download all pages at once?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "After conversion, each page gets its own download link. The 'Download all' button triggers them sequentially. If your browser blocks 5+ simultaneous downloads, allow them in the prompt or click each link manually. ZIP-bundle download is on the roadmap."
+            "text": "After conversion, each page gets its own download link. The 'Download as ZIP' button bundles every page into one ZIP file (recommended). The 'Download all (individually)' button triggers a sequential per-file download — your browser may block 5+ simultaneous downloads."
           }
         },
         {
@@ -238,8 +239,10 @@
         <span>Total size <b id="newSize">—</b></span>
       </div>
       <div class="image-actions">
-        <button type="button" id="downloadAllBtn" class="download-btn">⬇ Download all</button>
+        <button type="button" id="downloadZipBtn" class="download-btn">📦 Download as ZIP</button>
+        <button type="button" id="downloadAllBtn" class="download-btn">⬇ Download all (individually)</button>
       </div>
+      <p class="small" style="color:var(--muted);margin-top:6px;font-size:12.5px">For many pages, use <b>[📦 Download as ZIP]</b> to get a single bundled file.</p>
       <div class="img-grid" id="imgGrid"></div>
     </div>
 
@@ -335,8 +338,8 @@
       <details>
         <summary>Can I download all pages at once?</summary>
         <div class="answer">
-          Each page gets its own download link. The <b>'Download all' button</b> triggers them sequentially.
-          If the browser blocks 5+ simultaneous downloads, allow it in the prompt or click each link. ZIP-bundle download is on the roadmap.
+          Each page gets its own download link. The <b>'📦 Download as ZIP' button</b> bundles every page into one ZIP file (recommended).
+          For individual files, use <b>'Download all (individually)'</b>. If the browser blocks 5+ simultaneous downloads, allow it in the prompt or click each link.
         </div>
       </details>
 

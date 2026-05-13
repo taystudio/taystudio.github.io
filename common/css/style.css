@@ -45,6 +45,32 @@
   padding: 0;
 }
 
+/* a11y skip-link — 키보드 사용자가 헤더 nav 건너뛰고 본문으로 바로 이동.
+   평소 화면 밖(clip-path inset). Tab focus 시에만 좌상단 가시 영역으로 슬라이드.
+   site-chrome.js SiteHeader가 첫 자식으로 prepend 함. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 16px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+  z-index: 10000;
+  /* 평소: 화면 밖으로 이동 — display:none 대신 transform 사용해서 focus 가능. */
+  transform: translateY(-120%);
+  transition: transform .12s ease-out;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo",
     "Noto Sans KR", "Segoe UI", sans-serif;

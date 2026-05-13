@@ -288,17 +288,17 @@
 
       <div class="opt-grid" id="commonOpts" style="margin-top:14px" hidden>
         <div class="field">
-          <label>Position</label>
-          <div class="pos-grid" id="posGrid">
-            <button type="button" data-pos="tl">↖</button>
-            <button type="button" data-pos="tc">↑</button>
-            <button type="button" data-pos="tr">↗</button>
-            <button type="button" data-pos="ml">←</button>
-            <button type="button" data-pos="center" class="active">●</button>
-            <button type="button" data-pos="mr">→</button>
-            <button type="button" data-pos="bl">↙</button>
-            <button type="button" data-pos="bc">↓</button>
-            <button type="button" data-pos="br">↘</button>
+          <label id="posGridLabel">Position</label>
+          <div class="pos-grid" id="posGrid" role="group" aria-labelledby="posGridLabel">
+            <button type="button" data-pos="tl" aria-label="Top left">↖</button>
+            <button type="button" data-pos="tc" aria-label="Top center">↑</button>
+            <button type="button" data-pos="tr" aria-label="Top right">↗</button>
+            <button type="button" data-pos="ml" aria-label="Middle left">←</button>
+            <button type="button" data-pos="center" class="active" aria-label="Center" aria-pressed="true">●</button>
+            <button type="button" data-pos="mr" aria-label="Middle right">→</button>
+            <button type="button" data-pos="bl" aria-label="Bottom left">↙</button>
+            <button type="button" data-pos="bc" aria-label="Bottom center">↓</button>
+            <button type="button" data-pos="br" aria-label="Bottom right">↘</button>
           </div>
         </div>
         <div class="field">

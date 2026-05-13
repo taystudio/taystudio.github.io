@@ -68,18 +68,26 @@ audit 보고서 진행 순서. 같은 일자에 여러 audit이 발생하면 작
 - **작업**: workerCache singleton 패턴 (같은 lang 재사용, 다른 lang 또는 cancel 시에만 terminate)
 - **결과**: 두 번째 호출부터 init 0초
 
+### audit-10: final-6-percent (잔여 6% fix)
+- **파일**: [`audit-10-final-6-percent.md`](audit-10-final-6-percent.md) · [`audit-10-final-6-percent.html`](audit-10-final-6-percent.html)
+- **컨텍스트**: 사용자 결정 "남은 6% 잡자"
+- **작업**: bg-remove UX cancel · M14 pdf-to-image ZIP 정식화 (JSZip dynamic) · a11y skip-link 글로벌 (60+ 페이지 자동) · watermark pos-grid aria-label/aria-pressed
+- **검증**: Playwright 6/6 PASS
+- **결과**: 통과율 → **97~98%** · cancel 100% · multi-file 100% · a11y 84%→96%
+
 ---
 
 ## 통과율 변화 흐름
 
 ```
-audit-3  (250 케이스)         → 62%
-audit-4  (Critical 15 fix)    → 78%   (+16)
-audit-5  (Phase 2 1차)        → 82.5% (+4.5)
-audit-6  (Phase 2 완료)       → 87%   (+4.5)
-audit-7  (Phase 3 Medium+a11y) → 94%   (+7)
-audit-8  (보안 XSS fix)        → 95%   (+1)
-audit-9  (OCR singleton)      → 95%+ (성능 카테고리)
+audit-3  (250 케이스)          → 62%
+audit-4  (Critical 15 fix)     → 78%    (+16)
+audit-5  (Phase 2 1차)         → 82.5%  (+4.5)
+audit-6  (Phase 2 완료)        → 87%    (+4.5)
+audit-7  (Phase 3 Medium+a11y) → 94%    (+7)
+audit-8  (보안 XSS fix)        → 95%    (+1)
+audit-9  (OCR singleton)       → 95%+   (성능 카테고리)
+audit-10 (잔여 6% fix)         → 97~98% (+2~3)
 ```
 
 ---

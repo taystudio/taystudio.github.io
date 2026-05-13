@@ -37,7 +37,11 @@ const result = document.getElementById('result');
 const newCount = document.getElementById('newCount');
 const newSize = document.getElementById('newSize');
 const downloadAllBtn = document.getElementById('downloadAllBtn');
+const downloadZipBtn = document.getElementById('downloadZipBtn');
 const imgGrid = document.getElementById('imgGrid');
+
+// JSZip CDN — dynamic-load only on first ZIP click. jsdelivr 외 다른 source 사용 금지.
+const JSZIP_CDN = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';
 
 let currentFile = null;
 let currentBytes = null;
@@ -228,6 +232,53 @@ function addImgCard(url, filename, pageNum, size, sourceCanvas) {
   imgGrid.appendChild(card);
 }
 
+async function ensureJSZip() {
+  if (window.JSZip) return window.JSZip;
+  await new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = JSZIP_CDN;
+    s.async = true;
+    s.crossOrigin = 'anonymous';
+    s.onload = resolve;
+    s.onerror = () => reject(new Error('JSZip 로드 실패 — 네트워크 연결을 확인하세요.'));
+    document.head.appendChild(s);
+  });
+  if (!window.JSZip) throw new Error('JSZip 로드는 됐으나 전역에 노출되지 않았습니다.');
+  return window.JSZip;
+}
+
+async function downloadZip() {
+  if (resultUrls.length === 0) return;
+  const origLabel = downloadZipBtn.textContent;
+  downloadZipBtn.disabled = true;
+  downloadZipBtn.textContent = 'ZIP 생성 중...';
+  try {
+    const JSZip = await ensureJSZip();
+    const zip = new JSZip();
+    for (const r of resultUrls) {
+      const safeName = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(r.filename) : r.filename);
+      zip.file(safeName, r.blob);
+    }
+    const blob = await zip.generateAsync({ type: 'blob' });
+    const url = URL.createObjectURL(blob);
+    const baseName = (currentFile && currentFile.name ? currentFile.name : 'document').replace(/\.pdf$/i, '');
+    let zipName = baseName + '-pages.zip';
+    if (window.TayStudio && window.TayStudio.sanitizeFilename) zipName = window.TayStudio.sanitizeFilename(zipName);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = zipName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  } catch (e) {
+    alert('ZIP 생성 실패: ' + (e && e.message ? e.message : '알 수 없는 오류'));
+  } finally {
+    downloadZipBtn.textContent = origLabel;
+    downloadZipBtn.disabled = false;
+  }
+}
+
 function downloadAll() {
   if (resultUrls.length === 0) return;
   // 30개 이상 시 사전 확인 — 다운로드 차단·지연 안내
@@ -290,6 +341,7 @@ formatSel.addEventListener('change', updateQualityVisibility);
 convertBtn.addEventListener('click', convert);
 clearBtn.addEventListener('click', clearAll);
 downloadAllBtn.addEventListener('click', downloadAll);
+if (downloadZipBtn) downloadZipBtn.addEventListener('click', downloadZip);
 rangeIn.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') { e.preventDefault(); convert(); }
 });

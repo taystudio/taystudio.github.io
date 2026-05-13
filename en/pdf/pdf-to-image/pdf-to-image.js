@@ -37,7 +37,11 @@ const result = document.getElementById('result');
 const newCount = document.getElementById('newCount');
 const newSize = document.getElementById('newSize');
 const downloadAllBtn = document.getElementById('downloadAllBtn');
+const downloadZipBtn = document.getElementById('downloadZipBtn');
 const imgGrid = document.getElementById('imgGrid');
+
+// JSZip CDN — loaded dynamically on first ZIP click. Only jsdelivr is allowed.
+const JSZIP_CDN = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';
 
 let currentFile = null;
 let currentBytes = null;
@@ -226,6 +230,53 @@ function addImgCard(url, filename, pageNum, size, sourceCanvas) {
   imgGrid.appendChild(card);
 }
 
+async function ensureJSZip() {
+  if (window.JSZip) return window.JSZip;
+  await new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = JSZIP_CDN;
+    s.async = true;
+    s.crossOrigin = 'anonymous';
+    s.onload = resolve;
+    s.onerror = () => reject(new Error('Failed to load JSZip — check your network connection.'));
+    document.head.appendChild(s);
+  });
+  if (!window.JSZip) throw new Error('JSZip loaded but is not exposed on window.');
+  return window.JSZip;
+}
+
+async function downloadZip() {
+  if (resultUrls.length === 0) return;
+  const origLabel = downloadZipBtn.textContent;
+  downloadZipBtn.disabled = true;
+  downloadZipBtn.textContent = 'Building ZIP...';
+  try {
+    const JSZip = await ensureJSZip();
+    const zip = new JSZip();
+    for (const r of resultUrls) {
+      const safeName = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(r.filename) : r.filename);
+      zip.file(safeName, r.blob);
+    }
+    const blob = await zip.generateAsync({ type: 'blob' });
+    const url = URL.createObjectURL(blob);
+    const baseName = (currentFile && currentFile.name ? currentFile.name : 'document').replace(/\.pdf$/i, '');
+    let zipName = baseName + '-pages.zip';
+    if (window.TayStudio && window.TayStudio.sanitizeFilename) zipName = window.TayStudio.sanitizeFilename(zipName);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = zipName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  } catch (e) {
+    alert('ZIP build failed: ' + (e && e.message ? e.message : 'Unknown error'));
+  } finally {
+    downloadZipBtn.textContent = origLabel;
+    downloadZipBtn.disabled = false;
+  }
+}
+
 function downloadAll() {
   if (resultUrls.length === 0) return;
   // Pre-confirm for 30+ files — browsers can block or delay bulk downloads
@@ -291,6 +342,7 @@ formatSel.addEventListener('change', updateQualityVisibility);
 convertBtn.addEventListener('click', convert);
 clearBtn.addEventListener('click', clearAll);
 downloadAllBtn.addEventListener('click', downloadAll);
+if (downloadZipBtn) downloadZipBtn.addEventListener('click', downloadZip);
 rangeIn.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') { e.preventDefault(); convert(); }
 });
