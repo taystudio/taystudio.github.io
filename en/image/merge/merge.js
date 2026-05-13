@@ -28,6 +28,7 @@
   const state = { files: [], zoom: 1.0 };  // zoom = fit-scale 위 배율 (0.3~3.0)
   function uid() { return Math.random().toString(36).slice(2, 9); }
   function fmtSize(n) { return n < 1024 ? n + 'B' : n < 1024*1024 ? (n/1024).toFixed(1)+'KB' : (n/1024/1024).toFixed(2)+'MB'; }
+  const esc = (window.TayStudio && window.TayStudio.escapeHtml) ? window.TayStudio.escapeHtml : (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
   fileInput.addEventListener('change', () => { if (fileInput.files.length) { addFiles(fileInput.files); fileInput.value = ''; } });
   dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
@@ -61,7 +62,7 @@
       div.className = 'file-item';
       div.innerHTML = `
         <div class="order">${i + 1}</div>
-        <div class="name">${f.file.name}</div>
+        <div class="name">${esc(f.file.name)}</div>
         <div class="size">${fmtSize(f.file.size)}</div>
         <div class="row-actions">
           <button type="button" data-up="${f.id}" title="Move up">↑</button>

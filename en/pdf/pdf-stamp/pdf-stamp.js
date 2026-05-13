@@ -49,6 +49,7 @@
 
   function uid() { return Math.random().toString(36).slice(2, 9); }
   function fmtSize(n) { return n < 1024 ? n + 'B' : n < 1024*1024 ? (n/1024).toFixed(1)+'KB' : (n/1024/1024).toFixed(2)+'MB'; }
+  const esc = (window.TayStudio && window.TayStudio.escapeHtml) ? window.TayStudio.escapeHtml : (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
   // 탭
   modeTabs.querySelectorAll('button').forEach(btn => {
@@ -93,7 +94,7 @@
       div.className = 'file-item';
       div.innerHTML = `
         <div class="order">${i + 1}</div>
-        <div class="name">${f.file.name}</div>
+        <div class="name">${esc(f.file.name)}</div>
         <div class="size">${fmtSize(f.file.size)}</div>
         <div class="row-actions"><button type="button" data-rm="${f.id}" title="Remove">✕</button></div>
       `;
@@ -280,8 +281,8 @@
       const card = document.createElement('div');
       card.className = 'img-card';
       card.innerHTML = `
-        <div class="img-card-meta">📄 ${r.name}<br><span style="color:var(--muted);font-size:11px">${fmtSize(r.blob.size)}</span></div>
-        <a class="img-card-dl" href="${r.url}" download="${r.name}">다운로드</a>
+        <div class="img-card-meta">📄 ${esc(r.name)}<br><span style="color:var(--muted);font-size:11px">${fmtSize(r.blob.size)}</span></div>
+        <a class="img-card-dl" href="${r.url}" download="${esc(r.name)}">다운로드</a>
       `;
       imgGrid.appendChild(card);
     });

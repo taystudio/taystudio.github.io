@@ -47,6 +47,8 @@
 
   function uid() { return Math.random().toString(36).slice(2, 9); }
 
+  const esc = (window.TayStudio && window.TayStudio.escapeHtml) ? window.TayStudio.escapeHtml : (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
   function refreshFileList() {
     fileList.innerHTML = '';
     state.files.forEach((f, i) => {
@@ -56,9 +58,9 @@
       const statusText = f.status === 'done' ? 'Done' : f.status === 'err' ? (f.errMsg || 'Error') : f.status === 'processing' ? 'Processing' : 'Queued';
       div.innerHTML = `
         <div class="order">${i + 1}</div>
-        <div class="name">${f.file.name}</div>
+        <div class="name">${esc(f.file.name)}</div>
         <div class="size">${fmtSize(f.file.size)}</div>
-        <div class="status ${statusCls}">${statusText}</div>
+        <div class="status ${statusCls}">${esc(statusText)}</div>
         <div class="row-actions"><button type="button" data-rm="${f.id}" title="Remove">✕</button></div>
       `;
       fileList.appendChild(div);
@@ -257,9 +259,9 @@
       const card = document.createElement('div');
       card.className = 'img-card';
       card.innerHTML = `
-        <div class="img-card-thumb"><img src="${r.url}" alt="${r.name}"></div>
-        <div class="img-card-meta">${r.name}<br>${fmtSize(r.size)}</div>
-        <a class="img-card-dl" href="${r.url}" download="${r.name}">Download</a>
+        <div class="img-card-thumb"><img src="${r.url}" alt="${esc(r.name)}"></div>
+        <div class="img-card-meta">${esc(r.name)}<br>${fmtSize(r.size)}</div>
+        <a class="img-card-dl" href="${r.url}" download="${esc(r.name)}">Download</a>
       `;
       imgGrid.appendChild(card);
     });

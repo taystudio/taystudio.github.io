@@ -57,6 +57,22 @@
   window.TayStudio.checkFileSize = checkFileSize;
 })();
 
+// HTML escape — innerHTML 컨텍스트에 사용자 입력(파일명 등) 삽입 시 XSS 방어용.
+// 사용: `<div>${TayStudio.escapeHtml(file.name)}</div>`
+(function () {
+  function escapeHtml(s) {
+    if (s == null) return '';
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+  window.TayStudio = window.TayStudio || {};
+  window.TayStudio.escapeHtml = escapeHtml;
+})();
+
 // 파일명 sanitize — Windows·macOS·Linux 호환. 도구 다운로드 파일명 안전화.
 // 사용: window.TayStudio.sanitizeFilename(rawName)
 (function () {
