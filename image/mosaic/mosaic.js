@@ -46,7 +46,12 @@
   async function loadFile(file) {
     if (!file.type.startsWith('image/')) return;
     if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, '이미지')) return;
-    state.bitmap = await createImageBitmap(file);
+    try {
+      state.bitmap = await createImageBitmap(file);
+    } catch (e) {
+      alert('이미지를 불러오지 못했습니다. 손상된 파일이거나 지원하지 않는 형식입니다.');
+      return;
+    }
     state.fileName = file.name;
     state.boxes = [];
     toggleUI(true);

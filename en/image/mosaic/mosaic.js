@@ -46,7 +46,12 @@
   async function loadFile(file) {
     if (!file.type.startsWith('image/')) return;
     if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'Image')) return;
-    state.bitmap = await createImageBitmap(file);
+    try {
+      state.bitmap = await createImageBitmap(file);
+    } catch (e) {
+      alert('Failed to load image. The file may be corrupted or in an unsupported format.');
+      return;
+    }
     state.fileName = file.name;
     state.boxes = [];
     toggleUI(true);

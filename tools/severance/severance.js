@@ -32,6 +32,7 @@ document.getElementById("form").addEventListener("submit", (e) => {
   const exit = new Date(exitStr);
 
   const totalDays = diffDays(entry, exit);
+  if (totalDays < 0) { alert("입사일이 퇴사일보다 이후입니다. 날짜를 확인해주세요."); return; }
   if (totalDays < 365) { alert("재직 1년 미만은 퇴직금 지급 의무 대상이 아닙니다."); return; }
 
   const 평균임금일급 = (month1 + month2 + month3 + annualBonus * 0.25) / 90;

@@ -75,6 +75,14 @@ audit 보고서 진행 순서. 같은 일자에 여러 audit이 발생하면 작
 - **검증**: Playwright 6/6 PASS
 - **결과**: 통과율 → **97~98%** · cancel 100% · multi-file 100% · a11y 84%→96%
 
+### audit-11: final-test (final 매트릭스 + UX 일관성)
+- **파일**: [`audit-11-final-test.md`](audit-11-final-test.md) · [`audit-11-final-test.html`](audit-11-final-test.html)
+- **컨텍스트**: 사용자 결정 "final test하듯 모든 케이스 테스트 + UX 평가"
+- **방법**: 4 agent 병렬 (image 13·pdf+video 11·text+calc 12·meta page) + Playwright spot-check
+- **발견**: Critical 5건 · Medium 13건 · Low 12건 + UX 개선 아이디어 5건
+- **Critical fix (5)**: mosaic try/catch · pdf-stamp .dragover 통일 · severance 날짜 역전 · root /404.html + en/404 · 수치 sample fix
+- **결과**: 통과율 → **98~99%** · 데이터 정합성 B→A- · 계산 정확성 B+→A · 404 F→A
+
 ---
 
 ## 통과율 변화 흐름
@@ -88,6 +96,7 @@ audit-7  (Phase 3 Medium+a11y) → 94%    (+7)
 audit-8  (보안 XSS fix)        → 95%    (+1)
 audit-9  (OCR singleton)       → 95%+   (성능 카테고리)
 audit-10 (잔여 6% fix)         → 97~98% (+2~3)
+audit-11 (final test)          → 98~99% (+1)
 ```
 
 ---

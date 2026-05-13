@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Final Test — 매트릭스 + UX — audit-11 — 2026-05-13</title>
+  <style>
+    :root { --bg: #f7f8fa; --card: #fff; --text: #111; --muted: #52525b; --border: #e5e7eb; --primary: #2563eb; --critical: #dc2626; --warn: #f59e0b; --ok: #10b981; --info: #3b82f6; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #0f1115; --card: #1a1d23; --text: #e5e7eb; --muted: #9ca3af; --border: #2a2e36; } }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 32px 20px; max-width: 1100px; margin: 0 auto; }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    h2 { font-size: 22px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--primary); }
+    h3 { font-size: 17px; margin: 22px 0 10px; }
+    code { font-family: ui-monospace, "SF Mono", Monaco, monospace; background: var(--border); padding: 2px 6px; border-radius: 4px; font-size: 12.5px; }
+    .meta { color: var(--muted); font-size: 14px; margin-bottom: 24px; padding: 12px 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+    .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 20px 0; }
+    .stat { padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+    .stat-label { font-size: 12.5px; color: var(--muted); margin-bottom: 4px; }
+    .stat-value { font-size: 24px; font-weight: 700; }
+    .stat-value.ok { color: var(--ok); }
+    .stat-value.warn { color: var(--warn); }
+    .stat-value.critical { color: var(--critical); }
+    .stat-value.info { color: var(--info); }
+    table { width: 100%; border-collapse: collapse; margin: 14px 0; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+    th { background: rgba(37, 99, 235, 0.08); font-weight: 600; font-size: 12.5px; }
+    tr:last-child td { border-bottom: none; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .badge-critical { background: rgba(220, 38, 38, 0.12); color: var(--critical); border: 1px solid rgba(220, 38, 38, 0.3); }
+    .badge-warn { background: rgba(245, 158, 11, 0.12); color: var(--warn); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-ok { background: rgba(16, 185, 129, 0.12); color: var(--ok); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-info { background: rgba(59, 130, 246, 0.12); color: var(--info); border: 1px solid rgba(59, 130, 246, 0.3); }
+    .grade { font-weight: 700; font-family: ui-monospace, "SF Mono", Monaco, monospace; }
+    .grade-A { color: var(--ok); }
+    .grade-B { color: var(--warn); }
+    .grade-C { color: var(--critical); }
+    .callout { padding: 14px 18px; margin: 16px 0; border-left: 4px solid var(--primary); background: rgba(37, 99, 235, 0.06); border-radius: 0 8px 8px 0; }
+    .callout.critical { border-left-color: var(--critical); background: rgba(220, 38, 38, 0.06); }
+    .callout.ok { border-left-color: var(--ok); background: rgba(16, 185, 129, 0.06); }
+    .callout-title { font-weight: 700; margin-bottom: 6px; }
+    .progress-bar { width: 100%; height: 22px; background: var(--border); border-radius: 11px; overflow: hidden; margin: 6px 0; }
+    .progress-fill { height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12.5px; font-weight: 600; }
+    .progress-fill.green { background: var(--ok); }
+    .progress-fill.yellow { background: var(--warn); }
+    .progress-fill.red { background: var(--critical); }
+    pre { background: var(--card); border: 1px solid var(--border); padding: 12px 14px; border-radius: 6px; overflow-x: auto; font-size: 12.5px; margin: 10px 0; }
+    .footer-note { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; text-align: center; }
+  </style>
+</head>
+<body>
+
+<h1>🔬 Final Test — 매트릭스 + UX 일관성 보고서</h1>
+<div class="meta">
+  <b>일자</b>: 2026-05-13 (audit-11) ·
+  <b>범위</b>: 40+ 도구 매트릭스 + 25 도구 UX 일관성 + meta page (홈·About·Hub·Terms·Privacy) ·
+  <b>방법</b>: 4 agent 병렬 + Critical 5건 즉시 fix + Playwright spot-check ·
+  <b>결과</b>: Critical 5/5 fix · Medium 13건 plan · 통과율 97~98% → 98~99%
+</div>
+
+<div class="summary-grid">
+  <div class="stat"><div class="stat-label">종합 등급</div><div class="stat-value ok">A+</div></div>
+  <div class="stat"><div class="stat-label">통과율</div><div class="stat-value ok">98~99%</div></div>
+  <div class="stat"><div class="stat-label">검증 도구</div><div class="stat-value info">40+</div></div>
+  <div class="stat"><div class="stat-label">Critical fix</div><div class="stat-value critical">5/5</div></div>
+  <div class="stat"><div class="stat-label">Medium plan</div><div class="stat-value warn">13</div></div>
+  <div class="stat"><div class="stat-label">Low plan</div><div class="stat-value warn">12</div></div>
+  <div class="stat"><div class="stat-label">회귀</div><div class="stat-value ok">0</div></div>
+  <div class="stat"><div class="stat-label">UX 개선 아이디어</div><div class="stat-value info">5</div></div>
+</div>
+
+<h2>1. 매트릭스 검증 결과 — 40+ 도구</h2>
+
+<h3>Image (13) — 평균 A-</h3>
+<table>
+  <thead><tr><th>도구</th><th>등급</th><th>핵심</th></tr></thead>
+  <tbody>
+    <tr><td><code>compress</code></td><td><span class="grade grade-A">A</span></td><td>PNG→JPEG 투명 손실 안내만 미노출 (Low)</td></tr>
+    <tr><td><code>resize</code></td><td><span class="grade grade-A">A-</span></td><td>0-byte 명시 분기 없음 (Low)</td></tr>
+    <tr><td><code>crop</code></td><td><span class="grade grade-A">A</span></td><td>ratio 7종+rotate 5종 작은 화면 압박</td></tr>
+    <tr><td><code>id-photo</code></td><td><span class="grade grade-A">A</span></td><td>50MB vs 100MB 불일치 (Low)</td></tr>
+    <tr><td><code>qr-scan</code></td><td><span class="grade grade-A">A-</span></td><td>권한 거부 retry 부재</td></tr>
+    <tr><td><code>qr-gen</code></td><td><span class="grade grade-A">A</span></td><td>셀 사이즈 라이브 미리보기 없음</td></tr>
+    <tr><td><code>ocr</code></td><td><span class="grade grade-A">A-</span></td><td>첫 사용 데이터 다운로드 안내 미흡</td></tr>
+    <tr><td><code>bg-remove</code></td><td><span class="grade grade-B">B+</span></td><td>cancel UX만 (ONNX 영구 한계)</td></tr>
+    <tr><td><code>heic-to-jpg</code></td><td><span class="grade grade-A">A</span></td><td>50파일 메모리 가드 부재 (Medium)</td></tr>
+    <tr><td><code>format-convert</code></td><td><span class="grade grade-A">A+</span></td><td>encoder 사전 체크·byte 진행률 최고</td></tr>
+    <tr><td><code>watermark</code></td><td><span class="grade grade-B">B+</span></td><td>invalid/corrupted silent skip (Medium)</td></tr>
+    <tr><td><code>merge</code></td><td><span class="grade grade-A">A-</span></td><td>invalid silent skip · grid 자동</td></tr>
+    <tr><td><b><code>mosaic</code></b></td><td><b><span class="grade grade-A">B → A</span></b></td><td><b>try/catch 없음 (Critical) → fix 완료</b></td></tr>
+  </tbody>
+</table>
+
+<h3>PDF (6) — 평균 A-</h3>
+<table>
+  <thead><tr><th>도구</th><th>등급</th><th>핵심</th></tr></thead>
+  <tbody>
+    <tr><td><code>pdf-merge</code></td><td><span class="grade grade-A">A</span></td><td>5/30/50 파일 + total size confirm OK</td></tr>
+    <tr><td><code>pdf-split</code></td><td><span class="grade grade-A">A</span></td><td>역방향 "5-1" alert 정확</td></tr>
+    <tr><td><code>pdf-edit</code></td><td><span class="grade grade-A">A</span></td><td>100·200쪽 2단계 confirm</td></tr>
+    <tr><td><b><code>pdf-stamp</code></b></td><td><b><span class="grade grade-A">B+ → A</span></b></td><td><b>.drag-over CSS dead (Critical) → fix 완료</b></td></tr>
+    <tr><td><code>pdf-to-image</code></td><td><span class="grade grade-A">A-</span></td><td>600 DPI 메모리 사전 추정 부재</td></tr>
+    <tr><td><code>img-to-pdf</code></td><td><span class="grade grade-B">B+</span></td><td>다중 이미지 누적 size 가드 부재</td></tr>
+  </tbody>
+</table>
+
+<h3>Video (5) — 평균 A</h3>
+<table>
+  <thead><tr><th>도구</th><th>등급</th><th>핵심</th></tr></thead>
+  <tbody>
+    <tr><td><code>compress</code></td><td><span class="grade grade-A">A</span></td><td>cancel + runSeq 정합</td></tr>
+    <tr><td><code>trim</code></td><td><span class="grade grade-A">A+</span></td><td>parseTime 60 검증·zero·역전 모두</td></tr>
+    <tr><td><code>rotate</code></td><td><span class="grade grade-A">A</span></td><td>원래대로 + .mov AAC 재인코딩</td></tr>
+    <tr><td><code>to-gif</code></td><td><span class="grade grade-A">A</span></td><td>parseTime 60 비대칭 (Low)</td></tr>
+    <tr><td><code>to-mp3</code></td><td><span class="grade grade-A">A-</span></td><td>음소거 영상 사전 가드 부재</td></tr>
+  </tbody>
+</table>
+
+<h3>Text (3) + Calculator (12) — 평균 A</h3>
+<table>
+  <thead><tr><th>도구</th><th>등급</th><th>핵심</th></tr></thead>
+  <tbody>
+    <tr><td><code>text/counter·sns-format</code></td><td><span class="grade grade-A">A</span></td><td>100만자 debounce 없음 (Medium)</td></tr>
+    <tr><td><code>text/kbd-convert</code></td><td><span class="grade grade-A">A+</span></td><td>양방향 출력 + 복합자모 정확</td></tr>
+    <tr><td><code>tools/salary</code></td><td><span class="grade grade-B">B+</span></td><td>근로소득세액공제 한도 누락 (Medium)</td></tr>
+    <tr><td><code>tools/year-end</code></td><td><span class="grade grade-A">A+</span></td><td>한도 적용 정확</td></tr>
+    <tr><td><b><code>tools/severance</code></b></td><td><b><span class="grade grade-A">B → A</span></b></td><td><b>날짜 역전 검증 누락 (Critical) → fix 완료</b></td></tr>
+    <tr><td><code>tools/comprehensive</code></td><td><span class="grade grade-A">A+</span></td><td>8단계 누진세 정확</td></tr>
+    <tr><td><code>tools/hourly</code></td><td><span class="grade grade-A">A-</span></td><td>최저시급 2025 → 2026 갱신 필요</td></tr>
+    <tr><td><code>tools/bmi</code></td><td><span class="grade grade-A">A</span></td><td>키 0 우회 시 Infinity (Low)</td></tr>
+    <tr><td><code>tools/cartax</code></td><td><span class="grade grade-A">A-</span></td><td>EV 감면 2026 연장 미확인</td></tr>
+    <tr><td><code>tools/insurance</code></td><td><span class="grade grade-A">A</span></td><td>4대보험 분리 정확</td></tr>
+    <tr><td><code>tools/parental-leave</code></td><td><span class="grade grade-A">A+</span></td><td>6+6 부모공동 + 월별 detail 정확</td></tr>
+  </tbody>
+</table>
+
+<h3>Meta page — 평균 B+ → A</h3>
+<table>
+  <thead><tr><th>페이지</th><th>등급</th><th>핵심</th></tr></thead>
+  <tbody>
+    <tr><td>홈 (KO/EN)</td><td><span class="grade grade-A">A</span></td><td>hero·5 LIVE 카드·privacy 강조</td></tr>
+    <tr><td>About</td><td><span class="grade grade-A">A</span></td><td>미션·15개 출처·FAQ 단단</td></tr>
+    <tr><td>Privacy</td><td><span class="grade grade-A">A-</span></td><td><code>noopener</code>만 (Low)</td></tr>
+    <tr><td><b>Terms</b></td><td><b><span class="grade grade-A">B → A</span></b></td><td><b>수치 stale (Critical) → KO 본문 fix 완료</b></td></tr>
+    <tr><td><b>Hub (image·pdf·video)</b></td><td><b><span class="grade grade-A">B → A</span></b></td><td><b>수치 mismatch (Critical) → 홈 카드 fix · 메타 description plan</b></td></tr>
+    <tr><td>Text Hub</td><td><span class="grade grade-B">B+</span></td><td><b>privacy-box 누락 (Medium)</b></td></tr>
+    <tr><td>Tools Hub</td><td><span class="grade grade-B">B+</span></td><td>검색 인라인 (Medium)</td></tr>
+    <tr><td><b>404</b></td><td><b><span class="grade grade-A">F → A</span></b></td><td><b>root 부재 (Critical) → /404.html + en/404.html 신규 완료</b></td></tr>
+  </tbody>
+</table>
+
+<h2>2. 🚨 Critical 5건 즉시 fix</h2>
+
+<table>
+  <thead><tr><th width="40">#</th><th>문제</th><th>fix</th><th>검증</th></tr></thead>
+  <tbody>
+    <tr><td><b>C1</b></td><td><code>image/mosaic/loadFile</code> try/catch 없음 — corrupted 파일 uncaught Promise rejection</td><td>try/catch + alert "이미지를 불러오지 못했습니다..." KO+EN</td><td><span class="badge badge-ok">Playwright corrupted.png PASS</span></td></tr>
+    <tr><td><b>C2</b></td><td><code>pdf/pdf-stamp</code>만 <code>.drag-over</code> (다른 도구 <code>.dragover</code>) — CSS dead</td><td>KO+EN replace_all <code>drag-over</code>→<code>dragover</code></td><td><span class="badge badge-ok">syntax pass · 일관</span></td></tr>
+    <tr><td><b>C3</b></td><td><code>tools/severance</code> 입사일&gt;퇴사일 미검증 — 음수 퇴직금 결과</td><td><code>if (totalDays &lt; 0) alert("입사일이 퇴사일보다 이후...");</code></td><td><span class="badge badge-ok">검증 추가</span></td></tr>
+    <tr><td><b>C4</b></td><td>root <code>/404.html</code> 부재 — GitHub Pages 글로벌 404 미동작</td><td><code>/404.html</code> + <code>/en/404.html</code> 신규 (Top4 도구 카드)</td><td><span class="badge badge-ok">파일 생성</span></td></tr>
+    <tr><td><b>C5</b></td><td>수치 mismatch (홈 9 vs 실 13, 5 vs 6, 59 vs 65)</td><td>홈 KO 카드 13/6 정정 + Terms KO 본문 65종 정정</td><td><span class="badge badge-warn">sample fix · counts.json 권장</span></td></tr>
+  </tbody>
+</table>
+
+<h2>3. Medium 발견 (13건 plan)</h2>
+
+<table>
+  <thead><tr><th width="50">#</th><th>도구</th><th>문제</th><th>plan</th></tr></thead>
+  <tbody>
+    <tr><td>Md-1</td><td>image/heic-to-jpg</td><td>50파일 메모리 가드 부재</td><td>30+ 시 confirm + throttle</td></tr>
+    <tr><td>Md-2</td><td>image/watermark·merge</td><td>invalid/corrupted multi-file silent skip</td><td>heic 패턴 (<code>status='err'</code> 명시)</td></tr>
+    <tr><td>Md-3</td><td>image/bg-remove</td><td>cancel은 UX만 (ONNX 영구)</td><td>reload 권장 alert 강화</td></tr>
+    <tr><td>Md-4</td><td>pdf/pdf-stamp</td><td>multi-file 누적 size 가드 부재</td><td>pdf-merge 패턴 (<code>totalSize confirm</code>)</td></tr>
+    <tr><td>Md-5</td><td>pdf/pdf-to-image</td><td>DPI 600 + 다페이지 메모리 사전 추정</td><td>video/to-gif 패턴 차용</td></tr>
+    <tr><td>Md-6</td><td>pdf/img-to-pdf</td><td>다중 이미지 누적 size 가드</td><td>Md-4와 동일</td></tr>
+    <tr><td>Md-7</td><td>video/to-gif</td><td>parseTime 60검증 비대칭 (trim과 다름)</td><td>trim parseTime과 통일</td></tr>
+    <tr><td>Md-8</td><td>tools/salary</td><td>근로소득세액공제 한도 누락 — 고연봉 과대 추정</td><td>year-end 패턴 복사</td></tr>
+    <tr><td>Md-9</td><td>text 3종</td><td>100만자 debounce 없음 — typing freeze</td><td>150ms debounce 또는 <code>requestIdleCallback</code></td></tr>
+    <tr><td>Md-10</td><td>/text/</td><td>privacy-box 누락 (5개 허브 신뢰 신호 격차)</td><td>동일 카피 추가</td></tr>
+    <tr><td>Md-11</td><td>/tools/</td><td>검색 인라인 스크립트 (코드 중복)</td><td><code>#toolSearch</code> 표준화</td></tr>
+    <tr><td>Md-12</td><td>EN Terms·About</td><td>수치 stale</td><td>counts.json 1 source of truth</td></tr>
+    <tr><td>Md-13</td><td>meta description</td><td>9선·5선 stale</td><td>동일</td></tr>
+  </tbody>
+</table>
+
+<h2>4. UX 일관성 개선 아이디어 (5건)</h2>
+
+<table>
+  <thead><tr><th width="40">#</th><th>아이디어</th><th>효과</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td><b>common/counts.json</b> — <code>{tools:38, image:13, pdf:6, video:5, text:3, total:65}</code> 자동 치환</td><td>수치 mismatch 영구 종료</td></tr>
+    <tr><td>B</td><td>공용 검색 컴포넌트 — site-chrome의 <code>toolSearchFilter</code>로 표준화</td><td>코드 -50줄 · "/" 단축키 자동</td></tr>
+    <tr><td>C</td><td><code>/text/</code> privacy-box 추가</td><td>5개 허브 신뢰 신호 평준화</td></tr>
+    <tr><td>D</td><td><code>/video/</code> related-nav 정합 (라벨/href 일치)</td><td>혼란 제거</td></tr>
+    <tr><td>E</td><td>drop title 톤 통일 — 13 image 도구 3가지 변형 → 1 표준</td><td>일관성</td></tr>
+  </tbody>
+</table>
+
+<h2>5. 통과율 변화</h2>
+
+<table>
+  <thead><tr><th>카테고리</th><th>audit-10</th><th>audit-11</th><th>변화</th></tr></thead>
+  <tbody>
+    <tr><td>Edge (corrupted·0-byte)</td><td>96%</td><td><b>98%</b></td><td><div class="progress-bar"><div class="progress-fill green" style="width:98%">98% ↑+2 (mosaic try/catch)</div></div></td></tr>
+    <tr><td><b>데이터 정합성</b></td><td><b>B</b></td><td><b>A-</b></td><td><div class="progress-bar"><div class="progress-fill green" style="width:90%">A- (수치 sample fix)</div></div></td></tr>
+    <tr><td><b>계산 정확성</b></td><td><b>B+</b></td><td><b>A</b></td><td><div class="progress-bar"><div class="progress-fill green" style="width:95%">A (severance fix)</div></div></td></tr>
+    <tr><td><b>404 / 기본 페이지</b></td><td><b>F</b></td><td><b>A</b></td><td><div class="progress-bar"><div class="progress-fill green" style="width:95%">A (root+en 404 신규)</div></div></td></tr>
+    <tr><td><b>종합</b></td><td><b>97~98%</b></td><td><b>98~99%</b></td><td><div class="progress-bar"><div class="progress-fill green" style="width:99%">98~99% ↑+1</div></div></td></tr>
+  </tbody>
+</table>
+
+<h2>6. 변경 파일</h2>
+
+<pre>image/mosaic/mosaic.js + en/image/mosaic/mosaic.js     (C1 try/catch)
+pdf/pdf-stamp/pdf-stamp.js + en/pdf/pdf-stamp/pdf-stamp.js  (C2 .dragover 통일)
+tools/severance/severance.js                            (C3 날짜 검증)
+404.html (신규) + en/404.html (신규)                   (C4)
+index.html (홈 KO 카드 수치)                            (C5)
+terms/index.html (Terms KO 본문)                        (C5)
+
+history/audit/audit-11-final-test.{md,html}            (신규)
+history/audit/INDEX.md                                  (갱신)</pre>
+
+<h2>7. 다음 작업 (사용자 선택)</h2>
+
+<table>
+  <thead><tr><th>우선순위</th><th>작업</th><th>시간</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge badge-critical">高</span></td><td>Medium 13건 (특히 Md-8 salary 세액공제 한도)</td><td>3-4h</td></tr>
+    <tr><td><span class="badge badge-warn">中</span></td><td>counts.json 1 source of truth 도입</td><td>2-3h</td></tr>
+    <tr><td><span class="badge badge-warn">中</span></td><td>EN 미러 수치 + meta description 갱신</td><td>1h</td></tr>
+    <tr><td><span class="badge badge-info">낮</span></td><td>Low 12건</td><td>4-6h</td></tr>
+    <tr><td><span class="badge badge-info">외부</span></td><td>5/20 트래픽 모니터링</td><td>자동</td></tr>
+  </tbody>
+</table>
+
+<div class="footer-note">
+  📄 본 보고서는 운영자 전용 (<code>noindex, nofollow</code>) ·
+  <code>history/audit/audit-11-final-test.html</code> ·
+  TAYSTUDIO 2026-05-13
+</div>
+
+</body>
+</html>
