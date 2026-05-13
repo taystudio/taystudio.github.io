@@ -22,6 +22,9 @@ const mergedCount = document.getElementById('mergedCount');
 const mergedPages = document.getElementById('mergedPages');
 const mergedSize = document.getElementById('mergedSize');
 const downloadBtn = document.getElementById('downloadBtn');
+const progressWrap = document.getElementById('progressWrap');
+const progressFill = document.getElementById('progressFill');
+const progressText = document.getElementById('progressText');
 
 let files = []; // { id, file }
 let nextId = 1;
@@ -106,10 +109,15 @@ async function merge() {
   mergeBtn.disabled = true;
   const orig = mergeBtn.textContent;
   mergeBtn.textContent = '처리 중...';
+  progressWrap.hidden = false;
+  progressFill.style.width = '0%';
+  progressWrap.setAttribute('aria-valuenow', '0');
+  progressText.textContent = `0 / ${files.length}`;
   try {
     const { PDFDocument } = window.PDFLib;
     const out = await PDFDocument.create();
     let pageTotal = 0;
+    let done = 0;
     for (const entry of files) {
       const bytes = await entry.file.arrayBuffer();
       const src = await PDFDocument.load(bytes, { ignoreEncryption: true });
@@ -117,6 +125,11 @@ async function merge() {
       const pages = await out.copyPages(src, indices);
       pages.forEach((p) => out.addPage(p));
       pageTotal += indices.length;
+      done++;
+      const pct = Math.round(done / files.length * 100);
+      progressFill.style.width = pct + '%';
+      progressWrap.setAttribute('aria-valuenow', String(pct));
+      progressText.textContent = `${done} / ${files.length}`;
     }
     const merged = await out.save();
     if (resultUrl) URL.revokeObjectURL(resultUrl);
@@ -134,6 +147,7 @@ async function merge() {
     alert('합치기 실패: ' + (e && e.message ? e.message : '알 수 없는 오류') + '\n암호 걸린 PDF가 포함된 경우 잠금을 먼저 해제하세요.');
   } finally {
     mergeBtn.textContent = orig;
+    setTimeout(() => { progressWrap.hidden = true; }, 600);
     updateButtonState();
   }
 }

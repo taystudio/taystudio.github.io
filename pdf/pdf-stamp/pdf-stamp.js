@@ -234,6 +234,13 @@
   applyBtn.addEventListener('click', async () => {
     if (!state.files.length) return;
     if (!window.PDFLib) { alert('pdf-lib 로딩 중. 잠시 후 다시 시도하세요.'); return; }
+    // 누적 size 가드 — 100MB 초과 시 confirm (pdf-merge Md-4 패턴)
+    const totalSize = state.files.reduce((s, f) => s + f.file.size, 0);
+    const MAX_TOTAL = 100 * 1024 * 1024;
+    if (totalSize > MAX_TOTAL) {
+      const mb = Math.round(totalSize / 1024 / 1024);
+      if (!confirm(`총 ${mb}MB — 권장 한도 100MB 초과. 메모리 부족·실패 가능. 계속하시겠습니까?`)) return;
+    }
     applyBtn.disabled = true;
     clearBtn.disabled = true;
     state.results.forEach(r => URL.revokeObjectURL(r.url));

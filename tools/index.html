@@ -136,8 +136,9 @@
       <p class="subtitle">필요한 도구를 빠르게 — 가입·설치 없이 즉시 사용</p>
       <div class="tool-search">
         <span class="ts-icon" aria-hidden="true">🔍</span>
-        <input type="search" id="search" placeholder="계산기 이름으로 검색 (예: 양도세, 연봉, 만 나이)" aria-label="계산기 검색" autocomplete="off" spellcheck="false">
+        <input type="search" id="toolSearch" placeholder="계산기 이름으로 검색 (예: 양도세, 연봉, 만 나이)" aria-label="계산기 검색" autocomplete="off" spellcheck="false">
         <button type="button" class="ts-clear" aria-label="지우기">✕</button>
+        <span class="ts-hint" aria-hidden="true">/</span>
       </div>
       <p class="ts-privacy-hint">입력값은 브라우저 안에서만 처리되며 서버로 전송되지 않습니다</p>
     </section>
@@ -193,7 +194,7 @@
       <a class="pill" href="#cat-life">🗓️ 생활<span class="count">2</span></a>
     </nav>
 
-    <div id="empty" class="tool-no-result" style="display:none">
+    <div class="tool-no-result" id="toolNoResult" hidden>
       <strong>검색 결과 없음</strong> — 다른 키워드로 시도해보세요.
     </div>
 
@@ -350,78 +351,14 @@
   </main>
 
   <script>
-    (function() {
-      const search = document.getElementById('search');
-      const empty = document.getElementById('empty');
-      const cards = document.querySelectorAll('.category-section .tool-card');
-      const sections = document.querySelectorAll('.category-section');
-      const featured = document.querySelector('.featured-section');
-      const season = document.querySelector('.season-banner');
-      const pills = document.querySelector('.category-pills');
-      const wrap = search.closest('.tool-search');
-      const clearBtn = wrap && wrap.querySelector('.ts-clear');
-
-      function normalize(s) { return (s || '').toLowerCase().replace(/\s+/g, ''); }
-
-      search.addEventListener('input', () => {
-        const q = normalize(search.value);
-        let total = 0;
-        if (wrap) wrap.classList.toggle('has-value', search.value.length > 0);
-
-        if (!q) {
-          cards.forEach(c => c.classList.remove('hidden'));
-          sections.forEach(s => s.classList.remove('hidden'));
-          empty.style.display = 'none';
-          if (featured) featured.style.display = '';
-          if (season) season.style.display = '';
-          if (pills) pills.style.display = '';
-          return;
-        }
-
-        // 검색 모드: featured/season/pills 숨김
-        if (featured) featured.style.display = 'none';
-        if (season) season.style.display = 'none';
-        if (pills) pills.style.display = 'none';
-
-        sections.forEach(section => {
-          let visibleInSection = 0;
-          section.querySelectorAll('.tool-card').forEach(card => {
-            const text = normalize(
-              card.querySelector('.name').textContent +
-              ' ' + (card.querySelector('.desc')?.textContent || '') +
-              ' ' + (card.dataset.keywords || '')
-            );
-            if (text.includes(q)) {
-              card.classList.remove('hidden');
-              visibleInSection++;
-              total++;
-            } else {
-              card.classList.add('hidden');
-            }
-          });
-          section.classList.toggle('hidden', visibleInSection === 0);
-        });
-
-        empty.style.display = total === 0 ? 'block' : 'none';
+    // 카테고리 핀 부드러운 스크롤 (검색 필터는 common/site-chrome.js 공용)
+    document.querySelectorAll('.category-pills a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
-
-      if (clearBtn) {
-        clearBtn.addEventListener('click', () => {
-          search.value = '';
-          search.dispatchEvent(new Event('input'));
-          search.focus();
-        });
-      }
-
-      // 부드러운 스크롤
-      document.querySelectorAll('.category-pills a').forEach(a => {
-        a.addEventListener('click', (e) => {
-          e.preventDefault();
-          const target = document.querySelector(a.getAttribute('href'));
-          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-      });
-    })();
+    });
   </script>
   <site-footer></site-footer>
 </body>

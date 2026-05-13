@@ -106,6 +106,10 @@ function loadFile(file) {
     alert('Please choose an image file.');
     return;
   }
+  if (file.size === 0) {
+    alert('Empty file (0 bytes). Please try a different image.');
+    return;
+  }
   if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'Image')) return;
   currentFile = file;
   dropTitle.textContent = file.name + ' (' + fmtBytes(file.size) + ')';

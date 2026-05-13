@@ -95,7 +95,15 @@ function format() {
   document.getElementById("tagCount").textContent = `해시태그 ${tags.length}개`;
 }
 
-document.getElementById("input").addEventListener("input", format);
+let _debounceTimer;
+function debounced(fn, ms = 150) {
+  return function () {
+    clearTimeout(_debounceTimer);
+    _debounceTimer = setTimeout(() => fn.apply(this, arguments), ms);
+  };
+}
+
+document.getElementById("input").addEventListener("input", debounced(format));
 document.getElementById("style").addEventListener("change", format);
 document.getElementById("optTags").addEventListener("change", format);
 document.getElementById("optLineBreaks").addEventListener("change", format);

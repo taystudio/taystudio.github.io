@@ -234,6 +234,13 @@
   applyBtn.addEventListener('click', async () => {
     if (!state.files.length) return;
     if (!window.PDFLib) { alert('pdf-lib is loading. Please try again in a moment.'); return; }
+    // Cumulative size guard — confirm if total > 100MB (pdf-merge Md-4 pattern)
+    const totalSize = state.files.reduce((s, f) => s + f.file.size, 0);
+    const MAX_TOTAL = 100 * 1024 * 1024;
+    if (totalSize > MAX_TOTAL) {
+      const mb = Math.round(totalSize / 1024 / 1024);
+      if (!confirm(`Total ${mb}MB — exceeds recommended 100MB limit. May run out of memory or fail. Continue?`)) return;
+    }
     applyBtn.disabled = true;
     clearBtn.disabled = true;
     state.results.forEach(r => URL.revokeObjectURL(r.url));

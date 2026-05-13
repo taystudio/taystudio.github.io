@@ -152,6 +152,7 @@ function cancelRun() {
   cancelBtn.hidden = true;
   progressText.textContent = '취소됨 — 백그라운드 처리는 끝까지 진행되지만 결과는 무시됩니다. 메모리 누적 시 페이지 새로고침 권장.';
   removeBtn.disabled = !currentFile;
+  alert('취소됨 — 백그라운드 처리는 끝까지 진행됩니다. 큰 파일이면 페이지 새로고침을 권장합니다.');
 }
 
 function clearAll() {
@@ -159,7 +160,7 @@ function clearAll() {
   if (origUrl) { URL.revokeObjectURL(origUrl); origUrl = null; }
   if (resultUrl) { URL.revokeObjectURL(resultUrl); resultUrl = null; }
   fileInput.value = '';
-  dropTitle.textContent = '사진을 드래그하거나 클릭해서 선택';
+  dropTitle.textContent = '이미지를 드래그하거나 클릭해서 선택';
   origImg.removeAttribute('src');
   resultImg.removeAttribute('src');
   removeBtn.disabled = true;

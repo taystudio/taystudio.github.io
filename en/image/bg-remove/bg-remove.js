@@ -151,6 +151,7 @@ function cancelRun() {
   cancelBtn.hidden = true;
   progressText.textContent = 'Cancelled — background task finishes silently, result ignored. Reload the page if memory builds up.';
   removeBtn.disabled = !currentFile;
+  alert('Cancelled — the background task keeps running to completion. Reloading the page is recommended for large files.');
 }
 
 function clearAll() {
@@ -158,7 +159,7 @@ function clearAll() {
   if (origUrl) { URL.revokeObjectURL(origUrl); origUrl = null; }
   if (resultUrl) { URL.revokeObjectURL(resultUrl); resultUrl = null; }
   fileInput.value = '';
-  dropTitle.textContent = 'Drag a photo here, or click to choose';
+  dropTitle.textContent = 'Drag an image here, or click to choose';
   origImg.removeAttribute('src');
   resultImg.removeAttribute('src');
   removeBtn.disabled = true;

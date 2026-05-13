@@ -161,6 +161,13 @@
     .thumb-actions button[data-act="del"]:hover, .thumb-actions button[data-act="restore"]:hover { color:#dc2626; border-color:#dc2626; }
     .loading { text-align:center; padding:30px; color:var(--muted); font-size:14px; }
     .loading::after { content:''; display:inline-block; width:14px; height:14px; border:2px solid var(--border); border-top-color:var(--primary); border-radius:50%; margin-left:8px; animation:spin .8s linear infinite; vertical-align:-3px; }
+    .progress-wrap { margin-top:14px; }
+    .progress-wrap .bar { height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+    .progress-wrap .fill { height:100%; background:var(--primary); transition:width .15s; }
+    .progress-wrap .text { font-size:12px; color:var(--muted); margin-top:4px; text-align:center; }
+    .progress-wrap .cancel-row { text-align:center; margin-top:8px; }
+    .progress-wrap .cancel-row button { padding:5px 14px; font-size:12px; background:transparent; color:var(--muted); border:1px solid var(--border); border-radius:5px; cursor:pointer; }
+    .progress-wrap .cancel-row button:hover { color:#dc2626; border-color:#dc2626; }
     @keyframes spin { to { transform:rotate(360deg); } }
   </style>
 <script src="/common/site-chrome.js"></script>
@@ -192,6 +199,12 @@
       </div>
 
       <div id="loading" class="loading" hidden>썸네일 생성 중</div>
+
+      <div class="progress-wrap" id="progressWrap" hidden role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="썸네일 렌더 진행률">
+        <div class="bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
+        <div class="text" id="progressText" aria-live="polite">0 / 0</div>
+        <div class="cancel-row"><button type="button" id="cancelBtn">취소</button></div>
+      </div>
 
       <div id="thumbsGrid" class="thumbs-grid" hidden></div>
 

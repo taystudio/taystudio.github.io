@@ -381,7 +381,7 @@ function clearAll() {
   actionBar.hidden = true;
   cropInfo.hidden = true;
   result.hidden = true;
-  dropTitle.textContent = '사진 1장을 드래그하거나 클릭해서 선택';
+  dropTitle.textContent = '이미지를 드래그하거나 클릭해서 선택';
 }
 
 fileInput.addEventListener('change', (e) => {

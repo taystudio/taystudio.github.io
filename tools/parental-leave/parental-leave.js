@@ -27,6 +27,8 @@ document.getElementById("form").addEventListener("submit", (e) => {
   const months = parseInt(document.getElementById("months").value, 10);
   const dual = document.getElementById("dual").checked;
   if (!monthly || !months) { alert("값을 입력하세요."); return; }
+  if (monthly <= 0 || months <= 0) { alert("통상임금과 개월수는 0보다 커야 합니다."); return; }
+  if (months > 12) { alert("육아휴직 급여 산정 기간은 최대 12개월입니다."); return; }
 
   let detail = [];
   let total = 0;

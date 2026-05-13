@@ -151,6 +151,14 @@ async function convert() {
   const scale = dpi / 72;
   const quality = format === 'jpeg' ? Math.max(1, Math.min(100, parseInt(qualityIn.value, 10) || 90)) / 100 : undefined;
 
+  // 메모리 사전 가드 — DPI×페이지 누적 시 RGBA 캔버스 OOM. 단순 fallback:
+  // DPI 300 초과 + 페이지 30장 초과 시 사용자 confirm
+  if (dpi > 300 && indices.length > 30) {
+    const msg = `DPI ${dpi} × ${indices.length}쪽 — 메모리 부족으로 변환 실패 가능성이 높습니다.\n` +
+      `DPI를 낮추거나(150·300 권장) 페이지 범위를 줄여주세요.\n\n계속하시겠습니까?`;
+    if (!confirm(msg)) return;
+  }
+
   convertBtn.disabled = true;
   const origLabel = convertBtn.textContent;
   convertBtn.textContent = '변환 중...';

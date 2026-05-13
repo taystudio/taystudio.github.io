@@ -26,6 +26,9 @@ document.getElementById("form").addEventListener("submit", (e) => {
   const height = parseFloat(document.getElementById("height").value);
   const weight = parseFloat(document.getElementById("weight").value);
   if (!height || !weight) { alert("값을 입력하세요."); return; }
+  if (height <= 0 || weight <= 0) { alert("키와 체중은 0보다 커야 합니다."); return; }
+  if (height < 50 || height > 250) { alert("키는 50~250cm 사이로 입력하세요."); return; }
+  if (weight < 10 || weight > 500) { alert("체중은 10~500kg 사이로 입력하세요."); return; }
 
   const m = height / 100;
   const bmi = weight / (m * m);

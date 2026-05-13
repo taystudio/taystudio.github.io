@@ -133,7 +133,7 @@ function loadFile(file) {
     alert('Please choose an image file.');
     return;
   }
-  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 50, 'Image')) return;
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'Image')) return;
   originalFile = file;
   const url = URL.createObjectURL(file);
   const img = new Image();
@@ -333,7 +333,7 @@ function clearAll() {
   infoRow.hidden = true;
   result.hidden = true;
   customMmRow.classList.remove('show');
-  dropTitle.textContent = 'Drag a photo here, or click to choose';
+  dropTitle.textContent = 'Drag an image here, or click to choose';
   // Reset to first preset (US Passport)
   presetButtons.querySelectorAll('.preset-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
   widthMm = 51; heightMm = 51;

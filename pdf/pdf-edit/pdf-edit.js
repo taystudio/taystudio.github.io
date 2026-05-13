@@ -25,6 +25,10 @@ const metaName = document.getElementById('metaName');
 const metaPages = document.getElementById('metaPages');
 const metaActive = document.getElementById('metaActive');
 const loading = document.getElementById('loading');
+const progressWrap = document.getElementById('progressWrap');
+const progressFill = document.getElementById('progressFill');
+const progressText = document.getElementById('progressText');
+const cancelBtn = document.getElementById('cancelBtn');
 const thumbsGrid = document.getElementById('thumbsGrid');
 const actionBar = document.getElementById('actionBar');
 const saveBtn = document.getElementById('saveBtn');
@@ -40,6 +44,7 @@ let originalBytes = null; // ArrayBuffer (저장 시 재사용)
 let pages = []; // { origIndex, rotation, deleted, thumb }
 let resultUrl = null;
 let dragSrcIdx = null;
+let cancelled = false; // 썸네일 렌더 중간 취소 플래그 (200쪽+ 케이스 L6)
 
 function fmtBytes(n) {
   if (n < 1024) return n + ' B';
@@ -170,6 +175,8 @@ async function loadPdf(file) {
   thumbsGrid.hidden = true;
   actionBar.hidden = true;
   result.hidden = true;
+  progressWrap.hidden = true;
+  cancelled = false;
   pages = [];
 
   try {
@@ -185,7 +192,16 @@ async function loadPdf(file) {
       const msg = `이 PDF는 ${np}쪽입니다. 썸네일 렌더에 ${Math.ceil(np * 0.5)}초 이상 소요될 수 있습니다.\n계속하시겠습니까?`;
       if (!confirm(msg)) { clearAll(); loading.hidden = true; return; }
     }
+    // 진행 바: 50쪽 이상이면 노출 (L5 + L6 cancel)
+    if (np >= 50) {
+      loading.hidden = true;
+      progressWrap.hidden = false;
+      progressFill.style.width = '0%';
+      progressWrap.setAttribute('aria-valuenow', '0');
+      progressText.textContent = `0 / ${np}`;
+    }
     for (let i = 0; i < np; i++) {
+      if (cancelled) break; // L6: 사용자 취소 → 루프 즉시 중단
       const page = await pdf.getPage(i + 1);
       const baseViewport = page.getViewport({ scale: 1 });
       const targetW = 150;
@@ -201,6 +217,18 @@ async function loadPdf(file) {
         deleted: false,
         thumb: canvas.toDataURL('image/jpeg', 0.7),
       });
+      if (np >= 50) {
+        const pct = Math.round((i + 1) / np * 100);
+        progressFill.style.width = pct + '%';
+        progressWrap.setAttribute('aria-valuenow', String(pct));
+        progressText.textContent = `${i + 1} / ${np}`;
+      }
+    }
+    if (cancelled) {
+      // 취소 시: 부분 렌더된 페이지는 버리고 초기화
+      clearAll();
+      progressWrap.hidden = true;
+      return;
     }
   } catch (e) {
     alert('PDF 로딩 실패: ' + (e && e.message ? e.message : '알 수 없는 오류') + '\n암호 걸린 PDF는 잠금을 먼저 해제하세요.');
@@ -208,6 +236,7 @@ async function loadPdf(file) {
     return;
   } finally {
     loading.hidden = true;
+    progressWrap.hidden = true;
   }
 
   thumbsGrid.hidden = false;
@@ -270,6 +299,7 @@ function resetEdits() {
 }
 
 function clearAll() {
+  cancelled = true; // 진행 중이면 루프 중단 신호
   originalFile = null;
   originalBytes = null;
   pages = [];
@@ -280,6 +310,7 @@ function clearAll() {
   actionBar.hidden = true;
   pdfMeta.hidden = true;
   result.hidden = true;
+  progressWrap.hidden = true;
   dropTitle.textContent = 'PDF 파일 1개를 드래그하거나 클릭해서 선택';
 }
 
@@ -303,3 +334,4 @@ dropZone.addEventListener('keydown', (e) => {
 saveBtn.addEventListener('click', save);
 resetBtn.addEventListener('click', resetEdits);
 clearBtn.addEventListener('click', clearAll);
+cancelBtn.addEventListener('click', () => { cancelled = true; });

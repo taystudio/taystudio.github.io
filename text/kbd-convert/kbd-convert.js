@@ -216,7 +216,15 @@ function update() {
   document.getElementById("toEng").value = korToEng(input);
 }
 
-document.getElementById("input").addEventListener("input", update);
+let _debounceTimer;
+function debounced(fn, ms = 150) {
+  return function () {
+    clearTimeout(_debounceTimer);
+    _debounceTimer = setTimeout(() => fn.apply(this, arguments), ms);
+  };
+}
+
+document.getElementById("input").addEventListener("input", debounced(update));
 
 document.getElementById("clearBtn").addEventListener("click", () => {
   document.getElementById("input").value = "";

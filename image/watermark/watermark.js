@@ -109,14 +109,16 @@
   });
 
   async function addFiles(files) {
+    let skipped = 0;
     for (const file of Array.from(files)) {
-      if (!file.type.startsWith('image/')) continue;
+      if (!file.type.startsWith('image/')) { skipped++; continue; }
       if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, '이미지')) continue;
       try {
         const bitmap = await createImageBitmap(file);
         state.files.push({ id: uid(), file, bitmap });
-      } catch (e) {}
+      } catch (e) { skipped++; }
     }
+    if (skipped > 0) alert('일부 파일은 이미지가 아니거나 손상되어 제외됐습니다.');
     refreshFileList();
     toggleUI();
     drawPreview();

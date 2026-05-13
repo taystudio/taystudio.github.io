@@ -95,7 +95,7 @@ function clearAll() {
   fileInput.value = '';
   widthIn.value = '';
   heightIn.value = '';
-  dropTitle.textContent = '이미지 파일을 드래그하거나 클릭해서 선택';
+  dropTitle.textContent = '이미지를 드래그하거나 클릭해서 선택';
   resizeBtn.disabled = true;
   result.hidden = true;
   previewImg.removeAttribute('src');
@@ -104,6 +104,10 @@ function clearAll() {
 function loadFile(file) {
   if (!file || !file.type.startsWith('image/')) {
     alert('이미지 파일만 선택해주세요.');
+    return;
+  }
+  if (file.size === 0) {
+    alert('빈 파일(0바이트)입니다. 다른 이미지로 시도해주세요.');
     return;
   }
   if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, '이미지')) return;

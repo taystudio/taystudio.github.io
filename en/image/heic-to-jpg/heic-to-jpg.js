@@ -106,6 +106,9 @@ async function convert() {
     alert('The HEIC library is still loading. Try again in a moment.');
     return;
   }
+  if (files.length > 20) {
+    if (!confirm('Batch converting ' + files.length + ' files — risk of out-of-memory or browser freeze. Continue?')) return;
+  }
   const format = formatSel.value;
   const mime = format === 'jpeg' ? 'image/jpeg' : 'image/png';
   const ext = format === 'jpeg' ? 'jpg' : 'png';

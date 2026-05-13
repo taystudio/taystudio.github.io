@@ -381,7 +381,7 @@ function clearAll() {
   actionBar.hidden = true;
   cropInfo.hidden = true;
   result.hidden = true;
-  dropTitle.textContent = 'Drag a photo here, or click to choose';
+  dropTitle.textContent = 'Drag an image here, or click to choose';
 }
 
 fileInput.addEventListener('change', (e) => {

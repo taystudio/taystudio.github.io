@@ -151,6 +151,10 @@
     .file-item .row-actions button { width:30px; height:30px; padding:0; font-size:14px; line-height:1; background:transparent; color:var(--muted); border:1px solid var(--border); border-radius:6px; cursor:pointer; }
     .file-item .row-actions button:hover { color:var(--primary); border-color:var(--primary); }
     .file-item .row-actions button[disabled] { opacity:.3; cursor:not-allowed; }
+    .progress-wrap { margin-top:14px; }
+    .progress-wrap .bar { height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+    .progress-wrap .fill { height:100%; background:var(--primary); transition:width .15s; }
+    .progress-wrap .text { font-size:12px; color:var(--muted); margin-top:4px; text-align:center; }
   </style>
 <script src="/common/site-chrome.js"></script>
 </head>
@@ -179,6 +183,11 @@
       <div class="image-actions">
         <button type="button" id="mergeBtn" disabled>Merge</button>
         <button type="button" id="clearBtn">Clear all</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="PDF merge progress">
+        <div class="bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
+        <div class="text" id="progressText" aria-live="polite">0 / 0</div>
       </div>
     </div>
 

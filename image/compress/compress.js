@@ -60,7 +60,7 @@ function clearAll() {
     currentObjectURL = null;
   }
   fileInput.value = '';
-  dropTitle.textContent = '이미지 파일을 드래그하거나 클릭해서 선택';
+  dropTitle.textContent = '이미지를 드래그하거나 클릭해서 선택';
   compressBtn.disabled = true;
   result.hidden = true;
   previewImg.removeAttribute('src');

@@ -149,6 +149,14 @@ async function convert() {
   const scale = dpi / 72;
   const quality = format === 'jpeg' ? Math.max(1, Math.min(100, parseInt(qualityIn.value, 10) || 90)) / 100 : undefined;
 
+  // Memory pre-guard — high DPI × many pages → canvas OOM. Simple fallback:
+  // DPI > 300 AND pages > 30 → confirm
+  if (dpi > 300 && indices.length > 30) {
+    const msg = `DPI ${dpi} × ${indices.length} pages — high risk of running out of memory.\n` +
+      `Lower the DPI (150 or 300 recommended) or narrow the page range.\n\nContinue?`;
+    if (!confirm(msg)) return;
+  }
+
   convertBtn.disabled = true;
   const origLabel = convertBtn.textContent;
   convertBtn.textContent = 'Converting...';

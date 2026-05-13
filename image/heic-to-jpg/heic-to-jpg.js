@@ -106,6 +106,9 @@ async function convert() {
     alert('HEIC 라이브러리가 아직 로드되지 않았습니다. 잠시 후 다시 시도하세요.');
     return;
   }
+  if (files.length > 20) {
+    if (!confirm(files.length + '개 일괄 변환 — 20개 이상은 메모리 부족·브라우저 멈춤 위험. 계속하시겠습니까?')) return;
+  }
   const format = formatSel.value;
   const mime = format === 'jpeg' ? 'image/jpeg' : 'image/png';
   const ext = format === 'jpeg' ? 'jpg' : 'png';

@@ -133,7 +133,7 @@ function loadFile(file) {
     alert('이미지 파일만 선택해주세요.');
     return;
   }
-  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 50, '이미지')) return;
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, '이미지')) return;
   originalFile = file;
   const url = URL.createObjectURL(file);
   const img = new Image();
@@ -333,7 +333,7 @@ function clearAll() {
   infoRow.hidden = true;
   result.hidden = true;
   customMmRow.classList.remove('show');
-  dropTitle.textContent = '사진 1장을 드래그하거나 클릭해서 선택';
+  dropTitle.textContent = '이미지를 드래그하거나 클릭해서 선택';
   // 첫 프리셋(여권) active로 복귀
   presetButtons.querySelectorAll('.preset-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
   widthMm = 35; heightMm = 45;

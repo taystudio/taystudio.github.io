@@ -81,6 +81,9 @@ function parseTime(str) {
   if (parts.some((p) => p === '' || !/^\d+(\.\d+)?$/.test(p))) return NaN;
   const nums = parts.map(Number);
   if (nums.some((n) => !Number.isFinite(n) || n < 0)) return NaN;
+  // Minutes/seconds must be < 60 (trim pattern): reject e.g. "1:90"
+  if (nums.length === 2 && nums[1] >= 60) return NaN;
+  if (nums.length === 3 && (nums[1] >= 60 || nums[2] >= 60)) return NaN;
   if (nums.length === 1) return nums[0];
   if (nums.length === 2) return nums[0] * 60 + nums[1];
   if (nums.length === 3) return nums[0] * 3600 + nums[1] * 60 + nums[2];
@@ -175,7 +178,7 @@ async function run() {
   const start = parseTime(startTimeInput.value);
   const end = parseTime(endTimeInput.value);
   if (!Number.isFinite(start) || !Number.isFinite(end)) {
-    alert('Invalid start or end time format.\nExamples: 0:30 / 1:23:45 / 30');
+    alert('Invalid start or end time format.\nExamples: 0:30 / 1:23:45 / 30\nMinutes and seconds must be less than 60.');
     return;
   }
   if (end <= start) {

@@ -25,6 +25,10 @@ const metaName = document.getElementById('metaName');
 const metaPages = document.getElementById('metaPages');
 const metaActive = document.getElementById('metaActive');
 const loading = document.getElementById('loading');
+const progressWrap = document.getElementById('progressWrap');
+const progressFill = document.getElementById('progressFill');
+const progressText = document.getElementById('progressText');
+const cancelBtn = document.getElementById('cancelBtn');
 const thumbsGrid = document.getElementById('thumbsGrid');
 const actionBar = document.getElementById('actionBar');
 const saveBtn = document.getElementById('saveBtn');
@@ -40,6 +44,7 @@ let originalBytes = null; // ArrayBuffer (reused on save)
 let pages = []; // { origIndex, rotation, deleted, thumb }
 let resultUrl = null;
 let dragSrcIdx = null;
+let cancelled = false; // cancel flag for thumbnail render loop (L6 for 200+ page case)
 
 function fmtBytes(n) {
   if (n < 1024) return n + ' B';
@@ -170,6 +175,8 @@ async function loadPdf(file) {
   thumbsGrid.hidden = true;
   actionBar.hidden = true;
   result.hidden = true;
+  progressWrap.hidden = true;
+  cancelled = false;
   pages = [];
 
   try {
@@ -185,7 +192,16 @@ async function loadPdf(file) {
       const msg = `This PDF has ${np} pages. Thumbnail rendering may take ${Math.ceil(np * 0.5)} seconds or more.\nContinue?`;
       if (!confirm(msg)) { clearAll(); loading.hidden = true; return; }
     }
+    // Progress bar: shown at 50+ pages (L5 + L6 cancel)
+    if (np >= 50) {
+      loading.hidden = true;
+      progressWrap.hidden = false;
+      progressFill.style.width = '0%';
+      progressWrap.setAttribute('aria-valuenow', '0');
+      progressText.textContent = `0 / ${np}`;
+    }
     for (let i = 0; i < np; i++) {
+      if (cancelled) break; // L6: user cancel → break loop
       const page = await pdf.getPage(i + 1);
       const baseViewport = page.getViewport({ scale: 1 });
       const targetW = 150;
@@ -201,6 +217,18 @@ async function loadPdf(file) {
         deleted: false,
         thumb: canvas.toDataURL('image/jpeg', 0.7),
       });
+      if (np >= 50) {
+        const pct = Math.round((i + 1) / np * 100);
+        progressFill.style.width = pct + '%';
+        progressWrap.setAttribute('aria-valuenow', String(pct));
+        progressText.textContent = `${i + 1} / ${np}`;
+      }
+    }
+    if (cancelled) {
+      // On cancel: discard partial renders and reset
+      clearAll();
+      progressWrap.hidden = true;
+      return;
     }
   } catch (e) {
     alert('Failed to load PDF: ' + (e && e.message ? e.message : 'Unknown error') + '\nIf the PDF is password-protected, unlock it first.');
@@ -208,6 +236,7 @@ async function loadPdf(file) {
     return;
   } finally {
     loading.hidden = true;
+    progressWrap.hidden = true;
   }
 
   thumbsGrid.hidden = false;
@@ -270,6 +299,7 @@ function resetEdits() {
 }
 
 function clearAll() {
+  cancelled = true; // signal in-progress loop to break
   originalFile = null;
   originalBytes = null;
   pages = [];
@@ -280,6 +310,7 @@ function clearAll() {
   actionBar.hidden = true;
   pdfMeta.hidden = true;
   result.hidden = true;
+  progressWrap.hidden = true;
   dropTitle.textContent = 'Drag a PDF file here, or click to select';
 }
 
@@ -306,3 +337,4 @@ dropZone.addEventListener('keydown', (e) => {
 saveBtn.addEventListener('click', save);
 resetBtn.addEventListener('click', resetEdits);
 clearBtn.addEventListener('click', clearAll);
+cancelBtn.addEventListener('click', () => { cancelled = true; });

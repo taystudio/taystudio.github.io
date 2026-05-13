@@ -202,7 +202,7 @@
     <div class="card">
       <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload image for mosaic">
         <div class="drop-icon" aria-hidden="true">🟦</div>
-        <div class="drop-title">Drag-drop a photo or click to select</div>
+        <div class="drop-title">Drag an image here, or click to choose</div>
         <div class="drop-hint">JPG, PNG, WebP — one at a time</div>
         <input type="file" id="fileInput" accept="image/*">
       </label>
@@ -219,6 +219,14 @@
         <div class="field" id="strengthField">
           <label for="strengthIn">Strength: <b id="strengthVal">15</b> <span style="color:var(--muted);font-size:11px">(lower = weaker)</span></label>
           <input type="range" id="strengthIn" min="2" max="80" step="1" value="15">
+        </div>
+        <div class="field">
+          <label for="mosaicFormat">Output format</label>
+          <select id="mosaicFormat">
+            <option value="image/jpeg" selected>JPG (smaller)</option>
+            <option value="image/png">PNG (lossless · transparent)</option>
+            <option value="image/webp">WebP (balanced)</option>
+          </select>
         </div>
       </div>
 

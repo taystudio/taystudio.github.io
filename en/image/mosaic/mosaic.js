@@ -209,15 +209,19 @@
   undoBtn.addEventListener('click', () => { state.boxes.pop(); redraw(); });
   resetBtn.addEventListener('click', () => { state.boxes = []; redraw(); });
   downloadBtn.addEventListener('click', () => {
+    const fmtSel = document.getElementById('mosaicFormat');
+    const outMime = (fmtSel && fmtSel.value) || 'image/jpeg';
+    const outExt = outMime === 'image/png' ? 'png' : outMime === 'image/webp' ? 'webp' : 'jpg';
+    const outQuality = outMime === 'image/png' ? undefined : 0.95;
     cv.toBlob(blob => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
       const base = state.fileName.replace(/\.[^.]+$/, '');
-      a.download = `${base}_mosaic.jpg`;
+      a.download = `${base}_mosaic.${outExt}`;
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
-    }, 'image/jpeg', 0.95);
+    }, outMime, outQuality);
   });
   clearBtn.addEventListener('click', () => {
     state.bitmap && state.bitmap.close && state.bitmap.close();
