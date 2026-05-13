@@ -1,7 +1,7 @@
 # GSC Indexing Status — sitemap 114 URL
 
-**Last update**: 2026-05-12
-**누적 manual 요청**: 35/114 (30.7%)
+**Last update**: 2026-05-13
+**누적 manual 요청**: 47/114 (41.2%)
 **확인된 ✅ indexed**: 1개
 
 > 새 batch 처리 후 이 파일 한 곳만 갱신. 매번 새 파일 만들지 않음.
@@ -94,22 +94,41 @@
 
 ---
 
-## Batch 6 — 후보 (2026-05-13 예정, quota 회복 후)
+## Batch 6 — KO 계산기 top + text·video 마무리 (2026-05-13 진행 중)
 
 **컨텍스트**: Batch 5 미처리 7개 + α. KO 계산기 top 추가 + text·video functional 마무리.
 
-| URL | 키워드 | 우선순위 |
+| URL | 키워드 | 결과 |
 |---|---|---|
-| `/tools/comprehensive/` | 종합소득세, 5월 정점, 자영업자 | 1 |
-| `/tools/hourly/` | 시급 계산, 학생·알바 evergreen | 2 |
-| `/tools/bmi/` | BMI, 한국 비만학회 기준 + 글로벌 | 3 |
-| `/text/kbd-convert/` | 한영키 잘못 친 것, 한국 특유 | 4 |
-| `/text/sns-format/` | SNS 줄바꿈·해시태그 정리 | 5 |
-| `/video/rotate/` | 동영상 회전, 모바일 needs | 6 |
-| `/video/to-gif/` | 영상 → GIF, 짤·움짤 evergreen | 7 |
-| `/tools/cartax/` | 자동차세, 한국 자동차 소유자 evergreen | 8 |
-| `/tools/insurance/` | 보험료, evergreen | 9 |
-| `/tools/parental-leave/` | 육아휴직 급여, 한국 직장인 needs | 10 |
+| `/tools/comprehensive/` | 종합소득세, 5월 정점, 자영업자 | 🔄 |
+| `/tools/hourly/` | 시급 계산, 학생·알바 evergreen | 🔄 |
+| `/tools/bmi/` | BMI, 한국 비만학회 기준 + 글로벌 | — |
+| `/text/kbd-convert/` | 한영키 잘못 친 것, 한국 특유 | — |
+| `/text/sns-format/` | SNS 줄바꿈·해시태그 정리 | — |
+| `/video/rotate/` | 동영상 회전, 모바일 needs | — |
+| `/video/to-gif/` | 영상 → GIF, 짤·움짤 evergreen | — |
+| `/tools/cartax/` | 자동차세, 한국 자동차 소유자 evergreen | — |
+| `/tools/insurance/` | 보험료, evergreen | — |
+| `/tools/parental-leave/` | 육아휴직 급여, 한국 직장인 needs | — |
+
+---
+
+## Batch 7 — evergreen 계산기 + 직장인 needs (2026-05-13 진행)
+
+**선정**: 만 나이·D-day·대출·적금 같은 evergreen 검색 큰 도구 + 자영업자(부가세)·직장인(연차·실업급여) needs.
+
+| URL | 키워드 | 결과 |
+|---|---|---|
+| `/tools/age/` | 만 나이, 누구나·evergreen | 🔄 |
+| `/tools/dday/` | D-day, 결혼·기념일·시험 | 🔄 |
+| `/tools/loan/` | 대출 이자, 직장인·집 | 🔄 |
+| `/tools/savings/` | 적금 이자, 재테크 | 🔄 |
+| `/tools/vat/` | 부가가치세, 자영업자 (5월 종소세 옆) | 🔄 |
+| `/tools/annual-leave/` | 연차수당, 12월 정점 | 🔄 |
+| `/tools/unemployment/` | 실업급여, 이직·실직 검색 큼 | 🔄 |
+| `/tools/calorie/` | BMR·TDEE, 헬스 evergreen | 🔄 |
+| `/tools/pregnancy/` | 출산 예정일, 임산부 needs | 🔄 |
+| `/tools/property-tax/` | 재산세, 7·9월 납부 미리 색인 | 🔄 |
 
 ---
 
@@ -117,9 +136,9 @@
 
 | 일자 | 액션 |
 |---|---|
-| 2026-05-13 (내일) | quota 회복 — Batch 6 진행 (위 후보 10개) |
-| 2026-05-18 (1주) | GSC Coverage에서 batch 1~6 indexed 비율 확인 — 80%↑ 정상 / 50%↓ 도메인 권위 문제 의심 |
-| 2026-05-25 (2주) | Search performance impressions·CTR·position 회수 + Batch 7 선정 (EN 미러 + 남은 계산기) |
+| 2026-05-14 | Batch 6 잔여 9개 진행 (quota 회복 후) |
+| 2026-05-20 (1주) | GSC Coverage에서 batch 1~7 indexed 비율 확인 — 80%↑ 정상 / 50%↓ 도메인 권위 문제 의심 |
+| 2026-05-27 (2주) | Search performance impressions·CTR·position 회수 + Batch 8 선정 (남은 계산기 + EN 미러) |
 
 ## 의도적 제외 (manual indexing 우선순위 매우 낮음)
 
