@@ -7,3 +7,9 @@ Thumbs.db
 
 # Playwright MCP — 브라우저 자동화 일회성 artifacts (console·snapshot 캐시)
 .playwright-mcp/
+
+# Claude Code (skills·commands·plans·memory) — local 운영자 전용
+.claude/
+
+# Mockup·미공개 임시 파일
+.mockup-*.html
