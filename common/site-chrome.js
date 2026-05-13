@@ -689,6 +689,8 @@ class SiteFooter extends HTMLElement {
     const aboutHref = LANG === 'en' ? `${BASE}/en/about/` : `${BASE}/about/`;
     const privacyHref = LANG === 'en' ? `${BASE}/en/privacy/` : `${BASE}/privacy/`;
     const termsHref = LANG === 'en' ? `${BASE}/en/terms/` : `${BASE}/terms/`;
+    const sitemapHref = LANG === 'en' ? `${BASE}/en/sitemap/` : `${BASE}/sitemap/`;
+    const sitemapLabel = LANG === 'en' ? 'Site Map' : '사이트맵';
     this.innerHTML = `
       <footer style="margin-top:48px;padding:32px 20px;border-top:1px solid var(--border);text-align:center;color:var(--muted)">
         <div style="font-size:13px;margin-bottom:18px">
@@ -697,6 +699,8 @@ class SiteFooter extends HTMLElement {
           <a href="${privacyHref}" style="color:var(--muted);text-decoration:none;margin:0 8px">${T.privacy}</a>
           ·
           <a href="${termsHref}" style="color:var(--muted);text-decoration:none;margin:0 8px">${T.terms}</a>
+          ·
+          <a href="${sitemapHref}" style="color:var(--muted);text-decoration:none;margin:0 8px">${sitemapLabel}</a>
         </div>
         <div style="font-size:13px">${T.footerNote}</div>
         <div style="font-size:12px;margin-top:10px;opacity:.7">© 2026 TAYSTUDIO. All Rights Reserved.</div>

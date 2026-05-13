@@ -694,4 +694,21 @@
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
+  <url>
+    <loc>https://taystudios.com/sitemap/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/sitemap/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/sitemap/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/sitemap/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/en/sitemap/</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/sitemap/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/sitemap/"/>
+  </url>
 </urlset>
