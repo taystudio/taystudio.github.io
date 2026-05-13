@@ -27,6 +27,25 @@
   });
 })();
 
+// 파일 size 사전 체크 — 도구별 권장 한계 초과 시 alert + 거절.
+// 사용: if (!window.TayStudio.checkFileSize(file, 100, 'PDF')) return;
+//   - sizeMB: 권장 한계 (MB 단위)
+//   - label: alert 메시지에 표시될 도구·파일 타입 이름 (예: 'PDF', '이미지', '동영상')
+(function () {
+  function checkFileSize(file, sizeMB, label) {
+    if (!file) return false;
+    const maxBytes = sizeMB * 1024 * 1024;
+    if (file.size > maxBytes) {
+      const actualMB = (file.size / 1024 / 1024).toFixed(1);
+      alert(`${label || '파일'} 크기 ${actualMB}MB — 권장 한계 ${sizeMB}MB 초과. 브라우저 메모리 한계로 처리 불안정·실패 가능. 더 작은 파일 사용 권장.`);
+      return false;
+    }
+    return true;
+  }
+  window.TayStudio = window.TayStudio || {};
+  window.TayStudio.checkFileSize = checkFileSize;
+})();
+
 // 파일명 sanitize — Windows·macOS·Linux 호환. 도구 다운로드 파일명 안전화.
 // 사용: window.TayStudio.sanitizeFilename(rawName)
 (function () {

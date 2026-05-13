@@ -67,7 +67,7 @@ function rebuildTransformedCanvas() {
   const c = document.createElement('canvas');
   c.width = rotated ? h : w;
   c.height = rotated ? w : h;
-  const ctx = c.getContext('2d');
+  const ctx = c.getContext('2d', { willReadFrequently: true });
   ctx.save();
   ctx.translate(c.width / 2, c.height / 2);
   ctx.rotate(rotation * Math.PI / 180);
@@ -78,7 +78,7 @@ function rebuildTransformedCanvas() {
   // srcCanvas에 그리기
   srcCanvas.width = c.width;
   srcCanvas.height = c.height;
-  srcCanvas.getContext('2d').drawImage(c, 0, 0);
+  srcCanvas.getContext('2d', { willReadFrequently: true }).drawImage(c, 0, 0);
 }
 
 function getDisplayScale() {
@@ -158,6 +158,7 @@ function loadFile(file) {
     alert('이미지 파일만 선택해주세요.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, '이미지')) return;
   originalFile = file;
   const url = URL.createObjectURL(file);
   const img = new Image();

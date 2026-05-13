@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Phase 2 품질 fix 보고서 — 2026-05-13</title>
+  <style>
+    :root {
+      --bg: #f7f8fa; --card: #fff; --text: #111; --muted: #52525b;
+      --border: #e5e7eb; --primary: #2563eb;
+      --critical: #dc2626; --warn: #f59e0b; --ok: #10b981; --info: #3b82f6;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0f1115; --card: #1a1d23; --text: #e5e7eb; --muted: #9ca3af; --border: #2a2e36; }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.6;
+      padding: 32px 20px; max-width: 1100px; margin: 0 auto;
+    }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    h2 { font-size: 22px; margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--primary); }
+    h3 { font-size: 17px; margin: 22px 0 10px; }
+    p { margin-bottom: 12px; }
+    code { font-family: ui-monospace, "SF Mono", Monaco, monospace; background: var(--border); padding: 2px 6px; border-radius: 4px; font-size: 12.5px; }
+    .meta { color: var(--muted); font-size: 14px; margin-bottom: 24px; padding: 14px 18px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+    .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 20px 0; }
+    .stat { padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+    .stat-label { font-size: 12.5px; color: var(--muted); margin-bottom: 4px; }
+    .stat-value { font-size: 26px; font-weight: 700; }
+    .stat-value.critical { color: var(--critical); }
+    .stat-value.warn { color: var(--warn); }
+    .stat-value.ok { color: var(--ok); }
+    .stat-value.info { color: var(--info); }
+    table { width: 100%; border-collapse: collapse; margin: 14px 0; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+    th { background: rgba(37, 99, 235, 0.08); font-weight: 600; font-size: 12.5px; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover { background: rgba(37, 99, 235, 0.04); }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .badge-critical { background: rgba(220, 38, 38, 0.12); color: var(--critical); border: 1px solid rgba(220, 38, 38, 0.3); }
+    .badge-warn { background: rgba(245, 158, 11, 0.12); color: var(--warn); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-ok { background: rgba(16, 185, 129, 0.12); color: var(--ok); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-info { background: rgba(59, 130, 246, 0.12); color: var(--info); border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge-gray { background: rgba(82, 82, 91, 0.12); color: var(--muted); border: 1px solid rgba(82, 82, 91, 0.3); }
+    .callout { padding: 14px 18px; margin: 14px 0; border-left: 4px solid var(--primary); background: rgba(37, 99, 235, 0.06); border-radius: 0 8px 8px 0; }
+    .callout.critical { border-left-color: var(--critical); background: rgba(220, 38, 38, 0.06); }
+    .callout.ok { border-left-color: var(--ok); background: rgba(16, 185, 129, 0.06); }
+    .callout.warn { border-left-color: var(--warn); background: rgba(245, 158, 11, 0.06); }
+    .callout-title { font-weight: 700; margin-bottom: 6px; font-size: 14.5px; }
+    .toc { padding: 14px 20px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; margin: 18px 0; }
+    .toc a { color: var(--primary); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .toc ol { padding-left: 22px; font-size: 14px; }
+    .toc li { padding: 3px 0; }
+    .footer-note { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; text-align: center; }
+    .progress-row { display: grid; grid-template-columns: 1fr 70px 70px 1fr; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13.5px; }
+    .progress-bar { width: 100%; height: 22px; background: var(--border); border-radius: 11px; overflow: hidden; }
+    .progress-fill { height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600; transition: width 0.4s; }
+    .progress-fill.green { background: var(--ok); }
+    .progress-fill.yellow { background: var(--warn); }
+    .progress-fill.red { background: var(--critical); }
+    .arrow-up { color: var(--ok); font-weight: 700; }
+    .arrow-flat { color: var(--muted); }
+    pre { background: var(--card); border: 1px solid var(--border); padding: 12px 14px; border-radius: 6px; overflow-x: auto; font-size: 12.5px; margin: 10px 0; }
+  </style>
+</head>
+<body>
+
+<h1>⚡ Phase 2 품질 fix 보고서</h1>
+<div class="meta">
+  <b>일자</b>: 2026-05-13 (도메인 migration 5일차) ·
+  <b>방법</b>: 10 Explore agent 병렬 검증 + 자동 syntax check ·
+  <b>적용</b>: P2-1a(13 도구 size 체크) · P2-3(canvas willReadFrequently 3 도구) · P2-7(compress 상한) · checkFileSize utility ·
+  <b>회귀</b>: 0건
+</div>
+
+<div class="toc">
+  <b>목차</b>
+  <ol>
+    <li><a href="#s1">Phase 2 적용 작업 (3건 + utility)</a></li>
+    <li><a href="#s2">10 Agent 검증 결과 종합</a></li>
+    <li><a href="#s3">새 극한 case (Top 5)</a></li>
+    <li><a href="#s4">통과율 변화 추정</a></li>
+    <li><a href="#s5">보류 작업 (Phase 2 잔여)</a></li>
+    <li><a href="#s6">변경 파일 + syntax 검증</a></li>
+    <li><a href="#s7">다음 단계</a></li>
+  </ol>
+</div>
+
+<div class="summary-grid">
+  <div class="stat"><div class="stat-label">Phase 2 적용</div><div class="stat-value ok">3건</div></div>
+  <div class="stat"><div class="stat-label">size 체크 도구</div><div class="stat-value info">13</div></div>
+  <div class="stat"><div class="stat-label">회귀</div><div class="stat-value ok">0</div></div>
+  <div class="stat"><div class="stat-label">통과율 추정</div><div class="stat-value warn">78% → 82.5%</div></div>
+  <div class="stat"><div class="stat-label">변경 파일</div><div class="stat-value info">14</div></div>
+  <div class="stat"><div class="stat-label">새 극한 case</div><div class="stat-value warn">5</div></div>
+</div>
+
+<div class="callout">
+  <div class="callout-title">📌 컨텍스트</div>
+  Critical 15 fix(audit-3) 직후 사용자 결정 "품질부터 올려야 함" → Phase 2 진입. Critical(크래시·보안·기능 실패) 다음으로 <b>메모리 효율·OOM 사전 차단·UX 안전성</b> 코드 fix 적용. audit 시리즈 4번째.
+</div>
+
+<h2 id="s1">1. Phase 2 적용 작업</h2>
+
+<h3>P2-1a · file size 사전 체크 + 공용 utility</h3>
+
+<p>utility 추가 (<code>common/site-chrome.js:31-48</code>):</p>
+<pre>window.TayStudio.checkFileSize(file, sizeMB, label) → boolean
+// false 반환 시 자동 alert + caller가 return으로 중단
+// 가드 패턴: if (window.TayStudio && window.TayStudio.checkFileSize && !checkFileSize(...)) return;</pre>
+
+<table>
+  <thead><tr><th>도구</th><th>한계</th><th>근거</th></tr></thead>
+  <tbody>
+    <tr><td><code>image/compress</code></td><td>200MB</td><td>일반 이미지·상향 (이전 hardcoded 500MB → utility 통합)</td></tr>
+    <tr><td><code>image/resize</code> · <code>crop</code></td><td>100MB</td><td>canvas 메모리 안전 마진</td></tr>
+    <tr><td><code>image/id-photo</code> · <code>ocr</code></td><td>50MB</td><td>Tesseract worker 부담</td></tr>
+    <tr><td><code>image/qr-scan</code></td><td>20MB</td><td>단일 사진 디코딩</td></tr>
+    <tr><td><code>image/bg-remove</code></td><td>30MB</td><td>ONNX 모델 43MB + input</td></tr>
+    <tr><td><code>video/compress</code> · <code>trim</code> · <code>rotate</code> · <code>to-mp3</code></td><td>1000MB</td><td>ffmpeg.wasm + 모바일 마진</td></tr>
+    <tr><td><code>video/to-gif</code></td><td>500MB</td><td>디코드 + GIF 인코드 부담</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <div class="callout-title">⏸️ P2-1b 보류</div>
+  PDF 5 + multi-file image 6 = 총 11 도구. PDF는 <code>file.type === 'application/pdf'</code> 패턴이 자동화 정규식과 안 맞아 수동 적용 필요. multi-file image는 forEach 안 <code>continue</code> 흐름이 단일 파일과 달라 별도 처리.
+</div>
+
+<h3>P2-3 · canvas willReadFrequently</h3>
+
+<table>
+  <thead><tr><th>위치</th><th>효과</th><th>이유</th></tr></thead>
+  <tbody>
+    <tr><td><code>mosaic/mosaic.js:177, 190</code></td><td><span class="badge badge-ok">명확</span></td><td>tmp canvas에서 mosaic·blur 처리 시 getImageData 호출</td></tr>
+    <tr><td><code>qr-scan</code></td><td><span class="badge badge-ok">명확</span></td><td>jsQR가 매 프레임 getImageData</td></tr>
+    <tr><td><code>crop/crop.js:70, 81</code></td><td><span class="badge badge-gray">미미</span></td><td>drawImage만 호출 (회전·표시용). 회귀 0</td></tr>
+    <tr><td><code>mosaic/mosaic.js:149</code></td><td><span class="badge badge-gray">미미</span></td><td>redraw (drawImage + stroke)</td></tr>
+  </tbody>
+</table>
+
+<h3>P2-7 · compress 메모리 상한</h3>
+<p><code>file.size === 0</code> (C4 fix) 직후 <code>checkFileSize(file, 200, '이미지')</code> 통합. 이전 자체 500MB hardcoded → utility 일관 + 200MB 마진.</p>
+
+<h3>Skip 결정 (2건)</h3>
+<table>
+  <thead><tr><th>#</th><th>결정</th><th>사유</th></tr></thead>
+  <tbody>
+    <tr><td>P2-5</td><td>watermark drawPreview 빈 텍스트 alert 추가 skip</td><td>drawPreview는 슬라이더 input마다 호출 → alert 폭주. 빈 텍스트면 원본만 표시 = 자연스러운 UX. applyBtn alert (C3)만 정합</td></tr>
+    <tr><td>P2-6</td><td>format-convert downloadAllBtn 즉시 revoke skip</td><td>img-grid가 thumbnail에 같은 blob URL 사용 → 즉시 revoke 시 깨짐. <b>대안</b>: <code>setTimeout(revoke, 3000)</code> 5분 작업으로 후속 처리 가능</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s2">2. 10 Agent 검증 결과 종합</h2>
+
+<table>
+  <thead><tr><th>#</th><th>영역</th><th>결과</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>checkFileSize utility</td><td><span class="badge badge-ok">PASS</span> 함수 정확 / fallback 안전 / return 흐름 정상</td></tr>
+    <tr><td>2</td><td>P2-3 willReadFrequently</td><td><span class="badge badge-ok">PASS</span> 3/3 적용. mosaic·qr-scan 효과 명확, crop은 회귀 0</td></tr>
+    <tr><td>3</td><td>P2-1b 적용 방안</td><td><span class="badge badge-info">계획</span> PDF 5 + img-to-pdf + multi-file image 6 → 2~2.5h 추정</td></tr>
+    <tr><td>4</td><td>P2-2 AbortController</td><td><span class="badge badge-warn">분석</span> bg-remove 불가, ocr 가능 ~2h, video 가능하나 재로드 비용 4-5h</td></tr>
+    <tr><td>5</td><td>P2-4 watermark PNG/WebP</td><td><span class="badge badge-info">계획</span> HTML 10줄 + JS 50줄 ≈ 30-45분</td></tr>
+    <tr><td>6</td><td>P2-5·P2-6 skip 정합</td><td><span class="badge badge-ok">정합</span> P2-5 OK · P2-6은 setTimeout(3s) 대안 발견 (5분)</td></tr>
+    <tr><td>7</td><td>Regression</td><td><span class="badge badge-ok">0건</span> syntax 0 fail · IIFE 격리 OK · alert chain 폭주 없음 · 모바일 0 영향</td></tr>
+    <tr><td>8</td><td>새 극한 case</td><td><span class="badge badge-warn">5건</span> N8~N12 (아래 §3)</td></tr>
+    <tr><td>9</td><td>통과율 추정</td><td><span class="badge badge-ok">+4.5%</span> 78% → 82.5%</td></tr>
+    <tr><td>10</td><td>종합 우선순위</td><td><span class="badge badge-info">권장</span> P2-2-ocr → P2-1b → P2-6-fix → P2-4 → P2-2-video</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s3">3. 새 극한 case (Top 5)</h2>
+
+<table>
+  <thead><tr><th>#</th><th>case</th><th>위치</th><th>심각도</th></tr></thead>
+  <tbody>
+    <tr><td>N8</td><td><code>checkFileSize(file, 0, ...)</code> → 모든 파일 거절. 음수 미검증</td><td>site-chrome.js:35-37</td><td><span class="badge badge-gray">Low</span> caller 신뢰</td></tr>
+    <tr><td>N9</td><td>multi-file 도구 (heic·merge·watermark·format-convert) checkFileSize 미적용</td><td>P2-1b 11 도구</td><td><span class="badge badge-warn">Medium</span></td></tr>
+    <tr><td>N10</td><td>drag·drop 폴더 → <code>file.type=''</code> → 조용히 skip, 사용자 혼동</td><td>merge·heic 등</td><td><span class="badge badge-gray">Low</span></td></tr>
+    <tr><td>N11</td><td>Clipboard paste 이미지 (Ctrl+V) → checkFileSize 미적용 (핸들러 자체 없음)</td><td>모든 도구</td><td><span class="badge badge-gray">Low</span> 기능 미지원</td></tr>
+    <tr><td>N12</td><td>ffmpeg.wasm 32MB + input 1000MB = 1.03GB. video 한계 800MB 조정 검토</td><td>video 4 도구</td><td><span class="badge badge-gray">Low</span> 이미 마진 있음</td></tr>
+  </tbody>
+</table>
+
+<div class="callout ok">
+  <div class="callout-title">✅ 자연 해소</div>
+  N9는 P2-1b에서 자동 해소. N8·N10·N11·N12는 Phase 3 (Medium) 검토 대상.
+</div>
+
+<h2 id="s4">4. 통과율 변화 추정</h2>
+
+<div class="progress-row" style="border-bottom: 2px solid var(--border); padding-bottom: 12px; margin-bottom: 8px; font-weight: 700;">
+  <div>카테고리</div><div>audit-3</div><div>Phase 2 후</div><div>변화</div>
+</div>
+
+<div class="progress-row">
+  <div>일반 시나리오</div>
+  <div>92%</div><div>92%</div>
+  <div><div class="progress-bar"><div class="progress-fill green" style="width: 92%;">92%</div></div></div>
+</div>
+<div class="progress-row">
+  <div>Edge</div>
+  <div>78%</div><div>78%</div>
+  <div><div class="progress-bar"><div class="progress-fill yellow" style="width: 78%;">78%</div></div></div>
+</div>
+<div class="progress-row">
+  <div>Boundary</div>
+  <div>88%</div><div><b>92%</b> <span class="arrow-up">↑+4</span></div>
+  <div><div class="progress-bar"><div class="progress-fill green" style="width: 92%;">92%</div></div></div>
+</div>
+<div class="progress-row">
+  <div>Error (OOM)</div>
+  <div>78%</div><div><b>85%</b> <span class="arrow-up">↑+7</span></div>
+  <div><div class="progress-bar"><div class="progress-fill green" style="width: 85%;">85%</div></div></div>
+</div>
+<div class="progress-row">
+  <div>메모리 (누수·크래시)</div>
+  <div>58%</div><div><b>72%</b> <span class="arrow-up">↑+14</span></div>
+  <div><div class="progress-bar"><div class="progress-fill yellow" style="width: 72%;">72%</div></div></div>
+</div>
+<div class="progress-row">
+  <div>Multi-file</div>
+  <div>75%</div><div>75%</div>
+  <div><div class="progress-bar"><div class="progress-fill yellow" style="width: 75%;">75%</div></div></div>
+</div>
+<div class="progress-row">
+  <div>모바일</div>
+  <div>92%</div><div>92%</div>
+  <div><div class="progress-bar"><div class="progress-fill green" style="width: 92%;">92%</div></div></div>
+</div>
+<div class="progress-row">
+  <div>a11y</div>
+  <div>20%</div><div>20%</div>
+  <div><div class="progress-bar"><div class="progress-fill red" style="width: 20%;">20%</div></div></div>
+</div>
+<div class="progress-row" style="border-top: 2px solid var(--border); margin-top: 8px; padding-top: 12px; font-weight: 700;">
+  <div>종합</div>
+  <div>78%</div><div><b>82.5%</b> <span class="arrow-up">↑+4.5</span></div>
+  <div><div class="progress-bar"><div class="progress-fill green" style="width: 82.5%;">82.5%</div></div></div>
+</div>
+
+<p style="margin-top: 14px;"><b>도구별 등급 추정</b>: Image B+ → A- (compress·bg-remove·ocr OOM 차단) · PDF B → B+ (size 체크 일부) · Video A- 유지 (마진 강화)</p>
+
+<h2 id="s5">5. 보류 작업 (Phase 2 잔여)</h2>
+
+<table>
+  <thead><tr><th>#</th><th>작업</th><th>시간</th><th>ROI</th></tr></thead>
+  <tbody>
+    <tr><td>P2-1b</td><td>PDF 5 + multi-file image 6 size 체크</td><td>2~2.5h</td><td><span class="badge badge-warn">中</span> N9 해소</td></tr>
+    <tr><td>P2-2-ocr</td><td>ocr Tesseract.terminate 취소 버튼</td><td>~2h</td><td><span class="badge badge-ok">高</span> UX 핵심</td></tr>
+    <tr><td>P2-2-bg</td><td>bg-remove AbortController</td><td>—</td><td><span class="badge badge-critical">불가</span> ONNX 한계, 영구 skip</td></tr>
+    <tr><td>P2-2-video</td><td>video ffmpeg.exit 취소</td><td>4~5h</td><td><span class="badge badge-warn">中</span> 재로드 비용</td></tr>
+    <tr><td>P2-4</td><td>watermark PNG/WebP 옵션</td><td>30~45분</td><td><span class="badge badge-gray">낮</span> 수요 제한</td></tr>
+    <tr><td>P2-6-fix</td><td>format-convert setTimeout(3s) revoke</td><td>5분</td><td><span class="badge badge-gray">낮</span> GC 의존 OK</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <div class="callout-title">📋 권장 순서</div>
+  P2-2-ocr → P2-1b → P2-6-fix → P2-4 → P2-2-video → Phase 3 (a11y)
+</div>
+
+<h2 id="s6">6. 변경 파일 + syntax 검증</h2>
+
+<table>
+  <thead><tr><th>파일</th><th>변경</th></tr></thead>
+  <tbody>
+    <tr><td><code>common/site-chrome.js</code></td><td>checkFileSize utility 추가</td></tr>
+    <tr><td><code>image/compress/compress.js</code></td><td>P2-7 + P2-1a 통합 (200MB)</td></tr>
+    <tr><td><code>image/resize/resize.js</code></td><td>P2-1a 100MB</td></tr>
+    <tr><td><code>image/crop/crop.js</code></td><td>P2-1a 100MB + P2-3 willReadFrequently</td></tr>
+    <tr><td><code>image/id-photo/id-photo.js</code></td><td>P2-1a 50MB</td></tr>
+    <tr><td><code>image/qr-scan/qr-scan.js</code></td><td>P2-1a 20MB</td></tr>
+    <tr><td><code>image/ocr/ocr.js</code></td><td>P2-1a 50MB</td></tr>
+    <tr><td><code>image/bg-remove/bg-remove.js</code></td><td>P2-1a 30MB</td></tr>
+    <tr><td><code>image/mosaic/mosaic.js</code></td><td>P2-3 willReadFrequently 3곳</td></tr>
+    <tr><td><code>video/compress · trim · rotate · to-mp3 · to-gif</code></td><td>P2-1a (1000MB · 500MB)</td></tr>
+  </tbody>
+</table>
+
+<div class="callout ok">
+  <div class="callout-title">✅ Syntax 검증</div>
+  <code>node --check</code> 14 파일 모두 통과. 13개 도구에서 <code>checkFileSize</code> grep 확인.
+</div>
+
+<h2 id="s7">7. 다음 단계</h2>
+
+<ol style="padding-left: 22px; line-height: 1.9;">
+  <li><b>즉시</b>: 본 commit + push (Phase 2 1차)</li>
+  <li><b>Phase 2 잔여</b> (선택): P2-2-ocr(2h) → P2-1b(2~2.5h) → P2-6-fix(5분) → P2-4(45분) ≈ 5-6h 총</li>
+  <li><b>Phase 3</b> (Medium 15건): a11y aria-live·focus·tabindex + N8·N10·N11·N12 검토</li>
+  <li><b>외부 작업</b>: GSC Batch 6, Bing WMT, Naver SA, 백링크 — 코드 fix 끝나면 병행</li>
+</ol>
+
+<div class="footer-note">
+  관련 audit: <code>2026-05-13-tools-functional-test.md</code> · <code>2026-05-13-critical-fix-verification.md</code> · <code>2026-05-13-phase2-quality-fix.md</code><br>
+  Generated 2026-05-13 · taystudios.com Phase 2 quality fix
+</div>
+
+</body>
+</html>

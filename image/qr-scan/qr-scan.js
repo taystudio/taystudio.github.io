@@ -85,6 +85,7 @@ function loadImageFile(file) {
     alert('이미지 파일만 선택해주세요.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 20, '이미지')) return;
   dropTitle.textContent = file.name;
   const url = URL.createObjectURL(file);
   const img = new Image();

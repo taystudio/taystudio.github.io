@@ -104,6 +104,7 @@ function loadFile(file) {
     alert('영상 파일만 선택해주세요.');
     return;
   }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 500, '동영상')) return;
   currentFile = file;
   dropTitle.textContent = file.name + ' (' + fmtBytes(file.size) + ')';
   convertBtn.disabled = false;

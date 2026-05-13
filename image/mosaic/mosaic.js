@@ -146,7 +146,7 @@
 
   function redraw(showDrawing) {
     if (!state.bitmap) return;
-    const ctx = cv.getContext('2d');
+    const ctx = cv.getContext('2d', { willReadFrequently: true });
     ctx.drawImage(state.bitmap, 0, 0);
     state.boxes.forEach(b => applyBox(ctx, b));
     if (showDrawing && state.drawing) {
@@ -174,7 +174,7 @@
       const sh = Math.max(1, Math.floor(box.h / px));
       const tmp = document.createElement('canvas');
       tmp.width = sw; tmp.height = sh;
-      const tctx = tmp.getContext('2d');
+      const tctx = tmp.getContext('2d', { willReadFrequently: true });
       tctx.imageSmoothingEnabled = false;
       tctx.drawImage(cv, box.x, box.y, box.w, box.h, 0, 0, sw, sh);
       ctx.save();
@@ -187,7 +187,7 @@
       // 가우시안: filter blur(N) 적용 + 영역만 클리핑
       const tmp = document.createElement('canvas');
       tmp.width = box.w; tmp.height = box.h;
-      const tctx = tmp.getContext('2d');
+      const tctx = tmp.getContext('2d', { willReadFrequently: true });
       tctx.filter = `blur(${strength}px)`;
       tctx.drawImage(cv, box.x, box.y, box.w, box.h, 0, 0, box.w, box.h);
       ctx.drawImage(tmp, box.x, box.y);
