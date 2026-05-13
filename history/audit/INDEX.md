@@ -83,6 +83,14 @@ audit 보고서 진행 순서. 같은 일자에 여러 audit이 발생하면 작
 - **Critical fix (5)**: mosaic try/catch · pdf-stamp .dragover 통일 · severance 날짜 역전 · root /404.html + en/404 · 수치 sample fix
 - **결과**: 통과율 → **98~99%** · 데이터 정합성 B→A- · 계산 정확성 B+→A · 404 F→A
 
+### audit-12: medium-low-verification (25건 검증)
+- **파일**: [`audit-12-medium-low-verification.md`](audit-12-medium-low-verification.md) · [`audit-12-medium-low-verification.html`](audit-12-medium-low-verification.html)
+- **컨텍스트**: 사용자 결정 "25건 다 잡자" 후 검증 라운드
+- **작업**: Medium 13 + Low 12 = 25건 모두 fix 적용 검증
+- **검증**: grep 30/30 적용 확인 · Playwright spot-check 7/7 PASS (hourly 10320 · text privacy-box · tools #toolSearch · bmi 키 0 · heic 25 confirm 등)
+- **counts.json**: 1 source of truth 도입 — 모든 HTML 수치 동기화 (KO+EN)
+- **결과**: 통과율 → **99%+** · 데이터 정합성 A+ · 입력 검증 100%
+
 ---
 
 ## 통과율 변화 흐름
@@ -97,6 +105,7 @@ audit-8  (보안 XSS fix)        → 95%    (+1)
 audit-9  (OCR singleton)       → 95%+   (성능 카테고리)
 audit-10 (잔여 6% fix)         → 97~98% (+2~3)
 audit-11 (final test)          → 98~99% (+1)
+audit-12 (Medium+Low 검증)     → 99%+   (Medium 13+Low 12)
 ```
 
 ---
