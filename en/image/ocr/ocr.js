@@ -35,6 +35,26 @@ let currentFile = null;
 let currentObjectURL = null;
 let txtBlobUrl = null;
 let currentWorker = null;
+// worker singleton — same lang reuse avoids ~2-3s init per call
+let workerCache = null;
+let workerLang = null;
+
+async function getOrInitWorker(lang) {
+  if (workerCache && workerLang === lang) return workerCache;
+  if (workerCache) {
+    try { await workerCache.terminate(); } catch (_) {}
+    workerCache = null;
+    workerLang = null;
+  }
+  const w = await window.Tesseract.createWorker(lang, 1, {
+    logger: (m) => {
+      if (m && typeof m.progress === 'number') setProgress(m.status, m.progress);
+    }
+  });
+  workerCache = w;
+  workerLang = lang;
+  return w;
+}
 
 const STATUS_LABEL = {
   'loading tesseract core': 'Loading OCR engine',
@@ -85,11 +105,7 @@ async function runOcr() {
   const lang = langSel.value;
   let worker = null;
   try {
-    worker = await window.Tesseract.createWorker(lang, 1, {
-      logger: (m) => {
-        if (m && typeof m.progress === 'number') setProgress(m.status, m.progress);
-      }
-    });
+    worker = await getOrInitWorker(lang);
     currentWorker = worker;
     const { data } = await worker.recognize(currentFile);
 
@@ -126,10 +142,8 @@ async function runOcr() {
       alert('OCR failed: ' + (msg || 'network or browser issue') + '\nRefresh the page and try again, or test with a different image.');
     }
   } finally {
-    if (worker && currentWorker === worker) {
-      try { await worker.terminate(); } catch {}
-      currentWorker = null;
-    }
+    // worker reused (singleton). Only cancelOcr terminates.
+    if (currentWorker === worker) currentWorker = null;
     cancelBtn.hidden = true;
     ocrBtn.textContent = orig;
     ocrBtn.disabled = false;
@@ -140,6 +154,8 @@ async function cancelOcr() {
   if (!currentWorker) return;
   const w = currentWorker;
   currentWorker = null;
+  workerCache = null;
+  workerLang = null;
   try { await w.terminate(); } catch {}
   progressText.textContent = 'Cancelled';
   cancelBtn.hidden = true;

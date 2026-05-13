@@ -1,0 +1,93 @@
+# audit 시리즈 INDEX
+
+audit 보고서 진행 순서. 같은 일자에 여러 audit이 발생하면 작업 시간 순으로 매김.
+
+---
+
+## 2026-05-11
+
+### audit-1: traffic-engagement-checkup
+- **파일**: [`2026-05-11-traffic-engagement-checkup.md`](2026-05-11-traffic-engagement-checkup.md)
+- **컨텍스트**: 도메인 migration 2일 전 트래픽·dwell 점검
+- **결과**: SEO·LLM 노출 후속 plan 도출
+
+---
+
+## 2026-05-13 (8개 — Phase 1·2·3 + 보안·성능)
+
+### audit-2: seo-llm-strengthening
+- **파일**: [`2026-05-13-seo-llm-strengthening.md`](2026-05-13-seo-llm-strengthening.md)
+- **컨텍스트**: LLM 친화 SEO 강화 작업
+- **작업**: robots.txt LLM 크롤러 정책, llms.txt, JSON-LD Schema (HowTo·Dataset·WebApplication), description i18n
+- **결과**: Schema·SEO·LLM 친화 A+
+
+### audit-3: tools-functional-test (250 케이스 발굴)
+- **파일**: [`2026-05-13-tools-functional-test.md`](2026-05-13-tools-functional-test.md) · [`2026-05-13-tools-test-report.html`](2026-05-13-tools-test-report.html)
+- **컨텍스트**: 12 agent 병렬 + Playwright sample로 25 도구 250 케이스 극한 테스트
+- **발견**: Critical 15 · Medium 15 · Low/a11y 13
+- **결과**: 종합 A- · 통과율 62%
+
+### audit-4: critical-fix-verification (Phase 1)
+- **파일**: [`2026-05-13-critical-fix-verification.md`](2026-05-13-critical-fix-verification.md) · [`2026-05-13-critical-fix-verification.html`](2026-05-13-critical-fix-verification.html)
+- **컨텍스트**: Critical 15건 + 잔존 R1~R5 일괄 fix 후 10 agent 재검증
+- **작업**: C1~C15 + R1~R5 = 17 fix (환각 2건 제외)
+- **결과**: 통과율 62% → **78%** (+16)
+
+### audit-5: phase2-quality-fix (Phase 2 — 1차)
+- **파일**: [`2026-05-13-phase2-quality-fix.md`](2026-05-13-phase2-quality-fix.md) · [`2026-05-13-phase2-quality-fix.html`](2026-05-13-phase2-quality-fix.html)
+- **컨텍스트**: 품질 코드 fix (OOM 사전 차단·메모리 효율)
+- **작업**: P2-1a 13 도구 size 체크 utility · P2-3 willReadFrequently · P2-7 compress 상한
+- **결과**: 통과율 78% → **82.5%** (추정)
+
+### audit-6: phase2-completion-playwright (Phase 2 — 완료)
+- **파일**: [`2026-05-13-phase2-completion-playwright.md`](2026-05-13-phase2-completion-playwright.md) · [`2026-05-13-phase2-completion-playwright.html`](2026-05-13-phase2-completion-playwright.html)
+- **컨텍스트**: Phase 2 잔여 5건 일괄 + Playwright 실 테스트
+- **작업**: P2-1b PDF·multi-file size 체크 · P2-4 watermark PNG/WebP · P2-2-ocr cancel · P2-2-video cancel · i18n fix · EN 22 도구 size 체크 추가
+- **검증**: Playwright 14/14 PASS · KO 23 = EN 23 대칭
+- **결과**: 통과율 → **87%**
+
+### audit-7: phase3-medium-a11y (Phase 3)
+- **파일**: [`2026-05-13-phase3-medium-a11y.md`](2026-05-13-phase3-medium-a11y.md) · [`2026-05-13-phase3-medium-a11y.html`](2026-05-13-phase3-medium-a11y.html)
+- **컨텍스트**: 사용자 결정 "품질 우선" — Medium 잔존 + a11y 강화
+- **작업**: Medium 12건 fix (M1·M2·M3·M4·M6·M7·M8·M9·M11·M13·M14·M15) · a11y 25 도구 (role·tabindex·keydown·aria-live·progressbar)
+- **검증**: Playwright 10/10 PASS
+- **결과**: 통과율 → **94%** · a11y 카테고리 20% → 84% (+64%p)
+
+### audit-8: security-xss-fix
+- **파일**: [`2026-05-13-security-xss-fix.md`](2026-05-13-security-xss-fix.md) · [`2026-05-13-security-xss-fix.html`](2026-05-13-security-xss-fix.html)
+- **컨텍스트**: 사용자 요청 "또 오류나는 거 없음?" — 극한 케이스 재점검
+- **발견**: 12 영역 중 11 PASS · **HIGH XSS 1건** (파일명 innerHTML 직접 삽입, 14 위치)
+- **작업**: `escapeHtml` utility + 8 파일 (KO 4 + EN 4) 일괄 escape + SW CACHE_VERSION v19
+- **검증**: Playwright XSS payload `<img onerror>` 차단 확인
+- **결과**: 보안 카테고리 B → A+ · 통과율 → **95%**
+
+### audit-9: ocr-worker-singleton (성능 fix)
+- **파일**: [`2026-05-13-ocr-worker-singleton.md`](2026-05-13-ocr-worker-singleton.md) · [`2026-05-13-ocr-worker-singleton.html`](2026-05-13-ocr-worker-singleton.html)
+- **컨텍스트**: 자체 점검 — Phase 2 cancel 기능 추가의 부작용 발견
+- **발견**: OCR createWorker 매 호출마다 init ~2-3초 (5장 연속 시 +10~15초 누적)
+- **작업**: workerCache singleton 패턴 (같은 lang 재사용, 다른 lang 또는 cancel 시에만 terminate)
+- **결과**: 두 번째 호출부터 init 0초
+
+---
+
+## 통과율 변화 흐름
+
+```
+audit-3  (250 케이스)         → 62%
+audit-4  (Critical 15 fix)    → 78%   (+16)
+audit-5  (Phase 2 1차)        → 82.5% (+4.5)
+audit-6  (Phase 2 완료)       → 87%   (+4.5)
+audit-7  (Phase 3 Medium+a11y) → 94%   (+7)
+audit-8  (보안 XSS fix)        → 95%   (+1)
+audit-9  (OCR singleton)      → 95%+ (성능 카테고리)
+```
+
+---
+
+## 다음 단계
+
+코드 작업 사실상 완료 (A+ 등급). 다음:
+
+1. ⭐ **외부 작업** — GSC Batch 6 → Bing WMT → Naver SA → 백링크
+2. **AdSense 승인 모니터링** (1-2주 대기)
+3. 사용자 needs 데이터 회수 후 N case (N10 drag-drop 폴더·N11 clipboard paste) 결정

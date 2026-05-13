@@ -35,6 +35,26 @@ let currentFile = null;
 let currentObjectURL = null;
 let txtBlobUrl = null;
 let currentWorker = null;
+// worker singleton — 같은 lang 연속 recognize 시 재사용 (init ~2-3초 절감)
+let workerCache = null;
+let workerLang = null;
+
+async function getOrInitWorker(lang) {
+  if (workerCache && workerLang === lang) return workerCache;
+  if (workerCache) {
+    try { await workerCache.terminate(); } catch (_) {}
+    workerCache = null;
+    workerLang = null;
+  }
+  const w = await window.Tesseract.createWorker(lang, 1, {
+    logger: (m) => {
+      if (m && typeof m.progress === 'number') setProgress(m.status, m.progress);
+    }
+  });
+  workerCache = w;
+  workerLang = lang;
+  return w;
+}
 
 const STATUS_KO = {
   'loading tesseract core': 'OCR 엔진 로딩',
@@ -85,11 +105,7 @@ async function runOcr() {
   const lang = langSel.value;
   let worker = null;
   try {
-    worker = await window.Tesseract.createWorker(lang, 1, {
-      logger: (m) => {
-        if (m && typeof m.progress === 'number') setProgress(m.status, m.progress);
-      }
-    });
+    worker = await getOrInitWorker(lang);
     currentWorker = worker;
     const { data } = await worker.recognize(currentFile);
 
@@ -128,10 +144,8 @@ async function runOcr() {
       alert('OCR 처리 실패: ' + (msg || '네트워크 또는 브라우저 문제') + '\n페이지를 새로고침 후 다시 시도하거나 다른 이미지로 테스트하세요.');
     }
   } finally {
-    if (worker && currentWorker === worker) {
-      try { await worker.terminate(); } catch {}
-      currentWorker = null;
-    }
+    // worker는 재사용 (singleton). cancel 시에만 cancelOcr에서 terminate.
+    if (currentWorker === worker) currentWorker = null;
     cancelBtn.hidden = true;
     ocrBtn.textContent = orig;
     ocrBtn.disabled = false;
@@ -142,6 +156,9 @@ async function cancelOcr() {
   if (!currentWorker) return;
   const w = currentWorker;
   currentWorker = null;
+  // cancel 시 worker singleton도 비움 — 다음 recognize는 새로 init
+  workerCache = null;
+  workerLang = null;
   try { await w.terminate(); } catch {}
   progressText.textContent = '취소됨';
   cancelBtn.hidden = true;
