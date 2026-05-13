@@ -1,0 +1,7 @@
+# TAYSTUDIO Security Contact
+# https://datatracker.ietf.org/doc/html/rfc9116
+
+Contact: mailto:feedback@taystudios.com
+Expires: 2027-05-13T00:00:00.000Z
+Preferred-Languages: ko, en
+Canonical: https://taystudios.com/.well-known/security.txt

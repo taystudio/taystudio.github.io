@@ -12,4 +12,5 @@ Thumbs.db
 .claude/
 
 # Mockup·미공개 임시 파일
+mockup-*.html
 .mockup-*.html
