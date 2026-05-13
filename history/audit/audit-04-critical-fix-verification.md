@@ -173,6 +173,6 @@
 
 ## 참고
 
-- 1차 audit: `2026-05-13-tools-functional-test.md` (Critical 15건 발굴)
-- 1차 HTML 보고서: `2026-05-13-tools-test-report.html`
-- 2차 audit (본): `2026-05-13-critical-fix-verification.md` (재검증·잔존 fix·통과율 +16%)
+- 1차 audit: `audit-03-tools-functional-test.md` (Critical 15건 발굴)
+- 1차 HTML 보고서: `audit-03-tools-functional-test.html`
+- 2차 audit (본): `audit-04-critical-fix-verification.md` (재검증·잔존 fix·통과율 +16%)

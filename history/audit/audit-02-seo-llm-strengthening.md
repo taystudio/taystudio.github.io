@@ -193,7 +193,7 @@ GA4 28일 (4/13~5/10):
 
 ## 참고 문서
 
-- `history/audit/2026-05-11-traffic-engagement-checkup.md` — GA4·CF 데이터 회수
+- `history/audit/audit-01-traffic-engagement-checkup.md` — GA4·CF 데이터 회수
 - `history/checklist/gsc-indexing-status.md` — GSC manual indexing master (live update)
 - `history/seo/strategy.md` — SEO 전략·Tier 우선순위 (2026-05-05)
 - `history/seo/concept-indexnow.html` — IndexNow 개념정리

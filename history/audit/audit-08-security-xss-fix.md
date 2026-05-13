@@ -168,5 +168,5 @@ en/pdf/pdf-stamp/pdf-stamp.js
 
 ## 참고
 
-- `history/audit/2026-05-13-phase3-medium-a11y.md` — Phase 3 (Medium·a11y)
-- `history/audit/2026-05-13-security-xss-fix.html` — 본 audit 시각 보고서
+- `history/audit/audit-07-phase3-medium-a11y.md` — Phase 3 (Medium·a11y)
+- `history/audit/audit-08-security-xss-fix.html` — 본 audit 시각 보고서

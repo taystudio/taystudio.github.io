@@ -145,8 +145,8 @@ en/video/{compress,trim,rotate,to-gif,to-mp3}/
 en/video/vendor/ffmpeg-loader.mjs             (terminateFFmpeg export)
 
 [audit]
-history/audit/2026-05-13-phase2-completion-playwright.md
-history/audit/2026-05-13-phase2-completion-playwright.html
+history/audit/audit-06-phase2-completion-playwright.md
+history/audit/audit-06-phase2-completion-playwright.html
 ```
 
 총 57 파일 변경.
@@ -165,7 +165,7 @@ Phase 2 사실상 완료. 남은 작업:
 
 ## 참고
 
-- `history/audit/2026-05-13-tools-functional-test.md` — 250 케이스 원 audit
-- `history/audit/2026-05-13-critical-fix-verification.md` — Critical 15 fix
-- `history/audit/2026-05-13-phase2-quality-fix.md` — Phase 2 1차 작업
-- `history/audit/2026-05-13-phase2-completion-playwright.html` — 본 audit 시각 보고서
+- `history/audit/audit-03-tools-functional-test.md` — 250 케이스 원 audit
+- `history/audit/audit-04-critical-fix-verification.md` — Critical 15 fix
+- `history/audit/audit-05-phase2-quality-fix.md` — Phase 2 1차 작업
+- `history/audit/audit-06-phase2-completion-playwright.html` — 본 audit 시각 보고서

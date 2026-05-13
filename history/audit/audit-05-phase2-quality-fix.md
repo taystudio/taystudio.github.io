@@ -158,6 +158,6 @@ video/to-mp3/to-mp3.js              (P2-1a 1000MB)
 
 ## 참고
 
-- `history/audit/2026-05-13-tools-functional-test.md` — 원 250 케이스 audit
-- `history/audit/2026-05-13-critical-fix-verification.md` — Critical 15 fix 결과
-- `history/audit/2026-05-13-phase2-quality-fix.html` — 본 audit 시각 보고서
+- `history/audit/audit-03-tools-functional-test.md` — 원 250 케이스 audit
+- `history/audit/audit-04-critical-fix-verification.md` — Critical 15 fix 결과
+- `history/audit/audit-05-phase2-quality-fix.html` — 본 audit 시각 보고서

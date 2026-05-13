@@ -114,6 +114,6 @@ JS syntax 검증: 양쪽 `node --check` 통과.
 ## 참고
 
 - `history/audit/INDEX.md` — audit 시리즈 전체 순서
-- `history/audit/2026-05-13-phase2-completion-playwright.md` — Phase 2에서 cancel 기능 추가
-- `history/audit/2026-05-13-security-xss-fix.md` — 직전 audit
-- `history/audit/2026-05-13-ocr-worker-singleton.html` — 본 audit 시각 보고서
+- `history/audit/audit-06-phase2-completion-playwright.md` — Phase 2에서 cancel 기능 추가
+- `history/audit/audit-08-security-xss-fix.md` — 직전 audit
+- `history/audit/audit-09-ocr-worker-singleton.html` — 본 audit 시각 보고서

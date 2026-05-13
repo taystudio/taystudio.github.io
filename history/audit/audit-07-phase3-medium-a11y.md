@@ -104,6 +104,6 @@ audit-2에서 a11y 카테고리 통과율 **20%** — 25 도구 대부분에 누
 
 ## 참고
 
-- `history/audit/2026-05-13-tools-functional-test.md` — 원 audit (Medium 15건 발견)
-- `history/audit/2026-05-13-phase2-completion-playwright.md` — Phase 2 완료
-- `history/audit/2026-05-13-phase3-medium-a11y.html` — 본 audit 시각 보고서
+- `history/audit/audit-03-tools-functional-test.md` — 원 audit (Medium 15건 발견)
+- `history/audit/audit-06-phase2-completion-playwright.md` — Phase 2 완료
+- `history/audit/audit-07-phase3-medium-a11y.html` — 본 audit 시각 보고서
