@@ -160,6 +160,9 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
 });
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+});
 
 mergeBtn.addEventListener('click', merge);
 clearBtn.addEventListener('click', clearAll);

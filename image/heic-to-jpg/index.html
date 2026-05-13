@@ -184,7 +184,7 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="HEIC 파일 업로드">
         <div class="drop-icon" aria-hidden="true">📷</div>
         <div class="drop-title" id="dropTitle">HEIC 파일을 드래그하거나 클릭해서 선택</div>
         <div class="drop-hint">HEIC·HEIF 형식 — 여러 파일 일괄 가능</div>
@@ -213,14 +213,14 @@
       </div>
 
       <div class="progress-wrap" id="progressWrap" hidden>
-        <div class="bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
-        <div class="text" id="progressText">0 / 0</div>
+        <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="처리 진행률"><div class="fill" id="progressFill" style="width:0%"></div></div>
+        <div class="text" id="progressText" aria-live="polite">0 / 0</div>
       </div>
     </div>
 
     <div class="ad-slot">[ AdSense 광고 자리 ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
       <div class="image-meta">
         <span>변환 완료 <b id="newCount">—</b></span>
         <span>총 용량 <b id="newSize">—</b></span>

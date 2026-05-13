@@ -264,7 +264,7 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload video to rotate">
         <div class="drop-icon" aria-hidden="true">🔄</div>
         <div class="drop-title" id="dropTitle">Drag a video file here, or click to choose</div>
         <div class="drop-hint">MP4 · MOV · WebM · MKV · AVI — recommended ≤ 500MB (mobile) / ≤ 1.5GB (desktop)</div>
@@ -325,15 +325,15 @@
         <button type="button" id="clearBtn">Reset</button>
       </div>
 
-      <div class="progress-wrap" id="progressWrap" hidden>
+      <div class="progress-wrap" id="progressWrap" hidden role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Processing progress">
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="progress-text" id="progressText">Waiting...</div>
+        <div class="progress-text" id="progressText" aria-live="polite">Waiting...</div>
       </div>
     </div>
 
     <div class="ad-slot">[ AdSense slot ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
       <div class="video-preview"><video id="resultVideo" controls playsinline></video></div>
       <div class="video-meta">
         <span>Original <b id="origSize">—</b></span>

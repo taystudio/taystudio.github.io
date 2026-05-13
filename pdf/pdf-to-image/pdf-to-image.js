@@ -152,6 +152,7 @@ async function convert() {
   convertBtn.textContent = '변환 중...';
   progressWrap.hidden = false;
   progressFill.style.width = '0%';
+  progressWrap.setAttribute('aria-valuenow', '0');
   progressText.textContent = '0 / ' + indices.length;
   result.hidden = true;
   imgGrid.innerHTML = '';
@@ -179,7 +180,9 @@ async function convert() {
 
       addImgCard(url, filename, pageNum, blob.size, canvas);
 
-      progressFill.style.width = ((i + 1) / indices.length * 100) + '%';
+      const pct = Math.round((i + 1) / indices.length * 100);
+      progressFill.style.width = pct + '%';
+      progressWrap.setAttribute('aria-valuenow', String(pct));
       progressText.textContent = (i + 1) + ' / ' + indices.length;
     }
 
@@ -227,6 +230,15 @@ function addImgCard(url, filename, pageNum, size, sourceCanvas) {
 
 function downloadAll() {
   if (resultUrls.length === 0) return;
+  // 30개 이상 시 사전 확인 — 다운로드 차단·지연 안내
+  const n = resultUrls.length;
+  if (n >= 30) {
+    const est = Math.ceil(n * 0.2);
+    const msg = `${n}개 파일을 순차 다운로드합니다 (약 ${est}초 소요).\n` +
+      `브라우저가 "여러 파일 다운로드 허용?"을 묻거나 일부를 차단할 수 있습니다.\n` +
+      `대량 다운로드는 개별 ⬇ 버튼이나 더 좁은 페이지 범위 사용을 권장합니다.\n\n계속하시겠습니까?`;
+    if (!confirm(msg)) return;
+  }
   // 순차 anchor click — 일부 브라우저는 5+ 동시 다운로드 차단, 권한 허용 필요
   resultUrls.forEach((r, idx) => {
     setTimeout(() => {
@@ -269,6 +281,9 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
 });
 
 formatSel.addEventListener('change', updateQualityVisibility);

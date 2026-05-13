@@ -174,7 +174,18 @@ async function loadPdf(file) {
 
   try {
     const pdf = await pdfjsLib.getDocument({ data: originalBytes.slice(0) }).promise;
-    for (let i = 0; i < pdf.numPages; i++) {
+    // Page-count pre-check: confirm above 100 pages, escalate above 200 (OOM guard)
+    const np = pdf.numPages;
+    if (np > 200) {
+      const msg = `This PDF has ${np} pages. Rendering all thumbnails may exhaust memory or hang the browser.\n` +
+        `Estimated time: at least ${Math.ceil(np * 0.5)} seconds.\n\n` +
+        `Alternative: split it into chunks of 100 pages or fewer first, then edit.\nContinue anyway?`;
+      if (!confirm(msg)) { clearAll(); loading.hidden = true; return; }
+    } else if (np > 100) {
+      const msg = `This PDF has ${np} pages. Thumbnail rendering may take ${Math.ceil(np * 0.5)} seconds or more.\nContinue?`;
+      if (!confirm(msg)) { clearAll(); loading.hidden = true; return; }
+    }
+    for (let i = 0; i < np; i++) {
       const page = await pdf.getPage(i + 1);
       const baseViewport = page.getViewport({ scale: 1 });
       const targetW = 150;
@@ -284,6 +295,12 @@ fileInput.addEventListener('change', (e) => {
 });
 dropZone.addEventListener('drop', (e) => {
   if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) loadPdf(e.dataTransfer.files[0]);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 saveBtn.addEventListener('click', save);

@@ -48,6 +48,7 @@ function setProgress(status, ratio) {
   progressWrap.hidden = false;
   const pct = Math.round((ratio || 0) * 100);
   progressFill.style.width = pct + '%';
+  if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', pct);
   const label = STATUS_KO[status] || status || '처리 중';
   progressText.textContent = label + ' — ' + pct + '%';
 }
@@ -96,6 +97,7 @@ async function runOcr() {
     if (currentWorker !== worker) return;
 
     progressFill.style.width = '100%';
+    if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', 100);
     progressText.textContent = '완료 ✓';
 
     const text = (data && data.text) || '';
@@ -122,6 +124,7 @@ async function runOcr() {
     } else {
       progressText.textContent = '실패: ' + (msg || '알 수 없는 오류');
       progressFill.style.width = '0%';
+      if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', 0);
       alert('OCR 처리 실패: ' + (msg || '네트워크 또는 브라우저 문제') + '\n페이지를 새로고침 후 다시 시도하거나 다른 이미지로 테스트하세요.');
     }
   } finally {
@@ -156,6 +159,7 @@ function clearAll() {
   result.hidden = true;
   progressWrap.hidden = true;
   progressFill.style.width = '0%';
+  if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', 0);
   ocrText.value = '';
 }
 
@@ -172,6 +176,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 ocrBtn.addEventListener('click', runOcr);

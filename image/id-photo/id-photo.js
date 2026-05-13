@@ -277,6 +277,8 @@ async function applyCrop() {
   const ctx = out.getContext('2d');
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = 'high';
+  // whitebg 토글 반복 시 fillRect 누적 방지 — 항상 투명 상태에서 시작
+  ctx.clearRect(0, 0, targetW, targetH);
 
   if (whiteBgChk.checked) {
     ctx.fillStyle = '#ffffff';
@@ -352,6 +354,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 formatSel.addEventListener('change', updateQualityVisibility);

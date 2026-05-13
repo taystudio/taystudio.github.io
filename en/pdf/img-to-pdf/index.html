@@ -169,7 +169,7 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload images to convert to PDF (multiple)">
         <div class="drop-icon" aria-hidden="true">🖼️</div>
         <div class="drop-title" id="dropTitle">Drag multiple images here, or click to select</div>
         <div class="drop-hint">JPG · PNG · WebP — drop more later to add</div>
@@ -209,7 +209,7 @@
 
     <div class="ad-slot">[ AdSense — PDF Tools ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
       <div class="image-meta">
         <span>Images converted <b id="convCount">—</b></span>
         <span>Total pages <b id="convPages">—</b></span>

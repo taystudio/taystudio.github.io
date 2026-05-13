@@ -201,7 +201,7 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="이미지 파일 업로드 (리사이즈)">
         <div class="drop-icon" aria-hidden="true">📁</div>
         <div class="drop-title" id="dropTitle">이미지 파일을 드래그하거나 클릭해서 선택</div>
         <div class="drop-hint">JPG · PNG · WebP · GIF · BMP — 1장씩 처리</div>
@@ -219,11 +219,11 @@
       <div class="dim-row">
         <div class="field">
           <label for="widthIn">가로 <span id="widthUnit">px</span></label>
-          <input type="number" id="widthIn" min="1" step="1" placeholder="—">
+          <input type="number" id="widthIn" min="1" max="16000" step="1" placeholder="—">
         </div>
         <div class="field">
           <label for="heightIn">세로 <span id="heightUnit">px</span></label>
-          <input type="number" id="heightIn" min="1" step="1" placeholder="—">
+          <input type="number" id="heightIn" min="1" max="16000" step="1" placeholder="—">
         </div>
       </div>
 
@@ -255,7 +255,7 @@
 
     <div class="ad-slot">[ AdSense 광고 자리 ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
       <div class="image-preview">
         <img id="previewImg" alt="리사이즈 결과 미리보기">
       </div>

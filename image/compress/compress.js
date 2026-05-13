@@ -24,6 +24,9 @@ const compSize = document.getElementById('compSize');
 const reduceRate = document.getElementById('reduceRate');
 const dimText = document.getElementById('dimText');
 const downloadBtn = document.getElementById('downloadBtn');
+const qualityHint = document.getElementById('qualityHint');
+const QUALITY_HINT_DEFAULT = qualityHint ? qualityHint.textContent : '';
+const QUALITY_HINT_PNG = 'PNG는 무손실 포맷이라 품질 슬라이더가 적용되지 않습니다. 용량을 줄이려면 JPEG·WebP로 바꾸세요.';
 
 let currentFile = null;
 let currentImage = null;
@@ -40,6 +43,10 @@ function updateQualityUI() {
   const isPng = formatSel.value === 'image/png';
   qualityField.style.opacity = isPng ? '0.4' : '1';
   qualityInput.disabled = isPng;
+  if (qualityHint) {
+    qualityHint.textContent = isPng ? QUALITY_HINT_PNG : QUALITY_HINT_DEFAULT;
+    qualityHint.style.opacity = '1';
+  }
 }
 
 function clearAll() {
@@ -163,6 +170,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 // 옵션 변경

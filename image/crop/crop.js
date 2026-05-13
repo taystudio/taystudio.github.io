@@ -48,6 +48,7 @@ let crop = { x: 0, y: 0, w: 0, h: 0 }; // transformedCanvas 픽셀 기준
 let aspectRatio = 0; // 0 = 자유
 let resultUrl = null;
 const MIN_SIZE = 16;
+const MAX_DIM = 16000; // 브라우저 canvas 안전 한계 (~16384px)
 
 function fmtBytes(n) {
   if (n < 1024) return n + ' B';
@@ -318,9 +319,19 @@ document.querySelector('.rotate-buttons').addEventListener('click', (e) => {
 
 async function applyCrop() {
   if (!transformedCanvas) return;
+  const cw = Math.round(crop.w);
+  const ch = Math.round(crop.h);
+  if (cw < MIN_SIZE || ch < MIN_SIZE) {
+    alert('최소 ' + MIN_SIZE + '×' + MIN_SIZE + ' 픽셀 이상으로 영역을 선택하세요.');
+    return;
+  }
+  if (cw > MAX_DIM || ch > MAX_DIM) {
+    alert('출력 크기는 최대 ' + MAX_DIM + 'px 까지 지원합니다. (브라우저 Canvas 한계)');
+    return;
+  }
   const out = document.createElement('canvas');
-  out.width = Math.round(crop.w);
-  out.height = Math.round(crop.h);
+  out.width = cw;
+  out.height = ch;
   const ctx = out.getContext('2d');
   ctx.drawImage(
     transformedCanvas,
@@ -386,6 +397,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 formatSel.addEventListener('change', updateQualityVisibility);

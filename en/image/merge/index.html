@@ -216,7 +216,7 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload images to merge">
         <div class="drop-icon" aria-hidden="true">🧩</div>
         <div class="drop-title">Drag-drop photos or click to select (2 or more)</div>
         <div class="drop-hint">JPG, PNG, WebP — reorderable</div>
@@ -265,7 +265,7 @@
         <span class="dim" id="dimVal"></span>
       </div>
 
-      <div class="preview-wrap" id="previewWrap" hidden>
+      <div class="preview-wrap" id="previewWrap" aria-live="polite" aria-atomic="true" hidden>
         <canvas id="previewCanvas"></canvas>
       </div>
 

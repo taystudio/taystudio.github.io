@@ -95,6 +95,12 @@
   dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
   dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
   dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); if (e.dataTransfer.files) addFiles(e.dataTransfer.files); });
+  dropZone.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      fileInput.click();
+    }
+  });
 
   async function addFiles(files) {
     for (const file of Array.from(files)) {
@@ -268,6 +274,7 @@
     result.hidden = true;
     progressWrap.hidden = false;
     progressFill.style.width = '0%';
+    progressWrap.setAttribute('aria-valuenow', '0');
     progressText.textContent = `0 / ${state.files.length}`;
 
     const outMime = (wmFormat && wmFormat.value) || 'image/jpeg';
@@ -299,7 +306,9 @@
       state.results.push({ name, blob, url });
 
       done++;
-      progressFill.style.width = (done / state.files.length * 100) + '%';
+      const pct = Math.round(done / state.files.length * 100);
+      progressFill.style.width = pct + '%';
+      progressWrap.setAttribute('aria-valuenow', String(pct));
       progressText.textContent = `${done} / ${state.files.length}`;
     }
 

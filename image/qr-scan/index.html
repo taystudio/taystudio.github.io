@@ -211,7 +211,7 @@
       </div>
 
       <div id="imagePanel">
-        <label class="file-drop-zone" id="dropZone">
+        <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="QR 코드 이미지 업로드">
           <div class="drop-icon" aria-hidden="true">📁</div>
           <div class="drop-title" id="dropTitle">QR 코드 이미지를 드래그하거나 클릭해서 선택</div>
           <div class="drop-hint">JPG · PNG · WebP — 1장씩 처리</div>
@@ -234,7 +234,7 @@
 
     <div class="ad-slot">[ AdSense 광고 자리 ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
       <div id="scanResult" class="scan-result">
         <div id="scanType" class="scan-type">텍스트</div>
         <div id="scanContent" class="scan-content">—</div>

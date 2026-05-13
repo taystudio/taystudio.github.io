@@ -94,6 +94,7 @@ function setProgress(p) {
     pct = Math.round((p.current / p.total) * 100);
   }
   progressFill.style.width = pct + '%';
+  progressWrap.setAttribute('aria-valuenow', String(pct));
   let label = p.key || '';
   if (label.startsWith('cache:')) label = '캐시 사용 — ' + label.slice(6);
   else if (label.startsWith('fetch:')) label = '다운로드 — ' + label.slice(6);
@@ -195,6 +196,29 @@ async function run() {
 
   const fps = parseInt(fpsSel.value, 10);
   const width = parseInt(widthSel.value, 10);
+
+  // 메모리 사전 추정: duration × fps × (w × h × 4) ≈ 디코더 프레임 누적 메모리
+  // 실제 GIF 크기는 압축 후 훨씬 작지만 런타임 메모리 한계가 먼저 터짐 (단일 스레드 WASM)
+  const srcW = sourceVideo.videoWidth || 0;
+  const srcH = sourceVideo.videoHeight || 0;
+  if (srcW > 0 && srcH > 0) {
+    const outW = width > 0 ? width : srcW;
+    const outH = width > 0 ? Math.round(srcH * (outW / srcW)) : srcH;
+    const frames = Math.ceil(segLen * fps);
+    const bytes = frames * outW * outH * 4; // RGBA 프레임 누적 추정
+    const mb = bytes / (1024 * 1024);
+    // 단일 스레드 ffmpeg.wasm 메모리 한계 ~2GB. 600MB 넘으면 강한 경고.
+    if (mb > 600) {
+      const msg = `예상 처리 메모리 약 ${mb.toFixed(0)} MB — 변환 실패 가능성이 높습니다.\n` +
+        `(${segLen.toFixed(1)}초 × ${fps}fps × ${outW}×${outH})\n\n` +
+        `해결: 구간을 더 짧게(≤10초), 너비를 320·240으로 낮춰주세요.\n\n계속하시겠습니까?`;
+      if (!confirm(msg)) return;
+    } else if (mb > 250) {
+      const msg = `예상 처리 메모리 약 ${mb.toFixed(0)} MB — 모바일·저사양 기기에서 실패할 수 있습니다.\n` +
+        `더 짧은 구간 또는 낮은 해상도를 권장합니다.\n\n계속하시겠습니까?`;
+      if (!confirm(msg)) return;
+    }
+  }
 
   convertBtn.disabled = true;
   clearBtn.disabled = true;
@@ -301,6 +325,9 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
 });
 
 // "현재 재생 위치로" 버튼

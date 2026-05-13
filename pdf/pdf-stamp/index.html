@@ -217,9 +217,9 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="워터마크 적용할 PDF 업로드 (여러 개 가능)">
         <div class="drop-icon" aria-hidden="true">📄</div>
-        <div class="drop-title">PDF 파일을 드래그하거나 클릭해서 선택</div>
+        <div class="drop-title" aria-live="polite">PDF 파일을 드래그하거나 클릭해서 선택</div>
         <div class="drop-hint">여러 PDF 일괄 가능</div>
         <input type="file" id="fileInput" accept="application/pdf,.pdf" multiple>
       </label>
@@ -324,15 +324,15 @@
         <button type="button" id="clearBtn">전체 삭제</button>
       </div>
 
-      <div class="progress-wrap" id="progressWrap" hidden>
+      <div class="progress-wrap" id="progressWrap" hidden role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="PDF 처리 진행률">
         <div class="bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
-        <div class="text" id="progressText">0 / 0</div>
+        <div class="text" id="progressText" aria-live="polite">0 / 0</div>
       </div>
     </div>
 
     <div class="ad-slot">[ AdSense 광고 자리 ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
       <div class="image-meta">
         <span>완료 <b id="newCount">—</b></span>
       </div>

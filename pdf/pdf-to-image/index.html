@@ -177,14 +177,14 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="이미지로 변환할 PDF 업로드">
         <div class="drop-icon" aria-hidden="true">📑</div>
-        <div class="drop-title" id="dropTitle">PDF 파일 1개를 드래그하거나 클릭해서 선택</div>
+        <div class="drop-title" id="dropTitle" aria-live="polite">PDF 파일 1개를 드래그하거나 클릭해서 선택</div>
         <div class="drop-hint">PDF 형식만 — 페이지를 이미지로 변환합니다</div>
         <input type="file" id="fileInput" accept="application/pdf">
       </label>
 
-      <div id="pdfMeta" class="pdf-meta" hidden>
+      <div id="pdfMeta" class="pdf-meta" hidden aria-live="polite">
         <span>파일 <b id="metaName">—</b></span>
         <span>총 페이지 <b id="metaPages">—</b></span>
         <span>원본 용량 <b id="metaSize">—</b></span>
@@ -222,15 +222,15 @@
         <button type="button" id="clearBtn">초기화</button>
       </div>
 
-      <div class="progress-wrap" id="progressWrap" hidden>
+      <div class="progress-wrap" id="progressWrap" hidden role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="PDF 변환 진행률">
         <div class="bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
-        <div class="text" id="progressText">0 / 0</div>
+        <div class="text" id="progressText" aria-live="polite">0 / 0</div>
       </div>
     </div>
 
     <div class="ad-slot">[ AdSense 광고 자리 ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
       <div class="image-meta">
         <span>변환 페이지 <b id="newCount">—</b></span>
         <span>총 용량 <b id="newSize">—</b></span>

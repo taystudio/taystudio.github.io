@@ -48,6 +48,7 @@ function setProgress(status, ratio) {
   progressWrap.hidden = false;
   const pct = Math.round((ratio || 0) * 100);
   progressFill.style.width = pct + '%';
+  progressWrap.setAttribute('aria-valuenow', String(pct));
   const label = STATUS_LABEL[status] || status || 'Processing';
   progressText.textContent = label + ' — ' + pct + '%';
 }
@@ -95,6 +96,7 @@ async function runOcr() {
     if (currentWorker !== worker) return;
 
     progressFill.style.width = '100%';
+    progressWrap.setAttribute('aria-valuenow', '100');
     progressText.textContent = 'Done ✓';
 
     const text = (data && data.text) || '';
@@ -120,6 +122,7 @@ async function runOcr() {
     } else {
       progressText.textContent = 'Failed: ' + (msg || 'unknown error');
       progressFill.style.width = '0%';
+      progressWrap.setAttribute('aria-valuenow', '0');
       alert('OCR failed: ' + (msg || 'network or browser issue') + '\nRefresh the page and try again, or test with a different image.');
     }
   } finally {
@@ -154,6 +157,7 @@ function clearAll() {
   result.hidden = true;
   progressWrap.hidden = true;
   progressFill.style.width = '0%';
+  progressWrap.setAttribute('aria-valuenow', '0');
   ocrText.value = '';
 }
 
@@ -170,6 +174,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 ocrBtn.addEventListener('click', runOcr);

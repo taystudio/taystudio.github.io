@@ -213,7 +213,7 @@
       </div>
 
       <div id="imagePanel">
-        <label class="file-drop-zone" id="dropZone">
+        <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload QR code image">
           <div class="drop-icon" aria-hidden="true">📁</div>
           <div class="drop-title" id="dropTitle">Drag a QR code image here, or click to choose</div>
           <div class="drop-hint">JPG · PNG · WebP — one image at a time</div>
@@ -236,7 +236,7 @@
 
     <div class="ad-slot">[ AdSense slot ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" aria-live="polite" aria-atomic="true" hidden>
       <div id="scanResult" class="scan-result">
         <div id="scanType" class="scan-type">Text</div>
         <div id="scanContent" class="scan-content">—</div>

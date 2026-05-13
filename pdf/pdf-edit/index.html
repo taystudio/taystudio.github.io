@@ -178,14 +178,14 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="편집할 PDF 파일 업로드">
         <div class="drop-icon" aria-hidden="true">📑</div>
-        <div class="drop-title" id="dropTitle">PDF 파일 1개를 드래그하거나 클릭해서 선택</div>
+        <div class="drop-title" id="dropTitle" aria-live="polite">PDF 파일 1개를 드래그하거나 클릭해서 선택</div>
         <div class="drop-hint">PDF 형식만 — 썸네일은 자동 생성됩니다</div>
         <input type="file" id="fileInput" accept="application/pdf">
       </label>
 
-      <div id="pdfMeta" class="pdf-meta" hidden>
+      <div id="pdfMeta" class="pdf-meta" hidden aria-live="polite">
         <span>파일 <b id="metaName">—</b></span>
         <span>총 페이지 <b id="metaPages">—</b></span>
         <span>남은 페이지 <b id="metaActive">—</b></span>
@@ -204,7 +204,7 @@
 
     <div class="ad-slot">[ AdSense 광고 자리 ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
       <div class="image-meta">
         <span>저장된 페이지 <b id="newPages">—</b></span>
         <span>결과 용량 <b id="newSize">—</b></span>

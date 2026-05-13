@@ -247,6 +247,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
 });
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
+});
 
 marginIn.addEventListener('input', () => { marginValue.textContent = marginIn.value; });
 convertBtn.addEventListener('click', convert);

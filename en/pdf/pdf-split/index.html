@@ -200,7 +200,7 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload PDF to split">
         <div class="drop-icon" aria-hidden="true">📑</div>
         <div class="drop-title" id="dropTitle">Drag a PDF file here, or click to select</div>
         <div class="drop-hint">PDF only — single file</div>
@@ -226,7 +226,7 @@
 
     <div class="ad-slot">[ AdSense — PDF Tools ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
       <div class="image-meta">
         <span>Pages extracted <b id="newPages">—</b></span>
         <span>Output size <b id="newSize">—</b></span>

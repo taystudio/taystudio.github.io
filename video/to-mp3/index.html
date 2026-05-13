@@ -253,9 +253,9 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="동영상 파일 업로드 (MP3 추출)">
         <div class="drop-icon" aria-hidden="true">🎵</div>
-        <div class="drop-title" id="dropTitle">본인 영상 파일을 드래그하거나 클릭해서 선택</div>
+        <div class="drop-title" id="dropTitle" aria-live="polite">본인 영상 파일을 드래그하거나 클릭해서 선택</div>
         <div class="drop-hint">MP4 · MOV · WebM · MKV · AVI — 권장 ≤ 1GB</div>
         <input type="file" id="fileInput" accept="video/*">
       </label>
@@ -278,15 +278,15 @@
         <button type="button" id="clearBtn">초기화</button>
       </div>
 
-      <div class="progress-wrap" id="progressWrap" hidden>
+      <div class="progress-wrap" id="progressWrap" hidden role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="MP3 추출 진행률">
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="progress-text" id="progressText">대기 중...</div>
+        <div class="progress-text" id="progressText" aria-live="polite">대기 중...</div>
       </div>
     </div>
 
     <div class="ad-slot">[ AdSense 광고 자리 ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
       <div class="audio-preview"><audio id="resultAudio" controls preload="metadata"></audio></div>
       <div class="video-meta">
         <span>원본 영상 <b id="origSize">—</b></span>

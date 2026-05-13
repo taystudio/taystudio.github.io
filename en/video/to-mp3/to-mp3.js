@@ -51,6 +51,7 @@ function setProgress(p) {
     pct = Math.round((p.current / p.total) * 100);
   }
   progressFill.style.width = pct + '%';
+  progressWrap.setAttribute('aria-valuenow', String(pct));
   let label = p.key || '';
   if (label.startsWith('cache:')) label = 'From cache — ' + label.slice(6);
   else if (label.startsWith('fetch:')) label = 'Downloading — ' + label.slice(6);
@@ -146,6 +147,7 @@ async function run() {
     downloadBtn.download = baseName + '.mp3';
 
     progressFill.style.width = '100%';
+    progressWrap.setAttribute('aria-valuenow', '100');
     progressText.textContent = 'Done ✓ (' + (ms / 1000).toFixed(1) + 's)';
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -203,6 +205,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 // Actions

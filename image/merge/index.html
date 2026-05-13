@@ -216,7 +216,7 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="합칠 이미지 업로드">
         <div class="drop-icon" aria-hidden="true">🧩</div>
         <div class="drop-title">사진을 드래그하거나 클릭해서 선택 (2장 이상)</div>
         <div class="drop-hint">JPG·PNG·WebP — 순서 조정 가능</div>
@@ -265,7 +265,7 @@
         <span class="dim" id="dimVal"></span>
       </div>
 
-      <div class="preview-wrap" id="previewWrap" hidden>
+      <div class="preview-wrap" id="previewWrap" hidden aria-live="polite" aria-atomic="true">
         <canvas id="previewCanvas"></canvas>
       </div>
 

@@ -150,6 +150,7 @@ async function convert() {
   convertBtn.textContent = 'Converting...';
   progressWrap.hidden = false;
   progressFill.style.width = '0%';
+  progressWrap.setAttribute('aria-valuenow', '0');
   progressText.textContent = '0 / ' + indices.length;
   result.hidden = true;
   imgGrid.innerHTML = '';
@@ -177,7 +178,9 @@ async function convert() {
 
       addImgCard(url, filename, pageNum, blob.size, canvas);
 
-      progressFill.style.width = ((i + 1) / indices.length * 100) + '%';
+      const pct = Math.round((i + 1) / indices.length * 100);
+      progressFill.style.width = pct + '%';
+      progressWrap.setAttribute('aria-valuenow', String(pct));
       progressText.textContent = (i + 1) + ' / ' + indices.length;
     }
 
@@ -225,6 +228,15 @@ function addImgCard(url, filename, pageNum, size, sourceCanvas) {
 
 function downloadAll() {
   if (resultUrls.length === 0) return;
+  // Pre-confirm for 30+ files — browsers can block or delay bulk downloads
+  const n = resultUrls.length;
+  if (n >= 30) {
+    const est = Math.ceil(n * 0.2);
+    const msg = `Downloading ${n} files sequentially (about ${est}s).\n` +
+      `Your browser may prompt for "Allow multiple downloads?" or block some.\n` +
+      `For large batches, prefer per-file ⬇ buttons or a smaller page range.\n\nContinue?`;
+    if (!confirm(msg)) return;
+  }
   // Sequential anchor clicks. Some browsers block 5+ concurrent downloads — allow when prompted.
   resultUrls.forEach((r, idx) => {
     setTimeout(() => {
@@ -267,6 +279,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 formatSel.addEventListener('change', updateQualityVisibility);

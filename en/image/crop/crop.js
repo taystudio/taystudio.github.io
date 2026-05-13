@@ -48,6 +48,7 @@ let crop = { x: 0, y: 0, w: 0, h: 0 }; // transformedCanvas pixel space
 let aspectRatio = 0; // 0 = free
 let resultUrl = null;
 const MIN_SIZE = 16;
+const MAX_DIM = 16000; // browser canvas safety limit (~16384px)
 
 function fmtBytes(n) {
   if (n < 1024) return n + ' B';
@@ -318,9 +319,19 @@ document.querySelector('.rotate-buttons').addEventListener('click', (e) => {
 
 async function applyCrop() {
   if (!transformedCanvas) return;
+  const cw = Math.round(crop.w);
+  const ch = Math.round(crop.h);
+  if (cw < MIN_SIZE || ch < MIN_SIZE) {
+    alert('Please select an area at least ' + MIN_SIZE + '×' + MIN_SIZE + ' pixels.');
+    return;
+  }
+  if (cw > MAX_DIM || ch > MAX_DIM) {
+    alert('Output size is limited to ' + MAX_DIM + 'px. (browser Canvas limit)');
+    return;
+  }
   const out = document.createElement('canvas');
-  out.width = Math.round(crop.w);
-  out.height = Math.round(crop.h);
+  out.width = cw;
+  out.height = ch;
   const ctx = out.getContext('2d');
   ctx.drawImage(
     transformedCanvas,
@@ -386,6 +397,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 formatSel.addEventListener('change', updateQualityVisibility);

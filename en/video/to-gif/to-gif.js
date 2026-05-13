@@ -94,6 +94,7 @@ function setProgress(p) {
     pct = Math.round((p.current / p.total) * 100);
   }
   progressFill.style.width = pct + '%';
+  progressWrap.setAttribute('aria-valuenow', String(pct));
   let label = p.key || '';
   if (label.startsWith('cache:')) label = 'From cache — ' + label.slice(6);
   else if (label.startsWith('fetch:')) label = 'Downloading — ' + label.slice(6);
@@ -196,6 +197,29 @@ async function run() {
   const fps = parseInt(fpsSel.value, 10);
   const width = parseInt(widthSel.value, 10);
 
+  // Memory pre-estimate: duration × fps × (w × h × 4) ≈ decoder frame buffer footprint
+  // Encoded GIF is smaller, but runtime memory hits the single-thread WASM ceiling first.
+  const srcW = sourceVideo.videoWidth || 0;
+  const srcH = sourceVideo.videoHeight || 0;
+  if (srcW > 0 && srcH > 0) {
+    const outW = width > 0 ? width : srcW;
+    const outH = width > 0 ? Math.round(srcH * (outW / srcW)) : srcH;
+    const frames = Math.ceil(segLen * fps);
+    const bytes = frames * outW * outH * 4; // RGBA frame accumulation estimate
+    const mb = bytes / (1024 * 1024);
+    // Single-thread ffmpeg.wasm memory ceiling ~2GB. Hard-warn above 600MB.
+    if (mb > 600) {
+      const msg = `Estimated processing memory ~${mb.toFixed(0)} MB — conversion is likely to fail.\n` +
+        `(${segLen.toFixed(1)}s × ${fps}fps × ${outW}×${outH})\n\n` +
+        `Fix: shorten the segment (≤10s) or lower the width to 320 / 240.\n\nContinue anyway?`;
+      if (!confirm(msg)) return;
+    } else if (mb > 250) {
+      const msg = `Estimated processing memory ~${mb.toFixed(0)} MB — may fail on mobile or low-end devices.\n` +
+        `Consider a shorter segment or lower resolution.\n\nContinue?`;
+      if (!confirm(msg)) return;
+    }
+  }
+
   convertBtn.disabled = true;
   clearBtn.disabled = true;
   const orig = convertBtn.textContent;
@@ -244,6 +268,7 @@ async function run() {
     downloadBtn.download = baseName + '.gif';
 
     progressFill.style.width = '100%';
+    progressWrap.setAttribute('aria-valuenow', '100');
     progressText.textContent = 'Done ✓ (' + (ms / 1000).toFixed(1) + 's)';
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -301,6 +326,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 // "Use current playback position" buttons

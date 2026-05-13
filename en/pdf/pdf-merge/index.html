@@ -167,7 +167,7 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload PDF files to merge (multiple)">
         <div class="drop-icon" aria-hidden="true">📑</div>
         <div class="drop-title" id="dropTitle">Drag multiple PDF files here, or click to select</div>
         <div class="drop-hint">PDF only — drop more later to add to the list</div>
@@ -184,7 +184,7 @@
 
     <div class="ad-slot">[ AdSense — PDF Tools ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
       <div class="image-meta">
         <span>Files merged <b id="mergedCount">—</b></span>
         <span>Total pages <b id="mergedPages">—</b></span>

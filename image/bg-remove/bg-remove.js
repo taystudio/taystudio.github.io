@@ -48,6 +48,7 @@ function setProgress(key, current, total) {
     pct = Math.round((current / total) * 100);
   }
   progressFill.style.width = pct + '%';
+  if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', pct);
   // 내부 경로 노출 없이 사용자 친화 메시지로 변환
   let label = key;
   if (typeof key === 'string') {
@@ -59,8 +60,10 @@ function setProgress(key, current, total) {
 }
 
 function loadFile(file) {
-  if (!file || !file.type.startsWith('image/')) {
-    alert('이미지 파일만 선택해주세요.');
+  // MIME 스푸핑 방어: type + 확장자 둘 다 검증 (.mp4를 .png로 rename + type 위조 차단)
+  const imgExtRe = /\.(png|jpe?g|webp|bmp|gif|avif|tiff?)$/i;
+  if (!file || !file.type.startsWith('image/') || !imgExtRe.test(file.name || '')) {
+    alert('이미지 파일만 선택해주세요. (PNG·JPG·WebP·BMP·GIF·AVIF·TIFF)');
     return;
   }
   if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 30, '이미지')) return;
@@ -73,6 +76,7 @@ function loadFile(file) {
   result.hidden = true;
   progressWrap.hidden = true;
   progressFill.style.width = '0%';
+  if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', 0);
 }
 
 async function run() {
@@ -110,12 +114,14 @@ async function run() {
     downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(baseName + '-no-bg.png') : baseName + '-no-bg.png');
 
     progressFill.style.width = '100%';
+    if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', 100);
     progressText.textContent = '완료 ✓ (' + (ms / 1000).toFixed(1) + 's)';
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (e) {
     progressText.textContent = '실패: ' + (e && e.message ? e.message : '알 수 없는 오류');
     progressFill.style.width = '0%';
+    if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', 0);
     const msg = (e && e.message) ? e.message : '';
     alert('배경 제거 실패: ' + msg + '\n\n해결 시도:\n• 페이지 새로고침 후 다시 시도\n• 더 작은 이미지로 시도 (가로 1500px 이하)\n• 다른 브라우저(Chrome·Edge·Firefox 최신) 사용\n• 네트워크 점검 (첫 실행은 모델 다운로드 필요)');
   } finally {
@@ -136,6 +142,7 @@ function clearAll() {
   result.hidden = true;
   progressWrap.hidden = true;
   progressFill.style.width = '0%';
+  if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', 0);
 }
 
 fileInput.addEventListener('change', (e) => {
@@ -151,6 +158,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 removeBtn.addEventListener('click', run);

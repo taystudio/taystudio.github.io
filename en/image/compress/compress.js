@@ -24,6 +24,9 @@ const compSize = document.getElementById('compSize');
 const reduceRate = document.getElementById('reduceRate');
 const dimText = document.getElementById('dimText');
 const downloadBtn = document.getElementById('downloadBtn');
+const qualityHint = document.getElementById('qualityHint');
+const QUALITY_HINT_DEFAULT = qualityHint ? qualityHint.textContent : '';
+const QUALITY_HINT_PNG = 'PNG is lossless — the quality slider has no effect. To shrink, switch the output format to JPEG or WebP.';
 
 let currentFile = null;
 let currentImage = null;
@@ -40,6 +43,10 @@ function updateQualityUI() {
   const isPng = formatSel.value === 'image/png';
   qualityField.style.opacity = isPng ? '0.4' : '1';
   qualityInput.disabled = isPng;
+  if (qualityHint) {
+    qualityHint.textContent = isPng ? QUALITY_HINT_PNG : QUALITY_HINT_DEFAULT;
+    qualityHint.style.opacity = '1';
+  }
 }
 
 function clearAll() {
@@ -159,6 +166,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 // Option changes

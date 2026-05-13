@@ -174,7 +174,18 @@ async function loadPdf(file) {
 
   try {
     const pdf = await pdfjsLib.getDocument({ data: originalBytes.slice(0) }).promise;
-    for (let i = 0; i < pdf.numPages; i++) {
+    // 페이지 수 사전 경고: 100쪽 초과 시 confirm, 200쪽 초과 시 경고 강화 (OOM 방어)
+    const np = pdf.numPages;
+    if (np > 200) {
+      const msg = `이 PDF는 ${np}쪽입니다. 썸네일 렌더 시 메모리 부족·브라우저 멈춤 위험이 큽니다.\n` +
+        `예상 처리 시간: ${Math.ceil(np * 0.5)}초 이상.\n\n` +
+        `대안: 먼저 분할 도구로 100쪽 이하로 자른 뒤 편집하세요.\n계속하시겠습니까?`;
+      if (!confirm(msg)) { clearAll(); loading.hidden = true; return; }
+    } else if (np > 100) {
+      const msg = `이 PDF는 ${np}쪽입니다. 썸네일 렌더에 ${Math.ceil(np * 0.5)}초 이상 소요될 수 있습니다.\n계속하시겠습니까?`;
+      if (!confirm(msg)) { clearAll(); loading.hidden = true; return; }
+    }
+    for (let i = 0; i < np; i++) {
       const page = await pdf.getPage(i + 1);
       const baseViewport = page.getViewport({ scale: 1 });
       const targetW = 150;
@@ -284,6 +295,9 @@ fileInput.addEventListener('change', (e) => {
 });
 dropZone.addEventListener('drop', (e) => {
   if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) loadPdf(e.dataTransfer.files[0]);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
 });
 
 saveBtn.addEventListener('click', save);

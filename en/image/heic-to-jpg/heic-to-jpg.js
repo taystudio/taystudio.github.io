@@ -118,6 +118,7 @@ async function convert() {
   convertBtn.textContent = 'Converting...';
   progressWrap.hidden = false;
   progressFill.style.width = '0%';
+  progressWrap.setAttribute('aria-valuenow', '0');
   progressText.textContent = '0 / ' + files.length;
   result.hidden = true;
   imgGrid.innerHTML = '';
@@ -149,7 +150,9 @@ async function convert() {
       entry.errMsg = (e && e.message) || 'Unknown error';
     }
     renderFileList();
-    progressFill.style.width = ((i + 1) / files.length * 100) + '%';
+    const pct = Math.round((i + 1) / files.length * 100);
+    progressFill.style.width = pct + '%';
+    progressWrap.setAttribute('aria-valuenow', String(pct));
     progressText.textContent = (i + 1) + ' / ' + files.length;
   }
 
@@ -229,6 +232,12 @@ fileInput.addEventListener('change', (e) => {
 });
 dropZone.addEventListener('drop', (e) => {
   if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 formatSel.addEventListener('change', updateQualityVisibility);

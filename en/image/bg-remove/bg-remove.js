@@ -48,6 +48,7 @@ function setProgress(key, current, total) {
     pct = Math.round((current / total) * 100);
   }
   progressFill.style.width = pct + '%';
+  progressWrap.setAttribute('aria-valuenow', String(pct));
   // Examples: 'fetch:onnx/onnx_wasm_simd_threaded.jsep.mjs', 'fetch:isnet_quint8.onnx', 'compute:foreground'
   let label = key;
   if (typeof key === 'string') {
@@ -58,8 +59,10 @@ function setProgress(key, current, total) {
 }
 
 function loadFile(file) {
-  if (!file || !file.type.startsWith('image/')) {
-    alert('Please choose an image file.');
+  // MIME-spoofing guard: check both type + extension (e.g. .mp4 renamed to .png with forged type)
+  const imgExtRe = /\.(png|jpe?g|webp|bmp|gif|avif|tiff?)$/i;
+  if (!file || !file.type.startsWith('image/') || !imgExtRe.test(file.name || '')) {
+    alert('Please choose an image file (PNG, JPG, WebP, BMP, GIF, AVIF, TIFF).');
     return;
   }
   if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 30, 'Image')) return;
@@ -72,6 +75,7 @@ function loadFile(file) {
   result.hidden = true;
   progressWrap.hidden = true;
   progressFill.style.width = '0%';
+  progressWrap.setAttribute('aria-valuenow', '0');
 }
 
 async function run() {
@@ -109,12 +113,14 @@ async function run() {
     downloadBtn.download = baseName + '-no-bg.png';
 
     progressFill.style.width = '100%';
+    progressWrap.setAttribute('aria-valuenow', '100');
     progressText.textContent = 'Done ✓ (' + (ms / 1000).toFixed(1) + 's)';
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (e) {
     progressText.textContent = 'Failed: ' + (e && e.message ? e.message : 'unknown error');
     progressFill.style.width = '0%';
+    progressWrap.setAttribute('aria-valuenow', '0');
     const msg = (e && e.message) ? e.message : '';
     alert('Background removal failed: ' + msg + '\n\nTry:\n• Refresh and retry\n• Use a smaller image (under 1500px wide)\n• Use a recent browser (Chrome / Edge / Firefox)\n• Check your network (first run downloads the model)');
   } finally {
@@ -135,6 +141,7 @@ function clearAll() {
   result.hidden = true;
   progressWrap.hidden = true;
   progressFill.style.width = '0%';
+  progressWrap.setAttribute('aria-valuenow', '0');
 }
 
 fileInput.addEventListener('change', (e) => {
@@ -150,6 +157,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 removeBtn.addEventListener('click', run);

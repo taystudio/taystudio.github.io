@@ -237,7 +237,7 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload image file for crop">
         <div class="drop-icon" aria-hidden="true">🖼️</div>
         <div class="drop-title" id="dropTitle">Drag a photo here, or click to choose</div>
         <div class="drop-hint">JPG · PNG · WebP · HEIC (if browser supports it) — single file</div>
@@ -310,7 +310,7 @@
 
     <div class="ad-slot">[ AdSense slot ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" aria-live="polite" aria-atomic="true" hidden>
       <div class="image-meta">
         <span>Crop size <b id="newSize">—</b></span>
         <span>File size <b id="newBytes">—</b></span>

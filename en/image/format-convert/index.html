@@ -148,7 +148,7 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload image file for format conversion">
         <div class="drop-icon" aria-hidden="true">🖼️</div>
         <div class="drop-title" id="dropTitle">Drag-drop WebP, AVIF, JPG, PNG, or GIF — or click to select</div>
         <div class="drop-hint">Multiple files supported</div>
@@ -180,15 +180,15 @@
         <button type="button" id="clearBtn">Clear all</button>
       </div>
 
-      <div class="progress-wrap" id="progressWrap" hidden>
+      <div class="progress-wrap" id="progressWrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Conversion progress" hidden>
         <div class="bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
-        <div class="text" id="progressText">0 / 0</div>
+        <div class="text" id="progressText" aria-live="polite">0 / 0</div>
       </div>
     </div>
 
     <div class="ad-slot">[ AdSense ad slot ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" aria-live="polite" aria-atomic="true" hidden>
       <div class="image-meta">
         <span>Converted <b id="newCount">—</b></span>
         <span>Total size <b id="newSize">—</b></span>

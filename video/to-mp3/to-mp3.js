@@ -51,6 +51,7 @@ function setProgress(p) {
     pct = Math.round((p.current / p.total) * 100);
   }
   progressFill.style.width = pct + '%';
+  progressWrap.setAttribute('aria-valuenow', String(pct));
   let label = p.key || '';
   if (label.startsWith('cache:')) label = '캐시 사용 — ' + label.slice(6);
   else if (label.startsWith('fetch:')) label = '다운로드 — ' + label.slice(6);
@@ -203,6 +204,9 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
 });
 
 // 액션

@@ -103,13 +103,20 @@
     }
   }
 
+  let gifWarned = false;
   function addFiles(fileList) {
     const arr = Array.from(fileList);
+    let sawGif = false;
     arr.forEach(file => {
       if (!file.type.startsWith('image/') && !/\.(webp|avif|jpe?g|png|gif)$/i.test(file.name)) return;
       if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, '이미지')) return;
+      if (file.type === 'image/gif' || /\.gif$/i.test(file.name)) sawGif = true;
       state.files.push({ id: uid(), file, status: 'pending' });
     });
+    if (sawGif && !gifWarned) {
+      gifWarned = true;
+      alert('GIF는 첫 프레임만 변환됩니다. 애니메이션 전체를 유지하려면 동영상 도구 사용을 권장합니다.');
+    }
     refreshFileList();
     toggleUI();
   }
@@ -128,6 +135,12 @@
     e.preventDefault();
     dropZone.classList.remove('drag-over');
     if (e.dataTransfer.files && e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
+  });
+  dropZone.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      fileInput.click();
+    }
   });
 
   // 옵션 동기화
@@ -193,12 +206,15 @@
     result.hidden = true;
     progressWrap.hidden = false;
     progressFill.style.width = '0%';
-    progressText.textContent = `0 / ${state.files.length}`;
+    if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', 0);
+    const totalBytes = state.files.reduce((s, f) => s + (f.file.size || 0), 0);
+    progressText.textContent = `0 / ${state.files.length} — 0 B / ${fmtSize(totalBytes)}`;
 
     const mimeOut = formatSel.value;
     const quality = mimeOut === 'image/png' ? undefined : (parseInt(qualityIn.value, 10) / 100);
     const ext = extOfMime(mimeOut);
-    let done = 0, ok = 0, totalSize = 0;
+    let done = 0, ok = 0, totalSize = 0, processedBytes = 0;
+    const nameMap = Object.create(null);
 
     for (const f of state.files) {
       f.status = 'processing';
@@ -209,7 +225,15 @@
         const actualMime = blob.type || mimeOut;
         const actualExt = extOfMime(actualMime);
         const url = URL.createObjectURL(blob);
-        const name = newName(f.file.name, actualExt);
+        let name = newName(f.file.name, actualExt);
+        // 파일명 collision: 같은 이름 N번째 → base-N.ext
+        if (nameMap[name]) {
+          const dot = name.lastIndexOf('.');
+          const base = dot > 0 ? name.slice(0, dot) : name;
+          const tail = dot > 0 ? name.slice(dot) : '';
+          name = `${base}-${nameMap[name]}${tail}`;
+        }
+        nameMap[newName(f.file.name, actualExt)] = (nameMap[newName(f.file.name, actualExt)] || 0) + 1;
         state.results.push({ id: f.id, name, blob, url, size: blob.size });
         totalSize += blob.size;
         f.status = 'done';
@@ -219,9 +243,11 @@
         f.errMsg = (e && e.message) ? e.message.slice(0, 30) : '오류';
       }
       done++;
-      const pct = Math.round(done / state.files.length * 100);
+      processedBytes += (f.file.size || 0);
+      const pct = totalBytes > 0 ? Math.round(processedBytes / totalBytes * 100) : Math.round(done / state.files.length * 100);
       progressFill.style.width = pct + '%';
-      progressText.textContent = `${done} / ${state.files.length}`;
+      if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', pct);
+      progressText.textContent = `${done} / ${state.files.length} — ${fmtSize(processedBytes)} / ${fmtSize(totalBytes)}`;
       refreshFileList();
     }
 

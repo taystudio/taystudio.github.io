@@ -194,7 +194,7 @@
     </div>
 
     <div class="card">
-      <label class="file-drop-zone" id="dropZone">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="이미지 파일 업로드 (클릭 또는 Enter/Space)">
         <div class="drop-icon" aria-hidden="true">📁</div>
         <div class="drop-title" id="dropTitle">이미지 파일을 드래그하거나 클릭해서 선택</div>
         <div class="drop-hint">JPG · PNG · WebP · GIF · BMP — 1장씩 처리</div>
@@ -216,7 +216,7 @@
           <input type="range" id="quality" min="0.1" max="1.0" step="0.05" value="0.8">
           <span class="range-value" id="qualityValue">0.80</span>
         </div>
-        <p class="small" style="color:var(--muted);margin-top:6px">권장: 0.7~0.85 (시각적 손실 없이 용량 30~60% 감소)</p>
+        <p class="small" id="qualityHint" style="color:var(--muted);margin-top:6px">권장: 0.7~0.85 (시각적 손실 없이 용량 30~60% 감소)</p>
       </div>
 
       <div class="image-actions">
@@ -227,7 +227,7 @@
 
     <div class="ad-slot">[ AdSense 광고 자리 ]</div>
 
-    <div id="result" class="result" hidden>
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
       <div class="image-preview">
         <img id="previewImg" alt="압축 결과 미리보기">
       </div>

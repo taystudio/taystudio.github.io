@@ -145,6 +145,8 @@ function syncRatio() {
   }
 }
 
+const MAX_DIM = 16000; // browser canvas safety limit (~16384px)
+
 function targetDims() {
   if (!currentImage) return null;
   const ow = currentImage.naturalWidth;
@@ -167,6 +169,10 @@ function targetDims() {
     const s = Math.min(sw, sh);
     w = Math.max(1, Math.round(ow * s));
     h = Math.max(1, Math.round(oh * s));
+  }
+  if (w > MAX_DIM || h > MAX_DIM) {
+    alert('Maximum width / height is ' + MAX_DIM + 'px. (browser Canvas limit)');
+    return null;
   }
   return { w: w, h: h, ow: ow, oh: oh };
 }
@@ -243,6 +249,12 @@ fileInput.addEventListener('change', (e) => {
 dropZone.addEventListener('drop', (e) => {
   const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
   if (f) loadFile(f);
+});
+dropZone.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    fileInput.click();
+  }
 });
 
 // Unit toggle
