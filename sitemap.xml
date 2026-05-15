@@ -711,5 +711,6 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/sitemap/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/sitemap/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/sitemap/"/>
   </url>
 </urlset>
