@@ -1,8 +1,8 @@
 # GSC Indexing Status — sitemap 114 URL
 
-**Last update**: 2026-05-13
-**누적 manual 요청**: 47/114 (41.2%)
-**확인된 ✅ indexed**: 1개
+**Last update**: 2026-05-15
+**누적 manual 요청**: 69/114 (60.5%)
+**확인된 ✅ indexed**: 10개 (Batch 9 EN hub·메타 9건은 manual 요청 전 이미 indexed — auto-discovery)
 
 > 새 batch 처리 후 이 파일 한 곳만 갱신. 매번 새 파일 만들지 않음.
 
@@ -102,8 +102,8 @@
 |---|---|---|
 | `/tools/comprehensive/` | 종합소득세, 5월 정점, 자영업자 | 🔄 |
 | `/tools/hourly/` | 시급 계산, 학생·알바 evergreen | 🔄 |
-| `/tools/bmi/` | BMI, 한국 비만학회 기준 + 글로벌 | — |
-| `/text/kbd-convert/` | 한영키 잘못 친 것, 한국 특유 | — |
+| `/tools/bmi/` | BMI, 한국 비만학회 기준 + 글로벌 | 🔄 |
+| `/text/kbd-convert/` | 한영키 잘못 친 것, 한국 특유 | 🔄 |
 | `/text/sns-format/` | SNS 줄바꿈·해시태그 정리 | — |
 | `/video/rotate/` | 동영상 회전, 모바일 needs | — |
 | `/video/to-gif/` | 영상 → GIF, 짤·움짤 evergreen | — |
@@ -132,13 +132,70 @@
 
 ---
 
+## Batch 8 — EN 글로벌 evergreen 보강 (2026-05-15)
+
+**선정**: Batch 2(EN 글로벌 evergreen)에서 빠진 EN functional 도구 위주. 미국 트래픽 진입 목표. 글로벌 SERP 경쟁 강한 image/watermark·merge·mosaic·pdf-stamp·text/counter·계산기는 의도적 제외 유지.
+
+| URL | 글로벌 키워드 | 결과 |
+|---|---|---|
+| `/en/image/ocr/` | extract text from image, image to text | 🔄 |
+| `/en/image/qr-gen/` | QR code generator | 🔄 |
+| `/en/image/qr-scan/` | QR code scanner online | 🔄 |
+| `/en/pdf/pdf-to-image/` | PDF to JPG, PDF to PNG | 🔄 |
+| `/en/pdf/img-to-pdf/` | image to PDF, JPG to PDF | 🔄 |
+| `/en/pdf/pdf-edit/` | PDF editor online | 🔄 |
+| `/en/video/rotate/` | rotate video online | 🔄 |
+| `/en/video/to-gif/` | video to gif converter | 🔄 |
+| `/en/` | (home, 미국 트래픽 진입점) | 🔄 |
+| _(10번째 — 본인 추가)_ | _(추후 마킹)_ | 🔄 |
+
+---
+
+## Batch 9 — EN hub·메타 자동 indexed 확인 (2026-05-15, manual 요청 0)
+
+**컨텍스트**: 미국 트래픽 진입점·E-E-A-T 신호 검토차 EN hub 5 + 메타 4 GSC URL 검사 → **9건 모두 이미 indexed (auto-discovery)**. 도메인 내부 링크 강해서 sitemap 자동 발견 흐름으로 색인 완료. manual 요청 skip.
+
+| URL | 결과 |
+|---|---|
+| `/en/tools/` | ✅ auto |
+| `/en/image/` | ✅ auto |
+| `/en/pdf/` | ✅ auto |
+| `/en/video/` | ✅ auto |
+| `/en/text/` | ✅ auto |
+| `/en/about/` | ✅ auto |
+| `/en/privacy/` | ✅ auto |
+| `/en/terms/` | ✅ auto |
+| `/en/sitemap/` | ✅ auto |
+
+→ EN 도메인 권위 신호 형성됨 positive.
+
+---
+
+## Batch 10 — EN long-tail + KO 잔여 혼합 (2026-05-15)
+
+**선정**: EN long-tail 재평가 4건 (의도적 제외에서 풀어 시도) + KO batch 6 잔여 6건. 1~2주 impressions 0이면 EN 4건은 다시 제외로 돌림.
+
+| URL | 키워드·근거 | 결과 |
+|---|---|---|
+| `/en/image/mosaic/` | "blur face online", "pixelate face" — privacy 트렌드 long-tail | 🔄 |
+| `/en/image/watermark/` | "add watermark photo" long-tail | 🔄 |
+| `/en/image/merge/` | "combine images into one" | 🔄 |
+| `/en/pdf/pdf-stamp/` | "stamp PDF" niche | 🔄 |
+| `/tools/parental-leave/` | 육아휴직 급여, 한국 직장인 needs | 🔄 |
+| `/tools/cartax/` | 자동차세 evergreen | 🔄 |
+| `/tools/insurance/` | 보험료 evergreen | 🔄 |
+| `/video/to-gif/` | 짤·움짤 evergreen | 🔄 |
+| `/video/rotate/` | 모바일 evergreen | 🔄 |
+| `/text/sns-format/` | SNS 줄바꿈·해시태그 | 🔄 |
+
+---
+
 ## 다음 점검
 
 | 일자 | 액션 |
 |---|---|
-| 2026-05-14 | Batch 6 잔여 9개 진행 (quota 회복 후) |
-| 2026-05-20 (1주) | GSC Coverage에서 batch 1~7 indexed 비율 확인 — 80%↑ 정상 / 50%↓ 도메인 권위 문제 의심 |
-| 2026-05-27 (2주) | Search performance impressions·CTR·position 회수 + Batch 8 선정 (남은 계산기 + EN 미러) |
+| 2026-05-20 (1주) | GSC Coverage에서 batch 1~10 indexed 비율 확인 — 80%↑ 정상 / 50%↓ 도메인 권위 문제 의심 |
+| 2026-05-27 (2주) | Search performance impressions·CTR·position 회수 + Batch 11 선정. EN long-tail 4건 (mosaic·watermark·merge·pdf-stamp) impressions·position 별 데이터로 keep/drop 결정 |
 
 ## 의도적 제외 (manual indexing 우선순위 매우 낮음)
 

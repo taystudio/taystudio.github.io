@@ -14,3 +14,7 @@ Thumbs.db
 # Mockup·미공개 임시 파일
 mockup-*.html
 .mockup-*.html
+
+# 남편 운영 노트 — 사적 페이지 (noindex, 비공개)
+husband-care/
+husband-care-deploy/

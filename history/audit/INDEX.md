@@ -108,6 +108,22 @@ audit 보고서 진행 순서. 같은 일자에 여러 audit이 발생하면 작
 
 ---
 
+## 2026-05-15 ~ 16
+
+### audit-14: lcp-investigation (LCP 회귀 진상 + lazy 매트릭스 + 큰 파일)
+- **파일**: [`audit-14-lcp-investigation.md`](audit-14-lcp-investigation.md)
+- **컨텍스트**: Cloudflare Web Analytics LCP P75 596ms 표시 (audit-01 340ms 대비 +75%) + 트래픽 감소 인지. AdSense script 영향 의심
+- **방법**: head diff (5/10 vs HEAD) + Playwright 실측 (desktop·mobile·calc) + sub-agent 정적 분석 + 200MB 큰 파일 시나리오
+- **발견**:
+  - **실측 LCP 회귀 없음** — Playwright desktop 236ms / mobile 276ms / salary 268ms 모두 audit-01 수준 유지
+  - CWA P75 596ms는 cold-network 사용자 25% 분포 → 단일 system lever = **`/common/site-chrome.js` 43KB sync head** (130 페이지 영향)
+  - AdSense iframe 163ms는 LCP 236ms 이후 발생 → LCP 영향 0
+  - Medium 5건: site-chrome.js defer · AdSense preconnect · EN meta description 160자+ 26건 · KO description 짧음 5건 · watermark 하드코딩 `#fff`
+  - Low 5건: result preview lazy 14건 · .gitignore husband-care-deploy · robots Disallow · JSON-LD 분리 · EN title 60자+
+- **결과**: Critical 0건 (실측 LCP 정상) · 통과율 99%+ 유지 · system lever 1개 발굴 (audit-15 plan)
+
+---
+
 ## 통과율 변화 흐름
 
 ```
@@ -122,14 +138,17 @@ audit-10 (잔여 6% fix)         → 97~98% (+2~3)
 audit-11 (final test)          → 98~99% (+1)
 audit-12 (Medium+Low 검증)     → 99%+   (Medium 13+Low 12)
 audit-13 (N10·N11 처리)        → 99%+   (편의성 A → A+, N case 5/5 완료)
+audit-14 (LCP 진상 + lazy + 큰 파일) → 99%+ (실측 LCP 정상, CWA P75 system lever 1개 발굴)
 ```
 
 ---
 
 ## 다음 단계
 
-코드 작업 사실상 완료 (A+ 등급) · 모든 N case 정리. 다음:
+코드 작업 사실상 완료 (A+ 등급). audit-14 발견 기반으로:
 
-1. ⭐ **외부 작업** — GSC Batch 6 → Bing WMT → Naver SA → 백링크
-2. **AdSense 승인 모니터링** (1-2주 대기)
-3. (Optional) GA 데이터로 paste·folder drop 실 사용 패턴 확인 → 폴더 unfold 등 후속 결정
+1. **M1: site-chrome.js render-blocking 해소** (CWA P75 596ms → 400ms대 site-wide 효과). 2~3시간 작업
+2. **M3·M4: KO/EN meta description SEO fix** (EN 160자+ 26건 트리밍, KO 짧음 5건 보강). 1~2시간
+3. **M5: watermark `#fff` 2건 → CSS 변수** (dark mode 회귀 fix). 10분
+4. **L2·L3: .gitignore + robots.txt 정리** (즉시 1~2줄)
+5. **외부 작업** (변동 없음): GSC sitemap 재제출 · IndexNow ping (완료) · Naver SA · AdSense 승인 모니터링
