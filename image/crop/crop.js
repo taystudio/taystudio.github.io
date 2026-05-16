@@ -168,12 +168,14 @@ function loadFile(file) {
     originalImg = img;
     rotation = 0; flipH = false; flipV = false;
     rebuildTransformedCanvas();
-    resetCropToFull();
+    // hidden 풀고 layout 완료된 다음 frame에 crop rect 적용
+    // (안 그러면 getBoundingClientRect() 0×0 → crop 영역 좌측 상단 0×0 점으로 박힘)
     cropStage.hidden = false;
     optRow.hidden = false;
     actionBar.hidden = false;
     result.hidden = true;
     dropTitle.textContent = file.name + ' (' + fmtBytes(file.size) + ')';
+    requestAnimationFrame(() => requestAnimationFrame(() => resetCropToFull()));
   };
   img.onerror = () => {
     URL.revokeObjectURL(url);

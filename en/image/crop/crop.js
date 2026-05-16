@@ -168,12 +168,14 @@ function loadFile(file) {
     originalImg = img;
     rotation = 0; flipH = false; flipV = false;
     rebuildTransformedCanvas();
-    resetCropToFull();
+    // Unhide first, then apply crop rect on next frame so
+    // getBoundingClientRect() returns the actual layout size (not 0×0).
     cropStage.hidden = false;
     optRow.hidden = false;
     actionBar.hidden = false;
     result.hidden = true;
     dropTitle.textContent = file.name + ' (' + fmtBytes(file.size) + ')';
+    requestAnimationFrame(() => requestAnimationFrame(() => resetCropToFull()));
   };
   img.onerror = () => {
     URL.revokeObjectURL(url);

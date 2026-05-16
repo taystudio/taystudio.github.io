@@ -18,3 +18,9 @@ mockup-*.html
 # 남편 운영 노트 — 사적 페이지 (noindex, 비공개)
 husband-care/
 husband-care-deploy/
+
+# tayblog (Next.js) — 별 프로젝트, taystudios.com과 분리. taehyuklee.github.io/Archive/blog 배포 대상
+blog/
+
+# 게임·prototype — TAYSTUDIO 본 사이트와 분리 (별 사이트로 운영 또는 추후 통합 결정)
+games/
