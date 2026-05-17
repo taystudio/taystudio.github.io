@@ -116,12 +116,18 @@ async function runOcr() {
     if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', 100);
     progressText.textContent = '완료 ✓';
 
-    const text = (data && data.text) || '';
+    let text = (data && data.text) || '';
+    // 후처리 — Tesseract가 양식·표 layout 보존하려고 큰 공백 넣는 거 정리
+    text = text
+      .replace(/[ \t]{3,}/g, ' ')      // 3+ 공백 → 1
+      .replace(/[ \t]+\n/g, '\n')      // 줄 끝 공백 제거
+      .replace(/\n{3,}/g, '\n\n')      // 3+ 줄바꿈 → 2
+      .trim();
     const conf = (data && typeof data.confidence === 'number') ? data.confidence.toFixed(1) : '—';
 
     confValue.textContent = conf + '%';
     charCount.textContent = text.length + '자';
-    ocrText.value = text.trim();
+    ocrText.value = text;
 
     if (txtBlobUrl) URL.revokeObjectURL(txtBlobUrl);
     const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });

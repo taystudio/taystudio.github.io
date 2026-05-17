@@ -115,12 +115,18 @@ async function runOcr() {
     progressWrap.setAttribute('aria-valuenow', '100');
     progressText.textContent = 'Done ✓';
 
-    const text = (data && data.text) || '';
+    let text = (data && data.text) || '';
+    // Post-processing — collapse layout-preserving spaces Tesseract injects for forms/tables
+    text = text
+      .replace(/[ \t]{3,}/g, ' ')      // 3+ spaces → 1
+      .replace(/[ \t]+\n/g, '\n')      // trailing whitespace
+      .replace(/\n{3,}/g, '\n\n')      // 3+ newlines → 2
+      .trim();
     const conf = (data && typeof data.confidence === 'number') ? data.confidence.toFixed(1) : '—';
 
     confValue.textContent = conf + '%';
     charCount.textContent = text.length + ' chars';
-    ocrText.value = text.trim();
+    ocrText.value = text;
 
     if (txtBlobUrl) URL.revokeObjectURL(txtBlobUrl);
     const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });

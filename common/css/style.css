@@ -1434,6 +1434,7 @@ button:hover {
   border-radius: 10px;
   text-align: center;
 }
+.image-preview[hidden] { display: none; }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .image-preview { background: rgba(255, 255, 255, 0.03); }
@@ -1447,7 +1448,8 @@ button:hover {
   max-height: 480px;
   margin: 0 auto;
   border-radius: 6px;
-  background: #fff;
+  background: var(--card, #fff);
+  object-fit: contain;
 }
 
 .image-meta {
