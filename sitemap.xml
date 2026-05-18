@@ -4,7 +4,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://taystudios.com/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/"/>
@@ -21,7 +21,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/privacy/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/privacy/"/>
@@ -30,7 +30,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/terms/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/terms/"/>
@@ -39,7 +39,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/tools/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/"/>
@@ -48,37 +48,37 @@
   </url>
   <url>
     <loc>https://taystudios.com/tools/acqtax/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/age/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/annual-leave/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/baby-clothes/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/baby-formula/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/bmi/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/bmi/"/>
@@ -87,7 +87,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/tools/body-fat/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/body-fat/"/>
@@ -96,13 +96,13 @@
   </url>
   <url>
     <loc>https://taystudios.com/tools/brokerage/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/calorie/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/calorie/"/>
@@ -111,31 +111,31 @@
   </url>
   <url>
     <loc>https://taystudios.com/tools/capgain/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/cartax-yearly/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/cartax/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/comp-property/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/compound/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/compound/"/>
@@ -144,13 +144,13 @@
   </url>
   <url>
     <loc>https://taystudios.com/tools/comprehensive/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/dday/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/dday/"/>
@@ -159,31 +159,31 @@
   </url>
   <url>
     <loc>https://taystudios.com/tools/gifttax/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/growth/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/heart-rate/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/hourly/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/ideal-weight/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/ideal-weight/"/>
@@ -192,19 +192,19 @@
   </url>
   <url>
     <loc>https://taystudios.com/tools/inheritance/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/insurance/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/loan/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/loan/"/>
@@ -213,49 +213,49 @@
   </url>
   <url>
     <loc>https://taystudios.com/tools/monitor/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/ovulation/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/parental-leave/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/pregnancy/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/property-tax/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/rent-convert/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/salary/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/savings/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/savings/"/>
@@ -264,43 +264,43 @@
   </url>
   <url>
     <loc>https://taystudios.com/tools/severance/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/storage/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/unemployment/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/vat/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/weekly-pay/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/tools/year-end/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/text/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/text/"/>
@@ -309,7 +309,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/text/counter/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/text/counter/"/>
@@ -318,19 +318,19 @@
   </url>
   <url>
     <loc>https://taystudios.com/text/kbd-convert/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/text/sns-format/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://taystudios.com/image/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/"/>
@@ -339,7 +339,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/bg-remove/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/bg-remove/"/>
@@ -348,7 +348,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/compress/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/compress/"/>
@@ -357,7 +357,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/crop/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/crop/"/>
@@ -366,7 +366,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/format-convert/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/format-convert/"/>
@@ -375,7 +375,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/heic-to-jpg/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/heic-to-jpg/"/>
@@ -384,7 +384,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/id-photo/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/id-photo/"/>
@@ -393,7 +393,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/merge/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/merge/"/>
@@ -402,7 +402,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/mosaic/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/mosaic/"/>
@@ -411,7 +411,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/ocr/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/ocr/"/>
@@ -420,7 +420,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/qr-gen/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/qr-gen/"/>
@@ -429,7 +429,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/qr-scan/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/qr-scan/"/>
@@ -438,7 +438,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/resize/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/resize/"/>
@@ -447,7 +447,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/watermark/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/watermark/"/>
@@ -456,7 +456,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/pdf/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/"/>
@@ -465,7 +465,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/pdf/img-to-pdf/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/img-to-pdf/"/>
@@ -474,7 +474,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/pdf/pdf-edit/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-edit/"/>
@@ -483,7 +483,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/pdf/pdf-merge/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-merge/"/>
@@ -492,7 +492,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/pdf/pdf-split/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-split/"/>
@@ -501,7 +501,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/pdf/pdf-stamp/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-stamp/"/>
@@ -510,7 +510,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/pdf/pdf-to-image/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-to-image/"/>
@@ -519,7 +519,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/video/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/video/"/>
@@ -528,7 +528,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/video/compress/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/video/compress/"/>
@@ -537,7 +537,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/video/rotate/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/video/rotate/"/>
@@ -546,7 +546,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/video/to-gif/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/video/to-gif/"/>
@@ -555,7 +555,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/video/to-mp3/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/video/to-mp3/"/>
@@ -564,7 +564,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/video/trim/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/video/trim/"/>
@@ -573,7 +573,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/"/>
@@ -590,7 +590,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/privacy/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/privacy/"/>
@@ -599,7 +599,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/terms/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/terms/"/>
@@ -608,7 +608,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/tools/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/"/>
@@ -617,7 +617,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/tools/bmi/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/bmi/"/>
@@ -626,7 +626,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/tools/body-fat/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/body-fat/"/>
@@ -635,7 +635,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/tools/calorie/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/calorie/"/>
@@ -644,7 +644,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/tools/compound/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/compound/"/>
@@ -653,7 +653,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/tools/dday/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/dday/"/>
@@ -662,7 +662,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/tools/ideal-weight/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/ideal-weight/"/>
@@ -671,7 +671,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/tools/loan/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/loan/"/>
@@ -680,7 +680,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/tools/savings/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/savings/"/>
@@ -689,7 +689,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/text/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/text/"/>
@@ -698,7 +698,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/text/counter/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/text/counter/"/>
@@ -707,7 +707,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/"/>
@@ -716,7 +716,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/bg-remove/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/bg-remove/"/>
@@ -725,7 +725,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/compress/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/compress/"/>
@@ -734,7 +734,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/crop/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/crop/"/>
@@ -743,7 +743,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/format-convert/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/format-convert/"/>
@@ -752,7 +752,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/heic-to-jpg/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/heic-to-jpg/"/>
@@ -761,7 +761,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/id-photo/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/id-photo/"/>
@@ -770,7 +770,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/merge/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/merge/"/>
@@ -779,7 +779,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/mosaic/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/mosaic/"/>
@@ -788,7 +788,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/ocr/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/ocr/"/>
@@ -797,7 +797,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/qr-gen/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/qr-gen/"/>
@@ -806,7 +806,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/qr-scan/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/qr-scan/"/>
@@ -815,7 +815,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/resize/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/resize/"/>
@@ -824,7 +824,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/watermark/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/watermark/"/>
@@ -833,7 +833,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/pdf/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/"/>
@@ -842,7 +842,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/pdf/img-to-pdf/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/img-to-pdf/"/>
@@ -851,7 +851,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/pdf/pdf-edit/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-edit/"/>
@@ -860,7 +860,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/pdf/pdf-merge/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-merge/"/>
@@ -869,7 +869,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/pdf/pdf-split/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-split/"/>
@@ -878,7 +878,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/pdf/pdf-stamp/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-stamp/"/>
@@ -887,7 +887,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/pdf/pdf-to-image/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-to-image/"/>
@@ -896,7 +896,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/video/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/video/"/>
@@ -905,7 +905,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/video/compress/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/video/compress/"/>
@@ -914,7 +914,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/video/rotate/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/video/rotate/"/>
@@ -923,7 +923,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/video/to-gif/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/video/to-gif/"/>
@@ -932,7 +932,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/video/to-mp3/</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/video/to-mp3/"/>
@@ -941,7 +941,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/video/trim/</loc>
-    <lastmod>2026-05-10</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/video/trim/"/>
@@ -950,7 +950,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/sitemap/</loc>
-    <lastmod>2026-05-13</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/sitemap/"/>
@@ -959,7 +959,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/sitemap/</loc>
-    <lastmod>2026-05-13</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/sitemap/"/>
@@ -968,7 +968,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/image/exif-remove/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/exif-remove/"/>
@@ -977,7 +977,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/image/exif-remove/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/exif-remove/"/>
@@ -986,7 +986,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/pdf/pdf-encrypt/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-encrypt/"/>
@@ -995,7 +995,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/pdf/pdf-encrypt/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-encrypt/"/>
@@ -1004,7 +1004,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/pdf/pdf-unlock/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-unlock/"/>
@@ -1013,7 +1013,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/en/pdf/pdf-unlock/</loc>
-    <lastmod>2026-05-17</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-unlock/"/>
