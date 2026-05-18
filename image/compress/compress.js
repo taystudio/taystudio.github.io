@@ -75,7 +75,7 @@ function loadFile(file) {
     alert('빈 파일입니다. 다른 이미지를 선택해주세요.');
     return;
   }
-  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 200, '이미지')) return;
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, '이미지')) return;
   currentFile = file;
   dropTitle.textContent = file.name + ' (' + fmtBytes(file.size) + ')';
   compressBtn.disabled = false;

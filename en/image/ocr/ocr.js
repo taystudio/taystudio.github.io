@@ -103,13 +103,14 @@ async function runOcr() {
   setProgress('starting', 0);
 
   const lang = langSel.value;
+  const fileSnapshot = currentFile;  // race guard — ignore result if a new file was dropped while processing
   let worker = null;
   try {
     worker = await getOrInitWorker(lang);
     currentWorker = worker;
-    const { data } = await worker.recognize(currentFile);
+    const { data } = await worker.recognize(fileSnapshot);
 
-    if (currentWorker !== worker) return;
+    if (currentWorker !== worker || currentFile !== fileSnapshot) return;
 
     progressFill.style.width = '100%';
     progressWrap.setAttribute('aria-valuenow', '100');

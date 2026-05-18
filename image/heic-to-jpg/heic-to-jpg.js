@@ -82,10 +82,12 @@ function updateActionBar() {
 }
 
 function addFiles(list) {
+  let skipped = 0;
   for (const f of list) {
     const lower = (f.name || '').toLowerCase();
     if (!/\.(heic|heif)$/.test(lower) && !/heic|heif/.test(f.type || '')) {
       // 타입 누락(특히 일부 모바일)을 대비해 확장자 한 번 더 본 후도 안 맞으면 스킵
+      skipped++;
       continue;
     }
     if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(f, 100, 'HEIC')) continue;
@@ -93,6 +95,10 @@ function addFiles(list) {
   }
   renderFileList();
   updateActionBar();
+  // HEIC가 아닌 파일이 섞이면 사용자에게 알림 — silent skip 방지
+  if (skipped > 0 && window.TayStudio && window.TayStudio.showToast) {
+    window.TayStudio.showToast(`📁 HEIC/HEIF만 지원 — ${skipped}개 파일 무시됨`, { duration: 2500 });
+  }
 }
 
 function revokeAll() {

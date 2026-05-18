@@ -14,7 +14,7 @@ function fmt(n) { return n.toString(); }
 document.getElementById("form").addEventListener("submit", (e) => {
   e.preventDefault();
   const birthStr = document.getElementById("birth").value;
-  if (!birthStr) return;
+  if (!birthStr) { alert('생년월일을 입력하세요.'); return; }
 
   const birth = new Date(birthStr);
   const today = new Date();

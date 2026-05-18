@@ -13,7 +13,7 @@ document.getElementById("form").addEventListener("submit", (e) => {
   e.preventDefault();
   const startStr = document.getElementById("start").value;
   const endStr = document.getElementById("end").value;
-  if (!startStr || !endStr) return;
+  if (!startStr || !endStr) { alert('시작일과 종료일을 모두 입력하세요.'); return; }
 
   const start = new Date(startStr);
   const end = new Date(endStr);

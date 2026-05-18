@@ -127,6 +127,7 @@ function clearAll() {
   result.hidden = true;
   progressWrap.hidden = true;
   progressFill.style.width = '0%';
+  progressWrap.setAttribute('aria-valuenow', '0');
   sourceVideo.removeAttribute('src'); sourceVideo.load();
   sourcePreviewWrap.hidden = true;
   previewHint.hidden = true;
@@ -236,10 +237,12 @@ async function run() {
     if (myRun !== activeRun) {
       progressText.textContent = 'Cancelled';
       progressFill.style.width = '0%';
+    progressWrap.setAttribute('aria-valuenow', '0');
     } else {
       const { title, body } = formatVideoError(e, { toolName: 'Rotate Video' });
       progressText.textContent = 'Failed: ' + title;
       progressFill.style.width = '0%';
+      progressWrap.setAttribute('aria-valuenow', '0');
       alert(title + '\n\n' + body);
     }
   } finally {

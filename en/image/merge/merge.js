@@ -104,7 +104,18 @@
     state.zoom = Math.max(0.3, Math.min(3, z));
     if (!fromSlider) zoomIn.value = state.zoom;
     zoomVal.textContent = Math.round(state.zoom * 100) + '%';
-    drawPreview();
+    // CSS scale only — avoid compose re-run (prevents lag on large grids)
+    applyZoomScale();
+  }
+  function applyZoomScale() {
+    if (!previewCanvas.width) return;
+    const wrap = document.getElementById('previewWrap');
+    const maxW = Math.max(200, wrap.clientWidth - 16);
+    const maxH = window.innerHeight * 0.6;
+    const fitScale = Math.min(1, maxW / previewCanvas.width, maxH / previewCanvas.height);
+    const finalScale = fitScale * state.zoom;
+    previewCanvas.style.width = Math.round(previewCanvas.width * finalScale) + 'px';
+    previewCanvas.style.height = Math.round(previewCanvas.height * finalScale) + 'px';
   }
   zoomIn.addEventListener('input', () => setZoom(parseFloat(zoomIn.value), true));
   zoomMinus.addEventListener('click', () => setZoom(state.zoom - 0.1));
@@ -125,18 +136,11 @@
     previewCanvas.width = cv.width;
     previewCanvas.height = cv.height;
     previewCanvas.getContext('2d').drawImage(cv, 0, 0);
-    // CSS 사이즈 비례 유지 — fit-scale × zoom 배율.
-    // Fit(=100%) 모드는 viewport 안에 들어오게, Zoom 100%↑면 overflow 스크롤로 큰 미리보기.
-    const wrap = document.getElementById('previewWrap');
-    const maxW = Math.max(200, wrap.clientWidth - 16);
-    const maxH = window.innerHeight * 0.6;
-    const fitScale = Math.min(1, maxW / cv.width, maxH / cv.height);
-    const finalScale = fitScale * state.zoom;
-    previewCanvas.style.width = Math.round(cv.width * finalScale) + 'px';
-    previewCanvas.style.height = Math.round(cv.height * finalScale) + 'px';
+    // CSS size handled by applyZoomScale — avoid compose re-run on zoom/resize
+    applyZoomScale();
     if (dimVal) dimVal.textContent = `${cv.width} × ${cv.height} px`;
   }
-  window.addEventListener('resize', drawPreview);
+  window.addEventListener('resize', applyZoomScale);
 
   const MAX_CANVAS_DIM = 16000;
   function compose() {

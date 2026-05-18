@@ -83,6 +83,7 @@ function clearAll() {
   result.hidden = true;
   progressWrap.hidden = true;
   progressFill.style.width = '0%';
+  progressWrap.setAttribute('aria-valuenow', '0');
   resultAudio.removeAttribute('src');
   resultAudio.load();
 }
@@ -158,6 +159,7 @@ async function run() {
     if (myRun !== activeRun) {
       progressText.textContent = '취소됨';
       progressFill.style.width = '0%';
+    progressWrap.setAttribute('aria-valuenow', '0');
     } else {
       const { title, body } = formatVideoError(e, {
         toolName: 'MP3 추출',
@@ -165,6 +167,7 @@ async function run() {
       });
       progressText.textContent = '실패: ' + title;
       progressFill.style.width = '0%';
+      progressWrap.setAttribute('aria-valuenow', '0');
       alert(title + '\n\n' + body);
     }
   } finally {

@@ -84,6 +84,7 @@ function clearAll() {
   result.hidden = true;
   progressWrap.hidden = true;
   progressFill.style.width = '0%';
+  progressWrap.setAttribute('aria-valuenow', '0');
   resultVideo.removeAttribute('src');
   resultVideo.load();
 }
@@ -174,6 +175,7 @@ async function run() {
     downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(baseName + '-compressed.mp4') : baseName + '-compressed.mp4');
 
     progressFill.style.width = '100%';
+    progressWrap.setAttribute('aria-valuenow', '100');
     progressText.textContent = '완료 ✓ (' + (ms / 1000).toFixed(1) + 's)';
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -185,10 +187,12 @@ async function run() {
     if (myRun !== activeRun) {
       progressText.textContent = '취소됨';
       progressFill.style.width = '0%';
+    progressWrap.setAttribute('aria-valuenow', '0');
     } else {
       const { title, body } = formatVideoError(e, { toolName: '동영상 압축' });
       progressText.textContent = '실패: ' + title;
       progressFill.style.width = '0%';
+      progressWrap.setAttribute('aria-valuenow', '0');
       alert(title + '\n\n' + body);
     }
   } finally {

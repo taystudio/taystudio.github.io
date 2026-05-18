@@ -139,6 +139,12 @@ function loadFile(file) {
   const img = new Image();
   img.onload = () => {
     URL.revokeObjectURL(url);
+    // Memory guard — pixel area >25MP may fail on iOS Safari canvas
+    const megapixels = (img.naturalWidth * img.naturalHeight) / 1_000_000;
+    if (megapixels > 25) {
+      alert(`Image too large (${img.naturalWidth}×${img.naturalHeight}, ${megapixels.toFixed(1)}MP). May fail on mobile/iOS Safari. Resize first at /en/image/resize/.`);
+      return;
+    }
     originalImg = img;
     srcCanvas.width = img.naturalWidth;
     srcCanvas.height = img.naturalHeight;

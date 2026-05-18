@@ -139,6 +139,12 @@ function loadFile(file) {
   const img = new Image();
   img.onload = () => {
     URL.revokeObjectURL(url);
+    // 메모리 사전 가드 — 픽셀 면적 25M 초과 시 iOS Safari canvas 한계
+    const megapixels = (img.naturalWidth * img.naturalHeight) / 1_000_000;
+    if (megapixels > 25) {
+      alert(`이미지가 너무 큽니다 (${img.naturalWidth}×${img.naturalHeight}, ${megapixels.toFixed(1)}MP). 모바일·iOS Safari에서 처리 실패 가능. 먼저 리사이즈(/image/resize/) 후 사용하세요.`);
+      return;
+    }
     originalImg = img;
     srcCanvas.width = img.naturalWidth;
     srcCanvas.height = img.naturalHeight;

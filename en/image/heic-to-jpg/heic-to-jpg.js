@@ -82,10 +82,12 @@ function updateActionBar() {
 }
 
 function addFiles(list) {
+  let skipped = 0;
   for (const f of list) {
     const lower = (f.name || '').toLowerCase();
     if (!/\.(heic|heif)$/.test(lower) && !/heic|heif/.test(f.type || '')) {
       // Some mobile browsers omit MIME type — re-check by extension and skip if it still doesn't match.
+      skipped++;
       continue;
     }
     if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(f, 100, 'HEIC')) continue;
@@ -93,6 +95,9 @@ function addFiles(list) {
   }
   renderFileList();
   updateActionBar();
+  if (skipped > 0 && window.TayStudio && window.TayStudio.showToast) {
+    window.TayStudio.showToast(`📁 HEIC/HEIF only — ${skipped} file(s) skipped`, { duration: 2500 });
+  }
 }
 
 function revokeAll() {

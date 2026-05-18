@@ -103,14 +103,15 @@ async function runOcr() {
   setProgress('starting', 0);
 
   const lang = langSel.value;
+  const fileSnapshot = currentFile;  // race 가드 — 처리 중 다른 파일 drop 시 결과 무시
   let worker = null;
   try {
     worker = await getOrInitWorker(lang);
     currentWorker = worker;
-    const { data } = await worker.recognize(currentFile);
+    const { data } = await worker.recognize(fileSnapshot);
 
-    // 취소 후 결과 도착 — 무시
-    if (currentWorker !== worker) return;
+    // 취소 후 결과 도착 — 무시 (worker terminate 또는 새 파일 drop)
+    if (currentWorker !== worker || currentFile !== fileSnapshot) return;
 
     progressFill.style.width = '100%';
     if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', 100);

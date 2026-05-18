@@ -198,6 +198,11 @@ async function convert() {
 
       addImgCard(url, filename, pageNum, blob.size, canvas);
 
+      // 메모리 즉시 해제 — canvas dispose + pdf.js page font/image 캐시 cleanup
+      canvas.width = 0;
+      canvas.height = 0;
+      try { page.cleanup(); } catch (_) {}
+
       const pct = Math.round((i + 1) / indices.length * 100);
       progressFill.style.width = pct + '%';
       progressWrap.setAttribute('aria-valuenow', String(pct));
