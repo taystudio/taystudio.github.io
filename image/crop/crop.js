@@ -68,7 +68,7 @@ function rebuildTransformedCanvas() {
   const c = document.createElement('canvas');
   c.width = rotated ? h : w;
   c.height = rotated ? w : h;
-  const ctx = c.getContext('2d', { willReadFrequently: true });
+  const ctx = c.getContext('2d');
   ctx.save();
   ctx.translate(c.width / 2, c.height / 2);
   ctx.rotate(rotation * Math.PI / 180);
@@ -79,7 +79,7 @@ function rebuildTransformedCanvas() {
   // srcCanvas에 그리기
   srcCanvas.width = c.width;
   srcCanvas.height = c.height;
-  srcCanvas.getContext('2d', { willReadFrequently: true }).drawImage(c, 0, 0);
+  srcCanvas.getContext('2d').drawImage(c, 0, 0);
 }
 
 function getDisplayScale() {
@@ -335,18 +335,22 @@ async function applyCrop() {
     alert('출력 크기는 최대 ' + MAX_DIM + 'px 까지 지원합니다. (브라우저 Canvas 한계)');
     return;
   }
+  const format = formatSel.value;
+  const mime = format === 'png' ? 'image/png' : (format === 'webp' ? 'image/webp' : 'image/jpeg');
   const out = document.createElement('canvas');
   out.width = cw;
   out.height = ch;
   const ctx = out.getContext('2d');
+  // JPG 출력은 알파 미지원 → PNG/투명 영역이 검정 렌더되는 것을 막기 위해 흰 배경 fill
+  if (mime === 'image/jpeg') {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, cw, ch);
+  }
   ctx.drawImage(
     transformedCanvas,
     Math.round(crop.x), Math.round(crop.y), Math.round(crop.w), Math.round(crop.h),
     0, 0, out.width, out.height
   );
-
-  const format = formatSel.value;
-  const mime = format === 'png' ? 'image/png' : (format === 'webp' ? 'image/webp' : 'image/jpeg');
   const ext = format === 'png' ? 'png' : (format === 'webp' ? 'webp' : 'jpg');
   const quality = format === 'png' ? undefined : Math.max(1, Math.min(100, parseInt(qualityIn.value, 10) || 90)) / 100;
 

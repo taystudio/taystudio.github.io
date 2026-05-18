@@ -163,6 +163,10 @@
     if (state.mode === 'watermark') {
       const text = wmText.value.trim();
       if (!text) throw new Error('워터마크 텍스트 없음');
+      // Helvetica는 WinAnsi(ASCII Latin-1)만 지원 — 한글·이모지·CJK 차단
+      if (/[^\x20-\x7E -ÿ]/.test(text)) {
+        throw new Error('워터마크 텍스트에 한글·이모지·특수문자가 있어 처리할 수 없습니다 (Helvetica 한계). 영문·숫자·기본 특수문자(!@#$%^&*()+=,.<>?/[]{}|~`-_)만 사용하거나 영문 약어로 바꿔 사용하세요. 예: "CONFIDENTIAL", "DRAFT", "SAMPLE".');
+      }
       const fontSize = parseInt(wmFontSize.value, 10);
       const opacity = parseInt(wmOpacity.value, 10) / 100;
       const rotateDeg = parseInt(wmRotate.value, 10);
@@ -229,9 +233,10 @@
         const kws = metaKeywords.value.split(',').map(s => s.trim()).filter(Boolean);
         pdf.setKeywords(kws);
       }
-      pdf.setProducer('TAYSTUDIO PDF Stamp');
-      pdf.setModificationDate(new Date());
     }
+    // 모드 무관 producer·modificationDate 갱신 — 워터마크·페이지번호 모드도 실제 PDF를 수정하므로 metadata 정확성 유지
+    pdf.setProducer('TAYSTUDIO PDF Stamp');
+    pdf.setModificationDate(new Date());
 
     const out = await pdf.save();
     return new Blob([out], { type: 'application/pdf' });

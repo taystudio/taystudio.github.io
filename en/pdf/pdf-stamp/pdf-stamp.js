@@ -223,9 +223,10 @@
         const kws = metaKeywords.value.split(',').map(s => s.trim()).filter(Boolean);
         pdf.setKeywords(kws);
       }
-      pdf.setProducer('TAYSTUDIO PDF Stamp');
-      pdf.setModificationDate(new Date());
     }
+    // Always update producer + modificationDate — watermark / page-number modes also modify the PDF, so metadata should stay accurate
+    pdf.setProducer('TAYSTUDIO PDF Stamp');
+    pdf.setModificationDate(new Date());
 
     const out = await pdf.save();
     return new Blob([out], { type: 'application/pdf' });

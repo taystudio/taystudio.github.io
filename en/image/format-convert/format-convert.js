@@ -211,7 +211,9 @@
     const mimeOut = formatSel.value;
     const quality = mimeOut === 'image/png' ? undefined : (parseInt(qualityIn.value, 10) / 100);
     let done = 0, ok = 0, totalSize = 0, processedBytes = 0;
-    const nameMap = Object.create(null);
+    // Filename collision: track used names in a Set, suffix increments until unique.
+    // Counter approach has a false negative when input is `a.jpg, a.jpg, a-1.jpg`: 2nd and 3rd both become `a-1.jpg`.
+    const usedNames = new Set();
 
     for (const f of state.files) {
       f.status = 'processing';
@@ -222,14 +224,16 @@
         const actualExt = extOfMime(actualMime);
         const url = URL.createObjectURL(blob);
         let name = newName(f.file.name, actualExt);
-        // Filename collision: same name → base-N.ext
-        if (nameMap[name]) {
+        if (usedNames.has(name)) {
           const dot = name.lastIndexOf('.');
           const base = dot > 0 ? name.slice(0, dot) : name;
           const tail = dot > 0 ? name.slice(dot) : '';
-          name = `${base}-${nameMap[name]}${tail}`;
+          let n = 1;
+          let candidate;
+          do { candidate = `${base}-${n}${tail}`; n++; } while (usedNames.has(candidate));
+          name = candidate;
         }
-        nameMap[newName(f.file.name, actualExt)] = (nameMap[newName(f.file.name, actualExt)] || 0) + 1;
+        usedNames.add(name);
         state.results.push({ id: f.id, name, blob, url, size: blob.size });
         totalSize += blob.size;
         f.status = 'done';

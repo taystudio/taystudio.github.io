@@ -78,6 +78,9 @@ function render() {
     const img = document.createElement('img');
     img.src = p.thumb;
     img.alt = '페이지 ' + (p.origIndex + 1) + ' 썸네일';
+    // pdf.js getViewport는 기본적으로 page.rotate(원본 /Rotate)를 적용해 썸네일을 이미 upright로 렌더.
+    // 저장의 setRotation(cur + p.rotation)도 viewer에서 raw에 동일 회전을 적용 → 최종 visual = upright + p.rotation.
+    // 따라서 preview transform은 사용자 delta(rotation)만 적용하는 게 저장 결과와 정확히 일치한다.
     img.style.transform = 'rotate(' + p.rotation + 'deg)';
     wrap.appendChild(img);
     card.appendChild(wrap);

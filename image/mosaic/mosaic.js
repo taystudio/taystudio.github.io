@@ -27,10 +27,20 @@
   const state = {
     bitmap: null,
     fileName: '',
-    boxes: [],   // { x, y, w, h, mode, strength }  in image coords
+    boxes: [],   // { x, y, w, h, mode }  in image coords
     drawing: null,
     zoom: 1.0,   // fit-scale 위 배율 (0.3~3.0)
   };
+
+  // 드래그 frame drop 방지:
+  //  - committed 박스 합성 결과는 offscreen 캐시(`bakedCanvas`)에 보관
+  //  - 드래그 중에는 캐시를 그대로 putImage하고 drawing rect만 stroke
+  //  - 박스 추가·삭제·undo·reset·strength·mode 변경 시에만 invalidateBaked + rebuildBaked
+  //  - 매 pointermove마다 N개 박스 재처리하지 않게 됨
+  let bakedCanvas = null;
+  let bakedDirty = true;
+  let rafPending = false;
+  let pendingShowDrawing = false;
 
   fileInput.addEventListener('change', () => { if (fileInput.files[0]) loadFile(fileInput.files[0]); fileInput.value = ''; });
   dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
@@ -50,6 +60,8 @@
   async function loadFile(file) {
     if (!file.type.startsWith('image/')) return;
     if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, '이미지')) return;
+    // 이전 bitmap 명시 해제 — 새 파일 업로드 시 메모리 누수 차단
+    if (state.bitmap && state.bitmap.close) state.bitmap.close();
     try {
       state.bitmap = await createImageBitmap(file);
     } catch (e) {
@@ -58,9 +70,26 @@
     }
     state.fileName = file.name;
     state.boxes = [];
+    bakedDirty = true;
     toggleUI(true);
     fitCanvas();
     redraw();
+  }
+
+  function invalidateBaked() { bakedDirty = true; }
+
+  function rebuildBaked() {
+    if (!state.bitmap) return;
+    if (!bakedCanvas) bakedCanvas = document.createElement('canvas');
+    if (bakedCanvas.width !== cv.width || bakedCanvas.height !== cv.height) {
+      bakedCanvas.width = cv.width;
+      bakedCanvas.height = cv.height;
+    }
+    const bctx = bakedCanvas.getContext('2d');
+    bctx.clearRect(0, 0, bakedCanvas.width, bakedCanvas.height);
+    bctx.drawImage(state.bitmap, 0, 0);
+    state.boxes.forEach(b => applyBoxTo(bctx, bakedCanvas, b));
+    bakedDirty = false;
   }
 
   function fitCanvas() {
@@ -104,10 +133,17 @@
   }
 
   modeSel.addEventListener('change', () => {
-    strengthField.style.opacity = modeSel.value === 'black' ? 0.4 : 1;
+    const isBlack = modeSel.value === 'black';
+    strengthField.style.opacity = isBlack ? 0.4 : 1;
+    strengthIn.disabled = isBlack;  // black mode는 강도 무효 → 키보드/SR 차단
+    // mode 변경은 새 박스에만 영향 → 기존 박스 결과 무관. 캐시 invalidate 불필요.
+  });
+  strengthIn.addEventListener('input', () => {
+    strengthVal.textContent = strengthIn.value;
+    // strength는 박스에 retroactive 적용 → 캐시 invalidate 후 재합성
+    invalidateBaked();
     redraw();
   });
-  strengthIn.addEventListener('input', () => { strengthVal.textContent = strengthIn.value; redraw(); });
 
   // Pointer Events로 마우스·터치·펜 통합. setPointerCapture로 캔버스 밖 추적까지 안전.
   // rect.width = 실제 렌더된 CSS width, cv.width = native pixel. 둘 비율로 정확한 native 좌표 환산.
@@ -133,7 +169,7 @@
     const p = evtPos(e);
     state.drawing.w = p.x - state.drawing.x;
     state.drawing.h = p.y - state.drawing.y;
-    redraw(true);
+    scheduleRedraw(true);
   }
   function endDraw(e) {
     if (!state.drawing) return;
@@ -148,11 +184,29 @@
       h: Math.abs(d.h),
       mode: modeSel.value,
     };
-    if (box.w > 5 && box.h > 5) {
+    // 5px MIN은 native pixel 기준. fitScale 0.25 화면에서 사용자가 그린 20px 박스가 silent drop되지 않도록
+    // 화면 비율로 환산 후 비교. 추가적으로 fallback 1px floor도 적용.
+    const rect = cv.getBoundingClientRect();
+    const minNative = Math.max(1, 5 * (cv.width / Math.max(1, rect.width)));
+    if (box.w >= minNative && box.h >= minNative) {
       state.boxes.push(box);
+      invalidateBaked();
     }
     state.drawing = null;
     redraw();
+  }
+
+  // pointermove는 60Hz로 발생 → rAF로 throttle해 frame당 1회만 redraw
+  function scheduleRedraw(showDrawing) {
+    if (showDrawing) pendingShowDrawing = true;
+    if (rafPending) return;
+    rafPending = true;
+    requestAnimationFrame(() => {
+      rafPending = false;
+      const sd = pendingShowDrawing;
+      pendingShowDrawing = false;
+      redraw(sd);
+    });
   }
 
   cv.addEventListener('pointerdown', startDraw);
@@ -162,9 +216,10 @@
 
   function redraw(showDrawing) {
     if (!state.bitmap) return;
-    const ctx = cv.getContext('2d', { willReadFrequently: true });
-    ctx.drawImage(state.bitmap, 0, 0);
-    state.boxes.forEach(b => applyBox(ctx, b));
+    if (bakedDirty) rebuildBaked();
+    const ctx = cv.getContext('2d');
+    // baked = 원본 + 모든 박스 합성 결과. drawing 중에는 그대로 putImage하고 drawing rect만 stroke.
+    ctx.drawImage(bakedCanvas, 0, 0);
     if (showDrawing && state.drawing) {
       ctx.save();
       ctx.strokeStyle = '#2563eb';
@@ -175,24 +230,23 @@
     }
   }
 
-  function applyBox(ctx, box) {
+  // applyBoxTo는 source canvas(=원본 그려진 baked) 위에서 영역만 변환해 같은 위치에 다시 그린다.
+  function applyBoxTo(ctx, srcCanvas, box) {
     if (box.mode === 'black') {
       ctx.fillStyle = '#000';
       ctx.fillRect(box.x, box.y, box.w, box.h);
       return;
     }
-    // strength 매번 슬라이더에서 읽음 → 사후 조정 가능
     const strength = parseInt(strengthIn.value, 10);
     if (box.mode === 'mosaic') {
-      // 픽셀화: 영역 → 작은 캔버스 → 다시 큰 캔버스 (smoothing off)
       const px = Math.max(2, Math.round(strength));
       const sw = Math.max(1, Math.floor(box.w / px));
       const sh = Math.max(1, Math.floor(box.h / px));
       const tmp = document.createElement('canvas');
       tmp.width = sw; tmp.height = sh;
-      const tctx = tmp.getContext('2d', { willReadFrequently: true });
+      const tctx = tmp.getContext('2d');
       tctx.imageSmoothingEnabled = false;
-      tctx.drawImage(cv, box.x, box.y, box.w, box.h, 0, 0, sw, sh);
+      tctx.drawImage(srcCanvas, box.x, box.y, box.w, box.h, 0, 0, sw, sh);
       ctx.save();
       ctx.imageSmoothingEnabled = false;
       ctx.drawImage(tmp, 0, 0, sw, sh, box.x, box.y, box.w, box.h);
@@ -200,24 +254,41 @@
       return;
     }
     if (box.mode === 'blur') {
-      // 가우시안: filter blur(N) 적용 + 영역만 클리핑
       const tmp = document.createElement('canvas');
       tmp.width = box.w; tmp.height = box.h;
-      const tctx = tmp.getContext('2d', { willReadFrequently: true });
+      const tctx = tmp.getContext('2d');
       tctx.filter = `blur(${strength}px)`;
-      tctx.drawImage(cv, box.x, box.y, box.w, box.h, 0, 0, box.w, box.h);
+      tctx.drawImage(srcCanvas, box.x, box.y, box.w, box.h, 0, 0, box.w, box.h);
       ctx.drawImage(tmp, box.x, box.y);
     }
   }
 
-  undoBtn.addEventListener('click', () => { state.boxes.pop(); redraw(); });
-  resetBtn.addEventListener('click', () => { state.boxes = []; redraw(); });
+  undoBtn.addEventListener('click', () => { state.boxes.pop(); invalidateBaked(); redraw(); });
+  resetBtn.addEventListener('click', () => { state.boxes = []; invalidateBaked(); redraw(); });
   downloadBtn.addEventListener('click', () => {
     const fmtSel = document.getElementById('mosaicFormat');
     const outMime = (fmtSel && fmtSel.value) || 'image/jpeg';
     const outExt = outMime === 'image/png' ? 'png' : outMime === 'image/webp' ? 'webp' : 'jpg';
     const outQuality = outMime === 'image/png' ? undefined : 0.95;
-    cv.toBlob(blob => {
+    // baked 위 drawing rect는 빠지도록 baked 그대로 인코딩
+    if (bakedDirty) rebuildBaked();
+    const exportSrc = bakedCanvas || cv;
+    // JPG 출력은 알파 미지원 → 흰 배경 fill
+    let encodeSrc = exportSrc;
+    if (outMime === 'image/jpeg') {
+      const tmp = document.createElement('canvas');
+      tmp.width = exportSrc.width; tmp.height = exportSrc.height;
+      const tctx = tmp.getContext('2d');
+      tctx.fillStyle = '#ffffff';
+      tctx.fillRect(0, 0, tmp.width, tmp.height);
+      tctx.drawImage(exportSrc, 0, 0);
+      encodeSrc = tmp;
+    }
+    encodeSrc.toBlob(blob => {
+      if (!blob) {
+        alert('다운로드 생성 실패 — 브라우저가 해당 포맷을 지원하지 않거나 메모리 부족 가능성. 포맷을 변경해 다시 시도하세요.');
+        return;
+      }
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -233,6 +304,7 @@
     state.bitmap = null;
     state.boxes = [];
     state.fileName = '';
+    bakedDirty = true;
     toggleUI(false);
   });
 })();

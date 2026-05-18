@@ -66,11 +66,11 @@
       });
       const obj = window.piexif.load(dataUrl);
       const out = {};
-      // GPS
+      // GPS — ref(방향) 누락 시 fallback 부호 잘못될 위험 → ref 모두 있을 때만 표시
       const gps = obj.GPS || {};
-      if (gps[2] && gps[4]) {
-        const lat = dmsToDecimal(gps[2], gps[1] || 'N');
-        const lon = dmsToDecimal(gps[4], gps[3] || 'E');
+      if (gps[2] && gps[4] && gps[1] && gps[3]) {
+        const lat = dmsToDecimal(gps[2], gps[1]);
+        const lon = dmsToDecimal(gps[4], gps[3]);
         if (lat != null && lon != null) {
           out.gps = `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
         }
@@ -160,9 +160,13 @@
     }
   });
 
+  // 50장 batch 시 EXIF 직렬 사전 읽기로 UI 25s 정지 → 점진 처리.
+  // 파일 entry는 즉시 push + UI 그리고, EXIF는 백그라운드에서 동시 4개 제한 worker pool로 읽어
+  // 끝나는 대로 해당 row만 부분 갱신. PNG/WebP는 readExif가 즉시 null 반환하므로 무비용.
   async function addFiles(files) {
     let skipped = 0;
     let heicWarn = false;
+    const newEntries = [];
     for (const file of Array.from(files)) {
       if (!file.type.startsWith('image/')) { skipped++; continue; }
       const isHeic = /heic|heif/i.test(file.type) || /\.heic$|\.heif$/i.test(file.name);
@@ -170,13 +174,41 @@
       const ok = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/webp';
       if (!ok) { skipped++; continue; }
       if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, '이미지')) continue;
-      const exif = await readExif(file);
-      state.files.push({ id: uid(), file, exif });
+      const entry = { id: uid(), file, exif: null, exifPending: file.type === 'image/jpeg' };
+      state.files.push(entry);
+      newEntries.push(entry);
     }
-    if (heicWarn) alert('HEIC 파일은 브라우저가 디코드하지 못합니다. 먼저 "HEIC → JPG 변환" 도구로 변환 후 사용하세요.');
-    if (skipped > 0) alert('일부 파일은 지원 포맷이 아니어서 제외됐습니다 (JPG·PNG·WebP만 가능).');
+    // 알림 통합 — 2종류 동시 발생해도 alert 1회
+    const msgs = [];
+    if (heicWarn) msgs.push('HEIC 파일은 브라우저가 디코드하지 못합니다. 먼저 "HEIC → JPG 변환" 도구로 변환 후 사용하세요.');
+    if (skipped > 0) msgs.push('일부 파일은 지원 포맷이 아니어서 제외됐습니다 (JPG·PNG·WebP만 가능).');
+    if (msgs.length) alert(msgs.join('\n\n'));
     refreshFileList();
     toggleUI();
+    readExifBackground(newEntries);
+  }
+
+  async function readExifBackground(entries) {
+    if (!entries.length) return;
+    const CONCURRENCY = 4;
+    let idx = 0;
+    const worker = async () => {
+      while (idx < entries.length) {
+        const my = entries[idx++];
+        try { my.exif = await readExif(my.file); } catch (_) { my.exif = null; }
+        my.exifPending = false;
+        // 파일 entry가 그 사이 삭제됐을 수 있음 — DOM 있을 때만 갱신
+        updateExifSlot(my);
+      }
+    };
+    const tasks = [];
+    for (let i = 0; i < Math.min(CONCURRENCY, entries.length); i++) tasks.push(worker());
+    await Promise.all(tasks);
+  }
+
+  function updateExifSlot(entry) {
+    const slot = fileList.querySelector(`[data-fid="${entry.id}"] .exif-info-slot`);
+    if (slot) slot.innerHTML = exifSummaryHtml(entry.exif);
   }
 
   function exifSummaryHtml(exif) {
@@ -198,6 +230,7 @@
     state.files.forEach((f, i) => {
       const div = document.createElement('div');
       div.className = 'file-item';
+      div.dataset.fid = f.id;
       div.innerHTML = `
         <div class="row">
           <div class="order">${i + 1}</div>
@@ -205,7 +238,7 @@
           <div class="size">${fmtSize(f.file.size)}</div>
           <div class="row-actions"><button type="button" data-rm="${f.id}" title="삭제">✕</button></div>
         </div>
-        ${exifSummaryHtml(f.exif)}
+        <div class="exif-info-slot">${f.exifPending ? '<div class="exif-info">⏳ EXIF 분석 중…</div>' : exifSummaryHtml(f.exif)}</div>
       `;
       fileList.appendChild(div);
     });
@@ -254,6 +287,7 @@
     const quality = parseFloat(jpgQuality.value);
 
     let done = 0;
+    const failedFiles = [];
     for (const f of state.files) {
       try {
         const { blob, mime } = await stripExif(f.file, quality);
@@ -263,7 +297,7 @@
         const url = URL.createObjectURL(blob);
         state.results.push({ name, blob, url });
       } catch (e) {
-        alert(`"${f.file.name}" 처리 실패: ${e.message}`);
+        failedFiles.push({ name: f.file.name, msg: e.message });
       }
       done++;
       const pct = Math.round(done / state.files.length * 100);
@@ -274,10 +308,15 @@
 
     applyBtn.disabled = false;
     clearBtn.disabled = false;
-    newCount.textContent = `${state.results.length}장`;
+    newCount.textContent = `${state.results.length}장${failedFiles.length > 0 ? ` (${failedFiles.length}장 실패)` : ''}`;
     result.hidden = state.results.length === 0;
     downloadAllBtn.textContent = state.results.length > 1 ? '⬇ 전체 다운로드 (ZIP)' : '⬇ 다운로드';
     renderGrid();
+    if (failedFiles.length > 0) {
+      const first = failedFiles.slice(0, 3).map(f => `"${f.name}"`).join(', ');
+      const more = failedFiles.length > 3 ? ` 외 ${failedFiles.length - 3}장` : '';
+      alert(`일부 파일 처리 실패: ${first}${more}\n(손상·미지원 포맷 가능성)`);
+    }
   });
 
   function renderGrid() {

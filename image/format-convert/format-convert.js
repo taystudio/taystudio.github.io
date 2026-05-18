@@ -221,7 +221,9 @@
     const quality = mimeOut === 'image/png' ? undefined : (parseInt(qualityIn.value, 10) / 100);
     const ext = extOfMime(mimeOut);
     let done = 0, ok = 0, totalSize = 0, processedBytes = 0;
-    const nameMap = Object.create(null);
+    // 파일명 collision: 이미 사용된 이름은 Set에 보관 → 새 이름이 충돌하면 suffix n 을 증가시키며 unique 보장.
+    // counter 방식은 입력 자체가 `a.jpg, a.jpg, a-1.jpg` 순서일 때 두 번째와 세 번째가 모두 `a-1.jpg`가 되는 false negative.
+    const usedNames = new Set();
 
     for (const f of state.files) {
       f.status = 'processing';
@@ -233,14 +235,16 @@
         const actualExt = extOfMime(actualMime);
         const url = URL.createObjectURL(blob);
         let name = newName(f.file.name, actualExt);
-        // 파일명 collision: 같은 이름 N번째 → base-N.ext
-        if (nameMap[name]) {
+        if (usedNames.has(name)) {
           const dot = name.lastIndexOf('.');
           const base = dot > 0 ? name.slice(0, dot) : name;
           const tail = dot > 0 ? name.slice(dot) : '';
-          name = `${base}-${nameMap[name]}${tail}`;
+          let n = 1;
+          let candidate;
+          do { candidate = `${base}-${n}${tail}`; n++; } while (usedNames.has(candidate));
+          name = candidate;
         }
-        nameMap[newName(f.file.name, actualExt)] = (nameMap[newName(f.file.name, actualExt)] || 0) + 1;
+        usedNames.add(name);
         state.results.push({ id: f.id, name, blob, url, size: blob.size });
         totalSize += blob.size;
         f.status = 'done';

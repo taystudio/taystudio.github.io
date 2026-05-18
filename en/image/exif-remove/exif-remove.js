@@ -66,11 +66,11 @@
       });
       const obj = window.piexif.load(dataUrl);
       const out = {};
-      // GPS
+      // GPS — show only when ref(N/S/E/W) present to avoid wrong sign fallback
       const gps = obj.GPS || {};
-      if (gps[2] && gps[4]) {
-        const lat = dmsToDecimal(gps[2], gps[1] || 'N');
-        const lon = dmsToDecimal(gps[4], gps[3] || 'E');
+      if (gps[2] && gps[4] && gps[1] && gps[3]) {
+        const lat = dmsToDecimal(gps[2], gps[1]);
+        const lon = dmsToDecimal(gps[4], gps[3]);
         if (lat != null && lon != null) {
           out.gps = `${lat.toFixed(6)}, ${lon.toFixed(6)}`;
         }
@@ -160,9 +160,13 @@
     }
   });
 
+  // 50-file batches were freezing UI for ~25s because EXIF reads ran serially before any push.
+  // New flow: push entries immediately, render UI, then read EXIF in background with concurrency 4
+  // and patch the affected rows in place.
   async function addFiles(files) {
     let skipped = 0;
     let heicWarn = false;
+    const newEntries = [];
     for (const file of Array.from(files)) {
       if (!file.type.startsWith('image/')) { skipped++; continue; }
       const isHeic = /heic|heif/i.test(file.type) || /\.heic$|\.heif$/i.test(file.name);
@@ -170,13 +174,39 @@
       const ok = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/webp';
       if (!ok) { skipped++; continue; }
       if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'image')) continue;
-      const exif = await readExif(file);
-      state.files.push({ id: uid(), file, exif });
+      const entry = { id: uid(), file, exif: null, exifPending: file.type === 'image/jpeg' };
+      state.files.push(entry);
+      newEntries.push(entry);
     }
-    if (heicWarn) alert('Browsers cannot decode HEIC. Use the "HEIC → JPG" tool first, then run the JPG through this tool.');
-    if (skipped > 0) alert('Some files were skipped — only JPG, PNG and WebP are supported.');
+    const msgs = [];
+    if (heicWarn) msgs.push('Browsers cannot decode HEIC. Use the "HEIC → JPG" tool first, then run the JPG through this tool.');
+    if (skipped > 0) msgs.push('Some files were skipped — only JPG, PNG and WebP are supported.');
+    if (msgs.length) alert(msgs.join('\n\n'));
     refreshFileList();
     toggleUI();
+    readExifBackground(newEntries);
+  }
+
+  async function readExifBackground(entries) {
+    if (!entries.length) return;
+    const CONCURRENCY = 4;
+    let idx = 0;
+    const worker = async () => {
+      while (idx < entries.length) {
+        const my = entries[idx++];
+        try { my.exif = await readExif(my.file); } catch (_) { my.exif = null; }
+        my.exifPending = false;
+        updateExifSlot(my);
+      }
+    };
+    const tasks = [];
+    for (let i = 0; i < Math.min(CONCURRENCY, entries.length); i++) tasks.push(worker());
+    await Promise.all(tasks);
+  }
+
+  function updateExifSlot(entry) {
+    const slot = fileList.querySelector(`[data-fid="${entry.id}"] .exif-info-slot`);
+    if (slot) slot.innerHTML = exifSummaryHtml(entry.exif);
   }
 
   function exifSummaryHtml(exif) {
@@ -198,6 +228,7 @@
     state.files.forEach((f, i) => {
       const div = document.createElement('div');
       div.className = 'file-item';
+      div.dataset.fid = f.id;
       div.innerHTML = `
         <div class="row">
           <div class="order">${i + 1}</div>
@@ -205,7 +236,7 @@
           <div class="size">${fmtSize(f.file.size)}</div>
           <div class="row-actions"><button type="button" data-rm="${f.id}" title="Remove">✕</button></div>
         </div>
-        ${exifSummaryHtml(f.exif)}
+        <div class="exif-info-slot">${f.exifPending ? '<div class="exif-info">⏳ Reading EXIF…</div>' : exifSummaryHtml(f.exif)}</div>
       `;
       fileList.appendChild(div);
     });
@@ -254,6 +285,7 @@
     const quality = parseFloat(jpgQuality.value);
 
     let done = 0;
+    const failedFiles = [];
     for (const f of state.files) {
       try {
         const { blob, mime } = await stripExif(f.file, quality);
@@ -263,7 +295,7 @@
         const url = URL.createObjectURL(blob);
         state.results.push({ name, blob, url });
       } catch (e) {
-        alert(`Failed to process "${f.file.name}": ${e.message}`);
+        failedFiles.push({ name: f.file.name, msg: e.message });
       }
       done++;
       const pct = Math.round(done / state.files.length * 100);
@@ -274,10 +306,15 @@
 
     applyBtn.disabled = false;
     clearBtn.disabled = false;
-    newCount.textContent = `${state.results.length}`;
+    newCount.textContent = `${state.results.length}${failedFiles.length > 0 ? ` (${failedFiles.length} failed)` : ''}`;
     result.hidden = state.results.length === 0;
     downloadAllBtn.textContent = state.results.length > 1 ? '⬇ Download all (ZIP)' : '⬇ Download';
     renderGrid();
+    if (failedFiles.length > 0) {
+      const first = failedFiles.slice(0, 3).map(f => `"${f.name}"`).join(', ');
+      const more = failedFiles.length > 3 ? ` and ${failedFiles.length - 3} more` : '';
+      alert(`Some files failed: ${first}${more}\n(possibly corrupted or unsupported format)`);
+    }
   });
 
   function renderGrid() {
