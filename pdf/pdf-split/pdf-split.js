@@ -50,11 +50,14 @@ function parseRange(text, total) {
       if (!Number.isFinite(a) || !Number.isFinite(b) || a < 1 || b < 1 || a > total || b > total) {
         throw new Error(`'${part}'는 유효하지 않은 범위입니다(1~${total} 허용).`);
       }
-      if (a > b) {
-        throw new Error(`'${part}'는 역방향 범위입니다. 작은 페이지부터 입력하세요 (예: ${b}-${a}).`);
-      }
-      for (let i = a; i <= b; i++) {
-        out.push(i - 1);
+      if (a <= b) {
+        for (let i = a; i <= b; i++) {
+          out.push(i - 1);
+        }
+      } else {
+        for (let i = a; i >= b; i--) {
+          out.push(i - 1);
+        }
       }
     } else {
       const n = parseInt(part, 10);

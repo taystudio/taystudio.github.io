@@ -90,6 +90,11 @@ function loadImageFile(file) {
   const url = URL.createObjectURL(file);
   const img = new Image();
   img.onload = () => {
+    if (!window.jsQR) {
+      URL.revokeObjectURL(url);
+      showError('QR 인식 라이브러리가 로드되지 않았습니다. 페이지를 새로고침 후 다시 시도하세요.');
+      return;
+    }
     const text = decodeFromImage(img);
     URL.revokeObjectURL(url);
     if (text) showResult(text);

@@ -204,6 +204,7 @@
   function bindPasteImage(callback, opts) {
     opts = opts || {};
     const target = opts.target || document;
+    const multi = !!opts.multi;
     function handler(e) {
       if (inTextInput(e.target)) return;
       if (!e.clipboardData) return;
@@ -220,13 +221,22 @@
       if (!files.length) return;
       e.preventDefault();
       const en = isEnglishPage();
-      const msg = en
-        ? `📋 Pasted ${files.length} image${files.length > 1 ? 's' : ''}`
-        : `📋 ${files.length}장 붙여넣음`;
-      if (window.TayStudio && window.TayStudio.showToast) {
-        window.TayStudio.showToast(msg, { duration: 1500 });
+      // multi=false (기본): 첫 장만 사용. 토스트도 실제 처리 개수 + skip 안내.
+      const usedFiles = multi ? files : files.slice(0, 1);
+      const usedCount = usedFiles.length;
+      const skipped = files.length - usedCount;
+      let msg;
+      if (en) {
+        msg = `📋 Pasted ${usedCount} image${usedCount > 1 ? 's' : ''}`;
+        if (skipped > 0) msg += ` (${skipped} skipped — single-file tool)`;
+      } else {
+        msg = `📋 ${usedCount}장 붙여넣음`;
+        if (skipped > 0) msg += ` (${skipped}장은 단일 파일 도구라 무시)`;
       }
-      try { callback(files); } catch (err) { console.error('paste handler:', err); }
+      if (window.TayStudio && window.TayStudio.showToast) {
+        window.TayStudio.showToast(msg, { duration: 1800 });
+      }
+      try { callback(usedFiles); } catch (err) { console.error('paste handler:', err); }
     }
     target.addEventListener('paste', handler);
     return () => target.removeEventListener('paste', handler);
@@ -367,13 +377,16 @@ const TRANSLATED_PATHS = new Set([
   '/tools/',
   '/tools/compound/', '/tools/bmi/', '/tools/calorie/', '/tools/body-fat/',
   '/tools/ideal-weight/', '/tools/savings/', '/tools/loan/', '/tools/dday/',
-  // Image (9선 전부)
+  // Image (14선 전부)
   '/image/',
   '/image/compress/', '/image/resize/', '/image/heic-to-jpg/', '/image/crop/',
   '/image/id-photo/', '/image/qr-gen/', '/image/qr-scan/', '/image/ocr/', '/image/bg-remove/',
-  // PDF (5선 전부)
+  '/image/format-convert/', '/image/watermark/', '/image/merge/', '/image/mosaic/',
+  '/image/exif-remove/',
+  // PDF (8선 전부)
   '/pdf/',
   '/pdf/pdf-merge/', '/pdf/pdf-split/', '/pdf/pdf-edit/', '/pdf/pdf-to-image/', '/pdf/img-to-pdf/',
+  '/pdf/pdf-stamp/', '/pdf/pdf-encrypt/', '/pdf/pdf-unlock/',
   // Video (5선 전부)
   '/video/',
   '/video/compress/', '/video/trim/', '/video/rotate/', '/video/to-gif/', '/video/to-mp3/',

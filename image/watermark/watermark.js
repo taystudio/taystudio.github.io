@@ -67,8 +67,12 @@
   // 위치 그리드
   posGrid.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', () => {
-      posGrid.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      posGrid.querySelectorAll('button').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
       state.pos = btn.dataset.pos;
       drawPreview();
     });
@@ -103,7 +107,7 @@
   dropZone.addEventListener('drop', e => { e.preventDefault(); if (window.TayStudio && TayStudio.rejectFolderDrop(e)) return; dropZone.classList.remove('drag-over'); if (e.dataTransfer.files) addFiles(e.dataTransfer.files); });
   // Ctrl+V 이미지 붙여넣기
   if (window.TayStudio && TayStudio.bindPasteImage) {
-    TayStudio.bindPasteImage(files => { addFiles(files); });
+    TayStudio.bindPasteImage(files => { addFiles(files); }, { multi: true });
   }
   dropZone.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -301,6 +305,7 @@
     const outQuality = outMime === 'image/png' ? undefined : 0.95;
 
     let done = 0;
+    const usedNames = new Set();
     for (const f of state.files) {
       const cv = document.createElement('canvas');
       cv.width = f.bitmap.width;
@@ -315,14 +320,31 @@
       drawWatermark(ctx, cv.width, cv.height);
       const blob = await new Promise(res => cv.toBlob(res, outMime, outQuality));
       if (!blob) {
-        alert('해당 포맷 인코딩 실패 (브라우저 미지원). JPG로 다시 시도하세요.');
+        // canvas dispose + progress 복원 + 부분 결과 유지
+        cv.width = 0; cv.height = 0;
+        progressWrap.hidden = true;
+        progressFill.style.width = '0%';
         applyBtn.disabled = false;
         clearBtn.disabled = false;
+        const partial = state.results.length;
+        if (partial > 0) {
+          newCount.textContent = `${partial}장 (${state.files.length - done}장은 인코딩 실패)`;
+          result.hidden = false;
+          renderGrid();
+        }
+        alert(`해당 포맷 인코딩 실패 (브라우저 미지원). ${partial > 0 ? `${partial}장은 정상 처리됨. ` : ''}JPG로 다시 시도하세요.`);
         return;
       }
       const url = URL.createObjectURL(blob);
-      const name = f.file.name.replace(/\.[^.]+$/, '') + '_watermark.' + outExt;
+      const base = f.file.name.replace(/\.[^.]+$/, '');
+      let name = base + '_watermark.' + outExt;
+      let n = 1;
+      while (usedNames.has(name)) {
+        name = base + '_watermark-' + (++n) + '.' + outExt;
+      }
+      usedNames.add(name);
       state.results.push({ name, blob, url });
+      cv.width = 0; cv.height = 0;  // canvas dispose
 
       done++;
       const pct = Math.round(done / state.files.length * 100);

@@ -159,6 +159,10 @@ function loadFile(file) {
     alert('Please choose an image file.');
     return;
   }
+  if (file.size === 0) {
+    alert('Empty file. Please choose a valid image file.');
+    return;
+  }
   if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'Image')) return;
   originalFile = file;
   const url = URL.createObjectURL(file);

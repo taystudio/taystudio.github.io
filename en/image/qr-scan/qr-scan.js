@@ -90,6 +90,11 @@ function loadImageFile(file) {
   const url = URL.createObjectURL(file);
   const img = new Image();
   img.onload = () => {
+    if (!window.jsQR) {
+      URL.revokeObjectURL(url);
+      showError('QR scanner library not loaded. Please refresh the page and try again.');
+      return;
+    }
     const text = decodeFromImage(img);
     URL.revokeObjectURL(url);
     if (text) showResult(text);

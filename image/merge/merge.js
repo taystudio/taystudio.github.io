@@ -36,7 +36,7 @@
   dropZone.addEventListener('drop', e => { e.preventDefault(); if (window.TayStudio && TayStudio.rejectFolderDrop(e)) return; dropZone.classList.remove('drag-over'); if (e.dataTransfer.files) addFiles(e.dataTransfer.files); });
   // Ctrl+V 이미지 붙여넣기
   if (window.TayStudio && TayStudio.bindPasteImage) {
-    TayStudio.bindPasteImage(files => { addFiles(files); });
+    TayStudio.bindPasteImage(files => { addFiles(files); }, { multi: true });
   }
   dropZone.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -222,6 +222,10 @@
     const fmt = formatSel.value;
     const ext = fmt === 'image/png' ? 'png' : 'jpg';
     const blob = await new Promise(res => cv.toBlob(res, fmt, 0.92));
+    if (!blob) {
+      alert('해당 포맷 인코딩 실패. 다른 포맷(PNG 또는 JPEG)으로 다시 시도하세요.');
+      return;
+    }
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url; a.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(`merged_${Date.now()}.${ext}`) : `merged_${Date.now()}.${ext}`);

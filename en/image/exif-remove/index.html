@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/en/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="Remove EXIF / GPS Metadata from Photos | Free, Browser-Based">
+  <meta property="og:description" content="Strip GPS coordinates, timestamps, camera model and all EXIF metadata from photos before uploading to Instagram, marketplace, or blog. Browser-based, private.">
+  <meta property="og:url" content="https://taystudios.com/en/image/exif-remove/">
+  <meta property="og:image" content="https://taystudios.com/og-image-en.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image-en.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Remove EXIF / GPS Metadata from Photos | Free">
+  <meta name="twitter:description" content="Strip GPS, timestamps, camera model from photos. Browser-based.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Remove EXIF / GPS Metadata | Free Photo Cleaner</title>
+  <meta name="description" content="Strip GPS, timestamps, camera model and all EXIF from JPG, PNG, WebP photos before uploading to social, marketplace, or blog. Batch ZIP, browser-based.">
+  <meta name="keywords" content="remove exif, strip gps from photo, image metadata remover, remove location from photo, exif cleaner, photo privacy, scrub metadata, remove camera info from image">
+  <link rel="canonical" href="https://taystudios.com/en/image/exif-remove/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/exif-remove/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/exif-remove/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/exif-remove/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Photo EXIF / GPS Metadata Remover",
+      "description": "Strip GPS coordinates, timestamps, camera model and all EXIF metadata from photos. Protect privacy before uploading to social, marketplace, blog.",
+      "url": "https://taystudios.com/en/image/exif-remove/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "Strip GPS coordinates / location",
+        "Strip date & time of capture",
+        "Strip camera make / model / serial",
+        "JPG / PNG / WebP support",
+        "EXIF preview (see what gets removed)",
+        "Batch + ZIP download",
+        "No upload to external servers"
+      ],
+      "dateModified": "2026-05-17",
+      "softwareVersion": "2026.05"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/en/image/" },
+        { "@type": "ListItem", "position": 3, "name": "EXIF / GPS Remove", "item": "https://taystudios.com/en/image/exif-remove/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What personal info does EXIF actually contain?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Smartphone photos typically carry (1) GPS coordinates (lat/long, often the home or office), (2) exact date & time of capture, (3) camera make / model / serial number, (4) exposure, aperture, lens, software. Many marketplace and Instagram leaks have traced sellers / users back to a home address via embedded GPS."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are images uploaded to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Everything happens inside your browser using the Canvas API. Neither the site operator nor any third party can see your photo or its EXIF."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How exactly does this tool strip EXIF?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It decodes the original with the Canvas API, then re-encodes only the pixels. All EXIF, GPS, ICC, XMP and other metadata is dropped by design. Safer than tools that only remove a subset of EXIF tags via piexifjs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much quality loss does re-encoding cause?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Default JPG output uses quality 0.92 — visually indistinguishable for almost all photos. PNG and WebP outputs are lossless. The slider goes from 0.85 to 0.98."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it support iPhone HEIC files?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Browsers cannot decode HEIC directly. Use the HEIC → JPG converter first, then run the result through this tool. Note: the HEIC → JPG step also removes most metadata in practice."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Don't Instagram and Facebook strip GPS automatically?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Instagram and Facebook may hide GPS in the UI but have been observed to retain or transmit metadata internally. Marketplaces (eBay, Craigslist, Mercari), Discord, blogs and direct file shares almost always preserve the original EXIF, so removing it before upload is the safe default."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to remove EXIF / GPS metadata from a photo",
+      "description": "Strip location, timestamp, camera model and all EXIF data from a photo before sharing.",
+      "totalTime": "PT20S",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Pick photos", "text": "Drag & drop or click to select one or more JPG / PNG / WebP photos." },
+        { "@type": "HowToStep", "position": 2, "name": "Check EXIF (optional)", "text": "Each file shows the GPS, date and camera model that will be removed." },
+        { "@type": "HowToStep", "position": 3, "name": "Remove + download", "text": "One click strips EXIF, GPS and all metadata. Single download or batch ZIP." }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .file-list { display:flex; flex-direction:column; gap:8px; margin-top:14px; }
+    .file-item { display:flex; flex-direction:column; gap:6px; padding:10px 12px; background:var(--card); border:1px solid var(--border); border-radius:8px; }
+    .file-item .row { display:flex; align-items:center; gap:10px; }
+    .file-item .order { width:24px; height:24px; display:flex; align-items:center; justify-content:center; background:var(--border); color:var(--muted); border-radius:50%; font-size:12px; font-weight:600; flex:0 0 auto; }
+    .file-item .name { flex:1 1 auto; font-size:13.5px; word-break:break-all; line-height:1.4; }
+    .file-item .size { font-size:12px; color:var(--muted); flex:0 0 auto; font-variant-numeric:tabular-nums; }
+    .file-item .status { font-size:12px; color:var(--muted); flex:0 0 auto; }
+    .file-item .status.done { color:#16a34a; }
+    .file-item .row-actions button { width:30px; height:30px; padding:0; font-size:14px; line-height:1; background:transparent; color:var(--muted); border:1px solid var(--border); border-radius:6px; cursor:pointer; }
+    .exif-info { font-size:12px; color:var(--muted); background:rgba(220, 38, 38, 0.06); border:1px solid rgba(220, 38, 38, 0.2); border-radius:6px; padding:8px 10px; line-height:1.55; }
+    .exif-info .tag { display:inline-block; margin-right:8px; }
+    .exif-info .tag b { color:#dc2626; }
+    .exif-info.empty { color:#16a34a; background:rgba(22, 163, 74, 0.06); border-color:rgba(22, 163, 74, 0.2); }
+    .opt-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px; margin-top:14px; }
+    .opt-grid .field label { display:block; margin-bottom:4px; font-size:12.5px; color:var(--muted); }
+    .opt-grid .field input[type="range"] { width:100%; }
+    .img-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:14px; margin-top:14px; }
+    .img-card { border:1px solid var(--border); border-radius:8px; padding:8px; background:var(--card); }
+    .img-card-thumb { width:100%; aspect-ratio:1/1; background:#fff; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:4px; }
+    .img-card-thumb img { max-width:100%; max-height:100%; object-fit:contain; }
+    .img-card-meta { font-size:11px; color:var(--muted); margin-top:6px; text-align:center; word-break:break-all; }
+    .img-card-dl { display:block; margin-top:6px; padding:6px 0; text-align:center; font-size:13px; background:var(--primary); color:#fff; border-radius:5px; text-decoration:none; }
+    .progress-wrap { margin-top:14px; }
+    .progress-wrap .bar { height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+    .progress-wrap .fill { height:100%; background:var(--primary); transition:width .15s; }
+    .progress-wrap .text { font-size:12px; color:var(--muted); margin-top:4px; text-align:center; }
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Image</a> · EXIF / GPS Remove</div>
+    <h1>Remove EXIF / GPS Metadata from Photos</h1>
+    <p class="subtitle">Strip location, timestamps and camera info before uploading to marketplace, Instagram, or your blog.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Photos are never sent to a server.</b> EXIF inspection and removal both run entirely in your browser. The site operator cannot see your photo or its location data.</div>
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload images to strip EXIF / GPS">
+        <div class="drop-icon" aria-hidden="true">📍</div>
+        <div class="drop-title" id="dropTitle">Drag & drop or click to choose images</div>
+        <div class="drop-hint">JPG · PNG · WebP — multiple files OK (for HEIC, run HEIC → JPG first)</div>
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple>
+      </label>
+
+      <div id="fileList" class="file-list"></div>
+
+      <div class="opt-grid" id="optsBox" hidden>
+        <div class="field">
+          <label for="jpgQuality">JPG output quality: <b id="jpgQualityVal">0.92</b></label>
+          <input type="range" id="jpgQuality" min="0.85" max="0.98" step="0.01" value="0.92">
+          <div style="font-size:11.5px;color:var(--muted);margin-top:2px">PNG / WebP are lossless (slider ignored).</div>
+        </div>
+      </div>
+
+      <div class="image-actions" id="actionBar" hidden>
+        <button type="button" id="applyBtn">Remove EXIF + Download</button>
+        <button type="button" id="clearBtn">Clear all</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap" hidden>
+        <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Processing progress"><div class="fill" id="progressFill" style="width:0%"></div></div>
+        <div class="text" id="progressText" aria-live="polite">0 / 0</div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense slot ]</div>
+
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
+      <div class="image-meta">
+        <span>Done <b id="newCount">—</b></span>
+      </div>
+      <div class="image-actions">
+        <button type="button" id="downloadAllBtn" class="download-btn">⬇ Download all (ZIP)</button>
+      </div>
+      <div class="img-grid" id="imgGrid"></div>
+    </div>
+
+    <section class="tool-article">
+      <h2>Why this matters</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Situation</th><th>Risk</th></tr></thead>
+          <tbody>
+            <tr><td>Marketplace listings (eBay, Mercari, Craigslist)</td><td>GPS in product photos has repeatedly leaked seller home addresses — theft and stalking cases on record</td></tr>
+            <tr><td>Instagram, Twitter, blog posts</td><td>Pattern of GPS across photos reveals daily routine (home, office, children's school)</td></tr>
+            <tr><td>Resume / dating profile photos</td><td>Capture timestamp and camera model expose freshness and authenticity</td></tr>
+            <tr><td>Anonymous forums (Reddit, 4chan)</td><td>Single accidental upload can deanonymize months of pseudonymous posting</td></tr>
+            <tr><td>Discord, direct file shares</td><td>Original EXIF preserved verbatim — recipient can pull GPS</td></tr>
+            <tr><td>Legal evidence photos</td><td>Conversely: you may want to KEEP EXIF — back up originals before stripping</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../heic-to-jpg/">HEIC → JPG<span class="desc">iPhone photos first</span></a>
+        <a href="../mosaic/">Mosaic / Blur<span class="desc">Hide faces, plates</span></a>
+        <a href="../watermark/">Watermark<span class="desc">Anti-theft overlay</span></a>
+        <a href="../compress/">Compress<span class="desc">Shrink file size</span></a>
+        <a href="../format-convert/">Format convert<span class="desc">WebP, AVIF, etc.</span></a>
+        <a href="../">All image tools<span class="desc">View all</span></a>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">FAQ</h2>
+
+      <details>
+        <summary>What personal info does EXIF actually contain?</summary>
+        <div class="answer">Smartphone photos typically carry <b>(1) GPS coordinates (lat / long, often the home or office), (2) exact date & time of capture, (3) camera make / model / serial number, (4) exposure, aperture, lens, software</b>. Many marketplace and Instagram leaks have traced sellers / users back to a home address via embedded GPS.</div>
+      </details>
+      <details>
+        <summary>Are images uploaded to a server?</summary>
+        <div class="answer">No. Everything happens inside your browser using the <b>Canvas API</b>. Neither the site operator nor any third party can see your photo or its EXIF.</div>
+      </details>
+      <details>
+        <summary>How exactly does this tool strip EXIF?</summary>
+        <div class="answer">It decodes the original with the Canvas API, then re-encodes only the pixels. <b>All EXIF, GPS, ICC, XMP and other metadata is dropped by design.</b> Safer than tools that only remove a subset of EXIF tags.</div>
+      </details>
+      <details>
+        <summary>How much quality loss does re-encoding cause?</summary>
+        <div class="answer">Default JPG output uses <b>quality 0.92</b> — visually indistinguishable for almost all photos. PNG and WebP outputs are lossless. The slider goes from 0.85 to 0.98.</div>
+      </details>
+      <details>
+        <summary>Does it support iPhone HEIC files?</summary>
+        <div class="answer">Browsers cannot decode HEIC directly. Use the <a href="../heic-to-jpg/">HEIC → JPG</a> converter first. Note: the HEIC → JPG step also removes most metadata in practice.</div>
+      </details>
+      <details>
+        <summary>Don't Instagram and Facebook strip GPS automatically?</summary>
+        <div class="answer">Instagram and Facebook may hide GPS in the UI but have been observed to retain or transmit metadata internally. <b>Marketplaces, Discord, blogs and direct file shares</b> almost always preserve the original EXIF, so removing it before upload is the safe default.</div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last verified: 2026-05-17 / Browser-native Canvas API + piexifjs 1.0.6 (preview only — removal is via Canvas re-encode).</div>
+      <ul>
+        <li>Canvas API — <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API" rel="nofollow noopener" target="_blank">MDN</a></li>
+        <li>EXIF specification — <a href="https://www.cipa.jp/std/documents/e/DC-008-Translation-2019-E.pdf" rel="nofollow noopener" target="_blank">CIPA DC-008-2019</a></li>
+        <li>EFF guide on metadata — <a href="https://ssd.eff.org/module/protecting-yourself-social-networks" rel="nofollow noopener" target="_blank">Electronic Frontier Foundation</a></li>
+      </ul>
+      <div class="note">⚠️ Canvas re-encoding removes EXIF / GPS / ICC / XMP completely but lightly recompresses pixels (JPG only). If you need lossless EXIF removal, a piexifjs.remove() workflow is required.</div>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ All image tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <script src="https://cdn.jsdelivr.net/npm/piexifjs@1.0.6/piexif.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" defer></script>
+  <script src="./exif-remove.js" defer></script>
+</body>
+</html>

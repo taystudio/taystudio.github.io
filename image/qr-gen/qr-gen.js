@@ -102,6 +102,14 @@ function generate() {
   const margin = 4;
   const level = ecLevel.value;
 
+  if (!window.qrcode) {
+    alert('QR 라이브러리가 아직 로드되지 않았습니다. 잠시 후 다시 시도하세요.');
+    return;
+  }
+  // 한글·이모지 UTF-8 인코딩 (라이브러리 기본은 ISO-8859-1)
+  if (window.qrcode.stringToBytesFuncs && window.qrcode.stringToBytesFuncs['UTF-8']) {
+    window.qrcode.stringToBytes = window.qrcode.stringToBytesFuncs['UTF-8'];
+  }
   let qr;
   try {
     qr = window.qrcode(0, level);

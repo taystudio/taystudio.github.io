@@ -151,15 +151,19 @@ async function convert() {
   const scale = dpi / 72;
   const quality = format === 'jpeg' ? Math.max(1, Math.min(100, parseInt(qualityIn.value, 10) || 90)) / 100 : undefined;
 
-  // 메모리 사전 가드 — DPI×페이지 누적 시 RGBA 캔버스 OOM. 단순 fallback:
-  // DPI 300 초과 + 페이지 30장 초과 시 사용자 confirm
-  if (dpi > 300 && indices.length > 30) {
-    const msg = `DPI ${dpi} × ${indices.length}쪽 — 메모리 부족으로 변환 실패 가능성이 높습니다.\n` +
-      `DPI를 낮추거나(150·300 권장) 페이지 범위를 줄여주세요.\n\n계속하시겠습니까?`;
+  // 메모리 사전 가드 — DPI²×페이지 누적 RGBA 캔버스 OOM 사전 추정.
+  // A4 595×842pt × scale = 한 페이지 픽셀 면적 추정. 4 byte/픽셀 × N장 합산.
+  // 임계 750MB 초과 시 confirm (모바일 Safari ~500MB, 데스크톱 ~2GB heap)
+  const A4_AREA_PT = 595 * 842;
+  const estimatedMB = (A4_AREA_PT * scale * scale * 4 * indices.length) / (1024 * 1024);
+  if (estimatedMB > 750) {
+    const msg = `예상 메모리 ~${Math.round(estimatedMB)}MB (DPI ${dpi} × ${indices.length}쪽).\n` +
+      `모바일·저사양 PC에서 실패 가능성 높음. DPI 또는 페이지 범위를 줄이는 게 안전합니다.\n\n계속하시겠습니까?`;
     if (!confirm(msg)) return;
   }
 
   convertBtn.disabled = true;
+  clearBtn.disabled = true;
   const origLabel = convertBtn.textContent;
   convertBtn.textContent = '변환 중...';
   progressWrap.hidden = false;
@@ -175,6 +179,8 @@ async function convert() {
   try {
     let totalBytes = 0;
     for (let i = 0; i < indices.length; i++) {
+      // 변환 중 currentPdf null화(clearAll race) 가드
+      if (!currentPdf) throw new Error('변환이 취소되었습니다.');
       const pageNum = indices[i] + 1;
       const page = await currentPdf.getPage(pageNum);
       const viewport = page.getViewport({ scale });
@@ -207,6 +213,7 @@ async function convert() {
   } finally {
     convertBtn.textContent = origLabel;
     convertBtn.disabled = false;
+    clearBtn.disabled = false;
     setTimeout(() => { progressWrap.hidden = true; }, 600);
   }
 }

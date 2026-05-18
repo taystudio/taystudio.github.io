@@ -138,7 +138,7 @@
   });
   // Ctrl+V 이미지 붙여넣기
   if (window.TayStudio && TayStudio.bindPasteImage) {
-    TayStudio.bindPasteImage(files => { addFiles(files); });
+    TayStudio.bindPasteImage(files => { addFiles(files); }, { multi: true });
   }
   dropZone.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {

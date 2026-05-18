@@ -102,6 +102,14 @@ function generate() {
   const margin = 4;
   const level = ecLevel.value;
 
+  if (!window.qrcode) {
+    alert('QR library is still loading. Please try again in a moment.');
+    return;
+  }
+  // UTF-8 encoding for non-ASCII (Korean, emoji, etc.) — library default is ISO-8859-1
+  if (window.qrcode.stringToBytesFuncs && window.qrcode.stringToBytesFuncs['UTF-8']) {
+    window.qrcode.stringToBytes = window.qrcode.stringToBytesFuncs['UTF-8'];
+  }
   let qr;
   try {
     qr = window.qrcode(0, level);

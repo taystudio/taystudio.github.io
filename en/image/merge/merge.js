@@ -36,7 +36,7 @@
   dropZone.addEventListener('drop', e => { e.preventDefault(); if (window.TayStudio && TayStudio.rejectFolderDrop(e)) return; dropZone.classList.remove('drag-over'); if (e.dataTransfer.files) addFiles(e.dataTransfer.files); });
   // Ctrl+V 이미지 붙여넣기
   if (window.TayStudio && TayStudio.bindPasteImage) {
-    TayStudio.bindPasteImage(files => { addFiles(files); });
+    TayStudio.bindPasteImage(files => { addFiles(files); }, { multi: true });
   }
   dropZone.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -138,6 +138,7 @@
   }
   window.addEventListener('resize', drawPreview);
 
+  const MAX_CANVAS_DIM = 16000;
   function compose() {
     const mode = modeSel.value;
     const gap = parseInt(gapIn.value, 10);
@@ -149,6 +150,10 @@
       const targetH = bitmaps[0].height;
       const widths = bitmaps.map(b => Math.round(b.width * (targetH / b.height)));
       const totalW = widths.reduce((a, b) => a + b, 0) + gap * (bitmaps.length - 1);
+      if (totalW > MAX_CANVAS_DIM || targetH > MAX_CANVAS_DIM) {
+        alert(`Output canvas (${totalW}×${targetH}) exceeds browser limit ${MAX_CANVAS_DIM}px. Reduce number of photos or use smaller photos.`);
+        return null;
+      }
       const cv = document.createElement('canvas');
       cv.width = totalW; cv.height = targetH;
       const ctx = cv.getContext('2d');
@@ -164,6 +169,10 @@
       const targetW = bitmaps[0].width;
       const heights = bitmaps.map(b => Math.round(b.height * (targetW / b.width)));
       const totalH = heights.reduce((a, b) => a + b, 0) + gap * (bitmaps.length - 1);
+      if (totalH > MAX_CANVAS_DIM || targetW > MAX_CANVAS_DIM) {
+        alert(`Output canvas (${targetW}×${totalH}) exceeds browser limit ${MAX_CANVAS_DIM}px. Reduce number of photos or use smaller photos.`);
+        return null;
+      }
       const cv = document.createElement('canvas');
       cv.width = targetW; cv.height = totalH;
       const ctx = cv.getContext('2d');
@@ -183,6 +192,10 @@
       const cellH = bitmaps[0].height;
       const totalW = cellW * cols + gap * (cols - 1);
       const totalH = cellH * rows + gap * (rows - 1);
+      if (totalW > MAX_CANVAS_DIM || totalH > MAX_CANVAS_DIM) {
+        alert(`Output canvas (${totalW}×${totalH}) exceeds browser limit ${MAX_CANVAS_DIM}px. Reduce grid columns or photo size.`);
+        return null;
+      }
       const cv = document.createElement('canvas');
       cv.width = totalW; cv.height = totalH;
       const ctx = cv.getContext('2d');
@@ -207,6 +220,10 @@
     const fmt = formatSel.value;
     const ext = fmt === 'image/png' ? 'png' : 'jpg';
     const blob = await new Promise(res => cv.toBlob(res, fmt, 0.92));
+    if (!blob) {
+      alert('Encoding failed for this format. Please try PNG or JPEG.');
+      return;
+    }
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url; a.download = `merged_${Date.now()}.${ext}`;

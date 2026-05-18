@@ -171,10 +171,15 @@
       pages.forEach(p => {
         const { width, height } = p.getSize();
         const tw = font.widthOfTextAtSize(text, fontSize);
-        // 중앙 회전
+        const th = fontSize;
+        // 중앙 회전 — pdf-lib는 baseline 기준 회전(왼쪽 아래). 텍스트 중심을 페이지 중심에 맞추려면
+        // 회전 변환된 텍스트 중심 vector를 빼서 origin 보정. cos+sin 양쪽 적용.
+        const rad = rotateDeg * Math.PI / 180;
+        const cx = tw / 2;
+        const cy = th / 2;
         p.drawText(text, {
-          x: width / 2 - (tw / 2) * Math.cos(rotateDeg * Math.PI / 180),
-          y: height / 2 - (fontSize / 2),
+          x: width / 2 - (cx * Math.cos(rad) - cy * Math.sin(rad)),
+          y: height / 2 - (cx * Math.sin(rad) + cy * Math.cos(rad)),
           size: fontSize,
           font,
           color,
@@ -188,7 +193,8 @@
       const fmt = pnFormat.value;
       const pos = pnPosition.value;
       const size = parseInt(pnSize.value, 10);
-      const start = parseInt(pnStart.value, 10) || 1;
+      const startRaw = parseInt(pnStart.value, 10);
+      const start = (Number.isFinite(startRaw) && startRaw >= 1) ? startRaw : 1;
       const pages = pdf.getPages();
       const total = pages.length;
       pages.forEach((p, idx) => {

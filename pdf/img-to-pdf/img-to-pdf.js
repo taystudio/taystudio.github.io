@@ -122,8 +122,10 @@ function fileToPngBytes(file) {
       ctx.drawImage(img, 0, 0);
       URL.revokeObjectURL(url);
       canvas.toBlob((blob) => {
-        if (!blob) return reject(new Error('canvas → PNG 변환 실패'));
-        blob.arrayBuffer().then(resolve).catch(reject);
+        if (!blob) { canvas.width = 0; canvas.height = 0; return reject(new Error('canvas → PNG 변환 실패')); }
+        blob.arrayBuffer()
+          .then(buf => { canvas.width = 0; canvas.height = 0; resolve(buf); })
+          .catch(err => { canvas.width = 0; canvas.height = 0; reject(err); });
       }, 'image/png');
     };
     img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('이미지 디코드 실패')); };
@@ -155,6 +157,7 @@ async function convert() {
     const orient = orientSel.value;    // 'auto' | 'portrait' | 'landscape'
     const marginPt = parseFloat(marginIn.value) * MM_TO_PT;
 
+    const failedFiles = [];
     for (const entry of files) {
       const file = entry.file;
       let img;
@@ -174,8 +177,14 @@ async function convert() {
         }
       } catch (e) {
         // 일부 JPEG는 embedJpg가 거부 → PNG로 우회
-        const pngBuf = await fileToPngBytes(file);
-        img = await doc.embedPng(pngBuf);
+        try {
+          const pngBuf = await fileToPngBytes(file);
+          img = await doc.embedPng(pngBuf);
+        } catch (e2) {
+          // 우회도 실패 (CMYK·HEIC·손상 등) → 해당 파일만 skip + 다음 진행
+          failedFiles.push(file.name);
+          continue;
+        }
       }
 
       // 페이지 크기 결정
@@ -210,6 +219,11 @@ async function convert() {
       }
     }
 
+    if (doc.getPageCount() === 0) {
+      alert('변환할 수 있는 이미지가 없습니다. 모든 파일이 손상됐거나 지원되지 않는 포맷입니다.');
+      return;
+    }
+
     const bytes = await doc.save();
     if (resultUrl) URL.revokeObjectURL(resultUrl);
     const blob = new Blob([bytes], { type: 'application/pdf' });
@@ -218,11 +232,17 @@ async function convert() {
     downloadBtn.href = resultUrl;
     downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename('images-' + new Date().toISOString().slice(0, 10) + '.pdf') : 'images-' + new Date().toISOString().slice(0, 10) + '.pdf');
 
-    convCount.textContent = files.length + '장';
+    const successCount = files.length - failedFiles.length;
+    convCount.textContent = successCount + '장' + (failedFiles.length > 0 ? ` (${failedFiles.length}장 실패)` : '');
     convPages.textContent = doc.getPageCount() + '쪽';
     convSize.textContent = fmtBytes(blob.size);
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (failedFiles.length > 0) {
+      const first = failedFiles.slice(0, 3).join(', ');
+      const more = failedFiles.length > 3 ? ` 외 ${failedFiles.length - 3}장` : '';
+      alert(`일부 파일 변환 실패: ${first}${more}\n(CMYK·HEIC·손상 파일일 가능성. 정상 ${successCount}장만 PDF에 포함됨)`);
+    }
   } catch (e) {
     alert('PDF 변환 실패: ' + (e && e.message ? e.message : '알 수 없는 오류'));
   } finally {

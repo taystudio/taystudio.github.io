@@ -966,4 +966,58 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/sitemap/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/sitemap/"/>
   </url>
+  <url>
+    <loc>https://taystudios.com/image/exif-remove/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/exif-remove/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/exif-remove/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/exif-remove/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/en/image/exif-remove/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/exif-remove/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/exif-remove/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/exif-remove/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/pdf/pdf-encrypt/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-encrypt/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/pdf/pdf-encrypt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/pdf/pdf-encrypt/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/en/pdf/pdf-encrypt/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-encrypt/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/pdf/pdf-encrypt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/pdf/pdf-encrypt/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/pdf/pdf-unlock/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-unlock/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/pdf/pdf-unlock/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/pdf/pdf-unlock/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/en/pdf/pdf-unlock/</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-unlock/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/pdf/pdf-unlock/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/pdf/pdf-unlock/"/>
+  </url>
 </urlset>
