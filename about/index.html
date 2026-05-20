@@ -131,12 +131,16 @@
       <div class="about-card">
         <ul class="about-list">
           <li><b>이미지 처리</b>: HTML Canvas API + browser native decoder (WebP·AVIF·HEIC)</li>
-          <li><b>PDF 처리</b>: pdf-lib WebAssembly (브라우저 내 PDF 편집·합치기·분할)</li>
-          <li><b>동영상 처리</b>: ffmpeg.wasm (브라우저 내 인코딩·디코딩)</li>
-          <li><b>OCR</b>: Tesseract.js v5 WebAssembly</li>
-          <li><b>MP3 인코딩</b>: ffmpeg libmp3lame</li>
+          <li><b>PDF 처리</b>: <a href="https://pdf-lib.js.org/" target="_blank" rel="nofollow noopener">pdf-lib</a> (MIT) WebAssembly + <a href="https://mozilla.github.io/pdf.js/" target="_blank" rel="nofollow noopener">pdf.js</a> (Mozilla, Apache 2.0)</li>
+          <li><b>동영상 처리</b>: <a href="https://ffmpegwasm.netlify.app/" target="_blank" rel="nofollow noopener">ffmpeg.wasm</a> (LGPL 2.1, 브라우저 내 인코딩·디코딩)</li>
+          <li><b>OCR</b>: <a href="https://tesseract.projectnaptha.com/" target="_blank" rel="nofollow noopener">Tesseract.js</a> v5 WebAssembly (Apache 2.0, 한국어·영어·한자·중국어·일본어)</li>
+          <li><b>QR 인식</b>: <a href="https://github.com/cozmo/jsQR" target="_blank" rel="nofollow noopener">jsQR</a> (Apache 2.0)</li>
+          <li><b>HEIC → JPG</b>: <a href="https://github.com/alexcorvi/heic2any" target="_blank" rel="nofollow noopener">heic2any</a> (Mozilla libheif 기반)</li>
+          <li><b>배경 제거 (AI)</b>: <a href="https://img.ly/" target="_blank" rel="nofollow noopener">img.ly Background Removal</a> (ONNX Runtime Web)</li>
+          <li><b>EXIF 처리</b>: <a href="https://github.com/hMatoba/piexifjs" target="_blank" rel="nofollow noopener">piexifjs</a> (MIT)</li>
+          <li><b>MP3 인코딩</b>: <a href="https://lame.sourceforge.io/" target="_blank" rel="nofollow noopener">libmp3lame</a> (LGPL)</li>
           <li><b>PWA</b>: Service Worker 캐싱, 홈 화면 설치 가능</li>
-          <li><b>분석</b>: Google Analytics 4 + Cloudflare Web Analytics (익명 통계)</li>
+          <li><b>분석</b>: <a href="https://policies.google.com/privacy" target="_blank" rel="nofollow noopener">Google Analytics 4</a> + <a href="https://www.cloudflare.com/web-analytics/" target="_blank" rel="nofollow noopener">Cloudflare Web Analytics</a> (익명 통계 only, 입력값·파일 미수집)</li>
         </ul>
       </div>
     </section>
@@ -148,20 +152,20 @@
       </p>
       <div class="about-card">
         <ul class="about-list">
-          <li><b>4대보험 (국민연금·건강보험·장기요양·고용보험)</b> — 국민연금공단·국민건강보험공단·근로복지공단 공식 요율표</li>
-          <li><b>소득세·연말정산·종합소득세</b> — 국세청 소득세법 (누진세율·인적공제·신용카드 공제율)</li>
-          <li><b>퇴직금·연차휴가·주휴수당·실업급여·육아휴직</b> — 근로기준법·고용보험법</li>
-          <li><b>최저시급</b> — 최저임금위원회 매년 고시</li>
-          <li><b>자동차세·재산세·종합부동산세·취득세·증여세·상속세</b> — 지방세법·상속세 및 증여세법</li>
-          <li><b>부가가치세</b> — 부가가치세법</li>
-          <li><b>부동산 중개수수료·전월세 환산</b> — 공인중개사법·주택임대차보호법</li>
-          <li><b>BMI·비만도</b> — 대한비만학회 6단계 분류 + WHO 아시아 기준</li>
-          <li><b>체지방률</b> — U.S. Navy method</li>
+          <li><b>4대보험 (국민연금·건강보험·장기요양·고용보험)</b> — <a href="https://www.nps.or.kr/" target="_blank" rel="nofollow noopener">국민연금공단</a> · <a href="https://www.nhis.or.kr/" target="_blank" rel="nofollow noopener">국민건강보험공단</a> · <a href="https://www.ei.go.kr/" target="_blank" rel="nofollow noopener">근로복지공단·고용보험</a></li>
+          <li><b>소득세·연말정산·종합소득세</b> — <a href="https://www.nts.go.kr/" target="_blank" rel="nofollow noopener">국세청 홈택스</a> · <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%86%8C%EB%93%9D%EC%84%B8%EB%B2%95" target="_blank" rel="nofollow noopener">소득세법 (국가법령정보센터)</a></li>
+          <li><b>퇴직금·연차·주휴수당·실업급여·육아휴직</b> — <a href="https://www.moel.go.kr/" target="_blank" rel="nofollow noopener">고용노동부</a> · <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EA%B7%BC%EB%A1%9C%EA%B8%B0%EC%A4%80%EB%B2%95" target="_blank" rel="nofollow noopener">근로기준법</a></li>
+          <li><b>최저시급</b> — <a href="https://www.minimumwage.go.kr/" target="_blank" rel="nofollow noopener">최저임금위원회</a> 매년 고시</li>
+          <li><b>자동차세·재산세·종부세·취득세·증여세·상속세</b> — <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A7%80%EB%B0%A9%EC%84%B8%EB%B2%95" target="_blank" rel="nofollow noopener">지방세법</a> · <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%83%81%EC%86%8D%EC%84%B8%EB%B0%8F%EC%A6%9D%EC%97%AC%EC%84%B8%EB%B2%95" target="_blank" rel="nofollow noopener">상속세 및 증여세법</a></li>
+          <li><b>부가가치세</b> — <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EB%B6%80%EA%B0%80%EA%B0%80%EC%B9%98%EC%84%B8%EB%B2%95" target="_blank" rel="nofollow noopener">부가가치세법</a></li>
+          <li><b>부동산 중개수수료·전월세 환산</b> — <a href="https://www.molit.go.kr/" target="_blank" rel="nofollow noopener">국토교통부</a> · 공인중개사법·주택임대차보호법</li>
+          <li><b>BMI·비만도</b> — <a href="https://www.kosso.or.kr/" target="_blank" rel="nofollow noopener">대한비만학회</a> 6단계 분류 + <a href="https://www.who.int/" target="_blank" rel="nofollow noopener">WHO</a> 아시아 기준</li>
+          <li><b>체지방률</b> — U.S. Navy method (DoD instruction)</li>
           <li><b>이상체중</b> — BMI 22 기준 + Broca·Devine·Robinson·Miller 공식</li>
-          <li><b>기초대사량 (BMR/TDEE)</b> — Mifflin-St Jeor 공식</li>
+          <li><b>기초대사량 (BMR/TDEE)</b> — Mifflin-St Jeor 공식 (1990, Am J Clin Nutr)</li>
           <li><b>심박수 존</b> — Karvonen 공식 5 zone</li>
-          <li><b>분유량</b> — 미국소아과학회 (AAP) 권장 (체중 1kg당 150~180ml/일)</li>
-          <li><b>아기 성장 백분위</b> — WHO 표준 성장 곡선</li>
+          <li><b>분유량</b> — <a href="https://www.aap.org/" target="_blank" rel="nofollow noopener">미국소아과학회 AAP</a> 권장 (체중 1kg당 150~180ml/일)</li>
+          <li><b>아기 성장 백분위</b> — <a href="https://www.who.int/tools/child-growth-standards" target="_blank" rel="nofollow noopener">WHO 표준 성장 곡선</a></li>
           <li><b>임신 주수·배란일</b> — 의학적 산정 (Naegele's rule 변형)</li>
         </ul>
       </div>

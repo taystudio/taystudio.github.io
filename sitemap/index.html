@@ -36,6 +36,20 @@
     .sitemap-intro { padding: 16px 20px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 24px; font-size: 14px; color: var(--muted); }
   </style>
   <script src="/common/site-chrome.js"></script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/" },
+        { "@type": "ListItem", "position": 2, "name": "사이트맵", "item": "https://taystudios.com/sitemap/" }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <site-header></site-header>

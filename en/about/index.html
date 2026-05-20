@@ -132,12 +132,16 @@
       <div class="about-card">
         <ul class="about-list">
           <li><b>Image processing</b>: HTML Canvas API + browser native decoders (WebP, AVIF, HEIC)</li>
-          <li><b>PDF processing</b>: pdf-lib WebAssembly (in-browser PDF edit/merge/split)</li>
-          <li><b>Video processing</b>: ffmpeg.wasm (in-browser encoding/decoding)</li>
-          <li><b>OCR</b>: Tesseract.js v5 WebAssembly</li>
-          <li><b>MP3 encoding</b>: ffmpeg libmp3lame</li>
+          <li><b>PDF processing</b>: <a href="https://pdf-lib.js.org/" target="_blank" rel="nofollow noopener">pdf-lib</a> (MIT) WebAssembly + <a href="https://mozilla.github.io/pdf.js/" target="_blank" rel="nofollow noopener">pdf.js</a> (Mozilla, Apache 2.0)</li>
+          <li><b>Video processing</b>: <a href="https://ffmpegwasm.netlify.app/" target="_blank" rel="nofollow noopener">ffmpeg.wasm</a> (LGPL 2.1)</li>
+          <li><b>OCR</b>: <a href="https://tesseract.projectnaptha.com/" target="_blank" rel="nofollow noopener">Tesseract.js</a> v5 WebAssembly (Apache 2.0)</li>
+          <li><b>QR scanning</b>: <a href="https://github.com/cozmo/jsQR" target="_blank" rel="nofollow noopener">jsQR</a> (Apache 2.0)</li>
+          <li><b>HEIC → JPG</b>: <a href="https://github.com/alexcorvi/heic2any" target="_blank" rel="nofollow noopener">heic2any</a> (Mozilla libheif)</li>
+          <li><b>Background removal (AI)</b>: <a href="https://img.ly/" target="_blank" rel="nofollow noopener">img.ly</a> (ONNX Runtime Web)</li>
+          <li><b>EXIF processing</b>: <a href="https://github.com/hMatoba/piexifjs" target="_blank" rel="nofollow noopener">piexifjs</a> (MIT)</li>
+          <li><b>MP3 encoding</b>: <a href="https://lame.sourceforge.io/" target="_blank" rel="nofollow noopener">libmp3lame</a> (LGPL)</li>
           <li><b>PWA</b>: Service Worker caching, installable as home screen app</li>
-          <li><b>Analytics</b>: Google Analytics 4 + Cloudflare Web Analytics (anonymous stats)</li>
+          <li><b>Analytics</b>: <a href="https://policies.google.com/privacy" target="_blank" rel="nofollow noopener">Google Analytics 4</a> + <a href="https://www.cloudflare.com/web-analytics/" target="_blank" rel="nofollow noopener">Cloudflare Web Analytics</a> (anonymous only, no input/file data)</li>
         </ul>
       </div>
     </section>
@@ -149,15 +153,16 @@
       </p>
       <div class="about-card">
         <ul class="about-list">
-          <li><b>BMI</b> — WHO Asia-Pacific 6-stage classification (underweight, normal, overweight, obese class 1/2/3)</li>
-          <li><b>Body Fat</b> — U.S. Navy method (circumference measurements)</li>
+          <li><b>BMI</b> — <a href="https://www.who.int/" target="_blank" rel="nofollow noopener">WHO</a> Asia-Pacific 6-stage classification</li>
+          <li><b>Body Fat</b> — U.S. Navy method (DoD circumference measurements)</li>
           <li><b>Ideal Weight</b> — Broca, Devine, Robinson, Miller formulas + BMI 22 reference</li>
-          <li><b>BMR / TDEE (Calorie)</b> — Mifflin-St Jeor equation (1990)</li>
+          <li><b>BMR / TDEE (Calorie)</b> — Mifflin-St Jeor equation (1990, <em>Am J Clin Nutr</em>)</li>
           <li><b>Compound Interest</b> — Standard compound interest formula <code>A = P(1+r/n)^(nt)</code></li>
           <li><b>Loan</b> — Equal monthly payment (annuity) and equal principal methods</li>
           <li><b>Savings</b> — Periodic deposit future value formula</li>
           <li><b>D-day</b> — Gregorian calendar date arithmetic (day/week/month/year units)</li>
         </ul>
+        <p class="small" style="margin-top:10px">Korean-specific calculators (salary, year-end tax, real estate, parental leave) link to Korean government agencies on the <a href="/about/">Korean about page</a>.</p>
       </div>
       <p style="margin-top:10px;color:var(--muted);font-size:13px;line-height:1.6">
         ⚠️ All calculations are <b>reference estimates only</b>. Formulas may have edge cases (athletes for BMI, extreme age ranges, etc.). Verify with professionals (doctors, financial advisors) for important decisions.
