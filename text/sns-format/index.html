@@ -333,6 +333,60 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <h2>처리 방식·기능 상세</h2>
+      <details>
+        <summary>언제 쓰나</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>인스타 캡션 줄바꿈</b>인스타는 빈 줄을 자동 압축. U+3164 채움 문자로 강제 줄바꿈 보존. 시·일기·문장 흐름 살리기.</div>
+        <div class="case"><b>해시태그 정리</b>중복 해시태그 제거, 앞뒤 # 자동 추가, 한글·영문 분리 정렬. 인스타 30개 한도·X 노출 효과 최적화.</div>
+        <div class="case"><b>특수 글씨체 (fancy fonts)</b>𝓢𝓬𝓻𝓲𝓹𝓽·𝐁𝐨𝐥𝐝·𝙼𝚘𝚗𝚘 등 Unicode 7종 글씨체. 인스타 프로필·X 트윗 시선 끌기.</div>
+        <div class="case"><b>이모지·기호 정리</b>중복 이모지 정리, 불필요 문자 제거. 텍스트가 깔끔하게 보이도록 사전 정리.</div>
+        <div class="case"><b>다국어 글 정렬</b>한글·영문·이모지가 섞인 글의 정렬·간격 정리. 가독성 향상.</div>
+        <div class="case"><b>마케팅 카피</b>인플루언서·브랜드 마케팅용 글. SNS 플랫폼별 형식 변환으로 재사용성 향상.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>U+3164 채움 문자 — 인스타 줄바꿈 우회</summary>
+        <div class="body">
+          <p>인스타그램은 단순 빈 줄(<code>\n\n</code>)을 자동 압축합니다. 본 도구는 빈 줄에 <code>U+3164</code>(Hangul Filler, invisible 공백) 1자를 자동 삽입해 빈 줄로 인식되지 않게 만듭니다. 결과를 인스타에 붙여넣으면 빈 줄이 그대로 표시됩니다.</p>
+          <p class="small">U+3164는 한글 자모 영역의 invisible whitespace로, 폰트가 렌더링 시 공간만 차지하고 글자가 보이지 않습니다. 인스타·페이스북·X 모두 적용 가능.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>fancy 글씨체 7종 — Unicode 변환</summary>
+        <div class="body">
+          <ul>
+            <li><b>Script</b> — 𝓢𝓬𝓻𝓲𝓹𝓽 (수려체)</li>
+            <li><b>Bold</b> — 𝐁𝐨𝐥𝐝 (굵게)</li>
+            <li><b>Italic</b> — 𝐼𝑡𝑎𝑙𝑖𝑐 (이탤릭)</li>
+            <li><b>Bold Italic</b> — 𝐵𝑜𝑙𝑑 𝐼𝑡𝑎𝑙𝑖𝑐</li>
+            <li><b>Mono</b> — 𝙼𝚘𝚗𝚘 (고정폭)</li>
+            <li><b>Double Struck</b> — 𝔻𝕠𝕦𝕓𝕝𝕖 (이중선)</li>
+            <li><b>Circled</b> — Ⓒⓘⓡⓒⓛⓔⓓ (원 안)</li>
+          </ul>
+          <p>영문만 변환됨. 한글은 일반 Unicode가 fancy 글씨체 미지원.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>흔한 실수·주의점</summary>
+        <div class="body">
+          <ul>
+            <li><b>fancy 글씨체 접근성</b> — 시각장애인 보조 기술이 fancy 글씨체를 읽지 못합니다. SNS 공식 글에는 권장 X.</li>
+            <li><b>해시태그 한도</b> — 인스타 캡션은 해시태그 30개 제한. 본 도구가 자동 카운트.</li>
+            <li><b>U+3164 인식 차단</b> — X(트위터)는 일부 invisible 문자를 spam으로 인식해 노출 감소 가능.</li>
+            <li><b>편집 후 복사 누락</b> — 텍스트박스에서 결과를 직접 복사. 자동 클립보드 복사 버튼 사용 권장.</li>
+            <li><b>fancy 글씨체 + 일반 텍스트 혼합</b> — 같은 글에 일반·fancy 섞으면 가독성 떨어짐. 짧은 강조용으로만.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
 

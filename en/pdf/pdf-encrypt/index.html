@@ -304,6 +304,72 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <h2>Security boundaries</h2>
+      <details>
+        <summary>When to use it</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>Contract delivery</b>NDAs, employment / lease agreements — gate with a password before sending. Block print / copy permissions to deter resharing.</div>
+        <div class="case"><b>Résumés · cover letters</b>Password-protect career history before sending to recruiters / HR. Pass the password by a separate channel.</div>
+        <div class="case"><b>Invoices · legal</b>Tax invoices / legal opinions. Permission flags lock down editing and annotation.</div>
+        <div class="case"><b>Course materials</b>Paid course PDFs — block copy / print to deter unauthorized sharing.</div>
+        <div class="case"><b>Proposals · pitch decks</b>External proposals — password + draft watermark + permission limits during negotiations.</div>
+        <div class="case"><b>Medical · legal records</b>Personal medical records or legal documents — only the owner / authorized parties open.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>RC4 128-bit — actual security strength</summary>
+        <div class="body">
+          <p>PDF 1.7 standard encryption (RC4 128-bit). Compatible with Adobe Acrobat, Preview, Chrome PDF, and all standard viewers.</p>
+          <p><b>Strengths</b> — adequate for casual permission gating and password protection. Top compatibility.</p>
+          <p><b>Weaknesses</b> — late-1990s standard, weak vs modern crypto. For trade secrets / legal evidence / classified data, prefer external zip 7z AES-256 or dedicated DRM.</p>
+          <p class="small">PDF spec also defines AES-256, but the underlying pdf-lib-plus-encrypt library only implements RC4 128-bit. AES support is on the roadmap.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Permission flags (4)</summary>
+        <div class="body">
+          <ul>
+            <li><b>Print</b> — blocked unless password is entered (some viewers ignore)</li>
+            <li><b>Copy text</b> — text selection / copy disabled. Screenshot / OCR can bypass.</li>
+            <li><b>Edit</b> — adding / removing / modifying pages disabled</li>
+            <li><b>Annotate</b> — highlights / notes / signatures disabled</li>
+          </ul>
+          <p><code>contentAccessibility</code> is <b>always true</b> so screen readers can still read the text — accessibility-first design.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Password entry safeguards</summary>
+        <div class="body">
+          <ul>
+            <li><b>Enter twice + live match</b> — color shifts (green vs red) while typing</li>
+            <li><b>4 character minimum</b> — rejects trivial passwords</li>
+            <li><b>Show / hide toggle</b> — for visual confirmation</li>
+            <li><b>Already-encrypted PDF detected</b> — explicit alert on re-encryption</li>
+            <li><b>Recovery is impossible</b> — neither this tool nor the operator can recover a lost password. Write it down safely.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Common pitfalls</summary>
+        <div class="body">
+          <ul>
+            <li><b>Weak passwords (1234 / password)</b> — brute-forced in under a second. Use 12+ chars with letters / numbers / symbols.</li>
+            <li><b>Lost password</b> — no recovery here. No admin / master password.</li>
+            <li><b>PDF + password in same email</b> — defeats the purpose. Send password via a different channel.</li>
+            <li><b>Print restriction bypass</b> — Chrome "Print to PDF" or screenshots can work around it. Treat permissions as honor-system.</li>
+            <li><b>Permission removal tools</b> — public utilities can strip RC4 permission flags. Permissions are first-line defense only.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">FAQ</h2>
 

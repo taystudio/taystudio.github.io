@@ -142,6 +142,58 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <h2>도구 사용 가이드</h2>
+      <details>
+        <summary>누가 어떻게 쓰나</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>자소서·이력서</b>공공기관·대기업 자소서 한도(800·1,000·1,500·2,000·3,000자) 진행률을 progress bar로 동시 표시. 공백 포함·제외, UTF-8 바이트 카운트.</div>
+        <div class="case"><b>인스타 마케터</b>2,200자 캡션 한도, 해시태그 30개 한도, 빈 줄 채움 문자(U+3164)로 강제 줄바꿈, fancy 7종 글씨체 적용.</div>
+        <div class="case"><b>X · 페이스북</b>X 280자 / 스레드 500자 / 페이스북 63K — 플랫폼별 다른 한도 실시간 비교.</div>
+        <div class="case"><b>키보드 실수 복원</b>한영키 안 누르고 친 "dkssudgktpdy" → "안녕하세요" / "안녕" → "dkssud" 양방향 자동 변환. 복합 종성·복합 모음 처리.</div>
+        <div class="case"><b>외국인 한국어 학습</b>두벌식 자모 매핑으로 한글 입력 학습. 잘못 친 자소서·메시지를 즉시 복원해서 입력 패턴 학습 가능.</div>
+        <div class="case"><b>블로그·티스토리</b>SEO에 적합한 길이(1,500~3,000자) 자동 비교. 줄·단어·문장 수 동시 표시로 가독성 점검.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>글자수 카운터 — 어떤 한도를 비교하나요?</summary>
+        <div class="body">
+          <p>11종 동시 표시: 인스타 캡션(2,200) · 인스타 댓글(2,200) · X(280) · 스레드(500) · 페이스북(63,206) · 카톡 메시지(1,000) · LinkedIn 포스트(3,000) · 공공기관 자소서(1,000) · 대기업 자소서(1,500) · 자기소개(2,000) · 본인서명(3,000). 진행률 progress bar로 표시.</p>
+          <p class="small">UTF-8 바이트는 한글 1자 = 3바이트로 카운트. 이모지는 codePoint 단위로 정확히 1자로 처리.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>한↔영 키보드 변환 — 어디까지 정확한가요?</summary>
+        <div class="body">
+          <p>두벌식 표준 키보드 매핑 + 한글 조합형 자모 상태 머신. 복합 종성 (ㄳ ㄵ ㄶ ㄺ ㄻ ㄼ ㄽ ㄾ ㄿ ㅀ ㅄ) 11종 + 복합 모음 (ㅘ ㅙ ㅚ ㅝ ㅞ ㅟ ㅢ) 7종 처리. <code>dkssudgktpdy</code> → <code>안녕하세요</code>, <code>gktpdy</code> → <code>하세요</code> 정확.</p>
+          <p>한↔영 자동 감지: 입력 문자열의 95% 이상이 영문 알파벳이면 한글로, 한글이면 영문으로 자동 변환.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>SNS 글 정리 — 인스타 줄바꿈 강제 방법</summary>
+        <div class="body">
+          <p>인스타그램은 빈 줄을 자동 압축합니다. 본 도구는 <code>U+3164</code>(Hangul Filler·invisible 공백)을 빈 줄에 자동 삽입해 줄바꿈을 보존합니다. 인스타에 붙여넣으면 빈 줄이 그대로 표시됩니다. 해시태그 자동 정리(중복·순서·앞뒤 #), fancy 글씨체 7종(𝓢𝓬𝓻𝓲𝓹𝓽·𝐁𝐨𝐥𝐝·𝙼𝚘𝚗𝚘 등) Unicode 변환 지원.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>출처·기준</h2>
+      <div class="updated">최종 검증: 2026-05-05</div>
+      <ul>
+        <li><b>두벌식 표준 키보드 매핑</b> — KS X 5002 한국 산업표준 / <a href="https://www.kssn.net/" target="_blank" rel="noopener">한국표준협회</a></li>
+        <li><b>한글 자모 합성</b> — Unicode CLDR 한국어 데이터 / <a href="https://cldr.unicode.org/" target="_blank" rel="noopener">Unicode CLDR</a></li>
+        <li><b>인스타그램 글자 한도</b> — Meta 공식 도움말 / <a href="https://help.instagram.com/" target="_blank" rel="noopener">Instagram Help</a></li>
+        <li><b>X(Twitter) 글자 한도</b> — X 공식 정책 / <a href="https://help.x.com/en/using-x/twitter-character-counter" target="_blank" rel="noopener">X Help</a></li>
+        <li><b>U+3164 (Hangul Filler)</b> — Unicode Standard 14.0 / 한글 자모 영역 invisible space</li>
+      </ul>
+    </section>
+
     <section class="hub-faq">
       <h2>자주 묻는 질문</h2>
       <details>

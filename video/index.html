@@ -138,6 +138,66 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <h2>처리 방식·제약</h2>
+      <details>
+        <summary>누가 어떻게 쓰나</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>카톡·이메일 첨부</b>카톡 1GB 영상 → 100MB로 압축. 이메일 첨부 25MB 한도 안에 맞추기. 해상도 720p·CRF 18~35 조절.</div>
+        <div class="case"><b>세로로 찍힌 영상 보정</b>아이폰·갤럭시에서 가로로 찍히지 않은 영상을 90·180·270도 회전 + 좌우/상하 반전. 가로 비율로 자동 scale 옵션.</div>
+        <div class="case"><b>SNS 짤·움짤 만들기</b>영상 짧은 구간(5~10초) → GIF. 인스타·X·카톡 이모티콘 자작 — fps 10~30, 너비 240~640px 최적화.</div>
+        <div class="case"><b>본인 영상 MP3 추출</b>본인이 촬영한 인터뷰·강의 영상에서 오디오만 분리. MP3 5단계 비트레이트 (96·128·160·192·320kbps).</div>
+        <div class="case"><b>강의·회의 자료</b>긴 영상의 핵심 구간만 자르기. 시작·끝 시각 지정 (예 1:23 ~ 4:56) → 빠른 모드 수 초 내 처리.</div>
+        <div class="case"><b>유튜브 업로드 준비</b>1080p → 720p 다운스케일로 업로드 속도 향상. 회전·자르기로 비율 조정. 본인 영상만 사용.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>왜 모바일에서 자주 실패하는지</summary>
+        <div class="body">
+          <p>단일 스레드 WASM 환경의 메모리·CPU 제약 때문입니다. GitHub Pages는 COOP/COEP 헤더 설정이 불가해 <code>SharedArrayBuffer</code>를 활성화할 수 없어 ffmpeg.wasm이 단일 스레드로만 동작합니다. iOS Safari ~500MB / 안드로이드 Chrome ~1GB 한계 안에서 디코드 + 인코딩이 일어나야 하며, 1080p 큰 영상은 메모리 초과로 실패합니다.</p>
+          <p><b>권장 사양</b>: 해상도 720p 이하, 길이 1분 이내, 데스크톱 Chrome. 5분 영상 압축 ≈ 1~3분(데스크톱 기준). 모바일은 2~3배 더 소요.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>cancel 동작 + 중간 단계 안정성</summary>
+        <div class="body">
+          <p>모든 동영상 도구는 <code>ffmpeg.terminate()</code> + <code>runSeq/activeRun</code> 메커니즘으로 중간 cancel을 지원합니다. cancel 시 메모리·virtual filesystem이 즉시 정리되어 누수 없습니다. 다음 처리는 fresh load로 시작.</p>
+          <p class="small">긴 영상이 처리 중일 때 사용자가 다른 도구로 이동하면 자동 cancel + 메모리 cleanup.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>지원 포맷·코덱</summary>
+        <div class="body">
+          <p><b>입력</b>: MP4·MOV·WebM·MKV·AVI·FLV 등 ffmpeg가 지원하는 대부분 포맷.</p>
+          <p><b>출력</b>: MP4 (H.264 + AAC) / GIF / MP3 (libmp3lame).</p>
+          <p>HDR·10bit 영상은 SDR·8bit로 자동 변환됩니다. HEVC(H.265) 입력은 디코딩 가능하지만 출력은 H.264로 통일.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>저작권 안내</summary>
+        <div class="body">
+          <p>기술적으로는 어떤 영상이든 동작하지만, <b>본인 촬영·라이선스 보유 영상에만 사용</b>해 주세요. 특히 MP3 추출은 음원 저작권 침해 위험이 높습니다. 유튜브·뮤직·OTT 영상에서 음원을 추출해 재배포하는 행위는 위법입니다. 본 사이트는 도구만 제공하며 사용에 따른 법적 책임은 사용자에게 있습니다.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>출처·기술 스택</h2>
+      <div class="updated">최종 검증: 2026-05-19</div>
+      <ul>
+        <li><b>ffmpeg.wasm</b> — LGPL 2.1 / <a href="https://ffmpegwasm.netlify.app/" target="_blank" rel="noopener">ffmpegwasm.netlify.app</a></li>
+        <li><b>ffmpeg 본체</b> — <a href="https://ffmpeg.org/" target="_blank" rel="noopener">ffmpeg.org</a></li>
+        <li><b>libmp3lame (MP3 인코더)</b> — LGPL / <a href="https://lame.sourceforge.io/" target="_blank" rel="noopener">lame.sourceforge.io</a></li>
+        <li><b>WebAssembly + SharedArrayBuffer</b> — <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer" target="_blank" rel="noopener">MDN</a> · COOP/COEP 헤더 요구 (GitHub Pages 미지원으로 단일 스레드 운영)</li>
+      </ul>
+    </section>
+
     <section class="hub-faq">
       <h2>자주 묻는 질문</h2>
       <details>

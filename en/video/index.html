@@ -140,6 +140,64 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <h2>Processing & limits</h2>
+      <details>
+        <summary>Who uses it</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>Messaging · email</b>Shrink 1GB videos to 100MB for chat / email. 720p downscale, CRF 18–35 quality slider.</div>
+        <div class="case"><b>Rotated phone videos</b>Phone-shot videos saved sideways or upside down — 90 / 180 / 270 rotation + horizontal/vertical flip. Auto scale option.</div>
+        <div class="case"><b>SNS GIFs</b>Short clips (5–10s) → GIF for Instagram, X, KakaoTalk emoji. Optimized fps 10–30, width 240–640px.</div>
+        <div class="case"><b>MP3 extraction (your own)</b>Pull audio from interview / lecture videos you own. 5 bitrate steps (96 / 128 / 160 / 192 / 320 kbps).</div>
+        <div class="case"><b>Lecture · meeting trims</b>Cut a long video to the important section (e.g. 1:23 to 4:56). Fast mode finishes in seconds.</div>
+        <div class="case"><b>YouTube upload prep</b>1080p → 720p downscale for faster upload. Crop / rotate to the desired aspect. Personal videos only.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Why mobile fails more often</summary>
+        <div class="body">
+          <p>Single-thread WASM (no COOP/COEP on GitHub Pages → no SharedArrayBuffer). iOS Safari caps at ~500MB; Android Chrome ~1GB. Decode + encode must fit that budget, so 1080p videos OOM easily.</p>
+          <p>Recommended: ≤ 720p, ≤ 1 minute, desktop Chrome. A 5-minute video compress takes ~1–3 minutes on desktop, 2–3× slower on mobile.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Cancel and memory safety</summary>
+        <div class="body">
+          <p>Every video tool supports mid-process cancel via <code>ffmpeg.terminate()</code> + <code>runSeq / activeRun</code>. Cancellation clears the WASM virtual filesystem and frees memory immediately. Next run starts with a fresh load.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Format / codec support</summary>
+        <div class="body">
+          <p><b>Input</b>: MP4, MOV, WebM, MKV, AVI, FLV — anything ffmpeg can decode.</p>
+          <p><b>Output</b>: MP4 (H.264 + AAC) / GIF / MP3 (libmp3lame). HDR 10-bit is auto-converted to SDR 8-bit. HEVC input decodes fine but always outputs H.264.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Copyright notice</summary>
+        <div class="body">
+          <p>Use on content you own or are licensed to process. Audio extraction from third-party music / OTT content for redistribution is illegal. The site provides tools only — legal responsibility lies with the user.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>Tech sources</h2>
+      <div class="updated">Last verified: 2026-05-19</div>
+      <ul>
+        <li><b>ffmpeg.wasm</b> — LGPL 2.1 / <a href="https://ffmpegwasm.netlify.app/" target="_blank" rel="noopener">ffmpegwasm.netlify.app</a></li>
+        <li><b>ffmpeg</b> — <a href="https://ffmpeg.org/" target="_blank" rel="noopener">ffmpeg.org</a></li>
+        <li><b>libmp3lame</b> — LGPL / <a href="https://lame.sourceforge.io/" target="_blank" rel="noopener">lame.sourceforge.io</a></li>
+        <li><b>SharedArrayBuffer</b> — requires COOP/COEP headers (GitHub Pages can't set them → single-thread mode)</li>
+      </ul>
+    </section>
+
     <section class="hub-faq">
       <h2>Frequently asked questions</h2>
       <details>

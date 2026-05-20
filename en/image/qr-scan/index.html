@@ -304,6 +304,65 @@
       </details>
     </section>
 
+    <section class="disclosure-group">
+      <h2>How it works · accuracy</h2>
+      <details>
+        <summary>When to use it</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>Restaurant / café menus</b>Scan in-store QR for menu, payment, or booking pages. If camera permission is denied, upload a photo instead.</div>
+        <div class="case"><b>Wi-Fi auto-connect</b>Extract SSID + password from a Wi-Fi QR. Quickly join guest networks or café Wi-Fi.</div>
+        <div class="case"><b>Business card · VCard</b>Decode name / phone / email / company from a business-card QR. Digitize stacks of paper cards at once.</div>
+        <div class="case"><b>Event check-in</b>Public event entry QRs. If camera permission is denied, gallery upload works as a fallback.</div>
+        <div class="case"><b>Ticket / payment verification</b>Inspect data on your own movie / concert / train / flight e-tickets.</div>
+        <div class="case"><b>Parking access</b>Check parking-lot access QR data — vehicle registration, payment system back-data.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>jsQR library — coverage</summary>
+        <div class="body">
+          <p>Open-source pure-JS decoder (Cosmo Wolfe, Apache-2.0):</p>
+          <ul>
+            <li><b>Versions</b> — QR 1–40 (21×21 to 177×177 modules)</li>
+            <li><b>Error correction</b> — L (7%), M (15%), Q (25%), H (30%)</li>
+            <li><b>Modes</b> — numeric, alphanumeric, byte, kanji</li>
+            <li><b>UTF-8</b> — Korean / emoji decoded correctly</li>
+            <li><b>Adaptive thresholding</b> — works across varied lighting</li>
+          </ul>
+          <p class="small">Not supported: Micro QR, iQR, FrameQR, HCC2D.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Common pitfalls</summary>
+        <div class="body">
+          <ul>
+            <li><b>Camera denied</b> — Safari / Chrome won't re-prompt automatically; fix in Settings → Camera/Location, or upload from gallery.</li>
+            <li><b>Blurry photos</b> — re-shoot or get closer.</li>
+            <li><b>Angle</b> — keep within ±30° of head-on. Perspective auto-correction has limits.</li>
+            <li><b>Lighting</b> — even, neutral light works best.</li>
+            <li><b>Size</b> — QR should fill ≥ 30% of the frame.</li>
+            <li><b>Logo'd / stylized QRs</b> — partial scans possible; heavy customization may fail.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Safety with unknown QRs</summary>
+        <div class="body">
+          <p>Random / public QRs can route to phishing or malware. This tool only <b>shows</b> the URL or text — it does not auto-open. If the URL looks suspicious:</p>
+          <ul>
+            <li>Check HTTPS (HTTP is risky)</li>
+            <li>Read the domain carefully (apple.com vs appie.com)</li>
+            <li>Expand short links (bit.ly etc.) before clicking</li>
+            <li>When in doubt — don't click</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">Frequently Asked Questions</h2>
 

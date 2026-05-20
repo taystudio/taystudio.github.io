@@ -673,19 +673,42 @@ button:hover {
 .faq details,
 .disclosure-group details {
   background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: 8px;
+  border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  border-radius: 14px;
+  margin-bottom: 10px;
   padding: 0;
+  overflow: hidden;
+  transition: border-color .32s cubic-bezier(.16,1,.3,1), background .32s cubic-bezier(.16,1,.3,1);
+}
+
+.faq details:hover,
+.disclosure-group details:hover {
+  border-color: color-mix(in srgb, var(--primary) 18%, var(--border));
+}
+
+.faq details[open],
+.disclosure-group details[open] {
+  border-color: color-mix(in srgb, var(--primary) 16%, var(--border));
+  background: color-mix(in srgb, var(--primary) 2.5%, var(--card));
 }
 
 .faq summary,
 .disclosure-group summary {
-  padding: 14px 18px;
+  padding: 16px 52px 16px 20px;
   cursor: pointer;
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--text);
   list-style: none;
+  position: relative;
+  letter-spacing: -.005em;
+  transition: color .25s ease;
+  user-select: none;
+}
+
+.faq summary:hover,
+.disclosure-group summary:hover {
+  color: var(--primary);
 }
 
 .faq summary::-webkit-details-marker,
@@ -695,34 +718,109 @@ button:hover {
 
 .faq summary::after,
 .disclosure-group summary::after {
-  content: "+";
-  float: right;
-  color: var(--muted);
-  font-weight: 400;
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  margin-top: -12px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  transition: background .32s cubic-bezier(.16,1,.3,1);
+  pointer-events: none;
 }
 
-.faq details[open] summary::after,
-.disclosure-group details[open] summary::after {
-  content: "−";
+.faq summary::before,
+.disclosure-group summary::before {
+  content: "";
+  position: absolute;
+  right: 26px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -6px;
+  border-right: 1.6px solid var(--primary);
+  border-bottom: 1.6px solid var(--primary);
+  transform: rotate(45deg);
+  transition: transform .32s cubic-bezier(.16,1,.3,1), margin-top .32s cubic-bezier(.16,1,.3,1);
+  pointer-events: none;
+  z-index: 1;
 }
 
-.faq details[open] summary,
-.disclosure-group details[open] summary {
-  border-bottom: 1px solid var(--border);
+.faq details[open]:not(.sd-closing) summary::after,
+.disclosure-group details[open]:not(.sd-closing) summary::after {
+  background: color-mix(in srgb, var(--primary) 16%, transparent);
+}
+
+.faq details[open]:not(.sd-closing) summary::before,
+.disclosure-group details[open]:not(.sd-closing) summary::before {
+  transform: rotate(225deg);
+  margin-top: -2px;
+}
+
+/* sd-closing: closing 시작 시 details 자체 색·chevron·summary 색을 closed 상태로 강제.
+   height 트랜지션과 background/border/chevron 트랜지션이 동시에 시작·종료 → 따닥 방지 */
+.faq details.sd-closing,
+.disclosure-group details.sd-closing {
+  border-color: color-mix(in srgb, var(--border) 60%, transparent) !important;
+  background: var(--card) !important;
+}
+.faq details.sd-closing summary,
+.disclosure-group details.sd-closing summary {
+  color: var(--text) !important;
+}
+
+/* smooth-details — height + padding 동기 트랜지션. 모두 .32s 동일 곡선. */
+.faq details.sd-anim,
+.disclosure-group details.sd-anim {
+  transition: border-color .32s cubic-bezier(.16,1,.3,1), background .32s cubic-bezier(.16,1,.3,1);
+}
+.faq details.sd-anim > .answer,
+.faq details.sd-anim > div:not(summary),
+.disclosure-group details.sd-anim > .body {
+  overflow: hidden;
+  transition:
+    height .32s cubic-bezier(.16,1,.3,1),
+    opacity .24s cubic-bezier(.16,1,.3,1),
+    padding-top .32s cubic-bezier(.16,1,.3,1),
+    padding-bottom .32s cubic-bezier(.16,1,.3,1);
+  will-change: height, opacity, padding-top, padding-bottom;
+}
+/* closed 상태: 완전 0 — padding도 함께 0으로 (그래야 닫힘 box 0px) */
+.faq details.sd-anim:not([open]) > .answer,
+.faq details.sd-anim:not([open]) > div:not(summary),
+.disclosure-group details.sd-anim:not([open]) > .body {
+  height: 0 !important;
+  opacity: 0;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+/* closing 중: details.open이 아직 true지만 padding을 미리 0으로 트랜지션 */
+.faq details.sd-anim.sd-closing > .answer,
+.faq details.sd-anim.sd-closing > div:not(summary),
+.disclosure-group details.sd-anim.sd-closing > .body {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.faq details.sd-anim[open] > .answer,
+.faq details.sd-anim[open] > div:not(summary),
+.disclosure-group details.sd-anim[open] > .body {
+  opacity: 1;
 }
 
 .faq .answer {
-  padding: 14px 18px;
+  padding: 4px 20px 20px;
   font-size: 14px;
   color: var(--muted);
-  line-height: 1.65;
+  line-height: 1.75;
 }
 
 .disclosure-group .body {
-  padding: 14px 18px 16px;
+  padding: 4px 20px 20px;
   font-size: 14px;
   color: var(--muted);
-  line-height: 1.65;
+  line-height: 1.75;
 }
 
 .disclosure-group .body > *:last-child {
@@ -1587,35 +1685,110 @@ button:hover {
   letter-spacing: -.01em;
 }
 .hub-faq details {
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  border-radius: 14px;
   background: var(--card);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   overflow: hidden;
+  transition: border-color .32s cubic-bezier(.16,1,.3,1), background .32s cubic-bezier(.16,1,.3,1);
+}
+.hub-faq details:hover {
+  border-color: color-mix(in srgb, var(--primary) 18%, var(--border));
+}
+.hub-faq details[open] {
+  border-color: color-mix(in srgb, var(--primary) 16%, var(--border));
+  background: color-mix(in srgb, var(--primary) 2.5%, var(--card));
 }
 .hub-faq summary {
   cursor: pointer;
-  padding: 14px 18px;
+  padding: 16px 52px 16px 20px;
   font-weight: 600;
   font-size: 14.5px;
   color: var(--text);
   list-style: none;
+  position: relative;
+  letter-spacing: -.005em;
+  transition: color .25s ease;
+  user-select: none;
+}
+.hub-faq summary:hover {
+  color: var(--primary);
 }
 .hub-faq summary::-webkit-details-marker { display: none; }
 .hub-faq summary::after {
-  content: "+";
-  float: right;
-  color: var(--muted);
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 1;
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  margin-top: -12px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  transition: background .32s cubic-bezier(.16,1,.3,1);
+  pointer-events: none;
 }
-.hub-faq details[open] summary::after { content: "−"; }
+.hub-faq summary::before {
+  content: "";
+  position: absolute;
+  right: 26px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -6px;
+  border-right: 1.6px solid var(--primary);
+  border-bottom: 1.6px solid var(--primary);
+  transform: rotate(45deg);
+  transition: transform .32s cubic-bezier(.16,1,.3,1), margin-top .32s cubic-bezier(.16,1,.3,1);
+  pointer-events: none;
+  z-index: 1;
+}
+.hub-faq details[open]:not(.sd-closing) summary::after {
+  background: color-mix(in srgb, var(--primary) 16%, transparent);
+}
+.hub-faq details[open]:not(.sd-closing) summary::before {
+  transform: rotate(225deg);
+  margin-top: -2px;
+}
+.hub-faq details.sd-closing {
+  border-color: color-mix(in srgb, var(--border) 60%, transparent) !important;
+  background: var(--card) !important;
+}
+.hub-faq details.sd-closing summary {
+  color: var(--text) !important;
+}
 .hub-faq .answer {
-  padding: 0 18px 16px;
+  padding: 4px 20px 20px;
   font-size: 14px;
   line-height: 1.75;
   color: var(--muted);
+}
+
+/* smooth-details — hub-faq variant. height + padding 동기 */
+.hub-faq details.sd-anim {
+  transition: border-color .32s cubic-bezier(.16,1,.3,1), background .32s cubic-bezier(.16,1,.3,1);
+}
+.hub-faq details.sd-anim > .answer {
+  overflow: hidden;
+  transition:
+    height .32s cubic-bezier(.16,1,.3,1),
+    opacity .24s cubic-bezier(.16,1,.3,1),
+    padding-top .32s cubic-bezier(.16,1,.3,1),
+    padding-bottom .32s cubic-bezier(.16,1,.3,1);
+  will-change: height, opacity, padding-top, padding-bottom;
+}
+.hub-faq details.sd-anim:not([open]) > .answer {
+  height: 0 !important;
+  opacity: 0;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.hub-faq details.sd-anim.sd-closing > .answer {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.hub-faq details.sd-anim[open] > .answer {
+  opacity: 1;
 }
 
 @media (max-width: 480px) {

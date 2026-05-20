@@ -390,6 +390,50 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <h2>Counting rules</h2>
+      <details>
+        <summary>When to use it</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>Korean public-sector apps</b>Fields cap at 500 / 800 / 1,000 / 1,500 / 2,000 characters. Toggle space-inclusive / exclusive counts to match each posting.</div>
+        <div class="case"><b>Instagram · X captions</b>Instagram 2,200 / X 280 / Threads 500 — live progress bars. Color changes near the cap.</div>
+        <div class="case"><b>SMS · MMS · DB columns</b>SMS 90 byte (EUC-KR) / 140 byte (UTF-8) / MMS 2,000 byte. UTF-8 = Korean 3 bytes / EUC-KR = Korean 2 bytes — auto count.</div>
+        <div class="case"><b>Blog · SEO</b>Compare against SEO-friendly lengths (1,500–3,000) with line / sentence / word counts.</div>
+        <div class="case"><b>API field validation</b>VARCHAR(50) / TEXT-column compatibility. UTF-8 byte counts for DB storage.</div>
+        <div class="case"><b>YouTube · Twitch</b>YouTube comment 10,000 / live chat 200 char limits. Emojis counted separately.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Unicode rules (emoji, CJK, ZWJ-joined)</summary>
+        <div class="body">
+          <p>Counts in <b>Unicode codepoints</b>. CJK characters (漢 / あ) and standalone emoji (👋) count as 1 each. ZWJ-joined family emoji (<code>👨‍👩‍👧</code> = 5 codepoints) is counted as 5 here — X (Twitter) counts it as 1, so platform-specific behavior may differ.</p>
+          <p>Korean NFC / NFD normalization is auto-applied, so macOS Finder NFD-decomposed jamo doesn't inflate the count.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Common pitfalls</summary>
+        <div class="body">
+          <ul>
+            <li><b>Space-inclusive vs exclusive</b> — follow the exact wording of the posting. Inclusive counts line breaks; Word / HWP statistics typically don't.</li>
+            <li><b>UTF-8 vs EUC-KR bytes</b> — Korean public sector / finance often uses EUC-KR. Korean = 2 bytes (EUC-KR) vs 3 bytes (UTF-8) — risk of being under or over.</li>
+            <li><b>ZWJ emoji</b> — multi-codepoint here vs single-char on X. Verify on the target platform.</li>
+            <li><b>Korean-mode mis-typed</b> — see also the Korean keyboard converter.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Supported limits (11)</summary>
+        <div class="body">
+          <p>Instagram caption (2,200) · Instagram comment (2,200) · X (280) · Threads (500) · Facebook (63,206) · KakaoTalk (1,000) · LinkedIn (3,000) · KR public-sector cover letter (1,000) · KR corporate cover letter (1,500) · self-intro (2,000) · personal statement (3,000).</p>
+        </div>
+      </details>
+    </section>
+
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">Frequently Asked Questions</h2>
 

@@ -130,6 +130,52 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <h2>How it works</h2>
+      <details>
+        <summary>Who uses it</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>Resumes · cover letters</b>Korean public-sector and corporate apps cap fields at 500 / 800 / 1,000 / 1,500 / 2,000 characters. Toggle space-inclusive / exclusive counts to match each posting.</div>
+        <div class="case"><b>Instagram marketers</b>2,200-char captions, 30-hashtag limits, fill-character (U+3164) line-break preservation, 7 Unicode fancy fonts.</div>
+        <div class="case"><b>X · Facebook</b>X 280 / Threads 500 / Facebook 63K — see all caps in real time.</div>
+        <div class="case"><b>SMS · MMS · DB columns</b>SMS 90-byte (EUC-KR) or 140-byte (UTF-8) limits, MMS 2,000-byte, VARCHAR(50) checks — auto byte count.</div>
+        <div class="case"><b>Korean ↔ English keyboard</b>Restore "dkssudgktpdy" → "안녕하세요" both ways. Handles complex finals / vowels.</div>
+        <div class="case"><b>Bloggers · SEO</b>Compare against SEO-friendly lengths (1,500–3,000) with line, word, and sentence counts.</div>
+      </div>
+        </div>
+      </details>
+      <details>
+        <summary>Character counter — 11 limit presets</summary>
+        <div class="body">
+          <p>Live progress bars for Instagram caption (2,200), Instagram comment (2,200), X (280), Threads (500), Facebook (63,206), KakaoTalk (1,000), LinkedIn (3,000), and Korean cover-letter sizes (1,000 / 1,500 / 2,000 / 3,000).</p>
+          <p class="small">UTF-8 bytes count Korean as 3 bytes per character. Emojis count as 1 codepoint each.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Common pitfalls</summary>
+        <div class="body">
+          <ul>
+            <li><b>Space-inclusive vs exclusive</b> — follow the posting's exact wording.</li>
+            <li><b>EUC-KR byte differences</b> — Korean public-sector forms sometimes limit by EUC-KR bytes (Korean = 2 bytes) vs UTF-8 (3 bytes).</li>
+            <li><b>ZWJ-joined emoji</b> — 👨‍👩‍👧 is 5 codepoints here but 1 char on X.</li>
+            <li><b>Line breaks</b> — counted as 1 char in inclusive mode (matches API limits, differs from Word/HWP statistics).</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last verified: 2026-05-05</div>
+      <ul>
+        <li><b>UTF-8 spec</b> — <a href="https://datatracker.ietf.org/doc/html/rfc3629" rel="nofollow noopener" target="_blank">RFC 3629</a></li>
+        <li><b>Hangul syllable block</b> — Unicode 14.0 (U+AC00–U+D7A3)</li>
+        <li><b>X 280-char limit</b> — <a href="https://help.x.com/en/using-x/how-to-tweet" rel="nofollow noopener" target="_blank">X Help</a></li>
+        <li><b>Instagram 2,200 caption</b> — <a href="https://help.instagram.com/" rel="nofollow noopener" target="_blank">Instagram Help</a></li>
+      </ul>
+    </section>
+
     <section class="hub-faq">
       <h2>Frequently Asked Questions</h2>
       <details>

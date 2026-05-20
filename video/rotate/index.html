@@ -391,6 +391,56 @@
       </details>
     </section>
 
+    <section class="disclosure-group">
+      <h2>처리 방식·옵션</h2>
+      <details>
+        <summary>언제 쓰나</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>세로로 찍힌 영상</b>휴대폰을 가로로 잡고 찍었는데 영상이 세로로 저장된 경우 — 90·270도 회전으로 즉시 가로 비율 복원.</div>
+        <div class="case"><b>거꾸로 찍힌 영상</b>휴대폰 거꾸로 잡고 촬영해 영상이 뒤집힌 경우 — 180도 회전으로 정상화. 강의 녹화·CCTV 영상.</div>
+        <div class="case"><b>좌우 반전 (셀카)</b>셀카 모드는 좌우 반전 저장. 글자가 거울처럼 보일 때 좌우 반전으로 원본 복원.</div>
+        <div class="case"><b>상하 반전</b>드론·차량 거꾸로 장착 카메라에서 상하 반전된 영상. 상하 반전으로 정상화.</div>
+        <div class="case"><b>SNS 업로드 준비</b>인스타 릴스(9:16) / 유튜브 쇼츠(9:16) / 일반 영상(16:9) — 비율에 맞춰 90·270도 회전.</div>
+        <div class="case"><b>강의·발표</b>세미나 강의 녹화가 잘못된 방향으로 저장된 경우, 학생·발표자가 정상 방향으로 시청할 수 있게 보정.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>회전 + scale 자동 옵션</summary>
+        <div class="body">
+          <p>90·270도 회전 시 영상 비율이 가로↔세로로 바뀝니다 (16:9 → 9:16 또는 그 반대). 옵션:</p>
+          <ul>
+            <li><b>scale 자동</b> — 회전 후 화면 비율 그대로 유지 (정사각형 화면이 아니면 좌우/상하 검은 띠)</li>
+            <li><b>scale fit</b> — 화면 비율 강제 fit (이미지 약간 변형, 검은 띠 없음)</li>
+            <li><b>scale crop</b> — 화면 비율 맞춰 자르기 (가장자리 손실, 검은 띠 없음)</li>
+          </ul>
+          <p class="small">기본값은 "scale 자동" — 원본 화질 보존 우선.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>오디오 코덱 재인코딩</summary>
+        <div class="body">
+          <p>회전·반전은 비디오 처리만 — 오디오는 그대로 복사(copy)되어 음질 손실 없음. 단 일부 컨테이너 변환 시 오디오 AAC 재인코딩이 발생할 수 있어 비트레이트는 원본 유지로 동작.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>흔한 실수·주의점</summary>
+        <div class="body">
+          <ul>
+            <li><b>EXIF rotation flag</b> — 일부 카메라는 회전 정보를 EXIF에 저장. 정상 뷰어는 자동 회전 표시하지만 일부 구형 플레이어는 무시. 본 도구는 실제 픽셀을 회전해 모든 플레이어 호환.</li>
+            <li><b>여러 번 회전</b> — 같은 영상을 여러 번 90° 회전하면 매번 재인코딩되어 화질 점진적 손실. 한 번에 360° 안에서 결정.</li>
+            <li><b>좌우 반전 후 텍스트</b> — 영상 안에 글자가 있으면 좌우 반전 시 거꾸로 됨. 셀카 좌우 반전 시 글자 미러링 주의.</li>
+            <li><b>모바일 메모리 한계</b> — 1080p 1분+ 영상은 모바일 메모리 초과 가능. 데스크톱 Chrome 권장.</li>
+            <li><b>HDR 영상</b> — HDR 10bit 영상은 SDR 8bit로 자동 변환. 색감 약간 변경.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
       <details>

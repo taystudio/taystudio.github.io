@@ -905,6 +905,147 @@ if (document.readyState === 'loading') {
   setupLangWelcomeCard();
 }
 
+// smooth-details — <details> 접기/펴기에 height 트랜지션. .faq · .disclosure-group · .hub-faq 컨테이너 안의 details에 자동 적용.
+// prefers-reduced-motion 사용자는 native 즉시 toggle 유지.
+(function smoothDetails() {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const SELECTOR = '.faq details, .disclosure-group details, .hub-faq details';
+
+  function pickContent(details) {
+    // .body (disclosure-group) · .answer (faq·hub-faq) 우선
+    const explicit = details.querySelector(':scope > .body, :scope > .answer');
+    if (explicit) return explicit;
+    // fallback — summary 다음 첫 element
+    for (const child of details.children) {
+      if (child.tagName !== 'SUMMARY') return child;
+    }
+    return null;
+  }
+
+  function enhance(details) {
+    if (details.dataset.sdInit === '1') return;
+    const summary = details.querySelector(':scope > summary');
+    const content = pickContent(details);
+    if (!summary || !content) return;
+    details.dataset.sdInit = '1';
+    details.classList.add('sd-anim');
+
+    let animating = false;
+
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (animating) return;
+      animating = true;
+
+      if (details.open) {
+        // ─── collapse ───
+        // 1) 현재 정상 height·padding을 inline에 명시 (시작 frame 안정)
+        const cs = getComputedStyle(content);
+        const padT = cs.paddingTop;
+        const padB = cs.paddingBottom;
+        const h = content.scrollHeight;
+        content.style.height = h + 'px';
+        content.style.paddingTop = padT;
+        content.style.paddingBottom = padB;
+        content.style.opacity = '1';
+        content.offsetHeight; // 강제 reflow
+        // 2) 다음 frame에 모든 트랜지션 동시 시작 (height·padding·opacity + sd-closing 색)
+        requestAnimationFrame(() => {
+          details.classList.add('sd-closing');
+          content.style.height = '0px';
+          content.style.paddingTop = '0px';
+          content.style.paddingBottom = '0px';
+          content.style.opacity = '0';
+        });
+        const onEnd = (ev) => {
+          if (ev.target !== content) return;
+          if (ev.propertyName !== 'height') return;
+          content.removeEventListener('transitionend', onEnd);
+          // transition disable → open=false + sd-closing 제거 + inline 제거 → reflow → transition 복원
+          content.style.transition = 'none';
+          details.open = false;
+          details.classList.remove('sd-closing');
+          content.style.height = '';
+          content.style.paddingTop = '';
+          content.style.paddingBottom = '';
+          content.style.opacity = '';
+          content.offsetHeight; // reflow 강제
+          content.style.transition = '';
+          animating = false;
+        };
+        content.addEventListener('transitionend', onEnd);
+      } else {
+        // ─── expand ───
+        // 1) transition 일시 disable — 측정 시 padding 트랜지션이 0→정상값으로 진행하면 잘못 측정됨
+        content.style.transition = 'none';
+        details.open = true;
+        content.style.height = 'auto';
+        content.style.paddingTop = '';
+        content.style.paddingBottom = '';
+        content.style.opacity = '0';
+        content.offsetHeight; // reflow — transition none이라 padding 즉시 정상값
+        const target = content.scrollHeight; // ← 정확한 target (padding 포함)
+        // 2) 시작점 (모든 0)으로 되돌림 (여전히 transition none)
+        content.style.height = '0px';
+        content.style.paddingTop = '0px';
+        content.style.paddingBottom = '0px';
+        content.offsetHeight;
+        // 3) transition 복원 후 다음 frame에 target 값으로 동시 트랜지션
+        requestAnimationFrame(() => {
+          content.style.transition = '';
+          requestAnimationFrame(() => {
+            content.style.height = target + 'px';
+            content.style.paddingTop = '';
+            content.style.paddingBottom = '';
+            content.style.opacity = '1';
+          });
+        });
+        const onEnd = (ev) => {
+          if (ev.target !== content) return;
+          if (ev.propertyName !== 'height') return;
+          content.removeEventListener('transitionend', onEnd);
+          // jitter 방지 — transition disable + inline 제거 + reflow + 복원
+          content.style.transition = 'none';
+          content.style.height = '';
+          content.style.paddingTop = '';
+          content.style.paddingBottom = '';
+          content.style.opacity = '';
+          content.offsetHeight;
+          content.style.transition = '';
+          animating = false;
+        };
+        content.addEventListener('transitionend', onEnd);
+      }
+    });
+  }
+
+  function scan(root) {
+    (root || document).querySelectorAll(SELECTOR).forEach(enhance);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => scan(document));
+  } else {
+    scan(document);
+  }
+
+  // 동적 추가된 details도 자동 대응
+  if (typeof MutationObserver === 'function') {
+    const obs = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        m.addedNodes.forEach((n) => {
+          if (n.nodeType !== 1) return;
+          if (n.matches && n.matches(SELECTOR)) enhance(n);
+          if (n.querySelectorAll) n.querySelectorAll(SELECTOR).forEach(enhance);
+        });
+      }
+    });
+    obs.observe(document.body, { childList: true, subtree: true });
+  }
+})();
+
 // PWA Service Worker — 사이트 전체 scope `/`. 60+ 페이지에 인라인 register 두는 대신 한 군데로 통합.
 // 기존 `/tools/sw.js`(scope `./tools/`) 등록은 자동 정리 — root SW로 마이그레이션.
 (function registerServiceWorker() {

@@ -260,6 +260,71 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <h2>How it works · technical details</h2>
+      <details>
+        <summary>Why strip EXIF?</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>Marketplace listings — home address leak</b>Photos on eBay / Craigslist / second-hand apps embed GPS — buyers can pinpoint your home address from listing photos.</div>
+        <div class="case"><b>Instagram / SNS — daily route</b>GPS-tagged café / gym / commute photos add up to a full daily map. Instagram stories auto-share is especially risky.</div>
+        <div class="case"><b>Kid photos</b>Family-chat / blog photos of your kid expose daycare / school / home GPS. Strangers can use this for tracking.</div>
+        <div class="case"><b>Résumés · job apps</b>ID photos in résumé PDFs can reveal address and device model. Strip before sending.</div>
+        <div class="case"><b>Real estate · construction</b>Listing photos with GPS expose the exact property location — keep private until negotiation closes.</div>
+        <div class="case"><b>Work documents</b>Internal reports / decks with GPS or photographer name pose a security risk on external distribution.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>What EXIF contains</summary>
+        <div class="body">
+          <ul>
+            <li><b>GPS coordinates</b> — lat / lng (DMS or decimal) + altitude</li>
+            <li><b>Capture time</b> — DateTimeOriginal (to the second)</li>
+            <li><b>Make / model</b> — Apple, Samsung, iPhone 15 Pro</li>
+            <li><b>Software</b> — camera firmware, editing app</li>
+            <li><b>Settings</b> — shutter, aperture, ISO, white balance</li>
+            <li><b>Copyright / artist</b> — if filled in</li>
+            <li><b>Thumbnail</b> — embedded smaller copy of the original</li>
+          </ul>
+          <p class="small">Some platforms (Instagram, Facebook) strip EXIF on upload, but Naver Blog, KakaoTalk, and email keep it. Strip before sharing where possible.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Why canvas re-encode?</summary>
+        <div class="body">
+          <ol>
+            <li>Analyze original with <code>piexifjs</code> → display what metadata was present (user awareness)</li>
+            <li><code>createImageBitmap</code> → pixel data only</li>
+            <li>Draw to a new canvas via <code>drawImage</code> → metadata is discarded by definition</li>
+            <li><code>toBlob</code> → fresh JPG/PNG/WebP without EXIF</li>
+          </ol>
+          <p>Uses only standard browser APIs — no external library dependency for the stripping step itself. PNG / WebP are lossless; JPG re-encodes with a 0.85–0.98 quality slider.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Why not HEIC?</summary>
+        <div class="body">
+          <p>HEIC is Apple-only and not decoded directly by canvas. Convert via <a href="/en/image/heic-to-jpg/">HEIC → JPG</a> first, then strip EXIF on the JPG output.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Common pitfalls</summary>
+        <div class="body">
+          <ul>
+            <li><b>Screenshots have no GPS</b> — app captures don't include camera GPS, so stripping is unnecessary.</li>
+            <li><b>Already uploaded to SNS</b> — re-downloaded photos from Instagram / Facebook usually already have EXIF stripped.</li>
+            <li><b>Embedded thumbnails</b> — some tools strip top-level EXIF but leave the embedded thumbnail. Canvas re-encode here drops both.</li>
+            <li><b>JPG quality loss</b> — JPG → JPG re-encoding is lossy. Use quality ≥ 0.95. PNG / WebP are lossless but bigger.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">FAQ</h2>
 

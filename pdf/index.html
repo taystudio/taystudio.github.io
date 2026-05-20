@@ -143,6 +143,71 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <h2>처리 방식·기술</h2>
+      <details>
+        <summary>누가 어떻게 쓰나</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>이력서·자소서</b>여러 PDF 합치기로 이력서 + 자소서 + 포트폴리오 1 파일화. 사진 페이지를 PDF로 변환. 파일 크기 압축 안 되는데 페이지 삭제로 용량 축소.</div>
+        <div class="case"><b>계약서·법무</b>계약서 PDF에 비밀번호 + 인쇄·복사·편집 권한 제한 (RC4 128bit). 워터마크로 "사본·draft·confidential" 표시. 페이지 번호 자동 매김.</div>
+        <div class="case"><b>학생·연구자</b>여러 강의 자료 합치기, PDF에서 필요한 페이지만 추출(범위 1-3,5,7-10), PDF → PNG로 이미지 추출해 슬라이드 자료 활용.</div>
+        <div class="case"><b>중고거래·민감 문서</b>주민등록증·신분증 사본 PDF에 모자이크 없이 워터마크로 "거래용·재발급 불가" 표시. PDF 메타데이터(저자·기관) 정리.</div>
+        <div class="case"><b>본인 소유 PDF 비번 해제</b>오래된 본인 소유 암호 PDF의 비밀번호를 본인이 알고 있을 때 — 비밀번호 입력 후 무손실(텍스트·이미지·하이퍼링크) 재저장. 무차별 대입 X.</div>
+        <div class="case"><b>이미지 PDF화</b>JPG·PNG 사진을 PDF로 변환해 인쇄. A4·Letter·원본 사이즈 옵션. 여러 페이지 PDF 생성.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>8 도구의 라이브러리 구성</summary>
+        <div class="body">
+          <ul>
+            <li><b>합치기·자르기·편집·이미지→PDF</b> — pdf-lib (MIT, JavaScript)</li>
+            <li><b>편집 썸네일·PDF→이미지</b> — pdf.js (Mozilla, Apache-2.0)</li>
+            <li><b>비밀번호 설정</b> — pdf-lib-plus-encrypt CDN (RC4 128bit). 인쇄·복사·편집·주석 권한 4종 제한 옵션</li>
+            <li><b>비밀번호 제거</b> — pdf.js로 비밀번호 검증 → pdf-lib <code>ignoreEncryption</code>로 무손실 재저장. 텍스트·이미지·하이퍼링크 모두 보존</li>
+            <li><b>다중 파일 batch</b> — pdf-merge·pdf-stamp·img-to-pdf 모두 합계 100MB total 가드</li>
+          </ul>
+          <p class="small">모든 라이브러리는 사이트에 vendoring(직접 commit)되어 외부 CDN 의존도가 없습니다. 외부 네트워크 오프라인 상태에서도 도구 동작 가능.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>비밀번호 보안 — 진짜 안전한가요?</summary>
+        <div class="body">
+          <p>RC4 128bit는 PDF 표준 암호화 알고리즘이지만, 1990년대 후반 표준이라 현대 보안 수준에서는 약한 편입니다. <b>강한 보안이 필요한 문서(영업비밀·법적 증거)는 외부 zip 7z AES-256 또는 전용 DRM 솔루션을 권장</b>합니다. 일반적인 권한 제한(인쇄·복사·편집 차단)·암호 보호 목적에는 충분합니다.</p>
+          <p class="small">PDF 표준이 AES-256를 지원하지만, pdf-lib-plus-encrypt 라이브러리는 RC4 128bit만 구현되어 있습니다. 추후 AES 지원 라이브러리 검토 예정.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>PDF 크기 한계와 모바일 대응</summary>
+        <div class="body">
+          <p>데스크톱 Chrome 기준 200MB·200쪽까지 무난. 모바일 Safari·Chrome은 메모리 한계로 50MB·50쪽 권장. 큰 PDF는 PDF 자르기로 범위를 좁힌 후 작업하세요. 편집 도구는 썸네일 생성으로 더 보수적인 한계 (100쪽+ confirm·200쪽+ 강화 confirm).</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>결과 PDF에 폰트·이미지·하이퍼링크는 보존되나요?</summary>
+        <div class="body">
+          <p>pdf-lib는 페이지 객체를 원본 그대로 복사하므로 폰트·이미지·하이퍼링크 대부분 유지됩니다. 단 PDF 폼 인터랙티브 동작·디지털 서명·일부 주석은 변경 후 동작이 달라질 수 있습니다. PDF 비밀번호 제거 시도 텍스트·이미지·하이퍼링크 무손실 — 이미지화로 처리 안 함.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>출처·기술 스택</h2>
+      <div class="updated">최종 검증: 2026-05-17</div>
+      <ul>
+        <li><b>pdf-lib</b> — MIT / <a href="https://pdf-lib.js.org/" target="_blank" rel="noopener">pdf-lib.js.org</a></li>
+        <li><b>pdf.js</b> — Apache 2.0 / <a href="https://mozilla.github.io/pdf.js/" target="_blank" rel="noopener">mozilla.github.io/pdf.js</a></li>
+        <li><b>pdf-lib-plus-encrypt</b> — MIT (pdf-lib fork) / <a href="https://github.com/cantoo-scribe/pdf-lib" target="_blank" rel="noopener">github.com/cantoo-scribe/pdf-lib</a></li>
+        <li><b>JSZip (PDF→이미지 ZIP 다운로드)</b> — MIT / <a href="https://stuk.github.io/jszip/" target="_blank" rel="noopener">stuk.github.io/jszip</a></li>
+        <li><b>PDF Spec 1.7</b> — ISO 32000-1:2008 / <a href="https://www.iso.org/standard/51502.html" target="_blank" rel="noopener">ISO 32000-1</a></li>
+      </ul>
+    </section>
+
     <section class="hub-faq">
       <h2>자주 묻는 질문</h2>
       <details>

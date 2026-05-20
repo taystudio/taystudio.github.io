@@ -302,6 +302,65 @@
       </details>
     </section>
 
+    <section class="disclosure-group">
+      <h2>처리 방식·인식 정확도</h2>
+      <details>
+        <summary>언제 쓰나</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>식당·카페 메뉴판</b>매장 비치된 종이·디지털 QR로 메뉴·결제·예약 페이지 즉시 접속. 카메라 권한 없으면 사진으로 업로드 대체.</div>
+        <div class="case"><b>Wi-Fi 자동 연결</b>QR로 SSID·암호 추출 → 휴대폰 Wi-Fi 설정 자동 입력. 게스트 라우터·카페 Wi-Fi 빠른 접속.</div>
+        <div class="case"><b>명함·VCard</b>명함의 QR로 이름·전화·이메일·회사 정보 즉시 연락처 등록. 종이 명함 다 모은 후 일괄 디지털화.</div>
+        <div class="case"><b>방역·체크인</b>QR 체크인 시스템(코로나19 시기 도입), 행사·전시 입장 QR. 카메라 권한 거부 시 갤러리 업로드 대체.</div>
+        <div class="case"><b>티켓·결제</b>영화·콘서트·기차·항공 e-티켓의 QR 정보 확인. 본인 소유 티켓의 데이터 검증.</div>
+        <div class="case"><b>주차장 출입</b>주차장 QR 출입증 정보 확인. 차량 등록·결제 시스템 백 데이터 확인용.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>jsQR 라이브러리 — 인식 범위</summary>
+        <div class="body">
+          <p>오픈소스 QR 디코더 (Cosmo Wolfe, Apache-2.0). 클라이언트에서 처리:</p>
+          <ul>
+            <li><b>버전</b> — QR 1~40 (21×21 ~ 177×177 모듈)</li>
+            <li><b>오류복구 레벨</b> — L (7%) · M (15%) · Q (25%) · H (30%) 전부</li>
+            <li><b>인코딩 모드</b> — 숫자·영숫자·바이트·한자(Kanji)</li>
+            <li><b>UTF-8</b> — 한글·이모지 정상 인식</li>
+            <li><b>흑백 자동 thresholding</b> — 다양한 조명에서 적응 인식</li>
+          </ul>
+          <p class="small">미지원: Micro QR, iQR, FrameQR, HCC2D 등 변형 코드.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>흔한 실수·주의점</summary>
+        <div class="body">
+          <ul>
+            <li><b>카메라 권한 거부</b> — Safari·Chrome 권한 거부 시 갤러리 업로드 대체 가능. 권한 거부 후 재요청 안 됨 — Safari 설정에서 "위치·카메라" 권한 수정 필요.</li>
+            <li><b>흔들린 사진</b> — QR이 흐릿하면 인식 안 됨. 다시 찍거나 더 가까이.</li>
+            <li><b>각도</b> — 정면 ±30° 이내. 비스듬한 QR은 perspective 자동 보정되지만 한계 있음.</li>
+            <li><b>조명</b> — 너무 어둡거나 너무 밝으면 thresholding 실패. 균일 조명 권장.</li>
+            <li><b>크기</b> — 화면 차지 비율 30%+ 권장. 너무 작으면 모듈 식별 불가.</li>
+            <li><b>변형 QR</b> — 로고 박힌 QR은 일부만 인식. 너무 크게 변형된 디자인 QR은 인식 실패 가능.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>의심스러운 QR — 안전 안내</summary>
+        <div class="body">
+          <p>모르는 곳의 QR을 무작정 스캔하면 피싱·악성코드 사이트로 유도될 수 있습니다. 본 도구는 QR 안의 데이터(URL·텍스트)를 표시만 하고 자동으로 열지 않습니다. URL이 의심스러우면:</p>
+          <ul>
+            <li>HTTPS 여부 확인 (HTTP는 위험)</li>
+            <li>도메인 이름 자세히 (apple.com vs appie.com)</li>
+            <li>단축 URL(bit.ly)은 한 번 더 확인</li>
+            <li>의심되면 클릭 X — 안전한 환경에서 확인</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
 

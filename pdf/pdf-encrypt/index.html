@@ -304,6 +304,72 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <h2>처리 방식·보안 한계</h2>
+      <details>
+        <summary>언제 쓰나</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>계약서 송부</b>NDA·근로계약서·임대차계약서를 거래처/직원에게 보낼 때 비밀번호로 잠금. 인쇄·복사 권한 차단으로 무단 배포 방지.</div>
+        <div class="case"><b>이력서·자소서</b>경력기술서·자기소개서 PDF에 암호. 헤드헌터·인사담당자에만 비번 별도 전달. 채용공고에 무단 유포 방지.</div>
+        <div class="case"><b>법무·송장</b>세금계산서·인보이스·법무 의견서에 암호. 권한 옵션으로 편집·주석 차단해 원본 무결성 보장.</div>
+        <div class="case"><b>학원·강의자료</b>유료 강의 교재 PDF를 수강생에게 배포할 때 복사·인쇄 차단 옵션으로 불법 공유 1차 방지.</div>
+        <div class="case"><b>기획서·제안서</b>외부 제안서에 비번 + draft 워터마크 + 권한 제한. 협상 단계 자료 유출 차단.</div>
+        <div class="case"><b>의료·법적 자료</b>진료기록·법적 서류 PDF에 비번. 본인·관계자만 열람 가능.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>RC4 128-bit 암호화 — 실제 보안 강도</summary>
+        <div class="body">
+          <p>PDF 1.7 표준 암호화 방식 (RC4 128-bit). Adobe Acrobat·Preview·Chrome PDF 뷰어 등 모든 표준 PDF 뷰어와 호환됩니다.</p>
+          <p><b>강점</b> — 일반적인 권한 제한(인쇄·복사·편집 차단)·암호 보호 목적에는 충분. 호환성 최고.</p>
+          <p><b>약점</b> — 1990년대 후반 표준이라 강한 보안에는 부적합. 영업비밀·법적 증거·국가기밀 등은 외부 zip 7z AES-256 또는 전용 DRM을 권장합니다.</p>
+          <p class="small">PDF 표준은 AES-256를 지원하지만, 본 도구가 사용하는 pdf-lib-plus-encrypt 라이브러리는 RC4 128bit만 구현. AES 지원 라이브러리 검토 예정.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>권한 옵션 4종 상세</summary>
+        <div class="body">
+          <ul>
+            <li><b>인쇄 권한 차단</b> — 비밀번호 없이 열어도 인쇄 X (일부 뷰어는 무시할 수 있음)</li>
+            <li><b>복사 권한 차단</b> — 본문 텍스트 선택·복사 X. 스크린샷·OCR로 우회 가능</li>
+            <li><b>편집 권한 차단</b> — 페이지 추가·삭제·수정 X</li>
+            <li><b>주석 권한 차단</b> — 형광펜·메모·서명 X</li>
+          </ul>
+          <p>스크린리더 접근성(contentAccessibility)은 <b>항상 true</b>로 유지됩니다. 시각장애인 보조 기술이 텍스트를 읽을 수 있도록 보장.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>비밀번호 입력 안전망</summary>
+        <div class="body">
+          <ul>
+            <li><b>2회 입력 + 실시간 일치 검증</b> — 입력 중 일치 여부가 색깔로 표시 (초록 vs 빨강)</li>
+            <li><b>4자 이상</b> — 너무 짧은 비번은 거부 (브루트포스 1초 내 가능)</li>
+            <li><b>표시/숨김 토글</b> — 입력 확인용 보기 버튼</li>
+            <li><b>이미 암호화된 PDF 감지</b> — 재암호화 시도하면 명시 alert</li>
+            <li><b>비번 분실 시 복구 불가</b> — 본 도구·운영자 모두 비번 복구 불가. 안전한 곳에 메모 권장</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>흔한 실수·주의점</summary>
+        <div class="body">
+          <ul>
+            <li><b>약한 비밀번호 (1234·password)</b> — 1초 내 brute-force 뚫림. 영문 대소문자 + 숫자 + 특수문자 12자 이상 권장.</li>
+            <li><b>비번 분실</b> — 본 도구는 복구 기능 없음. 비번 메모·관리자 password 옵션 X.</li>
+            <li><b>이메일에 비번 함께 보내기</b> — 같은 이메일에 PDF + 비번 보내면 의미 없음. 비번은 카톡·전화 등 다른 채널로.</li>
+            <li><b>인쇄 차단 우회</b> — Chrome "PDF로 인쇄" 또는 스크린샷으로 차단 우회 가능. 권한 제한은 정직한 사용자에 한정.</li>
+            <li><b>RC4 권한 무력화 도구</b> — 일부 공개 도구로 권한 차단 해제 가능. 권한은 일차적 방어 수준.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
 

@@ -291,6 +291,66 @@
       </details>
     </section>
 
+    <section class="disclosure-group">
+      <h2>How it works</h2>
+      <details>
+        <summary>When to use it (your own PDFs only)</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>Old personal contracts</b>Your own lease / employment PDFs whose password you know — unlock once for convenience.</div>
+        <div class="case"><b>Your medical records</b>Hospital-issued PDFs (diagnosis, CT results) you own — unlock for easier search and sharing with family / other clinicians.</div>
+        <div class="case"><b>Personal invoices · tax</b>Tax invoices / wire confirmations from official sites — unlock for searchable / editable storage.</div>
+        <div class="case"><b>Your diplomas</b>School-issued personal diplomas / transcripts — unlock when receiving party requires a password-free version.</div>
+        <div class="case"><b>Lawyer-sent personal docs</b>Personal documents from your lawyer — unlock for personal record-keeping.</div>
+        <div class="case"><b>Your business filings</b>Personal business registration / tax filing PDFs — unlock for accounting / tax-prep convenience.</div>
+      </div>
+      <div style="margin-top:14px;padding:14px;background:rgba(255,193,7,.08);border-left:3px solid #f59e0b;border-radius:6px;font-size:14px">
+        ⚠️ <b>Your own PDFs only.</b> This tool re-saves PDFs after validating the password — no brute force. You cannot unlock someone else's PDF without their password, and attempting to do so may be a legal violation.
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>2-stage processing — PDF.js + pdf-lib</summary>
+        <div class="body">
+          <ol>
+            <li><b>Password validation (PDF.js)</b> — <code>pdfjsLib.getDocument({ data, password })</code>. On wrong password, PasswordException code 2 surfaces. Enter key triggers + show/hide toggle.</li>
+            <li><b>Lossless re-save (pdf-lib)</b> — after validation, <code>PDFDocument.load(data, { ignoreEncryption: true })</code> loads and re-saves. Text, images, hyperlinks, and metadata are preserved.</li>
+          </ol>
+          <p class="small">Not a rasterization approach — text search / copy / OCR all keep working. File size may vary ±10%.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>What's preserved</summary>
+        <div class="body">
+          <ul>
+            <li>✅ Body text (searchable, copyable, OCR-able)</li>
+            <li>✅ Images / graphics / logos</li>
+            <li>✅ Hyperlinks (external + intra-document)</li>
+            <li>✅ Metadata (title / author / subject — best effort)</li>
+            <li>✅ Page rotation / order</li>
+            <li>⚠️ Interactive forms (checkboxes / inputs) — some behavior may change</li>
+            <li>⚠️ Digital signatures — likely invalidated (expected, security feature)</li>
+            <li>⚠️ JavaScript / embedded actions — may be sandboxed</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Common pitfalls</summary>
+        <div class="body">
+          <ul>
+            <li><b>No password = no unlock</b> — no brute force here. If you don't have the password, request a re-issue from the source.</li>
+            <li><b>Code 1 vs code 2</b> — PasswordException code 1 (no password supplied) / code 2 (wrong password). Distinct user alerts.</li>
+            <li><b>Compatibility</b> — very old PDFs (pre-1.4) or non-standard encryption may fail in pdf-lib. Unlock via a PDF viewer first, then retry.</li>
+            <li><b>Digital-signature invalidation</b> — by design. For signed PDFs, keep the original.</li>
+            <li><b>File-size variance</b> — pdf-lib's object compression differs from the original; ±10% is normal.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">Frequently asked questions</h2>
 

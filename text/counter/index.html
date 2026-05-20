@@ -327,6 +327,68 @@
       </div>
     </div>
 
+    <section class="disclosure-group">
+      <h2>카운트 방식 상세</h2>
+      <details>
+        <summary>언제 쓰나</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>공기업·대기업 자소서</b>항목별 글자수 한도(500·800·1,000·1,500·2,000자)에 맞춰 작성. 공백 포함/제외 토글로 모집 공고 기준 확인.</div>
+        <div class="case"><b>인스타·X 캡션</b>인스타 2,200자·X 280자·스레드 500자 동시 표시. 글이 한도에 가까워지면 progress bar 색이 변해 즉시 인지.</div>
+        <div class="case"><b>카톡·SMS·MMS</b>SMS 90바이트(EUC-KR)·MMS 2,000바이트 한도 체크. 한글 1자 = 3바이트(UTF-8)/2바이트(EUC-KR)를 자동 카운트.</div>
+        <div class="case"><b>블로그·티스토리 SEO</b>네이버 SEO에 적합한 1,500~3,000자 가독성 점검. 줄·문장·단어 수 동시 표시.</div>
+        <div class="case"><b>DB 컬럼·API 필드</b>VARCHAR(50)·TEXT 한도 사전 점검. UTF-8 바이트 기준 카운트로 DB 저장 가능 여부 확인.</div>
+        <div class="case"><b>유튜브·트위치 댓글</b>유튜브 댓글 10,000자·라이브 채팅 200자 한도. 길이 맞춤 + 이모지 별도 카운트.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>유니코드 카운트 규칙 (이모지·한자·합성 자모)</summary>
+        <div class="body">
+          <p>본 카운터는 <b>유니코드 코드포인트 단위</b>로 1자를 셉니다. 한자(漢)·일본어(あ)·이모지(👋)는 각 1자입니다. 단 합성 이모지(<code>👨‍👩‍👧</code>는 ZWJ 결합으로 5 코드포인트)는 5자로 셉니다 — X(트위터) 카운팅 규칙과 일부 다를 수 있습니다.</p>
+          <p>한글 NFC(완성형) vs NFD(자모 분리형)도 코드포인트 단위. macOS Finder 복사 시 발생하는 NFD 자모 분리는 자동 NFC normalize 후 카운트해서 사용자 입력대로 정확합니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>흔한 실수·주의점</summary>
+        <div class="body">
+          <ul>
+            <li><b>공백 포함/제외 잘못 선택</b> — 모집 공고의 "글자수 안내" 문구를 그대로 따라야 합니다. "공백 포함"이라고 명시된 자소서를 공백 제외 카운트로 입력해서 미달·초과로 떨어지는 경우 多.</li>
+            <li><b>줄바꿈 카운트</b> — 워드·한글 프로그램은 줄바꿈을 빼고 세지만, 본 카운터는 공백 포함 기준에서 줄바꿈도 1자로 셉니다.</li>
+            <li><b>EUC-KR 바이트 차이</b> — 공기업·일부 금융권은 EUC-KR 바이트 기준으로 제한합니다. 한글 1자가 UTF-8에서는 3바이트지만 EUC-KR에서는 2바이트라 미달 위험.</li>
+            <li><b>합성 이모지 누락</b> — 👨‍👩‍👧 같은 가족 이모지는 X는 1자지만 본 카운터는 5자(ZWJ 결합 코드포인트). 카운트 차이 가능.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>지원 한도 11종 상세</summary>
+        <div class="body">
+          <div class="ref-table">
+            <table>
+              <thead><tr><th>플랫폼</th><th>한도</th><th>기준</th></tr></thead>
+              <tbody>
+                <tr><td>인스타 캡션</td><td>2,200자</td><td>공백 포함</td></tr>
+                <tr><td>인스타 댓글</td><td>2,200자</td><td>공백 포함</td></tr>
+                <tr><td>X (Twitter)</td><td>280자</td><td>이모지 1자</td></tr>
+                <tr><td>스레드</td><td>500자</td><td>공백 포함</td></tr>
+                <tr><td>페이스북 포스트</td><td>63,206자</td><td>공백 포함</td></tr>
+                <tr><td>카톡 메시지</td><td>1,000자</td><td>공백 포함</td></tr>
+                <tr><td>LinkedIn 포스트</td><td>3,000자</td><td>공백 포함</td></tr>
+                <tr><td>공공기관 자소서</td><td>1,000자</td><td>공백 포함</td></tr>
+                <tr><td>대기업 자소서</td><td>1,500자</td><td>공백 포함</td></tr>
+                <tr><td>자기소개 항목</td><td>2,000자</td><td>공백 포함</td></tr>
+                <tr><td>본인서명</td><td>3,000자</td><td>공백 포함</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="small">한도는 정책 변경에 따라 달라질 수 있어 매년 갱신합니다.</p>
+        </div>
+      </details>
+    </section>
+
     <section class="tool-article">
       <h2>SNS·자소서 한도 비교</h2>
       <p class="small">현재 입력된 텍스트의 공백 포함 글자수가 각 한도에 어떻게 걸리는지 표시. 한도는 2026-05 기준.</p>

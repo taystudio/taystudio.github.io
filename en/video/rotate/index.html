@@ -393,6 +393,55 @@
       </details>
     </section>
 
+    <section class="disclosure-group">
+      <h2>Processing & options</h2>
+      <details>
+        <summary>When to use it</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>Vertical phone video</b>When you held the phone in landscape but the file saved vertically — 90° / 270° rotation restores landscape framing.</div>
+        <div class="case"><b>Upside-down video</b>Phone held upside down → 180° rotation. Useful for lecture recordings and CCTV pulls.</div>
+        <div class="case"><b>Mirrored selfies</b>Selfie mode mirrors output. If text reads in reverse, horizontal flip restores the original.</div>
+        <div class="case"><b>Vertical flip</b>Drones / car-mounted cameras can save flipped video. Vertical flip restores it.</div>
+        <div class="case"><b>SNS upload prep</b>Instagram Reels (9:16) / YouTube Shorts (9:16) / standard (16:9) — rotate to match.</div>
+        <div class="case"><b>Lectures · presentations</b>Fix wrongly oriented recordings so students or presenters see them correctly.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Rotate + scale options</summary>
+        <div class="body">
+          <p>90° / 270° rotation swaps aspect ratio (16:9 → 9:16). Options:</p>
+          <ul>
+            <li><b>Scale auto</b> — keep aspect, add black bars (preserves original frame, default)</li>
+            <li><b>Scale fit</b> — stretch to the target aspect (slight distortion, no bars)</li>
+            <li><b>Scale crop</b> — crop to the target aspect (edge loss, no bars)</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Audio handling</summary>
+        <div class="body">
+          <p>Rotation / flip touches video only — audio is copied without re-encoding (no quality loss). Container conversion may force AAC re-encode at the source bitrate.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Common pitfalls</summary>
+        <div class="body">
+          <ul>
+            <li><b>EXIF rotation flag</b> — some cameras save the rotation in metadata. Modern players obey it, older ones ignore it. This tool re-renders pixels for universal compatibility.</li>
+            <li><b>Repeated rotation</b> — each 90° rotation re-encodes. Pick the final angle and rotate once.</li>
+            <li><b>Text in mirrored video</b> — text reads backwards after horizontal flip — avoid flipping for clips with on-screen text.</li>
+            <li><b>Mobile memory</b> — 1080p + 1 minute can OOM on mobile. Prefer desktop Chrome.</li>
+            <li><b>HDR → SDR</b> — HDR 10-bit auto-converts to SDR 8-bit. Slight color shift.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">Frequently asked questions</h2>
       <details>

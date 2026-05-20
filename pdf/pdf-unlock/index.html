@@ -289,6 +289,67 @@
       </details>
     </section>
 
+    <section class="disclosure-group">
+      <h2>처리 방식·기술</h2>
+      <details>
+        <summary>언제 쓰나 (본인 소유 PDF만)</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>오래된 본인 계약서</b>몇 년 전 받은 본인 임대차계약서·근로계약서 PDF 비번을 알고 있지만 매번 입력하기 번거로움 — 1회 입력 후 잠금 해제.</div>
+        <div class="case"><b>본인 의료 기록</b>병원에서 받은 본인 PDF (진단서·CT 결과)의 비번을 알 때, 비번 없는 버전으로 보관해 가족·다른 의료진 공유 편의성.</div>
+        <div class="case"><b>본인 송장·세금</b>홈택스·은행에서 받은 본인 PDF (세금계산서·이체확인서)의 비번을 풀어 검색·편집 가능 상태로 저장.</div>
+        <div class="case"><b>본인 졸업증명서</b>학교에서 발급한 본인 PDF (졸업증·성적증명서) 비번 풀기. 외부 제출처에서 비번 없는 버전 요구하는 경우.</div>
+        <div class="case"><b>법무사 받은 본인 문서</b>변호사·법무사에서 받은 본인 PDF 비번 풀기. 본인 송수신에서만 가능.</div>
+        <div class="case"><b>본인 사업자 자료</b>본인 사업자등록증·세무신고 PDF 비번 풀기. 회계처리·세무대리인 송부 시 편의성.</div>
+      </div>
+      <div style="margin-top:14px;padding:14px;background:rgba(255,193,7,.08);border-left:3px solid #f59e0b;border-radius:6px;font-size:14px">
+        ⚠️ <b>본인 소유 PDF만</b> — 본 도구는 비밀번호 검증을 통과한 PDF만 재저장합니다. 브루트포스(무차별 대입) 기능 없음. 타인 PDF의 비밀번호를 모르면 풀 수 없으며, 그러한 시도는 법적 책임이 발생할 수 있습니다.
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>2단계 처리 — PDF.js + pdf-lib</summary>
+        <div class="body">
+          <p>비밀번호 검증과 재저장을 분리한 2단계 흐름:</p>
+          <ol>
+            <li><b>비밀번호 검증 (PDF.js)</b> — <code>pdfjsLib.getDocument({ data, password })</code>로 비밀번호 시도. 틀리면 PasswordException code 2 발생. Enter 키 트리거 + 표시/숨김 토글 지원.</li>
+            <li><b>무손실 재저장 (pdf-lib)</b> — 검증 통과 후 <code>PDFDocument.load(data, { ignoreEncryption: true })</code>로 다시 로드 → 새 PDF로 저장. 텍스트·이미지·하이퍼링크·메타데이터 모두 보존.</li>
+          </ol>
+          <p class="small">"이미지화" 방식이 아니므로 텍스트 검색·복사·OCR 모두 가능. 파일 크기는 ±10% 범위 내 변동.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>보존되는 정보·동작</summary>
+        <div class="body">
+          <ul>
+            <li>✅ 본문 텍스트 (검색·복사·OCR 가능)</li>
+            <li>✅ 이미지·그래픽·로고</li>
+            <li>✅ 하이퍼링크 (외부 URL + 내부 페이지)</li>
+            <li>✅ 메타데이터 (title·author·subject — 시도 보존)</li>
+            <li>✅ 페이지 회전·페이지 순서</li>
+            <li>⚠️ 인터랙티브 폼 (체크박스·입력란) — 일부 변경 가능</li>
+            <li>⚠️ 디지털 서명 — 무효화될 수 있음 (보안상 정상)</li>
+            <li>⚠️ JavaScript·내장 동작 — sandbox 차단 가능</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>흔한 실수·주의점</summary>
+        <div class="body">
+          <ul>
+            <li><b>비번 모름 = 풀 수 없음</b> — 본 도구는 브루트포스 X. 비밀번호를 모르면 발급기관에 재발급 요청.</li>
+            <li><b>비번 1·2 분기 분기</b> — PasswordException code 1 (비번 미입력) / code 2 (비번 틀림). 사용자 alert 차등 안내.</li>
+            <li><b>일부 PDF 호환성</b> — 매우 오래된 PDF (1.4 이전) 또는 비표준 암호화는 pdf-lib에서 실패 가능. 그 경우 PDF 뷰어에서 직접 비번 해제 후 다시 시도.</li>
+            <li><b>디지털 서명 무효화</b> — 재저장 시 디지털 서명 무효화는 PDF 표준 동작. 서명 PDF는 원본 보존 권장.</li>
+            <li><b>파일 크기 변동</b> — pdf-lib 객체 압축 방식이 원본과 달라 ±10% 변동 가능. 비번 제거 자체는 정상.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
 

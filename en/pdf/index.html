@@ -145,6 +145,72 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <h2>Tech & processing</h2>
+      <details>
+        <summary>Who uses it</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>Resumes · cover letters</b>Merge résumé + cover letter + portfolio into one PDF. Convert photo pages to PDF. Shrink size by removing unneeded pages.</div>
+        <div class="case"><b>Contracts · legal</b>Add a password to contracts + restrict print/copy/edit/annotate permissions (RC4 128-bit). Watermark "DRAFT · CONFIDENTIAL". Auto page numbering.</div>
+        <div class="case"><b>Students · researchers</b>Merge lecture handouts, extract specific pages (1-3, 5, 7-10), convert PDF → PNG to reuse in slides.</div>
+        <div class="case"><b>Sensitive documents</b>Watermark "for delivery only · do not duplicate" on ID copies. Clean PDF metadata (author / organization).</div>
+        <div class="case"><b>Unlock your own PDFs</b>If you own the PDF and remember the password, unlock it for lossless re-save (text, images, hyperlinks all preserved). No brute force.</div>
+        <div class="case"><b>Image → PDF</b>Convert JPG / PNG to a printable PDF. A4 / Letter / original sizes. Build multi-page PDFs.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Libraries used across the 8 tools</summary>
+        <div class="body">
+          <ul>
+            <li><b>Merge · split · edit · image → PDF</b> — pdf-lib (MIT, JavaScript)</li>
+            <li><b>Edit thumbnails · PDF → image</b> — pdf.js (Mozilla, Apache-2.0)</li>
+            <li><b>Set password</b> — pdf-lib-plus-encrypt CDN (RC4 128-bit). 4 permission flags (print/copy/edit/annotate)</li>
+            <li><b>Remove password</b> — pdf.js validates the password, then pdf-lib (<code>ignoreEncryption: true</code>) re-saves losslessly. Text, images, and hyperlinks are preserved</li>
+            <li><b>Multi-file batches</b> — pdf-merge / pdf-stamp / img-to-pdf all enforce a 100MB total cap</li>
+          </ul>
+          <p class="small">All libraries are vendored (committed in-repo) — no external CDN dependency. Works offline.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>RC4 128-bit — actual security level</summary>
+        <div class="body">
+          <p>PDF 1.7 standard encryption (RC4 128-bit) — compatible with Adobe Acrobat, Preview, Chrome PDF, and all standard viewers.</p>
+          <p><b>Strengths</b> — adequate for common permission restrictions and password gating. Top compatibility.</p>
+          <p><b>Weaknesses</b> — late-1990s standard, weak by modern crypto standards. For trade secrets, legal evidence, or classified data, use external zip 7z AES-256 or a dedicated DRM solution instead.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Mobile and PDF size limits</summary>
+        <div class="body">
+          <p>Desktop Chrome handles 200MB / 200 pages comfortably. Mobile Safari / Chrome should stay under 50MB / 50 pages due to memory limits. The edit tool is more conservative (100+ page confirm, 200+ page strong confirm).</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>What gets preserved?</summary>
+        <div class="body">
+          <p>pdf-lib copies page objects directly, so fonts, images, and hyperlinks survive. Interactive forms, digital signatures, and some annotations may change after editing. PDF unlock is lossless — text, images, and hyperlinks are kept (no rasterization).</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>Tech sources</h2>
+      <div class="updated">Last verified: 2026-05-17</div>
+      <ul>
+        <li><b>pdf-lib</b> — MIT / <a href="https://pdf-lib.js.org/" target="_blank" rel="noopener">pdf-lib.js.org</a></li>
+        <li><b>pdf.js</b> — Apache 2.0 / <a href="https://mozilla.github.io/pdf.js/" target="_blank" rel="noopener">mozilla.github.io/pdf.js</a></li>
+        <li><b>pdf-lib-plus-encrypt</b> — MIT (pdf-lib fork)</li>
+        <li><b>JSZip (ZIP download)</b> — MIT / <a href="https://stuk.github.io/jszip/" target="_blank" rel="noopener">stuk.github.io/jszip</a></li>
+        <li><b>PDF Spec 1.7</b> — ISO 32000-1:2008</li>
+      </ul>
+    </section>
+
     <section class="hub-faq">
       <h2>Frequently asked questions</h2>
       <details>

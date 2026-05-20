@@ -156,6 +156,70 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <h2>Tech & processing</h2>
+      <details>
+        <summary>Who uses it</summary>
+        <div class="body">
+          <div class="case-grid">
+        <div class="case"><b>Job seekers · resumes</b>ID photos at passport / résumé / national-ID sizes (300 DPI), photo compression for PDF resumes, EXIF GPS removal so the employer doesn't see your location.</div>
+        <div class="case"><b>Second-hand marketplaces</b>Batch EXIF GPS / date / device removal before posting, blur faces and license plates, WebP conversion for faster uploads.</div>
+        <div class="case"><b>Instagram · blogs</b>1:1 / 4:3 / 16:9 / 9:16 crop presets, 9-grid stitching, AI background removal for clean product shots, text/logo watermarks.</div>
+        <div class="case"><b>OCR text extraction</b>Korean, English, Chinese (simp/trad), Japanese — pull text from screenshots, photos, receipts, lecture notes.</div>
+        <div class="case"><b>iPhone users</b>Convert HEIC to JPG/PNG for Windows or older galleries. Multi-page HEIC auto-split, 20+ batch confirm.</div>
+        <div class="case"><b>Designers · marketers</b>WebP/AVIF for 50%+ smaller web images. QR PNG/SVG generation in one click. All 14 tools in one place.</div>
+      </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Libraries used across the 14 tools</summary>
+        <div class="body">
+          <ul>
+            <li><b>Compress · resize · crop · merge · ID photo · mosaic · watermark</b> — Canvas API (native)</li>
+            <li><b>HEIC → JPG</b> — heic2any (Mozilla libheif WASM)</li>
+            <li><b>QR generation</b> — qrcode-generator</li>
+            <li><b>QR scanning</b> — jsQR (camera + image decode)</li>
+            <li><b>OCR (KO/EN/ZH/JA)</b> — Tesseract.js v5 WASM</li>
+            <li><b>Background removal (AI)</b> — img.ly Background Removal (ONNX Runtime Web)</li>
+            <li><b>WebP/AVIF</b> — Canvas toBlob (browser-native encoder)</li>
+            <li><b>EXIF removal</b> — piexifjs analysis + canvas re-encode (strips all metadata)</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Mobile (iPad / iPhone)</summary>
+        <div class="body">
+          <p>Works on iOS Safari 15+, iPadOS 15+, Android Chrome 90+. Camera-permission tools (QR scan, OCR) ask for permission; if denied, you can still upload from gallery. iCloud / Google Photos picks may prompt re-selection.</p>
+          <p class="small">iOS Safari memory cap (~500MB) is lower than desktop — large multi-image batches may hit memory pressure. Background-removal AI (~43MB) and OCR (~13MB) download once and cache in IndexedDB.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>JPG / PNG / WebP / AVIF / HEIC — which to pick?</summary>
+        <div class="body">
+          <p><b>JPG</b> — photos; best SNS / email compatibility. No transparency.</p>
+          <p><b>PNG</b> — logos, icons, transparency. Large for photos.</p>
+          <p><b>WebP</b> — 25–35% smaller than JPG with transparency. Supported by all modern browsers since 2020.</p>
+          <p><b>AVIF</b> — another 30% smaller than WebP. Safari 16+, Chrome 85+ supported; legacy viewers (older KakaoTalk) may not open.</p>
+          <p><b>HEIC</b> — iPhone default. Smallest size, but Windows and older galleries can't open. Convert to JPG/PNG before sharing.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>Tech sources</h2>
+      <div class="updated">Last verified: 2026-05-15</div>
+      <ul>
+        <li><b>Tesseract.js</b> — Apache 2.0 / <a href="https://tesseract.projectnaptha.com/" target="_blank" rel="noopener">tesseract.projectnaptha.com</a></li>
+        <li><b>heic2any</b> — Mozilla libheif / <a href="https://github.com/alexcorvi/heic2any" target="_blank" rel="noopener">github.com/alexcorvi/heic2any</a></li>
+        <li><b>jsQR</b> — Apache 2.0 / <a href="https://github.com/cozmo/jsQR" target="_blank" rel="noopener">github.com/cozmo/jsQR</a></li>
+        <li><b>img.ly Background Removal</b> — AGPL/Commercial / <a href="https://img.ly/" target="_blank" rel="noopener">img.ly</a></li>
+        <li><b>piexifjs (EXIF)</b> — MIT / <a href="https://github.com/hMatoba/piexifjs" target="_blank" rel="noopener">github.com/hMatoba/piexifjs</a></li>
+      </ul>
+    </section>
+
     <section class="hub-faq">
       <h2>Frequently Asked Questions</h2>
       <details>
