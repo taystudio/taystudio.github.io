@@ -106,10 +106,10 @@ async function run() {
     const blob = await removeBackground(currentFile, {
       model: 'isnet_quint8', // small (~43MB int8 quantized)
       output: { format: 'image/png', quality: 0.9 },
-      // publicPath — vendor (esm.sh 번들) 내부 dynamic import 의 base URL.
-      // 누락 시 현재 페이지 URL 기준 → 'https://taystudios.com/onnxruntime-web@.../...' 잘못 fetch 실패.
-      // vendor가 esm.sh 출신이라 의존성도 esm.sh 식 URL — base = 'https://esm.sh/'.
-      publicPath: 'https://esm.sh/',
+      // publicPath — resources.json 및 모델 파일의 base URL.
+      // staticimgly.com = @imgly 공식 CDN (model · resources.json 안정 hosting).
+      // onnxruntime-web 의존성은 vendor 코드에서 esm.sh 절대 URL로 hardcode (publicPath 무관).
+      publicPath: 'https://staticimgly.com/@imgly/background-removal/1.7.0/dist/',
       progress: setProgress
     });
 

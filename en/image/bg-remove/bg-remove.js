@@ -105,10 +105,10 @@ async function run() {
     const blob = await removeBackground(currentFile, {
       model: 'isnet_quint8', // small (~43MB int8 quantized)
       output: { format: 'image/png', quality: 0.9 },
-      // publicPath — vendor (esm.sh bundle) dynamic-import base URL.
-      // Without it, defaults to current page URL → 'https://taystudios.com/onnxruntime-web@.../...' fails.
-      // Vendor came from esm.sh, so its deps resolve as esm.sh URLs — base = 'https://esm.sh/'.
-      publicPath: 'https://esm.sh/',
+      // publicPath — base URL for resources.json + model files.
+      // staticimgly.com = official @imgly CDN (stable hosting for model · resources.json).
+      // onnxruntime-web deps are hardcoded to esm.sh absolute URLs in vendor (publicPath-independent).
+      publicPath: 'https://staticimgly.com/@imgly/background-removal/1.7.0/dist/',
       progress: setProgress
     });
 
