@@ -339,14 +339,16 @@
     </section>
 
     <section class="sources">
-      <h2>참고</h2>
-      <div class="updated">최종 검증: 2026-05-05 / @imgly/background-removal v1.7 (small 모델) 사용.</div>
+      <h2>참고·출처</h2>
+      <div class="updated">최종 검증: 2026-05-22 / @imgly/background-removal v1.7.0 · model = isnet_quint8 (small, ~43MB int8 quantized)</div>
       <ul>
-        <li>@imgly/background-removal — <a href="https://github.com/imgly/background-removal-js" rel="nofollow noopener" target="_blank">GitHub</a> (AGPL-3.0/Commercial)</li>
-        <li>ONNX Runtime Web — <a href="https://onnxruntime.ai/" rel="nofollow noopener" target="_blank">onnxruntime.ai</a> (MIT)</li>
-        <li>모델·WASM 자산 호스팅 — <code>staticimgly.com</code> (IMG.LY)</li>
+        <li><b>@imgly/background-removal</b> — <a href="https://github.com/imgly/background-removal-js" rel="nofollow noopener" target="_blank">GitHub</a> (AGPL-3.0/Commercial 듀얼 라이선스). 본 도구는 무료 사용 조건 준수.</li>
+        <li><b>ONNX Runtime Web</b> — <a href="https://onnxruntime.ai/docs/tutorials/web/" rel="nofollow noopener" target="_blank">onnxruntime.ai/docs/web</a> · <a href="https://github.com/microsoft/onnxruntime" rel="nofollow noopener" target="_blank">Microsoft GitHub</a> (MIT, WebAssembly + WebGPU 백엔드)</li>
+        <li><b>ISNet (모델 backbone)</b> — Xuebin Qin et al., <a href="https://arxiv.org/abs/2205.04313" rel="nofollow noopener" target="_blank">"Highly Accurate Dichotomous Image Segmentation" (ECCV 2022)</a> · <a href="https://github.com/xuebinqin/DIS" rel="nofollow noopener" target="_blank">참고 구현</a></li>
+        <li><b>WebAssembly</b> — <a href="https://webassembly.org/" rel="nofollow noopener" target="_blank">webassembly.org</a> (W3C 표준)</li>
+        <li><b>모델·WASM 자산 호스팅</b> — <code>staticimgly.com/@imgly/background-removal-data/1.7.0/dist/</code> (IMG.LY 공식 CDN). onnxruntime-web 모듈은 <code>esm.sh</code>.</li>
       </ul>
-      <div class="note">⚠️ AI 결과는 사진별로 다르며 본 도구의 책임 범위가 아닙니다. 상업·공식 자료에 사용 시 결과를 사람이 검토·보정해 사용하세요.</div>
+      <div class="note">⚠️ AI 결과는 사진별로 다르며 본 도구의 책임 범위가 아닙니다. 상업·공식 자료에 사용 시 결과를 사람이 검토·보정해 사용하세요. 본인 소유 사진 또는 사용 권한이 있는 사진에만 사용 권장.</div>
     </section>
 
     <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">

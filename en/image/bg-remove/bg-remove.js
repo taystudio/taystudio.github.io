@@ -13,7 +13,7 @@
  *  - First run: ~43MB+ model + WASM download (cached after)
  */
 
-import { removeBackground } from '/image/vendor/imgly-bg-remove.mjs';
+import { removeBackground } from '/image/vendor/imgly-bg-remove.mjs?v=2026-05-22b';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -105,10 +105,10 @@ async function run() {
     const blob = await removeBackground(currentFile, {
       model: 'isnet_quint8', // small (~43MB int8 quantized)
       output: { format: 'image/png', quality: 0.9 },
-      // publicPath — base URL for resources.json + model files.
-      // staticimgly.com = official @imgly CDN (stable hosting for model · resources.json).
-      // onnxruntime-web deps are hardcoded to esm.sh absolute URLs in vendor (publicPath-independent).
-      publicPath: 'https://staticimgly.com/@imgly/background-removal/1.7.0/dist/',
+      // publicPath — base URL for model · resources · wasm.
+      // Correct path = @imgly/background-removal-DATA (separate data package; model + onnxruntime wasm).
+      // /background-removal (code only) X · /background-removal-data (model · wasm) O
+      publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
       progress: setProgress
     });
 

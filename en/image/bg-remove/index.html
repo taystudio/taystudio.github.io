@@ -341,14 +341,16 @@
     </section>
 
     <section class="sources">
-      <h2>References</h2>
-      <div class="updated">Last reviewed: 2026-05-09 / @imgly/background-removal v1.7 (small model).</div>
+      <h2>References · sources</h2>
+      <div class="updated">Last reviewed: 2026-05-22 / @imgly/background-removal v1.7.0 · model = isnet_quint8 (small, ~43MB int8 quantized)</div>
       <ul>
-        <li>@imgly/background-removal — <a href="https://github.com/imgly/background-removal-js" rel="nofollow noopener" target="_blank">GitHub</a> (AGPL-3.0 / Commercial)</li>
-        <li>ONNX Runtime Web — <a href="https://onnxruntime.ai/" rel="nofollow noopener" target="_blank">onnxruntime.ai</a> (MIT)</li>
-        <li>Model + WASM hosting — <code>staticimgly.com</code> (IMG.LY)</li>
+        <li><b>@imgly/background-removal</b> — <a href="https://github.com/imgly/background-removal-js" rel="nofollow noopener" target="_blank">GitHub</a> (AGPL-3.0 / Commercial dual license). This site complies with the free-use terms.</li>
+        <li><b>ONNX Runtime Web</b> — <a href="https://onnxruntime.ai/docs/tutorials/web/" rel="nofollow noopener" target="_blank">onnxruntime.ai/docs/web</a> · <a href="https://github.com/microsoft/onnxruntime" rel="nofollow noopener" target="_blank">Microsoft GitHub</a> (MIT, WebAssembly + WebGPU backends)</li>
+        <li><b>ISNet (model backbone)</b> — Xuebin Qin et al., <a href="https://arxiv.org/abs/2205.04313" rel="nofollow noopener" target="_blank">"Highly Accurate Dichotomous Image Segmentation" (ECCV 2022)</a> · <a href="https://github.com/xuebinqin/DIS" rel="nofollow noopener" target="_blank">reference impl</a></li>
+        <li><b>WebAssembly</b> — <a href="https://webassembly.org/" rel="nofollow noopener" target="_blank">webassembly.org</a> (W3C standard)</li>
+        <li><b>Model + WASM hosting</b> — <code>staticimgly.com/@imgly/background-removal-data/1.7.0/dist/</code> (IMG.LY official CDN). onnxruntime-web module is loaded from <code>esm.sh</code>.</li>
       </ul>
-      <div class="note">⚠️ AI results vary by photo and aren't guaranteed. For commercial or official material, review and touch up the result by hand.</div>
+      <div class="note">⚠️ AI results vary by photo and aren't guaranteed. For commercial or official material, review and touch up the result by hand. Use only on photos you own or have permission to process.</div>
     </section>
 
     <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">

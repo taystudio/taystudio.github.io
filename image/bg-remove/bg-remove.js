@@ -13,7 +13,7 @@
  *  - 첫 실행 시 모델·WASM ~43MB+ 다운로드 (이후 캐시)
  */
 
-import { removeBackground } from '/image/vendor/imgly-bg-remove.mjs';
+import { removeBackground } from '/image/vendor/imgly-bg-remove.mjs?v=2026-05-22b';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -106,10 +106,10 @@ async function run() {
     const blob = await removeBackground(currentFile, {
       model: 'isnet_quint8', // small (~43MB int8 quantized)
       output: { format: 'image/png', quality: 0.9 },
-      // publicPath — resources.json 및 모델 파일의 base URL.
-      // staticimgly.com = @imgly 공식 CDN (model · resources.json 안정 hosting).
-      // onnxruntime-web 의존성은 vendor 코드에서 esm.sh 절대 URL로 hardcode (publicPath 무관).
-      publicPath: 'https://staticimgly.com/@imgly/background-removal/1.7.0/dist/',
+      // publicPath — 모델·resources·wasm 파일의 base URL.
+      // 정확한 경로 = @imgly/background-removal-DATA (별도 데이터 패키지, model + onnxruntime wasm hosting).
+      // /background-removal (코드만) X · /background-removal-data (실제 model·wasm) O
+      publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
       progress: setProgress
     });
 
