@@ -105,6 +105,10 @@ async function run() {
     const blob = await removeBackground(currentFile, {
       model: 'isnet_quint8', // small (~43MB int8 quantized)
       output: { format: 'image/png', quality: 0.9 },
+      // publicPath — vendor (esm.sh bundle) dynamic-import base URL.
+      // Without it, defaults to current page URL → 'https://taystudios.com/onnxruntime-web@.../...' fails.
+      // Vendor came from esm.sh, so its deps resolve as esm.sh URLs — base = 'https://esm.sh/'.
+      publicPath: 'https://esm.sh/',
       progress: setProgress
     });
 

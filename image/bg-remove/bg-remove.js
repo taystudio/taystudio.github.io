@@ -106,6 +106,10 @@ async function run() {
     const blob = await removeBackground(currentFile, {
       model: 'isnet_quint8', // small (~43MB int8 quantized)
       output: { format: 'image/png', quality: 0.9 },
+      // publicPath — vendor (esm.sh 번들) 내부 dynamic import 의 base URL.
+      // 누락 시 현재 페이지 URL 기준 → 'https://taystudios.com/onnxruntime-web@.../...' 잘못 fetch 실패.
+      // vendor가 esm.sh 출신이라 의존성도 esm.sh 식 URL — base = 'https://esm.sh/'.
+      publicPath: 'https://esm.sh/',
       progress: setProgress
     });
 
