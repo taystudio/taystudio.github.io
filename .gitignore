@@ -22,8 +22,26 @@ husband-care-deploy/
 # Plan·audit 운영 노트 — 로컬 운영자 전용 (public repo 비공개)
 history/
 
-# tayblog (Next.js) — 별 프로젝트, taystudios.com과 분리. taehyuklee.github.io/Archive/blog 배포 대상
+# 2026-05-23~25: blog 순수 HTML/CSS/JS (overhaul).
+# 현재 blog/ 전체 ignored (배포 전). 백업(taystudio-src, private)에는 admin 포함 전체 보관.
+#
+# ▶ 배포 준비 시: 아래 `blog/` 한 줄을 지우고, production 비공개 대상만 개별 ignore (아래 블록 활성화).
+#   → 관리자·원본·빌드스크립트·운영노트 제외, 완성된 HTML/CSS/JS 만 public repo 에 publish.
+#   (admin 은 로컬 전용 — guard 도 있지만 아예 배포 안 하는 게 진짜 보안)
 blog/
+blog_back/
+
+# ── 배포 시 활성화할 blog 내부 제외 목록 (현재는 위 `blog/` 가 전부 막으므로 비활성) ──
+# blog/admin/        # 관리자 UI — 로컬 전용, production 배포 X
+# blog/_source/      # md 원본 (글·페이지)
+# blog/_drafts/      # 초안
+# blog/_templates/
+# blog/scripts/      # build.py·dev-server.py
+# blog/plan/         # 운영·troubleshooting 노트
+# blog/data/site.json  # (선택) 설정 — 빌드 결과만 배포하면 site.json 불필요
+
+# dist/ — 임시 build 결과물 (publish 전 검증용)
+dist/
 
 # 게임·prototype — TAYSTUDIO 본 사이트와 분리 (별 사이트로 운영 또는 추후 통합 결정)
 games/

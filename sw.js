@@ -11,7 +11,7 @@
  * 이전 = `/tools/sw.js` (scope `./tools/`)만 동작. 사이트 4 카테고리 확장 후 root scope로 통합.
  */
 
-const CACHE_VERSION = 'taystudio-v20';
+const CACHE_VERSION = 'taystudio-v21';  // v21: /blog/ SW 캐시 제외 (blog 를 독립 사이트로 분리)
 
 // install 시 즉시 캐시 — 루트 + 5 카테고리 hub + about + 공용 자산. 도구별 페이지·vendor는 navigate 시 자연 캐싱
 const STATIC_ASSETS = [
@@ -62,6 +62,12 @@ self.addEventListener('fetch', (event) => {
   // 외부 도메인은 캐싱 제외 (광고·jsdelivr·esm.sh 등)
   const url = new URL(req.url);
   if (url.origin !== location.origin) return;
+
+  // /blog/ 는 SW 가 가로채지 않음 — dev 중 blog HTML/JS/CSS 가 SW 캐시에 묶여 옛 버전 제공되는 문제 방지.
+  // (blog 는 자체 dev-server no-store + ?v=mtime 으로 캐시 관리. 배포 안정화 후 PWA 캐시 재고려)
+  if (url.pathname.indexOf('/blog/') === 0) return;
+  // /_admin/ 은 blog dev-server API (health·save·build) — SW 가 절대 가로채면 안 됨 (캐시되면 게시 깨짐)
+  if (url.pathname.indexOf('/_admin/') === 0) return;
 
   // HTML: network-first
   if (req.mode === 'navigate' || req.headers.get('accept')?.includes('text/html')) {

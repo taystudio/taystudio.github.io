@@ -682,6 +682,9 @@ class SiteHeader extends HTMLElement {
           <a href="${LANG === 'en' ? BASE + '/en/pdf/' : BASE + '/pdf/'}" class="${cls('pdf')}">${T.navPdf}</a>
           <a href="${LANG === 'en' ? BASE + '/en/video/' : BASE + '/video/'}" class="${cls('video')}">${T.navVideo}</a>
           <span class="header-actions">
+            <!-- BLOG-NAV-HIDDEN: blog launch 전 전역 nav 칩 숨김(2026-05-26). 복구=이 줄 주석 해제
+            <a href="${BASE}/blog/" class="nav-blog-chip" title="${LANG === 'en' ? 'Blog studio' : '블로그 studio'}">↗ Blog</a>
+            -->
             <a href="${altUrl}" class="lang-toggle" title="${T.langToggleTitle}" rel="alternate" hreflang="${LANG === 'en' ? 'ko' : 'en'}">${T.langToggleLabel}</a>
             <button type="button" class="theme-toggle" title="${themeTitle}" aria-label="${themeTitle}">${themeIcon}</button>
           </span>
@@ -1032,7 +1035,9 @@ if (document.readyState === 'loading') {
   }
 
   // 동적 추가된 details도 자동 대응
-  if (typeof MutationObserver === 'function') {
+  // 주의: document.body 가 null 일 수 있으니 DOMContentLoaded 이후 실행
+  function setupObserver() {
+    if (typeof MutationObserver !== 'function' || !document.body) return;
     const obs = new MutationObserver((mutations) => {
       for (const m of mutations) {
         m.addedNodes.forEach((n) => {
@@ -1043,6 +1048,11 @@ if (document.readyState === 'loading') {
       }
     });
     obs.observe(document.body, { childList: true, subtree: true });
+  }
+  if (document.body) {
+    setupObserver();
+  } else {
+    document.addEventListener('DOMContentLoaded', setupObserver);
   }
 })();
 
