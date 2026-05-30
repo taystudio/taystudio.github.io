@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드 · Tay Blog</title>
+<meta name="description" content="x86_64에서 잘 되던 Python–Oracle 연동이 AWS Graviton(ARM)에서 DPI-1047(libclntsh.so 못 찾음) 에러로 실패하는 원인과, Instant Client 없이 순수 Python으로 동작하는 python-oracledb Thin 모드 해결법(SQLAlchemy·native 예제).">
+<link rel="canonical" href="https://taystudios.com/blog/ko/python-oracledb-arm-dpi-1047/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/python-oracledb-arm-dpi-1047/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/python-oracledb-arm-dpi-1047/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/python-oracledb-arm-dpi-1047/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드 · Tay Blog">
+<meta property="og:description" content="x86_64에서 잘 되던 Python–Oracle 연동이 AWS Graviton(ARM)에서 DPI-1047(libclntsh.so 못 찾음) 에러로 실패하는 원인과, Instant Client 없이 순수 Python으로 동작하는 python-oracledb Thin 모드 해결법(SQLAlchemy·native 예제).">
+<meta property="og:url" content="https://taystudios.com/blog/ko/python-oracledb-arm-dpi-1047/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/python-oracledb-arm-dpi-1047/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/python-oracledb-arm-dpi-1047/cover.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드", "description": "x86_64에서 잘 되던 Python–Oracle 연동이 AWS Graviton(ARM)에서 DPI-1047(libclntsh.so 못 찾음) 에러로 실패하는 원인과, Instant Client 없이 순수 Python으로 동작하는 python-oracledb Thin 모드 해결법(SQLAlchemy·native 예제).", "datePublished": "2026-02-10T00:00:00+09:00", "dateModified": "2026-02-10T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/python-oracledb-arm-dpi-1047/"}, "image": ["https://taystudios.com/blog/assets/posts/python-oracledb-arm-dpi-1047/cover.png"], "keywords": "python-oracledb, cx_Oracle, DPI-1047, AWS Graviton, ARM, SQLAlchemy"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Error Docs", "item": "https://taystudios.com/blog/ko/category/errors/"}, {"@type": "ListItem", "position": 3, "name": "AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드", "item": "https://taystudios.com/blog/ko/python-oracledb-arm-dpi-1047/"}]}</script><meta property="article:published_time" content="2026-02-10T00:00:00+09:00"><meta property="article:modified_time" content="2026-02-10T00:00:00+09:00"><meta property="article:tag" content="python-oracledb"><meta property="article:tag" content="cx_Oracle"><meta property="article:tag" content="DPI-1047"><meta property="article:tag" content="AWS Graviton"><meta property="article:tag" content="ARM"><meta property="article:tag" content="SQLAlchemy">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/errors/">Error Docs</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</span></nav>
+        <h1 class="tb-article-title">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</h1>
+        <div class="tb-article-meta">
+          <time>2026.02.10</time>
+          <span>·</span><span>#python-oracledb #cx_Oracle #DPI-1047 #AWS Graviton #ARM #SQLAlchemy</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#1-aws-ec2-arm">1. AWS EC2 ARM 아키텍처 전환 시 발생하는 이슈</a></li><li class="tb-toc-h2"><a href="#2-dpi-1047">2. DPI-1047 에러란?</a></li><li class="tb-toc-h2"><a href="#3-arm">3. 원인 — 왜 ARM 서버에서만 발생할까?</a></li><li class="tb-toc-h2"><a href="#4-python-oracledb-thin">4. 해결 방법 — python-oracledb &#39;Thin&#39; 모드</a></li><li class="tb-toc-h3"><a href="#41-sqlalchemy-url">4.1 SQLAlchemy URL 연동</a></li><li class="tb-toc-h3"><a href="#42-native">4.2 드라이버 직접(Native) 연동</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<h2 id="1-aws-ec2-arm">1. AWS EC2 ARM 아키텍처 전환 시 발생하는 이슈</h2>
+<p>최근 가성비 좋은 <strong>AWS Graviton(ARM/aarch64)</strong> 인스턴스로 교체하는 기업이 늘고 있다. 하지만 기존 x86_64 환경에서 잘 작동하던 Python 코드를 그대로 옮기면, Oracle DB 연동 시 <strong>DPI-1047 에러</strong>를 마주하게 된다.</p>
+<p>이 에러가 발생하는 근본 원인과, 최신 드라이버인 <strong>python-oracledb</strong>를 통한 해결책을 정리한다.</p>
+<h2 id="2-dpi-1047">2. DPI-1047 에러란?</h2>
+<p>SQLAlchemy나 cx_Oracle로 연결할 때 발생하는 이 에러는 <strong>"Oracle Client 라이브러리를 찾을 수 없음"</strong>을 의미한다.</p>
+<pre class="codehilite"><code class="language-text">sqlalchemy.exc.DatabaseError: (cx_Oracle.DatabaseError) DPI-1047: Cannot locate a 64-bit Oracle Client library:
+&quot;libclntsh.so: cannot open shared object file: No such file or directory&quot;.
+</code></pre>
+
+<h2 id="3-arm">3. 원인 — 왜 ARM 서버에서만 발생할까?</h2>
+<p>이 문제는 <strong>서버 CPU 아키텍처와 라이브러리 간의 불일치</strong> 때문에 발생한다.</p>
+<ul>
+<li><strong>cx_Oracle의 의존성</strong> — 기존 <code>cx_Oracle</code> 드라이버는 C 기반의 <strong>Oracle Instant Client</strong> 라이브러리가 시스템에 설치되어 있어야만 동작한다. (이렇게 Client를 설치해 연동하는 방식을 <strong>Thick 모드</strong>라 한다.)</li>
+<li><strong>아키텍처 불일치</strong> — Oracle은 오랫동안 ARM(aarch64)용 Instant Client를 공식 지원하지 않았거나 설정이 매우 까다로웠다. 결국 x86_64 전용 라이브러리를 ARM 환경에서 로드하려다 보니 시스템이 이를 인식하지 못해 발생하는 문제다. (Oracle DB는 CPU 아키텍처 외에도 Ubuntu보다 RHEL·CentOS 계열이 훨씬 편한 등 환경 요소에 영향을 많이 받는다.)</li>
+</ul>
+<h2 id="4-python-oracledb-thin">4. 해결 방법 — python-oracledb 'Thin' 모드</h2>
+<p><img alt="AWS Graviton ARM 인스턴스에서 발생하는 DPI-1047 에러와 python-oracledb Thin 모드 해결 구조" src="assets/posts/python-oracledb-arm-dpi-1047/img1.png" width="1536" height="1024" loading="lazy">
+<em>그림 1. DPI-1047 에러(아키텍처 불일치) → python-oracledb Thin 모드 해결 구조</em></p>
+<p>Oracle은 이 아키텍처 문제를 해결하기 위해 <code>cx_Oracle</code>의 후속작인 <strong>python-oracledb</strong>를 출시했다. 특히 이 드라이버의 <strong>Thin 모드</strong>는 ARM 서버에서 Python 서버를 운영할 때 필수 요소다. (Instant Client 없이 라이브러리 내에서 연동하는 방식을 <strong>Thin 모드</strong>라 한다.)</p>
+<ul>
+<li><strong>Instant Client 미필요</strong> — C 라이브러리 의존성 없이 100% 순수 Python으로 재작성됐다.</li>
+<li><strong>Architecture Agnostic</strong> — 아키텍처를 타지 않는다. x86이든 ARM이든 동일하게 작동한다. (그래서 요즘은 <code>cx_Oracle</code>을 거의 쓰지 않고 <code>oracledb</code>만 사용한다고 한다.)</li>
+<li><strong>직접 통신</strong> — 시스템 라이브러리를 거치지 않고 Oracle Net Protocol로 DB와 직접 대화한다.</li>
+</ul>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>드라이버</th>
+<th>특징</th>
+<th>권장 환경</th>
+<th>SQLAlchemy URL 스키마</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cx_Oracle</code></td>
+<td>C 라이브러리 기반</td>
+<td>x86_64 (레거시)</td>
+<td><code>oracle+cx_oracle://</code></td>
+</tr>
+<tr>
+<td><code>oracledb</code></td>
+<td>Thin 모드 지원</td>
+<td>ARM(aarch64), Cloud</td>
+<td><code>oracle+oracledb://</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>먼저 라이브러리를 설치한다.</p>
+<pre class="codehilite"><code class="language-bash">pip install oracledb
+</code></pre>
+
+<h3 id="41-sqlalchemy-url">4.1 SQLAlchemy URL 연동</h3>
+<p><code>cx_Oracle</code> 사용 시에는 아래처럼 <code>oracle+cx_oracle://</code>로 시작한다.</p>
+<pre class="codehilite"><code class="language-python"># [x86_64 전용 / ARM에서는 에러 발생 확률 높음]
+# 시스템의 libclntsh.so 파일을 찾아 헤매는 방식
+SQLALCHEMY_DATABASE_URL = f&quot;oracle+cx_oracle://{user}:{password}@{host}:{port}/?service_name={service_name}&quot;
+</code></pre>
+
+<p><code>oracledb</code> 방식 (권장 — SQLAlchemy URL 연동):</p>
+<pre class="codehilite"><code class="language-python">from sqlalchemy import create_engine
+
+# JSON/환경변수 로드 시 보이지 않는 공백 제거는 필수
+user = db.get(&quot;user&quot;).strip()
+password = db.get(&quot;password&quot;).strip()
+host = db.get(&quot;host&quot;).strip()
+port = db.get(&quot;port&quot;)
+service_name = db.get(&quot;service_name&quot;).strip()
+
+# python-oracledb Thin 모드용 URL 스키마 사용
+SQLALCHEMY_DATABASE_URL = f&quot;oracle+oracledb://{user}:{password}@{host}:{port}/?service_name={service_name}&quot;
+
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
+
+# 연결 테스트
+with engine.connect() as conn:
+    print(&quot;Connected to Oracle DB successfully on ARM(aarch64) server!&quot;)
+</code></pre>
+
+<blockquote>
+<p>💡 <strong>Tip</strong> — JSON이나 <code>.env</code>에서 정보를 불러올 때 보이지 않는 공백이나 줄바꿈(<code>\n</code>)이 섞이면 접속에 실패하는 경우가 있다. 특히 비밀번호가 <code>!</code> 같은 특수문자로 끝나는 경우. 그래서 마지막에 <code>strip()</code> 처리를 해줬다.</p>
+</blockquote>
+<h3 id="42-native">4.2 드라이버 직접(Native) 연동</h3>
+<p><strong>① cx_Oracle 방식 (전통적인 Thick 모드)</strong> — C 라이브러리에 의존하므로 코드 레벨에서 라이브러리 경로를 초기화해야 하며, 아키텍처가 맞지 않으면 여기서 바로 에러가 터진다.</p>
+<pre class="codehilite"><code class="language-python">import cx_Oracle
+import os
+
+# Instant Client를 불러와야 함
+lib_dir = &quot;/opt/oracle/instantclient_21_10&quot;
+
+try:
+    # 라이브러리 수동 초기화 (Thick 모드 필수 과정)
+    cx_Oracle.init_oracle_client(lib_dir=lib_dir)
+except Exception as e:
+    print(f&quot;라이브러리 로드 실패 (DPI-1047 발생): {e}&quot;)
+
+# 접속 정보
+dsn = cx_Oracle.makedsn(&quot;host&quot;, 1521, service_name=&quot;sn&quot;)
+conn = cx_Oracle.connect(user=&quot;user&quot;, password=&quot;password&quot;, dsn=dsn)
+</code></pre>
+
+<p><strong>② python-oracledb 방식 (최신 Thin 모드 — 권장)</strong> — 라이브러리 경로 지정 자체가 필요 없다. 아키텍처와 상관없이 순수 Python 코드로만 동작한다.</p>
+<pre class="codehilite"><code class="language-python">import oracledb
+
+try:
+    # 별도 설정 없이 바로 연결 (기본이 Thin 모드)
+    conn = oracledb.connect(
+        user=&quot;user&quot;,
+        password=&quot;password&quot;,
+        host=&quot;host&quot;,
+        port=1521,
+        service_name=&quot;sn&quot;
+    )
+    print(&quot;Thin 모드로 접속 성공!&quot;)
+except Exception as e:
+    print(f&quot;접속 실패: {e}&quot;)
+</code></pre>
+
+<p><code>cx_Oracle</code>은 시스템에 설치된 Oracle Client 라이브러리를 직접 호출해야 하는 번거로움이 있지만, <code>python-oracledb</code>는 그 과정이 완전히 생략된다. 별도의 라이브러리 초기화(<code>init_oracle_client</code>)가 전혀 필요 없고, x86·ARM 아키텍처와 무관하게 즉시 실행된다.</p>
+<p><strong>AWS EC2를 ARM 아키텍처로 운영한다면, Python–Oracle DB 연동에서 <code>python-oracledb</code> 드라이버는 필수 요소다.</strong></p>
+<hr />
+<blockquote>
+<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/32" rel="nofollow noopener">taehyuklee.tistory.com/32</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fpython-oracledb-arm-dpi-1047%2F&amp;text=AWS%20Graviton%28ARM%29%EC%97%90%EC%84%9C%20Python%20Oracle%20%EC%97%B0%EA%B2%B0%20%EC%98%A4%EB%A5%98%20DPI-1047%20%ED%95%B4%EA%B2%B0%20%E2%80%94%20python-oracledb%20Thin%20%EB%AA%A8%EB%93%9C" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fpython-oracledb-arm-dpi-1047%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/python-oracledb-arm-dpi-1047/">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="ko/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="ko/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="ko/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (158) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

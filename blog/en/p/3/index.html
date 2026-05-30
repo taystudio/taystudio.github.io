@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Tay Blog</title>
+<meta name="description" content="TAYSTUDIO operation notes · tool guides · tech/career · useful posts">
+<link rel="canonical" href="https://taystudios.com/blog/en/p/3/">
+
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Tay Blog">
+<meta property="og:description" content="TAYSTUDIO operation notes · tool guides · tech/career · useful posts">
+<meta property="og:url" content="https://taystudios.com/blog/en/p/3/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/og-image.png"><meta name="twitter:image" content="https://taystudios.com/og-image.png">
+
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <div class="tb-content">
+
+      <section class="tb-hero">
+        <h1 class="tb-sr-only">Tay Blog</h1>
+        <p class="tb-hero-desc">TAYSTUDIO operation notes · tool guides · tech/career · useful posts</p>
+        <p class="tb-hero-meta">30 posts · latest first · page 3/3</p>
+      </section>
+
+      <ul class="tb-post-list"><li>
+  <a class="tb-post-card" href="en/degrees-of-freedom/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/degrees-of-freedom/cover.jpg" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">data</div>
+      <h3 class="tb-post-title">What Are Degrees of Freedom — Why We Divide by n-1 to Estimate Variance</h3>
+      <p class="tb-post-excerpt">Why does the sample variance divide by n-1 instead of n? Two views — correcting underestimation (bias) and degrees of freedom — to get at the essence of variance.</p>
+      <div class="tb-post-meta">
+        <time>2024.09.30</time>
+        <span>·</span><span class="tb-post-tags">#statistics #degrees-of-freedom #variance</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="en/uncertainty-variance/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/uncertainty-variance/cover.jpg" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">data</div>
+      <h3 class="tb-post-title">Uncertainty, Variability &amp; Variance — Understanding the Nature of Probability</h3>
+      <p class="tb-post-excerpt">Connecting the nature of probability through three concepts — uncertainty, variability, and variance — including the intuition for why variance is defined as &#39;distance from the mean.&#39;</p>
+      <div class="tb-post-meta">
+        <time>2024.09.30</time>
+        <span>·</span><span class="tb-post-tags">#statistics #variance #uncertainty</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="en/aws-summit-2024/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/aws-summit-2024/cover.jpg" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">reviews / conferences</div>
+      <h3 class="tb-post-title">AWS Summit Seoul 2024 — A Backend Engineer&#39;s Field Notes (Generative AI · CMP · Middleware)</h3>
+      <p class="tb-post-excerpt">AWS Summit Seoul 2024 — walking the booths and sorting the trends into three buckets: generative-AI serving (chatbots, email, copilots, image-gen), multi-cloud CMP, and API gateway / middleware. &#39;Ideas converge — UX and performance is where companies actually win.&#39;</p>
+      <div class="tb-post-meta">
+        <time>2024.06.13</time>
+        <span>·</span><span class="tb-post-tags">#AWS #AWSSummit #generative-AI</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="en/snowflake-id-generator/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/snowflake-id-generator/cover.png" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">study / system-design</div>
+      <h3 class="tb-post-title">Designing a Distributed Unique ID Generator — Twitter Snowflake (Java Implementation)</h3>
+      <p class="tb-post-excerpt">A 64-bit unique ID generator that doesn&#39;t collide even when many servers generate IDs at once — the design intent of Twitter Snowflake (Sign·TimeStamp·DataCenter·Server·Serial, 5 segments), a Java bit-operation implementation, and a 10,000 TPS test architecture (Nginx·Netty·MongoDB).</p>
+      <div class="tb-post-meta">
+        <time>2024.06.12</time>
+        <span>·</span><span class="tb-post-tags">#system-design #Snowflake #distributed-systems</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="en/kaist-grad-mech-written-set1/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/kaist-grad-mech-written-set1/cover.png" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">reviews / grad-school</div>
+      <h3 class="tb-post-title">KAIST Mechanical Engineering Grad Written Exam — Part 1: Set 1 (5 Problems, 2019)</h3>
+      <p class="tb-post-excerpt">Aug 5, 2019 — KAIST Mech Eng grad school written exam: 4 hours (2+2), 5 subjects, 5 problems per set. Set 1: terminal-velocity ODE, Von-Mises stress, rigid-body Work-Energy, Bernoulli+Energy equation, hydrostatic force on curved surface. Passed written, failed interview.</p>
+      <div class="tb-post-meta">
+        <time>2024.05.17</time>
+        <span>·</span><span class="tb-post-tags">#KAIST #graduate #mechanical-engineering</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="en/kaist-grad-mech-written-set2/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/kaist-grad-mech-written-set2/cover.png" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">reviews / grad-school</div>
+      <h3 class="tb-post-title">KAIST Mechanical Engineering Grad Written Exam — Part 2: Set 2 (5 Problems, 2019)</h3>
+      <p class="tb-post-excerpt">KAIST Mech Eng grad school written exam, Set 2 — Eigenvalue/Eigenvector (3-variable ODE system), full strength-design pipeline, rigid-body Work-Energy, T-v diagram thermo properties, Couette flow Navier-Stokes exact solution.</p>
+      <div class="tb-post-meta">
+        <time>2024.05.17</time>
+        <span>·</span><span class="tb-post-tags">#KAIST #graduate #mechanical-engineering</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="en/career-sk-ax-newgrad-2023/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/career-sk-ax-newgrad-2023/cover.jpg" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">reviews / career</div>
+      <h3 class="tb-post-title">[New Grad] SK AX (formerly SK C&amp;C) — Coding Test + Interview (Final Offer) Recap (2023 H2)</h3>
+      <p class="tb-post-excerpt">SK C&amp;C (now SK AX) 2023 H2 new-grad recruitment — coding test (2h, 4 problems: sim, DP, sim, SQL aggregation) + SKCT in-depth (1.5h personality) + 1-day interview (group discussion + role/personality). Group discussion was actually fun and burned off the nerves before the role interview. Final offer.</p>
+      <div class="tb-post-meta">
+        <time>2023.12.05</time>
+        <span>·</span><span class="tb-post-tags">#SK #SKAX #SKC&amp;C</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="en/career-hyundai-carcloud-newgrad-2023/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/career-hyundai-carcloud-newgrad-2023/cover.jpg" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">reviews / career</div>
+      <h3 class="tb-post-title">[New Grad] Hyundai Motor — CarCloud Role — Coding Test + 1st Interview (Rejected) Recap (2023 H1)</h3>
+      <p class="tb-post-excerpt">Hyundai Motor 2023 H1 new-grad recruitment for CarCloud role — aptitude + AI interview (ViewInter, 12 questions) + coding test (Softeer, Java, 3 problems) + 1st interview (30-min pre-assignment + technical 1:3). Self-graded 4/6 well-answered; still rejected at the 1st round. Keyword recap: API Gateway, WebFlux, encryption.</p>
+      <div class="tb-post-meta">
+        <time>2023.05.12</time>
+        <span>·</span><span class="tb-post-tags">#Hyundai #CarCloud #new-grad</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="en/career-lg-electronics-newgrad-2022/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/career-lg-electronics-newgrad-2022/cover.png" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">reviews / career</div>
+      <h3 class="tb-post-title">[New Grad] LG Electronics — Coding Test + 1st/2nd Interview (Rejected) Recap (2022 H2)</h3>
+      <p class="tb-post-excerpt">LG Electronics 2022 H2 new-grad recruitment for R&amp;D Campus in Gasan (H&amp;A division) — coding test (Programmers, Java, 3 problems, two perfect + one partial) + aptitude + 1st interview (master&#39;s/PhD research presentation, 6-page PPT) + 2nd interview (executive + English OPIc) → final rejection. A case where job-role misalignment drove the result.</p>
+      <div class="tb-post-meta">
+        <time>2022.12.15</time>
+        <span>·</span><span class="tb-post-tags">#LG #LG-Electronics #HA</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="en/career-ktds-newgrad-2021/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/career-ktds-newgrad-2021/cover.jpg" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">reviews / career</div>
+      <h3 class="tb-post-title">[New Grad] KT DS — Coding Test + Interview (Final Offer) Recap (2021 H2)</h3>
+      <p class="tb-post-excerpt">KT DS 2021 H2 new-grad recruitment — coding test (Programmers, 3 problems: Silver-4 stock sim, Silver-1 impl, Easy SQL) + aptitude + pre-assignment (1h, 1-page PPT) + 1-day interview (technical 4:1 + executive 2:N). Honest recap from a mechanical engineering + AI master&#39;s background with little IT experience.</p>
+      <div class="tb-post-meta">
+        <time>2021.12.22</time>
+        <span>·</span><span class="tb-post-tags">#KTDS #KT-Group #SI</span>
+      </div>
+    </div>
+  </a>
+</li></ul>
+
+      <nav class="tb-pagination" aria-label="Pagination"><a class="tb-page-prev" href="en/p/2/" rel="prev">← Prev</a><span class="tb-page-nums"><a class="tb-page-num" href="en/">1</a><a class="tb-page-num" href="en/p/2/">2</a><span class="tb-page-num tb-page-cur">3</span></span><span class="tb-page-next tb-page-disabled">Next →</span></nav>
+
+    </div>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3><ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script></section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/python-oracledb-arm-dpi-1047/">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="en/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="en/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="en/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag" href="en/tags/#Samsung">#Samsung <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (153) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+</body>
+</html>

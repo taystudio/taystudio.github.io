@@ -11,7 +11,7 @@
  * 이전 = `/tools/sw.js` (scope `./tools/`)만 동작. 사이트 4 카테고리 확장 후 root scope로 통합.
  */
 
-const CACHE_VERSION = 'taystudio-v21';  // v21: /blog/ SW 캐시 제외 (blog 를 독립 사이트로 분리)
+const CACHE_VERSION = 'taystudio-v22';  // v22: nav Studios 드롭다운(Tools·Blog 대칭)+플랫 SVG 아이콘 — site-chrome.js·common/css/style.css 갱신 반영 (v21: /blog/ SW 캐시 제외)
 
 // install 시 즉시 캐시 — 루트 + 5 카테고리 hub + about + 공용 자산. 도구별 페이지·vendor는 navigate 시 자연 캐싱
 const STATIC_ASSETS = [

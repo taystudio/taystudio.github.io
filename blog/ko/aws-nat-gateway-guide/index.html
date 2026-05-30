@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화 · Tay Blog</title>
+<meta name="description" content="Private Subnet의 EC2가 보안은 유지하면서 아웃바운드 인터넷(apt·외부 API)을 쓰게 하는 NAT Gateway — 생성·EIP 연결·라우팅까지 단계별 + 비용 분석과 NAT 인스턴스 대체 전략.">
+<link rel="canonical" href="https://taystudios.com/blog/ko/aws-nat-gateway-guide/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/aws-nat-gateway-guide/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/aws-nat-gateway-guide/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/aws-nat-gateway-guide/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화 · Tay Blog">
+<meta property="og:description" content="Private Subnet의 EC2가 보안은 유지하면서 아웃바운드 인터넷(apt·외부 API)을 쓰게 하는 NAT Gateway — 생성·EIP 연결·라우팅까지 단계별 + 비용 분석과 NAT 인스턴스 대체 전략.">
+<meta property="og:url" content="https://taystudios.com/blog/ko/aws-nat-gateway-guide/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/aws-nat-gateway-guide/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/aws-nat-gateway-guide/cover.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화", "description": "Private Subnet의 EC2가 보안은 유지하면서 아웃바운드 인터넷(apt·외부 API)을 쓰게 하는 NAT Gateway — 생성·EIP 연결·라우팅까지 단계별 + 비용 분석과 NAT 인스턴스 대체 전략.", "datePublished": "2026-02-14T00:00:00+09:00", "dateModified": "2026-02-14T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/aws-nat-gateway-guide/"}, "image": ["https://taystudios.com/blog/assets/posts/aws-nat-gateway-guide/cover.png"], "keywords": "AWS, NAT Gateway, VPC, 네트워크, 비용최적화"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/ko/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화", "item": "https://taystudios.com/blog/ko/aws-nat-gateway-guide/"}]}</script><meta property="article:published_time" content="2026-02-14T00:00:00+09:00"><meta property="article:modified_time" content="2026-02-14T00:00:00+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="NAT Gateway"><meta property="article:tag" content="VPC"><meta property="article:tag" content="네트워크"><meta property="article:tag" content="비용최적화">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</span></nav>
+        <h1 class="tb-article-title">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</h1>
+        <div class="tb-article-meta">
+          <time>2026.02.14</time>
+          <span>·</span><span>#AWS #NAT Gateway #VPC #네트워크 #비용최적화</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#1-nat-gateway">1. NAT Gateway가 필요한 이유</a></li><li class="tb-toc-h2"><a href="#2-nat-gateway">2. NAT Gateway 생성 및 설정 단계</a></li><li class="tb-toc-h3"><a href="#21-pre-requisites">2.1 인프라 구성 환경 (Pre-requisites)</a></li><li class="tb-toc-h3"><a href="#22-nat">2.2 NAT 게이트웨이 구성</a></li><li class="tb-toc-h4"><a href="#step-1">Step 1. 사전 점검 — 인터넷 연결 확인</a></li><li class="tb-toc-h4"><a href="#step-2-nat">Step 2. NAT 게이트웨이 생성</a></li><li class="tb-toc-h4"><a href="#step-3-ipeip">Step 3. 생성 옵션 및 탄력적 IP(EIP) 연결</a></li><li class="tb-toc-h4"><a href="#step-4-route-table">Step 4. 라우팅 테이블(Route Table) 업데이트</a></li><li class="tb-toc-h4"><a href="#step-5-private-subnet">Step 5. Private Subnet 인터넷 연결 최종 확인</a></li><li class="tb-toc-h2"><a href="#3-nat-gateway">3. NAT Gateway 비용 분석 (서울 리전 기준)</a></li><li class="tb-toc-h2"><a href="#4">4. 엔터프라이즈급 비용 최적화 전략</a></li><li class="tb-toc-h2"><a href="#5-nat-gateway-vs-nat">5. 요약: NAT Gateway vs NAT 인스턴스</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<h2 id="1-nat-gateway">1. NAT Gateway가 필요한 이유</h2>
+<p><img alt="NAT Gateway 유무에 따른 Private Subnet 인터넷 통신 구조 차이" src="assets/posts/aws-nat-gateway-guide/img1.png" width="1426" height="1069" loading="lazy">
+<em>그림 1. NAT Gateway 유무에 따른 Private Subnet 통신 구조 비교</em></p>
+<p>VPC 내부의 Private Subnet에 위치한 인스턴스는 보안을 위해 공인(Public) IP를 갖지 않는다. 하지만 보안 패치 업데이트(<code>apt</code>·<code>yum</code>·<code>dnf</code>)나 외부 API 통신을 위해서는 인터넷 연결이 필수다. 이때 <strong>보안은 유지하면서 아웃바운드(Outbound) 통신만 허용하는 통로</strong> 역할을 하는 것이 NAT Gateway다.</p>
+<ul>
+<li><strong>그림 1 왼쪽</strong> — NAT Gateway가 없으면 Private Subnet 내 EC2는 외부와 단절되어 업데이트조차 불가능하다.</li>
+<li><strong>그림 1 오른쪽</strong> — NAT Gateway를 구성하면 보안은 유지하면서 내부 서버들이 아웃바운드 인터넷 통신을 할 수 있다. 실제 서비스 중인 EC2가 <code>apt</code> 등으로 외부 라이브러리를 받아오려면 반드시 이 구조가 필요하다.</li>
+</ul>
+<h2 id="2-nat-gateway">2. NAT Gateway 생성 및 설정 단계</h2>
+<p>실제 구축 과정을 통해 NAT Gateway가 어떻게 동작하는지 살펴본다.</p>
+<h3 id="21-pre-requisites">2.1 인프라 구성 환경 (Pre-requisites)</h3>
+<p>먼저 테스트를 위해 그림 1과 같이 <strong>Public Subnet</strong>(Bastion EC2 위치)과 <strong>Private Subnet</strong>(테스트 EC2 위치)을 미리 구성했다.</p>
+<h3 id="22-nat">2.2 NAT 게이트웨이 구성</h3>
+<h4 id="step-1">Step 1. 사전 점검 — 인터넷 연결 확인</h4>
+<p><img alt="NAT Gateway 설정 전 Private Subnet EC2의 apt update 실패 화면" src="assets/posts/aws-nat-gateway-guide/img2.jpg" width="1657" height="895" loading="lazy">
+<em>그림 2. NAT 설정 전 — EC2 인터넷 연결 오류</em></p>
+<p>NAT 게이트웨이가 없는 상태에서 Private Subnet 내 EC2에 접속해 <code>sudo apt update</code>를 실행하면, 그림 2처럼 외부와 통신이 되지 않아 막혀 있는 것을 확인할 수 있다. 이제 그림 1 오른쪽 아키텍처를 목표로 구성을 시작한다.</p>
+<blockquote>
+<p>참고: 설정 전, <strong>탄력적 IP(Elastic IP, EIP)</strong>를 미리 생성해 두는 것이 좋다. 자동 할당 옵션도 있지만, 실무에서는 관리의 일관성을 위해 수동 할당을 권장한다.</p>
+</blockquote>
+<h4 id="step-2-nat">Step 2. NAT 게이트웨이 생성</h4>
+<p><img alt="AWS VPC 대시보드 내 NAT 게이트웨이 메뉴 위치" src="assets/posts/aws-nat-gateway-guide/img3.png" width="2000" height="971" loading="lazy">
+<em>그림 3. AWS VPC 콘솔의 NAT 게이트웨이 메뉴</em></p>
+<p><img alt="신규 NAT 게이트웨이 생성 버튼 (콘솔 우측 상단)" src="assets/posts/aws-nat-gateway-guide/img4.jpg" width="1637" height="401" loading="lazy">
+<em>그림 4. NAT 게이트웨이 생성 버튼 (우측 상단)</em></p>
+<p>AWS 콘솔에서 <strong>VPC → NAT 게이트웨이</strong> 메뉴로 이동한 뒤, 우측 상단의 <code>[NAT 게이트웨이 생성]</code> 버튼을 클릭한다.</p>
+<h4 id="step-3-ipeip">Step 3. 생성 옵션 및 탄력적 IP(EIP) 연결</h4>
+<p><img alt="VPC·서브넷 선택을 포함한 NAT 게이트웨이 상세 설정 창" src="assets/posts/aws-nat-gateway-guide/img5.png" width="1613" height="980" loading="lazy">
+<em>그림 5. NAT 게이트웨이 생성 옵션</em></p>
+<p><img alt="NAT 게이트웨이 아웃바운드용 탄력적 IP(EIP) 할당·매칭" src="assets/posts/aws-nat-gateway-guide/img6.png" width="1578" height="921" loading="lazy">
+<em>그림 6. 탄력적 IP(EIP) 연결</em></p>
+<p>생성 화면에서 다음 옵션을 선택한다(그림 5·6).</p>
+<ul>
+<li><strong>VPC 선택</strong> — NAT 게이트웨이를 생성할 대상 VPC를 지정한다.</li>
+<li><strong>연결 유형</strong> — '퍼블릭'을 선택한다.</li>
+<li><strong>탄력적 IP 할당</strong> — 그림 6처럼 수동으로 만들어 둔 EIP를 연결한다. 고정 공인 IP가 있어야 외부 통신 시 신뢰성을 확보할 수 있다.</li>
+</ul>
+<p><img alt="생성 완료된 nat-xxxx 게이트웨이의 상태·연결 IP 정보" src="assets/posts/aws-nat-gateway-guide/img7.jpg" width="1621" height="587" loading="lazy">
+<em>그림 7. NAT 게이트웨이 생성 후 세부 정보</em></p>
+<p>설정을 마치고 생성을 완료하면 그림 7처럼 <code>nat-xxxx</code> 형태의 ID와 함께 연결된 IP 주소를 확인할 수 있다.</p>
+<h4 id="step-4-route-table">Step 4. 라우팅 테이블(Route Table) 업데이트</h4>
+<p><img alt="Private Subnet 트래픽을 NAT Gateway로 보내는 0.0.0.0/0 라우팅 추가" src="assets/posts/aws-nat-gateway-guide/img8.jpg" width="1848" height="374" loading="lazy">
+<em>그림 8. Private Subnet 라우팅 테이블 — NAT 게이트웨이 연결</em></p>
+<p><img alt="NAT Gateway 타겟 설정이 완료된 프라이빗 라우팅 테이블" src="assets/posts/aws-nat-gateway-guide/img9.jpg" width="1626" height="606" loading="lazy">
+<em>그림 9. 라우팅 테이블 업데이트 결과</em></p>
+<p>NAT Gateway를 만들었으니, 이제 Private Subnet의 트래픽이 이 통로를 타도록 길을 만들어 준다.</p>
+<ul>
+<li>해당 VPC의 <strong>Private Subnet 라우팅 테이블</strong>로 이동한다.</li>
+<li>라우팅 편집에서 <code>0.0.0.0/0</code>(모든 인터넷 트래픽)의 대상을 방금 생성한 NAT 게이트웨이(<code>nat-xxxx</code>)로 지정하고 저장한다(그림 8).</li>
+<li>저장 후 그림 9처럼 라우팅 정보가 활성화된 것을 확인한다.</li>
+</ul>
+<h4 id="step-5-private-subnet">Step 5. Private Subnet 인터넷 연결 최종 확인</h4>
+<p><img alt="NAT Gateway 연결 후 정상 진행되는 Private Subnet EC2의 sudo apt update" src="assets/posts/aws-nat-gateway-guide/img10.jpg" width="1189" height="892" loading="lazy">
+<em>그림 10. NAT 게이트웨이 연결 후 — apt update 성공</em></p>
+<p>다시 Private Subnet 내 EC2로 돌아가 <code>sudo apt update</code>를 실행한다. 그림 10처럼 외부 리포지토리에 정상 접근하여 업데이트가 진행되는 것을 확인할 수 있다.</p>
+<h2 id="3-nat-gateway">3. NAT Gateway 비용 분석 (서울 리전 기준)</h2>
+<p>NAT Gateway는 관리형 서비스로 높은 안정성을 제공하지만, <strong>고정 비용</strong>이 발생하므로 설계 단계에서 고려가 필요하다.</p>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>항목</th>
+<th>요금 단위</th>
+<th>월 예상 비용 (데이터 전송 제외)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>시간당 고정 요금</td>
+<td>$0.045 / hour</td>
+<td>약 $32.4 (약 45,000원)</td>
+</tr>
+<tr>
+<td>데이터 처리 요금</td>
+<td>$0.045 / GB</td>
+<td>실제 사용량에 따라 별도 합산</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>NAT Gateway는 <strong>생성만 해두고 쓰지 않아도</strong> 시간당 약 60원(월 4.5만 원)의 고정비가 무조건 청구된다. 테스트 목적이라면 사용 직후 반드시 삭제하는 습관이 필요하다.</p>
+</blockquote>
+<p>상세한 AWS 요금 체계는 별도 정리한 비용 절감 글을 참고하자.</p>
+<a class="tb-embed-card" href="ko/aws-cost-optimization/"><div class="tb-embed-thumb"><img src="assets/posts/aws-cost-optimization/cover.png" alt="" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</div><div class="tb-embed-excerpt">EC2 아키텍처(x86→ARM/Graviton) 전환만으로 ~20%, ALB·NAT·RDS를 Nginx·NAT 인스턴스·EC2 DB로 직접 구축해 월 운영비를 최대 55%(약 200만 원) 낮춘 실제 견적과 전략.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<h2 id="4">4. 엔터프라이즈급 비용 최적화 전략</h2>
+<p>단순히 쓰는 법을 넘어, 아키텍처 관점에서 비용을 줄이는 포인트 3가지.</p>
+<ul>
+<li><strong>VPC 엔드포인트(Endpoint) 활용</strong> — S3·DynamoDB 같은 AWS 내부 서비스와 통신할 때 NAT Gateway를 거치면 데이터 처리 비용이 과다 발생한다. VPC Endpoint를 쓰면 데이터 처리 요금을 0원으로 만들 수 있다.</li>
+<li><strong>가용 영역(AZ) 설계 최적화</strong> — AZ 간 데이터 전송은 추가 비용(Data Transfer Out)이 발생한다. 트래픽이 많은 서버와 NAT Gateway는 <strong>동일 AZ</strong>에 배치하는 것이 유리하다.</li>
+<li><strong>NAT 인스턴스로 대체</strong> — 트래픽이 적은 소규모·개인 프로젝트라면 <code>t3.nano</code> 급 인스턴스로 NAT 인스턴스를 직접 구축해 고정비를 90% 이상 절감할 수 있다.</li>
+</ul>
+<h2 id="5-nat-gateway-vs-nat">5. 요약: NAT Gateway vs NAT 인스턴스</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>비교 항목</th>
+<th>NAT Gateway</th>
+<th>NAT Instance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>관리 주체</td>
+<td>AWS (Managed Service)</td>
+<td>사용자 직접 관리</td>
+</tr>
+<tr>
+<td>가용성</td>
+<td>매우 높음 (자동 확장)</td>
+<td>사용자 설계에 의존</td>
+</tr>
+<tr>
+<td>비용</td>
+<td>높음 (월 약 4.5만 원+)</td>
+<td>낮음 (EC2 사양에 따라 결정)</td>
+</tr>
+<tr>
+<td>추천 환경</td>
+<td>대규모 서비스·기업 환경</td>
+<td>소규모 스타트업·테스트 환경</td>
+</tr>
+</tbody>
+</table></div>
+<p>비용을 아끼고 싶다면, 기존에 구축한 Bastion 서버를 활용해 NAT Instance로 구성하는 방법이 가장 효율적이다. 상세한 구축 과정은 아래 글에서 확인할 수 있다.</p>
+<a class="tb-embed-card" href="ko/nat-instance-build-1/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-1/cover.png" alt="" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)</div><div class="tb-embed-excerpt">NAT Gateway는 월 $32+ 고정비가 든다. 비용을 아끼려 EC2(NAT Instance)로 Private Subnet 인터넷을 연결한 방법 — 1부는 AWS 커뮤니티 AMI(amzn-ami-vpc-nat)를 이용한 구성.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<a class="tb-embed-card" href="ko/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)</div><div class="tb-embed-excerpt">1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<hr />
+<blockquote>
+<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/34" rel="nofollow noopener">taehyuklee.tistory.com/34</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/nat-instance-build-1/">[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/nat-instance-build-2/">[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Faws-nat-gateway-guide%2F&amp;text=%5BAWS%5D%20NAT%20Gateway%20%EC%82%AC%EC%9A%A9%EB%B2%95%C2%B7%EC%84%A4%EC%A0%95%20%EA%B0%80%EC%9D%B4%EB%93%9C%20%E2%80%94%20Private%20Subnet%20%EC%9D%B8%ED%84%B0%EB%84%B7%20%EC%97%B0%EA%B2%B0%EA%B3%BC%20%EB%B9%84%EC%9A%A9%20%EC%B5%9C%EC%A0%81%ED%99%94" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Faws-nat-gateway-guide%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/python-oracledb-arm-dpi-1047/">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="ko/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="ko/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="ko/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (158) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

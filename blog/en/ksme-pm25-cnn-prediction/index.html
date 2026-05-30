@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>KSME Conference Review — Neural-Net PM2.5 Prediction (Gold Award, KSME Fluid Mechanics Competition, 2019) · Tay Blog</title>
+<meta name="description" content="An undergraduate thesis from 2019 — using a neural network (ANN) to predict PM2.5 concentrations 6/12 hours ahead. 94,225 observations from weather + air-quality data, AIC·VIF variable selection, Window Learning. Plus the time-lag pitfall discovered two years later.">
+<link rel="canonical" href="https://taystudios.com/blog/en/ksme-pm25-cnn-prediction/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/ksme-pm25-cnn-prediction/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/ksme-pm25-cnn-prediction/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/ksme-pm25-cnn-prediction/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="KSME Conference Review — Neural-Net PM2.5 Prediction (Gold Award, KSME Fluid Mechanics Competition, 2019) · Tay Blog">
+<meta property="og:description" content="An undergraduate thesis from 2019 — using a neural network (ANN) to predict PM2.5 concentrations 6/12 hours ahead. 94,225 observations from weather + air-quality data, AIC·VIF variable selection, Window Learning. Plus the time-lag pitfall discovered two years later.">
+<meta property="og:url" content="https://taystudios.com/blog/en/ksme-pm25-cnn-prediction/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/ksme-pm25-cnn-prediction/cover.jpg"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/ksme-pm25-cnn-prediction/cover.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "KSME Conference Review — Neural-Net PM2.5 Prediction (Gold Award, KSME Fluid Mechanics Competition, 2019)", "description": "An undergraduate thesis from 2019 — using a neural network (ANN) to predict PM2.5 concentrations 6/12 hours ahead. 94,225 observations from weather + air-quality data, AIC·VIF variable selection, Window Learning. Plus the time-lag pitfall discovered two years later.", "datePublished": "2024-10-09T00:00:00+09:00", "dateModified": "2024-10-09T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/ksme-pm25-cnn-prediction/"}, "image": ["https://taystudios.com/blog/assets/posts/ksme-pm25-cnn-prediction/cover.jpg"], "keywords": "conference, KSME, neural-network, ANN, PM2.5, air-quality, Window-Learning, AIC, VIF, environmental-engineering, thesis, review"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Reviews", "item": "https://taystudios.com/blog/en/category/reviews/"}, {"@type": "ListItem", "position": 3, "name": "KSME Conference Review — Neural-Net PM2.5 Prediction (Gold Award, KSME Fluid Mechanics Competition, 2019)", "item": "https://taystudios.com/blog/en/ksme-pm25-cnn-prediction/"}]}</script><meta property="article:published_time" content="2024-10-09T00:00:00+09:00"><meta property="article:modified_time" content="2024-10-09T00:00:00+09:00"><meta property="article:tag" content="conference"><meta property="article:tag" content="KSME"><meta property="article:tag" content="neural-network"><meta property="article:tag" content="ANN"><meta property="article:tag" content="PM2.5"><meta property="article:tag" content="air-quality"><meta property="article:tag" content="Window-Learning"><meta property="article:tag" content="AIC"><meta property="article:tag" content="VIF"><meta property="article:tag" content="environmental-engineering"><meta property="article:tag" content="thesis"><meta property="article:tag" content="review">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/reviews/">Reviews</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">KSME Conference Review — Neural-Net PM2.5 Prediction (Gold Award, KSME Fluid Mechanics Competition, 2019)</span></nav>
+        <h1 class="tb-article-title">KSME Conference Review — Neural-Net PM2.5 Prediction (Gold Award, KSME Fluid Mechanics Competition, 2019)</h1>
+        <div class="tb-article-meta">
+          <time>2024.10.09</time>
+          <span>·</span><span>#conference #KSME #neural-network #ANN #PM2.5 #air-quality #Window-Learning #AIC #VIF #environmental-engineering #thesis #review</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#what-i-did">What I did</a></li><li class="tb-toc-h2"><a href="#why-i-thought-it-mattered">Why I thought it mattered</a></li><li class="tb-toc-h2"><a href="#data-pipeline">Data pipeline</a></li><li class="tb-toc-h3"><a href="#a-data-collection">A. Data collection</a></li><li class="tb-toc-h3"><a href="#b-data-preprocessing-3-step-variable-selection">B. Data preprocessing — 3-step variable selection</a></li><li class="tb-toc-h4"><a href="#step-1-drop-sparse-variables">Step 1. Drop sparse variables</a></li><li class="tb-toc-h4"><a href="#step-2-stepwise-selection-by-aic">Step 2. Stepwise selection by AIC</a></li><li class="tb-toc-h4"><a href="#step-3-independence-check-with-vif">Step 3. Independence check with VIF</a></li><li class="tb-toc-h4"><a href="#step-4-final-13-variables">Step 4. Final 13 variables</a></li><li class="tb-toc-h3"><a href="#c-imputation">C. Imputation</a></li><li class="tb-toc-h2"><a href="#model-ann-window-learning">Model — ANN + Window Learning</a></li><li class="tb-toc-h2"><a href="#results">Results</a></li><li class="tb-toc-h2"><a href="#two-years-later-the-pitfall-i-missed">Two years later — the pitfall I missed</a></li><li class="tb-toc-h3"><a href="#a-partial-fix-rl-with-distance-angle">A partial fix (RL with distance + angle)</a></li><li class="tb-toc-h2"><a href="#retrospective-then-and-now">Retrospective — then and now</a></li><li class="tb-toc-h3"><a href="#what-i-wrote-in-2019">What I wrote in 2019</a></li><li class="tb-toc-h3"><a href="#and-in-2024">And in 2024</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p>📅 A retrospective on <strong>research I did for my undergraduate thesis in November 2019</strong>. Won the <strong>Gold Award</strong> at the KSME (Korean Society of Mechanical Engineers) Fluid Mechanics Competition. Re-organized in 2024, with an honest note about a pitfall I only spotted two years later in grad school.</p>
+</blockquote>
+<p><img alt="Korean Society of Mechanical Engineers conference in Jeju, 2019" src="assets/posts/ksme-pm25-cnn-prediction/img1.jpg" width="1546" height="884" loading="lazy">
+<em>Figure 1. KSME 2019 academic conference in Jeju — Fluid Mechanics Competition gold-award ceremony.</em></p>
+<h2 id="what-i-did">What I did</h2>
+<p>Trained a <strong>neural network (ANN) to predict PM2.5 concentrations</strong>, using weather and air-quality data, <strong>6 hours and 12 hours ahead</strong>.</p>
+<p><img alt="PM2.5 prediction result, 6 hours ahead" src="assets/posts/ksme-pm25-cnn-prediction/img2.png" width="773" height="174" loading="lazy">
+<em>Figure 2. PM2.5 prediction, 6 hours ahead (conference slide).</em></p>
+<h2 id="why-i-thought-it-mattered">Why I thought it mattered</h2>
+<p>The conventional approach to PM2.5 forecasting is <strong>numerical methods</strong> (CFD + atmospheric chemistry models), which require:
+- <strong>&gt;1 month of compute</strong> + massive resources.
+- Accurate, but expensive.</p>
+<p>The neural-network approach trades some accuracy for:
+- <strong>~100k samples</strong> is enough to train.
+- Inference is near-instant after training.
+- <strong>Compute-vs-accuracy</strong> ratio is dramatically better.</p>
+<p>Goal: a model that <strong>trades some accuracy for cheap, fast short-term prediction</strong>.</p>
+<h2 id="data-pipeline">Data pipeline</h2>
+<h3 id="a-data-collection">A. Data collection</h3>
+<ul>
+<li><strong>Sources</strong>: <a href="https://www.airkorea.or.kr/">Air Korea</a> (air quality), <a href="https://data.kma.go.kr/">KMA open data portal</a> (weather)</li>
+<li><strong>Period</strong>: 2008 to Q3 2018</li>
+<li><strong>Volume</strong>: <strong>32 variables × 94,225 observations</strong></li>
+</ul>
+<p><img alt="Data collection sources" src="assets/posts/ksme-pm25-cnn-prediction/img3.png" width="953" height="496" loading="lazy">
+<em>Figure 3. Data collection and sources.</em></p>
+<h3 id="b-data-preprocessing-3-step-variable-selection">B. Data preprocessing — 3-step variable selection</h3>
+<h4 id="step-1-drop-sparse-variables">Step 1. Drop sparse variables</h4>
+<p>Removed variables with <strong>≥50% missing values</strong> (to keep training data clean).</p>
+<h4 id="step-2-stepwise-selection-by-aic">Step 2. Stepwise selection by AIC</h4>
+<p><strong>AIC (Akaike Information Criterion)</strong> balances model fit against the number of variables. Lower is better.</p>
+<p>Using stepwise selection:
+- Dropped <strong>Middle and low cloud</strong> and <strong>Sunshine hour</strong>.
+- Left with <strong>21 variables</strong>.</p>
+<p><img alt="Data preprocessing — AIC variable selection" src="assets/posts/ksme-pm25-cnn-prediction/img4.png" width="984" height="230" loading="lazy">
+<em>Figure 4. Data preprocessing — stepwise AIC variable selection.</em></p>
+<h4 id="step-3-independence-check-with-vif">Step 3. Independence check with VIF</h4>
+<p><strong>VIF (Variance Inflation Factor)</strong> measures multicollinearity. A high VIF means strong linear relationships with the other predictors — keep only one of the colinear pair.</p>
+<p>Here I combined <strong>statistical results + domain knowledge</strong>:
+- e.g., <strong>relative humidity vs. vapor pressure</strong> both had high VIF → kept <strong>vapor pressure</strong> since it's the more fundamental physical quantity (relative humidity is derived from vapor pressure and temperature).</p>
+<p><img alt="Data preprocessing — VIF independence check" src="assets/posts/ksme-pm25-cnn-prediction/img5.png" width="1085" height="306" loading="lazy">
+<em>Figure 5. Data preprocessing — VIF for independent-variable selection.</em></p>
+<h4 id="step-4-final-13-variables">Step 4. Final 13 variables</h4>
+<blockquote>
+<p><code>pm10</code> · <code>Visibility</code> · <code>SO2</code> · <code>CO</code> · <code>NO2</code> · <code>Vapor Pressure</code> · <code>O3</code> · <code>Sea level pressure</code> · <code>Temperature</code> · <code>Solar radiation</code> · <code>Total cloudy</code> · <code>Wind direction</code> · <code>Wind speed</code></p>
+</blockquote>
+<h3 id="c-imputation">C. Imputation</h3>
+<p>Used <strong>Predictive Mean Matching (PMM)</strong>. Linear-model-based imputation can produce <strong>non-physical values</strong> (e.g., negative concentrations), so I rejected it.</p>
+<p><img alt="Imputation results" src="assets/posts/ksme-pm25-cnn-prediction/img6.png" width="1002" height="493" loading="lazy">
+<em>Figure 6. PMM imputation results.</em></p>
+<h2 id="model-ann-window-learning">Model — ANN + Window Learning</h2>
+<p><img alt="NN model architecture" src="assets/posts/ksme-pm25-cnn-prediction/img7.png" width="969" height="537" loading="lazy">
+<em>Figure 7. Training model — neural-network architecture.</em></p>
+<p>A basic ANN with <strong>Window Learning</strong> on top — the standard pattern for time-series forecasting:</p>
+<blockquote>
+<p>Take <strong>72 hours of prior data</strong> as one input window → predict PM2.5 at <strong>6 / 12 / 24 hours ahead</strong>.</p>
+</blockquote>
+<p><img alt="Batch configuration" src="assets/posts/ksme-pm25-cnn-prediction/img8.png" width="1387" height="523" loading="lazy">
+<em>Figure 8. Batch configuration — 14 variables restructured, batch size 100.</em></p>
+<h2 id="results">Results</h2>
+<p><img alt="Train/test scatter" src="assets/posts/ksme-pm25-cnn-prediction/img9.png" width="820" height="554" loading="lazy">
+<em>Figure 9. Train / test scatter plots.</em></p>
+<p><img alt="Predicted vs. observed time series" src="assets/posts/ksme-pm25-cnn-prediction/img10.png" width="892" height="595" loading="lazy">
+<em>Figure 10. Predicted vs. observed PM2.5 time series.</em></p>
+<p>At the time of the 2019 presentation, the results "looked fine." Scatter R²/MAE were reasonable, and the time-series plot tracked the overall trend.</p>
+<h2 id="two-years-later-the-pitfall-i-missed">Two years later — the pitfall I missed</h2>
+<p>While revisiting the same model in 2021 (grad school), I noticed something:</p>
+<blockquote>
+<p><strong>Time lag</strong> — the model wasn't really predicting the future; it was <strong>just copying the nearest past value</strong>. The "6-hour-ahead" prediction matched the value from 6 hours <strong>before</strong> almost exactly.</p>
+</blockquote>
+<p><strong>Scatter plots hide this entirely.</strong> Points cluster well, R² looks great — but if you unfold the time series and align by timestamp, you see the prediction is just shifted back by N hours.</p>
+<h3 id="a-partial-fix-rl-with-distance-angle">A partial fix (RL with distance + angle)</h3>
+<p>In grad school I tried again with reinforcement learning:
+- Added an <strong>angle term</strong> (direction of change in time) to the loss, on top of the standard <strong>Euclidean distance</strong>.
+- The lag was reduced somewhat.
+- Didn't finish it cleanly — main research took priority.</p>
+<h2 id="retrospective-then-and-now">Retrospective — then and now</h2>
+<blockquote>
+<p>"I won gold by (unknowingly) fooling the judges."</p>
+</blockquote>
+<p>The award was real but I hadn't seen the underlying flaw. Still, what stays:
+- Building the <strong>entire pipeline</strong> (data collection → variable selection → imputation → model → eval) by hand was the real learning.
+- The statistics and neural-network fundamentals from this work are still the base I work from.
+- <strong>Wrong results are also learning</strong> — "don't trust scatter plots alone" was the lesson, and it has saved me twice since.</p>
+<h3 id="what-i-wrote-in-2019">What I wrote in 2019</h3>
+<blockquote>
+<p>"I'm excited about how AI will combine with classical fluid mechanics — multiphase flows, traditional fluids. Still studying statistics. <strong>Bayesian statistics</strong> in particular — highly recommended."</p>
+</blockquote>
+<h3 id="and-in-2024">And in 2024</h3>
+<p>Working in industry now, but the picture I drew back then still holds: environmental time series like PM2.5, multiphase / CFD + ML, Bayesian methods — all still interesting territories.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://taehyuklee.github.io/Archive/portfolio/html/project/Project%20thesis.html">Undergraduate thesis poster</a> — the actual 2019 conference slides.</li>
+<li>Data: <a href="https://www.airkorea.or.kr/">Air Korea</a> · <a href="https://data.kma.go.kr/">KMA Open Data</a></li>
+<li>Companion review post: <a class="tb-embed-card" href="en/aws-summit-2024/"><div class="tb-embed-thumb"><img src="assets/posts/aws-summit-2024/cover.jpg" alt="" loading="lazy" width="1332" height="2088"></div><div class="tb-embed-body"><div class="tb-embed-title">AWS Summit Seoul 2024 — A Backend Engineer&#39;s Field Notes (Generative AI · CMP · Middleware)</div><div class="tb-embed-excerpt">AWS Summit Seoul 2024 — walking the booths and sorting the trends into three buckets: generative-AI serving (chatbots, email, copilots, image-gen), multi-cloud CMP, and API gateway / middleware. &#39;Ideas converge — UX and performance is where companies actually win.&#39;</div><div class="tb-embed-src">taystudios.com/blog</div></div></a></li>
+</ul>
+<hr />
+<blockquote>
+<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/18" rel="nofollow noopener">taehyuklee.tistory.com/18</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/aws-summit-2024/">AWS Summit Seoul 2024 — A Backend Engineer&#39;s Field Notes (Generative AI · CMP · Middleware)</a></li><li><a href="en/career-samsung-coding-test-review/">Samsung Electronics Coding Test — 5 Attempts Recap (Samsung Research · Innovation Center · Device Platform)</a></li><li><a href="en/kaist-grad-mech-written-set1/">KAIST Mechanical Engineering Grad Written Exam — Part 1: Set 1 (5 Problems, 2019)</a></li><li><a href="en/kaist-grad-mech-written-set2/">KAIST Mechanical Engineering Grad Written Exam — Part 2: Set 2 (5 Problems, 2019)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fksme-pm25-cnn-prediction%2F&amp;text=KSME%20Conference%20Review%20%E2%80%94%20Neural-Net%20PM2.5%20Prediction%20%28Gold%20Award%2C%20KSME%20Fluid%20Mechanics%20Competition%2C%202019%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fksme-pm25-cnn-prediction%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/python-oracledb-arm-dpi-1047/">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="en/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="en/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="en/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag" href="en/tags/#Samsung">#Samsung <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (153) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

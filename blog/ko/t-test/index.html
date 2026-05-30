@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired) · Tay Blog</title>
+<meta name="description" content="두 집단 평균이 다른 게 진짜 차이인지 단순 변동성인지 — t검정의 당위성·가정(정규성·등분산성)·종류별 계산 예시.">
+<link rel="canonical" href="https://taystudios.com/blog/ko/t-test/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/t-test/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/t-test/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/t-test/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired) · Tay Blog">
+<meta property="og:description" content="두 집단 평균이 다른 게 진짜 차이인지 단순 변동성인지 — t검정의 당위성·가정(정규성·등분산성)·종류별 계산 예시.">
+<meta property="og:url" content="https://taystudios.com/blog/ko/t-test/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/t-test/cover.jpg"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/t-test/cover.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "평균치 검정 — t검정 (One / Two: Student's·Welch's / Paired)", "description": "두 집단 평균이 다른 게 진짜 차이인지 단순 변동성인지 — t검정의 당위성·가정(정규성·등분산성)·종류별 계산 예시.", "datePublished": "2024-11-03T00:00:00+09:00", "dateModified": "2024-11-03T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/t-test/"}, "image": ["https://taystudios.com/blog/assets/posts/t-test/cover.jpg"], "keywords": "통계, t검정, 평균검정, 등분산성, 정규성"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/ko/category/data/"}, {"@type": "ListItem", "position": 3, "name": "평균치 검정 — t검정 (One / Two: Student's·Welch's / Paired)", "item": "https://taystudios.com/blog/ko/t-test/"}]}</script><meta property="article:published_time" content="2024-11-03T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-03T00:00:00+09:00"><meta property="article:tag" content="통계"><meta property="article:tag" content="t검정"><meta property="article:tag" content="평균검정"><meta property="article:tag" content="등분산성"><meta property="article:tag" content="정규성">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired)</span></nav>
+        <h1 class="tb-article-title">평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired)</h1>
+        <div class="tb-article-meta">
+          <time>2024.11.03</time>
+          <span>·</span><span>#통계 #t검정 #평균검정 #등분산성 #정규성</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">목차</a></li><li class="tb-toc-h2"><a href="#_2">서론 — 의문에서 출발</a></li><li class="tb-toc-h2"><a href="#_3">본론</a></li><li class="tb-toc-h3"><a href="#1">1. 평균치 검정이란?</a></li><li class="tb-toc-h3"><a href="#2">2. 가정</a></li><li class="tb-toc-h4"><a href="#21">2.1 정규성 가정</a></li><li class="tb-toc-h4"><a href="#22">2.2 등분산성 가정</a></li><li class="tb-toc-h3"><a href="#3">3. 종류</a></li><li class="tb-toc-h4"><a href="#31-t-one-sample">3.1 일표본 t검정 (One Sample)</a></li><li class="tb-toc-h4"><a href="#32-t-two-sample">3.2 독립표본 t검정 (Two Sample)</a></li><li class="tb-toc-h4"><a href="#33-t-paired-sample">3.3 대응표본 t검정 (Paired Sample)</a></li><li class="tb-toc-h2"><a href="#_4">맺음말</a></li><li class="tb-toc-h2"><a href="#_5">참고 문헌</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<h2 id="_1">목차</h2>
+<ol>
+<li>평균치 검정의 당위성 (왜 필요한가? feat 불확실성/변동성)</li>
+<li>평균치 검정의 정의·이해</li>
+<li>가정 (정규성, 등분산성)</li>
+<li>종류 및 계산 예시</li>
+</ol>
+<h2 id="_2">서론 — 의문에서 출발</h2>
+<p>두 집단의 평균을 비교해 수치가 다르다고 정말 다른 걸까? <strong>단순 변동성(불확실성) 때문에 표본 평균이 다를 수도 있는 것 아닌가?</strong> 이 의문을 이해해야 평균치 검정, 나아가 가설검정을 이해할 수 있다.</p>
+<p><img alt="독립된 두 집단 (평균과 분산은 같다)" src="assets/posts/t-test/img1.png" width="1272" height="566" loading="lazy">
+<em>그림 1. 독립된 두 집단 (평균과 분산은 같다)</em></p>
+<p>1번·2번 약 효과를 비교하려 동일 체질 집단에 각각 투여했다고 하자. 실제로 두 약의 평균 효과·분산은 같다. 그런데 표본을 뽑아 관찰하니 1번 평균은 ①, 2번 평균은 ②에 나왔다. 표본 평균이 다르다고 효과가 다르다 결론지을 수 있을까? <strong>아니다.</strong> 효과는 같은데 변동성 때문에 평균이 다르게 나온 경우다.</p>
+<p><img alt="유의수준 5% — 3번 약물 예시 추가" src="assets/posts/t-test/img2.png" width="1878" height="570" loading="lazy">
+<em>그림 2. 유의수준 5% : 3번 약물 예시 추가</em></p>
+<p>따라서 <strong>특정 평균이 단순 변동성에 의한 일반적(95%) 결과인지, 변동성을 넘은 극단(5%) 결과인지 판단하는 것</strong>이 평균 검정의 핵심이다. 그림2에 X3 분포를 추가했다. 직관적으로 X1·X2 평균은 같다고, X3 평균은 다르다고 볼 수 있다.</p>
+<p>$$\bar{X}_1 \sim (\mu_1,\ \mathrm{std}_1) \qquad \bar{X}_2 \sim (\mu_2,\ \mathrm{std}_2)$$</p>
+<p>$$\Downarrow$$</p>
+<p>$$\bar{X}_1 - \bar{X}_2 \sim (0,\ \mathrm{std}_{\text{combined}})$$</p>
+<p>세 분포를 다 펼쳐 두 집단 평균이 같은지 판단하긴 어렵기에, <strong>검정통계량으로 평균을 비교</strong>하는 게 '평균치 검정'이다.</p>
+<blockquote>
+<p>(여담) "3번 분포 표본이 1·2번의 95% 안에 들어오면?" 반대로 "1·2번이 실제 같은데 우연히 5%에서 발견되면?" — 이 의문이 들었다면 <strong>1종·2종 오류</strong>를 이해할 준비가 된 것. (이 글 주제는 아니므로 생략)</p>
+</blockquote>
+<h2 id="_3">본론</h2>
+<h3 id="1">1. 평균치 검정이란?</h3>
+<p>두 집단의 평균이 통계적으로 유의미하게 같은지/다른지 판단하는 기법.</p>
+<h3 id="2">2. 가정</h3>
+<p>가정은 그 위에 이론이 성립한다는 의미다. 충족 여부에 따라 쓰는 기법이 달라진다.</p>
+<h4 id="21">2.1 정규성 가정</h4>
+<p>t검정은 <strong>모집단이 정규분포를 따른다</strong>는 가정하에 수행된다. 특히 표본이 작을 때 중요하다.</p>
+<p><img alt="자유도(df)가 커질수록 t분포는 Z분포에 가까워진다" src="assets/posts/t-test/img4.png" width="1096" height="658" loading="lazy">
+<em>참고 — 표본 크기(df)가 커질수록 t분포는 Z분포에 근접 (df=30이면 거의 Z분포)</em></p>
+<ul>
+<li>표본이 충분히 크면($n&gt;30$) <strong>중심극한정리</strong>로 표본평균이 정규분포에 가까워져, 모집단이 완벽한 정규성을 안 따라도 t검정을 쓸 수 있다.</li>
+</ul>
+<blockquote>
+<p><strong>Q.</strong> CLT로 표본평균이 정규분포를 따르는데 왜 Z분포 대신 t분포를 쓰나요?<br />
+<strong>A.</strong> 자유도가 커지면 어차피 t→Z이고, Z분포를 쓰려면 <strong>모집단 표준편차</strong>를 알아야 하는데 우리는 모른다.</p>
+</blockquote>
+<p>데이터가 적고 정규성을 안 따르면 <strong>비모수 검정</strong>(Mann-Whitney U, Wilcoxon 부호순위 등)을 쓴다.</p>
+<h4 id="22">2.2 등분산성 가정</h4>
+<p>독립표본 t검정(Two Sample)에만 해당한다. 서로 독립인 두 집단의 평균 차이를 비교하기 때문. (One Sample은 기준값과 비교라 등분산 체크 불가, Paired는 같은 집단의 두 측정값이라 불필요.)</p>
+<blockquote>
+<p><strong>Q.</strong> 분산이 다른 걸 알고도 Two Sample t-test를 하면?<br />
+<strong>A.</strong> 예: 신약 실험군의 분산이 매우 크다면, 평균 차이가 유의미해도 <strong>개별 환자 간 효과 차이가 크다</strong>는 뜻 — 누군가에겐 효과 없거나 악화될 수 있어 신뢰성·일관성이 떨어진다.</p>
+</blockquote>
+<h3 id="3">3. 종류</h3>
+<h4 id="31-t-one-sample">3.1 일표본 t검정 (One Sample)</h4>
+<ul>
+<li><strong>목적</strong>: 한 표본 평균이 특정 기준값과 유의미하게 다른지</li>
+<li><strong>예시</strong>: 신약 투약 후 혈압이 기준(120)과 다른지</li>
+</ul>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>환자</th>
+<th style="text-align: center;">투약 후 혈압 (mmHg)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align: center;">118</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align: center;">121</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align: center;">119</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align: center;">117</td>
+</tr>
+<tr>
+<td>5</td>
+<td style="text-align: center;">120</td>
+</tr>
+</tbody>
+</table></div>
+<p>$$t = \dfrac{\bar{x} - \mu_0}{s / \sqrt{n}}$$</p>
+<p>표본 평균이 기준 평균과의 차이가 0에서 멀수록 다르고, 0에 가까울수록 같다. 표준편차로 나눠 표준화한다. 이 통계량은 t분포를 따른다.</p>
+<p>$$t = \dfrac{\bar{x} - \mu_0}{s / \sqrt{n}} = \dfrac{119 - 120}{1.58 / \sqrt{5}} = -1.41$$
+<em>One Sample t-test t-value 계산 결과</em></p>
+<p><img alt="One Sample 가설검정 (t분포)" src="assets/posts/t-test/img7.png" width="1318" height="790" loading="lazy">
+<em>그림 3. One Sample t-test 가설 검정 (t분포)</em></p>
+<p>자유도 4인 t분포에서 p-value를 계산. 같냐 다르냐 판단이라 <strong>양측검정</strong>(각 측 유의수준 0.025). t-value −1.41 이하 영역의 p-value는 0.2313 &gt; 0.025 → 귀무가설 기각 불가 = <strong>유의미한 차이 없음(채택)</strong>.</p>
+<h4 id="32-t-two-sample">3.2 독립표본 t검정 (Two Sample)</h4>
+<ul>
+<li><strong>목적</strong>: 독립인 두 집단 평균이 유의미하게 다른지</li>
+<li><strong>예시</strong>: 약물 복용/미복용 집단의 평균 혈압 비교</li>
+</ul>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>환자</th>
+<th>집단</th>
+<th style="text-align: center;">투약 후 혈압</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>복용</td>
+<td style="text-align: center;">115</td>
+</tr>
+<tr>
+<td>2</td>
+<td>복용</td>
+<td style="text-align: center;">118</td>
+</tr>
+<tr>
+<td>3</td>
+<td>복용</td>
+<td style="text-align: center;">116</td>
+</tr>
+<tr>
+<td>4</td>
+<td>미복용</td>
+<td style="text-align: center;">122</td>
+</tr>
+<tr>
+<td>5</td>
+<td>미복용</td>
+<td style="text-align: center;">124</td>
+</tr>
+</tbody>
+</table></div>
+<p>두 집단이 등분산일 때와 아닐 때로 나뉜다.</p>
+<p><strong>a) 등분산 만족 — Student's t-test (Pooled)</strong></p>
+<p>$$t = \dfrac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\dfrac{1}{n_1} + \dfrac{1}{n_2}}}, \qquad s_p = \sqrt{\dfrac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}}$$</p>
+<p>$$t = \dfrac{\bar{X}_1 - \bar{X}_2}{\sqrt{s_p^2\left(\dfrac{1}{n_1} + \dfrac{1}{n_2}\right)}} = \dfrac{116.23 - 123}{\sqrt{2.223\left(\dfrac{1}{3} + \dfrac{1}{2}\right)}} \approx -4.91$$
+<em>Student's t-test t-value 계산 결과</em></p>
+<p><img alt="Student's t-test 가설검정 (t분포)" src="assets/posts/t-test/img10.png" width="1342" height="806" loading="lazy">
+<em>그림 4. Student's t-test 가설 검정 (t분포)</em></p>
+<p>t-value −4.91 이하 영역 p-value 0.0162 &lt; 0.025 → 귀무가설 기각, <strong>대립가설 채택</strong>(두 집단 평균이 다름).</p>
+<p><strong>b) 등분산 불만족 — Welch's t-test</strong></p>
+<p>$$t = \dfrac{\bar{x}_1 - \bar{x}_2}{\sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}}$$</p>
+<p>$$t = \dfrac{\bar{X}_1 - \bar{X}_2}{\sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}} = \dfrac{116.33 - 123}{\sqrt{\dfrac{2.33385}{3} + \dfrac{2}{2}}} \approx \dfrac{-6.67}{1.3334} \approx -5.00$$
+<em>Welch's t-test t-value 계산 결과</em></p>
+<p><img alt="Welch's t-test 가설검정" src="assets/posts/t-test/img13.png" width="1342" height="806" loading="lazy">
+<em>그림 5. Welch's t-test</em></p>
+<p>t-value −6.47 이하 영역 p-value 0.0137 &lt; 0.025 → 귀무가설 기각, <strong>대립가설 채택</strong>.</p>
+<h4 id="33-t-paired-sample">3.3 대응표본 t검정 (Paired Sample)</h4>
+<ul>
+<li><strong>목적</strong>: 동일 집단의 대응하는 두 측정값의 평균 차이 비교</li>
+<li><strong>예시</strong>: 약물 투여 전후 혈압 변화 (공정 전후·임상 전후·PT 전후 등)</li>
+</ul>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>환자</th>
+<th style="text-align: center;">투약 전</th>
+<th style="text-align: center;">투약 후</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align: center;">130</td>
+<td style="text-align: center;">120</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">119</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align: center;">135</td>
+<td style="text-align: center;">125</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align: center;">132</td>
+<td style="text-align: center;">123</td>
+</tr>
+<tr>
+<td>5</td>
+<td style="text-align: center;">129</td>
+<td style="text-align: center;">121</td>
+</tr>
+</tbody>
+</table></div>
+<p>$$t = \dfrac{\bar{d}}{s_d / \sqrt{n}}$$</p>
+<p>$$\begin{aligned}
+D_i &amp;= [\,130-120,\ 128-119,\ 135-125,\ 132-123,\ 129-121\,] = [\,10,\ 9,\ 10,\ 9,\ 8\,] \\[6pt]
+\bar{D} &amp;= \dfrac{10 + 9 + 10 + 9 + 8}{5} = 9.2 \\[6pt]
+s_D &amp;= \sqrt{\dfrac{(10-9.2)^2 + (9-9.2)^2 + (10-9.2)^2 + (9-9.2)^2 + (8-9.2)^2}{5 - 1}} \approx 0.84 \\[6pt]
+t &amp;= \dfrac{\bar{D}}{s_D / \sqrt{n}} = \dfrac{9.2}{0.84 / \sqrt{5}} \approx 24.5
+\end{aligned}$$
+<em>Paired Sample t-test t-value 계산 과정 및 결과</em></p>
+<p>대응되는 표본들의 차이값($D_i$)으로 평균·분산을 구한다.</p>
+<p><img alt="Paired t-test 가설검정" src="assets/posts/t-test/img16.png" width="1342" height="806" loading="lazy">
+<em>그림 6. Paired t-test</em></p>
+<p>t-value 24.50 이상 영역 p-value ≈ 0 &lt; 0.025 → 귀무가설 기각, <strong>대립가설 채택</strong>(전후 평균이 다름).</p>
+<h2 id="_4">맺음말</h2>
+<p>평균치 검정은 두 집단 평균 차이가 <strong>단순 변동성 때문인지, 실제 차이인지</strong> 판단하는 기법이다. 가정(정규성·등분산성)과 종류별 계산을 예시로 살펴봤다.</p>
+<hr />
+<h2 id="_5">참고 문헌</h2>
+<ol>
+<li>통계학 기본(입문) — 자유아카데미 (전공서적)</li>
+<li>자료분석 개론 — 수업 자료</li>
+<li>Wikipedia — Welch's t-test / Student's t-test</li>
+</ol>
+<blockquote>
+<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/24" rel="nofollow noopener">taehyuklee.tistory.com/24</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/t-test-python-scipy/">t검정 Python 구현 — SciPy로 일표본·독립표본(Student&#39;s·Welch&#39;s)·대응표본</a></li><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/central-limit-theorem/">중심극한정리(Central Limit Theorem) — 정의·실험·용도</a></li><li><a href="ko/confidence-interval/">신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Ft-test%2F&amp;text=%ED%8F%89%EA%B7%A0%EC%B9%98%20%EA%B2%80%EC%A0%95%20%E2%80%94%20t%EA%B2%80%EC%A0%95%20%28One%20%2F%20Two%3A%20Student%27s%C2%B7Welch%27s%20%2F%20Paired%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Ft-test%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/python-oracledb-arm-dpi-1047/">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="ko/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="ko/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="ko/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (158) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){(function r(){if(window.renderMathInElement){renderMathInElement(document.querySelector(".tb-content")||document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"$",right:"$",display:false},{left:"\\(",right:"\\)",display:false}],throwOnError:false,ignoredTags:["script","noscript","style","textarea","pre","code"]});}else{setTimeout(r,50);}})();});</script>
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

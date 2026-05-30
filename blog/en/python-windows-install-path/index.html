@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Installing Python on Windows + Setting the PATH — When &#39;python&#39; Is Not Recognized · Tay Blog</title>
+<meta name="description" content="Install Python on Windows and register the install path and the Scripts (pip) path in the system PATH so that just typing &#39;python&#39; or &#39;pip&#39; works in cmd. Covers the difference between user and system variables and the site-packages structure of pip-installed libraries.">
+<link rel="canonical" href="https://taystudios.com/blog/en/python-windows-install-path/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/python-windows-install-path/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/python-windows-install-path/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/python-windows-install-path/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Installing Python on Windows + Setting the PATH — When &#39;python&#39; Is Not Recognized · Tay Blog">
+<meta property="og:description" content="Install Python on Windows and register the install path and the Scripts (pip) path in the system PATH so that just typing &#39;python&#39; or &#39;pip&#39; works in cmd. Covers the difference between user and system variables and the site-packages structure of pip-installed libraries.">
+<meta property="og:url" content="https://taystudios.com/blog/en/python-windows-install-path/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/python-windows-install-path/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/python-windows-install-path/cover.webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Installing Python on Windows + Setting the PATH — When 'python' Is Not Recognized", "description": "Install Python on Windows and register the install path and the Scripts (pip) path in the system PATH so that just typing 'python' or 'pip' works in cmd. Covers the difference between user and system variables and the site-packages structure of pip-installed libraries.", "datePublished": "2024-10-14T00:00:00+09:00", "dateModified": "2024-10-14T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/python-windows-install-path/"}, "image": ["https://taystudios.com/blog/assets/posts/python-windows-install-path/cover.webp"], "keywords": "Python, environment-variables, PATH, pip, Windows"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Web Development", "item": "https://taystudios.com/blog/en/category/web-dev/"}, {"@type": "ListItem", "position": 3, "name": "Installing Python on Windows + Setting the PATH — When 'python' Is Not Recognized", "item": "https://taystudios.com/blog/en/python-windows-install-path/"}]}</script><meta property="article:published_time" content="2024-10-14T00:00:00+09:00"><meta property="article:modified_time" content="2024-10-14T00:00:00+09:00"><meta property="article:tag" content="Python"><meta property="article:tag" content="environment-variables"><meta property="article:tag" content="PATH"><meta property="article:tag" content="pip"><meta property="article:tag" content="Windows">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/web-dev/">Web Development</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Installing Python on Windows + Setting the PATH — When &#39;python&#39; Is Not Recognized</span></nav>
+        <h1 class="tb-article-title">Installing Python on Windows + Setting the PATH — When &#39;python&#39; Is Not Recognized</h1>
+        <div class="tb-article-meta">
+          <time>2024.10.14</time>
+          <span>·</span><span>#Python #environment-variables #PATH #pip #Windows</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#installing-python">Installing Python</a></li><li class="tb-toc-h2"><a href="#setting-the-path-environment-variable">Setting the PATH environment variable</a></li><li class="tb-toc-h3"><a href="#1-what-is-an-environment-variable">1. What is an environment variable?</a></li><li class="tb-toc-h3"><a href="#2-setting-the-path-windows">2. Setting the PATH (Windows)</a></li><li class="tb-toc-h3"><a href="#3-verifying-the-path">3. Verifying the PATH</a></li><li class="tb-toc-h3"><a href="#4-directory-structure-of-pip-installed-libraries">4. Directory structure of pip-installed libraries</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<p>After working only on Java Spring Boot projects, I had to develop in Python. This post sets up Python-related environment variables on Windows, installs the needed libraries/packages, and looks at Python's package structure. (Linux will come in a separate post.)</p>
+<h2 id="installing-python">Installing Python</h2>
+<p>Download the installer from the official site, <a href="https://www.python.org">python.org</a>.</p>
+<p><img alt="Version selection screen on the Python official site" src="assets/posts/python-windows-install-path/img1.png" width="1163" height="352" loading="lazy">
+<em>Figure 1. Choosing a Python version (as of 2024-10-13)</em></p>
+<p>I picked 3.11, the latest security release at the time, and installed it on the Windows D drive.</p>
+<p><img alt="Python installer executable (exe)" src="assets/posts/python-windows-install-path/img2.png" width="168" height="24" loading="lazy">
+<em>Figure 2. The Python installer (exe)</em></p>
+<p>During installation, I chose <strong>Customize Installation</strong> and set the install path to <code>D:\Python</code>. (Set the path wherever you like.)</p>
+<p><img alt="Directory structure of the Python install path (D:\Python)" src="assets/posts/python-windows-install-path/img3.png" width="614" height="366" loading="lazy">
+<em>Figure 3. Directory layout after installing Python</em></p>
+<h2 id="setting-the-path-environment-variable">Setting the PATH environment variable</h2>
+<h3 id="1-what-is-an-environment-variable">1. What is an environment variable?</h3>
+<p>Setting environment variables provides the OS with program paths, global settings, and system configuration so that applications and commands can reference them.</p>
+<p>The reason languages like Java and Python use environment variables is to run a compiler or interpreter executable <strong>by name rather than by absolute path</strong>. For example, to run <code>python.exe</code> you'd otherwise have to type the absolute path <code>D:\Python\python.exe</code> in cmd. Since that's inconvenient every time, we tell the OS the path so typing just <code>python</code> works. (This concept applies to Linux as well, not only Windows.)</p>
+<p><img alt="Typing python without a PATH set opens the Microsoft Store" src="assets/posts/python-windows-install-path/img4.png" width="1221" height="748" loading="lazy">
+<em>Figure 4. Running the python command without a PATH set</em></p>
+<p>Figure 4 shows that, without the PATH set, typing <code>python</code> isn't recognized and the Microsoft Store opens. (Normally you'd get a "path not found" message, but depending on your PC it may be wired like this.)</p>
+<p><img alt="Python runs when the absolute path D:\Python\python.exe is entered" src="assets/posts/python-windows-install-path/img5.png" width="1012" height="416" loading="lazy">
+<em>Figure 5. Entering the absolute path</em></p>
+<p>As in Figure 5, entering the absolute path <code>D:\Python\python.exe</code> runs Python. Now we'll tell the OS this path so that just <code>python</code> runs it.</p>
+<h3 id="2-setting-the-path-windows">2. Setting the PATH (Windows)</h3>
+<p><img alt="Searching for &quot;Edit the system environment variables&quot;" src="assets/posts/python-windows-install-path/img6.png" width="215" height="54" loading="lazy">
+<em>Figure 6. Edit the system environment variables</em></p>
+<ol>
+<li>As in Figure 6, search for <strong>"Edit the system environment variables,"</strong> or</li>
+<li>Control Panel → System and Security → System → Advanced system settings</li>
+</ol>
+<p><img alt="The Environment Variables button in System Properties" src="assets/posts/python-windows-install-path/img7.png" width="853" height="954" loading="lazy">
+<em>Figure 7. The system environment variables window</em></p>
+<p>Following the above brings up the window in Figure 7; click <strong>Environment Variables (N)</strong>.</p>
+<p><img alt="Environment Variables window split into User variables and System variables" src="assets/posts/python-windows-install-path/img8.png" width="959" height="914" loading="lazy">
+<em>Figure 8. The Environment Variables window</em></p>
+<p>As in Figure 8, the window is split into <strong>User variables (U)</strong> and <strong>System variables (S)</strong>. The difference is scope.</p>
+<ul>
+<li><strong>User variables</strong> — apply only to the current user. Each user has their own and they don't affect other users.</li>
+<li><strong>System variables</strong> — apply to all users, available system-wide.</li>
+</ul>
+<p>Here we set it under <strong>System variables</strong> so it applies to all users.</p>
+<p><img alt="Selecting and editing Path under System variables" src="assets/posts/python-windows-install-path/img9.png" width="684" height="297" loading="lazy">
+<em>Figure 9. Setting Path in System variables</em></p>
+<p>Under System variables (S), double-click <code>Path</code>, or select it and click <strong>Edit (I)</strong>.</p>
+<p><img alt="Adding a new path in the Path edit window" src="assets/posts/python-windows-install-path/img10.png" width="816" height="770" loading="lazy">
+<em>Figure 10. Adding the Python path</em></p>
+<p>Click <strong>New (N)</strong> in Figure 10 to enter a path. For Python's PATH, you add two paths.</p>
+<p><img alt="The two Python paths to add" src="assets/posts/python-windows-install-path/img11.png" width="1951" height="707" loading="lazy">
+<em>Figure 11. The two paths to add</em></p>
+<blockquote>
+<ol>
+<li><code>D:\Python</code> — where the <code>python.exe</code> executable is installed</li>
+<li><code>D:\Python\Scripts</code> — where package managers like <code>pip.exe</code> / <code>pip3.exe</code> are installed</li>
+</ol>
+</blockquote>
+<p>(The exact paths depend on your install location, but the structure — <code>python.exe</code> under the install path and pip inside <code>Scripts</code> — is the same.)</p>
+<blockquote>
+<p>💡 <strong>pip</strong> — Python's official package manager. It installs libraries like numpy, scipy, pandas, and tensorflow via <code>pip install</code>. It plays a role similar to JavaScript's npm and the dependency management of Java's Maven/Gradle.</p>
+</blockquote>
+<h3 id="3-verifying-the-path">3. Verifying the PATH</h3>
+<p>Adding and applying the two paths completes the Python environment variable setup.</p>
+<p><img alt="python and pip commands working in cmd" src="assets/posts/python-windows-install-path/img12.png" width="1171" height="661" loading="lazy">
+<em>Figure 12. PATH setup result</em></p>
+<p>As in Figure 12, it's working if <code>python</code> launches Python and <code>pip</code> prints the package manager help in cmd.</p>
+<h3 id="4-directory-structure-of-pip-installed-libraries">4. Directory structure of pip-installed libraries</h3>
+<p>Let's install libraries like numpy and pandas with <code>pip3 install</code>.</p>
+<p><img alt="Installing pandas with pip" src="assets/posts/python-windows-install-path/img13.png" width="1528" height="725" loading="lazy">
+<em>Figure 13. Installing pandas via pip</em></p>
+<p>Libraries installed this way are stored by default in <code>D:\Python\Lib\site-packages</code>. As seen in Figure 3, there is a <code>Lib</code> directory under the Python install path, and a <code>site-packages</code> folder inside it.</p>
+<p><img alt="numpy and pandas installed under site-packages" src="assets/posts/python-windows-install-path/img14.png" width="625" height="547" loading="lazy">
+<em>Figure 14. Where pip-installed libraries are stored</em></p>
+<p>In Figure 14 you can see numpy, pandas, and others installed by pip inside <code>site-packages</code>.</p>
+<blockquote>
+<p>Managing the libraries and versions installed with pip this way helps prevent conflicts and keeps things organized.</p>
+</blockquote>
+<hr />
+<p>With your environment variables set, it's time to install FastAPI and run your first server.</p>
+<a class="tb-embed-card" href="en/fastapi-getting-started/"><div class="tb-embed-thumb"><img src="assets/posts/fastapi-getting-started/cover.png" alt="" loading="lazy" width="1024" height="369"></div><div class="tb-embed-body"><div class="tb-embed-title">Getting Started with Python FastAPI — Concepts, Install &amp; Running on PyCharm (feat. uvicorn)</div><div class="tb-embed-excerpt">Why FastAPI (async / I/O-bound) and how it relates to Python&#39;s GIL, installing FastAPI and uvicorn with pip, the relationship between a web framework and a web application (ASGI/WSGI), and two ways to run the server with uvicorn in PyCharm plus the built-in Swagger UI.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<hr />
+<blockquote>
+<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/20" rel="nofollow noopener">taehyuklee.tistory.com/20</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/fastapi-getting-started/">Getting Started with Python FastAPI — Concepts, Install &amp; Running on PyCharm (feat. uvicorn)</a></li><li><a href="en/command-not-found-linux-path/">Fixing Linux &#39;command not found&#39; (ls·vi·vim) — Restoring the PATH</a></li><li><a href="en/cmd-change-drive-windows/">How to Switch to the D Drive in Windows CMD (When cd Doesn&#39;t Work)</a></li><li><a href="en/t-test-python-scipy/">Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student&#39;s·Welch&#39;s), Paired</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fpython-windows-install-path%2F&amp;text=Installing%20Python%20on%20Windows%20%2B%20Setting%20the%20PATH%20%E2%80%94%20When%20%27python%27%20Is%20Not%20Recognized" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fpython-windows-install-path%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/python-oracledb-arm-dpi-1047/">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="en/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="en/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="en/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag" href="en/tags/#Samsung">#Samsung <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (153) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

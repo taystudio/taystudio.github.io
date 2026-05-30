@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화 · Tay Blog</title>
+<meta name="description" content="EC2 아키텍처(x86→ARM/Graviton) 전환만으로 ~20%, ALB·NAT·RDS를 Nginx·NAT 인스턴스·EC2 DB로 직접 구축해 월 운영비를 최대 55%(약 200만 원) 낮춘 실제 견적과 전략.">
+<link rel="canonical" href="https://taystudios.com/blog/ko/aws-cost-optimization/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/aws-cost-optimization/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/aws-cost-optimization/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/aws-cost-optimization/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화 · Tay Blog">
+<meta property="og:description" content="EC2 아키텍처(x86→ARM/Graviton) 전환만으로 ~20%, ALB·NAT·RDS를 Nginx·NAT 인스턴스·EC2 DB로 직접 구축해 월 운영비를 최대 55%(약 200만 원) 낮춘 실제 견적과 전략.">
+<meta property="og:url" content="https://taystudios.com/blog/ko/aws-cost-optimization/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/aws-cost-optimization/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/aws-cost-optimization/cover.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화", "description": "EC2 아키텍처(x86→ARM/Graviton) 전환만으로 ~20%, ALB·NAT·RDS를 Nginx·NAT 인스턴스·EC2 DB로 직접 구축해 월 운영비를 최대 55%(약 200만 원) 낮춘 실제 견적과 전략.", "datePublished": "2026-02-12T00:00:00+09:00", "dateModified": "2026-02-12T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/aws-cost-optimization/"}, "image": ["https://taystudios.com/blog/assets/posts/aws-cost-optimization/cover.png"], "keywords": "AWS, 비용최적화, Graviton, ARM, RDS"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/ko/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화", "item": "https://taystudios.com/blog/ko/aws-cost-optimization/"}]}</script><meta property="article:published_time" content="2026-02-12T00:00:00+09:00"><meta property="article:modified_time" content="2026-02-12T00:00:00+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="비용최적화"><meta property="article:tag" content="Graviton"><meta property="article:tag" content="ARM"><meta property="article:tag" content="RDS">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</span></nav>
+        <h1 class="tb-article-title">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</h1>
+        <div class="tb-article-meta">
+          <time>2026.02.12</time>
+          <span>·</span><span>#AWS #비용최적화 #Graviton #ARM #RDS</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#1-2026-aws-ec2">1. 2026년 AWS EC2 인스턴스 단가 비교 (서울 리전)</a></li><li class="tb-toc-h3"><a href="#432">아키텍처만 바꿔도 월 $43.2가 절감된다</a></li><li class="tb-toc-h2"><a href="#2">2. 용도별 인스턴스 패밀리 선택 전략</a></li><li class="tb-toc-h2"><a href="#3">3. 관리형 서비스 대신 직접 구축으로 고정비 방어</a></li><li class="tb-toc-h3"><a href="#31-alb-nginx-reverse-proxy-1643">3.1 ALB 대신 Nginx Reverse Proxy — 월 $16.43 절감</a></li><li class="tb-toc-h3"><a href="#32-nat-gateway-nat-instance-3375">3.2 NAT Gateway 대신 NAT Instance — 월 $33.75 절감</a></li><li class="tb-toc-h3"><a href="#33-route53-com-1451">3.3 Route53 도메인 — .com 기준 약 $14.51</a></li><li class="tb-toc-h2"><a href="#4-rds-db">4. RDS 리스크 관리 및 DB 직접 설치 전략</a></li><li class="tb-toc-h2"><a href="#5-vs">5. 최종 비용 비교: 관리형 서비스 vs 직접 구축 (월)</a></li><li class="tb-toc-h3"><a href="#_1">결론: 효율적인 비용 감축</a></li><li class="tb-toc-h2"><a href="#6-arm">6. ARM 아키텍처 전환 시 주의사항</a></li><li class="tb-toc-h3"><a href="#python-oracle-db-dpi-1047">Python — Oracle DB 연동 시 &#39;DPI-1047&#39; 에러</a></li><li class="tb-toc-h2"><a href="#aws">참고 자료 (AWS 공식)</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<p>2024년부터 2026년 상반기까지 본부·팀 내 인프라를 직접 설계·구축하며 가장 집중한 것은 <strong>"불필요한 클라우드 지출을 최소화하면서도 견고한 아키텍처를 그려내는 것"</strong>이었다.</p>
+<p>이 글에서는 AWS <strong>Graviton(ARM)</strong> 아키텍처를 전략적으로 활용하고, ALB·NAT Gateway·RDS 같은 관리형 서비스를 직접 구축형으로 전환해 기존 대비 운영비를 <strong>최대 55%(월 약 200만 원)</strong>까지 낮춘 실제 견적 데이터와 노하우를 공유한다.</p>
+<h2 id="1-2026-aws-ec2">1. 2026년 AWS EC2 인스턴스 단가 비교 (서울 리전)</h2>
+<p>아래 표는 아시아 태평양(서울) 리전, Ubuntu 24.04 LTS(HVM) 기준 온디맨드 요금이다. <strong>CPU 아키텍처 선택 하나만으로 약 20%의 비용 차이</strong>가 발생함을 확인할 수 있다.</p>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>인스턴스 유형</th>
+<th>vCPU</th>
+<th>아키텍처</th>
+<th>Mem</th>
+<th>Storage</th>
+<th>네트워크</th>
+<th>per hour</th>
+<th>per month(30d)</th>
+<th>per year(12M)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>m6g.large</td>
+<td>2</td>
+<td>Arm</td>
+<td>8 GiB</td>
+<td>EBS Only</td>
+<td>Up to 10 Gbps</td>
+<td>$0.094</td>
+<td>$67.68</td>
+<td>$812.16</td>
+</tr>
+<tr>
+<td>t4g.xlarge</td>
+<td>4</td>
+<td>Arm</td>
+<td>16 GiB</td>
+<td>EBS Only</td>
+<td>Up to 5 Gbps</td>
+<td>$0.1664</td>
+<td>$119.81</td>
+<td>$1,437.70</td>
+</tr>
+<tr>
+<td>t4g.medium</td>
+<td>2</td>
+<td>Arm</td>
+<td>4 GiB</td>
+<td>EBS Only</td>
+<td>Up to 5 Gbps</td>
+<td>$0.0416</td>
+<td>$29.95</td>
+<td>$359.42</td>
+</tr>
+<tr>
+<td>t2.micro</td>
+<td>1</td>
+<td>x86</td>
+<td>1 GiB</td>
+<td>EBS Only</td>
+<td>Low~Moderate</td>
+<td>$0.0144</td>
+<td>$10.37</td>
+<td>$124.42</td>
+</tr>
+<tr>
+<td>r6g.large</td>
+<td>2</td>
+<td>Arm</td>
+<td>16 GiB</td>
+<td>EBS Only</td>
+<td>Up to 10 Gbps</td>
+<td>$0.1220</td>
+<td>$87.84</td>
+<td>$1,054.08</td>
+</tr>
+<tr>
+<td>r6g.xlarge</td>
+<td>4</td>
+<td>Arm</td>
+<td>32 GiB</td>
+<td>EBS Only</td>
+<td>Up to 10 Gbps</td>
+<td>$0.2440</td>
+<td>$175.68</td>
+<td>$2,108.16</td>
+</tr>
+<tr>
+<td>r5a.xlarge</td>
+<td>4</td>
+<td>x86</td>
+<td>32 GiB</td>
+<td>EBS Only</td>
+<td>Up to 10 Gbps</td>
+<td>$0.2720</td>
+<td>$195.84</td>
+<td>$2,350.08</td>
+</tr>
+<tr>
+<td>r6gd.xlarge</td>
+<td>4</td>
+<td>Arm</td>
+<td>32 GiB</td>
+<td>1×237 NVMe SSD</td>
+<td>Up to 10 Gbps</td>
+<td>$0.2768</td>
+<td>$199.30</td>
+<td>$2,391.55</td>
+</tr>
+<tr>
+<td>r5.xlarge</td>
+<td>4</td>
+<td>x86</td>
+<td>32 GiB</td>
+<td>EBS Only</td>
+<td>Up to 10 Gbps</td>
+<td>$0.3040</td>
+<td>$218.88</td>
+<td>$2,626.56</td>
+</tr>
+<tr>
+<td>r6g.2xlarge</td>
+<td>8</td>
+<td>Arm</td>
+<td>64 GiB</td>
+<td>EBS Only</td>
+<td>Up to 10 Gbps</td>
+<td>$0.4880</td>
+<td>$351.36</td>
+<td>$4,216.32</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="432">아키텍처만 바꿔도 월 $43.2가 절감된다</h3>
+<p>단가표를 정밀 분석하면, CPU·Memory·Storage·Network 스펙이 완전히 동일해도 아키텍처 선택에 따라 약 20% 차이가 난다.</p>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>항목</th>
+<th>r5.xlarge (x86)</th>
+<th>r6g.xlarge (Arm)</th>
+<th>차이</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vCPU / Mem</td>
+<td>4 vCPU / 32 GiB</td>
+<td>4 vCPU / 32 GiB</td>
+<td>동일</td>
+</tr>
+<tr>
+<td>Storage / Network</td>
+<td>EBS / Up to 10Gbps</td>
+<td>EBS / Up to 10Gbps</td>
+<td>동일</td>
+</tr>
+<tr>
+<td>월 운영 비용 (30일)</td>
+<td>$218.88</td>
+<td>$175.68 | **-$43.2 (약 20% 절감)**</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><img alt="AWS 콘솔에서 x86 아키텍처 선택 시 ARM(Graviton) 인스턴스 유형이 비활성화된 화면" src="assets/posts/aws-cost-optimization/img1.png" width="1077" height="552" loading="lazy">
+<em>그림 1. 아키텍처를 x86으로 설정하면 ARM 인스턴스 선택이 제한된다</em></p>
+<p>온디맨드 요금표에는 CPU 아키텍처가 표기되지 않는다. 인스턴스를 직접 생성할 때 확인할 수 있다. 예를 들어 아키텍처를 64비트(x86)로 해놓고 <code>r6gd.xlarge</code>를 고르려 하면 비활성화되는 것을 볼 수 있다.</p>
+<h2 id="2">2. 용도별 인스턴스 패밀리 선택 전략</h2>
+<p>비용 절감과 동시에 인스턴스 패밀리를 용도에 맞게 써야 한다.</p>
+<ul>
+<li><strong>t 패밀리 (버스트 가능)</strong> — 소규모 워크로드에 최적. CPU 크레딧으로 간헐적 트래픽 폭주를 저렴하게 처리.</li>
+<li><strong>m 패밀리 (다목적)</strong> — CPU·메모리·네트워크 균형이 필요할 때. 고정 성능 제공, 안정적 WAS 운영에 적합.</li>
+<li><strong>r 패밀리 (메모리 최적화)</strong> — DB·캐시(Redis)·대규모 데이터 분석 등 메모리 집약 작업에 필수. 특히 ARM 기반 <code>r6g</code>는 x86 대비 압도적 가성비.</li>
+</ul>
+<h2 id="3">3. 관리형 서비스 대신 직접 구축으로 고정비 방어</h2>
+<p>인프라 역량이 받쳐준다면 관리형 서비스를 직접 구축형으로 대체해 고정비를 크게 줄일 수 있다.</p>
+<h3 id="31-alb-nginx-reverse-proxy-1643">3.1 ALB 대신 Nginx Reverse Proxy — 월 $16.43 절감</h3>
+<p>ALB는 편리하지만 트래픽이 없어도 고정비가 발생한다. Bastion 서버에 Nginx + Certbot(SSL)을 적용해 직접 라우팅을 구성하면 ALB 비용을 완전히 제거할 수 있다.</p>
+<h3 id="32-nat-gateway-nat-instance-3375">3.2 NAT Gateway 대신 NAT Instance — 월 $33.75 절감</h3>
+<p>Private Subnet의 외부 통신을 돕는 NAT Gateway는 시간당 요금이 비싸다. Bastion 서버를 NAT Instance로 구성하면 데이터 처리 비용 포함 약 월 $33.75를 절약할 수 있다(월 약 30GB 처리 가정).</p>
+<ul>
+<li>NAT 게이트웨이 시간당 요금: USD 0.045</li>
+<li>처리 데이터 GB당 요금: USD 0.045</li>
+</ul>
+<p>NAT 인스턴스 구축 상세 가이드는 아래 두 글에서 다룬다.</p>
+<a class="tb-embed-card" href="ko/nat-instance-build-1/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-1/cover.png" alt="" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)</div><div class="tb-embed-excerpt">NAT Gateway는 월 $32+ 고정비가 든다. 비용을 아끼려 EC2(NAT Instance)로 Private Subnet 인터넷을 연결한 방법 — 1부는 AWS 커뮤니티 AMI(amzn-ami-vpc-nat)를 이용한 구성.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<a class="tb-embed-card" href="ko/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)</div><div class="tb-embed-excerpt">1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<h3 id="33-route53-com-1451">3.3 Route53 도메인 — .com 기준 약 $14.51</h3>
+<p>Route53 도메인 고정비는 줄이기 어렵다. 비중이 큰 EC2·ALB·NAT Gateway 쪽 고정비를 줄이는 게 효율적이고, 아니면 더 저렴한 도메인 등록처를 이용하면 된다.</p>
+<h2 id="4-rds-db">4. RDS 리스크 관리 및 DB 직접 설치 전략</h2>
+<p>Oracle RDS(<code>db.m5.4xlarge</code> 등)는 라이선스 포함 시 월 $2,800~$6,000에 달한다. 라이선스를 보유한 기업(BYOL)이라도 RDS 운영비는 약 $1,551.67로 만만치 않다.</p>
+<ul>
+<li><strong>RDS 관리비 vs EC2 직접 구축</strong> — 이미 라이선스가 있다면 RDS 비용은 순수 '관리 대행료'인데, 그 비용이 인스턴스 비용을 상회할 만큼 크다.</li>
+<li><strong>Oracle RDS(BYOL)의 함정</strong> — 8vCPU·32GiB 기준, SE2 라이선스를 BYOL로 가져와도 AWS에 내는 RDS 관리 비용만 약 $1,551.67.</li>
+<li><strong>ARM 기반 DB-EC2 전환</strong> — RDS 대신 8vCPU ARM·64GiB RAM·512GB Storage EC2를 선택. 월 운영비 <strong>$382.35</strong>(EBS 포함) → RDS 관리비 대비 <strong>약 75% 절감</strong>, 메모리는 오히려 2배(64GiB) 확보.</li>
+</ul>
+<h2 id="5-vs">5. 최종 비용 비교: 관리형 서비스 vs 직접 구축 (월)</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>항목</th>
+<th style="text-align: center;">수량</th>
+<th>USD/월</th>
+<th style="text-align: center;">직접 구축</th>
+<th style="text-align: center;">관리형 중심</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VPC (EIP)</td>
+<td style="text-align: center;">1</td>
+<td>21.9</td>
+<td style="text-align: center;">✔</td>
+<td style="text-align: center;">✔</td>
+<td>공통 고정비</td>
+</tr>
+<tr>
+<td>Route53 (Domain)</td>
+<td style="text-align: center;">1</td>
+<td>14.53</td>
+<td style="text-align: center;">✔</td>
+<td style="text-align: center;">✔</td>
+<td>공통 고정비</td>
+</tr>
+<tr>
+<td>EC2 (Service) ARM</td>
+<td style="text-align: center;">5</td>
+<td>175.68</td>
+<td style="text-align: center;">✔</td>
+<td style="text-align: center;">-</td>
+<td>4vCPU ARM 32GiB</td>
+</tr>
+<tr>
+<td>EC2 (Service) x86</td>
+<td style="text-align: center;">5</td>
+<td>218.88</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">✔</td>
+<td>4vCPU x86 32GiB</td>
+</tr>
+<tr>
+<td>EC2 (Bastion)</td>
+<td style="text-align: center;">1</td>
+<td>66.4</td>
+<td style="text-align: center;">✔</td>
+<td style="text-align: center;">✔</td>
+<td>관리형에선 Bastion 전용(NAT·Proxy 역할 X)</td>
+</tr>
+<tr>
+<td>EC2 (DB)</td>
+<td style="text-align: center;">1</td>
+<td>382.35</td>
+<td style="text-align: center;">✔</td>
+<td style="text-align: center;">-</td>
+<td>ARM 64GiB</td>
+</tr>
+<tr>
+<td>RDS (BYOL) Oracle</td>
+<td style="text-align: center;">1</td>
+<td>1,551.67</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">✔</td>
+<td></td>
+</tr>
+<tr>
+<td>NAT Gateway</td>
+<td style="text-align: center;">1</td>
+<td>33.75</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">✔</td>
+<td>직접 구축형은 NAT Instance로 대체</td>
+</tr>
+<tr>
+<td>ALB</td>
+<td style="text-align: center;">1</td>
+<td>16.43</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">✔</td>
+<td>직접 구축형은 Nginx Proxy로 대체</td>
+</tr>
+<tr>
+<td><strong>Total (USD/월)</strong></td>
+<td style="text-align: center;"></td>
+<td></td>
+<td style="text-align: center;"><strong>1,263.58</strong></td>
+<td style="text-align: center;"><strong>2,799.08</strong></td>
+<td>차이 약 $1,535 (최대 약 55% 절약)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="_1">결론: 효율적인 비용 감축</h3>
+<p>모든 관리형 서비스를 포기하라는 뜻이 아니다. 다만 엔지니어 역량을 활용해 <strong>선택적으로</strong>(ARM 전환·NAT/Proxy 직접 구축·DB 직접 설치) 줄이면, 한정된 예산 안에서 훨씬 고성능 아키텍처를 운영할 수 있다. 월 약 $1,535(한화 약 200만 원) 고정비 절감은 충분히 의미 있다.</p>
+<h2 id="6-arm">6. ARM 아키텍처 전환 시 주의사항</h2>
+<p>비용 절감만큼 <strong>아키텍처 전환으로 인한 서비스 중단 리스크</strong>를 피하는 것도 중요하다. ARM은 과거 호환성 문제로 도입을 꺼렸지만, 2026년 현재 대부분의 메이저 라이브러리·OS에서 안정화됐거나 진행 중이다.</p>
+<h3 id="python-oracle-db-dpi-1047">Python — Oracle DB 연동 시 'DPI-1047' 에러</h3>
+<p>Python 서비스를 ARM 인스턴스로 이전할 때 가장 흔한 문제는 <strong>드라이버 호환성</strong>이다.</p>
+<ul>
+<li><strong>문제</strong> — 기존 x86에서 쓰던 <code>cx_Oracle</code>을 ARM에서 그대로 쓰면 <code>DPI-1047</code> 에러로 DB 연결에 실패한다. 해당 라이브러리가 특정 C 라이브러리 의존성을 갖기 때문이다.</li>
+<li><strong>해결</strong> — Oracle 인스턴트 클라이언트 설치가 필요 없는 <strong><code>python-oracledb</code> Thin 모드</strong>를 사용한다. C 의존성 없이 순수 Python으로 작동해 ARM에서도 완벽히 동작한다. 상세 해결 가이드는 아래 글에서 다룬다.</li>
+</ul>
+<a class="tb-embed-card" href="ko/python-oracledb-arm-dpi-1047/"><div class="tb-embed-thumb"><img src="assets/posts/python-oracledb-arm-dpi-1047/cover.png" alt="" loading="lazy" width="1536" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</div><div class="tb-embed-excerpt">x86_64에서 잘 되던 Python–Oracle 연동이 AWS Graviton(ARM)에서 DPI-1047(libclntsh.so 못 찾음) 에러로 실패하는 원인과, Instant Client 없이 순수 Python으로 동작하는 python-oracledb Thin 모드 해결법(SQLAlchemy·native 예제).</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<h2 id="aws">참고 자료 (AWS 공식)</h2>
+<ol>
+<li><a href="https://aws.amazon.com/ko/ec2/pricing/on-demand/">AWS 온디맨드 인스턴스 요금</a></li>
+<li><a href="https://aws.amazon.com/ko/vpc/pricing/">AWS VPC 요금</a></li>
+</ol>
+<hr />
+<blockquote>
+<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/33" rel="nofollow noopener">taehyuklee.tistory.com/33</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li><li><a href="ko/nat-instance-build-2/">[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)</a></li><li><a href="ko/nat-instance-build-1/">[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Faws-cost-optimization%2F&amp;text=%5BAWS%5D%20%EC%9D%B8%ED%94%84%EB%9D%BC%20%EB%B9%84%EC%9A%A9%2055%25%20%EC%A0%88%EA%B0%90%20%EA%B0%80%EC%9D%B4%EB%93%9C%20%E2%80%94%20Graviton%28ARM%29%20%EC%A0%84%ED%99%98%EA%B3%BC%20%EA%B3%A0%EC%A0%95%EB%B9%84%20%EC%B5%9C%EC%A0%81%ED%99%94" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Faws-cost-optimization%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/python-oracledb-arm-dpi-1047/">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="ko/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="ko/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="ko/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (158) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){(function r(){if(window.renderMathInElement){renderMathInElement(document.querySelector(".tb-content")||document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"$",right:"$",display:false},{left:"\\(",right:"\\)",display:false}],throwOnError:false,ignoredTags:["script","noscript","style","textarea","pre","code"]});}else{setTimeout(r,50);}})();});</script>
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

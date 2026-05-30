@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Tay Blog</title>
+<meta name="description" content="TAYSTUDIO 운영 노트·도구 가이드·기술/커리어·쓸모있는 정보들">
+<link rel="canonical" href="https://taystudios.com/blog/ko/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Tay Blog">
+<meta property="og:description" content="TAYSTUDIO 운영 노트·도구 가이드·기술/커리어·쓸모있는 정보들">
+<meta property="og:url" content="https://taystudios.com/blog/ko/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/og-image.png"><meta name="twitter:image" content="https://taystudios.com/og-image.png">
+
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <div class="tb-content">
+
+      <section class="tb-hero">
+        <h1 class="tb-sr-only">Tay Blog</h1>
+        <p class="tb-hero-desc">TAYSTUDIO 운영 노트·도구 가이드·기술/커리어·쓸모있는 정보들</p>
+        <p class="tb-hero-meta">전체 30개의 글 · 최신순 · 1/3 페이지</p>
+      </section>
+
+      <ul class="tb-post-list"><li>
+  <a class="tb-post-card" href="ko/hypothesis-testing/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/hypothesis-testing/cover.jpg" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">data</div>
+      <h3 class="tb-post-title">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</h3>
+      <p class="tb-post-excerpt">가설검정의 직관부터 검정통계량의 의미, 귀무가설·대립가설·p-value·유의수준·임계값까지 예시 하나로 정리.</p>
+      <div class="tb-post-meta">
+        <time>2026.05.27</time>
+        <span>·</span><span class="tb-post-tags">#통계 #가설검정 #p-value</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="ko/aws-nat-gateway-guide/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/aws-nat-gateway-guide/cover.png" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">cloud / aws</div>
+      <h3 class="tb-post-title">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</h3>
+      <p class="tb-post-excerpt">Private Subnet의 EC2가 보안은 유지하면서 아웃바운드 인터넷(apt·외부 API)을 쓰게 하는 NAT Gateway — 생성·EIP 연결·라우팅까지 단계별 + 비용 분석과 NAT 인스턴스 대체 전략.</p>
+      <div class="tb-post-meta">
+        <time>2026.02.14</time>
+        <span>·</span><span class="tb-post-tags">#AWS #NAT Gateway #VPC</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="ko/aws-cost-optimization/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/aws-cost-optimization/cover.png" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">cloud / aws</div>
+      <h3 class="tb-post-title">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</h3>
+      <p class="tb-post-excerpt">EC2 아키텍처(x86→ARM/Graviton) 전환만으로 ~20%, ALB·NAT·RDS를 Nginx·NAT 인스턴스·EC2 DB로 직접 구축해 월 운영비를 최대 55%(약 200만 원) 낮춘 실제 견적과 전략.</p>
+      <div class="tb-post-meta">
+        <time>2026.02.12</time>
+        <span>·</span><span class="tb-post-tags">#AWS #비용최적화 #Graviton</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="ko/python-oracledb-arm-dpi-1047/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/python-oracledb-arm-dpi-1047/cover.png" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">errors / python</div>
+      <h3 class="tb-post-title">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</h3>
+      <p class="tb-post-excerpt">x86_64에서 잘 되던 Python–Oracle 연동이 AWS Graviton(ARM)에서 DPI-1047(libclntsh.so 못 찾음) 에러로 실패하는 원인과, Instant Client 없이 순수 Python으로 동작하는 python-oracledb Thin 모드 해결법(SQLAlchemy·native 예제).</p>
+      <div class="tb-post-meta">
+        <time>2026.02.10</time>
+        <span>·</span><span class="tb-post-tags">#python-oracledb #cx_Oracle #DPI-1047</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="ko/ec2-ssh-unprotected-private-key/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/ec2-ssh-unprotected-private-key/cover.png" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">cloud / aws</div>
+      <h3 class="tb-post-title">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</h3>
+      <p class="tb-post-excerpt">EC2에 SSH 접속 시 &#39;WARNING: UNPROTECTED PRIVATE KEY FILE&#39; — .pem 키 권한이 너무 열려서 막힌 것. chmod 400으로 즉시 해결한다.</p>
+      <div class="tb-post-meta">
+        <time>2026.02.08</time>
+        <span>·</span><span class="tb-post-tags">#AWS #EC2 #SSH</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="ko/nginx-install-ubuntu-centos/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/nginx-install-ubuntu-centos/cover.png" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">cloud / server-setup</div>
+      <h3 class="tb-post-title">Nginx 설치 가이드 — Ubuntu / CentOS (특정 버전·설정 구조·방화벽)</h3>
+      <p class="tb-post-excerpt">AWS EC2 등 클라우드 서버에 Nginx 설치 — Ubuntu(apt)·CentOS(yum) 버전별 설치, /etc/nginx 설정 구조(sites-available/enabled), UFW·firewalld·AWS 보안그룹 방화벽까지 한 번에.</p>
+      <div class="tb-post-meta">
+        <time>2026.02.08</time>
+        <span>·</span><span class="tb-post-tags">#nginx #Ubuntu #CentOS</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="ko/mssql-login-user-schema/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/mssql-login-user-schema/cover.png" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">cloud / database</div>
+      <h3 class="tb-post-title">MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교)</h3>
+      <p class="tb-post-excerpt">Oracle 경험자가 MS SQL Server로 넘어올 때 가장 헷갈리는 Login·User·Schema 3단계 구조를 Oracle(User=Schema=Login) 1단계 구조와 비교 정리. sysadmin이 dbo 스키마에 고정되는 문제와 업무용 계정 분리 해결법까지.</p>
+      <div class="tb-post-meta">
+        <time>2025.10.05</time>
+        <span>·</span><span class="tb-post-tags">#MS SQL Server #Oracle #스키마</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="ko/nat-instance-build-2/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/nat-instance-build-2/cover.png" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">cloud / aws</div>
+      <h3 class="tb-post-title">[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)</h3>
+      <p class="tb-post-excerpt">1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.</p>
+      <div class="tb-post-meta">
+        <time>2024.12.29</time>
+        <span>·</span><span class="tb-post-tags">#AWS #NAT Instance #iptables</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="ko/nat-instance-build-1/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/nat-instance-build-1/cover.png" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">cloud / aws</div>
+      <h3 class="tb-post-title">[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)</h3>
+      <p class="tb-post-excerpt">NAT Gateway는 월 $32+ 고정비가 든다. 비용을 아끼려 EC2(NAT Instance)로 Private Subnet 인터넷을 연결한 방법 — 1부는 AWS 커뮤니티 AMI(amzn-ami-vpc-nat)를 이용한 구성.</p>
+      <div class="tb-post-meta">
+        <time>2024.12.28</time>
+        <span>·</span><span class="tb-post-tags">#AWS #NAT Instance #VPC</span>
+      </div>
+    </div>
+  </a>
+</li><li>
+  <a class="tb-post-card" href="ko/t-test-python-scipy/">
+    <div class="tb-post-thumb has-img"><img src="assets/posts/t-test/cover.jpg" alt="" loading="lazy"></div>
+    <div class="tb-post-body">
+      <div class="tb-post-cat">data</div>
+      <h3 class="tb-post-title">t검정 Python 구현 — SciPy로 일표본·독립표본(Student&#39;s·Welch&#39;s)·대응표본</h3>
+      <p class="tb-post-excerpt">이전 글의 t검정 이론을 그대로 SciPy 코드로 — ttest_1samp·ttest_ind(equal_var)·ttest_rel 세 함수와 axis 옵션, 손계산과 일치 확인.</p>
+      <div class="tb-post-meta">
+        <time>2024.11.05</time>
+        <span>·</span><span class="tb-post-tags">#통계 #t검정 #Python</span>
+      </div>
+    </div>
+  </a>
+</li></ul>
+
+      <nav class="tb-pagination" aria-label="페이지"><span class="tb-page-prev tb-page-disabled">← 이전</span><span class="tb-page-nums"><span class="tb-page-num tb-page-cur">1</span><a class="tb-page-num" href="ko/p/2/">2</a><a class="tb-page-num" href="ko/p/3/">3</a></span><a class="tb-page-next" href="ko/p/2/" rel="next">다음 →</a></nav>
+
+    </div>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3><ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script></section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/python-oracledb-arm-dpi-1047/">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="ko/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="ko/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="ko/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (158) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+</body>
+</html>

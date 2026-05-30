@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Samsung Electronics Coding Test — 5 Attempts Recap (Samsung Research · Innovation Center · Device Platform) · Tay Blog</title>
+<meta name="description" content="Samsung Electronics coding test — 5 attempts across grad school (DX · Samsung Research) and post-employment (DX · DS · Device Platform). 4-hour simulation problems based on Baekjoon/codetree, Python/Java/C++ allowed. Each attempt failed differently: output format omission, language-switch trap, BFS over-engineering. Honest retrospective.">
+<link rel="canonical" href="https://taystudios.com/blog/en/career-samsung-coding-test-review/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/career-samsung-coding-test-review/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/career-samsung-coding-test-review/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/career-samsung-coding-test-review/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Samsung Electronics Coding Test — 5 Attempts Recap (Samsung Research · Innovation Center · Device Platform) · Tay Blog">
+<meta property="og:description" content="Samsung Electronics coding test — 5 attempts across grad school (DX · Samsung Research) and post-employment (DX · DS · Device Platform). 4-hour simulation problems based on Baekjoon/codetree, Python/Java/C++ allowed. Each attempt failed differently: output format omission, language-switch trap, BFS over-engineering. Honest retrospective.">
+<meta property="og:url" content="https://taystudios.com/blog/en/career-samsung-coding-test-review/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/career-samsung-coding-test-review/cover.jpg"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/career-samsung-coding-test-review/cover.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Samsung Electronics Coding Test — 5 Attempts Recap (Samsung Research · Innovation Center · Device Platform)", "description": "Samsung Electronics coding test — 5 attempts across grad school (DX · Samsung Research) and post-employment (DX · DS · Device Platform). 4-hour simulation problems based on Baekjoon/codetree, Python/Java/C++ allowed. Each attempt failed differently: output format omission, language-switch trap, BFS over-engineering. Honest retrospective.", "datePublished": "2024-10-08T00:00:00+09:00", "dateModified": "2024-10-08T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/career-samsung-coding-test-review/"}, "image": ["https://taystudios.com/blog/assets/posts/career-samsung-coding-test-review/cover.jpg"], "keywords": "Samsung, Samsung-Research, Innovation-Center, Device-Platform, new-grad, coding-test, Baekjoon, codetree, simulation, review"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Reviews", "item": "https://taystudios.com/blog/en/category/reviews/"}, {"@type": "ListItem", "position": 3, "name": "Samsung Electronics Coding Test — 5 Attempts Recap (Samsung Research · Innovation Center · Device Platform)", "item": "https://taystudios.com/blog/en/career-samsung-coding-test-review/"}]}</script><meta property="article:published_time" content="2024-10-08T00:00:00+09:00"><meta property="article:modified_time" content="2024-10-08T00:00:00+09:00"><meta property="article:tag" content="Samsung"><meta property="article:tag" content="Samsung-Research"><meta property="article:tag" content="Innovation-Center"><meta property="article:tag" content="Device-Platform"><meta property="article:tag" content="new-grad"><meta property="article:tag" content="coding-test"><meta property="article:tag" content="Baekjoon"><meta property="article:tag" content="codetree"><meta property="article:tag" content="simulation"><meta property="article:tag" content="review">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/reviews/">Reviews</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Samsung Electronics Coding Test — 5 Attempts Recap (Samsung Research · Innovation Center · Device Platform)</span></nav>
+        <h1 class="tb-article-title">Samsung Electronics Coding Test — 5 Attempts Recap (Samsung Research · Innovation Center · Device Platform)</h1>
+        <div class="tb-article-meta">
+          <time>2024.10.08</time>
+          <span>·</span><span>#Samsung #Samsung-Research #Innovation-Center #Device-Platform #new-grad #coding-test #Baekjoon #codetree #simulation #review</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#5-attempt-history">5-attempt history</a></li><li class="tb-toc-h2"><a href="#common-venues-environment">Common — venues + environment</a></li><li class="tb-toc-h2"><a href="#1st-attempt-2021-10-24-dx-samsung-research">1st attempt (2021-10-24) — DX Samsung Research</a></li><li class="tb-toc-h3"><a href="#in-the-room-dice-rolling">In the room — dice rolling</a></li><li class="tb-toc-h2"><a href="#3rd-attempt-2022-10-16-dx-samsung-research">3rd attempt (2022-10-16) — DX Samsung Research</a></li><li class="tb-toc-h3"><a href="#decisive-mistake-language-switch">Decisive mistake — language switch</a></li><li class="tb-toc-h3"><a href="#strategy-design-once-implement-once-run-once">Strategy — design once, implement once, run once</a></li><li class="tb-toc-h2"><a href="#4th-attempt-2023-10-15-ds-innovation-center">4th attempt (2023-10-15) — DS Innovation Center</a></li><li class="tb-toc-h3"><a href="#prep-simulation-conditioning">Prep — simulation conditioning</a></li><li class="tb-toc-h3"><a href="#problem-rudolphs-rebellion">Problem — &quot;Rudolph&#39;s Rebellion&quot;</a></li><li class="tb-toc-h2"><a href="#5th-attempt-2024-04-14-dx-device-platform-center">5th attempt (2024-04-14) — DX Device Platform Center</a></li><li class="tb-toc-h2"><a href="#closing">Closing</a></li><li class="tb-toc-h2"><a href="#takeaways-for-samsung-coding-test-attempters">Takeaways — for Samsung-coding-test attempters</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p>📅 Five attempts at the <strong>Samsung Electronics coding test</strong>, from grad school through full-time employment. None of them landed an offer, but each failure taught a different lesson. Not a study guide — a <strong>trap-by-trap retrospective</strong>.</p>
+<p>Companion post — Samsung-style <strong>simulation implementation modules in Java</strong>:
+<a class="tb-embed-card" href="en/career-samsung-coding-test-modules/"><div class="tb-embed-thumb"><img src="assets/posts/career-samsung-coding-test-modules/cover.jpg" alt="" loading="lazy" width="568" height="320"></div><div class="tb-embed-body"><div class="tb-embed-title">Samsung Electronics Coding Test — Recurring Implementation Modules (Java)</div><div class="tb-embed-excerpt">7 implementation modules (Java) that show up repeatedly in Samsung-style simulation problems — 90° rotation, Periodic Boundary Condition (PBC), reverse direction, multi-condition sort, BFS, spiral coords, concurrent List remove. Plus 3 traps I fell into. Based on codetree / Baekjoon past problems.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a></p>
+</blockquote>
+<h2 id="5-attempt-history">5-attempt history</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>Try</th>
+<th>Division</th>
+<th>Date</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1st</td>
+<td>DX — Samsung Research (grad school)</td>
+<td>2021-10-24 (Sun, 09:00–12:30, 3h)</td>
+<td>Failed</td>
+</tr>
+<tr>
+<td>2nd</td>
+<td>(omitted)</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>3rd</td>
+<td>DX — Samsung Research</td>
+<td>2022-10-16 (Sun, 08:30–13:00, 4h)</td>
+<td>Failed</td>
+</tr>
+<tr>
+<td>4th</td>
+<td>DS — Innovation Center</td>
+<td>2023-10-15 (Sun, 14:30–19:00, 4h)</td>
+<td>Failed</td>
+</tr>
+<tr>
+<td>5th</td>
+<td>DX — Device Platform Center</td>
+<td>2024-04-14 (Sun, 4h)</td>
+<td>Failed</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>1st, 3rd, 4th, 5th are the substantive ones. 2nd attempt omitted.</p>
+</blockquote>
+<h2 id="common-venues-environment">Common — venues + environment</h2>
+<p><strong>Venues</strong>:
+- <strong>DX division</strong> — Samsung Electronics HR Development Center
+- <strong>DS division</strong> — DS Dongtan Education Center</p>
+<p><strong>Seating</strong>:
+- Spacious individual desks with ample separation.</p>
+<p><strong>Equipment provided</strong>:
+- Personal laptop + keyboard (or desktop)
+- <strong>2 sheets of A4 paper</strong></p>
+<p><strong>Supported languages</strong>: <strong>C++ · Python · Java</strong>.</p>
+<p><strong>Library restrictions</strong> ⚠️:
+- <strong>Python</strong>: <code>sys.stdin.readline()</code> not allowed, <code>itertools</code> also restricted.
+- Other languages: minimal restrictions.</p>
+<blockquote>
+<p>If you're going with Python, prepare fast I/O alternatives and stop depending on <code>itertools</code>.</p>
+</blockquote>
+<h2 id="1st-attempt-2021-10-24-dx-samsung-research">1st attempt (2021-10-24) — DX Samsung Research</h2>
+<p><strong>Prep time</strong>: <strong>11 days</strong> (while finishing my master's thesis).</p>
+<p>Found Samsung past problems on Baekjoon OJ. Set a minimal goal: <strong>solve one problem completely</strong>. Focused on recent-problem patterns rather than full coverage.</p>
+<h3 id="in-the-room-dice-rolling">In the room — dice rolling</h3>
+<p>The problem was <strong>Baekjoon 23288 (dice rolling)</strong>.</p>
+<p>I verified 10 sample outputs by hand — <strong>all correct</strong>. Submission kept getting rejected. Minutes before the end I found it:</p>
+<blockquote>
+<p>Output needed a <strong>test-case-number prefix</strong>.</p>
+</blockquote>
+<p>Required format:</p>
+<pre class="codehilite"><code># 1 33
+# 2 61
+# 3 361
+</code></pre>
+
+<p>What I submitted:</p>
+<pre class="codehilite"><code># 33
+# 61
+# 361
+</code></pre>
+
+<blockquote>
+<p>Baekjoon's platform auto-numbers, but the Samsung exam expects you to <strong>print the case number yourself</strong>. — <strong>Failed purely on output format</strong>.</p>
+</blockquote>
+<p><strong>Lesson</strong>: Baekjoon vs. Samsung exam output formats differ. Memorize the <strong><code>Case #N</code></strong> pattern.</p>
+<h2 id="3rd-attempt-2022-10-16-dx-samsung-research">3rd attempt (2022-10-16) — DX Samsung Research</h2>
+<p><strong>Context</strong>: post-employment, my day job had shifted to Java web development.</p>
+<p>I decided to switch from <strong>Python → Java</strong> for the test — using the work language seemed like good alignment.</p>
+<p><strong>Prep time</strong>: mid-September to October (~1 month).</p>
+<h3 id="decisive-mistake-language-switch">Decisive mistake — language switch</h3>
+<p>Java requires roughly <strong>1.5× the code</strong> of Python. Same algorithm, longer source.</p>
+<p>By the test I had finished maybe <strong>8–10 problems</strong> total. Felt under-prepared.</p>
+<h3 id="strategy-design-once-implement-once-run-once">Strategy — design once, implement once, run once</h3>
+<p>Algorithm design → implementation → run.</p>
+<blockquote>
+<p>Backfired completely.</p>
+<ul>
+<li>~1h design.</li>
+<li>Implemented everything without intermediate testing.</li>
+<li>When debugging started, <strong>things broke everywhere</strong>.</li>
+<li>Validation unit was too large, root cause was invisible.</li>
+</ul>
+</blockquote>
+<p><strong>Lessons</strong>:
+- <strong>No language switches during prep</strong>. Stick with what you've practiced in.
+- <strong>Test incrementally per function</strong>. Write one function → small input → verify output → move on.
+- "Code it all, run it once" only works if you're already prepared.</p>
+<h2 id="4th-attempt-2023-10-15-ds-innovation-center">4th attempt (2023-10-15) — DS Innovation Center</h2>
+<p><strong>Context</strong>: different division (DS), different vibe.</p>
+<h3 id="prep-simulation-conditioning">Prep — simulation conditioning</h3>
+<p>Took vacation, studied <strong>20:00–24:00 nightly</strong> for 4 hours. Practiced <strong>2 problems / 4-hour windows</strong> repeatedly to match exam conditions.</p>
+<h3 id="problem-rudolphs-rebellion">Problem — "Rudolph's Rebellion"</h3>
+<p>Complex simulation:
+- Rudolph + Santas positions
+- <strong>Knockback physics</strong> (push collisions)
+- <strong>Cascading displacement</strong> (chain pushes)</p>
+<p>Implementation logic was right — but a major mistake in <strong>distance calculation</strong>.</p>
+<blockquote>
+<p>L1 (Manhattan) distance for nearest Santa = single comparison.</p>
+<p>Instead I <strong>implemented BFS</strong> with full data structures to find the nearest caller.</p>
+</blockquote>
+<p>L1 = <code>|dx| + |dy|</code> one-liner. I built a BFS instead → <strong>cascading errors</strong>.</p>
+<p><strong>Result</strong>: 10 test cases, answers diverged from <strong>case 6–7</strong>. 90 minutes of debugging left, but <strong>mental fatigue</strong> kept me from finding the root cause.</p>
+<p><strong>Lessons</strong>:
+- <strong>Keep simple things simple</strong>. Complex logic doesn't guarantee correctness on basics.
+- Pin down core unit functions (like distance) early and don't touch them.
+- <strong>Late-test fatigue</strong> is a real variable. First hour is your sharpest.</p>
+<h2 id="5th-attempt-2024-04-14-dx-device-platform-center">5th attempt (2024-04-14) — DX Device Platform Center</h2>
+<p>After moving to SK C&amp;C. Some details hazy.</p>
+<p>Prep was thin while doing the day job — failed.</p>
+<h2 id="closing">Closing</h2>
+<p>After 5 attempts I'm <strong>wrapping up the Samsung new-grad pursuit</strong>. Thanks to HR for consistently passing my application despite the repeated misses.</p>
+<blockquote>
+<p>If I ever go to Samsung now, it'll be through <strong>experienced hire</strong> channels.</p>
+<p>Companion post — Samsung-style <strong>simulation implementation modules in Java</strong>:
+<a class="tb-embed-card" href="en/career-samsung-coding-test-modules/"><div class="tb-embed-thumb"><img src="assets/posts/career-samsung-coding-test-modules/cover.jpg" alt="" loading="lazy" width="568" height="320"></div><div class="tb-embed-body"><div class="tb-embed-title">Samsung Electronics Coding Test — Recurring Implementation Modules (Java)</div><div class="tb-embed-excerpt">7 implementation modules (Java) that show up repeatedly in Samsung-style simulation problems — 90° rotation, Periodic Boundary Condition (PBC), reverse direction, multi-condition sort, BFS, spiral coords, concurrent List remove. Plus 3 traps I fell into. Based on codetree / Baekjoon past problems.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a></p>
+</blockquote>
+<h2 id="takeaways-for-samsung-coding-test-attempters">Takeaways — for Samsung-coding-test attempters</h2>
+<ul>
+<li><strong>Output format</strong>: <code>Case #N</code> or <code># N</code> style. <strong>Baekjoon-only prep is a trap</strong>.</li>
+<li><strong>Language choice</strong>: stick with what you started prep in. No last-minute switches.</li>
+<li><strong>Validation unit</strong>: per-function with small inputs. Don't "implement all, run all."</li>
+<li><strong>Keep simple simple</strong>: L1 = <code>|dx|+|dy|</code>. Don't drag in BFS.</li>
+<li><strong>Time budget</strong>: in a 4-hour test, hour 1 is your sharpest. Last hour for debugging + output verification.</li>
+<li><strong>Library limits</strong>: live without Python's <code>sys.stdin.readline()</code> and <code>itertools</code>.</li>
+</ul>
+<p>Good luck.</p>
+<hr />
+<blockquote>
+<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/16" rel="nofollow noopener">taehyuklee.tistory.com/16</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/career-samsung-coding-test-modules/">Samsung Electronics Coding Test — Recurring Implementation Modules (Java)</a></li><li><a href="en/career-sk-ax-newgrad-2023/">[New Grad] SK AX (formerly SK C&amp;C) — Coding Test + Interview (Final Offer) Recap (2023 H2)</a></li><li><a href="en/career-hyundai-carcloud-newgrad-2023/">[New Grad] Hyundai Motor — CarCloud Role — Coding Test + 1st Interview (Rejected) Recap (2023 H1)</a></li><li><a href="en/career-lg-electronics-newgrad-2022/">[New Grad] LG Electronics — Coding Test + 1st/2nd Interview (Rejected) Recap (2022 H2)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fcareer-samsung-coding-test-review%2F&amp;text=Samsung%20Electronics%20Coding%20Test%20%E2%80%94%205%20Attempts%20Recap%20%28Samsung%20Research%20%C2%B7%20Innovation%20Center%20%C2%B7%20Device%20Platform%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fcareer-samsung-coding-test-review%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/python-oracledb-arm-dpi-1047/">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="en/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="en/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="en/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag" href="en/tags/#Samsung">#Samsung <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (153) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

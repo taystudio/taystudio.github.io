@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>The Central Limit Theorem — Definition, Experiments, and Uses · Tay Blog</title>
+<meta name="description" content="As the sample size grows, the sample mean converges to a normal distribution for any population — verified with five distributions, plus why the CLT matters for estimation and confidence intervals.">
+<link rel="canonical" href="https://taystudios.com/blog/en/central-limit-theorem/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/central-limit-theorem/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/central-limit-theorem/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/central-limit-theorem/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="The Central Limit Theorem — Definition, Experiments, and Uses · Tay Blog">
+<meta property="og:description" content="As the sample size grows, the sample mean converges to a normal distribution for any population — verified with five distributions, plus why the CLT matters for estimation and confidence intervals.">
+<meta property="og:url" content="https://taystudios.com/blog/en/central-limit-theorem/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/central-limit-theorem/cover.jpg"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/central-limit-theorem/cover.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "The Central Limit Theorem — Definition, Experiments, and Uses", "description": "As the sample size grows, the sample mean converges to a normal distribution for any population — verified with five distributions, plus why the CLT matters for estimation and confidence intervals.", "datePublished": "2024-11-03T00:00:00+09:00", "dateModified": "2024-11-03T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/central-limit-theorem/"}, "image": ["https://taystudios.com/blog/assets/posts/central-limit-theorem/cover.jpg"], "keywords": "statistics, central-limit-theorem, CLT, normal-distribution, t-distribution"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "The Central Limit Theorem — Definition, Experiments, and Uses", "item": "https://taystudios.com/blog/en/central-limit-theorem/"}]}</script><meta property="article:published_time" content="2024-11-03T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-03T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="central-limit-theorem"><meta property="article:tag" content="CLT"><meta property="article:tag" content="normal-distribution"><meta property="article:tag" content="t-distribution">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">The Central Limit Theorem — Definition, Experiments, and Uses</span></nav>
+        <h1 class="tb-article-title">The Central Limit Theorem — Definition, Experiments, and Uses</h1>
+        <div class="tb-article-meta">
+          <time>2024.11.03</time>
+          <span>·</span><span>#statistics #central-limit-theorem #CLT #normal-distribution #t-distribution</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#what-is-the-central-limit-theorem">What is the Central Limit Theorem?</a></li><li class="tb-toc-h3"><a href="#the-5-distributions-tested">The 5 distributions tested</a></li><li class="tb-toc-h2"><a href="#clt-experiments">CLT Experiments</a></li><li class="tb-toc-h2"><a href="#so-where-is-the-clt-used">So Where Is the CLT Used?</a></li><li class="tb-toc-h2"><a href="#conclusion">Conclusion</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<h2 id="what-is-the-central-limit-theorem">What is the Central Limit Theorem?</h2>
+<p>It's the theorem that <strong>if the sample size is large enough, the distribution of the sample mean approaches a normal distribution regardless of the population's distribution.</strong></p>
+<p><img alt="As sample size n grows, the distribution of the sample mean becomes normal" src="assets/posts/central-limit-theorem/img1.png" width="2160" height="696" loading="lazy">
+<em>Figure 1. Sample mean distribution (as n grows)</em></p>
+<p>Even drawing X from an arbitrary distribution, as the sample size $n$ grows the distribution of the sample mean approaches normal. This distribution of the sample mean is written as:</p>
+<p>$$\bar{X} \sim N\!\left(\mu,\ \dfrac{\sigma^2}{n}\right)$$
+<em>Eq. 1. Distribution of the sample mean</em></p>
+<p><img alt="Sampling from the population" src="assets/posts/central-limit-theorem/img3.png" width="1898" height="1242" loading="lazy">
+<em>Figure 2. Sampling from the population</em></p>
+<p>Let the number of samplings be $M$ and the size drawn at once (number of samples) be $N$. Fixing $M=500$ and increasing $N=1, 30, 300, 3000$, I sampled from five distributions.</p>
+<h3 id="the-5-distributions-tested">The 5 distributions tested</h3>
+<ol>
+<li>Uniform</li>
+<li>Gaussian</li>
+<li>F distribution</li>
+<li>Chi-squared</li>
+<li>Bernoulli</li>
+</ol>
+<h2 id="clt-experiments">CLT Experiments</h2>
+<p><img alt="At M=500, N=1" src="assets/posts/central-limit-theorem/img4.png" width="2136" height="1204" loading="lazy">
+<em>Figure 3. M=500, N=1</em></p>
+<p>At $N=1$, the uniform, F, and Bernoulli look very different from Gaussian. (Chi-squared is relatively similar, and Gaussian is naturally normal.)</p>
+<p><img alt="N=30 (M=500)" src="assets/posts/central-limit-theorem/img5.png" width="2116" height="1206" loading="lazy">
+<em>Figure 4. N=30 (M=500)</em></p>
+<p>At $N=30$, the uniform, F, and Bernoulli also gradually shift toward a Gaussian shape.</p>
+<blockquote>
+<p><strong>The meaning of sample size 30</strong> — with a sample size of 30 or more, sampling from any shape of distribution tends to make the sample mean converge to a normal distribution.</p>
+</blockquote>
+<p><img alt="N=300 (M=500)" src="assets/posts/central-limit-theorem/img6.png" width="2120" height="1208" loading="lazy">
+<em>Figure 5. N=300 (M=500)</em></p>
+<p><img alt="N=3000 (M=500)" src="assets/posts/central-limit-theorem/img7.png" width="2130" height="1200" loading="lazy">
+<em>Figure 6. N=3000 (M=500)</em></p>
+<p>As $N$ grows further, it fits the normal distribution ever more precisely.</p>
+<h2 id="so-where-is-the-clt-used">So Where Is the CLT Used?</h2>
+<p><img alt="Uses of the Central Limit Theorem" src="assets/posts/central-limit-theorem/img8.png" width="2148" height="1274" loading="lazy">
+<em>Figure 7. Uses of the Central Limit Theorem</em></p>
+<p>One important goal of statistics is to <strong>estimate the mean, the representative value of a group.</strong> In reality, the distribution shape of the subject of interest is usually unknown, but the <strong>CLT tells us the sample mean approaches a normal distribution as the sample size $N$ grows,</strong> which is a big hope for analysis. Grow $N$ enough and the sample mean follows a normal distribution, enabling parameter estimation and confidence intervals. However, if the population standard deviation $\sigma$ is unknown, we use the <strong>t-distribution</strong> instead of the normal.</p>
+<p><img alt="The relationship between the t-distribution and the z (normal) distribution" src="assets/posts/central-limit-theorem/img9.png" width="1096" height="668" loading="lazy">
+<em>Figure 8. The relationship between the t-distribution and the z (normal) distribution</em></p>
+<p>The t-distribution is based on the sample standard deviation, so it can be drawn from sample information alone. The larger the degrees of freedom (df), the closer it gets to the Z distribution, becoming nearly identical at df=30 (about $N=31$). So for a mean test, if $n&gt;30$ you may use either the t- or normal distribution, and below 30 a nonparametric test is recommended.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>If $N$ is 30 or more, the distribution of the sample mean approaches normal by the CLT, but since we can't know the actual Z distribution, we use the t-distribution. When $N \geq 30$, the t-distribution is also close to normal, so using the t-distribution is fine. In other words, the normality assumption matters when the sample is small, but as it grows the CLT makes the t-distribution sufficient.</p>
+<hr />
+<h2 id="references">References</h2>
+<ol>
+<li>Basic Statistics (Introduction) — Jayu Academy (textbook)</li>
+</ol>
+<blockquote>
+<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/25" rel="nofollow noopener">taehyuklee.tistory.com/25</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/t-test-python-scipy/">Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student&#39;s·Welch&#39;s), Paired</a></li><li><a href="en/t-test/">Testing Means — the t-test (One / Two: Student&#39;s·Welch&#39;s / Paired)</a></li><li><a href="en/confidence-interval/">Confidence Intervals — Meaning, Intuition, and a Common Misconception</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fcentral-limit-theorem%2F&amp;text=The%20Central%20Limit%20Theorem%20%E2%80%94%20Definition%2C%20Experiments%2C%20and%20Uses" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fcentral-limit-theorem%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/python-oracledb-arm-dpi-1047/">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="en/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="en/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="en/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag" href="en/tags/#Samsung">#Samsung <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (153) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){(function r(){if(window.renderMathInElement){renderMathInElement(document.querySelector(".tb-content")||document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"$",right:"$",display:false},{left:"\\(",right:"\\)",display:false}],throwOnError:false,ignoredTags:["script","noscript","style","textarea","pre","code"]});}else{setTimeout(r,50);}})();});</script>
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

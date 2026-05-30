@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Designing a Distributed Unique ID Generator — Twitter Snowflake (Java Implementation) · Tay Blog</title>
+<meta name="description" content="A 64-bit unique ID generator that doesn&#39;t collide even when many servers generate IDs at once — the design intent of Twitter Snowflake (Sign·TimeStamp·DataCenter·Server·Serial, 5 segments), a Java bit-operation implementation, and a 10,000 TPS test architecture (Nginx·Netty·MongoDB).">
+<link rel="canonical" href="https://taystudios.com/blog/en/snowflake-id-generator/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/snowflake-id-generator/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/snowflake-id-generator/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/snowflake-id-generator/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Designing a Distributed Unique ID Generator — Twitter Snowflake (Java Implementation) · Tay Blog">
+<meta property="og:description" content="A 64-bit unique ID generator that doesn&#39;t collide even when many servers generate IDs at once — the design intent of Twitter Snowflake (Sign·TimeStamp·DataCenter·Server·Serial, 5 segments), a Java bit-operation implementation, and a 10,000 TPS test architecture (Nginx·Netty·MongoDB).">
+<meta property="og:url" content="https://taystudios.com/blog/en/snowflake-id-generator/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/snowflake-id-generator/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/snowflake-id-generator/cover.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Designing a Distributed Unique ID Generator — Twitter Snowflake (Java Implementation)", "description": "A 64-bit unique ID generator that doesn't collide even when many servers generate IDs at once — the design intent of Twitter Snowflake (Sign·TimeStamp·DataCenter·Server·Serial, 5 segments), a Java bit-operation implementation, and a 10,000 TPS test architecture (Nginx·Netty·MongoDB).", "datePublished": "2024-06-12T00:00:00+09:00", "dateModified": "2024-06-12T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/snowflake-id-generator/"}, "image": ["https://taystudios.com/blog/assets/posts/snowflake-id-generator/cover.png"], "keywords": "system-design, Snowflake, distributed-systems, unique-ID, Java, concurrency"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Study", "item": "https://taystudios.com/blog/en/category/study/"}, {"@type": "ListItem", "position": 3, "name": "Designing a Distributed Unique ID Generator — Twitter Snowflake (Java Implementation)", "item": "https://taystudios.com/blog/en/snowflake-id-generator/"}]}</script><meta property="article:published_time" content="2024-06-12T00:00:00+09:00"><meta property="article:modified_time" content="2024-06-12T00:00:00+09:00"><meta property="article:tag" content="system-design"><meta property="article:tag" content="Snowflake"><meta property="article:tag" content="distributed-systems"><meta property="article:tag" content="unique-ID"><meta property="article:tag" content="Java"><meta property="article:tag" content="concurrency">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/study/">Study</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Designing a Distributed Unique ID Generator — Twitter Snowflake (Java Implementation)</span></nav>
+        <h1 class="tb-article-title">Designing a Distributed Unique ID Generator — Twitter Snowflake (Java Implementation)</h1>
+        <div class="tb-article-meta">
+          <time>2024.06.12</time>
+          <span>·</span><span>#system-design #Snowflake #distributed-systems #unique-ID #Java #concurrency</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#intro-the-problem">Intro — The Problem</a></li><li class="tb-toc-h2"><a href="#approach-snowflake-among-four-options">Approach — Snowflake, among four options</a></li><li class="tb-toc-h2"><a href="#implementation-java">Implementation (Java)</a></li><li class="tb-toc-h2"><a href="#test-environment">Test Environment</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p>📚 <strong>Book</strong>: System Design Interview Vol. 1 — by Alex Xu. This post is a study note on Chapter 7.</p>
+</blockquote>
+<h2 id="intro-the-problem">Intro — The Problem</h2>
+<blockquote>
+<p>A relatively large traffic load occurs and must be handled. (Assume we need to insert 10,000 IDs per second.)</p>
+</blockquote>
+<p>Handling 10,000 RPS (TPS) on a single server's application can cause overload. So we cluster multiple servers with the same function to boost performance and distribute requests across several application servers.</p>
+<p>If each application sends inserts to the DB and the ID climbs by <code>Auto-Increment</code>, <strong>a race condition can cause ID collisions</strong> (assume the transaction isolation level isn't strict, for performance). Chapter 7 covers a generator that produces a <strong>unique ID</strong> even when different servers generate IDs.</p>
+<p>The ID generator's requirements:</p>
+<ol>
+<li><strong>Unique ID</strong></li>
+<li><strong>Numeric type</strong></li>
+<li>The ID must be <strong>64 bits</strong> (within 16 hex characters)</li>
+<li>IDs must be <strong>sortable by date</strong> of issuance</li>
+<li>It must handle <strong>10,000 TPS</strong></li>
+</ol>
+<h2 id="approach-snowflake-among-four-options">Approach — Snowflake, among four options</h2>
+<p>The book presents four options: <strong>UUID, multi-master replication, ticket server, and Twitter Snowflake.</strong> Each has plenty to discuss, but this post covers the headline <strong>Twitter Snowflake</strong> technique.</p>
+<p>Snowflake structurally eliminates concurrency issues by <strong>embedding the elements that could cause them directly into the ID.</strong></p>
+<p><img alt="Twitter Snowflake's 64-bit ID layout — Sign·TimeStamp·DC ID·Server ID·Serial Num, 5 segments" src="assets/posts/snowflake-id-generator/img1.png" width="1724" height="278" loading="lazy">
+<em>Figure 1. Snowflake ID layout</em></p>
+<p>Snowflake is 64 bits, split into 5 segments. Let's go through each segment and follow how concurrency is solved through ID structure alone.</p>
+<ul>
+<li><strong>① Sign — 1 bit</strong> : unused for now, reserved for sign (negative/positive) later.</li>
+<li><strong>② TimeStamp — 41 bits</strong> : milliseconds elapsed since the epoch. Snowflake's epoch is <code>Nov 04, 2010, 01:42:54 UTC</code> = <code>1288834974657 ms</code>.</li>
+<li><strong>③ DataCenter ID — 5 bits</strong> : 2⁵ = 32 data centers supported.</li>
+<li><strong>④ Server ID — 5 bits</strong> : 32 servers per data center. 32 × 32 = 1024 servers total.</li>
+<li><strong>⑤ Serial Num — 12 bits</strong> : within the same server, if multiple IDs are generated within 1 ms it increments by 1, and resets to 0 once 1 ms passes.</li>
+</ul>
+<blockquote>
+<p>💡 <strong>An elegant idea</strong> — solve the problem by spelling out every potentially-concurrent element as part of the ID.</p>
+<ol>
+<li>Put the time in the ID to distinguish them. But what if multiple data centers generate at the same time? → branch by <strong>DC ID.</strong></li>
+<li>What if several servers in one data center generate at the same time? → branch by <strong>Server ID.</strong></li>
+<li>What if the same server generates concurrently at the same time? → branch by <strong>Serial Num.</strong></li>
+</ol>
+<p>This way the <strong>ID generation itself is unique</strong> with no need to check DC/Server in application logic. (However, the case where concurrent requests land with the same Serial Num must be handled in the ID Generator.)</p>
+</blockquote>
+<h2 id="implementation-java">Implementation (Java)</h2>
+<p>A generator that bit-shifts each of the 5 segments into a single 64-bit ID and returns it as a decimal <code>Long</code>.</p>
+<pre class="codehilite"><code class="language-java">import java.time.LocalDateTime;
+import java.time.ZoneId;
+
+public class SnowFlakeIdGenerator {
+
+    // Twitter's epoch expressed in ms
+    private final long twEpoch = 1288834974657L;
+
+    // Layout: TimeStamp 41bit, Server ID 5bit, DC ID 5bit, Serial 12bit
+    private final long timestampBits = 41L;
+    private final long serverIdBits = 5L;
+    private final long datacenterIdBits = 5L;
+    private final long serialBits = 12L;
+
+    // Bit shifts — precompute how far left to shift each segment
+    private final long serialIdShiftFromRight = serialBits;
+    private final long datacenterIdShiftFromRight = serialBits + serverIdBits;
+    private final long timestampLeftShiftFromRight = serialBits + serverIdBits + datacenterIdBits;
+    private final long signLeftShiftFromRight = serialBits + serverIdBits + datacenterIdBits + timestampBits;
+
+    // Mask to reset serialNum to 0 when it wraps around
+    private final long serialMask = -1L ^ (-1L &lt;&lt; serialBits);
+
+    private long oldTimestamp = -1L;
+    private long serialNum = 1L;
+
+    // synchronized since many requests can hit within the same ms
+    public synchronized long generateNewId(long serverId, long dataCenterId) throws Exception {
+
+        long timestamp = getCurrentTimeStamp();   // current time (ms)
+
+        long signedId = 1L;
+        long timestampId = timestamp - twEpoch;
+
+        // Increment the serial number
+        if (timestamp == oldTimestamp) {
+            // reset serialNum to 0 when it wraps
+            serialNum = (serialNum + 1) &amp; serialMask;
+
+            // if all 4096 (2^12) are used within 1 ms, wait for the next ms
+            if (serialNum == 0) {
+                long newTime = getCurrentTimeStamp();
+                while (timestamp != newTime) {
+                    newTime = getCurrentTimeStamp();
+                }
+            }
+        } else {
+            serialNum = 1L;   // reset when the time changes
+        }
+
+        oldTimestamp = timestamp;
+
+        // shift the 5 segments and combine into one 64-bit ID
+        long snowFlakeId =
+                signedId &lt;&lt; signLeftShiftFromRight |
+                timestampId &lt;&lt; timestampLeftShiftFromRight |
+                dataCenterId &lt;&lt; datacenterIdShiftFromRight |
+                serverId &lt;&lt; serialIdShiftFromRight |
+                serialNum;
+
+        return snowFlakeId;
+    }
+
+    private long getCurrentTimeStamp() {
+        // unify with ZoneId since it can differ per data center
+        ZoneId zoneId = ZoneId.of(&quot;Asia/Seoul&quot;);
+        return LocalDateTime.now().atZone(zoneId).toInstant().toEpochMilli();
+    }
+}
+</code></pre>
+
+<p>I verified the result in both bits and decimal. (Setting the leading Sign to 1 makes the decimal representation negative.)</p>
+<pre class="codehilite"><code class="language-text">binary  : 1001100011111100110110001011011111001111000000100001000000000001
+decimal : -7422819801849786367
+</code></pre>
+
+<p>I used it by converting the decimal value to a <code>String</code> and putting it into the ID on insert.</p>
+<h2 id="test-environment">Test Environment</h2>
+<p>Now it's time to expose this ID Generator to a <strong>10,000 TPS</strong> environment and verify it inserts without duplicates. I set up the test environment as follows.</p>
+<p><img alt="ID Generator test architecture — Apache Bench → Nginx (LB) → Netty cluster → MongoDB" src="assets/posts/snowflake-id-generator/img2.png" width="877" height="486" loading="lazy">
+<em>Figure 2. ID Generator test architecture</em></p>
+<blockquote>
+<p>I built a home cloud server and made it reachable via SSH from outside. With 6 PCs at home, the above setup is possible over a private network.</p>
+</blockquote>
+<ol>
+<li><strong>Apache Bench</strong> — a performance tester that can send n requests with concurrency.</li>
+<li><strong>Nginx</strong> — a classic web server, used here as a <strong>Reverse Proxy (load balancer).</strong></li>
+<li><strong>Nexus Repository</strong> — delivers the Id-Generator jar built above to the application.</li>
+<li><strong>Netty</strong> — instead of Spring Boot's default embedded Tomcat, I used the <strong>event-loop</strong> Netty server for performance.</li>
+<li><strong>MongoDB</strong> — the DB. I used the non-blocking <code>mongo-reactive-db</code> ORM.</li>
+</ol>
+<p>There's a lot to say about each component, but this post only introduces the test setup. I'll share the performance test results in a follow-up post.</p>
+<p>Of the above, <strong>installing and version-pinning Nginx</strong> is covered in detail in the post below.</p>
+<a class="tb-embed-card" href="en/nginx-install-ubuntu-centos/"><div class="tb-embed-thumb"><img src="assets/posts/nginx-install-ubuntu-centos/cover.png" alt="" loading="lazy" width="1536" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall)</div><div class="tb-embed-excerpt">Install Nginx on a cloud server like AWS EC2 — version-specific installs on Ubuntu (apt) and CentOS (yum), the /etc/nginx config structure (sites-available/enabled), and firewalls (UFW, firewalld, AWS security groups) all in one.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<hr />
+<blockquote>
+<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/10" rel="nofollow noopener">taehyuklee.tistory.com/10</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/career-samsung-coding-test-modules/">Samsung Electronics Coding Test — Recurring Implementation Modules (Java)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fsnowflake-id-generator%2F&amp;text=Designing%20a%20Distributed%20Unique%20ID%20Generator%20%E2%80%94%20Twitter%20Snowflake%20%28Java%20Implementation%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fsnowflake-id-generator%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/python-oracledb-arm-dpi-1047/">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="en/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="en/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="en/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag" href="en/tags/#Samsung">#Samsung <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (153) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

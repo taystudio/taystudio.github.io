@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>KAIST 기계공학과 대학원 필기시험 후기 (1) — 첫 번째 세트 5문제 복기 (2019) · Tay Blog</title>
+<meta name="description" content="2019년 8월 KAIST 기계공학과 대학원 1차 필기시험 — 4시간(2+2)·5과목·각 세트당 5문제. 첫 번째 세트: 종단속도 ODE, Von-Mises stress, Work&amp;Energy, Bernoulli+Energy eq, hydrostatic force 정수력학. 합격(1차) → 면접 불합격.">
+<link rel="canonical" href="https://taystudios.com/blog/ko/kaist-grad-mech-written-set1/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/kaist-grad-mech-written-set1/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/kaist-grad-mech-written-set1/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/kaist-grad-mech-written-set1/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="KAIST 기계공학과 대학원 필기시험 후기 (1) — 첫 번째 세트 5문제 복기 (2019) · Tay Blog">
+<meta property="og:description" content="2019년 8월 KAIST 기계공학과 대학원 1차 필기시험 — 4시간(2+2)·5과목·각 세트당 5문제. 첫 번째 세트: 종단속도 ODE, Von-Mises stress, Work&amp;Energy, Bernoulli+Energy eq, hydrostatic force 정수력학. 합격(1차) → 면접 불합격.">
+<meta property="og:url" content="https://taystudios.com/blog/ko/kaist-grad-mech-written-set1/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/kaist-grad-mech-written-set1/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/kaist-grad-mech-written-set1/cover.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "KAIST 기계공학과 대학원 필기시험 후기 (1) — 첫 번째 세트 5문제 복기 (2019)", "description": "2019년 8월 KAIST 기계공학과 대학원 1차 필기시험 — 4시간(2+2)·5과목·각 세트당 5문제. 첫 번째 세트: 종단속도 ODE, Von-Mises stress, Work&Energy, Bernoulli+Energy eq, hydrostatic force 정수력학. 합격(1차) → 면접 불합격.", "datePublished": "2024-05-17T00:00:00+09:00", "dateModified": "2024-05-17T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/kaist-grad-mech-written-set1/"}, "image": ["https://taystudios.com/blog/assets/posts/kaist-grad-mech-written-set1/cover.png"], "keywords": "KAIST, 대학원, 기계공학, 입시, 필기시험, 전공시험, 수학, 고체역학, 동역학, 열역학, 유체역학, 후기"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Reviews", "item": "https://taystudios.com/blog/ko/category/reviews/"}, {"@type": "ListItem", "position": 3, "name": "KAIST 기계공학과 대학원 필기시험 후기 (1) — 첫 번째 세트 5문제 복기 (2019)", "item": "https://taystudios.com/blog/ko/kaist-grad-mech-written-set1/"}]}</script><meta property="article:published_time" content="2024-05-17T00:00:00+09:00"><meta property="article:modified_time" content="2024-05-17T00:00:00+09:00"><meta property="article:tag" content="KAIST"><meta property="article:tag" content="대학원"><meta property="article:tag" content="기계공학"><meta property="article:tag" content="입시"><meta property="article:tag" content="필기시험"><meta property="article:tag" content="전공시험"><meta property="article:tag" content="수학"><meta property="article:tag" content="고체역학"><meta property="article:tag" content="동역학"><meta property="article:tag" content="열역학"><meta property="article:tag" content="유체역학"><meta property="article:tag" content="후기">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/reviews/">Reviews</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">KAIST 기계공학과 대학원 필기시험 후기 (1) — 첫 번째 세트 5문제 복기 (2019)</span></nav>
+        <h1 class="tb-article-title">KAIST 기계공학과 대학원 필기시험 후기 (1) — 첫 번째 세트 5문제 복기 (2019)</h1>
+        <div class="tb-article-meta">
+          <time>2024.05.17</time>
+          <span>·</span><span>#KAIST #대학원 #기계공학 #입시 #필기시험 #전공시험 #수학 #고체역학 #동역학 #열역학 #유체역학 #후기</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">시험 개요</a></li><li class="tb-toc-h2"><a href="#1q-ode">1Q — 수학: 기본적인 ODE (종단속도)</a></li><li class="tb-toc-h2"><a href="#2q-stress-tensor-factor-of-safety">2Q — 고체역학: Stress 해석 / Tensor / Factor of Safety</a></li><li class="tb-toc-h2"><a href="#3q-rigid-body-work-energy">3Q — 동역학: Rigid Body — Work &amp;amp; Energy</a></li><li class="tb-toc-h2"><a href="#4q-energy-equation-isentropic-process">4Q — 열역학: Energy Equation + Isentropic Process (유체랑 결합)</a></li><li class="tb-toc-h2"><a href="#5q-hydrostatic-force-on-curved-surface">5Q — 유체역학: Hydrostatic Force on Curved Surface (정수력학)</a></li><li class="tb-toc-h2"><a href="#_2">첫 번째 세트 정리</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p>📅 <strong>2019년 8월 5일</strong> KAIST 기계공학과 대학원 1차 전공시험 후기. 원래 2019년 네이버 블로그에 적었던 글을 정리해서 옮김. 1차 필기 <strong>합격</strong> → 2차 면접 <strong>불합격</strong>. 면접까지의 전 과정을 누군가에게 참고가 될 수 있게 기록.</p>
+</blockquote>
+<p><img alt="1차 필기 합격 통지" src="assets/posts/kaist-grad-mech-written-set1/img1.png" width="771" height="106" loading="lazy">
+<em>1차 전공시험 합격 통지</em></p>
+<h2 id="_1">시험 개요</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>항목</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>시험일</strong></td>
+<td>2019년 8월 5일</td>
+</tr>
+<tr>
+<td><strong>시험과목</strong></td>
+<td>수학 (해석학·선형대수), 고체역학, 동역학, 열역학, 유체역학 — <strong>5과목</strong></td>
+</tr>
+<tr>
+<td><strong>시험시간</strong></td>
+<td><strong>총 4시간</strong> — 1세트 2시간 + 휴식 20분 + 2세트 2시간</td>
+</tr>
+<tr>
+<td><strong>세트당 문제 수</strong></td>
+<td>5문제 (과목당 1문제) — 총 10문제</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>문제 구성</strong>: 한 문제당 (a)~(d) 꼬리문제 3~5개. 평균 난이도는 교과서 예제·연습문제 수준, 몇 과목은 살짝 더 사고 필요.</p>
+<blockquote>
+<p>결론적으로 1차 필기는 <strong>합격</strong>, 2차 면접에서 불합격. 그래도 같은 길 준비하는 분께 도움이 될 거라 생각해 출제 경향·풀이 접근 정리.</p>
+</blockquote>
+<p>이 글은 <strong>첫 번째 세트 5문제</strong>의 복기. 두 번째 세트는 다음 글에서.</p>
+<a class="tb-embed-card" href="ko/kaist-grad-mech-written-set2/"><div class="tb-embed-thumb"><img src="assets/posts/kaist-grad-mech-written-set2/cover.png" alt="" loading="lazy" width="225" height="225"></div><div class="tb-embed-body"><div class="tb-embed-title">KAIST 기계공학과 대학원 필기시험 후기 (2) — 두 번째 세트 5문제 복기 (2019)</div><div class="tb-embed-excerpt">2019년 KAIST 기계공학과 대학원 필기시험 두 번째 세트 — Eigenvalue/Eigenvector (3×3 ODE 시스템), Strength design 전체 흐름, Rigid body Work-Energy, T-v diagram 열역학 properties, Couette flow Navier-Stokes.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<hr />
+<h2 id="1q-ode">1Q — 수학: 기본적인 ODE (종단속도)</h2>
+<blockquote>
+<p>Free body diagram 그리고 Equation of motion 으로 미분방정식 세운 뒤, 변수분리로 풀기.</p>
+</blockquote>
+<p>문제 자체는 대학교 1학년 물리에 가까운 종단속도(terminal velocity) 문제. <strong>수학적 모델링도 쉬웠고 ODE 풀이도 변수분리만으로 끝</strong>. (가속도 term 때문에 변수분리를 두 번 적용.)</p>
+<p><strong>KAIST 수학 출제 단골 포인트</strong>:
+- 손으로 풀 수 있는 ODE 유형 — <strong>Exact differential equation</strong>, <strong>integrating factor</strong> 곱해서 푸는 방법까지 전부.
+- PDE — 손으로 풀 수 있는 유형은 정해져 있음. 최소 <strong>Separable Partial Differential Equations</strong> 까지는 알고 가야.</p>
+<h2 id="2q-stress-tensor-factor-of-safety">2Q — 고체역학: Stress 해석 / Tensor / Factor of Safety</h2>
+<p>이 번 1세트에서 <strong>가장 까다로웠음</strong>.</p>
+<ul>
+<li><strong>재료 거동학</strong>에서 다루는 <strong>Von-Mises stress (effective stress)</strong> 개념 등장.</li>
+<li>Tensile yield stress 주어지고, Shaft 의 polar coordinate stress equation 에 대입해 수식 정리 → 문제 요구 term 으로 정리.</li>
+<li>문제 form 이 Von-Mises 형태로 출제.</li>
+</ul>
+<p>추가로 <strong>Tresca Criterion (Maximum shear stress criterion)</strong> 의 개념을 고체역학 식으로 돌려 묻는 꼬리문제. 두 개념 다 알고 가면 그닥 어렵지 않음.</p>
+<blockquote>
+<p>Tensor 와 stress 의 <strong>제대로 된 기본 개념</strong>이 있어야 풀림. 재료 거동학 챕터를 그냥 넘기지 말 것.</p>
+</blockquote>
+<h2 id="3q-rigid-body-work-energy">3Q — 동역학: Rigid Body — Work &amp; Energy</h2>
+<p>질량 m 의 바퀴 달린 차체 + mass center 에 질량 m 의 막대가 달려있는 상황. 각도 θ 의 높이에서 떨어뜨릴 때:</p>
+<ul>
+<li>(a) 막대의 일반 각속도를 수식으로</li>
+<li>(b) 자유낙하 시 최대 속도</li>
+<li>(c) 막대가 마지막 지점에 도달하는 위치 (정확한 기억 흐림)</li>
+</ul>
+<p><strong>동역학 풀이 3 방식</strong>:
+1. Equation of motion
+2. <strong>Work &amp; Energy</strong> ← 이 문제엔 이게 가장 빠름
+3. Impulse and momentum</p>
+<p>저는 (2)번 Work &amp; Energy 로 풀었음.</p>
+<h2 id="4q-energy-equation-isentropic-process">4Q — 열역학: Energy Equation + Isentropic Process (유체랑 결합)</h2>
+<p>순수 Cycle 분석을 예상했는데 <strong>유체와 결합</strong>으로 나옴.</p>
+<blockquote>
+<p>h₁ 위치에서 물이 파이프를 통해 h₂ 위치로 떨어지면서 Turbine 통과 (h₁ &gt; h₂).</p>
+<ul>
+<li>(a) Turbine 이 낼 수 있는 <strong>최대 Power</strong></li>
+<li>(b) 최대 Power 시 물의 <strong>mass flow rate</strong></li>
+<li>(c) 파이프 단면적</li>
+<li>(d) Isentropic efficiency = 0.6 일 때 생성 Entropy</li>
+</ul>
+</blockquote>
+<p><strong>풀이 접근</strong>: Bernoulli equation + Energy equation. (Maximum 이므로 마찰 무시 가정 후 Bernoulli 사용.)</p>
+<h2 id="5q-hydrostatic-force-on-curved-surface">5Q — 유체역학: Hydrostatic Force on Curved Surface (정수력학)</h2>
+<p>의외로 정수력학(Hydrostatics) 출제.</p>
+<blockquote>
+<p>1/4 원호 모양 gate. 물이 이 surface 에 주는:
+- 수직·수평 resultant force
+- 그에 따른 수직·수평 작용점
+- 마지막 Pin 의 반력</p>
+<p>⚠️ 기계 전공에선 <strong>정수력학 깊이 안 다루는 경우가 많음</strong>. 이런 의외의 문제 나올 수 있으니 <strong>챕터별 큰 부분은 다 보고 가는 걸 추천</strong>.</p>
+</blockquote>
+<hr />
+<h2 id="_2">첫 번째 세트 정리</h2>
+<p><strong>난이도</strong>: 교과서 예제 ~ 연습문제 + α. 5과목 각 1문제씩이라 균형 잡힌 출제.</p>
+<p><strong>공부 포인트</strong> (이 세트 기준):
+- 수학: ODE (Exact, integrating factor) · PDE (Separable)
+- 고체: Tensor·Von-Mises·Tresca
+- 동역학: Work-Energy 우선, 다른 두 방식도 익혀두기
+- 열역학: Cycle 단독 아니라 <strong>유체 결합형</strong> 가능 — Bernoulli + Energy
+- 유체: <strong>정수력학 같은 의외 챕터 포함</strong>, 전 chapter 큼직한 개념 다 훑기</p>
+<p>두 번째 세트(나머지 5문제) 는 다음 글에서. Eigenvalue·Strength design·Rigid body·T-v diagram·Navier-Stokes 등장.</p>
+<a class="tb-embed-card" href="ko/kaist-grad-mech-written-set2/"><div class="tb-embed-thumb"><img src="assets/posts/kaist-grad-mech-written-set2/cover.png" alt="" loading="lazy" width="225" height="225"></div><div class="tb-embed-body"><div class="tb-embed-title">KAIST 기계공학과 대학원 필기시험 후기 (2) — 두 번째 세트 5문제 복기 (2019)</div><div class="tb-embed-excerpt">2019년 KAIST 기계공학과 대학원 필기시험 두 번째 세트 — Eigenvalue/Eigenvector (3×3 ODE 시스템), Strength design 전체 흐름, Rigid body Work-Energy, T-v diagram 열역학 properties, Couette flow Navier-Stokes.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<hr />
+<blockquote>
+<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/8" rel="nofollow noopener">taehyuklee.tistory.com/8</a> · 더 이전 네이버 원본: <a href="https://blog.naver.com/fish991/221744062064">blog.naver.com/fish991/221744062064</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/kaist-grad-mech-written-set2/">KAIST 기계공학과 대학원 필기시험 후기 (2) — 두 번째 세트 5문제 복기 (2019)</a></li><li><a href="ko/ksme-pm25-cnn-prediction/">KSME 학회 후기 — 신경회로망 PM2.5 예측 (대한기계학회 유체경진대회 금상, 2019)</a></li><li><a href="ko/career-samsung-coding-test-review/">[신입 공채] 삼성전자 코딩테스트 — 5회 도전 후기 (Samsung Research · 혁신센터 · Device Platform)</a></li><li><a href="ko/aws-summit-2024/">AWS Summit Seoul 2024 — 한 백엔드 개발자의 현장 메모 (AI 서빙·CMP·미들웨어)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fkaist-grad-mech-written-set1%2F&amp;text=KAIST%20%EA%B8%B0%EA%B3%84%EA%B3%B5%ED%95%99%EA%B3%BC%20%EB%8C%80%ED%95%99%EC%9B%90%20%ED%95%84%EA%B8%B0%EC%8B%9C%ED%97%98%20%ED%9B%84%EA%B8%B0%20%281%29%20%E2%80%94%20%EC%B2%AB%20%EB%B2%88%EC%A7%B8%20%EC%84%B8%ED%8A%B8%205%EB%AC%B8%EC%A0%9C%20%EB%B3%B5%EA%B8%B0%20%282019%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fkaist-grad-mech-written-set1%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/python-oracledb-arm-dpi-1047/">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="ko/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="ko/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="ko/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (158) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

@@ -291,6 +291,11 @@ const I18N = {
     navImage: '이미지',
     navPdf: 'PDF',
     navVideo: '동영상',
+    navStudios: 'Studios',
+    studioBlogDesc: '기술 노트·운영 가이드',
+    studioToolsDesc: '계산기·이미지·PDF·동영상',
+    studioCurrent: '현재',
+    studiosMore: '+ 더 추가 예정',
     disclaimerHTML: '⚠️ 본 사이트의 모든 계산은 <b>참고용 추정치</b>입니다. 정확한 결과는 공식 기관·전문가 상담을 권장합니다 ·',
     disclaimerLink: '자세히',
     closeAriaLabel: '공지 닫기',
@@ -343,6 +348,11 @@ const I18N = {
     navImage: 'Image',
     navPdf: 'PDF',
     navVideo: 'Video',
+    navStudios: 'Studios',
+    studioBlogDesc: 'Tech notes · guides',
+    studioToolsDesc: 'Calculators · Image · PDF · Video',
+    studioCurrent: 'current',
+    studiosMore: '+ more coming',
     disclaimerHTML: '⚠️ All calculations on this site are <b>estimates for reference</b>. Consult official authorities or professionals for accurate results ·',
     disclaimerLink: 'Learn more',
     closeAriaLabel: 'Close notice',
@@ -670,6 +680,11 @@ class SiteHeader extends HTMLElement {
        window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
     const themeIcon = darkNow ? T.themeLight : T.themeDark;
     const themeTitle = darkNow ? T.themeTitleToLight : T.themeTitleToDark;
+    // Studios 드롭다운 아이콘 — 심플한 단색 라인 SVG(currentColor). 이모지 대신.
+    const ICON_TOOLS = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg>';
+    const ICON_BLOG = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg>';
+    const toolsHref = LANG === 'en' ? BASE + '/en/' : BASE + '/';
+    const blogHref = LANG === 'en' ? BASE + '/blog/en/' : BASE + '/blog/ko/';
     // 키보드 사용자가 헤더 nav 건너뛰고 본문으로 바로 점프. 평소 화면 밖, focus 시에만 표시 (CSS .skip-link).
     const skipLinkHTML = `<a href="#main-content" class="skip-link">${T.skipToMain}</a>`;
     const headerHTML = `
@@ -682,9 +697,21 @@ class SiteHeader extends HTMLElement {
           <a href="${LANG === 'en' ? BASE + '/en/pdf/' : BASE + '/pdf/'}" class="${cls('pdf')}">${T.navPdf}</a>
           <a href="${LANG === 'en' ? BASE + '/en/video/' : BASE + '/video/'}" class="${cls('video')}">${T.navVideo}</a>
           <span class="header-actions">
-            <!-- BLOG-NAV-HIDDEN: blog launch 전 전역 nav 칩 숨김(2026-05-26). 복구=이 줄 주석 해제
-            <a href="${BASE}/blog/" class="nav-blog-chip" title="${LANG === 'en' ? 'Blog studio' : '블로그 studio'}">↗ Blog</a>
-            -->
+            <span class="nav-studios" data-studios>
+              <button type="button" class="nav-studios-trigger" aria-haspopup="true" aria-expanded="false">${T.navStudios}<span class="nav-studios-caret" aria-hidden="true">▾</span></button>
+              <span class="nav-studios-menu" role="menu">
+                <a href="${toolsHref}" class="nav-studios-item is-current" role="menuitem" aria-current="page">
+                  <span class="nsi-ic" aria-hidden="true">${ICON_TOOLS}</span>
+                  <span class="nsi-tx"><b>Tools</b><small>${T.studioToolsDesc}</small></span>
+                  <span class="nsi-cur">${T.studioCurrent}</span>
+                </a>
+                <a href="${blogHref}" class="nav-studios-item" role="menuitem">
+                  <span class="nsi-ic" aria-hidden="true">${ICON_BLOG}</span>
+                  <span class="nsi-tx"><b>Blog</b><small>${T.studioBlogDesc}</small></span>
+                </a>
+                <span class="nav-studios-more">${T.studiosMore}</span>
+              </span>
+            </span>
             <a href="${altUrl}" class="lang-toggle" title="${T.langToggleTitle}" rel="alternate" hreflang="${LANG === 'en' ? 'ko' : 'en'}">${T.langToggleLabel}</a>
             <button type="button" class="theme-toggle" title="${themeTitle}" aria-label="${themeTitle}">${themeIcon}</button>
           </span>
@@ -747,6 +774,15 @@ class SiteHeader extends HTMLElement {
         themeToggle.title = newTitle;
         themeToggle.setAttribute('aria-label', newTitle);
       });
+    }
+    // Studios 드롭다운 — 데스크톱은 hover(CSS), 터치·키보드는 클릭 토글. 바깥 클릭/Esc 로 닫힘.
+    const studios = this.querySelector('[data-studios]');
+    if (studios) {
+      const trigger = studios.querySelector('.nav-studios-trigger');
+      const setOpen = (on) => { studios.classList.toggle('open', on); trigger.setAttribute('aria-expanded', on ? 'true' : 'false'); };
+      trigger.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!studios.classList.contains('open')); });
+      document.addEventListener('click', (e) => { if (!studios.contains(e.target)) setOpen(false); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
     }
     const closeBtn = this.querySelector('#ts-disclaimer-close');
     if (closeBtn) {

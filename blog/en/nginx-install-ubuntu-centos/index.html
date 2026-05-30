@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall) · Tay Blog</title>
+<meta name="description" content="Install Nginx on a cloud server like AWS EC2 — version-specific installs on Ubuntu (apt) and CentOS (yum), the /etc/nginx config structure (sites-available/enabled), and firewalls (UFW, firewalld, AWS security groups) all in one.">
+<link rel="canonical" href="https://taystudios.com/blog/en/nginx-install-ubuntu-centos/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/nginx-install-ubuntu-centos/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/nginx-install-ubuntu-centos/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/nginx-install-ubuntu-centos/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall) · Tay Blog">
+<meta property="og:description" content="Install Nginx on a cloud server like AWS EC2 — version-specific installs on Ubuntu (apt) and CentOS (yum), the /etc/nginx config structure (sites-available/enabled), and firewalls (UFW, firewalld, AWS security groups) all in one.">
+<meta property="og:url" content="https://taystudios.com/blog/en/nginx-install-ubuntu-centos/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/nginx-install-ubuntu-centos/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/nginx-install-ubuntu-centos/cover.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall)", "description": "Install Nginx on a cloud server like AWS EC2 — version-specific installs on Ubuntu (apt) and CentOS (yum), the /etc/nginx config structure (sites-available/enabled), and firewalls (UFW, firewalld, AWS security groups) all in one.", "datePublished": "2026-02-08T00:00:00+09:00", "dateModified": "2026-02-08T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/nginx-install-ubuntu-centos/"}, "image": ["https://taystudios.com/blog/assets/posts/nginx-install-ubuntu-centos/cover.png"], "keywords": "nginx, Ubuntu, CentOS, web-server, AWS"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall)", "item": "https://taystudios.com/blog/en/nginx-install-ubuntu-centos/"}]}</script><meta property="article:published_time" content="2026-02-08T00:00:00+09:00"><meta property="article:modified_time" content="2026-02-08T00:00:00+09:00"><meta property="article:tag" content="nginx"><meta property="article:tag" content="Ubuntu"><meta property="article:tag" content="CentOS"><meta property="article:tag" content="web-server"><meta property="article:tag" content="AWS">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall)</span></nav>
+        <h1 class="tb-article-title">Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall)</h1>
+        <div class="tb-article-meta">
+          <time>2026.02.08</time>
+          <span>·</span><span>#nginx #Ubuntu #CentOS #web-server #AWS</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-what-is-nginx">1. What is Nginx?</a></li><li class="tb-toc-h2"><a href="#2-installing-nginx-on-ubuntu-debian-family">2. Installing Nginx on Ubuntu (Debian family)</a></li><li class="tb-toc-h3"><a href="#21-step-by-step-detail">2.1 Step-by-step detail</a></li><li class="tb-toc-h3"><a href="#22-nginx-configuration-file-structure-and-paths">2.2 Nginx Configuration File Structure and Paths</a></li><li class="tb-toc-h4"><a href="#221-the-central-config-file-nginxconf">2.2.1 The central config file: nginx.conf</a></li><li class="tb-toc-h4"><a href="#222-site-config-sites-available-vs-sites-enabled">2.2.2 Site config: sites-available vs sites-enabled</a></li><li class="tb-toc-h4"><a href="#223-summary-the-config-flow">2.2.3 Summary: the config flow</a></li><li class="tb-toc-h2"><a href="#3-installing-on-centos-redhat-rpm-family">3. Installing on CentOS / RedHat (RPM family)</a></li><li class="tb-toc-h3"><a href="#31-enable-the-epel-repository">3.1 Enable the EPEL repository</a></li><li class="tb-toc-h2"><a href="#4-firewall-setup">4. Firewall Setup</a></li><li class="tb-toc-h3"><a href="#41-linux-os-firewall">4.1 Linux OS firewall</a></li><li class="tb-toc-h3"><a href="#42-aws-security-group-if-using-aws">4.2 AWS security group (if using AWS)</a></li><li class="tb-toc-h2"><a href="#5-verifying-the-install">5. Verifying the Install</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<h2 id="1-what-is-nginx">1. What is Nginx?</h2>
+<p>Nginx is a lightweight, high-performance <strong>open-source web server</strong> and currently the most widely used worldwide. Beyond a simple web server, it plays a key role in solving complex architectural problems as a <strong>reverse proxy, load balancer, and mail proxy.</strong></p>
+<p>This post covers installation on <strong>Ubuntu (Debian family),</strong> the most common on cloud servers (AWS EC2, etc.), and <strong>CentOS/RedHat (RPM family),</strong> preferred in enterprises.</p>
+<blockquote>
+<p>💡 <strong>Note</strong> — this guide assumes the server is connected to the internet (Public network) so you can use the package manager. On a closed network (Private Subnet), you'd need a manual install via separate binary files.</p>
+</blockquote>
+<h2 id="2-installing-nginx-on-ubuntu-debian-family">2. Installing Nginx on Ubuntu (Debian family)</h2>
+<p>The package manager is <strong>apt.</strong></p>
+<pre class="codehilite"><code class="language-bash">sudo apt update
+sudo apt install nginx
+</code></pre>
+
+<p>In practice you sometimes need a specific version.</p>
+<pre class="codehilite"><code class="language-bash">apt-cache madison nginx                    # list installable nginx versions in the repo
+sudo apt install nginx=1.24.0-2ubuntu7.5   # install a specific version
+</code></pre>
+
+<p>Service management:</p>
+<pre class="codehilite"><code class="language-bash">sudo systemctl start nginx
+sudo systemctl enable nginx   # auto-start on boot
+</code></pre>
+
+<h3 id="21-step-by-step-detail">2.1 Step-by-step detail</h3>
+<p><img alt="Terminal screen of the apt repository update" src="assets/posts/nginx-install-ubuntu-centos/img1.png" width="1596" height="912" loading="lazy">
+<em>Figure 1. <code>sudo apt update</code> — updating the apt repository</em></p>
+<p><img alt="Terminal screen installing nginx with apt" src="assets/posts/nginx-install-ubuntu-centos/img2.png" width="1594" height="912" loading="lazy">
+<em>Figure 2. <code>sudo apt install nginx</code> — installing nginx</em></p>
+<p>First update the apt repository (recommended, especially to pick up the latest version) and install nginx. Figure 1 is the <code>apt update</code> result, Figure 2 the result of installing nginx from the apt repo. If a <code>(Y/n)</code> prompt appears, enter <code>Y</code> to continue.</p>
+<p><img alt="Nginx install complete on Ubuntu" src="assets/posts/nginx-install-ubuntu-centos/img3.png" width="1588" height="904" loading="lazy">
+<em>Figure 3. nginx install complete via apt</em></p>
+<p>Installing nginx via apt auto-registers it as a Linux service, so you can check/start/stop it with <strong>systemctl</strong> (the manager for Linux services/daemons).</p>
+<p><img alt="Checking nginx running status with systemctl status" src="assets/posts/nginx-install-ubuntu-centos/img4.png" width="1596" height="910" loading="lazy">
+<em>Figure 4. <code>systemctl status nginx</code> — checking the running status</em></p>
+<p>Check the status with <code>sudo systemctl status nginx</code>. Installing via apt runs it with a default config.</p>
+<h3 id="22-nginx-configuration-file-structure-and-paths">2.2 Nginx Configuration File Structure and Paths</h3>
+<p><img alt="Path and directory structure of the /etc/nginx config files" src="assets/posts/nginx-install-ubuntu-centos/img5.png" width="1592" height="914" loading="lazy">
+<em>Figure 5. nginx config path (<code>/etc/nginx/</code>)</em></p>
+<p>When installed via the package manager, all config files live under <strong><code>/etc/nginx/</code></strong> by default. Nginx config is structured like a "central control room" that loads "detailed instruction sheets."</p>
+<h4 id="221-the-central-config-file-nginxconf">2.2.1 The central config file: nginx.conf</h4>
+<p>The top-level config file that determines overall server behavior. Inside, it has statements that <code>include</code> config files from other paths.</p>
+<pre class="codehilite"><code class="language-nginx">include /etc/nginx/modules-enabled/*.conf;   # include module configs
+include /etc/nginx/conf.d/*.conf;            # include user-defined configs
+include /etc/nginx/sites-enabled/*;          # include individual site configs
+</code></pre>
+
+<p>The reason to split files is <strong>maintainability.</strong> Rather than cramming everything into one file, you split it per service and load them with <code>include</code>.</p>
+<h4 id="222-site-config-sites-available-vs-sites-enabled">2.2.2 Site config: sites-available vs sites-enabled</h4>
+<p>The two most important directories in Nginx config.</p>
+<ul>
+<li><strong>sites-available</strong> — the store (originals) of actual per-service config files (ports, routing, etc.).</li>
+<li><strong>sites-enabled</strong> — only configs linked here are actually read and run by Nginx (enabled configs).</li>
+<li>Usually there's a <code>default</code> file in sites-available containing port (<code>listen</code>), domain (<code>server_name</code>), and routing (<code>location</code>) settings.</li>
+</ul>
+<h4 id="223-summary-the-config-flow">2.2.3 Summary: the config flow</h4>
+<ol>
+<li><strong>nginx.conf</strong> — sets the overall frame and orchestrates the detailed configs.</li>
+<li><strong>Detailed .conf files</strong> — define actual service ports/addresses and run when <code>include</code>d into nginx.conf.</li>
+</ol>
+<h2 id="3-installing-on-centos-redhat-rpm-family">3. Installing on CentOS / RedHat (RPM family)</h2>
+<p>CentOS/RedHat-family (RHEL, Rocky Linux, etc.) use the <strong><code>yum</code> or <code>dnf</code></strong> package manager. The process is very similar to Ubuntu, with one caveat.</p>
+<h3 id="31-enable-the-epel-repository">3.1 Enable the EPEL repository</h3>
+<p>CentOS 7+ base repos often don't include Nginx, so you must first install <strong>EPEL</strong> (Extra Packages for Enterprise Linux), the extra package repo for enterprise Linux.</p>
+<pre class="codehilite"><code class="language-bash">sudo yum install epel-release -y
+sudo yum install nginx -y
+</code></pre>
+
+<p>Service management is the same as Ubuntu:</p>
+<pre class="codehilite"><code class="language-bash">sudo systemctl start nginx
+sudo systemctl enable nginx
+</code></pre>
+
+<p>Detailed config and service management after install are the same as the Ubuntu section above, so refer to that.</p>
+<h2 id="4-firewall-setup">4. Firewall Setup</h2>
+<p>If you finished installing Nginx but the browser says "can't connect to this site," it's almost certainly a firewall issue. You must check both the <strong>server's own firewall</strong> and the <strong>AWS security group.</strong></p>
+<h3 id="41-linux-os-firewall">4.1 Linux OS firewall</h3>
+<p>Depending on the OS, open ports 80 (HTTP) and 443 (HTTPS) with the commands below.</p>
+<p><strong>Ubuntu (UFW):</strong></p>
+<pre class="codehilite"><code class="language-bash">sudo ufw allow 'Nginx Full'
+</code></pre>
+
+<p><strong>CentOS (firewalld):</strong></p>
+<pre class="codehilite"><code class="language-bash">sudo firewall-cmd --permanent --zone=public --add-service=http
+sudo firewall-cmd --permanent --zone=public --add-service=https
+sudo firewall-cmd --reload
+</code></pre>
+
+<h3 id="42-aws-security-group-if-using-aws">4.2 AWS security group (if using AWS)</h3>
+<p>In a cloud (AWS) environment, the Linux-internal settings alone aren't enough. Check the <strong>Inbound Rules</strong> in the AWS Console instance settings.</p>
+<ul>
+<li><strong>HTTP (80)</strong> — Source <code>0.0.0.0/0</code> (allow all)</li>
+<li><strong>HTTPS (443)</strong> — Source <code>0.0.0.0/0</code> (allow all)</li>
+</ul>
+<h2 id="5-verifying-the-install">5. Verifying the Install</h2>
+<p>Once everything is set, enter the server's <strong>public IP</strong> in a web browser's address bar.</p>
+<p><img alt="Welcome to nginx page successfully loaded in a web browser" src="assets/posts/nginx-install-ubuntu-centos/img6.png" width="2940" height="1710" loading="lazy">
+<em>Figure 6. Nginx reached — Welcome to nginx!</em></p>
+<p>If the <strong>"Welcome to nginx!"</strong> page appears as above, the install and network setup are perfectly complete.</p>
+<hr />
+<blockquote>
+<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/30" rel="nofollow noopener">taehyuklee.tistory.com/30</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li><li><a href="en/nat-instance-build-2/">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fnginx-install-ubuntu-centos%2F&amp;text=Nginx%20Install%20Guide%20%E2%80%94%20Ubuntu%20%2F%20CentOS%20%28Specific%20Versions%2C%20Config%20Structure%2C%20Firewall%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fnginx-install-ubuntu-centos%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/python-oracledb-arm-dpi-1047/">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="en/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="en/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="en/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag" href="en/tags/#Samsung">#Samsung <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (153) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

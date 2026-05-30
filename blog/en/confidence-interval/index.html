@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Confidence Intervals — Meaning, Intuition, and a Common Misconception · Tay Blog</title>
+<meta name="description" content="From why confidence intervals exist, to the hypothesis-testing view, to the truth behind the common misconception that &#39;there&#39;s a 95% probability the mean is inside the interval.&#39;">
+<link rel="canonical" href="https://taystudios.com/blog/en/confidence-interval/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/confidence-interval/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/confidence-interval/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/confidence-interval/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Confidence Intervals — Meaning, Intuition, and a Common Misconception · Tay Blog">
+<meta property="og:description" content="From why confidence intervals exist, to the hypothesis-testing view, to the truth behind the common misconception that &#39;there&#39;s a 95% probability the mean is inside the interval.&#39;">
+<meta property="og:url" content="https://taystudios.com/blog/en/confidence-interval/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/confidence-interval/cover.jpg"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/confidence-interval/cover.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Confidence Intervals — Meaning, Intuition, and a Common Misconception", "description": "From why confidence intervals exist, to the hypothesis-testing view, to the truth behind the common misconception that 'there's a 95% probability the mean is inside the interval.'", "datePublished": "2024-10-13T00:00:00+09:00", "dateModified": "2024-10-13T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/confidence-interval/"}, "image": ["https://taystudios.com/blog/assets/posts/confidence-interval/cover.jpg"], "keywords": "statistics, confidence-interval, interval-estimation, Bayesian, p-value"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "Confidence Intervals — Meaning, Intuition, and a Common Misconception", "item": "https://taystudios.com/blog/en/confidence-interval/"}]}</script><meta property="article:published_time" content="2024-10-13T00:00:00+09:00"><meta property="article:modified_time" content="2024-10-13T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="confidence-interval"><meta property="article:tag" content="interval-estimation"><meta property="article:tag" content="Bayesian"><meta property="article:tag" content="p-value">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Confidence Intervals — Meaning, Intuition, and a Common Misconception</span></nav>
+        <h1 class="tb-article-title">Confidence Intervals — Meaning, Intuition, and a Common Misconception</h1>
+        <div class="tb-article-meta">
+          <time>2024.10.13</time>
+          <span>·</span><span>#statistics #confidence-interval #interval-estimation #Bayesian #p-value</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#goals-of-this-post">Goals of this post</a></li><li class="tb-toc-h2"><a href="#intro-estimation-in-statistics">Intro — Estimation in Statistics</a></li><li class="tb-toc-h2"><a href="#body">Body</a></li><li class="tb-toc-h3"><a href="#21-how-do-we-set-the-error-range">2.1) How do we set the error range?</a></li><li class="tb-toc-h3"><a href="#22-setting-a-range-that-contains-the-population">2.2) Setting a range that contains the population</a></li><li class="tb-toc-h3"><a href="#definitions">Definitions</a></li><li class="tb-toc-h2"><a href="#summary">Summary</a></li><li class="tb-toc-h2"><a href="#confidence-intervals-from-a-hypothesis-testing-view">Confidence Intervals from a Hypothesis-Testing View</a></li><li class="tb-toc-h2"><a href="#the-misconception-95-probability-its-inside-the-interval-important">The Misconception — &quot;95% probability it&#39;s inside the interval?&quot; (important)</a></li><li class="tb-toc-h3"><a href="#why-the-misconception-arises">Why the misconception arises</a></li><li class="tb-toc-h3"><a href="#conclusion">Conclusion</a></li><li class="tb-toc-h3"><a href="#aside-bayesian-statistics">(Aside) Bayesian Statistics</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<h2 id="goals-of-this-post">Goals of this post</h2>
+<ol>
+<li>Understand the precise meaning of a confidence interval</li>
+<li>How to interpret and approach a confidence interval</li>
+<li>Confidence intervals from a hypothesis-testing view</li>
+<li>A common misconception and the truth ("probability of being inside the interval?")</li>
+</ol>
+<h2 id="intro-estimation-in-statistics">Intro — Estimation in Statistics</h2>
+<p>A major goal of statistics is <strong>estimation.</strong> The statistics we usually use is <strong>parametric statistics</strong> (a subset of frequentism), which assumes a population distribution and treats parameters like the mean and variance as fixed specific values.</p>
+<p>Parameter estimation splits into <strong>point estimation</strong> (pinning a single value) and <strong>interval estimation</strong> (assuming it lies within some interval). Interval estimation <strong>reflects uncertainty better than point estimation</strong> (expressing uncertainty as the interval's length).</p>
+<h2 id="body">Body</h2>
+<blockquote>
+<p><strong>Q. How do we estimate the average height of adult men in our country?</strong></p>
+</blockquote>
+<ol>
+<li>Draw a sample of 30+ and compute the mean → <strong>point estimate</strong></li>
+<li>Reflect uncertainty as <strong>the estimated mean ± error (range)</strong> → <strong>interval estimate</strong></li>
+</ol>
+<h3 id="21-how-do-we-set-the-error-range">2.1) How do we set the error range?</h3>
+<p>Start from the parameter to estimate (the population mean $\mu$). Assume the distribution of the population mean is normal (passing a normality test) and draw it.</p>
+<p><img alt="Population distribution with the sample mean on the x-axis" src="assets/posts/confidence-interval/img1.png" width="868" height="417" loading="lazy">
+<em>Figure 1. Population distribution with the sample mean on the x-axis</em></p>
+<p>The estimation target is $\mu$ (the population mean). The key idea:</p>
+<blockquote>
+<p>Let the <strong>95% of values that could be found in this distribution include the population mean.</strong> That is, the sample mean just needs to be found within Interval 1 in Figure 1.</p>
+</blockquote>
+<p><img alt="A range from a sample that contains the population" src="assets/posts/confidence-interval/img2.png" width="1125" height="508" loading="lazy">
+<em>Figure 2. A range from a sample that contains the population</em></p>
+<blockquote>
+<p><strong>Notation</strong> — $\bar{X}_n$ is the $n$-th sample mean (e.g., $\bar{X}_1$, $\bar{X}_2$), and $d_{\bar{X}_n}$ (written $d_n$) is its distance from the mean out to the boundary (e.g., $d_{\bar{X}_1} = d_1$).</p>
+</blockquote>
+<h3 id="22-setting-a-range-that-contains-the-population">2.2) Setting a range that contains the population</h3>
+<p>In Figure 1, take the boundary at distance $2d$ (95% probability of discovery) from the population mean, with the left as $\bar{X}_1$ and the right as $\bar{X}_2$. To contain the population mean, we need <strong>$d = d_1 = d_2$.</strong> Then any value between $\bar{X}_1$ and $\bar{X}_2$ contains the population mean.</p>
+<p><img alt="The meaning of samples found inside vs outside the boundary" src="assets/posts/confidence-interval/img4.png" width="1154" height="501" loading="lazy">
+<em>Figure 3. The meaning of samples found inside vs outside the boundary</em></p>
+<p>In Figure 3, $\bar{X}_3$ found inside the boundary (within 95%) contains the population mean, but $\bar{X}_4$ found in the 5% region does not. (This is on a z-distribution basis; with a sample, you do interval estimation with the t-distribution.)</p>
+<h3 id="definitions">Definitions</h3>
+<blockquote>
+<p>The interval of estimated mean ± $d$ is the <strong>confidence interval,</strong> $d$ is the <strong>margin of error,</strong> and the 95% probability here is the <strong>confidence level.</strong></p>
+</blockquote>
+<h2 id="summary">Summary</h2>
+<p>We set $d=d_1=d_2$ so that the 95% of values where the sample mean is found in the population distribution contain the population mean. This leads to the conclusion that <strong>if you draw 100 samples and build a confidence interval for each, about 95 of them contain the true population mean.</strong></p>
+<blockquote>
+<p>"<strong>Compute the confidence interval for the population mean at the 95% confidence level</strong>" or "<strong>compute the 95% confidence interval.</strong>"</p>
+</blockquote>
+<h2 id="confidence-intervals-from-a-hypothesis-testing-view">Confidence Intervals from a Hypothesis-Testing View</h2>
+<p>Setting significance level $\alpha=0.05$ is the same idea as setting a 95% confidence interval. The core of hypothesis testing:</p>
+<blockquote>
+<p>If the sample's test statistic falls within the ordinary 95%, accept; if it's found in the extreme 5% region, reject.</p>
+</blockquote>
+<p>Per Figure 3, if the sample result is in the top 5% extreme region, that confidence interval doesn't contain the population value, so we reject the null hypothesis. (Samples outside the 95% CI are sometimes treated as outliers.)</p>
+<h2 id="the-misconception-95-probability-its-inside-the-interval-important">The Misconception — "95% probability it's inside the interval?" (important)</h2>
+<p>When a 95% confidence interval comes out as 172–176 cm, many interpret it as "there's a 95% probability the average height is between 172 and 176." <strong>In parametric statistics, this is wrong.</strong> The population mean is already one fixed value, and the sample has already been drawn → <strong>probability no longer exists.</strong></p>
+<h3 id="why-the-misconception-arises">Why the misconception arises</h3>
+<ul>
+<li><strong>Ambiguous phrasing</strong> — "compute the confidence interval at the 95% confidence level" feels as if the interval itself has 95% reliability.</li>
+<li><strong>Because we don't know the parameter</strong> — there's a fixed truth (the parameter) we can't know, so without knowing whether the already-drawn sample's interval contains the population mean, <strong>we feel it like a probability.</strong></li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<ol>
+<li><strong>Before sampling</strong>: the probability that a sample-derived confidence interval contains the population mean is 95% — correct phrasing.</li>
+<li><strong>After sampling</strong>: the parameter and interval are fixed → the "95% probability" phrasing is wrong.</li>
+</ol>
+<blockquote>
+<p>We can't know whether the already-drawn sample falls in the 95%/5%, but we recognize it as one interval from a distribution where <strong>95 out of 100 contain the population,</strong> and hope the parameter is inside it.</p>
+</blockquote>
+<h3 id="aside-bayesian-statistics">(Aside) Bayesian Statistics</h3>
+<p>In Bayesian statistics the parameter is not fixed but treated as a random variable, so even after sampling, "95% probability of being inside the interval" holds. People may accept the belief-based Bayesian view more easily. Since we all hold beliefs without knowing the truth and revise them with experience (samples), I think Bayesian statistics reflects heuristic human thinking well.</p>
+<hr />
+<h2 id="references">References</h2>
+<ol>
+<li>Basic Statistics (Introduction) — Jayu Academy (textbook)</li>
+<li>Intuition gained from extensive reading of textbooks</li>
+</ol>
+<blockquote>
+<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/19" rel="nofollow noopener">taehyuklee.tistory.com/19</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/t-test-python-scipy/">Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student&#39;s·Welch&#39;s), Paired</a></li><li><a href="en/central-limit-theorem/">The Central Limit Theorem — Definition, Experiments, and Uses</a></li><li><a href="en/t-test/">Testing Means — the t-test (One / Two: Student&#39;s·Welch&#39;s / Paired)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fconfidence-interval%2F&amp;text=Confidence%20Intervals%20%E2%80%94%20Meaning%2C%20Intuition%2C%20and%20a%20Common%20Misconception" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fconfidence-interval%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/python-oracledb-arm-dpi-1047/">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="en/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="en/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="en/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag" href="en/tags/#Samsung">#Samsung <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (153) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){(function r(){if(window.renderMathInElement){renderMathInElement(document.querySelector(".tb-content")||document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"$",right:"$",display:false},{left:"\\(",right:"\\)",display:false}],throwOnError:false,ignoredTags:["script","noscript","style","textarea","pre","code"]});}else{setTimeout(r,50);}})();});</script>
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

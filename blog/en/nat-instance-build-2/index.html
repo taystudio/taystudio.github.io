@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2) · Tay Blog</title>
+<meta name="description" content="The Part 1 community AMI runs an old (EOS) OS and is hard to maintain. In Part 2 we build a NAT instance on the latest Ubuntu by configuring iptables directly (IP forwarding + MASQUERADE), and persist the rules across reboots.">
+<link rel="canonical" href="https://taystudios.com/blog/en/nat-instance-build-2/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/nat-instance-build-2/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/nat-instance-build-2/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/nat-instance-build-2/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2) · Tay Blog">
+<meta property="og:description" content="The Part 1 community AMI runs an old (EOS) OS and is hard to maintain. In Part 2 we build a NAT instance on the latest Ubuntu by configuring iptables directly (IP forwarding + MASQUERADE), and persist the rules across reboots.">
+<meta property="og:url" content="https://taystudios.com/blog/en/nat-instance-build-2/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/nat-instance-build-2/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/nat-instance-build-2/cover.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)", "description": "The Part 1 community AMI runs an old (EOS) OS and is hard to maintain. In Part 2 we build a NAT instance on the latest Ubuntu by configuring iptables directly (IP forwarding + MASQUERADE), and persist the rules across reboots.", "datePublished": "2024-12-29T00:00:00+09:00", "dateModified": "2024-12-29T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/nat-instance-build-2/"}, "image": ["https://taystudios.com/blog/assets/posts/nat-instance-build-2/cover.png"], "keywords": "AWS, NAT Instance, iptables, networking, cost-saving"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)", "item": "https://taystudios.com/blog/en/nat-instance-build-2/"}]}</script><meta property="article:published_time" content="2024-12-29T00:00:00+09:00"><meta property="article:modified_time" content="2024-12-29T00:00:00+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="NAT Instance"><meta property="article:tag" content="iptables"><meta property="article:tag" content="networking"><meta property="article:tag" content="cost-saving">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)</span></nav>
+        <h1 class="tb-article-title">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)</h1>
+        <div class="tb-article-meta">
+          <time>2024.12.29</time>
+          <span>·</span><span>#AWS #NAT Instance #iptables #networking #cost-saving</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#overview">Overview</a></li><li class="tb-toc-h2"><a href="#configuring-the-nat-instance-ec2">Configuring the NAT Instance (EC2)</a></li><li class="tb-toc-h3"><a href="#1-launch-a-basic-ec2">1. Launch a basic EC2</a></li><li class="tb-toc-h3"><a href="#2-manipulating-iptables-on-the-ec2-os-nat-setup">2. Manipulating iptables on the EC2 OS (NAT setup)</a></li><li class="tb-toc-h4"><a href="#2-1-enable-ip-forwarding">2-1. Enable IP forwarding</a></li><li class="tb-toc-h4"><a href="#2-2-add-an-iptables-nat-rule">2-2. Add an iptables NAT rule</a></li><li class="tb-toc-h4"><a href="#2-3-verify-the-result">2-3. Verify the result</a></li><li class="tb-toc-h4"><a href="#2-4-persist-the-rules-survive-reboots">2-4. Persist the rules (survive reboots)</a></li><li class="tb-toc-h3"><a href="#3-result-verifying-private-subnet-internet-connectivity">3. Result — verifying Private Subnet internet connectivity</a></li><li class="tb-toc-h2"><a href="#wrap-up">Wrap-up</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<h2 id="overview">Overview</h2>
+<ol>
+<li>Why a NAT Instance (instead of a NAT Gateway) — Part 1</li>
+<li>Using the AWS community NAT Instance AMI — Part 1</li>
+<li>Building a NAT Instance manually with iptables — <strong>Part 2 (this post)</strong></li>
+</ol>
+<p>In Part 1 we built a NAT Instance from the AWS community AMI. But that AMI runs an end-of-service, old OS that's hard to maintain. So in Part 2 we <strong>configure a NAT Instance directly on the latest AWS OS by manipulating iptables</strong>.</p>
+<a class="tb-embed-card" href="en/nat-instance-build-1/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-1/cover.png" alt="" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance from an AMI (Part 1)</div><div class="tb-embed-excerpt">A NAT Gateway costs $32+/month in fixed fees. To save money, I connected a Private Subnet to the internet using an EC2 NAT Instance — Part 1 uses the AWS community AMI (amzn-ami-vpc-nat).</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<p>The network diagram was covered in Part 1, so I'll just recap the situation. For a Private Subnet to reach the internet, you need a NAT Gateway (translating Public IP ↔ Private IP — essentially a router's role). Instead of an AWS NAT Gateway, we build a NAT Instance ourselves to cut costs. Part 2 covers how to make a <strong>plain OS with no NAT setup act as a NAT</strong>.</p>
+<h2 id="configuring-the-nat-instance-ec2">Configuring the NAT Instance (EC2)</h2>
+<h3 id="1-launch-a-basic-ec2">1. Launch a basic EC2</h3>
+<p><img alt="Launching the NAT Instance EC2 from the latest Ubuntu LTS AMI" src="assets/posts/nat-instance-build-2/img1.png" width="1224" height="900" loading="lazy">
+<em>Figure 1. Launching the NAT Instance EC2</em></p>
+<p>Use the <strong>LTS AMI provided directly by AWS</strong> (not the community one). I prefer Ubuntu, so I chose Ubuntu 24.04 LTS. The NAT Instance must of course sit in the Public Subnet; all other route table examples are in Part 1.</p>
+<h3 id="2-manipulating-iptables-on-the-ec2-os-nat-setup">2. Manipulating iptables on the EC2 OS (NAT setup)</h3>
+<blockquote>
+<p><strong>What is iptables?</strong> A powerful Linux firewall / packet-filtering tool that can manage network traffic, act as a firewall, and implement <strong>Network Address Translation (NAT)</strong>. Here we use its NAT feature, not the firewall.</p>
+</blockquote>
+<p>SSH into the NAT Instance you created, then follow these steps.</p>
+<h4 id="2-1-enable-ip-forwarding">2-1. Enable IP forwarding</h4>
+<pre class="codehilite"><code class="language-bash">echo &quot;net.ipv4.ip_forward = 1&quot; | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+</code></pre>
+
+<p>A NAT Instance must route traffic elsewhere (not to itself), so it must allow packets to come in and go out.</p>
+<ul>
+<li><code>net.ipv4.ip_forward = 1</code> — enables IP forwarding.</li>
+<li><code>/etc/sysctl.conf</code> — applies the setting permanently.</li>
+<li><code>sudo sysctl -p</code> — applies the setting immediately.</li>
+</ul>
+<p><img alt="/etc/sysctl.conf editor — net.ipv4.ip_forward commented out" src="assets/posts/nat-instance-build-2/img2.png" width="1154" height="764" loading="lazy">
+<em>Figure 2. The /etc/sysctl.conf editor</em></p>
+<p>Alternatively, opening <code>sysctl.conf</code> shows <code>net.ipv4.ip_forward=1</code> disabled with a <code>#</code> as in Figure 2. You can just uncomment it and apply.</p>
+<h4 id="2-2-add-an-iptables-nat-rule">2-2. Add an iptables NAT rule</h4>
+<pre class="codehilite"><code class="language-bash">sudo iptables -t nat -A POSTROUTING -o {your-eth} -j MASQUERADE
+</code></pre>
+
+<p>This NAT rule translates the private network's IP to the NAT Instance's public IP. The options:</p>
+<ul>
+<li><code>-t nat</code> — add the rule to the NAT table.</li>
+<li><code>-A POSTROUTING</code> — apply NAT after routing (just before departure).</li>
+<li><code>-o {eth}</code> — apply to traffic leaving via your interface (e.g., <code>eth0</code>, <code>ens5</code> — the public network interface).</li>
+<li><code>-j MASQUERADE</code> — translate the source IP to the NAT Instance's public IP (private network → internet).</li>
+</ul>
+<p>Find your interface name with <code>ip addr</code> (or <code>ifconfig</code> after installing <code>net-tools</code>).</p>
+<pre class="codehilite"><code class="language-bash">ip addr
+</code></pre>
+
+<p><img alt="Running ip addr — checking the network interface name (ens5)" src="assets/posts/nat-instance-build-2/img3.png" width="1224" height="444" loading="lazy">
+<em>Figure 3. Checking the network interface name (e.g., <code>ens5</code>)</em></p>
+<p>In the figure above, <code>ens5</code> is the interface name.</p>
+<h4 id="2-3-verify-the-result">2-3. Verify the result</h4>
+<pre class="codehilite"><code class="language-bash">sudo iptables -t nat -L -n -v
+</code></pre>
+
+<p>This command lists the NAT table applied to iptables.</p>
+<ul>
+<li><code>-t nat</code> — inspect the NAT table.</li>
+<li><code>-L</code> — list all chains and rules.</li>
+<li><code>-n</code> — show IPs instead of hostnames.</li>
+<li><code>-v</code> — show verbose info (packet/byte counts, etc.).</li>
+</ul>
+<p><img alt="Comparing iptables before/after adding the NAT rule — POSTROUTING MASQUERADE" src="assets/posts/nat-instance-build-2/img4.png" width="1138" height="866" loading="lazy">
+<em>Figure 4. Result after adding the iptables rule (top: before / bottom: after)</em></p>
+<p>As in Figure 4, the <code>MASQUERADE</code> rule should be added to the <code>POSTROUTING</code> chain. Once confirmed, save it so the setting persists across reboots.</p>
+<h4 id="2-4-persist-the-rules-survive-reboots">2-4. Persist the rules (survive reboots)</h4>
+<pre class="codehilite"><code class="language-bash">sudo apt-get update
+sudo apt-get install -y iptables-persistent
+</code></pre>
+
+<p><code>iptables-persistent</code> saves iptables rules and auto-loads them on boot. If it asks whether to save the current rules during install, answer yes to all.</p>
+<pre class="codehilite"><code class="language-bash">sudo netfilter-persistent save
+</code></pre>
+
+<p>This saves the current rules to <code>/etc/iptables/rules.v4</code> etc. Saved rules survive reboots.</p>
+<pre class="codehilite"><code class="language-bash">sudo systemctl enable netfilter-persistent
+</code></pre>
+
+<p>Enable the service so the rules auto-load after a reboot.</p>
+<p>That completes the OS-side NAT Instance setup. The rest (Private Subnet route table, disabling the EC2 source/destination check) is identical to Part 1.</p>
+<h3 id="3-result-verifying-private-subnet-internet-connectivity">3. Result — verifying Private Subnet internet connectivity</h3>
+<p><img alt="After building the NAT Instance, apt-get update succeeds on the Private Subnet EC2" src="assets/posts/nat-instance-build-2/img5.png" width="1558" height="614" loading="lazy">
+<em>Figure 5. NAT Instance result — internet connectivity confirmed</em></p>
+<p>After finishing the setup, running <code>sudo apt-get update</code> on the Private Subnet EC2 confirms it now has internet.</p>
+<h2 id="wrap-up">Wrap-up</h2>
+<p>In Part 2 we <strong>configured the NAT Instance directly on the OS</strong> instead of using a community AMI. The remaining route table and console settings are identical to Part 1. Because I needed one instance to serve all three roles — <strong>Reverse Proxy / NAT Instance / Bastion</strong> — I run it configured manually on a version-managed, up-to-date OS as shown above.</p>
+<hr />
+<blockquote>
+<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/28" rel="nofollow noopener">taehyuklee.tistory.com/28</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/nat-instance-build-1/">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance from an AMI (Part 1)</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fnat-instance-build-2%2F&amp;text=%5BAWS%5D%20Cutting%20NAT%20Gateway%20Costs%20%E2%80%94%20Building%20a%20NAT%20Instance%20with%20iptables%20%28Part%202%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fnat-instance-build-2%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/python-oracledb-arm-dpi-1047/">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="en/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="en/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="en/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag" href="en/tags/#Samsung">#Samsung <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (153) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

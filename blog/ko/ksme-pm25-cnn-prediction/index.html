@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>KSME 학회 후기 — 신경회로망 PM2.5 예측 (대한기계학회 유체경진대회 금상, 2019) · Tay Blog</title>
+<meta name="description" content="2019년 학부 졸업논문 — 신경회로망(ANN) 으로 미세먼지(PM2.5) 농도를 6·12·24시간 후 예측. 기상·대기질 데이터 94,225건, AIC·VIF 변수 선택, Window Learning 기법. 그리고 2년 뒤 대학원에서 발견한 time lag 함정까지.">
+<link rel="canonical" href="https://taystudios.com/blog/ko/ksme-pm25-cnn-prediction/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/ksme-pm25-cnn-prediction/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/ksme-pm25-cnn-prediction/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/ksme-pm25-cnn-prediction/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="KSME 학회 후기 — 신경회로망 PM2.5 예측 (대한기계학회 유체경진대회 금상, 2019) · Tay Blog">
+<meta property="og:description" content="2019년 학부 졸업논문 — 신경회로망(ANN) 으로 미세먼지(PM2.5) 농도를 6·12·24시간 후 예측. 기상·대기질 데이터 94,225건, AIC·VIF 변수 선택, Window Learning 기법. 그리고 2년 뒤 대학원에서 발견한 time lag 함정까지.">
+<meta property="og:url" content="https://taystudios.com/blog/ko/ksme-pm25-cnn-prediction/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/ksme-pm25-cnn-prediction/cover.jpg"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/ksme-pm25-cnn-prediction/cover.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "KSME 학회 후기 — 신경회로망 PM2.5 예측 (대한기계학회 유체경진대회 금상, 2019)", "description": "2019년 학부 졸업논문 — 신경회로망(ANN) 으로 미세먼지(PM2.5) 농도를 6·12·24시간 후 예측. 기상·대기질 데이터 94,225건, AIC·VIF 변수 선택, Window Learning 기법. 그리고 2년 뒤 대학원에서 발견한 time lag 함정까지.", "datePublished": "2024-10-09T00:00:00+09:00", "dateModified": "2024-10-09T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/ksme-pm25-cnn-prediction/"}, "image": ["https://taystudios.com/blog/assets/posts/ksme-pm25-cnn-prediction/cover.jpg"], "keywords": "학회, KSME, 대한기계학회, 신경회로망, ANN, 미세먼지, PM2.5, Window Learning, AIC, VIF, 환경공학, 졸업논문, 후기"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Reviews", "item": "https://taystudios.com/blog/ko/category/reviews/"}, {"@type": "ListItem", "position": 3, "name": "KSME 학회 후기 — 신경회로망 PM2.5 예측 (대한기계학회 유체경진대회 금상, 2019)", "item": "https://taystudios.com/blog/ko/ksme-pm25-cnn-prediction/"}]}</script><meta property="article:published_time" content="2024-10-09T00:00:00+09:00"><meta property="article:modified_time" content="2024-10-09T00:00:00+09:00"><meta property="article:tag" content="학회"><meta property="article:tag" content="KSME"><meta property="article:tag" content="대한기계학회"><meta property="article:tag" content="신경회로망"><meta property="article:tag" content="ANN"><meta property="article:tag" content="미세먼지"><meta property="article:tag" content="PM2.5"><meta property="article:tag" content="Window Learning"><meta property="article:tag" content="AIC"><meta property="article:tag" content="VIF"><meta property="article:tag" content="환경공학"><meta property="article:tag" content="졸업논문"><meta property="article:tag" content="후기">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/reviews/">Reviews</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">KSME 학회 후기 — 신경회로망 PM2.5 예측 (대한기계학회 유체경진대회 금상, 2019)</span></nav>
+        <h1 class="tb-article-title">KSME 학회 후기 — 신경회로망 PM2.5 예측 (대한기계학회 유체경진대회 금상, 2019)</h1>
+        <div class="tb-article-meta">
+          <time>2024.10.09</time>
+          <span>·</span><span>#학회 #KSME #대한기계학회 #신경회로망 #ANN #미세먼지 #PM2.5 #Window Learning #AIC #VIF #환경공학 #졸업논문 #후기</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">무엇을 했나</a></li><li class="tb-toc-h2"><a href="#_2">왜 이 연구가 의미 있다고 봤나</a></li><li class="tb-toc-h2"><a href="#_3">데이터 처리 파이프라인</a></li><li class="tb-toc-h3"><a href="#a">A. 데이터 수집</a></li><li class="tb-toc-h3"><a href="#b-3">B. 데이터 가공 — 변수 선택의 3단계</a></li><li class="tb-toc-h4"><a href="#step-1">Step 1. 결핍 변수 제거</a></li><li class="tb-toc-h4"><a href="#step-2-aic">Step 2. AIC 단계적 선택법 (변수 후보 압축)</a></li><li class="tb-toc-h4"><a href="#step-3-vif">Step 3. VIF 로 독립성 검증</a></li><li class="tb-toc-h4"><a href="#step-4-13">Step 4. 최종 13개 변수</a></li><li class="tb-toc-h3"><a href="#c-imputation">C. 결측치 보정 (Imputation)</a></li><li class="tb-toc-h2"><a href="#ann-window-learning">모델 — ANN + Window Learning</a></li><li class="tb-toc-h2"><a href="#_4">결과</a></li><li class="tb-toc-h2"><a href="#2">2년 뒤 — 대학원에서 발견한 함정</a></li><li class="tb-toc-h3"><a href="#rl">보완 시도 (RL 기반 거리 + 각도)</a></li><li class="tb-toc-h2"><a href="#_5">회고 — 그때와 지금</a></li><li class="tb-toc-h3"><a href="#2019">그때 적은 다짐 (2019)</a></li><li class="tb-toc-h3"><a href="#2024">2024년 현재</a></li><li class="tb-toc-h2"><a href="#_6">참고</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p>📅 <strong>2019년 11월 학부 졸업논문</strong>으로 진행한 연구의 회고. 대한기계학회(KSME) 유체경진대회에서 <strong>금상</strong>을 받았던 작업. 2024년 시점에서 다시 정리하고, 2년 뒤 대학원에서 발견한 함정까지 솔직히 기록.</p>
+</blockquote>
+<p><img alt="제주도에서 열린 대한기계공학회 학술대회 사진" src="assets/posts/ksme-pm25-cnn-prediction/img1.jpg" width="1546" height="884" loading="lazy">
+<em>그림1. 2019년 제주에서 열린 대한기계공학회 학술대회 — 유체경진대회 금상 시상</em></p>
+<h2 id="_1">무엇을 했나</h2>
+<p><strong>신경회로망(ANN) 으로 초미세먼지(PM2.5) 농도를 예측</strong>. 기상·대기질 데이터로 학습해서 <strong>6시간·12시간 후의 농도를 예측</strong>하는 모델.</p>
+<p><img alt="6시간 후 미세먼지 농도 예측 결과" src="assets/posts/ksme-pm25-cnn-prediction/img2.png" width="773" height="174" loading="lazy">
+<em>그림2. 6시간 후 미세먼지 농도 예측 결과 (학회 발표용)</em></p>
+<h2 id="_2">왜 이 연구가 의미 있다고 봤나</h2>
+<p>기존 PM2.5 예측의 표준은 <strong>수치해석</strong>(전산유체역학·대기화학 모델)인데:
+- 계산 시간 <strong>1개월 이상</strong> + 막대한 컴퓨팅 자원.
+- 정확한 만큼 무거움.</p>
+<p>신경회로망 접근의 장점:
+- <strong>약 10만 개 데이터</strong>로 학습 가능.
+- 학습 후엔 추론이 즉시 (몇 초 단위).
+- 정확도는 수치해석에 못 미치지만, <strong>계산량 대비 효율</strong>이 압도적.</p>
+<p>목표: "정확도를 어느 정도 양보하더라도 빠르게 단기 예측이 가능한 모델".</p>
+<h2 id="_3">데이터 처리 파이프라인</h2>
+<h3 id="a">A. 데이터 수집</h3>
+<ul>
+<li><strong>출처</strong>: <a href="https://www.airkorea.or.kr/">Air Korea</a>(대기질), <a href="https://data.kma.go.kr/">기상자료개방포털</a>(기상)</li>
+<li><strong>기간</strong>: 2008년 ~ 2018년 3분기</li>
+<li><strong>규모</strong>: <strong>32개 변수 × 94,225 관측치</strong></li>
+</ul>
+<p><img alt="데이터 수집 출처" src="assets/posts/ksme-pm25-cnn-prediction/img3.png" width="953" height="496" loading="lazy">
+<em>그림3. 데이터 수집 및 출처</em></p>
+<h3 id="b-3">B. 데이터 가공 — 변수 선택의 3단계</h3>
+<h4 id="step-1">Step 1. 결핍 변수 제거</h4>
+<p><strong>결측치 50% 이상</strong>인 변수 삭제 (데이터 오염 방지).</p>
+<h4 id="step-2-aic">Step 2. AIC 단계적 선택법 (변수 후보 압축)</h4>
+<p><strong>AIC(Akaike Information Criterion)</strong> = 모델 적합도와 변수 개수 사이의 균형을 평가하는 지표. 작을수록 좋음.</p>
+<p>단계적 선택법으로:
+- <strong>Middle and low cloud</strong>·<strong>Sunshine hour</strong> 제거.
+- <strong>21개 변수</strong> 남김.</p>
+<p><img alt="데이터 가공 — AIC 변수 선택" src="assets/posts/ksme-pm25-cnn-prediction/img4.png" width="984" height="230" loading="lazy">
+<em>그림4. 데이터 가공 — AIC 단계적 변수 선택</em></p>
+<h4 id="step-3-vif">Step 3. VIF 로 독립성 검증</h4>
+<p><strong>VIF(Variance Inflation Factor)</strong> — 다중공선성 측정. VIF 값이 크면 다른 변수들과 강한 선형 관계 → 둘 중 하나만 남겨야 모델 안정.</p>
+<p>여기서 <strong>통계적 결과 + 공학적 도메인 지식</strong>을 결합:
+- 예: <strong>상대습도 vs 증기압</strong> 둘 다 높은 VIF → <strong>더 근본적인 물리량인 증기압</strong> 선택. (상대습도는 증기압·온도로부터 파생.)</p>
+<p><img alt="데이터 가공 — VIF 독립변수 선택" src="assets/posts/ksme-pm25-cnn-prediction/img5.png" width="1085" height="306" loading="lazy">
+<em>그림5. 데이터 가공 — VIF 로 독립변수 선택</em></p>
+<h4 id="step-4-13">Step 4. 최종 13개 변수</h4>
+<blockquote>
+<p><code>pm10</code> · <code>Visibility</code> · <code>SO2</code> · <code>CO</code> · <code>NO2</code> · <code>Vapor Pressure</code> · <code>O3</code> · <code>Sea level pressure</code> · <code>Temperature</code> · <code>Solar radiation</code> · <code>Total cloudy</code> · <code>Wind direction</code> · <code>Wind speed</code></p>
+</blockquote>
+<h3 id="c-imputation">C. 결측치 보정 (Imputation)</h3>
+<p><strong>Predictive Mean Matching (PMM)</strong> 사용. 선형 모델 기반 imputation 은 <strong>비물리적 값</strong> (음수 농도 등) 을 생성하는 경우가 있어 배제.</p>
+<p><img alt="결측치 보정 결과" src="assets/posts/ksme-pm25-cnn-prediction/img6.png" width="1002" height="493" loading="lazy">
+<em>그림6. PMM 결측치 보정 결과</em></p>
+<h2 id="ann-window-learning">모델 — ANN + Window Learning</h2>
+<p><img alt="학습 모델링 (NN)" src="assets/posts/ksme-pm25-cnn-prediction/img7.png" width="969" height="537" loading="lazy">
+<em>그림7. 학습 모델링 — 신경회로망 구조</em></p>
+<p>기본 ANN 위에 <strong>Window Learning 기법</strong> 적용 — 시계열 예측의 표준 패턴:</p>
+<blockquote>
+<p><strong>이전 72시간</strong> 데이터를 한 묶음(window)으로 입력 → <strong>6 / 12 / 24시간 후</strong> PM2.5 농도 예측.</p>
+</blockquote>
+<p><img alt="Batch Configuration" src="assets/posts/ksme-pm25-cnn-prediction/img8.png" width="1387" height="523" loading="lazy">
+<em>그림8. Batch Configuration — 14개 변수를 재구성, batch size 100</em></p>
+<h2 id="_4">결과</h2>
+<p><img alt="학습 결과 및 Test 결과 (Scatter Plot)" src="assets/posts/ksme-pm25-cnn-prediction/img9.png" width="820" height="554" loading="lazy">
+<em>그림9. 학습 / 테스트 결과 산점도 (Scatter)</em></p>
+<p><img alt="예측 관측값 시계열 그래프" src="assets/posts/ksme-pm25-cnn-prediction/img10.png" width="892" height="595" loading="lazy">
+<em>그림10. 예측·관측값 시계열 비교</em></p>
+<p>2019년 발표 시점에는 결과가 "괜찮아 보였다". 산점도의 R²·MAE 도 적당했고, 시계열도 대략 추세를 따라가는 듯.</p>
+<h2 id="2">2년 뒤 — 대학원에서 발견한 함정</h2>
+<p>2021년 대학원 연구 중 같은 모델을 다시 들여다보다 발견한 사실:</p>
+<blockquote>
+<p><strong>Time lag (시간 밀림) 현상</strong> — 모델이 사실은 미래를 예측하는 게 아니라 <strong>"가장 가까운 과거를 그대로 따라 그리고 있었다"</strong>. 즉 6시간 후 예측 그래프가 6시간 전 실제값과 거의 일치.</p>
+</blockquote>
+<p>산점도(scatter) 만으로는 <strong>이 문제가 보이지 않는다</strong>. 점들의 분포는 좋은 R² 를 보여주지만, 시계열을 펼쳐서 시간축으로 정렬해야 "예측이 실제보다 N 시간 뒤처져 있다"는 게 보임.</p>
+<h3 id="rl">보완 시도 (RL 기반 거리 + 각도)</h3>
+<p>대학원에서 강화학습으로 이 문제를 다시 봄:
+- 손실 함수에 <strong>유클리드 거리</strong> 외에 <strong>각도 차이</strong>(시계열 변화 방향)를 추가.
+- 시간 밀림이 어느 정도 보완됨.
+- 다만 메인 연구가 있어 끝까지 정리하지 못함.</p>
+<h2 id="_5">회고 — 그때와 지금</h2>
+<blockquote>
+<p>"교수님들을 (모르고) 속이고 금상을 받았던 셈"</p>
+</blockquote>
+<p>당시엔 결과가 좋아 보였지만 본질을 못 본 거. 그렇지만:
+- <strong>데이터 수집부터 변수 선택, 결측치 보정, 모델 구성</strong>까지 전 파이프라인을 직접 만든 경험은 그대로 남음.
+- 이때 깔린 통계학·신경망 기본기가 지금까지 작업의 토대.
+- <strong>틀린 결과도 학습</strong>이라는 것 — 산점도만 보면 안 된다는 lesson 이 두 번 다시 같은 실수를 안 하게 만듦.</p>
+<h3 id="2019">그때 적은 다짐 (2019)</h3>
+<blockquote>
+<p>"앞으로는 다상유동·전통 유체 등 물리적 세계에 AI를 얼마나 유효하게 결합할 수 있을지 기대됩니다. 특히 <strong>베이지안 통계학</strong> 추천."</p>
+</blockquote>
+<h3 id="2024">2024년 현재</h3>
+<p>회사원이지만 그때 그린 그림은 여전히 유효. PM2.5 같은 환경 시계열, 다상유동·CFD + ML 결합, 베이지안 — 다 흥미로운 영역 그대로.</p>
+<h2 id="_6">참고</h2>
+<ul>
+<li><a href="https://taehyuklee.github.io/Archive/portfolio/html/project/Project%20thesis.html">학부 졸업논문 포스터</a> — 당시 발표 자료</li>
+<li>데이터 출처: <a href="https://www.airkorea.or.kr/">Air Korea</a> · <a href="https://data.kma.go.kr/">기상자료개방포털</a></li>
+<li>함께 옮긴 또 다른 후기: <a class="tb-embed-card" href="ko/aws-summit-2024/"><div class="tb-embed-thumb"><img src="assets/posts/aws-summit-2024/cover.jpg" alt="" loading="lazy" width="1332" height="2088"></div><div class="tb-embed-body"><div class="tb-embed-title">AWS Summit Seoul 2024 — 한 백엔드 개발자의 현장 메모 (AI 서빙·CMP·미들웨어)</div><div class="tb-embed-excerpt">2024년 5월 17일 AWS Summit Seoul 참석. 부스 돌면서 본 세 갈래 트렌드 — 생성형 AI 서빙 (챗봇·이메일·맞춤형 비서·이미지 생성), 멀티클라우드 CMP, API Gateway·미들웨어. &#39;결국 아이디어는 다 비슷, UI·UX·성능에서 갈린다&#39;는 잔상.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a></li>
+</ul>
+<hr />
+<blockquote>
+<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/18" rel="nofollow noopener">taehyuklee.tistory.com/18</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/aws-summit-2024/">AWS Summit Seoul 2024 — 한 백엔드 개발자의 현장 메모 (AI 서빙·CMP·미들웨어)</a></li><li><a href="ko/career-samsung-coding-test-review/">[신입 공채] 삼성전자 코딩테스트 — 5회 도전 후기 (Samsung Research · 혁신센터 · Device Platform)</a></li><li><a href="ko/kaist-grad-mech-written-set1/">KAIST 기계공학과 대학원 필기시험 후기 (1) — 첫 번째 세트 5문제 복기 (2019)</a></li><li><a href="ko/kaist-grad-mech-written-set2/">KAIST 기계공학과 대학원 필기시험 후기 (2) — 두 번째 세트 5문제 복기 (2019)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fksme-pm25-cnn-prediction%2F&amp;text=KSME%20%ED%95%99%ED%9A%8C%20%ED%9B%84%EA%B8%B0%20%E2%80%94%20%EC%8B%A0%EA%B2%BD%ED%9A%8C%EB%A1%9C%EB%A7%9D%20PM2.5%20%EC%98%88%EC%B8%A1%20%28%EB%8C%80%ED%95%9C%EA%B8%B0%EA%B3%84%ED%95%99%ED%9A%8C%20%EC%9C%A0%EC%B2%B4%EA%B2%BD%EC%A7%84%EB%8C%80%ED%9A%8C%20%EA%B8%88%EC%83%81%2C%202019%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fksme-pm25-cnn-prediction%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/python-oracledb-arm-dpi-1047/">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="ko/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="ko/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="ko/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (158) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

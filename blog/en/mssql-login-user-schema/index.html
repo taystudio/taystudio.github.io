@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>MS SQL Server Login, User &amp; Schema Mapping (Compared with Oracle) · Tay Blog</title>
+<meta name="description" content="For Oracle folks moving to MS SQL Server, the confusing 3-level Login·User·Schema structure compared with Oracle&#39;s 1-level (User=Schema=Login) model — including the sysadmin-locked-to-dbo problem and the per-task account separation fix.">
+<link rel="canonical" href="https://taystudios.com/blog/en/mssql-login-user-schema/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/mssql-login-user-schema/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/mssql-login-user-schema/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/mssql-login-user-schema/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="MS SQL Server Login, User &amp; Schema Mapping (Compared with Oracle) · Tay Blog">
+<meta property="og:description" content="For Oracle folks moving to MS SQL Server, the confusing 3-level Login·User·Schema structure compared with Oracle&#39;s 1-level (User=Schema=Login) model — including the sysadmin-locked-to-dbo problem and the per-task account separation fix.">
+<meta property="og:url" content="https://taystudios.com/blog/en/mssql-login-user-schema/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "MS SQL Server Login, User & Schema Mapping (Compared with Oracle)", "description": "For Oracle folks moving to MS SQL Server, the confusing 3-level Login·User·Schema structure compared with Oracle's 1-level (User=Schema=Login) model — including the sysadmin-locked-to-dbo problem and the per-task account separation fix.", "datePublished": "2025-10-05T00:00:00+09:00", "dateModified": "2025-10-05T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/mssql-login-user-schema/"}, "image": ["https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.png"], "keywords": "MS SQL Server, Oracle, schema, account-management, DBA"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "MS SQL Server Login, User & Schema Mapping (Compared with Oracle)", "item": "https://taystudios.com/blog/en/mssql-login-user-schema/"}]}</script><meta property="article:published_time" content="2025-10-05T00:00:00+09:00"><meta property="article:modified_time" content="2025-10-05T00:00:00+09:00"><meta property="article:tag" content="MS SQL Server"><meta property="article:tag" content="Oracle"><meta property="article:tag" content="schema"><meta property="article:tag" content="account-management"><meta property="article:tag" content="DBA">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">MS SQL Server Login, User &amp; Schema Mapping (Compared with Oracle)</span></nav>
+        <h1 class="tb-article-title">MS SQL Server Login, User &amp; Schema Mapping (Compared with Oracle)</h1>
+        <div class="tb-article-meta">
+          <time>2025.10.05</time>
+          <span>·</span><span>#MS SQL Server #Oracle #schema #account-management #DBA</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-introduction">1. Introduction</a></li><li class="tb-toc-h2"><a href="#2-accountschema-concept-differences-oracle-vs-ms-sql-server">2. Account/Schema Concept Differences: Oracle vs MS SQL Server</a></li><li class="tb-toc-h3"><a href="#oracle-user-schema-login">Oracle — User = Schema = Login</a></li><li class="tb-toc-h3"><a href="#ms-sql-server-login-user-schema-3-levels">MS SQL Server — Login → User → Schema (3 levels)</a></li><li class="tb-toc-h2"><a href="#3-the-default-schema-difference">3. The Default Schema Difference</a></li><li class="tb-toc-h3"><a href="#oracle">Oracle</a></li><li class="tb-toc-h3"><a href="#sql-server">SQL Server</a></li><li class="tb-toc-h2"><a href="#4-permission-management-oracle-vs-sql-server">4. Permission Management: Oracle vs SQL Server</a></li><li class="tb-toc-h2"><a href="#5-a-confusion-point-in-practice">5. A Confusion Point in Practice</a></li><li class="tb-toc-h2"><a href="#6-the-fix-separating-task-accounts-and-schemas">6. The Fix — Separating Task Accounts and Schemas</a></li><li class="tb-toc-h2"><a href="#7-summary-vs-oracle">7. Summary (vs Oracle)</a></li><li class="tb-toc-h2"><a href="#8-conclusion">8. Conclusion</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<h2 id="1-introduction">1. Introduction</h2>
+<p>Recently, while serving as TA on a CI/CD deployment-management project, I also took on some DBA work and ended up dealing directly with MS SQL Server's account-management structure.</p>
+<p>I had prior experience with Oracle DB, but the two DBMSes differ greatly in their <strong>account (User), schema, and permission concepts,</strong> which caused real confusion early on. This post organizes the account/schema/permission differences people commonly trip over when moving from Oracle to MS SQL Server, and shares the <strong>sysadmin-locked-to-dbo problem</strong> I hit, along with a structural fix.</p>
+<h2 id="2-accountschema-concept-differences-oracle-vs-ms-sql-server">2. Account/Schema Concept Differences: Oracle vs MS SQL Server</h2>
+<p>The thing Oracle veterans find most confusing when first meeting SQL Server is that <strong>the login account and the schema are decoupled.</strong></p>
+<h3 id="oracle-user-schema-login">Oracle — User = Schema = Login</h3>
+<ul>
+<li>Creating an account automatically creates a schema of the same name.</li>
+<li>So creating the <code>SCOTT</code> account means you work in the <code>SCOTT</code> schema right away.</li>
+</ul>
+<pre class="codehilite"><code class="language-sql">CREATE USER SCOTT IDENTIFIED BY tiger;
+-- the SCOTT schema is created at the same time
+</code></pre>
+
+<h3 id="ms-sql-server-login-user-schema-3-levels">MS SQL Server — Login → User → Schema (3 levels)</h3>
+<ul>
+<li><strong>Login (server level)</strong> — the account used to connect to the SQL Server instance. A server-wide authentication account that logs into the instance with an ID/PW.</li>
+<li><strong>User (DB level)</strong> — a user account belonging to a specific database after login. One Login must be <strong>mapped 1:1</strong> to a User within each database. So the same Login can have separate Users per DB.</li>
+<li><strong>Schema (object container)</strong> — a container that logically groups DB objects like tables, views, and procedures. It's separate from a User; each User can set a <strong>Default Schema</strong> to use. The initial default is the <code>dbo</code> schema, which you should change to the schema you'll actually use.</li>
+</ul>
+<pre class="codehilite"><code class="language-sql">-- 1) Create the server login
+CREATE LOGIN SCOTT WITH PASSWORD = '***';
+
+-- 2) Create the database
+CREATE DATABASE SCOTT_tiger;
+
+-- 3) Create the schema
+CREATE SCHEMA vdadmin AUTHORIZATION vdadmin_user;
+
+-- 4) Create a user in a specific DB
+--    In MS SQL you must always switch (USE) to a specific DB.
+--    (Oracle doesn't need this since schema and account are 1:1)
+USE SCOTT_tiger;
+-- In SSMS you'd also add the GO command (not needed in DBeaver)
+CREATE USER db_user FOR LOGIN SCOTT WITH DEFAULT_SCHEMA = SCOTT_tiger;
+-- Creates db_user inside SCOTT_tiger mapped to the SCOTT login,
+-- and sets db_user's default schema to SCOTT_tiger.
+</code></pre>
+
+<p>In short, <strong>MS SQL Server is a 3-level structure (Login → User → Schema).</strong> A server-level Login maps to a User in each DB, and that User picks one of the DB's schemas as its Default Schema. By contrast, <strong>Oracle is a 1-level structure (User = Schema = Login)</strong> — the login account acts as the user and the schema, with no separate mapping concept.</p>
+<blockquote>
+<p>📘 <strong>Note</strong> — even with a Default Schema set in MS SQL, you can still use objects in other schemas. Qualify them as <code>schema.table</code> and you can freely query tables in other schemas.</p>
+</blockquote>
+<p>That said, when configuring external integrations or application connection accounts, it's important to set the Default Schema explicitly. Otherwise, the connection auto-maps to <code>dbo</code> or an unspecified default schema, which can reference unintended objects. So mapping the <strong>Login → User → Default Schema</strong> relationship clearly, and creating a dedicated login per schema to use only that schema, is the safest and most efficient approach. (In the end, Oracle's single structure is much more intuitive.)</p>
+<h2 id="3-the-default-schema-difference">3. The Default Schema Difference</h2>
+<h3 id="oracle">Oracle</h3>
+<ul>
+<li>When you connect with an account, that account's schema automatically becomes the Default Schema.</li>
+<li>Since it's <code>User = Schema</code>, no extra setup is needed. Log in as <code>SCOTT</code> and you're connected to the <code>SCOTT</code> schema automatically.</li>
+</ul>
+<h3 id="sql-server">SQL Server</h3>
+<ul>
+<li>If you don't specify <code>DEFAULT_SCHEMA</code> when creating a User, the default is <strong>always <code>dbo</code>.</strong></li>
+<li>To use a different schema by default, you must specify it explicitly.</li>
+</ul>
+<pre class="codehilite"><code class="language-sql">ALTER USER a_user WITH DEFAULT_SCHEMA = a_schema;
+</code></pre>
+
+<p>Without this, objects are auto-created as <code>dbo.table_name</code>, piling up under <code>dbo</code> against your intent.</p>
+<h2 id="4-permission-management-oracle-vs-sql-server">4. Permission Management: Oracle vs SQL Server</h2>
+<p>Both DBMSes provide permissions and roles for access/operation control, but the structure and scope differ.</p>
+<p><strong>Oracle</strong> — permissions split broadly into System and Object permissions.</p>
+<ul>
+<li><strong>System permissions</strong> — affect the whole DB (e.g., <code>CREATE SESSION</code>, <code>CREATE TABLE</code>).</li>
+<li><strong>Object permissions</strong> — access to specific objects like tables/views (<code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>).</li>
+<li>It provides <strong>Roles</strong> to bundle permissions — predefined ones like <code>DBA</code>, <code>RESOURCE</code>, <code>CONNECT</code>, or your own custom roles.</li>
+</ul>
+<p><strong>SQL Server</strong> — a more layered permission system.</p>
+<ul>
+<li><strong>Server-level permissions</strong> — <code>sysadmin</code>, <code>serveradmin</code>, <code>securityadmin</code>, etc., affecting the whole server.</li>
+<li><strong>DB-level permissions</strong> — <code>CONNECT</code>, <code>CONTROL</code>, <code>ALTER</code>, etc., per database.</li>
+<li><strong>Schema/object-level permissions</strong> — grants on a specific schema or object.</li>
+</ul>
+<pre class="codehilite"><code class="language-sql">GRANT SELECT, INSERT, UPDATE, DELETE ON SCHEMA::X TO user;
+</code></pre>
+
+<ul>
+<li>SQL Server also provides built-in Roles like <code>db_datareader</code>, <code>db_datawriter</code>, <code>db_ddladmin</code> to bundle permissions.</li>
+</ul>
+<p>In short, Oracle splits permissions into <strong>whole-system vs object level</strong> and manages them role-centrically, while SQL Server has a hierarchy of <strong>Server → DB → Schema/Object</strong> with roles bound to that hierarchy.</p>
+<h2 id="5-a-confusion-point-in-practice">5. A Confusion Point in Practice</h2>
+<p>Logging into MS SQL with the <code>sysadmin</code> account, I hit a case where <strong>it always landed on the <code>dbo</code> schema</strong> no matter how I changed the Default Schema. The reason is clear: in MS SQL the <code>sysadmin</code> account is <strong>designed to always map to <code>dbo</code>,</strong> a fixed behavior for security/permission policy.</p>
+<p>So a DBA (<code>sysadmin</code>) account can't freely change its Default Schema and always starts at <code>dbo</code>. In practice, you separately <strong>create per-schema logins and map them</strong> apart from <code>sysadmin</code>, which lets you operate per-account schemas like Oracle.</p>
+<h2 id="6-the-fix-separating-task-accounts-and-schemas">6. The Fix — Separating Task Accounts and Schemas</h2>
+<p>Keep DBA-privileged accounts for ops/management only, and create separate logins to use a specific schema by default.</p>
+<ul>
+<li><strong>Server admin account</strong> — <code>sysadmin</code> (locked to dbo)</li>
+<li><strong>Per-task accounts</strong> — <code>a_user → a_schema</code>, <code>b_user → b_schema</code> as default schemas</li>
+</ul>
+<pre class="codehilite"><code class="language-sql">-- Task account A
+CREATE LOGIN a_user WITH PASSWORD = '***';
+USE mydb;
+CREATE USER a_user FOR LOGIN a_user WITH DEFAULT_SCHEMA = a_schema;
+
+-- Task account B
+CREATE LOGIN b_user WITH PASSWORD = '***';
+USE mydb;
+CREATE USER b_user FOR LOGIN b_user WITH DEFAULT_SCHEMA = b_schema;
+</code></pre>
+
+<p>This keeps the DBA account for management only while per-task User accounts use their own schema by default. The overall layout:</p>
+<pre class="codehilite"><code class="language-text">[Server Level]
+   ├── Logins
+   │     ├── sysadmin
+   │     ├── a_user
+   │     ├── b_user
+   │     ├── c_user
+   │     └── d_user
+   │
+[Database Level]
+   ├── Users
+   │     ├── dbo              ← representative User for sysadmin or db owner
+   │     ├── a_user
+   │     ├── b_user
+   │     ├── c_user
+   │     └── d_user
+   │
+   └── Schemas
+         ├── dbo              ← default schema
+         ├── a_user
+         ├── b_user
+         ├── c_user
+         └── d_user
+</code></pre>
+
+<h2 id="7-summary-vs-oracle">7. Summary (vs Oracle)</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Oracle</th>
+<th>SQL Server</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Login account</td>
+<td>User</td>
+<td>Login</td>
+</tr>
+<tr>
+<td>User within DB</td>
+<td>User = Schema</td>
+<td>User (mapped to a Login)</td>
+</tr>
+<tr>
+<td>Schema</td>
+<td>Same as User</td>
+<td>Separate object</td>
+</tr>
+<tr>
+<td>Default Schema</td>
+<td>Automatic (User=Schema)</td>
+<td>Must be set explicitly</td>
+</tr>
+<tr>
+<td>DBA account</td>
+<td>SYS / SYSTEM</td>
+<td>sysadmin (force-mapped to dbo)</td>
+</tr>
+<tr>
+<td>Permissions</td>
+<td>System / Object / Role</td>
+<td>Server / DB / Schema / Object / Role</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="8-conclusion">8. Conclusion</h2>
+<ul>
+<li>In Oracle, <strong>account = schema = login.</strong></li>
+<li>In MS SQL Server, <strong>Login, User, and Schema each exist separately</strong> and need mapping.</li>
+<li>The <code>sysadmin</code> (DBA) account is always mapped to <code>dbo</code> and can't change its Default Schema.</li>
+<li>So to use per-task Default Schemas, you must <strong>create separate Login–User accounts.</strong></li>
+</ul>
+<hr />
+<blockquote>
+<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/29" rel="nofollow noopener">taehyuklee.tistory.com/29</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li><li><a href="en/nginx-install-ubuntu-centos/">Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fmssql-login-user-schema%2F&amp;text=MS%20SQL%20Server%20Login%2C%20User%20%26%20Schema%20Mapping%20%28Compared%20with%20Oracle%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fmssql-login-user-schema%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/python-oracledb-arm-dpi-1047/">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="en/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="en/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="en/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag" href="en/tags/#Samsung">#Samsung <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (153) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>분산 시스템 유일 ID 생성기 설계 — Twitter Snowflake (Java 구현) · Tay Blog</title>
+<meta name="description" content="여러 서버가 동시에 ID를 만들어도 겹치지 않는 64비트 유일 ID 생성기 — Twitter Snowflake 기법(Sign·TimeStamp·DataCenter·Server·Serial 5구획)의 설계 의도와 Java 비트 연산 구현, 10,000 TPS 테스트 아키텍처(Nginx·Netty·MongoDB).">
+<link rel="canonical" href="https://taystudios.com/blog/ko/snowflake-id-generator/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/snowflake-id-generator/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/snowflake-id-generator/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/snowflake-id-generator/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="분산 시스템 유일 ID 생성기 설계 — Twitter Snowflake (Java 구현) · Tay Blog">
+<meta property="og:description" content="여러 서버가 동시에 ID를 만들어도 겹치지 않는 64비트 유일 ID 생성기 — Twitter Snowflake 기법(Sign·TimeStamp·DataCenter·Server·Serial 5구획)의 설계 의도와 Java 비트 연산 구현, 10,000 TPS 테스트 아키텍처(Nginx·Netty·MongoDB).">
+<meta property="og:url" content="https://taystudios.com/blog/ko/snowflake-id-generator/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/snowflake-id-generator/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/snowflake-id-generator/cover.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "분산 시스템 유일 ID 생성기 설계 — Twitter Snowflake (Java 구현)", "description": "여러 서버가 동시에 ID를 만들어도 겹치지 않는 64비트 유일 ID 생성기 — Twitter Snowflake 기법(Sign·TimeStamp·DataCenter·Server·Serial 5구획)의 설계 의도와 Java 비트 연산 구현, 10,000 TPS 테스트 아키텍처(Nginx·Netty·MongoDB).", "datePublished": "2024-06-12T00:00:00+09:00", "dateModified": "2024-06-12T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/snowflake-id-generator/"}, "image": ["https://taystudios.com/blog/assets/posts/snowflake-id-generator/cover.png"], "keywords": "시스템설계, Snowflake, 분산시스템, 유일ID, Java, 동시성"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Study", "item": "https://taystudios.com/blog/ko/category/study/"}, {"@type": "ListItem", "position": 3, "name": "분산 시스템 유일 ID 생성기 설계 — Twitter Snowflake (Java 구현)", "item": "https://taystudios.com/blog/ko/snowflake-id-generator/"}]}</script><meta property="article:published_time" content="2024-06-12T00:00:00+09:00"><meta property="article:modified_time" content="2024-06-12T00:00:00+09:00"><meta property="article:tag" content="시스템설계"><meta property="article:tag" content="Snowflake"><meta property="article:tag" content="분산시스템"><meta property="article:tag" content="유일ID"><meta property="article:tag" content="Java"><meta property="article:tag" content="동시성">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/study/">Study</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">분산 시스템 유일 ID 생성기 설계 — Twitter Snowflake (Java 구현)</span></nav>
+        <h1 class="tb-article-title">분산 시스템 유일 ID 생성기 설계 — Twitter Snowflake (Java 구현)</h1>
+        <div class="tb-article-meta">
+          <time>2024.06.12</time>
+          <span>·</span><span>#시스템설계 #Snowflake #분산시스템 #유일ID #Java #동시성</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">서론 — 문제 상황</a></li><li class="tb-toc-h2"><a href="#4-snowflake">방법론 — 4가지 중 Snowflake</a></li><li class="tb-toc-h2"><a href="#java">구현 (Java)</a></li><li class="tb-toc-h2"><a href="#_2">테스트 환경</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p>📚 <strong>책</strong>: 가상 면접 사례로 배우는 대규모 시스템 설계 기초 (System Design Interview) 1권 — 글쓴이 알렉스 쉬 / 옮긴이 이병준. 이 글은 7장 스터디 노트다.</p>
+</blockquote>
+<h2 id="_1">서론 — 문제 상황</h2>
+<blockquote>
+<p>상대적으로 큰 트래픽 부하가 발생하고 이를 처리해야 하는 상황이다. (초당 10,000개의 ID를 Insert해야 한다고 가정한다.)</p>
+</blockquote>
+<p>10,000 RPS(TPS)를 한 서버의 애플리케이션으로 처리하기엔 과부하가 일어날 수 있다. 그래서 같은 기능을 하는 여러 서버를 묶어 <strong>클러스터링</strong>으로 성능을 끌어올리고, 요청을 여러 애플리케이션 서버로 분산한다.</p>
+<p>이때 각 애플리케이션이 DB에 Insert를 보내고 ID가 <code>Auto-Increment</code>로 하나씩 올라간다면, <strong>경쟁 조건(race condition)에 의해 ID가 겹칠 수 있다</strong> (성능 이슈로 트랜잭션 격리 수준이 엄격하지 않다고 가정). 7장은 서로 다른 서버에서 ID를 생성해도 <strong>유일한 ID</strong>를 만드는 생성기를 다룬다.</p>
+<p>ID 생성기의 요구사항은 다음과 같다.</p>
+<ol>
+<li><strong>유일(Unique) ID</strong></li>
+<li><strong>숫자(Number) 타입</strong></li>
+<li>ID 자릿수는 <strong>64비트</strong>로 구성 (16진수 16글자 이내)</li>
+<li>ID 발급 <strong>날짜순 정렬</strong>이 가능해야 함</li>
+<li><strong>10,000 TPS</strong>를 감당할 수 있어야 함</li>
+</ol>
+<h2 id="4-snowflake">방법론 — 4가지 중 Snowflake</h2>
+<p>책은 <strong>UUID, 다중 마스터 복제, 티켓 서버, Twitter Snowflake</strong> 4가지를 제시한다. 각 방법마다 고찰할 점이 많지만, 이 글에서는 메인으로 소개되는 <strong>Twitter Snowflake</strong> 기법을 다룬다.</p>
+<p>Snowflake는 동시성 문제가 생길 만한 요소들을 <strong>ID를 구성하는 요소로 직접 넣어</strong> 동시성 문제를 구조적으로 제거한다.</p>
+<p><img alt="Twitter Snowflake의 64비트 ID 구성 — Sign·TimeStamp·DC ID·Server ID·Serial Num 5구획" src="assets/posts/snowflake-id-generator/img1.png" width="1724" height="278" loading="lazy">
+<em>그림 1. Snowflake ID 구성</em></p>
+<p>Snowflake는 64비트이며 5개 구획으로 나뉜다. 각 구획을 보며 ID 구성만으로 동시성을 어떻게 해결했는지 따라가 보자.</p>
+<ul>
+<li><strong>① Sign — 1비트</strong> : 당장은 안 쓰지만 추후 음수/양수 구별용.</li>
+<li><strong>② TimeStamp — 41비트</strong> : 기원 시각(epoch) 이후 경과한 milliseconds. Snowflake 기원 시각은 <code>Nov 04, 2010, 01:42:54 UTC</code> = <code>1288834974657 ms</code>.</li>
+<li><strong>③ DataCenter ID — 5비트</strong> : 2⁵ = 총 32개 데이터센터 지원.</li>
+<li><strong>④ Server ID — 5비트</strong> : 데이터센터당 32개 서버 지원. 32 × 32 = 총 1024개 서버.</li>
+<li><strong>⑤ Serial Num — 12비트</strong> : 같은 서버에서 1ms 이내에 여러 ID가 생성되면 1씩 증가하고, 1ms가 지나면 0으로 초기화.</li>
+</ul>
+<blockquote>
+<p>💡 <strong>간결한 아이디어</strong> — 동시성이 발생할 수 있는 요소를 모두 ID 구성요소로 명시해 문제를 해결한다.</p>
+<ol>
+<li>ID에 시각을 넣어 구분하자. 그런데 같은 시각에 여러 데이터센터에서 발생하면? → <strong>DC ID</strong>로 분기.</li>
+<li>한 데이터센터 안 여러 서버에서 같은 시각에 발생하면? → <strong>Server ID</strong>로 분기.</li>
+<li>같은 시각·같은 서버에서 동시에 발생하면? → <strong>Serial Num</strong>으로 분기.</li>
+</ol>
+<p>이로써 애플리케이션 로직으로 DC/Server를 따로 체크할 필요 없이 <strong>ID 생성 자체가 유일성</strong>을 갖는다. (단, 동시에 들어와 Serial Num까지 같아지는 케이스는 ID Generator에서 처리해줘야 한다.)</p>
+</blockquote>
+<h2 id="java">구현 (Java)</h2>
+<p>비트 연산자로 5개 구획을 각각 Shift해 하나의 64비트 ID를 만들고, 10진법 <code>Long</code> 타입으로 반환하는 생성기다.</p>
+<pre class="codehilite"><code class="language-java">import java.time.LocalDateTime;
+import java.time.ZoneId;
+
+public class SnowFlakeIdGenerator {
+
+    // 트위터의 기원 시각을 ms로 표현한 값
+    private final long twEpoch = 1288834974657L;
+
+    // 구성: TimeStamp 41bit, Server ID 5bit, DC ID 5bit, Serial 12bit
+    private final long timestampBits = 41L;
+    private final long serverIdBits = 5L;
+    private final long datacenterIdBits = 5L;
+    private final long serialBits = 12L;
+
+    // 비트 시프트 — 각 구획만큼 왼쪽으로 밀어줄 자리 수를 미리 계산
+    private final long serialIdShiftFromRight = serialBits;
+    private final long datacenterIdShiftFromRight = serialBits + serverIdBits;
+    private final long timestampLeftShiftFromRight = serialBits + serverIdBits + datacenterIdBits;
+    private final long signLeftShiftFromRight = serialBits + serverIdBits + datacenterIdBits + timestampBits;
+
+    // Serial이 한 바퀴 돌면 0으로 되돌리기 위한 마스크
+    private final long serialMask = -1L ^ (-1L &lt;&lt; serialBits);
+
+    private long oldTimestamp = -1L;
+    private long serialNum = 1L;
+
+    // 같은 ms에 여러 요청이 몰릴 수 있어 synchronized
+    public synchronized long generateNewId(long serverId, long dataCenterId) throws Exception {
+
+        long timestamp = getCurrentTimeStamp();   // 현재 시각(ms)
+
+        long signedId = 1L;
+        long timestampId = timestamp - twEpoch;
+
+        // Serial Number 증가
+        if (timestamp == oldTimestamp) {
+            // 한 바퀴 돌면 serialNum을 0으로
+            serialNum = (serialNum + 1) &amp; serialMask;
+
+            // 1ms 안에 4096개(2^12)를 다 쓰면 다음 ms까지 대기
+            if (serialNum == 0) {
+                long newTime = getCurrentTimeStamp();
+                while (timestamp != newTime) {
+                    newTime = getCurrentTimeStamp();
+                }
+            }
+        } else {
+            serialNum = 1L;   // 시각이 달라지면 초기화
+        }
+
+        oldTimestamp = timestamp;
+
+        // 5개 구획을 Shift해 하나의 64bit ID로 합친다
+        long snowFlakeId =
+                signedId &lt;&lt; signLeftShiftFromRight |
+                timestampId &lt;&lt; timestampLeftShiftFromRight |
+                dataCenterId &lt;&lt; datacenterIdShiftFromRight |
+                serverId &lt;&lt; serialIdShiftFromRight |
+                serialNum;
+
+        return snowFlakeId;
+    }
+
+    private long getCurrentTimeStamp() {
+        // 데이터센터마다 다를 수 있어 ZoneId로 통일
+        ZoneId zoneId = ZoneId.of(&quot;Asia/Seoul&quot;);
+        return LocalDateTime.now().atZone(zoneId).toInstant().toEpochMilli();
+    }
+}
+</code></pre>
+
+<p>결과는 비트·10진법 모두 확인했다. (맨 앞 Sign을 1로 둬서 10진법 표기 시 음수가 된다.)</p>
+<pre class="codehilite"><code class="language-text">비트 표기 : 1001100011111100110110001011011111001111000000100001000000000001
+10진법    : -7422819801849786367
+</code></pre>
+
+<p>10진법 값을 <code>String</code>으로 바꿔 Insert 시 ID에 넣는 방식으로 사용했다.</p>
+<h2 id="_2">테스트 환경</h2>
+<p>이제 이 ID Generator를 <strong>10,000 TPS</strong> 환경에 노출시켜 중복 없이 들어가는지 확인할 차례다. 테스트 환경은 다음과 같이 구성했다.</p>
+<p><img alt="ID Generator 테스트 아키텍처 — Apache Bench → Nginx(LB) → Netty 클러스터 → MongoDB" src="assets/posts/snowflake-id-generator/img2.png" width="877" height="486" loading="lazy">
+<em>그림 2. ID Generator 테스트 아키텍처</em></p>
+<blockquote>
+<p>필자는 홈 클라우드 서버를 구축해 외부에서 SSH로 붙을 수 있게 해뒀다. 집에 PC가 6대라 private 망으로 위 구성이 가능하다.</p>
+</blockquote>
+<ol>
+<li><strong>Apache Bench</strong> — n개의 요청을 동시(concurrency)에 보낼 수 있는 성능 테스트기.</li>
+<li><strong>Nginx</strong> — 대표적인 웹 서버지만 여기서는 <strong>Reverse Proxy(로드 밸런서)</strong>로 사용.</li>
+<li><strong>Nexus Repository</strong> — 위에서 만든 Id-Generator jar를 애플리케이션에 전달.</li>
+<li><strong>Netty</strong> — Spring Boot 기본 내장 Tomcat 대신, 성능을 위해 <strong>Event Loop</strong> 방식의 Netty 서버를 사용.</li>
+<li><strong>MongoDB</strong> — DB. Non-Blocking을 지원하는 <code>mongo-reactive-db</code> ORM 사용.</li>
+</ol>
+<p>각 구성요소마다 할 말이 많지만 이 글에서는 테스트 구성만 소개한다. 다음 글에서 위 성능 테스트 결과를 공유할 예정이다.</p>
+<p>위 구성 중 <strong>Nginx 설치·버전 설정</strong>은 아래 글에서 자세히 다룬다.</p>
+<a class="tb-embed-card" href="ko/nginx-install-ubuntu-centos/"><div class="tb-embed-thumb"><img src="assets/posts/nginx-install-ubuntu-centos/cover.png" alt="" loading="lazy" width="1536" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Nginx 설치 가이드 — Ubuntu / CentOS (특정 버전·설정 구조·방화벽)</div><div class="tb-embed-excerpt">AWS EC2 등 클라우드 서버에 Nginx 설치 — Ubuntu(apt)·CentOS(yum) 버전별 설치, /etc/nginx 설정 구조(sites-available/enabled), UFW·firewalld·AWS 보안그룹 방화벽까지 한 번에.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<hr />
+<blockquote>
+<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/10" rel="nofollow noopener">taehyuklee.tistory.com/10</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/career-samsung-coding-test-modules/">삼성전자 코딩테스트 — 자주 나오는 구현 모듈 (Java) 정리</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fsnowflake-id-generator%2F&amp;text=%EB%B6%84%EC%82%B0%20%EC%8B%9C%EC%8A%A4%ED%85%9C%20%EC%9C%A0%EC%9D%BC%20ID%20%EC%83%9D%EC%84%B1%EA%B8%B0%20%EC%84%A4%EA%B3%84%20%E2%80%94%20Twitter%20Snowflake%20%28Java%20%EA%B5%AC%ED%98%84%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fsnowflake-id-generator%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/python-oracledb-arm-dpi-1047/">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="ko/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="ko/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="ko/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (158) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

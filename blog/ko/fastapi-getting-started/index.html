@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Python FastAPI 시작하기 — 개론·설치·Pycharm 실행 (feat. uvicorn) · Tay Blog</title>
+<meta name="description" content="FastAPI를 쓰는 이유(비동기·I/O bound)와 Python GIL의 관계, pip로 FastAPI·uvicorn 설치, 웹 프레임워크와 웹 애플리케이션(ASGI/WSGI)의 관계, Pycharm에서 uvicorn으로 서버를 실행하는 두 가지 방법과 내장 Swagger-UI까지 정리한 FastAPI 입문 가이드.">
+<link rel="canonical" href="https://taystudios.com/blog/ko/fastapi-getting-started/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/fastapi-getting-started/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/fastapi-getting-started/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/fastapi-getting-started/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Python FastAPI 시작하기 — 개론·설치·Pycharm 실행 (feat. uvicorn) · Tay Blog">
+<meta property="og:description" content="FastAPI를 쓰는 이유(비동기·I/O bound)와 Python GIL의 관계, pip로 FastAPI·uvicorn 설치, 웹 프레임워크와 웹 애플리케이션(ASGI/WSGI)의 관계, Pycharm에서 uvicorn으로 서버를 실행하는 두 가지 방법과 내장 Swagger-UI까지 정리한 FastAPI 입문 가이드.">
+<meta property="og:url" content="https://taystudios.com/blog/ko/fastapi-getting-started/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/fastapi-getting-started/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/fastapi-getting-started/cover.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Python FastAPI 시작하기 — 개론·설치·Pycharm 실행 (feat. uvicorn)", "description": "FastAPI를 쓰는 이유(비동기·I/O bound)와 Python GIL의 관계, pip로 FastAPI·uvicorn 설치, 웹 프레임워크와 웹 애플리케이션(ASGI/WSGI)의 관계, Pycharm에서 uvicorn으로 서버를 실행하는 두 가지 방법과 내장 Swagger-UI까지 정리한 FastAPI 입문 가이드.", "datePublished": "2024-10-20T00:00:00+09:00", "dateModified": "2024-10-20T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/fastapi-getting-started/"}, "image": ["https://taystudios.com/blog/assets/posts/fastapi-getting-started/cover.png"], "keywords": "FastAPI, uvicorn, ASGI, GIL, Pycharm, Python"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Web Development", "item": "https://taystudios.com/blog/ko/category/web-dev/"}, {"@type": "ListItem", "position": 3, "name": "Python FastAPI 시작하기 — 개론·설치·Pycharm 실행 (feat. uvicorn)", "item": "https://taystudios.com/blog/ko/fastapi-getting-started/"}]}</script><meta property="article:published_time" content="2024-10-20T00:00:00+09:00"><meta property="article:modified_time" content="2024-10-20T00:00:00+09:00"><meta property="article:tag" content="FastAPI"><meta property="article:tag" content="uvicorn"><meta property="article:tag" content="ASGI"><meta property="article:tag" content="GIL"><meta property="article:tag" content="Pycharm"><meta property="article:tag" content="Python">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/web-dev/">Web Development</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Python FastAPI 시작하기 — 개론·설치·Pycharm 실행 (feat. uvicorn)</span></nav>
+        <h1 class="tb-article-title">Python FastAPI 시작하기 — 개론·설치·Pycharm 실행 (feat. uvicorn)</h1>
+        <div class="tb-article-meta">
+          <time>2024.10.20</time>
+          <span>·</span><span>#FastAPI #uvicorn #ASGI #GIL #Pycharm #Python</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#1-why-fastapi-fastapi">1. Why FastAPI? (FastAPI의 당위성)</a></li><li class="tb-toc-h2"><a href="#2-python-gil-fastapi">2. Python GIL 정책 &amp;amp; FastAPI</a></li><li class="tb-toc-h2"><a href="#3-fastapi">3. FastAPI 설치</a></li><li class="tb-toc-h3"><a href="#31-fastapi">3.1 FastAPI 설치</a></li><li class="tb-toc-h3"><a href="#32-asgiasynchronous-server-gateway-interface">3.2 ASGI(Asynchronous Server Gateway Interface) 서버 설치</a></li><li class="tb-toc-h3"><a href="#33-java-tomcat-netty">3.3 (참고) Java 개발자를 위한 개념 매핑 (Tomcat, Netty)</a></li><li class="tb-toc-h3"><a href="#34-vs">3.4 (중요) 웹 프레임워크 vs 웹 애플리케이션 — 관계·역할</a></li><li class="tb-toc-h4"><a href="#spring-boot-fastapistandard">&quot;그런데 Spring Boot나 fastapi[standard]는 그냥 실행해도 서버가 뜨던데요?&quot;</a></li><li class="tb-toc-h2"><a href="#4-pycharm-fastapi-uvicorn">4. Pycharm에서 FastAPI를 uvicorn으로 실행하기</a></li><li class="tb-toc-h3"><a href="#41">4.1 프로젝트 생성 (가상환경 / 시스템 환경)</a></li><li class="tb-toc-h3"><a href="#42-mainpy-fastapi">4.2 main.py 생성 — FastAPI 인스턴스</a></li><li class="tb-toc-h3"><a href="#43-uvicornasgi">4.3 uvicorn(ASGI)으로 실행하는 두 가지 방법</a></li><li class="tb-toc-h3"><a href="#44">4.4 요청 보내보기</a></li><li class="tb-toc-h3"><a href="#45-fastapi-swagger-ui">4.5 FastAPI 내장 Swagger-UI</a></li><li class="tb-toc-h2"><a href="#_1">맺음말</a></li><li class="tb-toc-h2"><a href="#_2">참고 자료</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<p>Java Spring Boot만 다루다 Python으로 개발할 일이 생겨, FastAPI를 처음 세팅하며 정리한 입문 글이다. 이 글의 목표는 다음과 같다.</p>
+<ol>
+<li><strong>FastAPI(with uvicorn)를 쓰는 이유</strong></li>
+<li><strong>Python GIL 정책과 FastAPI</strong> — 개발 방향성 (맛보기)</li>
+<li><strong>FastAPI 설치</strong> — FastAPI·ASGI(uvicorn) 설치 + 웹 애플리케이션 개론</li>
+<li><strong>Pycharm으로 FastAPI 실행·구성</strong> — 가상환경 vs 시스템 환경, uvicorn 실행 두 가지 방법, 내장 Swagger-UI</li>
+</ol>
+<h2 id="1-why-fastapi-fastapi">1. Why FastAPI? (FastAPI의 당위성)</h2>
+<p>FastAPI는 비동기 처리를 통한 높은 성능과 간결한 코드가 장점으로 꼽힌다. 특히 '데이터 분석 플랫폼'처럼 빠른 응답 속도가 생명인 경우 적합한 선택이 될 수 있다.</p>
+<p>다만 <strong>CPU-Bound Task와 I/O-Bound Task를 구분</strong>할 필요가 있다. FastAPI는 I/O-Bound 작업(DB 호출, 외부 API 호출 등)에서 성능 이점을 주지만, CPU-Bound Task가 많은 경우에는 Python의 GIL 정책 때문에 비동기 처리만으로는 성능 향상이 제한적일 수 있다.</p>
+<blockquote>
+<p>📘 <a href="https://fastapi.tiangolo.com">FastAPI 공식문서</a> — high performance, easy to learn, fast to code, ready for production.</p>
+</blockquote>
+<h2 id="2-python-gil-fastapi">2. Python GIL 정책 &amp; FastAPI</h2>
+<p>Python은 <strong>GIL(Global Interpreter Lock)</strong> 때문에 멀티 스레드를 써도 실질적인 병렬 처리 효과를 얻기 어렵다. GIL은 한 번에 하나의 스레드만 Python 바이트코드를 실행하도록 제한해(Race Condition 방지 목적), CPU-Bound Task에서 멀티스레딩의 장점을 살리지 못하게 한다.</p>
+<p>따라서 <strong>I/O-Bound 작업에서는 FastAPI의 비동기(feat. uvicorn)가 유리</strong>하지만, CPU-Bound 작업이 많으면 멀티프로세싱이나 다른 언어를 통한 최적화가 필요하다.</p>
+<blockquote>
+<p>GIL은 이해 정도에 따라 개발 방향성·코드 구조가 완전히 달라지므로 꼭 짚고 넘어가야 한다. 특히 Java Spring Boot(MVC)로 개발하던 사람이라면 Python과 Java의 비동기 처리 방식 차이를 명확히 이해한 뒤 개발에 임하는 것이, 이후 코드 수정·구조 변경을 줄이는 데 도움이 된다. (GIL은 별도 글에서 깊게 다룰 예정이다.)</p>
+</blockquote>
+<h2 id="3-fastapi">3. FastAPI 설치</h2>
+<p>pip이나 Python 환경변수 설정이 안 되어 있다면 아래 글을 먼저 참고하자.</p>
+<a class="tb-embed-card" href="ko/python-windows-install-path/"><div class="tb-embed-thumb"><img src="assets/posts/python-windows-install-path/cover.webp" alt="" loading="lazy" width="512" height="179"></div><div class="tb-embed-body"><div class="tb-embed-title">윈도우 Python 설치 + 환경변수(PATH) 설정 — &#39;python&#39; 명령어 인식 안 될 때</div><div class="tb-embed-excerpt">윈도우에서 Python을 설치하고 시스템 환경변수(PATH)에 설치 경로와 Scripts(pip) 경로를 등록해, cmd에서 &#39;python&#39;·&#39;pip&#39;만 입력해도 실행되게 하는 과정. USER/SYSTEM 변수 차이와 pip로 설치한 라이브러리의 site-packages 구조까지 정리.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<h3 id="31-fastapi">3.1 FastAPI 설치</h3>
+<p>Python 패키지 관리자 pip으로 fastapi 패키지를 받는다.</p>
+<pre class="codehilite"><code class="language-bash">pip install fastapi
+</code></pre>
+
+<p>설치 확인은 Python이 설치된 경로(예: <code>D:\Python</code>) 아래 <code>Lib\site-packages</code>와 <code>Scripts</code>에 fastapi가 있는지 보면 된다.</p>
+<h3 id="32-asgiasynchronous-server-gateway-interface">3.2 ASGI(Asynchronous Server Gateway Interface) 서버 설치</h3>
+<pre class="codehilite"><code class="language-bash">pip install &quot;uvicorn[standard]&quot;
+</code></pre>
+
+<p>ASGI는 <strong>비동기</strong> 웹 애플리케이션을 위한 인터페이스다. WSGI가 동기 기반 웹 애플리케이션 표준이라면, ASGI는 비동기까지 지원하도록 확장된 표준이라 생각하면 된다.</p>
+<ul>
+<li><strong>ASGI</strong> — Uvicorn, Daphne / FastAPI와 함께 사용</li>
+<li><strong>WSGI</strong> — Gunicorn, uWSGI, Waitress / Django, Flask 등에서 사용</li>
+</ul>
+<blockquote>
+<p>공식문서식 추상적 설명만으로는 와닿지 않을 수 있다. ASGI·WSGI·FastAPI 같은 프레임워크의 구조·메커니즘은 별도 글에서 딥다이브할 예정이다.</p>
+</blockquote>
+<h3 id="33-java-tomcat-netty">3.3 (참고) Java 개발자를 위한 개념 매핑 (Tomcat, Netty)</h3>
+<p>역할로 보면 Spring Boot(MVC)의 <strong>Tomcat</strong>, Spring WebFlux의 <strong>Netty</strong>가 각각 WSGI·ASGI 서버와 유사하다. 역할이 비슷해 서버 게이트웨이를 WAS라 부를 수도 있지만, 엄밀히 WAS라 지칭하는 것은 정확하지 않다.</p>
+<blockquote>
+<p>Tomcat·Netty·WSGI·ASGI 같은 애플리케이션 서버(프로세스)는 모두 HTTP 요청을 수신·처리하기 위해 내부적으로 루프를 돌며 들어오는 요청을 처리한다(Request Parsing 등 포함).</p>
+</blockquote>
+<p>개발자는 이런 애플리케이션 서버에 맞춰 Spring Boot·Flask·FastAPI 같은 프레임워크를 선택해 내부 서비스 로직을 구현한다. 참고로 Java 진영의 Tomcat은 Java로, uvicorn은 Cython으로 만들어진 것으로 알려져 있다.</p>
+<h3 id="34-vs">3.4 (중요) 웹 프레임워크 vs 웹 애플리케이션 — 관계·역할</h3>
+<p>여기서 다음과 같은 의문이 들 수 있고, 당연한 의문이다.</p>
+<blockquote>
+<p>FastAPI나 Spring 같은 웹 프레임워크는 Uvicorn·Gunicorn·Tomcat·Netty·Jetty 같은 웹 애플리케이션이 없으면 서버 역할을 못 하는 것인가?</p>
+</blockquote>
+<p><img alt="웹 프레임워크와 웹 애플리케이션의 관계도 — 프레임워크가 애플리케이션 서버 위에서 동작" src="assets/posts/fastapi-getting-started/img1.png" width="1450" height="836" loading="lazy">
+<em>그림 1. 웹 프레임워크와 웹 애플리케이션의 간단한 관계도</em></p>
+<p>내가 내린 답은, <strong>직접 while 루프를 도는 서버를 만들지 않는 이상 웹 프레임워크만으로는 서버가 되지 못한다</strong>는 것이다. 웹 프레임워크는 웹 서버 그 자체라기보다, 웹 서버(애플리케이션) 위에서 동작하는 애플리케이션을 쉽게 개발하도록 돕는 도구다. 네트워크 통신·스레드 관리 같은 저수준 작업은 웹 애플리케이션이 담당한다.</p>
+<p>요약하면, 웹 애플리케이션 서버는 클라이언트와의 통신을 관리하고, 다중 사용자 요청을 효율적으로 처리하기 위해 스레드를 관리하며, 애플리케이션 로직을 실행할 환경을 제공한다. 심지어 uvicorn은 부모-자식 프로세스 관리까지 한다.</p>
+<h4 id="spring-boot-fastapistandard">"그런데 Spring Boot나 fastapi[standard]는 그냥 실행해도 서버가 뜨던데요?"</h4>
+<p>그건 Spring Boot에 <strong>내장 Tomcat</strong>이 이미 있고, <code>fastapi[standard]</code>로 설치해 <code>fastapi dev main.py</code>로 실행하면 <strong>내장 uvicorn</strong>이 실행되기 때문이다.</p>
+<blockquote>
+<p>📘 <a href="https://www.uvicorn.org">Uvicorn 공식문서</a> — An ASGI web server, for Python.</p>
+</blockquote>
+<p>uvicorn을 수동으로 실행하는 방법은 다음과 같다(출처: uvicorn 공식문서).</p>
+<pre class="codehilite"><code class="language-python">import asyncio
+import uvicorn
+
+async def app(scope, receive, send):
+    ...
+
+async def main():
+    config = uvicorn.Config(&quot;main:app&quot;, port=5000, log_level=&quot;info&quot;)
+    server = uvicorn.Server(config)
+    await server.serve()
+
+if __name__ == &quot;__main__&quot;:
+    asyncio.run(main())
+</code></pre>
+
+<p>uvicorn에 <code>"main:app"</code>을 넘기고 <code>asyncio.run(main())</code>으로 비동기 실행하는 것을 확인할 수 있다.</p>
+<h2 id="4-pycharm-fastapi-uvicorn">4. Pycharm에서 FastAPI를 uvicorn으로 실행하기</h2>
+<p>개론을 봤으니 실제로 Pycharm(Community 2024.2.3)에서 구성·실행해 본다. 앞의 3.1·3.2 과정으로 global site-packages에 fastapi·uvicorn[standard]를 설치한 상태다.</p>
+<blockquote>
+<p><strong>용어 — global vs local site-packages</strong>
+Python을 시스템에 설치하면 설치 디렉터리 내 라이브러리 폴더가 있고, 그 인터프리터를 쓰는 모든 프로젝트가 공통 참조하므로 <strong>global site-packages</strong>라 부른다(예: <code>D:\Python\Python.3.11.8\Lib\site-packages</code>).
+반면 프로젝트마다 독립 환경을 두는 방법도 있는데, 프로젝트 폴더 내부에만 설치된 패키지를 쓰는 <strong>가상 환경(venv) = local site-packages</strong>다. 프로젝트마다 다른 버전의 라이브러리가 필요할 때 유용하다.</p>
+</blockquote>
+<h3 id="41">4.1 프로젝트 생성 (가상환경 / 시스템 환경)</h3>
+<p><img alt="Pycharm 새 프로젝트 생성 창 — 인터프리터 타입과 환경 선택" src="assets/posts/fastapi-getting-started/img2.png" width="1418" height="1001" loading="lazy">
+<em>그림 2. 새로운 프로젝트 생성</em></p>
+<p>Pycharm에서 프로젝트를 생성하면 인터프리터 타입(프로젝트 venv / conda / 사용자 지정 환경)을 고르게 된다. 여기서는 <strong>내가 설치한 Python 인터프리터를 가져오고 global site-packages를 참조</strong>할 것이다.</p>
+<ul>
+<li><strong>인터프리터 타입</strong> — 사용자 지정 환경 선택</li>
+<li><strong>환경</strong> — '새로 생성(venv)'은 인터프리터는 내 것을 쓰되 라이브러리는 가상환경 것만 쓰겠다는 의미다. global site-packages를 참조하려면 <strong>'기존 항목 선택'</strong>으로 둔다.</li>
+</ul>
+<p><img alt="가상환경 프로젝트와 global site-packages 참조 프로젝트의 외부 라이브러리 경로 비교" src="assets/posts/fastapi-getting-started/img3.png" width="962" height="981" loading="lazy">
+<em>그림 3. (위) 가상환경 / (아래) global site-packages 참조</em></p>
+<p>가상환경을 쓰면 프로젝트 내부에 <code>Lib</code>·<code>Scripts</code>가 생기고 외부 라이브러리도 그 가상환경의 <code>Scripts</code>를 참조한다. 반면 global site-packages를 쓰는 프로젝트는 Python 설치 경로를 참조한다. venv에서 fastapi를 쓰고 싶다면 그 환경 터미널에서 <code>pip install fastapi</code>를 다시 하면 된다.</p>
+<h3 id="42-mainpy-fastapi">4.2 main.py 생성 — FastAPI 인스턴스</h3>
+<p><img alt="Pycharm에서 fastapi import가 인식되는 화면" src="assets/posts/fastapi-getting-started/img4.png" width="1339" height="475" loading="lazy">
+<em>그림 4. fastapi 인식이 가능해진다</em></p>
+<p>프로젝트 하위에 <code>main.py</code>를 만들고 FastAPI 공식 예제를 작성한다.</p>
+<pre class="codehilite"><code class="language-python"># 출처: fastapi 공식문서
+from typing import Union
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get(&quot;/sync/say-hello&quot;)
+def read_root():
+    return {&quot;Hello&quot;: &quot;World&quot;}
+
+@app.get(&quot;/async/say-hello&quot;)
+async def async_read_root():
+    return {&quot;async Hello&quot;: &quot;World&quot;}
+
+
+@app.get(&quot;/items/{item_id}&quot;)
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {&quot;item_id&quot;: item_id, &quot;q&quot;: q}
+</code></pre>
+
+<p><code>app = FastAPI()</code>로 FastAPI 인스턴스를 만들고, 이 <code>app</code>을 uvicorn에 전달해 웹 애플리케이션을 실행한다.</p>
+<h3 id="43-uvicornasgi">4.3 uvicorn(ASGI)으로 실행하는 두 가지 방법</h3>
+<p><strong>① 터미널에서 uvicorn 직접 실행</strong></p>
+<pre class="codehilite"><code class="language-bash">uvicorn main:app --reload
+</code></pre>
+
+<p><code>main.py</code>의 <code>app</code> 객체를 uvicorn에 넘겨 실행하라는 뜻이다. <code>--reload</code>는 코드 수정 시 서버를 자동 재시작해 주는 개발용 옵션으로, <strong>배포 환경에서는 권장되지 않는다</strong>. (<code>--port</code>로 포트를, <code>--workers</code>로 자식 프로세스 수를 조절할 수 있는데, workers는 GIL·비동기 글에서 따로 다룰 예정이다.)</p>
+<p><img alt="uvicorn 실행 — reloader와 서버가 각각 별도 프로세스로 동작" src="assets/posts/fastapi-getting-started/img5.png" width="856" height="200" loading="lazy">
+<em>그림 5. uvicorn을 실행한 상태</em></p>
+<p>uvicorn을 실행하면 reloader와 uvicorn 서버가 각각 별도 프로세스 ID로 돌아간다. reloader도 별도 프로세스임을 알 수 있다.</p>
+<p><strong>② 코드에 uvicorn을 넣어 실행 (더 직관적)</strong></p>
+<pre class="codehilite"><code class="language-python">from typing import Union
+from fastapi import FastAPI
+import asyncio
+import uvicorn
+
+app = FastAPI()
+
+
+@app.get(&quot;/sync/say-hello&quot;)
+def read_root():
+    return {&quot;Hello&quot;: &quot;World&quot;}
+
+@app.get(&quot;/async/say-hello&quot;)
+async def async_read_root():
+    return {&quot;async Hello&quot;: &quot;World&quot;}
+
+
+@app.get(&quot;/items/{item_id}&quot;)
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {&quot;item_id&quot;: item_id, &quot;q&quot;: q}
+
+
+async def main():
+    config = uvicorn.Config(&quot;main:app&quot;, port=8000, log_level=&quot;info&quot;)
+    server = uvicorn.Server(config)
+    await server.serve()
+
+if __name__ == &quot;__main__&quot;:
+    asyncio.run(main())
+</code></pre>
+
+<p><code>uvicorn.Config</code>에 <code>app</code>을 전달해 서버를 직접 실행하고, <code>main</code>을 <code>asyncio</code>로 비동기 실행한다. 구조가 직관적이라 이해하기 더 쉽다.</p>
+<p><img alt="Pycharm에서 main.py를 Run으로 실행하는 화면" src="assets/posts/fastapi-getting-started/img6.png" width="1463" height="954" loading="lazy">
+<em>그림 6. Pycharm에서 main을 실행하는 방법</em></p>
+<p>터미널에서 <code>python main.py</code>로 실행하거나 Pycharm의 Run으로 실행해도 된다.</p>
+<p><img alt="코드 내장 uvicorn 실행 결과 — 단일 프로세스 ID" src="assets/posts/fastapi-getting-started/img7.png" width="749" height="255" loading="lazy">
+<em>그림 7. 실행 결과</em></p>
+<p>결과는 터미널 uvicorn 실행과 동일하다. 다만 <code>--reload</code> 프로세스를 따로 띄우지 않아 uvicorn 애플리케이션 프로세스 ID 하나만 뜬다.</p>
+<h3 id="44">4.4 요청 보내보기</h3>
+<p><img alt="브라우저에서 /sync/say-hello GET 요청 응답 확인" src="assets/posts/fastapi-getting-started/img8.png" width="848" height="468" loading="lazy">
+<em>그림 8. 요청 보내보기</em></p>
+<p>서버가 잘 도는지 확인하려고 <code>http://127.0.0.1:8000/sync/say-hello</code>로 GET 요청을 보내면 정상 응답을 받는 것을 확인할 수 있다.</p>
+<h3 id="45-fastapi-swagger-ui">4.5 FastAPI 내장 Swagger-UI</h3>
+<p><img alt="FastAPI 내장 Swagger-UI(/docs) 화면" src="assets/posts/fastapi-getting-started/img9.png" width="2000" height="1077" loading="lazy">
+<em>그림 9. FastAPI 내장 Swagger-UI</em></p>
+<p>Java Spring Boot와 달리 FastAPI는 <strong>Swagger UI를 의존성으로 따로 받지 않고 내장</strong>하고 있다. 서버 도메인이 <code>http://127.0.0.1:8000</code>이면 경로에 <code>/docs</code>를 붙여 제공 API를 확인할 수 있다.</p>
+<h2 id="_1">맺음말</h2>
+<p>이번 글에서는 FastAPI의 장점과 설치, 그리고 웹 프레임워크와 웹 애플리케이션의 관계를 개론적으로 살펴보고, Pycharm으로 FastAPI 서버를 실행하는 과정을 단계별로 정리했다.</p>
+<p>FastAPI는 비동기 처리로 높은 성능을 내는 웹 프레임워크로, 빠른 응답이 요구되는 애플리케이션에 적합하다. 동시에 Python의 GIL 정책을 이해하는 것이 중요하다는 점도 강조했다.</p>
+<p>앞으로는 DB 설정·라우터·서비스 레이어 등 API 서버로서의 FastAPI 구성, 그리고 uvicorn이 OS와 어떻게 상호작용하는지(GIL 제약을 넘기 위한 부모-자식 프로세스 멀티프로세싱 관리)를 단계적으로 다룰 예정이다.</p>
+<h2 id="_2">참고 자료</h2>
+<ol>
+<li><a href="https://www.uvicorn.org">Uvicorn 공식문서</a></li>
+<li><a href="https://fastapi.tiangolo.com">FastAPI 공식문서</a></li>
+<li><a href="https://wiki.python.org/moin/GlobalInterpreterLock">GIL이란 — Python Wiki</a></li>
+</ol>
+<hr />
+<blockquote>
+<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/23" rel="nofollow noopener">taehyuklee.tistory.com/23</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/python-windows-install-path/">윈도우 Python 설치 + 환경변수(PATH) 설정 — &#39;python&#39; 명령어 인식 안 될 때</a></li><li><a href="ko/command-not-found-linux-path/">Linux &#39;command not found&#39; (ls·vi·vim) 해결 — PATH 환경변수 복구</a></li><li><a href="ko/cmd-change-drive-windows/">Windows CMD에서 D드라이브로 이동하는 방법 (cd가 안 될 때)</a></li><li><a href="ko/t-test-python-scipy/">t검정 Python 구현 — SciPy로 일표본·독립표본(Student&#39;s·Welch&#39;s)·대응표본</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Ffastapi-getting-started%2F&amp;text=Python%20FastAPI%20%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0%20%E2%80%94%20%EA%B0%9C%EB%A1%A0%C2%B7%EC%84%A4%EC%B9%98%C2%B7Pycharm%20%EC%8B%A4%ED%96%89%20%28feat.%20uvicorn%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Ffastapi-getting-started%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/python-oracledb-arm-dpi-1047/">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="ko/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="ko/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="ko/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (158) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

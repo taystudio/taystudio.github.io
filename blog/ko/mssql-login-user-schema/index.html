@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교) · Tay Blog</title>
+<meta name="description" content="Oracle 경험자가 MS SQL Server로 넘어올 때 가장 헷갈리는 Login·User·Schema 3단계 구조를 Oracle(User=Schema=Login) 1단계 구조와 비교 정리. sysadmin이 dbo 스키마에 고정되는 문제와 업무용 계정 분리 해결법까지.">
+<link rel="canonical" href="https://taystudios.com/blog/ko/mssql-login-user-schema/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/mssql-login-user-schema/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/mssql-login-user-schema/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/mssql-login-user-schema/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교) · Tay Blog">
+<meta property="og:description" content="Oracle 경험자가 MS SQL Server로 넘어올 때 가장 헷갈리는 Login·User·Schema 3단계 구조를 Oracle(User=Schema=Login) 1단계 구조와 비교 정리. sysadmin이 dbo 스키마에 고정되는 문제와 업무용 계정 분리 해결법까지.">
+<meta property="og:url" content="https://taystudios.com/blog/ko/mssql-login-user-schema/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교)", "description": "Oracle 경험자가 MS SQL Server로 넘어올 때 가장 헷갈리는 Login·User·Schema 3단계 구조를 Oracle(User=Schema=Login) 1단계 구조와 비교 정리. sysadmin이 dbo 스키마에 고정되는 문제와 업무용 계정 분리 해결법까지.", "datePublished": "2025-10-05T00:00:00+09:00", "dateModified": "2025-10-05T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/mssql-login-user-schema/"}, "image": ["https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.png"], "keywords": "MS SQL Server, Oracle, 스키마, 계정관리, DBA"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/ko/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교)", "item": "https://taystudios.com/blog/ko/mssql-login-user-schema/"}]}</script><meta property="article:published_time" content="2025-10-05T00:00:00+09:00"><meta property="article:modified_time" content="2025-10-05T00:00:00+09:00"><meta property="article:tag" content="MS SQL Server"><meta property="article:tag" content="Oracle"><meta property="article:tag" content="스키마"><meta property="article:tag" content="계정관리"><meta property="article:tag" content="DBA">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교)</span></nav>
+        <h1 class="tb-article-title">MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교)</h1>
+        <div class="tb-article-meta">
+          <time>2025.10.05</time>
+          <span>·</span><span>#MS SQL Server #Oracle #스키마 #계정관리 #DBA</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#1">1. 서론</a></li><li class="tb-toc-h2"><a href="#2-oracle-ms-sql-server">2. Oracle과 MS SQL Server의 계정·스키마 개념 차이</a></li><li class="tb-toc-h3"><a href="#oracle-user-schema-login">Oracle — User = Schema = Login</a></li><li class="tb-toc-h3"><a href="#ms-sql-server-login-user-schema-3">MS SQL Server — Login → User → Schema (3단계)</a></li><li class="tb-toc-h2"><a href="#3-default-schema">3. Default Schema의 차이</a></li><li class="tb-toc-h3"><a href="#oracle">Oracle</a></li><li class="tb-toc-h3"><a href="#sql-server">SQL Server</a></li><li class="tb-toc-h2"><a href="#4-oracle-vs-sql-server">4. 권한 관리 비교 (Oracle vs SQL Server)</a></li><li class="tb-toc-h2"><a href="#5">5. 실무에서 겪는 혼동 포인트</a></li><li class="tb-toc-h2"><a href="#6">6. 해결 방법 — 업무용 계정과 스키마 분리</a></li><li class="tb-toc-h2"><a href="#7-oracle">7. 정리 (Oracle 대비)</a></li><li class="tb-toc-h2"><a href="#8">8. 결론</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<h2 id="1">1. 서론</h2>
+<p>최근 CI/CD 배포 관리 시스템 구축 프로젝트에서 TA 역할을 수행하며 일부 DBA 업무까지 맡게 되었고, 그 과정에서 MS SQL Server의 계정 관리 구조를 직접 다루게 됐다.</p>
+<p>이전에 Oracle DB를 다뤄본 경험이 있었지만, 두 DBMS는 <strong>계정(User)·스키마(Schema)·권한 관리 개념이 크게 달라</strong> 초반에 상당한 혼란을 겪었다. 이 글에서는 Oracle에서 MS SQL Server로 넘어올 때 흔히 헷갈리는 계정·스키마·권한 구조의 차이를 정리하고, 직접 경험한 <strong>sysadmin 계정의 dbo 스키마 고정 문제</strong>와 구조적 해결 방법까지 함께 공유한다.</p>
+<h2 id="2-oracle-ms-sql-server">2. Oracle과 MS SQL Server의 계정·스키마 개념 차이</h2>
+<p>많은 Oracle 경험자가 SQL Server를 처음 접하면 가장 헷갈려하는 부분이 바로 <strong>로그인 계정과 스키마가 따로 논다</strong>는 점이다.</p>
+<h3 id="oracle-user-schema-login">Oracle — User = Schema = Login</h3>
+<ul>
+<li>계정을 생성하면 자동으로 동일한 이름의 스키마가 생긴다.</li>
+<li>즉 <code>SCOTT</code> 계정을 만들면 곧바로 <code>SCOTT</code> 스키마에서 작업한다.</li>
+</ul>
+<pre class="codehilite"><code class="language-sql">CREATE USER SCOTT IDENTIFIED BY tiger;
+-- 동시에 SCOTT 스키마 생성
+</code></pre>
+
+<h3 id="ms-sql-server-login-user-schema-3">MS SQL Server — Login → User → Schema (3단계)</h3>
+<ul>
+<li><strong>Login 계정 (서버 레벨)</strong> — SQL Server 인스턴스 접속용 계정. 서버 전체 관점의 인증 계정으로, ID/PW로 인스턴스에 로그인한다.</li>
+<li><strong>User 계정 (DB 레벨)</strong> — 로그인 이후 특정 데이터베이스에 소속되는 사용자 계정. 하나의 Login은 각 데이터베이스 내의 User와 <strong>1:1로 매핑</strong>되어야 한다. 즉 동일한 Login이라도 DB마다 별도의 User를 가질 수 있다.</li>
+<li><strong>Schema (객체 컨테이너)</strong> — 테이블·뷰·프로시저 등 DB 객체를 논리적으로 구분하는 컨테이너. User와는 별도의 개념이며, 각 User는 사용할 <strong>기본 스키마(Default Schema)</strong>를 지정할 수 있다. 처음 기본값은 <code>dbo</code> 스키마이며, 이를 실제 사용할 스키마로 바꿔줘야 한다.</li>
+</ul>
+<pre class="codehilite"><code class="language-sql">-- 1) 서버 로그인 계정 생성
+CREATE LOGIN SCOTT WITH PASSWORD = '***';
+
+-- 2) Database 생성
+CREATE DATABASE SCOTT_tiger;
+
+-- 3) 스키마 생성
+CREATE SCHEMA vdadmin AUTHORIZATION vdadmin_user;
+
+-- 4) 특정 DB에 사용자 생성
+--    MS SQL은 항상 특정 DB를 사용한다고 스위치(USE)해줘야 한다.
+--    (Oracle은 schema와 계정이 1:1이라 그럴 필요가 없다)
+USE SCOTT_tiger;
+-- SSMS에서는 GO 명령어까지 적어준다 (DBeaver 기준 안 적어도 됨)
+CREATE USER db_user FOR LOGIN SCOTT WITH DEFAULT_SCHEMA = SCOTT_tiger;
+-- SCOTT_tiger DB 안에 db_user 계정을 로그인 계정 SCOTT과 매핑해 만들고,
+-- 해당 db_user의 디폴트 스키마로 SCOTT_tiger를 지정한다.
+</code></pre>
+
+<p>정리하면, <strong>MS SQL Server는 3단계 구조(Login → User → Schema)</strong>다. 서버 레벨의 Login이 각 DB 내의 User와 매핑되고, 그 User가 DB 내 여러 Schema 중 하나를 기본 스키마로 지정해 사용한다. 반면 <strong>Oracle은 1단계 구조(User = Schema = Login)</strong>로, 로그인 계정이 곧 사용자이자 스키마로 작동하며 별도의 매핑 개념이 없다.</p>
+<blockquote>
+<p>📘 <strong>참고</strong> — MS SQL에서 Default Schema를 지정하더라도 다른 스키마의 객체를 못 쓰는 것은 아니다. <code>schema.table</code> 형식으로 명시하면 다른 스키마의 테이블에도 자유롭게 접근해 쿼리할 수 있다.</p>
+</blockquote>
+<p>다만 외부 시스템 연동이나 애플리케이션 연결 계정을 구성할 때는 Default Schema를 명확히 지정해두는 것이 중요하다. 그렇지 않으면 연결 시 <code>dbo</code> 또는 지정되지 않은 기본 스키마로 자동 매핑되어 의도와 다른 객체를 참조하는 문제가 생길 수 있다. 따라서 <strong>Login → User → Default Schema</strong> 관계를 명확히 매핑하고, 스키마별로 전용 로그인 계정을 만들어 해당 스키마만 쓰도록 관리하는 것이 가장 안전하고 효율적이다. (결국 Oracle의 단일 구조가 훨씬 직관적이긴 하다.)</p>
+<h2 id="3-default-schema">3. Default Schema의 차이</h2>
+<h3 id="oracle">Oracle</h3>
+<ul>
+<li>계정으로 접속하면 해당 계정의 스키마가 자동으로 Default Schema가 된다.</li>
+<li><code>User = Schema</code> 구조라 별도 설정이 필요 없다. <code>SCOTT</code>으로 로그인하면 자동으로 <code>SCOTT</code> 스키마에 연결된다.</li>
+</ul>
+<h3 id="sql-server">SQL Server</h3>
+<ul>
+<li>User 생성 시 <code>DEFAULT_SCHEMA</code>를 지정하지 않으면 기본값은 <strong>항상 <code>dbo</code></strong>다.</li>
+<li>원하는 스키마를 기본으로 쓰려면 명시적으로 지정해야 한다.</li>
+</ul>
+<pre class="codehilite"><code class="language-sql">ALTER USER a_user WITH DEFAULT_SCHEMA = a_schema;
+</code></pre>
+
+<p>이렇게 설정하지 않으면 객체 생성 시 <code>dbo.table_name</code> 형태로 자동 생성되어, 의도와 다르게 <code>dbo</code> 스키마 아래에 객체가 쌓이는 문제가 발생할 수 있다.</p>
+<h2 id="4-oracle-vs-sql-server">4. 권한 관리 비교 (Oracle vs SQL Server)</h2>
+<p>두 DBMS 모두 접근·작업 제어를 위해 권한과 역할(Role)을 제공하지만, 구조와 적용 범위가 다르다.</p>
+<p><strong>Oracle</strong> — 권한이 크게 System 권한과 Object 권한으로 나뉜다.</p>
+<ul>
+<li><strong>System 권한</strong> — DB 전체에 영향을 미치는 권한 (예: <code>CREATE SESSION</code>, <code>CREATE TABLE</code>).</li>
+<li><strong>Object 권한</strong> — 특정 테이블·뷰 등 개별 객체에 대한 접근 권한 (<code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>).</li>
+<li>여러 권한을 묶는 <strong>Role</strong>을 제공해 <code>DBA</code>, <code>RESOURCE</code>, <code>CONNECT</code> 같은 사전 정의 역할을 활용하거나 사용자 정의 역할을 만들 수 있다.</li>
+</ul>
+<p><strong>SQL Server</strong> — 권한 체계가 더 계층화되어 있다.</p>
+<ul>
+<li><strong>서버 레벨 권한</strong> — <code>sysadmin</code>, <code>serveradmin</code>, <code>securityadmin</code> 등 서버 전체에 영향.</li>
+<li><strong>DB 레벨 권한</strong> — <code>CONNECT</code>, <code>CONTROL</code>, <code>ALTER</code> 등 데이터베이스 단위.</li>
+<li><strong>스키마/객체 레벨 권한</strong> — 특정 스키마나 객체에 권한 부여.</li>
+</ul>
+<pre class="codehilite"><code class="language-sql">GRANT SELECT, INSERT, UPDATE, DELETE ON SCHEMA::X TO user;
+</code></pre>
+
+<ul>
+<li>SQL Server도 <code>db_datareader</code>, <code>db_datawriter</code>, <code>db_ddladmin</code> 등 기본 제공 Role로 권한을 묶어 관리할 수 있다.</li>
+</ul>
+<p>정리하면, Oracle은 권한을 <strong>시스템 전체 vs 객체 단위</strong>로 구분하고 Role 중심으로 관리하는 반면, SQL Server는 <strong>서버 → DB → 스키마/객체</strong> 수준으로 계층화된 권한 체계를 가지며 역할도 이 계층과 결합되어 있다.</p>
+<h2 id="5">5. 실무에서 겪는 혼동 포인트</h2>
+<p><code>sysadmin</code> 계정으로 MS SQL에 로그인했을 때, 아무리 Default Schema를 변경해도 <strong>항상 <code>dbo</code> 스키마로 들어가는 현상</strong>을 겪었다. 이유는 명확하다. MS SQL에서 <code>sysadmin</code> 계정은 <strong>항상 <code>dbo</code> 스키마에 매핑되도록 설계</strong>되어 있으며, 이는 보안·권한 관리 정책상 고정된 동작이다.</p>
+<p>즉 DBA(<code>sysadmin</code>) 계정은 Default Schema를 자유롭게 바꿀 수 없고 항상 <code>dbo</code>에서 시작한다. 따라서 실무에서는 <code>sysadmin</code>과 별도로 <strong>각 스키마별 로그인 아이디를 만들어 매핑</strong>해 사용하는 것이 일반적이며, 이렇게 하면 Oracle처럼 계정별 스키마를 운영할 수 있다.</p>
+<h2 id="6">6. 해결 방법 — 업무용 계정과 스키마 분리</h2>
+<p>DBA 권한 계정은 운영·관리 전용으로 두고, 특정 스키마를 디폴트로 쓰려면 별도의 로그인 계정을 만들어야 한다.</p>
+<ul>
+<li><strong>서버 관리용 계정</strong> — <code>sysadmin</code> (dbo 스키마 고정)</li>
+<li><strong>업무별 계정</strong> — <code>a_user → a_schema</code>, <code>b_user → b_schema</code>를 기본 스키마로 사용</li>
+</ul>
+<pre class="codehilite"><code class="language-sql">-- A 업무용 계정
+CREATE LOGIN a_user WITH PASSWORD = '***';
+USE mydb;
+CREATE USER a_user FOR LOGIN a_user WITH DEFAULT_SCHEMA = a_schema;
+
+-- B 업무용 계정
+CREATE LOGIN b_user WITH PASSWORD = '***';
+USE mydb;
+CREATE USER b_user FOR LOGIN b_user WITH DEFAULT_SCHEMA = b_schema;
+</code></pre>
+
+<p>이렇게 하면 DBA 계정은 관리 전용으로 두고, 업무별 User 계정을 통해 각 스키마를 디폴트로 사용하게 설계할 수 있다. 전체 개략도는 다음과 같다.</p>
+<pre class="codehilite"><code class="language-text">[Server Level]
+   ├── Logins
+   │     ├── sysadmin
+   │     ├── a_user
+   │     ├── b_user
+   │     ├── c_user
+   │     └── d_user
+   │
+[Database Level]
+   ├── Users
+   │     ├── dbo              ← sysadmin 또는 db owner의 대표 User
+   │     ├── a_user
+   │     ├── b_user
+   │     ├── c_user
+   │     └── d_user
+   │
+   └── Schemas
+         ├── dbo              ← 기본 스키마 (Default Schema)
+         ├── a_user
+         ├── b_user
+         ├── c_user
+         └── d_user
+</code></pre>
+
+<h2 id="7-oracle">7. 정리 (Oracle 대비)</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>구분</th>
+<th>Oracle</th>
+<th>SQL Server</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>로그인 계정</td>
+<td>User</td>
+<td>Login</td>
+</tr>
+<tr>
+<td>DB 내 사용자</td>
+<td>User = Schema</td>
+<td>User (Login과 매핑)</td>
+</tr>
+<tr>
+<td>스키마</td>
+<td>User와 동일</td>
+<td>별도 객체</td>
+</tr>
+<tr>
+<td>Default Schema</td>
+<td>자동 (User=Schema)</td>
+<td>따로 지정 필요</td>
+</tr>
+<tr>
+<td>DBA 계정</td>
+<td>SYS / SYSTEM</td>
+<td>sysadmin (dbo 강제 매핑)</td>
+</tr>
+<tr>
+<td>권한 관리</td>
+<td>System / Object / Role</td>
+<td>Server / DB / Schema / Object / Role</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="8">8. 결론</h2>
+<ul>
+<li>Oracle은 <strong>계정 = 스키마 = 로그인</strong>.</li>
+<li>MS SQL Server는 <strong>Login·User·Schema가 각각 따로</strong> 존재하며 매핑이 필요하다.</li>
+<li><code>sysadmin</code>(DBA) 계정은 항상 <code>dbo</code> 스키마로 매핑되어 Default Schema를 변경할 수 없다.</li>
+<li>따라서 업무별 Default Schema를 쓰려면 <strong>별도의 Login–User 계정을 생성</strong>해야 한다.</li>
+</ul>
+<hr />
+<blockquote>
+<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/29" rel="nofollow noopener">taehyuklee.tistory.com/29</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li><li><a href="ko/nginx-install-ubuntu-centos/">Nginx 설치 가이드 — Ubuntu / CentOS (특정 버전·설정 구조·방화벽)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fmssql-login-user-schema%2F&amp;text=MS%20SQL%20Server%20%EB%A1%9C%EA%B7%B8%EC%9D%B8%C2%B7User%C2%B7%EC%8A%A4%ED%82%A4%EB%A7%88%20%EB%A7%A4%ED%95%91%20%EC%A0%95%EB%A6%AC%20%28Oracle%EA%B3%BC%20%EB%B9%84%EA%B5%90%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fmssql-login-user-schema%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/python-oracledb-arm-dpi-1047/">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="ko/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="ko/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="ko/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (158) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

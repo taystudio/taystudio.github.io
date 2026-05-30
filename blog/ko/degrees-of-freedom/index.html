@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>자유도(Degree of Freedom)란 — 모분산 추정에서 n-1로 나누는 이유 · Tay Blog</title>
+<meta name="description" content="표본분산은 왜 n이 아니라 n-1로 나눌까? 과소추정 보정과 자유도 두 관점으로 분산의 본질을 정리.">
+<link rel="canonical" href="https://taystudios.com/blog/ko/degrees-of-freedom/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/degrees-of-freedom/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/degrees-of-freedom/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/degrees-of-freedom/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="자유도(Degree of Freedom)란 — 모분산 추정에서 n-1로 나누는 이유 · Tay Blog">
+<meta property="og:description" content="표본분산은 왜 n이 아니라 n-1로 나눌까? 과소추정 보정과 자유도 두 관점으로 분산의 본질을 정리.">
+<meta property="og:url" content="https://taystudios.com/blog/ko/degrees-of-freedom/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/degrees-of-freedom/cover.jpg"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/degrees-of-freedom/cover.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "자유도(Degree of Freedom)란 — 모분산 추정에서 n-1로 나누는 이유", "description": "표본분산은 왜 n이 아니라 n-1로 나눌까? 과소추정 보정과 자유도 두 관점으로 분산의 본질을 정리.", "datePublished": "2024-09-30T00:00:00+09:00", "dateModified": "2024-09-30T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/degrees-of-freedom/"}, "image": ["https://taystudios.com/blog/assets/posts/degrees-of-freedom/cover.jpg"], "keywords": "통계, 자유도, 분산, 모분산, 추정"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/ko/category/data/"}, {"@type": "ListItem", "position": 3, "name": "자유도(Degree of Freedom)란 — 모분산 추정에서 n-1로 나누는 이유", "item": "https://taystudios.com/blog/ko/degrees-of-freedom/"}]}</script><meta property="article:published_time" content="2024-09-30T00:00:00+09:00"><meta property="article:modified_time" content="2024-09-30T00:00:00+09:00"><meta property="article:tag" content="통계"><meta property="article:tag" content="자유도"><meta property="article:tag" content="분산"><meta property="article:tag" content="모분산"><meta property="article:tag" content="추정">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">자유도(Degree of Freedom)란 — 모분산 추정에서 n-1로 나누는 이유</span></nav>
+        <h1 class="tb-article-title">자유도(Degree of Freedom)란 — 모분산 추정에서 n-1로 나누는 이유</h1>
+        <div class="tb-article-meta">
+          <time>2024.09.30</time>
+          <span>·</span><span>#통계 #자유도 #분산 #모분산 #추정</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">본론</a></li><li class="tb-toc-h2"><a href="#1-n-1">1. 왜 n-1로 나누는가?</a></li><li class="tb-toc-h2"><a href="#2-n">2. n으로 나누면 무엇이 문제인가?</a></li><li class="tb-toc-h2"><a href="#3">3. 왜 과소추정이 일어나는가?</a></li><li class="tb-toc-h2"><a href="#4">4. 수학적으로 증명되었는가?</a></li><li class="tb-toc-h2"><a href="#5">5. 자유도란 무엇인가?</a></li><li class="tb-toc-h2"><a href="#6">6. 분산에서 자유도의 의미는? (본질)</a></li><li class="tb-toc-h2"><a href="#_2">참고 자료</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<p>모수통계학에서의 <strong>모분산 추정</strong>과 <strong>자유도</strong>를 정리한다. 읽고 나면 이해할 포인트:</p>
+<blockquote>
+<ol>
+<li>자유도의 개념</li>
+<li>표본의 모분산 추정량에서 <strong>n-1로 나누는 이유</strong>
+   - <strong>과소추정량 관점</strong>: 편향을 보정하기 위함
+   - <strong>자유도 관점</strong>: 분산의 본질적 의미 이해</li>
+</ol>
+</blockquote>
+<h2 id="_1">본론</h2>
+<p>$$s^2 = \dfrac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2$$
+<em>식 1. 표본 분산 추정</em></p>
+<p>$$\sigma^2 = \dfrac{1}{N}\sum_{i=1}^{N}(x_i - \mu)^2$$
+<em>식 2. 모분산</em></p>
+<p>분산/표준편차는 직관적으로 이렇게 해석된다.</p>
+<ul>
+<li><strong>0) 불확실성 정도를 표현하기 위함</strong> — 같은 시행마다 불확실성으로 다른 결과가 나오는 것을 수치화</li>
+<li><strong>1) 평균으로부터 각 데이터의 평균 거리</strong> — 평균값에서 데이터들이 얼마나 떨어졌는지를 거리로 표현</li>
+<li><strong>2) 표본 평균에 대한 정밀도·설명력</strong></li>
+</ul>
+<blockquote>
+<p>분산이 '거리의 평균'이라는 직관에 앞서, <strong>불확실성을 정량화하기 위한 기초 통계량</strong>임을 기억하자. 자세한 배경은 <a href="ko/uncertainty-variance/">불확실성·변동성·분산</a> 글 참고.</p>
+</blockquote>
+<h2 id="1-n-1">1. 왜 n-1로 나누는가?</h2>
+<p>편차·분산은 물리적으로 <strong>거리(distance)</strong> 개념인데, 표본분산의 분산 추정은 $n$이 아니라 $n-1$로 나눈다. 왜?</p>
+<p><strong>Answer)</strong> 단순히 표본 내부 데이터가 평균에서 떨어진 거리만 보려면 $n$으로 나누는 게 맞지만, 이 수식은 <strong>표본으로 모집단을 추정</strong>하는 추정량이다. 표본 자체 통계량보다 <strong>모수를 얼마나 잘 추정하느냐</strong>가 중요하다.</p>
+<h2 id="2-n">2. n으로 나누면 무엇이 문제인가?</h2>
+<p><strong>Answer)</strong> <strong>편향 추정</strong>, 정확히는 <strong>과소추정</strong>이 발생한다. 즉 실제 모분산보다 작게 추정된다.</p>
+<h2 id="3">3. 왜 과소추정이 일어나는가?</h2>
+<p><img alt="모집단으로부터 표본 추출 — 밀집 구간이 더 많이 반영됨" src="assets/posts/degrees-of-freedom/img3.png" width="1122" height="785" loading="lazy">
+<em>그림 1. 모집단으로부터 표본 추출</em></p>
+<p>모집단에서 밀도가 높은 "Interval 1" 구간이 더 자주 샘플링되므로, <strong>샘플링된 분포는 밀집 구간을 더 많이 반영</strong>해 모집단보다 <strong>조밀</strong>해진다. 결국 표본 그대로 $n$으로 나눠 분산을 구하면 <strong>과소추정</strong>으로 이어진다. 그래서 $n-1$로 나눠 보정한다.</p>
+<p>$n$이 무한히 커지면 표본이 모집단에 가까워져 $n-1$ ≈ $n$이라 차이가 거의 없지만, $n$이 작을 때는 $-1$의 영향이 커진다. 즉 작은 표본에서 보정이 의미 있다.</p>
+<h2 id="4">4. 수학적으로 증명되었는가?</h2>
+<p>$$\begin{aligned}
+&amp;E\big[(X_1-\bar{X})^2 + (X_2-\bar{X})^2 + (X_3-\bar{X})^2 + \cdots + (X_n-\bar{X})^2\big] \\[4pt]
+&amp;= E\big[X_1^2 + X_2^2 + X_3^2 + \cdots + X_n^2 - 2(X_1 + X_2 + X_3 + \cdots + X_n)\bar{X} + n\bar{X}^2\big] \\[4pt]
+&amp;= E[X_1^2] + E[X_2^2] + E[X_3^2] + \cdots + E[X_n^2] - 2n\bar{X} + n\bar{X} \\[4pt]
+&amp;= E[X_1^2] + E[X_2^2] + E[X_3^2] + \cdots + E[X_n^2] - n\bar{X} \\[4pt]
+&amp;= n(\mu^2 + \sigma^2) - n\!\left(\mu^2 + \dfrac{\sigma^2}{n}\right) = n\sigma^2 - \sigma^2 = \sigma^2(n-1) \\[6pt]
+&amp;\Rightarrow\ \sigma^2(n-1) = E\big[(X_1-\bar{X})^2 + (X_2-\bar{X})^2 + (X_3-\bar{X})^2 + \cdots + (X_n-\bar{X})^2\big] \\[6pt]
+&amp;\Rightarrow\ \sigma^2 = E\!\left[\dfrac{(X_1-\bar{X})^2 + (X_2-\bar{X})^2 + (X_3-\bar{X})^2 + \cdots + (X_n-\bar{X})^2}{n-1}\right]
+\end{aligned}$$
+<em>그림 2. 모분산 추정량의 분모가 $n-1$임을 유도 (final eqn)</em></p>
+<p>보조 식 (1)·(2):</p>
+<p>$$\bar{X} = \dfrac{X_1 + X_2 + \cdots + X_n}{n} \;\Rightarrow\; n\bar{X} = X_1 + X_2 + \cdots + X_n \quad (1)$$</p>
+<p>$$\mathrm{VAR}(X) = \sigma^2 = E[(X-\mu)^2] = E(X^2) - 2\mu E(X) + \mu^2 = E(X^2) - \mu^2 \;\Rightarrow\; E(X^2) = \mu^2 + \sigma^2 \quad (2)$$</p>
+<p>위와 같이 직관뿐 아니라 수학적으로도 $n-1$ 보정이 증명되어 있다.</p>
+<h2 id="5">5. 자유도란 무엇인가?</h2>
+<blockquote>
+<p>"어떤 추정값을 계산할 때 실제로 <strong>독립적으로 변동할 수 있는 데이터 포인트의 수</strong>"</p>
+</blockquote>
+<p>모집단에서 표본 5개를 뽑고 <strong>표본 평균이 20</strong>이라 하자.</p>
+<ul>
+<li>$X_1$~$X_4$ : 모집단에서 <strong>자유롭게(독립적으로)</strong> 샘플링된다.</li>
+<li>$X_5$ : 표본 평균이 20이라는 <strong>제약</strong> 때문에 나머지 값에 따라 <strong>자동으로 고정</strong>된다.</li>
+</ul>
+<p>예) $X_1=25, X_2=10, X_3=15, X_4=40$이면 평균 20을 맞추려 $X_5=10$으로 고정. 즉 마지막 하나는 자유롭게 결정될 수 없다.</p>
+<p><strong>일반화</strong>: $n$개 중 $n-1$개는 자유롭게 추출되고 마지막 하나는 평균 제약으로 결정된다. 독립적으로 변동 가능한 수 $n-1$, 이것이 <strong>자유도</strong>다.</p>
+<blockquote>
+<p>(여담) 기계공학에서도 x·y·z 3축 운동이면 DOF=3, x축이 제한되면 DOF=2다. 자유도의 본질은 <strong>변화 가능한 요소의 개수</strong>.</p>
+</blockquote>
+<h2 id="6">6. 분산에서 자유도의 의미는? (본질)</h2>
+<p><strong>Answer)</strong> 표본 평균은 이미 정해져 있다고 보면, 변동성이 있는 건 $n-1$개뿐이다. $n-1$개만 모집단에서 랜덤 추출 가능하고 <strong>나머지 하나는 고정</strong>되어 모집단 분포를 따르지 않는다.</p>
+<p><img alt="n-1개의 변동성 포인트" src="assets/posts/degrees-of-freedom/img5.png" width="1008" height="669" loading="lazy">
+<em>그림 4. n-1개의 변동성 포인트</em></p>
+<p>그래서 전체 데이터의 변동성을 표현하는 $(x_i - \bar{x})^2$(각 데이터에서 표본평균을 뺀 제곱) 합을, 변동성을 띠는 데이터 수 <strong>$n-1$로 나누면</strong> 대표값인 분산이 나온다. 이것이 분산을 '평균 거리' 이전에 <strong>불확실성 관점</strong>에서 본질적으로 보는 시각이다.</p>
+<blockquote>
+<p>모집단은 이미 exact한 값으로 모수를 <strong>계산</strong>(추정 아님)하므로 확률이 없다. 반면 표본은 아직 확률이 존재하므로 자유도가 존재한다.</p>
+</blockquote>
+<hr />
+<h2 id="_2">참고 자료</h2>
+<ol>
+<li>12 Math — <a href="https://www.youtube.com/watch?v=TckEM-6tdrc">YouTube</a></li>
+<li>통계학 입문 — 자유아카데미 (전공서적)</li>
+<li>학교 수업 자료 — 자료분석개론</li>
+</ol>
+<blockquote>
+<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/14" rel="nofollow noopener">taehyuklee.tistory.com/14</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/uncertainty-variance/">불확실성·변동성·분산 — 확률의 본질로 이해하기</a></li><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/t-test-python-scipy/">t검정 Python 구현 — SciPy로 일표본·독립표본(Student&#39;s·Welch&#39;s)·대응표본</a></li><li><a href="ko/central-limit-theorem/">중심극한정리(Central Limit Theorem) — 정의·실험·용도</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fdegrees-of-freedom%2F&amp;text=%EC%9E%90%EC%9C%A0%EB%8F%84%28Degree%20of%20Freedom%29%EB%9E%80%20%E2%80%94%20%EB%AA%A8%EB%B6%84%EC%82%B0%20%EC%B6%94%EC%A0%95%EC%97%90%EC%84%9C%20n-1%EB%A1%9C%20%EB%82%98%EB%88%84%EB%8A%94%20%EC%9D%B4%EC%9C%A0" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fdegrees-of-freedom%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/python-oracledb-arm-dpi-1047/">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="ko/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="ko/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="ko/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (158) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){(function r(){if(window.renderMathInElement){renderMathInElement(document.querySelector(".tb-content")||document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"$",right:"$",display:false},{left:"\\(",right:"\\)",display:false}],throwOnError:false,ignoredTags:["script","noscript","style","textarea","pre","code"]});}else{setTimeout(r,50);}})();});</script>
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

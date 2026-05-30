@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>AWS Summit Seoul 2024 — 한 백엔드 개발자의 현장 메모 (AI 서빙·CMP·미들웨어) · Tay Blog</title>
+<meta name="description" content="2024년 5월 17일 AWS Summit Seoul 참석. 부스 돌면서 본 세 갈래 트렌드 — 생성형 AI 서빙 (챗봇·이메일·맞춤형 비서·이미지 생성), 멀티클라우드 CMP, API Gateway·미들웨어. &#39;결국 아이디어는 다 비슷, UI·UX·성능에서 갈린다&#39;는 잔상.">
+<link rel="canonical" href="https://taystudios.com/blog/ko/aws-summit-2024/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/aws-summit-2024/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/aws-summit-2024/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/aws-summit-2024/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="AWS Summit Seoul 2024 — 한 백엔드 개발자의 현장 메모 (AI 서빙·CMP·미들웨어) · Tay Blog">
+<meta property="og:description" content="2024년 5월 17일 AWS Summit Seoul 참석. 부스 돌면서 본 세 갈래 트렌드 — 생성형 AI 서빙 (챗봇·이메일·맞춤형 비서·이미지 생성), 멀티클라우드 CMP, API Gateway·미들웨어. &#39;결국 아이디어는 다 비슷, UI·UX·성능에서 갈린다&#39;는 잔상.">
+<meta property="og:url" content="https://taystudios.com/blog/ko/aws-summit-2024/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/aws-summit-2024/cover.jpg"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/aws-summit-2024/cover.jpg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AWS Summit Seoul 2024 — 한 백엔드 개발자의 현장 메모 (AI 서빙·CMP·미들웨어)", "description": "2024년 5월 17일 AWS Summit Seoul 참석. 부스 돌면서 본 세 갈래 트렌드 — 생성형 AI 서빙 (챗봇·이메일·맞춤형 비서·이미지 생성), 멀티클라우드 CMP, API Gateway·미들웨어. '결국 아이디어는 다 비슷, UI·UX·성능에서 갈린다'는 잔상.", "datePublished": "2024-06-13T00:00:00+09:00", "dateModified": "2024-06-13T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/aws-summit-2024/"}, "image": ["https://taystudios.com/blog/assets/posts/aws-summit-2024/cover.jpg"], "keywords": "AWS, AWSSummit, 생성형AI, CMP, 멀티클라우드, 미들웨어, Nginx, APIGateway, 클라우드, 후기"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Reviews", "item": "https://taystudios.com/blog/ko/category/reviews/"}, {"@type": "ListItem", "position": 3, "name": "AWS Summit Seoul 2024 — 한 백엔드 개발자의 현장 메모 (AI 서빙·CMP·미들웨어)", "item": "https://taystudios.com/blog/ko/aws-summit-2024/"}]}</script><meta property="article:published_time" content="2024-06-13T00:00:00+09:00"><meta property="article:modified_time" content="2024-06-13T00:00:00+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="AWSSummit"><meta property="article:tag" content="생성형AI"><meta property="article:tag" content="CMP"><meta property="article:tag" content="멀티클라우드"><meta property="article:tag" content="미들웨어"><meta property="article:tag" content="Nginx"><meta property="article:tag" content="APIGateway"><meta property="article:tag" content="클라우드"><meta property="article:tag" content="후기">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/reviews/">Reviews</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">AWS Summit Seoul 2024 — 한 백엔드 개발자의 현장 메모 (AI 서빙·CMP·미들웨어)</span></nav>
+        <h1 class="tb-article-title">AWS Summit Seoul 2024 — 한 백엔드 개발자의 현장 메모 (AI 서빙·CMP·미들웨어)</h1>
+        <div class="tb-article-meta">
+          <time>2024.06.13</time>
+          <span>·</span><span>#AWS #AWSSummit #생성형AI #CMP #멀티클라우드 #미들웨어 #Nginx #APIGateway #클라우드 #후기</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">왜 갔나</a></li><li class="tb-toc-h2"><a href="#_2">본 것 — 세 갈래</a></li><li class="tb-toc-h3"><a href="#1-ai">1. 생성형 AI 서빙 — &quot;다들 똑같은 걸 한다&quot;</a></li><li class="tb-toc-h3"><a href="#2-cmp">2. CMP — 멀티클라우드 관리 플랫폼</a></li><li class="tb-toc-h3"><a href="#3-api-gatewayservice-mesh">3. 미들웨어 — API Gateway·Service Mesh</a></li><li class="tb-toc-h2"><a href="#_3">한 줄 잔상</a></li><li class="tb-toc-h2"><a href="#_4">참고</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p>📅 <strong>2024년 5월 17일</strong> AWS Summit Seoul 참석한 날의 메모. 부스에서 본 트렌드와, "어떤 제품이 시장에서 어떻게 펼쳐지나" 라는 백엔드 개발자 시각.</p>
+</blockquote>
+<p><img alt="AWS Summit 명찰 (이름 모자이크)" src="assets/posts/aws-summit-2024/img1.jpg" width="1332" height="2088" loading="lazy">
+<em>그림1. AWS Summit 명찰 (이름 처리)</em></p>
+<h2 id="_1">왜 갔나</h2>
+<p>세션 듣기보다는 <strong>부스 돌며 시장 트렌드 파악</strong> 목적. 어떤 회사가 어떤 제품 들고 나오고, 비슷한 영역에서 누가 누구와 경쟁하는지가 궁금했음.</p>
+<p><img alt="AWS 포토존" src="assets/posts/aws-summit-2024/img2.png" width="2250" height="2607" loading="lazy">
+<em>그림2. AWS 포토존</em></p>
+<p><img alt="참여 업체 목록" src="assets/posts/aws-summit-2024/img3.png" width="2083" height="2635" loading="lazy">
+<em>그림3. 참여 업체 목록 — 메가존·SK C&amp;C·KT DS·NHN Cloud·LG CNS·… 클라우드 SI 위주</em></p>
+<h2 id="_2">본 것 — 세 갈래</h2>
+<h3 id="1-ai">1. 생성형 AI 서빙 — "다들 똑같은 걸 한다"</h3>
+<p>주요 응용 패턴 (어느 부스를 가도 비슷한 4개):
+- <strong>챗봇</strong> — 사내 지식 Q&amp;A, 고객 응대
+- <strong>이메일 자동화</strong> — 요약·작성·분류
+- <strong>맞춤형 개인비서 (Copilot 류)</strong>
+- <strong>이미지 생성기</strong></p>
+<p><img alt="전생체험기 — 생성형 AI 데모" src="assets/posts/aws-summit-2024/img4.png" width="2242" height="2265" loading="lazy">
+<em>그림4. 전생체험기 (생성형 AI 데모) — 부스마다 "재미용 인터랙티브" 가 많았음</em></p>
+<blockquote>
+<p>결국 <strong>누가 더 빠르게·예쁘게·정확하게</strong> 만드냐의 싸움. 핵심 아이디어는 거의 동일.</p>
+</blockquote>
+<h3 id="2-cmp">2. CMP — 멀티클라우드 관리 플랫폼</h3>
+<p><strong>CMP (Cloud Management Platform)</strong> = 여러 퍼블릭 클라우드(AWS·Azure·GCP·OCI 등) 를 <strong>한 화면에서 통합 관리</strong> 하는 도구. 비용·리소스·보안·정책을 일괄 가시화.</p>
+<p>주요 플레이어:
+- <strong>메가존 클라우드</strong> — 국내 1위 AWS MSP, 자체 CMP 보유
+- <strong>SK Inc. C&amp;C</strong>
+- <strong>KT DS</strong></p>
+<blockquote>
+<p>멀티클라우드 사용하는 기업이 늘면서, "필요한 서비스만 골라 퍼블릭 망 구성" 이 가능해진 것. 단일 클라우드 lock-in 피하면서 협상력 확보 + 리전·가격 최적화.</p>
+</blockquote>
+<h3 id="3-api-gatewayservice-mesh">3. 미들웨어 — API Gateway·Service Mesh</h3>
+<p>엔터프라이즈 백엔드의 클래식한 영역이지만 여전히 활발:
+- <strong>라우팅</strong> (요청을 적절한 백엔드로)
+- <strong>인증/인가</strong> (OAuth·JWT)
+- <strong>Rate Limiting</strong> (DDoS 보호·과금)
+- <strong>Circuit Breaker</strong> (장애 전파 차단)</p>
+<p>언급된 솔루션:
+- <strong>Nginx</strong> — 변함없이 표준
+- <strong>KT DS Vesta</strong> — 자체 API Gateway 솔루션</p>
+<h2 id="_3">한 줄 잔상</h2>
+<blockquote>
+<p><strong>"모든 SW 제품의 아이디어가 돌고 도는구나"</strong></p>
+</blockquote>
+<p>핵심 기능은 비슷하고, <strong>UI/UX 와 성능 수준</strong>에서 경쟁력이 갈림. 이건 백엔드 개발자에게도 의미 있는 인사이트 — 코어 알고리즘만이 차별화 아니고, <strong>개발자 경험·운영 편의·실측 성능</strong> 이 결정적.</p>
+<h2 id="_4">참고</h2>
+<ul>
+<li>AWS Summit Seoul 공식: https://aws.amazon.com/ko/events/summits/seoul/</li>
+<li>함께 옮긴 또 다른 후기: <a class="tb-embed-card" href="ko/ksme-pm25-cnn-prediction/"><div class="tb-embed-thumb"><img src="assets/posts/ksme-pm25-cnn-prediction/cover.jpg" alt="" loading="lazy" width="1546" height="884"></div><div class="tb-embed-body"><div class="tb-embed-title">KSME 학회 후기 — 신경회로망 PM2.5 예측 (대한기계학회 유체경진대회 금상, 2019)</div><div class="tb-embed-excerpt">2019년 학부 졸업논문 — 신경회로망(ANN) 으로 미세먼지(PM2.5) 농도를 6·12·24시간 후 예측. 기상·대기질 데이터 94,225건, AIC·VIF 변수 선택, Window Learning 기법. 그리고 2년 뒤 대학원에서 발견한 time lag 함정까지.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a></li>
+</ul>
+<hr />
+<blockquote>
+<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/11" rel="nofollow noopener">taehyuklee.tistory.com/11</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/ksme-pm25-cnn-prediction/">KSME 학회 후기 — 신경회로망 PM2.5 예측 (대한기계학회 유체경진대회 금상, 2019)</a></li><li><a href="ko/career-hyundai-carcloud-newgrad-2023/">[신입 공채] 현대자동차 카클라우드 — 코테 + 1차 면접 (1차 탈락) 후기 (2023 상반기)</a></li><li><a href="ko/career-samsung-coding-test-review/">[신입 공채] 삼성전자 코딩테스트 — 5회 도전 후기 (Samsung Research · 혁신센터 · Device Platform)</a></li><li><a href="ko/kaist-grad-mech-written-set1/">KAIST 기계공학과 대학원 필기시험 후기 (1) — 첫 번째 세트 5문제 복기 (2019)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Faws-summit-2024%2F&amp;text=AWS%20Summit%20Seoul%202024%20%E2%80%94%20%ED%95%9C%20%EB%B0%B1%EC%97%94%EB%93%9C%20%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%9D%98%20%ED%98%84%EC%9E%A5%20%EB%A9%94%EB%AA%A8%20%28AI%20%EC%84%9C%EB%B9%99%C2%B7CMP%C2%B7%EB%AF%B8%EB%93%A4%EC%9B%A8%EC%96%B4%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Faws-summit-2024%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/python-oracledb-arm-dpi-1047/">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="ko/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="ko/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="ko/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (158) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://taystudios.com/blog/ko/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/tags/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/tags/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/tags/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/tags/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/tags/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/tags/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/tags/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/tags/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/web-dev/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/web-dev/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/web-dev/spring-boot/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/spring-boot/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/spring-boot/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/spring-boot/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/web-dev/spring-boot/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/spring-boot/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/spring-boot/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/spring-boot/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/web-dev/fastapi/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/fastapi/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/fastapi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/fastapi/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/web-dev/fastapi/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/fastapi/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/fastapi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/fastapi/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/web-dev/os-settings/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/os-settings/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/os-settings/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/os-settings/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/web-dev/os-settings/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/os-settings/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/os-settings/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/os-settings/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/cloud/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/cloud/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/cloud/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/cloud/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/cloud/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/cloud/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/cloud/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/cloud/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/cloud/aws/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/cloud/aws/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/cloud/aws/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/cloud/aws/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/cloud/aws/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/cloud/aws/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/cloud/aws/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/cloud/aws/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/cloud/server-setup/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/cloud/server-setup/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/cloud/server-setup/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/cloud/server-setup/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/cloud/server-setup/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/cloud/server-setup/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/cloud/server-setup/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/cloud/server-setup/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/cloud/database/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/cloud/database/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/cloud/database/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/cloud/database/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/cloud/database/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/cloud/database/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/cloud/database/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/cloud/database/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/reviews/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/reviews/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/reviews/career/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/career/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/career/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/career/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/reviews/career/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/career/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/career/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/career/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/reviews/grad-school/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/grad-school/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/grad-school/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/grad-school/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/reviews/grad-school/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/grad-school/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/grad-school/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/grad-school/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/reviews/conferences/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/conferences/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/conferences/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/conferences/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/reviews/conferences/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/conferences/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/conferences/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/conferences/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/study/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/study/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/study/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/study/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/study/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/study/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/study/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/study/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/study/system-design/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/study/system-design/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/study/system-design/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/study/system-design/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/study/system-design/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/study/system-design/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/study/system-design/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/study/system-design/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/errors/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/errors/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/errors/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/errors/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/errors/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/errors/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/errors/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/errors/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/errors/java/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/errors/java/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/errors/java/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/errors/java/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/errors/java/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/errors/java/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/errors/java/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/errors/java/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/errors/python/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/errors/python/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/errors/python/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/errors/python/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/errors/python/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/errors/python/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/errors/python/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/errors/python/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/category/data/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/data/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/data/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/data/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/category/data/</loc>
+    <lastmod>2026-05-31</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/data/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/data/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/data/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/p/2/</loc>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/p/3/</loc>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/aws-cost-optimization/</loc>
+    <lastmod>2026-02-12</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/aws-nat-gateway-guide/</loc>
+    <lastmod>2026-02-14</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/aws-summit-2024/</loc>
+    <lastmod>2024-06-13</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/career-hyundai-carcloud-newgrad-2023/</loc>
+    <lastmod>2023-05-12</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/career-ktds-newgrad-2021/</loc>
+    <lastmod>2021-12-22</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/career-lg-electronics-newgrad-2022/</loc>
+    <lastmod>2022-12-15</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/career-samsung-coding-test-modules/</loc>
+    <lastmod>2024-10-08</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/career-samsung-coding-test-review/</loc>
+    <lastmod>2024-10-08</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/career-sk-ax-newgrad-2023/</loc>
+    <lastmod>2023-12-05</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/central-limit-theorem/</loc>
+    <lastmod>2024-11-03</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/cmd-change-drive-windows/</loc>
+    <lastmod>2024-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/command-not-found-linux-path/</loc>
+    <lastmod>2024-10-19</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/confidence-interval/</loc>
+    <lastmod>2024-10-13</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/degrees-of-freedom/</loc>
+    <lastmod>2024-09-30</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/ec2-ssh-unprotected-private-key/</loc>
+    <lastmod>2026-02-08</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/fastapi-getting-started/</loc>
+    <lastmod>2024-10-20</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/hypothesis-testing/</loc>
+    <lastmod>2026-05-27</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/kaist-grad-mech-written-set1/</loc>
+    <lastmod>2024-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/kaist-grad-mech-written-set2/</loc>
+    <lastmod>2024-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/ksme-pm25-cnn-prediction/</loc>
+    <lastmod>2024-10-09</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/mssql-login-user-schema/</loc>
+    <lastmod>2025-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/nat-instance-build-1/</loc>
+    <lastmod>2024-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/nat-instance-build-2/</loc>
+    <lastmod>2024-12-29</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/nginx-install-ubuntu-centos/</loc>
+    <lastmod>2026-02-08</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/python-oracledb-arm-dpi-1047/</loc>
+    <lastmod>2026-02-10</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/python-windows-install-path/</loc>
+    <lastmod>2024-10-14</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/snowflake-id-generator/</loc>
+    <lastmod>2024-06-12</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/t-test-python-scipy/</loc>
+    <lastmod>2024-11-05</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/t-test/</loc>
+    <lastmod>2024-11-03</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/ko/uncertainty-variance/</loc>
+    <lastmod>2024-09-30</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/p/2/</loc>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/p/3/</loc>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/aws-cost-optimization/</loc>
+    <lastmod>2026-02-12</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/aws-nat-gateway-guide/</loc>
+    <lastmod>2026-02-14</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/aws-summit-2024/</loc>
+    <lastmod>2024-06-13</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/career-hyundai-carcloud-newgrad-2023/</loc>
+    <lastmod>2023-05-12</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/career-ktds-newgrad-2021/</loc>
+    <lastmod>2021-12-22</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/career-lg-electronics-newgrad-2022/</loc>
+    <lastmod>2022-12-15</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/career-samsung-coding-test-modules/</loc>
+    <lastmod>2024-10-08</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/career-samsung-coding-test-review/</loc>
+    <lastmod>2024-10-08</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/career-sk-ax-newgrad-2023/</loc>
+    <lastmod>2023-12-05</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/central-limit-theorem/</loc>
+    <lastmod>2024-11-03</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/cmd-change-drive-windows/</loc>
+    <lastmod>2024-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/command-not-found-linux-path/</loc>
+    <lastmod>2024-10-19</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/confidence-interval/</loc>
+    <lastmod>2024-10-13</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/degrees-of-freedom/</loc>
+    <lastmod>2024-09-30</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/ec2-ssh-unprotected-private-key/</loc>
+    <lastmod>2026-02-08</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/fastapi-getting-started/</loc>
+    <lastmod>2024-10-20</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/hypothesis-testing/</loc>
+    <lastmod>2026-05-27</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/kaist-grad-mech-written-set1/</loc>
+    <lastmod>2024-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/kaist-grad-mech-written-set2/</loc>
+    <lastmod>2024-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/ksme-pm25-cnn-prediction/</loc>
+    <lastmod>2024-10-09</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/mssql-login-user-schema/</loc>
+    <lastmod>2025-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/nat-instance-build-1/</loc>
+    <lastmod>2024-12-28</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/nat-instance-build-2/</loc>
+    <lastmod>2024-12-29</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/nginx-install-ubuntu-centos/</loc>
+    <lastmod>2026-02-08</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/python-oracledb-arm-dpi-1047/</loc>
+    <lastmod>2026-02-10</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/python-windows-install-path/</loc>
+    <lastmod>2024-10-14</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/snowflake-id-generator/</loc>
+    <lastmod>2024-06-12</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/t-test-python-scipy/</loc>
+    <lastmod>2024-11-05</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/t-test/</loc>
+    <lastmod>2024-11-03</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/en/uncertainty-variance/</loc>
+    <lastmod>2024-09-30</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/about/</loc>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/guestbook/</loc>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+  <url>
+    <loc>https://taystudios.com/blog/privacy/</loc>
+    <lastmod>2026-05-31</lastmod>
+  </url>
+</urlset>

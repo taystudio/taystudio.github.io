@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>KAIST Mechanical Engineering Grad Written Exam — Part 2: Set 2 (5 Problems, 2019) · Tay Blog</title>
+<meta name="description" content="KAIST Mech Eng grad school written exam, Set 2 — Eigenvalue/Eigenvector (3-variable ODE system), full strength-design pipeline, rigid-body Work-Energy, T-v diagram thermo properties, Couette flow Navier-Stokes exact solution.">
+<link rel="canonical" href="https://taystudios.com/blog/en/kaist-grad-mech-written-set2/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/kaist-grad-mech-written-set2/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/kaist-grad-mech-written-set2/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/kaist-grad-mech-written-set2/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="KAIST Mechanical Engineering Grad Written Exam — Part 2: Set 2 (5 Problems, 2019) · Tay Blog">
+<meta property="og:description" content="KAIST Mech Eng grad school written exam, Set 2 — Eigenvalue/Eigenvector (3-variable ODE system), full strength-design pipeline, rigid-body Work-Energy, T-v diagram thermo properties, Couette flow Navier-Stokes exact solution.">
+<meta property="og:url" content="https://taystudios.com/blog/en/kaist-grad-mech-written-set2/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/kaist-grad-mech-written-set2/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/kaist-grad-mech-written-set2/cover.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "KAIST Mechanical Engineering Grad Written Exam — Part 2: Set 2 (5 Problems, 2019)", "description": "KAIST Mech Eng grad school written exam, Set 2 — Eigenvalue/Eigenvector (3-variable ODE system), full strength-design pipeline, rigid-body Work-Energy, T-v diagram thermo properties, Couette flow Navier-Stokes exact solution.", "datePublished": "2024-05-17T00:00:00+09:00", "dateModified": "2024-05-17T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/kaist-grad-mech-written-set2/"}, "image": ["https://taystudios.com/blog/assets/posts/kaist-grad-mech-written-set2/cover.png"], "keywords": "KAIST, graduate, mechanical-engineering, admission, written-exam, eigenvalue, strength-design, NavierStokes, Couette, review"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Reviews", "item": "https://taystudios.com/blog/en/category/reviews/"}, {"@type": "ListItem", "position": 3, "name": "KAIST Mechanical Engineering Grad Written Exam — Part 2: Set 2 (5 Problems, 2019)", "item": "https://taystudios.com/blog/en/kaist-grad-mech-written-set2/"}]}</script><meta property="article:published_time" content="2024-05-17T00:00:00+09:00"><meta property="article:modified_time" content="2024-05-17T00:00:00+09:00"><meta property="article:tag" content="KAIST"><meta property="article:tag" content="graduate"><meta property="article:tag" content="mechanical-engineering"><meta property="article:tag" content="admission"><meta property="article:tag" content="written-exam"><meta property="article:tag" content="eigenvalue"><meta property="article:tag" content="strength-design"><meta property="article:tag" content="NavierStokes"><meta property="article:tag" content="Couette"><meta property="article:tag" content="review">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/reviews/">Reviews</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">KAIST Mechanical Engineering Grad Written Exam — Part 2: Set 2 (5 Problems, 2019)</span></nav>
+        <h1 class="tb-article-title">KAIST Mechanical Engineering Grad Written Exam — Part 2: Set 2 (5 Problems, 2019)</h1>
+        <div class="tb-article-meta">
+          <time>2024.05.17</time>
+          <span>·</span><span>#KAIST #graduate #mechanical-engineering #admission #written-exam #eigenvalue #strength-design #NavierStokes #Couette #review</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#q1-math-eigenvalue-eigenvector-3-variable-ode-system">Q1 — Math: Eigenvalue / Eigenvector (3-variable ODE system)</a></li><li class="tb-toc-h2"><a href="#q2-solid-mechanics-full-strength-design-pipeline-statics-principal-stress-safety">Q2 — Solid Mechanics: Full Strength-Design Pipeline (Statics → Principal Stress → Safety)</a></li><li class="tb-toc-h3"><a href="#standard-5-step-strength-design">Standard 5-step strength design</a></li><li class="tb-toc-h3"><a href="#side-notes">Side notes</a></li><li class="tb-toc-h2"><a href="#q3-dynamics-rigid-body-work-energy">Q3 — Dynamics: Rigid Body — Work &amp;amp; Energy</a></li><li class="tb-toc-h2"><a href="#q4-thermodynamics-t-v-diagram-properties">Q4 — Thermodynamics: T-v Diagram / Properties</a></li><li class="tb-toc-h2"><a href="#q5-fluid-mechanics-couette-flow-navier-stokes-equation">Q5 — Fluid Mechanics: Couette Flow — Navier-Stokes Equation</a></li><li class="tb-toc-h3"><a href="#three-analysis-approaches-in-fluid-mechanics">Three analysis approaches in fluid mechanics</a></li><li class="tb-toc-h2"><a href="#set-2-wrap-up">Set 2 wrap-up</a></li><li class="tb-toc-h2"><a href="#closing">Closing</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p>📅 Following <a href="https://taystudios.com/blog/en/kaist-grad-mech-written-set1/">Set 1</a>, this post covers <strong>Set 2 (the second 2-hour block, 5 problems)</strong> of the same day.</p>
+</blockquote>
+<p>Previous post:</p>
+<a class="tb-embed-card" href="en/kaist-grad-mech-written-set1/"><div class="tb-embed-thumb"><img src="assets/posts/kaist-grad-mech-written-set1/cover.png" alt="" loading="lazy" width="225" height="225"></div><div class="tb-embed-body"><div class="tb-embed-title">KAIST Mechanical Engineering Grad Written Exam — Part 1: Set 1 (5 Problems, 2019)</div><div class="tb-embed-excerpt">Aug 5, 2019 — KAIST Mech Eng grad school written exam: 4 hours (2+2), 5 subjects, 5 problems per set. Set 1: terminal-velocity ODE, Von-Mises stress, rigid-body Work-Energy, Bernoulli+Energy equation, hydrostatic force on curved surface. Passed written, failed interview.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<hr />
+<h2 id="q1-math-eigenvalue-eigenvector-3-variable-ode-system">Q1 — Math: Eigenvalue / Eigenvector (3-variable ODE system)</h2>
+<blockquote>
+<p>A system of three linearly-combined linear differential equations:
+$$y_1'' = a y_1 + b y_2 + c y_3$$
+$$y_2'' = d y_1 + e y_2 + f y_3$$
+$$y_3'' = g y_1 + h y_2 + i y_3$$</p>
+</blockquote>
+<p>Express in <strong>matrix form</strong> → set <code>det(A - λI) = 0</code> to <strong>prove eigenvector existence</strong> → solve for λ and the corresponding eigenvectors.</p>
+<blockquote>
+<p>⚠️ Know <strong>3×3 determinant, inverse, and eigenvalue computation</strong> cold.</p>
+</blockquote>
+<p><strong>Additional note</strong> (from earlier years): <strong>Conservative fields</strong> have shown up. Cover <strong>vector calculus broadly</strong> — from path independence to Stokes' theorem — for safety.</p>
+<h2 id="q2-solid-mechanics-full-strength-design-pipeline-statics-principal-stress-safety">Q2 — Solid Mechanics: Full Strength-Design Pipeline (Statics → Principal Stress → Safety)</h2>
+<p>Easier analysis than Set 1, but <strong>a long pipeline</strong> that ate time.</p>
+<h3 id="standard-5-step-strength-design">Standard 5-step strength design</h3>
+<pre class="codehilite"><code>1) Statics — Free-body diagram → all reaction forces
+2) Section of interest — Shear force diagram + Moment diagram
+3) Stress — Normal + Shear (Torsion + Bending + Tension/Compression combined)
+4) Principal stress at max-stress point
+   (2D → Mohr's circle, 3D → eigenvectors for orientation)
+5) Principal stress → Factor of safety
+</code></pre>
+
+<p><strong>This problem</strong>: utility pole + wire preventing deflection. The wire is assumed to <strong>carry no moment</strong>. Had to back out tension from the wire's <strong>strain</strong>.</p>
+<h3 id="side-notes">Side notes</h3>
+<ul>
+<li>Beyond strength design, <strong>stability design (buckling)</strong> also worth knowing.</li>
+<li>Fatigue belongs to material-behavior territory.</li>
+</ul>
+<h2 id="q3-dynamics-rigid-body-work-energy">Q3 — Dynamics: Rigid Body — Work &amp; Energy</h2>
+<blockquote>
+<p>Two bars of length <em>L</em> fixed at a point, arranged in a <strong>T shape</strong> (⊥). No translation, rotation only. Released from a given position.</p>
+<ul>
+<li>(a) Mass moment of inertia</li>
+<li>(b) Maximum angular velocity</li>
+<li>(c) Highest position reachable (prove)</li>
+</ul>
+</blockquote>
+<p>Same as Set 1 — <strong>Work &amp; Energy</strong>.</p>
+<blockquote>
+<p>Dynamics doesn't surprise. Pick the right approach (EoM / Work-Energy / Impulse-Momentum) for the problem.</p>
+</blockquote>
+<h2 id="q4-thermodynamics-t-v-diagram-properties">Q4 — Thermodynamics: T-v Diagram / Properties</h2>
+<p>Simple-looking, <strong>but unforgiving if you don't know the concept</strong>.</p>
+<blockquote>
+<p>[Problem]
+A vast lake (initial state 25°C, 1 atm) receives <strong>1 kg of hot water at 100°C</strong>. What is the <strong>maximum extractable energy (work)</strong>?</p>
+<p>Given: $h_{fg}$, $h_f$, $h_g$, $C$ (heat capacity).</p>
+</blockquote>
+<p>Property mastery is key — T-v diagram, state changes, plus the <strong>exergy</strong> concept and you're fine.</p>
+<h2 id="q5-fluid-mechanics-couette-flow-navier-stokes-equation">Q5 — Fluid Mechanics: Couette Flow — Navier-Stokes Equation</h2>
+<p>The fluids finale — <strong>Navier-Stokes</strong>.</p>
+<blockquote>
+<p>[Couette Flow]
+Two different fluids. One plate stationary, the other moving.</p>
+<ul>
+<li>Start from the Navier-Stokes equation (Cartesian, cylindrical)</li>
+<li>State assumptions (laminar, 1-D flow, continuum)</li>
+<li>Apply boundary conditions → derive <strong>exact solution</strong></li>
+</ul>
+<p>Navier-Stokes is the go-to. <strong>Memorize both Cartesian and cylindrical forms</strong>.</p>
+</blockquote>
+<h3 id="three-analysis-approaches-in-fluid-mechanics">Three analysis approaches in fluid mechanics</h3>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>Analysis</th>
+<th>Key tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Control volume</strong></td>
+<td>Reynolds Transport Theorem</td>
+</tr>
+<tr>
+<td><strong>Finite differential</strong></td>
+<td>Navier-Stokes equation</td>
+</tr>
+<tr>
+<td><strong>Dimensional</strong></td>
+<td>Π theorem (Buckingham)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Know the first two solidly. Boundary layer / drag coefficient show up sometimes.</p>
+<hr />
+<h2 id="set-2-wrap-up">Set 2 wrap-up</h2>
+<p><strong>Difficulty</strong>: easier analysis than Set 1, but the <strong>pipelines are long</strong> → time pressure. Strength-design 5 steps and Navier-Stokes derivation + BC work are hand-cramping.</p>
+<p><strong>Study targets</strong> (Set 2 view):
+- Math: <strong>3×3 eigenvalue</strong> + <strong>vector calculus broadly</strong>
+- Solid: full 5-step strength design — <strong>statics through safety</strong>
+- Dynamics: same as Set 1 — Work-Energy
+- Thermo: <strong>properties (T-v, h_fg, h_f, h_g)</strong> + exergy intuition
+- Fluid: <strong>Navier-Stokes</strong> (both Cart + Cyl), Couette / Poiseuille variations</p>
+<h2 id="closing">Closing</h2>
+<p>I ended up failing the KAIST interview and going to a different program. If this helps someone preparing the same path, that's enough. Take care of yourself and good luck out there.</p>
+<hr />
+<blockquote>
+<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/9" rel="nofollow noopener">taehyuklee.tistory.com/9</a> · earlier Naver version: <a href="https://blog.naver.com/fish991/221822659934">blog.naver.com/fish991/221822659934</a></p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/kaist-grad-mech-written-set1/">KAIST Mechanical Engineering Grad Written Exam — Part 1: Set 1 (5 Problems, 2019)</a></li><li><a href="en/ksme-pm25-cnn-prediction/">KSME Conference Review — Neural-Net PM2.5 Prediction (Gold Award, KSME Fluid Mechanics Competition, 2019)</a></li><li><a href="en/career-samsung-coding-test-review/">Samsung Electronics Coding Test — 5 Attempts Recap (Samsung Research · Innovation Center · Device Platform)</a></li><li><a href="en/aws-summit-2024/">AWS Summit Seoul 2024 — A Backend Engineer&#39;s Field Notes (Generative AI · CMP · Middleware)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fkaist-grad-mech-written-set2%2F&amp;text=KAIST%20Mechanical%20Engineering%20Grad%20Written%20Exam%20%E2%80%94%20Part%202%3A%20Set%202%20%285%20Problems%2C%202019%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fkaist-grad-mech-written-set2%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">4</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/python-oracledb-arm-dpi-1047/">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="en/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="en/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="en/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag" href="en/tags/#Samsung">#Samsung <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (153) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){(function r(){if(window.renderMathInElement){renderMathInElement(document.querySelector(".tb-content")||document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"\\[",right:"\\]",display:true},{left:"$",right:"$",display:false},{left:"\\(",right:"\\)",display:false}],throwOnError:false,ignoredTags:["script","noscript","style","textarea","pre","code"]});}else{setTimeout(r,50);}})();});</script>
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>
