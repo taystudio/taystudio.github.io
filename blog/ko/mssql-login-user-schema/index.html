@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.webp">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교)", "description": "Oracle 경험자가 MS SQL Server로 넘어올 때 가장 헷갈리는 Login·User·Schema 3단계 구조를 Oracle(User=Schema=Login) 1단계 구조와 비교 정리. sysadmin이 dbo 스키마에 고정되는 문제와 업무용 계정 분리 해결법까지.", "datePublished": "2025-10-05T00:00:00+09:00", "dateModified": "2025-10-05T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/mssql-login-user-schema/"}, "image": ["https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.webp"], "keywords": "MS SQL Server, Oracle, 스키마, 계정관리, DBA"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/ko/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교)", "item": "https://taystudios.com/blog/ko/mssql-login-user-schema/"}]}</script><meta property="article:published_time" content="2025-10-05T00:00:00+09:00"><meta property="article:modified_time" content="2025-10-05T00:00:00+09:00"><meta property="article:tag" content="MS SQL Server"><meta property="article:tag" content="Oracle"><meta property="article:tag" content="스키마"><meta property="article:tag" content="계정관리"><meta property="article:tag" content="DBA">
-<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<link rel="stylesheet" href="assets/style.css?v=1780183054">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
 </head>
@@ -260,7 +260,7 @@ CREATE USER b_user FOR LOGIN b_user WITH DEFAULT_SCHEMA = b_schema;
   <div class="tb-footer-inner">
     <span>© 2026 TayLee</span>
     <div class="tb-footer-links">
-      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="sitemap/">Sitemap</a><a href="about/">About</a><a href="privacy/">Privacy</a>
       <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
     </div>
   </div>

@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/nat-instance-build-2/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/nat-instance-build-2/cover.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)", "description": "The Part 1 community AMI runs an old (EOS) OS and is hard to maintain. In Part 2 we build a NAT instance on the latest Ubuntu by configuring iptables directly (IP forwarding + MASQUERADE), and persist the rules across reboots.", "datePublished": "2024-12-29T00:00:00+09:00", "dateModified": "2024-12-29T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/nat-instance-build-2/"}, "image": ["https://taystudios.com/blog/assets/posts/nat-instance-build-2/cover.png"], "keywords": "AWS, NAT Instance, iptables, networking, cost-saving"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)", "item": "https://taystudios.com/blog/en/nat-instance-build-2/"}]}</script><meta property="article:published_time" content="2024-12-29T00:00:00+09:00"><meta property="article:modified_time" content="2024-12-29T00:00:00+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="NAT Instance"><meta property="article:tag" content="iptables"><meta property="article:tag" content="networking"><meta property="article:tag" content="cost-saving">
-<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<link rel="stylesheet" href="assets/style.css?v=1780183054">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
 </head>
@@ -172,7 +172,7 @@ sudo apt-get install -y iptables-persistent
   <div class="tb-footer-inner">
     <span>© 2026 TayLee</span>
     <div class="tb-footer-links">
-      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="sitemap/">Sitemap</a><a href="about/">About</a><a href="privacy/">Privacy</a>
       <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
     </div>
   </div>

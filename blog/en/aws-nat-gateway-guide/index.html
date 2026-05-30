@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/aws-nat-gateway-guide/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/aws-nat-gateway-guide/cover.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[AWS] NAT Gateway How-To & Setup Guide — Private Subnet Internet & Cost Optimization", "description": "A NAT Gateway lets Private Subnet EC2s use outbound internet (apt, external APIs) while staying secure — step-by-step creation, EIP attach, routing + a cost analysis and the NAT-instance alternative.", "datePublished": "2026-02-14T00:00:00+09:00", "dateModified": "2026-02-14T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/aws-nat-gateway-guide/"}, "image": ["https://taystudios.com/blog/assets/posts/aws-nat-gateway-guide/cover.png"], "keywords": "AWS, NAT Gateway, VPC, networking, cost-optimization"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "[AWS] NAT Gateway How-To & Setup Guide — Private Subnet Internet & Cost Optimization", "item": "https://taystudios.com/blog/en/aws-nat-gateway-guide/"}]}</script><meta property="article:published_time" content="2026-02-14T00:00:00+09:00"><meta property="article:modified_time" content="2026-02-14T00:00:00+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="NAT Gateway"><meta property="article:tag" content="VPC"><meta property="article:tag" content="networking"><meta property="article:tag" content="cost-optimization">
-<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<link rel="stylesheet" href="assets/style.css?v=1780183054">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
 </head>
@@ -211,7 +211,7 @@
   <div class="tb-footer-inner">
     <span>© 2026 TayLee</span>
     <div class="tb-footer-links">
-      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="sitemap/">Sitemap</a><a href="about/">About</a><a href="privacy/">Privacy</a>
       <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
     </div>
   </div>

@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/command-not-found-linux-path/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/command-not-found-linux-path/cover.webp">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Linux 'command not found' (ls·vi·vim) 해결 — PATH 환경변수 복구", "description": "리눅스/macOS에서 PATH를 잘못 덮어써 ls·vi·vim 같은 기본 명령어가 'command not found'로 안 먹을 때, echo $PATH로 확인하고 export PATH로 기본 경로(/bin·/usr/bin 등)를 복구하는 방법. :$PATH로 기존 경로를 유지하는 원리까지.", "datePublished": "2024-10-19T00:00:00+09:00", "dateModified": "2024-10-19T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/command-not-found-linux-path/"}, "image": ["https://taystudios.com/blog/assets/posts/command-not-found-linux-path/cover.webp"], "keywords": "Linux, macOS, PATH, 환경변수, zsh, command not found"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Web Development", "item": "https://taystudios.com/blog/ko/category/web-dev/"}, {"@type": "ListItem", "position": 3, "name": "Linux 'command not found' (ls·vi·vim) 해결 — PATH 환경변수 복구", "item": "https://taystudios.com/blog/ko/command-not-found-linux-path/"}]}</script><meta property="article:published_time" content="2024-10-19T00:00:00+09:00"><meta property="article:modified_time" content="2024-10-19T00:00:00+09:00"><meta property="article:tag" content="Linux"><meta property="article:tag" content="macOS"><meta property="article:tag" content="PATH"><meta property="article:tag" content="환경변수"><meta property="article:tag" content="zsh"><meta property="article:tag" content="command not found">
-<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<link rel="stylesheet" href="assets/style.css?v=1780183054">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
 </head>
@@ -189,7 +189,7 @@ thlee@MacBookAir ~ % echo $PATH
   <div class="tb-footer-inner">
     <span>© 2026 TayLee</span>
     <div class="tb-footer-links">
-      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="sitemap/">Sitemap</a><a href="about/">About</a><a href="privacy/">Privacy</a>
       <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
     </div>
   </div>

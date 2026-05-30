@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/fastapi-getting-started/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/fastapi-getting-started/cover.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Python FastAPI 시작하기 — 개론·설치·Pycharm 실행 (feat. uvicorn)", "description": "FastAPI를 쓰는 이유(비동기·I/O bound)와 Python GIL의 관계, pip로 FastAPI·uvicorn 설치, 웹 프레임워크와 웹 애플리케이션(ASGI/WSGI)의 관계, Pycharm에서 uvicorn으로 서버를 실행하는 두 가지 방법과 내장 Swagger-UI까지 정리한 FastAPI 입문 가이드.", "datePublished": "2024-10-20T00:00:00+09:00", "dateModified": "2024-10-20T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/fastapi-getting-started/"}, "image": ["https://taystudios.com/blog/assets/posts/fastapi-getting-started/cover.png"], "keywords": "FastAPI, uvicorn, ASGI, GIL, Pycharm, Python"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Web Development", "item": "https://taystudios.com/blog/ko/category/web-dev/"}, {"@type": "ListItem", "position": 3, "name": "Python FastAPI 시작하기 — 개론·설치·Pycharm 실행 (feat. uvicorn)", "item": "https://taystudios.com/blog/ko/fastapi-getting-started/"}]}</script><meta property="article:published_time" content="2024-10-20T00:00:00+09:00"><meta property="article:modified_time" content="2024-10-20T00:00:00+09:00"><meta property="article:tag" content="FastAPI"><meta property="article:tag" content="uvicorn"><meta property="article:tag" content="ASGI"><meta property="article:tag" content="GIL"><meta property="article:tag" content="Pycharm"><meta property="article:tag" content="Python">
-<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<link rel="stylesheet" href="assets/style.css?v=1780183054">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
 </head>
@@ -273,7 +273,7 @@ if __name__ == &quot;__main__&quot;:
   <div class="tb-footer-inner">
     <span>© 2026 TayLee</span>
     <div class="tb-footer-links">
-      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="sitemap/">Sitemap</a><a href="about/">About</a><a href="privacy/">Privacy</a>
       <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
     </div>
   </div>
