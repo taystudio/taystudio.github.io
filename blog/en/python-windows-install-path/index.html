@@ -73,10 +73,10 @@
 <h3 id="1-what-is-an-environment-variable">1. What is an environment variable?</h3>
 <p>Setting environment variables provides the OS with program paths, global settings, and system configuration so that applications and commands can reference them.</p>
 <p>The reason languages like Java and Python use environment variables is to run a compiler or interpreter executable <strong>by name rather than by absolute path</strong>. For example, to run <code>python.exe</code> you'd otherwise have to type the absolute path <code>D:\Python\python.exe</code> in cmd. Since that's inconvenient every time, we tell the OS the path so typing just <code>python</code> works. (This concept applies to Linux as well, not only Windows.)</p>
-<p><img alt="Typing python without a PATH set opens the Microsoft Store" src="assets/posts/python-windows-install-path/img4.png" width="1221" height="748" loading="lazy">
+<p><img alt="Typing python without a PATH set opens the Microsoft Store" src="assets/posts/python-windows-install-path/img4.webp" width="1221" height="748" loading="lazy">
 <em>Figure 4. Running the python command without a PATH set</em></p>
 <p>Figure 4 shows that, without the PATH set, typing <code>python</code> isn't recognized and the Microsoft Store opens. (Normally you'd get a "path not found" message, but depending on your PC it may be wired like this.)</p>
-<p><img alt="Python runs when the absolute path D:\Python\python.exe is entered" src="assets/posts/python-windows-install-path/img5.png" width="1012" height="416" loading="lazy">
+<p><img alt="Python runs when the absolute path D:\Python\python.exe is entered" src="assets/posts/python-windows-install-path/img5.webp" width="1012" height="416" loading="lazy">
 <em>Figure 5. Entering the absolute path</em></p>
 <p>As in Figure 5, entering the absolute path <code>D:\Python\python.exe</code> runs Python. Now we'll tell the OS this path so that just <code>python</code> runs it.</p>
 <h3 id="2-setting-the-path-windows">2. Setting the PATH (Windows)</h3>
@@ -86,10 +86,10 @@
 <li>As in Figure 6, search for <strong>"Edit the system environment variables,"</strong> or</li>
 <li>Control Panel → System and Security → System → Advanced system settings</li>
 </ol>
-<p><img alt="The Environment Variables button in System Properties" src="assets/posts/python-windows-install-path/img7.png" width="853" height="954" loading="lazy">
+<p><img alt="The Environment Variables button in System Properties" src="assets/posts/python-windows-install-path/img7.webp" width="853" height="954" loading="lazy">
 <em>Figure 7. The system environment variables window</em></p>
 <p>Following the above brings up the window in Figure 7; click <strong>Environment Variables (N)</strong>.</p>
-<p><img alt="Environment Variables window split into User variables and System variables" src="assets/posts/python-windows-install-path/img8.png" width="959" height="914" loading="lazy">
+<p><img alt="Environment Variables window split into User variables and System variables" src="assets/posts/python-windows-install-path/img8.webp" width="959" height="914" loading="lazy">
 <em>Figure 8. The Environment Variables window</em></p>
 <p>As in Figure 8, the window is split into <strong>User variables (U)</strong> and <strong>System variables (S)</strong>. The difference is scope.</p>
 <ul>
@@ -97,13 +97,13 @@
 <li><strong>System variables</strong> — apply to all users, available system-wide.</li>
 </ul>
 <p>Here we set it under <strong>System variables</strong> so it applies to all users.</p>
-<p><img alt="Selecting and editing Path under System variables" src="assets/posts/python-windows-install-path/img9.png" width="684" height="297" loading="lazy">
+<p><img alt="Selecting and editing Path under System variables" src="assets/posts/python-windows-install-path/img9.webp" width="684" height="297" loading="lazy">
 <em>Figure 9. Setting Path in System variables</em></p>
 <p>Under System variables (S), double-click <code>Path</code>, or select it and click <strong>Edit (I)</strong>.</p>
-<p><img alt="Adding a new path in the Path edit window" src="assets/posts/python-windows-install-path/img10.png" width="816" height="770" loading="lazy">
+<p><img alt="Adding a new path in the Path edit window" src="assets/posts/python-windows-install-path/img10.webp" width="816" height="770" loading="lazy">
 <em>Figure 10. Adding the Python path</em></p>
 <p>Click <strong>New (N)</strong> in Figure 10 to enter a path. For Python's PATH, you add two paths.</p>
-<p><img alt="The two Python paths to add" src="assets/posts/python-windows-install-path/img11.png" width="1951" height="707" loading="lazy">
+<p><img alt="The two Python paths to add" src="assets/posts/python-windows-install-path/img11.webp" width="1600" height="580" loading="lazy">
 <em>Figure 11. The two paths to add</em></p>
 <blockquote>
 <ol>
@@ -117,12 +117,12 @@
 </blockquote>
 <h3 id="3-verifying-the-path">3. Verifying the PATH</h3>
 <p>Adding and applying the two paths completes the Python environment variable setup.</p>
-<p><img alt="python and pip commands working in cmd" src="assets/posts/python-windows-install-path/img12.png" width="1171" height="661" loading="lazy">
+<p><img alt="python and pip commands working in cmd" src="assets/posts/python-windows-install-path/img12.webp" width="1171" height="661" loading="lazy">
 <em>Figure 12. PATH setup result</em></p>
 <p>As in Figure 12, it's working if <code>python</code> launches Python and <code>pip</code> prints the package manager help in cmd.</p>
 <h3 id="4-directory-structure-of-pip-installed-libraries">4. Directory structure of pip-installed libraries</h3>
 <p>Let's install libraries like numpy and pandas with <code>pip3 install</code>.</p>
-<p><img alt="Installing pandas with pip" src="assets/posts/python-windows-install-path/img13.png" width="1528" height="725" loading="lazy">
+<p><img alt="Installing pandas with pip" src="assets/posts/python-windows-install-path/img13.webp" width="1528" height="725" loading="lazy">
 <em>Figure 13. Installing pandas via pip</em></p>
 <p>Libraries installed this way are stored by default in <code>D:\Python\Lib\site-packages</code>. As seen in Figure 3, there is a <code>Lib</code> directory under the Python install path, and a <code>site-packages</code> folder inside it.</p>
 <p><img alt="numpy and pandas installed under site-packages" src="assets/posts/python-windows-install-path/img14.png" width="625" height="547" loading="lazy">

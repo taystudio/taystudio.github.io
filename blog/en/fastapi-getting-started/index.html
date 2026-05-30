@@ -109,7 +109,7 @@
 <blockquote>
 <p>Do web frameworks like FastAPI or Spring fail to act as a server without a web application such as Uvicorn, Gunicorn, Tomcat, Netty, or Jetty?</p>
 </blockquote>
-<p><img alt="Diagram of the relationship between a web framework and a web application — the framework runs on top of the application server" src="assets/posts/fastapi-getting-started/img1.png" width="1450" height="836" loading="lazy">
+<p><img alt="Diagram of the relationship between a web framework and a web application — the framework runs on top of the application server" src="assets/posts/fastapi-getting-started/img1.webp" width="1450" height="836" loading="lazy">
 <em>Figure 1. A simple diagram of the web framework / web application relationship</em></p>
 <p>My answer is: <strong>unless you write your own while-loop server, a web framework alone cannot be a server</strong>. A web framework is less a web server itself and more a tool that makes it easy to develop an application that runs on top of a web server (application). Low-level work like network communication and thread management is handled by the web application.</p>
 <p>In short, a web application server manages client communication, manages threads to efficiently handle many concurrent requests, and provides an environment to run the application logic. In Python's case, uvicorn even handles parent-child process management.</p>
@@ -143,14 +143,14 @@ When you install Python on your system, there is a library folder inside the ins
 Alternatively, you can give each project an isolated environment whose packages live only inside the project folder — a <strong>virtual environment (venv) = local site-packages</strong>. This is useful when different projects need different library versions.</p>
 </blockquote>
 <h3 id="41-create-a-project-virtualenv-system-environment">4.1 Create a project (virtualenv / system environment)</h3>
-<p><img alt="PyCharm new project window — choosing interpreter type and environment" src="assets/posts/fastapi-getting-started/img2.png" width="1418" height="1001" loading="lazy">
+<p><img alt="PyCharm new project window — choosing interpreter type and environment" src="assets/posts/fastapi-getting-started/img2.webp" width="1418" height="1001" loading="lazy">
 <em>Figure 2. Creating a new project</em></p>
 <p>When you create a project in PyCharm, you choose an interpreter type (project venv / conda / custom environment). Here we'll <strong>bring in the Python interpreter we installed and reference the global site-packages</strong>.</p>
 <ul>
 <li><strong>Interpreter type</strong> — choose Custom environment</li>
 <li><strong>Environment</strong> — "Generate new (venv)" means use my interpreter but only the libraries inside the virtual environment. To reference global site-packages, choose <strong>"Select existing."</strong></li>
 </ul>
-<p><img alt="Comparing external library paths of a venv project and a global-site-packages project" src="assets/posts/fastapi-getting-started/img3.png" width="962" height="981" loading="lazy">
+<p><img alt="Comparing external library paths of a venv project and a global-site-packages project" src="assets/posts/fastapi-getting-started/img3.webp" width="962" height="981" loading="lazy">
 <em>Figure 3. (Top) virtualenv / (Bottom) referencing global site-packages</em></p>
 <p>With a virtual environment, <code>Lib</code> and <code>Scripts</code> folders are created inside the project, and external libraries reference that venv's <code>Scripts</code>. A project using global site-packages references the Python install path instead. If you want fastapi inside a venv, run <code>pip install fastapi</code> again from that environment's terminal.</p>
 <h3 id="42-create-mainpy-the-fastapi-instance">4.2 Create main.py — the FastAPI instance</h3>
@@ -221,7 +221,7 @@ if __name__ == &quot;__main__&quot;:
 </code></pre>
 
 <p>Here we pass <code>app</code> to <code>uvicorn.Config</code> to run the server directly, and run <code>main</code> asynchronously via <code>asyncio</code>. The structure is intuitive and easier to follow.</p>
-<p><img alt="Running main.py via Run in PyCharm" src="assets/posts/fastapi-getting-started/img6.png" width="1463" height="954" loading="lazy">
+<p><img alt="Running main.py via Run in PyCharm" src="assets/posts/fastapi-getting-started/img6.webp" width="1463" height="954" loading="lazy">
 <em>Figure 6. Running main in PyCharm</em></p>
 <p>You can run it from the terminal with <code>python main.py</code> or via PyCharm's Run.</p>
 <p><img alt="Result of running embedded uvicorn — a single process ID" src="assets/posts/fastapi-getting-started/img7.png" width="749" height="255" loading="lazy">
@@ -232,7 +232,7 @@ if __name__ == &quot;__main__&quot;:
 <em>Figure 8. Sending a request</em></p>
 <p>To check that the server works, send a GET request to <code>http://127.0.0.1:8000/sync/say-hello</code>; you can confirm it returns a proper response.</p>
 <h3 id="45-fastapis-built-in-swagger-ui">4.5 FastAPI's built-in Swagger UI</h3>
-<p><img alt="FastAPI's built-in Swagger UI (/docs) screen" src="assets/posts/fastapi-getting-started/img9.png" width="2000" height="1077" loading="lazy">
+<p><img alt="FastAPI's built-in Swagger UI (/docs) screen" src="assets/posts/fastapi-getting-started/img9.webp" width="1600" height="862" loading="lazy">
 <em>Figure 9. FastAPI's built-in Swagger UI</em></p>
 <p>Unlike Java Spring Boot, FastAPI <strong>bundles Swagger UI</strong> rather than pulling it in as a dependency. If your server domain is <code>http://127.0.0.1:8000</code>, append <code>/docs</code> to the path to see the Swagger UI for the provided APIs.</p>
 <h2 id="wrap-up">Wrap-up</h2>

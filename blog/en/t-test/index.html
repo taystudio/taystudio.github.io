@@ -87,7 +87,7 @@
 <p>An assumption means the theory holds on top of it. Which technique you use depends on whether they're met.</p>
 <h4 id="21-normality-assumption">2.1 Normality assumption</h4>
 <p>The t-test is performed under the assumption that <strong>the population follows a normal distribution.</strong> This matters especially when the sample is small.</p>
-<p><img alt="As degrees of freedom (df) grow, the t-distribution approaches the Z distribution" src="assets/posts/t-test/img4.png" width="1096" height="658" loading="lazy">
+<p><img alt="As degrees of freedom (df) grow, the t-distribution approaches the Z distribution" src="assets/posts/t-test/img4.webp" width="1096" height="658" loading="lazy">
 <em>Reference — as the sample size (df) grows, the t-distribution approaches the Z distribution (at df=30 it's nearly Z)</em></p>
 <ul>
 <li>If the sample is large enough ($n&gt;30$), the <strong>Central Limit Theorem</strong> makes the sample mean approach normal, so you can use the t-test even if the population isn't perfectly normal.</li>
@@ -143,7 +143,7 @@
 <p>The farther the sample mean's difference from the reference mean is from 0, the more different; the closer to 0, the more equal. Dividing by the standard deviation standardizes it. This statistic follows the t-distribution.</p>
 <p>$$t = \dfrac{\bar{x} - \mu_0}{s / \sqrt{n}} = \dfrac{119 - 120}{1.58 / \sqrt{5}} = -1.41$$
 <em>One-Sample t-test t-value result</em></p>
-<p><img alt="One-Sample hypothesis test (t-distribution)" src="assets/posts/t-test/img7.png" width="1318" height="790" loading="lazy">
+<p><img alt="One-Sample hypothesis test (t-distribution)" src="assets/posts/t-test/img7.webp" width="1318" height="790" loading="lazy">
 <em>Figure 3. One-Sample t-test hypothesis test (t-distribution)</em></p>
 <p>Compute the p-value on a t-distribution with df 4. Since we judge equal-or-different, it's a <strong>two-sided test</strong> (significance level 0.025 each side). The p-value of the region at or below t-value −1.41 is 0.2313 &gt; 0.025 → cannot reject the null = <strong>no significant difference (accept).</strong></p>
 <h4 id="32-independent-two-sample-t-test">3.2 Independent two-sample t-test</h4>
@@ -192,14 +192,14 @@
 <p>$$t = \dfrac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\dfrac{1}{n_1} + \dfrac{1}{n_2}}}, \qquad s_p = \sqrt{\dfrac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}}$$</p>
 <p>$$t = \dfrac{\bar{X}_1 - \bar{X}_2}{\sqrt{s_p^2\left(\dfrac{1}{n_1} + \dfrac{1}{n_2}\right)}} = \dfrac{116.23 - 123}{\sqrt{2.223\left(\dfrac{1}{3} + \dfrac{1}{2}\right)}} \approx -4.91$$
 <em>Student's t-test t-value result</em></p>
-<p><img alt="Student's t-test hypothesis test (t-distribution)" src="assets/posts/t-test/img10.png" width="1342" height="806" loading="lazy">
+<p><img alt="Student's t-test hypothesis test (t-distribution)" src="assets/posts/t-test/img10.webp" width="1342" height="806" loading="lazy">
 <em>Figure 4. Student's t-test hypothesis test (t-distribution)</em></p>
 <p>The p-value of the region at or below t-value −4.91 is 0.0162 &lt; 0.025 → reject the null, <strong>accept the alternative</strong> (the two group means differ).</p>
 <p><strong>b) Equal variance not met — Welch's t-test</strong></p>
 <p>$$t = \dfrac{\bar{x}_1 - \bar{x}_2}{\sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}}$$</p>
 <p>$$t = \dfrac{\bar{X}_1 - \bar{X}_2}{\sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}} = \dfrac{116.33 - 123}{\sqrt{\dfrac{2.33385}{3} + \dfrac{2}{2}}} \approx \dfrac{-6.67}{1.3334} \approx -5.00$$
 <em>Welch's t-test t-value result</em></p>
-<p><img alt="Welch's t-test hypothesis test" src="assets/posts/t-test/img13.png" width="1342" height="806" loading="lazy">
+<p><img alt="Welch's t-test hypothesis test" src="assets/posts/t-test/img13.webp" width="1342" height="806" loading="lazy">
 <em>Figure 5. Welch's t-test</em></p>
 <p>The p-value of the region at or below t-value −6.47 is 0.0137 &lt; 0.025 → reject the null, <strong>accept the alternative.</strong></p>
 <h4 id="33-paired-sample-t-test">3.3 Paired-Sample t-test</h4>
@@ -252,7 +252,7 @@ t &amp;= \dfrac{\bar{D}}{s_D / \sqrt{n}} = \dfrac{9.2}{0.84 / \sqrt{5}} \approx 
 \end{aligned}$$
 <em>Paired-Sample t-test t-value process and result</em></p>
 <p>Compute the mean and variance from the paired differences ($D_i$).</p>
-<p><img alt="Paired t-test hypothesis test" src="assets/posts/t-test/img16.png" width="1342" height="806" loading="lazy">
+<p><img alt="Paired t-test hypothesis test" src="assets/posts/t-test/img16.webp" width="1342" height="806" loading="lazy">
 <em>Figure 6. Paired t-test</em></p>
 <p>The p-value of the region at or above t-value 24.50 is ≈ 0 &lt; 0.025 → reject the null, <strong>accept the alternative</strong> (the before/after means differ).</p>
 <h2 id="wrap-up">Wrap-up</h2>

@@ -81,19 +81,19 @@ sudo systemctl enable nginx   # auto-start on boot
 </code></pre>
 
 <h3 id="21-step-by-step-detail">2.1 Step-by-step detail</h3>
-<p><img alt="Terminal screen of the apt repository update" src="assets/posts/nginx-install-ubuntu-centos/img1.png" width="1596" height="912" loading="lazy">
+<p><img alt="Terminal screen of the apt repository update" src="assets/posts/nginx-install-ubuntu-centos/img1.webp" width="1596" height="912" loading="lazy">
 <em>Figure 1. <code>sudo apt update</code> — updating the apt repository</em></p>
-<p><img alt="Terminal screen installing nginx with apt" src="assets/posts/nginx-install-ubuntu-centos/img2.png" width="1594" height="912" loading="lazy">
+<p><img alt="Terminal screen installing nginx with apt" src="assets/posts/nginx-install-ubuntu-centos/img2.webp" width="1594" height="912" loading="lazy">
 <em>Figure 2. <code>sudo apt install nginx</code> — installing nginx</em></p>
 <p>First update the apt repository (recommended, especially to pick up the latest version) and install nginx. Figure 1 is the <code>apt update</code> result, Figure 2 the result of installing nginx from the apt repo. If a <code>(Y/n)</code> prompt appears, enter <code>Y</code> to continue.</p>
-<p><img alt="Nginx install complete on Ubuntu" src="assets/posts/nginx-install-ubuntu-centos/img3.png" width="1588" height="904" loading="lazy">
+<p><img alt="Nginx install complete on Ubuntu" src="assets/posts/nginx-install-ubuntu-centos/img3.webp" width="1588" height="904" loading="lazy">
 <em>Figure 3. nginx install complete via apt</em></p>
 <p>Installing nginx via apt auto-registers it as a Linux service, so you can check/start/stop it with <strong>systemctl</strong> (the manager for Linux services/daemons).</p>
-<p><img alt="Checking nginx running status with systemctl status" src="assets/posts/nginx-install-ubuntu-centos/img4.png" width="1596" height="910" loading="lazy">
+<p><img alt="Checking nginx running status with systemctl status" src="assets/posts/nginx-install-ubuntu-centos/img4.webp" width="1596" height="910" loading="lazy">
 <em>Figure 4. <code>systemctl status nginx</code> — checking the running status</em></p>
 <p>Check the status with <code>sudo systemctl status nginx</code>. Installing via apt runs it with a default config.</p>
 <h3 id="22-nginx-configuration-file-structure-and-paths">2.2 Nginx Configuration File Structure and Paths</h3>
-<p><img alt="Path and directory structure of the /etc/nginx config files" src="assets/posts/nginx-install-ubuntu-centos/img5.png" width="1592" height="914" loading="lazy">
+<p><img alt="Path and directory structure of the /etc/nginx config files" src="assets/posts/nginx-install-ubuntu-centos/img5.webp" width="1592" height="914" loading="lazy">
 <em>Figure 5. nginx config path (<code>/etc/nginx/</code>)</em></p>
 <p>When installed via the package manager, all config files live under <strong><code>/etc/nginx/</code></strong> by default. Nginx config is structured like a "central control room" that loads "detailed instruction sheets."</p>
 <h4 id="221-the-central-config-file-nginxconf">2.2.1 The central config file: nginx.conf</h4>
@@ -152,7 +152,7 @@ sudo firewall-cmd --reload
 </ul>
 <h2 id="5-verifying-the-install">5. Verifying the Install</h2>
 <p>Once everything is set, enter the server's <strong>public IP</strong> in a web browser's address bar.</p>
-<p><img alt="Welcome to nginx page successfully loaded in a web browser" src="assets/posts/nginx-install-ubuntu-centos/img6.png" width="2940" height="1710" loading="lazy">
+<p><img alt="Welcome to nginx page successfully loaded in a web browser" src="assets/posts/nginx-install-ubuntu-centos/img6.webp" width="1600" height="931" loading="lazy">
 <em>Figure 6. Nginx reached — Welcome to nginx!</em></p>
 <p>If the <strong>"Welcome to nginx!"</strong> page appears as above, the install and network setup are perfectly complete.</p>
 <hr />

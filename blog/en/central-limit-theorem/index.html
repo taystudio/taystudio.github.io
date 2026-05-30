@@ -60,12 +60,12 @@
       <div class="tb-prose" data-table-style="classic">
 <h2 id="what-is-the-central-limit-theorem">What is the Central Limit Theorem?</h2>
 <p>It's the theorem that <strong>if the sample size is large enough, the distribution of the sample mean approaches a normal distribution regardless of the population's distribution.</strong></p>
-<p><img alt="As sample size n grows, the distribution of the sample mean becomes normal" src="assets/posts/central-limit-theorem/img1.png" width="2160" height="696" loading="lazy">
+<p><img alt="As sample size n grows, the distribution of the sample mean becomes normal" src="assets/posts/central-limit-theorem/img1.webp" width="1600" height="516" loading="lazy">
 <em>Figure 1. Sample mean distribution (as n grows)</em></p>
 <p>Even drawing X from an arbitrary distribution, as the sample size $n$ grows the distribution of the sample mean approaches normal. This distribution of the sample mean is written as:</p>
 <p>$$\bar{X} \sim N\!\left(\mu,\ \dfrac{\sigma^2}{n}\right)$$
 <em>Eq. 1. Distribution of the sample mean</em></p>
-<p><img alt="Sampling from the population" src="assets/posts/central-limit-theorem/img3.png" width="1898" height="1242" loading="lazy">
+<p><img alt="Sampling from the population" src="assets/posts/central-limit-theorem/img3.webp" width="1600" height="1047" loading="lazy">
 <em>Figure 2. Sampling from the population</em></p>
 <p>Let the number of samplings be $M$ and the size drawn at once (number of samples) be $N$. Fixing $M=500$ and increasing $N=1, 30, 300, 3000$, I sampled from five distributions.</p>
 <h3 id="the-5-distributions-tested">The 5 distributions tested</h3>
@@ -77,25 +77,25 @@
 <li>Bernoulli</li>
 </ol>
 <h2 id="clt-experiments">CLT Experiments</h2>
-<p><img alt="At M=500, N=1" src="assets/posts/central-limit-theorem/img4.png" width="2136" height="1204" loading="lazy">
+<p><img alt="At M=500, N=1" src="assets/posts/central-limit-theorem/img4.webp" width="1600" height="902" loading="lazy">
 <em>Figure 3. M=500, N=1</em></p>
 <p>At $N=1$, the uniform, F, and Bernoulli look very different from Gaussian. (Chi-squared is relatively similar, and Gaussian is naturally normal.)</p>
-<p><img alt="N=30 (M=500)" src="assets/posts/central-limit-theorem/img5.png" width="2116" height="1206" loading="lazy">
+<p><img alt="N=30 (M=500)" src="assets/posts/central-limit-theorem/img5.webp" width="1600" height="912" loading="lazy">
 <em>Figure 4. N=30 (M=500)</em></p>
 <p>At $N=30$, the uniform, F, and Bernoulli also gradually shift toward a Gaussian shape.</p>
 <blockquote>
 <p><strong>The meaning of sample size 30</strong> — with a sample size of 30 or more, sampling from any shape of distribution tends to make the sample mean converge to a normal distribution.</p>
 </blockquote>
-<p><img alt="N=300 (M=500)" src="assets/posts/central-limit-theorem/img6.png" width="2120" height="1208" loading="lazy">
+<p><img alt="N=300 (M=500)" src="assets/posts/central-limit-theorem/img6.webp" width="1600" height="912" loading="lazy">
 <em>Figure 5. N=300 (M=500)</em></p>
-<p><img alt="N=3000 (M=500)" src="assets/posts/central-limit-theorem/img7.png" width="2130" height="1200" loading="lazy">
+<p><img alt="N=3000 (M=500)" src="assets/posts/central-limit-theorem/img7.webp" width="1600" height="901" loading="lazy">
 <em>Figure 6. N=3000 (M=500)</em></p>
 <p>As $N$ grows further, it fits the normal distribution ever more precisely.</p>
 <h2 id="so-where-is-the-clt-used">So Where Is the CLT Used?</h2>
-<p><img alt="Uses of the Central Limit Theorem" src="assets/posts/central-limit-theorem/img8.png" width="2148" height="1274" loading="lazy">
+<p><img alt="Uses of the Central Limit Theorem" src="assets/posts/central-limit-theorem/img8.webp" width="1600" height="949" loading="lazy">
 <em>Figure 7. Uses of the Central Limit Theorem</em></p>
 <p>One important goal of statistics is to <strong>estimate the mean, the representative value of a group.</strong> In reality, the distribution shape of the subject of interest is usually unknown, but the <strong>CLT tells us the sample mean approaches a normal distribution as the sample size $N$ grows,</strong> which is a big hope for analysis. Grow $N$ enough and the sample mean follows a normal distribution, enabling parameter estimation and confidence intervals. However, if the population standard deviation $\sigma$ is unknown, we use the <strong>t-distribution</strong> instead of the normal.</p>
-<p><img alt="The relationship between the t-distribution and the z (normal) distribution" src="assets/posts/central-limit-theorem/img9.png" width="1096" height="668" loading="lazy">
+<p><img alt="The relationship between the t-distribution and the z (normal) distribution" src="assets/posts/central-limit-theorem/img9.webp" width="1096" height="668" loading="lazy">
 <em>Figure 8. The relationship between the t-distribution and the z (normal) distribution</em></p>
 <p>The t-distribution is based on the sample standard deviation, so it can be drawn from sample information alone. The larger the degrees of freedom (df), the closer it gets to the Z distribution, becoming nearly identical at df=30 (about $N=31$). So for a mean test, if $n&gt;30$ you may use either the t- or normal distribution, and below 30 a nonparametric test is recommended.</p>
 <h2 id="conclusion">Conclusion</h2>

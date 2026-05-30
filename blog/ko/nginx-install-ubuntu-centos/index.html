@@ -81,19 +81,19 @@ sudo systemctl enable nginx   # 부팅 시 자동 실행
 </code></pre>
 
 <h3 id="21">2.1 절차 세부 설명</h3>
-<p><img alt="apt 저장소 update 터미널 화면" src="assets/posts/nginx-install-ubuntu-centos/img1.png" width="1596" height="912" loading="lazy">
+<p><img alt="apt 저장소 update 터미널 화면" src="assets/posts/nginx-install-ubuntu-centos/img1.webp" width="1596" height="912" loading="lazy">
 <em>그림 1. <code>sudo apt update</code> — apt 저장소 업데이트</em></p>
-<p><img alt="apt 로 nginx 설치하는 터미널 화면" src="assets/posts/nginx-install-ubuntu-centos/img2.png" width="1594" height="912" loading="lazy">
+<p><img alt="apt 로 nginx 설치하는 터미널 화면" src="assets/posts/nginx-install-ubuntu-centos/img2.webp" width="1594" height="912" loading="lazy">
 <em>그림 2. <code>sudo apt install nginx</code> — nginx 설치</em></p>
 <p>먼저 apt 저장소를 update하고(특히 최신 버전 반영을 위해 update 권장) nginx를 설치한다. 그림 1은 <code>apt update</code> 결과, 그림 2는 apt 저장소로 nginx를 설치한 결과다. 중간에 <code>(Y/n)</code>이 나오면 <code>Y</code>를 입력해 계속한다.</p>
-<p><img alt="우분투에서 nginx 설치 완료 화면" src="assets/posts/nginx-install-ubuntu-centos/img3.png" width="1588" height="904" loading="lazy">
+<p><img alt="우분투에서 nginx 설치 완료 화면" src="assets/posts/nginx-install-ubuntu-centos/img3.webp" width="1588" height="904" loading="lazy">
 <em>그림 3. apt로 nginx 설치 완료</em></p>
 <p>apt로 nginx를 설치하면 linux service에 자동 등록되므로, <strong>systemctl</strong>(리눅스 서비스(데몬) 총괄 관리자)로 상태 확인·시작·중지가 가능하다.</p>
-<p><img alt="systemctl status 로 nginx 구동 상태 확인" src="assets/posts/nginx-install-ubuntu-centos/img4.png" width="1596" height="910" loading="lazy">
+<p><img alt="systemctl status 로 nginx 구동 상태 확인" src="assets/posts/nginx-install-ubuntu-centos/img4.webp" width="1596" height="910" loading="lazy">
 <em>그림 4. <code>systemctl status nginx</code> — 구동 상태 확인</em></p>
 <p><code>sudo systemctl status nginx</code>로 상태를 확인할 수 있다. apt로 설치하면 default config로 실행된다.</p>
 <h3 id="22-nginx-configuration">2.2 Nginx 설정(Configuration) 파일 구조와 경로</h3>
-<p><img alt="etc nginx 설정 파일 경로와 디렉토리 구조" src="assets/posts/nginx-install-ubuntu-centos/img5.png" width="1592" height="914" loading="lazy">
+<p><img alt="etc nginx 설정 파일 경로와 디렉토리 구조" src="assets/posts/nginx-install-ubuntu-centos/img5.webp" width="1592" height="914" loading="lazy">
 <em>그림 5. nginx 설정 파일 경로(<code>/etc/nginx/</code>)</em></p>
 <p>패키지 관리자로 설치하면 모든 설정 파일은 기본적으로 <strong><code>/etc/nginx/</code></strong> 경로에 위치한다. Nginx 설정은 '중앙 통제실'에서 '세부 지침서'들을 불러오는 구조다.</p>
 <h4 id="221-nginxconf">2.2.1 중앙 설정 파일: nginx.conf</h4>
@@ -152,7 +152,7 @@ sudo firewall-cmd --reload
 </ul>
 <h2 id="5">5. 설치 결과 확인</h2>
 <p>모든 설정이 끝났다면 웹 브라우저 주소창에 서버의 <strong>공인 IP</strong>를 입력해 접속해 본다.</p>
-<p><img alt="웹 브라우저에 Welcome to nginx 접속 성공 화면" src="assets/posts/nginx-install-ubuntu-centos/img6.png" width="2940" height="1710" loading="lazy">
+<p><img alt="웹 브라우저에 Welcome to nginx 접속 성공 화면" src="assets/posts/nginx-install-ubuntu-centos/img6.webp" width="1600" height="931" loading="lazy">
 <em>그림 6. Nginx 접속 완료 — Welcome to nginx!</em></p>
 <p>위와 같이 <strong>"Welcome to nginx!"</strong> 페이지가 나타나면 설치 및 네트워크 설정이 완벽히 완료된 것이다.</p>
 <hr />

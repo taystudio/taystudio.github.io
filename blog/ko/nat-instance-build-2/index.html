@@ -69,7 +69,7 @@
 <p>네트워크 개략도는 1부에서 다뤘으니 상황만 짚는다. 사설망(Private Subnet)이 인터넷과 통신하려면 NAT Gateway가 필요하다(Public IP ↔ Private IP 변환, 즉 공유기 역할). AWS NAT Gateway 대신 비용 절감을 위해 NAT Instance를 직접 구축하며, 2부에서는 <strong>NAT 설정이 안 된 기본 OS가 NAT 역할을 하도록</strong> 설정하는 방법을 다룬다.</p>
 <h2 id="nat-instanceec2">NAT Instance(EC2) 구성 방법</h2>
 <h3 id="1-ec2">1. 기본 EC2 생성</h3>
-<p><img alt="최신 Ubuntu LTS AMI로 NAT Instance용 EC2 생성" src="assets/posts/nat-instance-build-2/img1.png" width="1224" height="900" loading="lazy">
+<p><img alt="최신 Ubuntu LTS AMI로 NAT Instance용 EC2 생성" src="assets/posts/nat-instance-build-2/img1.webp" width="1224" height="900" loading="lazy">
 <em>그림 1. NAT Instance EC2 생성</em></p>
 <p>커뮤니티가 아닌 <strong>AWS가 직접 제공하는 LTS AMI</strong>를 사용한다. 나는 Ubuntu를 선호해 Ubuntu 24.04 LTS를 골랐다. NAT Instance는 당연히 Public Subnet에 위치해야 하며, 그 외 라우팅 테이블 예시는 모두 1부에 정리해 두었다.</p>
 <h3 id="2-ec2-os-iptables-nat">2. EC2 OS에서 iptables 조작 (NAT 설정)</h3>
@@ -88,7 +88,7 @@ sudo sysctl -p
 <li><code>/etc/sysctl.conf</code> — 위 설정을 영구 적용.</li>
 <li><code>sudo sysctl -p</code> — 설정을 즉시 적용.</li>
 </ul>
-<p><img alt="/etc/sysctl.conf 편집기 — net.ipv4.ip_forward 주석 처리 상태" src="assets/posts/nat-instance-build-2/img2.png" width="1154" height="764" loading="lazy">
+<p><img alt="/etc/sysctl.conf 편집기 — net.ipv4.ip_forward 주석 처리 상태" src="assets/posts/nat-instance-build-2/img2.webp" width="1154" height="764" loading="lazy">
 <em>그림 2. /etc/sysctl.conf 편집기 화면</em></p>
 <p>또는 <code>sysctl.conf</code>를 편집기로 열면 그림 2처럼 <code>net.ipv4.ip_forward=1</code>이 <code>#</code>으로 비활성화돼 있다. 그 주석을 풀고 적용해도 된다.</p>
 <h4 id="2-2-iptables-nat">2-2. iptables NAT 규칙 추가</h4>
@@ -106,7 +106,7 @@ sudo sysctl -p
 <pre class="codehilite"><code class="language-bash">ip addr
 </code></pre>
 
-<p><img alt="ip addr 실행 — 네트워크 인터페이스 이름 확인 (ens5)" src="assets/posts/nat-instance-build-2/img3.png" width="1224" height="444" loading="lazy">
+<p><img alt="ip addr 실행 — 네트워크 인터페이스 이름 확인 (ens5)" src="assets/posts/nat-instance-build-2/img3.webp" width="1224" height="444" loading="lazy">
 <em>그림 3. 네트워크 인터페이스 이름 확인 (예: <code>ens5</code>)</em></p>
 <p>위 그림에서는 <code>ens5</code>가 인터페이스 이름이다.</p>
 <h4 id="2-3">2-3. 적용 결과 확인</h4>
@@ -120,7 +120,7 @@ sudo sysctl -p
 <li><code>-n</code> — 호스트 이름 대신 IP 표시.</li>
 <li><code>-v</code> — 상세 정보(패킷 수·바이트 등) 표시.</li>
 </ul>
-<p><img alt="iptables NAT 규칙 추가 전후 비교 — POSTROUTING MASQUERADE" src="assets/posts/nat-instance-build-2/img4.png" width="1138" height="866" loading="lazy">
+<p><img alt="iptables NAT 규칙 추가 전후 비교 — POSTROUTING MASQUERADE" src="assets/posts/nat-instance-build-2/img4.webp" width="1138" height="866" loading="lazy">
 <em>그림 4. iptables 규칙 추가 결과 (위: before / 아래: after)</em></p>
 <p>그림 4처럼 <code>POSTROUTING</code> 체인에 <code>MASQUERADE</code> 규칙이 추가돼 있어야 한다. 확인했다면 재부팅 후에도 설정이 유지되게 저장한다.</p>
 <h4 id="2-4">2-4. 규칙 저장 (재부팅 후 유지)</h4>
@@ -139,7 +139,7 @@ sudo apt-get install -y iptables-persistent
 <p>재부팅 후에도 규칙이 자동 로드되도록 서비스를 활성화한다.</p>
 <p>이렇게 하면 OS 측 NAT Instance 설정이 끝난다. 나머지(Private Subnet 라우팅 테이블 설정, EC2 소스/대상 확인 중지)는 1부와 동일하다.</p>
 <h3 id="3-private-subnet">3. 결과 — Private Subnet 인터넷 연결 확인</h3>
-<p><img alt="NAT Instance 구축 후 Private Subnet EC2에서 apt-get update 성공" src="assets/posts/nat-instance-build-2/img5.png" width="1558" height="614" loading="lazy">
+<p><img alt="NAT Instance 구축 후 Private Subnet EC2에서 apt-get update 성공" src="assets/posts/nat-instance-build-2/img5.webp" width="1558" height="614" loading="lazy">
 <em>그림 5. NAT Instance 구축 결과 — 인터넷 연결 확인</em></p>
 <p>설정을 끝내고 Private Subnet의 EC2에서 <code>sudo apt-get update</code>를 실행하면 인터넷이 연결된 것을 확인할 수 있다.</p>
 <h2 id="_2">맺음말</h2>

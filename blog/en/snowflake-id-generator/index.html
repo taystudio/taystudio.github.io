@@ -178,7 +178,7 @@ decimal : -7422819801849786367
 <p>I used it by converting the decimal value to a <code>String</code> and putting it into the ID on insert.</p>
 <h2 id="test-environment">Test Environment</h2>
 <p>Now it's time to expose this ID Generator to a <strong>10,000 TPS</strong> environment and verify it inserts without duplicates. I set up the test environment as follows.</p>
-<p><img alt="ID Generator test architecture — Apache Bench → Nginx (LB) → Netty cluster → MongoDB" src="assets/posts/snowflake-id-generator/img2.png" width="877" height="486" loading="lazy">
+<p><img alt="ID Generator test architecture — Apache Bench → Nginx (LB) → Netty cluster → MongoDB" src="assets/posts/snowflake-id-generator/img2.webp" width="877" height="486" loading="lazy">
 <em>Figure 2. ID Generator test architecture</em></p>
 <blockquote>
 <p>I built a home cloud server and made it reachable via SSH from outside. With 6 PCs at home, the above setup is possible over a private network.</p>

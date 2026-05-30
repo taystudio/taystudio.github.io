@@ -59,7 +59,7 @@
 
       <div class="tb-prose" data-table-style="classic">
 <h2 id="1-nat-gateway">1. NAT Gateway가 필요한 이유</h2>
-<p><img alt="NAT Gateway 유무에 따른 Private Subnet 인터넷 통신 구조 차이" src="assets/posts/aws-nat-gateway-guide/img1.png" width="1426" height="1069" loading="lazy">
+<p><img alt="NAT Gateway 유무에 따른 Private Subnet 인터넷 통신 구조 차이" src="assets/posts/aws-nat-gateway-guide/img1.webp" width="1426" height="1069" loading="lazy">
 <em>그림 1. NAT Gateway 유무에 따른 Private Subnet 통신 구조 비교</em></p>
 <p>VPC 내부의 Private Subnet에 위치한 인스턴스는 보안을 위해 공인(Public) IP를 갖지 않는다. 하지만 보안 패치 업데이트(<code>apt</code>·<code>yum</code>·<code>dnf</code>)나 외부 API 통신을 위해서는 인터넷 연결이 필수다. 이때 <strong>보안은 유지하면서 아웃바운드(Outbound) 통신만 허용하는 통로</strong> 역할을 하는 것이 NAT Gateway다.</p>
 <ul>
@@ -72,22 +72,22 @@
 <p>먼저 테스트를 위해 그림 1과 같이 <strong>Public Subnet</strong>(Bastion EC2 위치)과 <strong>Private Subnet</strong>(테스트 EC2 위치)을 미리 구성했다.</p>
 <h3 id="22-nat">2.2 NAT 게이트웨이 구성</h3>
 <h4 id="step-1">Step 1. 사전 점검 — 인터넷 연결 확인</h4>
-<p><img alt="NAT Gateway 설정 전 Private Subnet EC2의 apt update 실패 화면" src="assets/posts/aws-nat-gateway-guide/img2.jpg" width="1657" height="895" loading="lazy">
+<p><img alt="NAT Gateway 설정 전 Private Subnet EC2의 apt update 실패 화면" src="assets/posts/aws-nat-gateway-guide/img2.webp" width="1600" height="864" loading="lazy">
 <em>그림 2. NAT 설정 전 — EC2 인터넷 연결 오류</em></p>
 <p>NAT 게이트웨이가 없는 상태에서 Private Subnet 내 EC2에 접속해 <code>sudo apt update</code>를 실행하면, 그림 2처럼 외부와 통신이 되지 않아 막혀 있는 것을 확인할 수 있다. 이제 그림 1 오른쪽 아키텍처를 목표로 구성을 시작한다.</p>
 <blockquote>
 <p>참고: 설정 전, <strong>탄력적 IP(Elastic IP, EIP)</strong>를 미리 생성해 두는 것이 좋다. 자동 할당 옵션도 있지만, 실무에서는 관리의 일관성을 위해 수동 할당을 권장한다.</p>
 </blockquote>
 <h4 id="step-2-nat">Step 2. NAT 게이트웨이 생성</h4>
-<p><img alt="AWS VPC 대시보드 내 NAT 게이트웨이 메뉴 위치" src="assets/posts/aws-nat-gateway-guide/img3.png" width="2000" height="971" loading="lazy">
+<p><img alt="AWS VPC 대시보드 내 NAT 게이트웨이 메뉴 위치" src="assets/posts/aws-nat-gateway-guide/img3.webp" width="1600" height="777" loading="lazy">
 <em>그림 3. AWS VPC 콘솔의 NAT 게이트웨이 메뉴</em></p>
 <p><img alt="신규 NAT 게이트웨이 생성 버튼 (콘솔 우측 상단)" src="assets/posts/aws-nat-gateway-guide/img4.jpg" width="1637" height="401" loading="lazy">
 <em>그림 4. NAT 게이트웨이 생성 버튼 (우측 상단)</em></p>
 <p>AWS 콘솔에서 <strong>VPC → NAT 게이트웨이</strong> 메뉴로 이동한 뒤, 우측 상단의 <code>[NAT 게이트웨이 생성]</code> 버튼을 클릭한다.</p>
 <h4 id="step-3-ipeip">Step 3. 생성 옵션 및 탄력적 IP(EIP) 연결</h4>
-<p><img alt="VPC·서브넷 선택을 포함한 NAT 게이트웨이 상세 설정 창" src="assets/posts/aws-nat-gateway-guide/img5.png" width="1613" height="980" loading="lazy">
+<p><img alt="VPC·서브넷 선택을 포함한 NAT 게이트웨이 상세 설정 창" src="assets/posts/aws-nat-gateway-guide/img5.webp" width="1600" height="972" loading="lazy">
 <em>그림 5. NAT 게이트웨이 생성 옵션</em></p>
-<p><img alt="NAT 게이트웨이 아웃바운드용 탄력적 IP(EIP) 할당·매칭" src="assets/posts/aws-nat-gateway-guide/img6.png" width="1578" height="921" loading="lazy">
+<p><img alt="NAT 게이트웨이 아웃바운드용 탄력적 IP(EIP) 할당·매칭" src="assets/posts/aws-nat-gateway-guide/img6.webp" width="1578" height="921" loading="lazy">
 <em>그림 6. 탄력적 IP(EIP) 연결</em></p>
 <p>생성 화면에서 다음 옵션을 선택한다(그림 5·6).</p>
 <ul>
@@ -95,13 +95,13 @@
 <li><strong>연결 유형</strong> — '퍼블릭'을 선택한다.</li>
 <li><strong>탄력적 IP 할당</strong> — 그림 6처럼 수동으로 만들어 둔 EIP를 연결한다. 고정 공인 IP가 있어야 외부 통신 시 신뢰성을 확보할 수 있다.</li>
 </ul>
-<p><img alt="생성 완료된 nat-xxxx 게이트웨이의 상태·연결 IP 정보" src="assets/posts/aws-nat-gateway-guide/img7.jpg" width="1621" height="587" loading="lazy">
+<p><img alt="생성 완료된 nat-xxxx 게이트웨이의 상태·연결 IP 정보" src="assets/posts/aws-nat-gateway-guide/img7.webp" width="1600" height="579" loading="lazy">
 <em>그림 7. NAT 게이트웨이 생성 후 세부 정보</em></p>
 <p>설정을 마치고 생성을 완료하면 그림 7처럼 <code>nat-xxxx</code> 형태의 ID와 함께 연결된 IP 주소를 확인할 수 있다.</p>
 <h4 id="step-4-route-table">Step 4. 라우팅 테이블(Route Table) 업데이트</h4>
 <p><img alt="Private Subnet 트래픽을 NAT Gateway로 보내는 0.0.0.0/0 라우팅 추가" src="assets/posts/aws-nat-gateway-guide/img8.jpg" width="1848" height="374" loading="lazy">
 <em>그림 8. Private Subnet 라우팅 테이블 — NAT 게이트웨이 연결</em></p>
-<p><img alt="NAT Gateway 타겟 설정이 완료된 프라이빗 라우팅 테이블" src="assets/posts/aws-nat-gateway-guide/img9.jpg" width="1626" height="606" loading="lazy">
+<p><img alt="NAT Gateway 타겟 설정이 완료된 프라이빗 라우팅 테이블" src="assets/posts/aws-nat-gateway-guide/img9.webp" width="1600" height="596" loading="lazy">
 <em>그림 9. 라우팅 테이블 업데이트 결과</em></p>
 <p>NAT Gateway를 만들었으니, 이제 Private Subnet의 트래픽이 이 통로를 타도록 길을 만들어 준다.</p>
 <ul>
@@ -110,7 +110,7 @@
 <li>저장 후 그림 9처럼 라우팅 정보가 활성화된 것을 확인한다.</li>
 </ul>
 <h4 id="step-5-private-subnet">Step 5. Private Subnet 인터넷 연결 최종 확인</h4>
-<p><img alt="NAT Gateway 연결 후 정상 진행되는 Private Subnet EC2의 sudo apt update" src="assets/posts/aws-nat-gateway-guide/img10.jpg" width="1189" height="892" loading="lazy">
+<p><img alt="NAT Gateway 연결 후 정상 진행되는 Private Subnet EC2의 sudo apt update" src="assets/posts/aws-nat-gateway-guide/img10.webp" width="1189" height="892" loading="lazy">
 <em>그림 10. NAT 게이트웨이 연결 후 — apt update 성공</em></p>
 <p>다시 Private Subnet 내 EC2로 돌아가 <code>sudo apt update</code>를 실행한다. 그림 10처럼 외부 리포지토리에 정상 접근하여 업데이트가 진행되는 것을 확인할 수 있다.</p>
 <h2 id="3-nat-gateway">3. NAT Gateway 비용 분석 (서울 리전 기준)</h2>

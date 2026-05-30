@@ -87,7 +87,7 @@ drwx------ 27 thlee  staff    864 .zsh_sessions
 </code></pre>
 
 <p>Open <code>.zshrc</code> in the home directory (<code>~</code>) with vim.</p>
-<p><img alt="Setting the Python path with export PATH in .zshrc" src="assets/posts/command-not-found-linux-path/img1.png" width="1128" height="736" loading="lazy">
+<p><img alt="Setting the Python path with export PATH in .zshrc" src="assets/posts/command-not-found-linux-path/img1.webp" width="1128" height="736" loading="lazy">
 <em>Figure 1. Setting the environment variable</em></p>
 <pre class="codehilite"><code class="language-bash">export PATH=&quot;/Library/Frameworks/Python.framework/Versions/3.11/bin&quot;
 </code></pre>
@@ -112,7 +112,7 @@ zsh: command not found: vim
 
 <p>Now I can't even re-edit the environment variables in <code>.zshrc</code>/<code>.bashrc</code>.</p>
 <h3 id="why-did-it-happen">Why did it happen?</h3>
-<p><img alt="List of executables like ls, pwd, kill in the /bin directory" src="assets/posts/command-not-found-linux-path/img2.png" width="1128" height="734" loading="lazy">
+<p><img alt="List of executables like ls, pwd, kill in the /bin directory" src="assets/posts/command-not-found-linux-path/img2.webp" width="1128" height="734" loading="lazy">
 <em>Figure 2. Executables like ls, pwd, kill in /bin</em></p>
 <p><code>ls</code>, <code>vim</code>, <code>vi</code>, <code>kill</code>, etc. are all <strong>executables.</strong> They ran from just typing <code>ls</code> only because the OS had their path in PATH.</p>
 <p>But applying <code>export PATH="/Library/.../3.11/bin"</code> <strong>overwrote PATH entirely.</strong> Now <code>ls</code>, <code>vi</code>, and <code>vim</code> can't be found. So we just need to fix PATH again.</p>
@@ -142,7 +142,7 @@ thlee@MacBookAir ~ % echo $PATH
 </code></pre>
 
 <p>That is, it keeps the existing paths at the end while adding the new path in front.</p>
-<p><img alt="ls working again after restoring PATH" src="assets/posts/command-not-found-linux-path/img3.png" width="1138" height="740" loading="lazy">
+<p><img alt="ls working again after restoring PATH" src="assets/posts/command-not-found-linux-path/img3.webp" width="1138" height="740" loading="lazy">
 <em>Figure 3. The restored PATH</em></p>
 <p>Now <code>ls</code> works again. But this is a temporary fix that applies only to the current shell session. <strong>You must go into <code>.zshrc</code>/<code>.bashrc</code> and fix the setting properly.</strong> If you don't and <code>source</code> again, the base paths vanish once more.</p>
 <h2 id="quick-summary">Quick Summary</h2>
@@ -151,7 +151,7 @@ thlee@MacBookAir ~ % echo $PATH
 </code></pre>
 
 <p>Then, in <code>.zshrc</code>/<code>.bashrc</code>, append <code>:$PATH</code> after any path you want to add.</p>
-<p><img alt=".zshrc finally set in the new-path:$PATH form" src="assets/posts/command-not-found-linux-path/img4.png" width="1130" height="738" loading="lazy">
+<p><img alt=".zshrc finally set in the new-path:$PATH form" src="assets/posts/command-not-found-linux-path/img4.webp" width="1130" height="738" loading="lazy">
 <em>Figure 4. Adding the existing path (final)</em></p>
 <p>From now on, whenever you add a path to PATH, always include <code>$PATH</code>. It doesn't have to be at the end.</p>
 <pre class="codehilite"><code class="language-text">&quot;$PATH:{new path}&quot;  =  &quot;{existing path}:{new path}&quot;

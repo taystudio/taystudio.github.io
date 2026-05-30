@@ -74,7 +74,7 @@
 <li><strong>아키텍처 불일치</strong> — Oracle은 오랫동안 ARM(aarch64)용 Instant Client를 공식 지원하지 않았거나 설정이 매우 까다로웠다. 결국 x86_64 전용 라이브러리를 ARM 환경에서 로드하려다 보니 시스템이 이를 인식하지 못해 발생하는 문제다. (Oracle DB는 CPU 아키텍처 외에도 Ubuntu보다 RHEL·CentOS 계열이 훨씬 편한 등 환경 요소에 영향을 많이 받는다.)</li>
 </ul>
 <h2 id="4-python-oracledb-thin">4. 해결 방법 — python-oracledb 'Thin' 모드</h2>
-<p><img alt="AWS Graviton ARM 인스턴스에서 발생하는 DPI-1047 에러와 python-oracledb Thin 모드 해결 구조" src="assets/posts/python-oracledb-arm-dpi-1047/img1.png" width="1536" height="1024" loading="lazy">
+<p><img alt="AWS Graviton ARM 인스턴스에서 발생하는 DPI-1047 에러와 python-oracledb Thin 모드 해결 구조" src="assets/posts/python-oracledb-arm-dpi-1047/img1.webp" width="1536" height="1024" loading="lazy">
 <em>그림 1. DPI-1047 에러(아키텍처 불일치) → python-oracledb Thin 모드 해결 구조</em></p>
 <p>Oracle은 이 아키텍처 문제를 해결하기 위해 <code>cx_Oracle</code>의 후속작인 <strong>python-oracledb</strong>를 출시했다. 특히 이 드라이버의 <strong>Thin 모드</strong>는 ARM 서버에서 Python 서버를 운영할 때 필수 요소다. (Instant Client 없이 라이브러리 내에서 연동하는 방식을 <strong>Thin 모드</strong>라 한다.)</p>
 <ul>

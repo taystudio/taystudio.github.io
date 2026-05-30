@@ -73,10 +73,10 @@
 <h3 id="1">1. 환경 변수 설정이란?</h3>
 <p>환경 변수 설정은 운영체제(OS)에 프로그램 경로·전역 설정·시스템 구성 정보를 제공해, 애플리케이션이나 명령어가 이를 참조하도록 하는 과정이다.</p>
 <p>Java·Python 같은 언어에서 환경 변수를 설정하는 이유는, 컴파일러나 인터프리터 실행 파일을 <strong>절대 경로가 아닌 프로그램 이름만으로 실행</strong>하기 위함이다. 예를 들어 <code>python.exe</code>를 실행하려면 cmd에서 <code>D:\Python\python.exe</code> 절대 경로를 입력해야 하는데, 매번 그러기는 불편하므로 OS에 경로를 알려줘 <code>python</code>만 입력해도 실행되게 한다. (Windows뿐 아니라 Linux에서도 동일한 개념이다.)</p>
-<p><img alt="환경변수 설정 없이 python 입력 시 Microsoft Store가 열리는 화면" src="assets/posts/python-windows-install-path/img4.png" width="1221" height="748" loading="lazy">
+<p><img alt="환경변수 설정 없이 python 입력 시 Microsoft Store가 열리는 화면" src="assets/posts/python-windows-install-path/img4.webp" width="1221" height="748" loading="lazy">
 <em>그림 4. 환경변수 설정 없이 python 명령어 수행</em></p>
 <p>그림 4는 환경 변수를 설정하지 않고 <code>python</code>을 입력했을 때 인식하지 못해 Microsoft Store가 열리는 상황이다. (원래는 "경로를 찾을 수 없다"는 메시지가 뜨지만, PC 설정에 따라 이렇게 연결되기도 한다.)</p>
-<p><img alt="절대 경로 D:\Python\python.exe 입력 시 Python이 실행되는 화면" src="assets/posts/python-windows-install-path/img5.png" width="1012" height="416" loading="lazy">
+<p><img alt="절대 경로 D:\Python\python.exe 입력 시 Python이 실행되는 화면" src="assets/posts/python-windows-install-path/img5.webp" width="1012" height="416" loading="lazy">
 <em>그림 5. 절대 경로를 입력했을 때</em></p>
 <p>그림 5처럼 절대 경로 <code>D:\Python\python.exe</code>를 입력하면 Python이 실행된다. 이제 OS에 이 경로를 알려줘 <code>python</code>만 입력해도 실행되게 설정한다.</p>
 <h3 id="2-windows">2. 환경 변수 설정 과정 (Windows 기준)</h3>
@@ -86,10 +86,10 @@
 <li>그림 6처럼 '찾기'에서 <strong>'시스템 환경 변수 편집'</strong>을 검색하거나</li>
 <li>제어판 → 시스템 및 보안 → 시스템 → 고급 시스템 설정</li>
 </ol>
-<p><img alt="시스템 속성 창의 환경 변수 버튼" src="assets/posts/python-windows-install-path/img7.png" width="853" height="954" loading="lazy">
+<p><img alt="시스템 속성 창의 환경 변수 버튼" src="assets/posts/python-windows-install-path/img7.webp" width="853" height="954" loading="lazy">
 <em>그림 7. 시스템 환경 변수 편집 창</em></p>
 <p>위 방법을 따르면 그림 7 창이 나오는데, 여기서 <strong>환경 변수(N)</strong>를 클릭한다.</p>
-<p><img alt="사용자 변수와 시스템 변수로 나뉜 환경 변수 창" src="assets/posts/python-windows-install-path/img8.png" width="959" height="914" loading="lazy">
+<p><img alt="사용자 변수와 시스템 변수로 나뉜 환경 변수 창" src="assets/posts/python-windows-install-path/img8.webp" width="959" height="914" loading="lazy">
 <em>그림 8. 환경 변수 창</em></p>
 <p>그림 8처럼 환경 변수 창은 <strong>사용자 변수(U)</strong>와 <strong>시스템 변수(S)</strong>로 나뉜다. 둘의 차이는 적용 범위다.</p>
 <ul>
@@ -97,13 +97,13 @@
 <li><strong>SYSTEM 변수</strong> — 모든 사용자에게 적용. 시스템 전체에서 사용 가능.</li>
 </ul>
 <p>여기서는 모든 사용자에게 적용되도록 <strong>시스템 변수</strong>에서 설정한다.</p>
-<p><img alt="시스템 변수의 Path 선택 및 편집" src="assets/posts/python-windows-install-path/img9.png" width="684" height="297" loading="lazy">
+<p><img alt="시스템 변수의 Path 선택 및 편집" src="assets/posts/python-windows-install-path/img9.webp" width="684" height="297" loading="lazy">
 <em>그림 9. 시스템 변수 Path 설정</em></p>
 <p>시스템 변수(S)에서 <code>Path</code>를 더블 클릭하거나 선택 후 <strong>편집(I)</strong>을 누른다.</p>
-<p><img alt="Path 편집 창에서 새 경로 추가" src="assets/posts/python-windows-install-path/img10.png" width="816" height="770" loading="lazy">
+<p><img alt="Path 편집 창에서 새 경로 추가" src="assets/posts/python-windows-install-path/img10.webp" width="816" height="770" loading="lazy">
 <em>그림 10. Python 경로 추가</em></p>
 <p>그림 10에서 <strong>새로 만들기(N)</strong>를 누르면 경로를 입력할 수 있다. Python 환경변수는 두 경로를 추가해야 한다.</p>
-<p><img alt="추가해야 할 Python 경로 두 가지" src="assets/posts/python-windows-install-path/img11.png" width="1951" height="707" loading="lazy">
+<p><img alt="추가해야 할 Python 경로 두 가지" src="assets/posts/python-windows-install-path/img11.webp" width="1600" height="580" loading="lazy">
 <em>그림 11. 추가해야 할 경로 2가지</em></p>
 <blockquote>
 <ol>
@@ -117,12 +117,12 @@
 </blockquote>
 <h3 id="3">3. 환경 변수 설정 결과</h3>
 <p>두 경로를 추가해 적용하면 Python 환경 변수 설정이 끝난다.</p>
-<p><img alt="cmd에서 python과 pip 명령어가 정상 동작하는 화면" src="assets/posts/python-windows-install-path/img12.png" width="1171" height="661" loading="lazy">
+<p><img alt="cmd에서 python과 pip 명령어가 정상 동작하는 화면" src="assets/posts/python-windows-install-path/img12.webp" width="1171" height="661" loading="lazy">
 <em>그림 12. 환경변수 설정 결과</em></p>
 <p>그림 12처럼 cmd에서 <code>python</code>을 입력했을 때 Python이 실행되고, <code>pip</code>을 입력했을 때 패키지 관리자 설명이 나오면 정상이다.</p>
 <h3 id="4-pip">4. pip으로 설치한 라이브러리의 디렉터리 구조</h3>
 <p><code>pip3 install</code>로 numpy·pandas 같은 라이브러리를 설치해 보자.</p>
-<p><img alt="pip으로 pandas를 설치하는 화면" src="assets/posts/python-windows-install-path/img13.png" width="1528" height="725" loading="lazy">
+<p><img alt="pip으로 pandas를 설치하는 화면" src="assets/posts/python-windows-install-path/img13.webp" width="1528" height="725" loading="lazy">
 <em>그림 13. pip을 통해 pandas 설치</em></p>
 <p>이렇게 설치한 라이브러리는 기본적으로 <code>D:\Python\Lib\site-packages</code>에 저장된다. 그림 3에서 봤듯 Python 설치 경로에 <code>Lib</code> 디렉터리가 있고, 그 안에 <code>site-packages</code> 폴더가 있다.</p>
 <p><img alt="site-packages에 설치된 numpy·pandas 라이브러리" src="assets/posts/python-windows-install-path/img14.png" width="625" height="547" loading="lazy">

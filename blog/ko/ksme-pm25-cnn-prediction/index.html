@@ -61,11 +61,11 @@
 <blockquote>
 <p>📅 <strong>2019년 11월 학부 졸업논문</strong>으로 진행한 연구의 회고. 대한기계학회(KSME) 유체경진대회에서 <strong>금상</strong>을 받았던 작업. 2024년 시점에서 다시 정리하고, 2년 뒤 대학원에서 발견한 함정까지 솔직히 기록.</p>
 </blockquote>
-<p><img alt="제주도에서 열린 대한기계공학회 학술대회 사진" src="assets/posts/ksme-pm25-cnn-prediction/img1.jpg" width="1546" height="884" loading="lazy">
+<p><img alt="제주도에서 열린 대한기계공학회 학술대회 사진" src="assets/posts/ksme-pm25-cnn-prediction/img1.webp" width="1546" height="884" loading="lazy">
 <em>그림1. 2019년 제주에서 열린 대한기계공학회 학술대회 — 유체경진대회 금상 시상</em></p>
 <h2 id="_1">무엇을 했나</h2>
 <p><strong>신경회로망(ANN) 으로 초미세먼지(PM2.5) 농도를 예측</strong>. 기상·대기질 데이터로 학습해서 <strong>6시간·12시간 후의 농도를 예측</strong>하는 모델.</p>
-<p><img alt="6시간 후 미세먼지 농도 예측 결과" src="assets/posts/ksme-pm25-cnn-prediction/img2.png" width="773" height="174" loading="lazy">
+<p><img alt="6시간 후 미세먼지 농도 예측 결과" src="assets/posts/ksme-pm25-cnn-prediction/img2.webp" width="773" height="174" loading="lazy">
 <em>그림2. 6시간 후 미세먼지 농도 예측 결과 (학회 발표용)</em></p>
 <h2 id="_2">왜 이 연구가 의미 있다고 봤나</h2>
 <p>기존 PM2.5 예측의 표준은 <strong>수치해석</strong>(전산유체역학·대기화학 모델)인데:
@@ -83,7 +83,7 @@
 <li><strong>기간</strong>: 2008년 ~ 2018년 3분기</li>
 <li><strong>규모</strong>: <strong>32개 변수 × 94,225 관측치</strong></li>
 </ul>
-<p><img alt="데이터 수집 출처" src="assets/posts/ksme-pm25-cnn-prediction/img3.png" width="953" height="496" loading="lazy">
+<p><img alt="데이터 수집 출처" src="assets/posts/ksme-pm25-cnn-prediction/img3.webp" width="953" height="496" loading="lazy">
 <em>그림3. 데이터 수집 및 출처</em></p>
 <h3 id="b-3">B. 데이터 가공 — 변수 선택의 3단계</h3>
 <h4 id="step-1">Step 1. 결핍 변수 제거</h4>
@@ -107,21 +107,21 @@
 </blockquote>
 <h3 id="c-imputation">C. 결측치 보정 (Imputation)</h3>
 <p><strong>Predictive Mean Matching (PMM)</strong> 사용. 선형 모델 기반 imputation 은 <strong>비물리적 값</strong> (음수 농도 등) 을 생성하는 경우가 있어 배제.</p>
-<p><img alt="결측치 보정 결과" src="assets/posts/ksme-pm25-cnn-prediction/img6.png" width="1002" height="493" loading="lazy">
+<p><img alt="결측치 보정 결과" src="assets/posts/ksme-pm25-cnn-prediction/img6.webp" width="1002" height="493" loading="lazy">
 <em>그림6. PMM 결측치 보정 결과</em></p>
 <h2 id="ann-window-learning">모델 — ANN + Window Learning</h2>
-<p><img alt="학습 모델링 (NN)" src="assets/posts/ksme-pm25-cnn-prediction/img7.png" width="969" height="537" loading="lazy">
+<p><img alt="학습 모델링 (NN)" src="assets/posts/ksme-pm25-cnn-prediction/img7.webp" width="969" height="537" loading="lazy">
 <em>그림7. 학습 모델링 — 신경회로망 구조</em></p>
 <p>기본 ANN 위에 <strong>Window Learning 기법</strong> 적용 — 시계열 예측의 표준 패턴:</p>
 <blockquote>
 <p><strong>이전 72시간</strong> 데이터를 한 묶음(window)으로 입력 → <strong>6 / 12 / 24시간 후</strong> PM2.5 농도 예측.</p>
 </blockquote>
-<p><img alt="Batch Configuration" src="assets/posts/ksme-pm25-cnn-prediction/img8.png" width="1387" height="523" loading="lazy">
+<p><img alt="Batch Configuration" src="assets/posts/ksme-pm25-cnn-prediction/img8.webp" width="1387" height="523" loading="lazy">
 <em>그림8. Batch Configuration — 14개 변수를 재구성, batch size 100</em></p>
 <h2 id="_4">결과</h2>
-<p><img alt="학습 결과 및 Test 결과 (Scatter Plot)" src="assets/posts/ksme-pm25-cnn-prediction/img9.png" width="820" height="554" loading="lazy">
+<p><img alt="학습 결과 및 Test 결과 (Scatter Plot)" src="assets/posts/ksme-pm25-cnn-prediction/img9.webp" width="820" height="554" loading="lazy">
 <em>그림9. 학습 / 테스트 결과 산점도 (Scatter)</em></p>
-<p><img alt="예측 관측값 시계열 그래프" src="assets/posts/ksme-pm25-cnn-prediction/img10.png" width="892" height="595" loading="lazy">
+<p><img alt="예측 관측값 시계열 그래프" src="assets/posts/ksme-pm25-cnn-prediction/img10.webp" width="892" height="595" loading="lazy">
 <em>그림10. 예측·관측값 시계열 비교</em></p>
 <p>2019년 발표 시점에는 결과가 "괜찮아 보였다". 산점도의 R²·MAE 도 적당했고, 시계열도 대략 추세를 따라가는 듯.</p>
 <h2 id="2">2년 뒤 — 대학원에서 발견한 함정</h2>

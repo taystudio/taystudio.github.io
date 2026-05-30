@@ -74,7 +74,7 @@
 <li><strong>Architecture mismatch</strong> — Oracle long did not officially support (or made it very fiddly to configure) the Instant Client for ARM (aarch64). Trying to load an x86_64-only library on ARM, the system can't recognize it. (Beyond CPU architecture, Oracle DB is also sensitive to environment factors — e.g., RHEL/CentOS is far easier than Ubuntu for installation.)</li>
 </ul>
 <h2 id="4-the-fix-python-oracledb-thin-mode">4. The Fix — python-oracledb 'Thin' Mode</h2>
-<p><img alt="Structure of the DPI-1047 error on AWS Graviton ARM instances and the python-oracledb Thin mode fix" src="assets/posts/python-oracledb-arm-dpi-1047/img1.png" width="1536" height="1024" loading="lazy">
+<p><img alt="Structure of the DPI-1047 error on AWS Graviton ARM instances and the python-oracledb Thin mode fix" src="assets/posts/python-oracledb-arm-dpi-1047/img1.webp" width="1536" height="1024" loading="lazy">
 <em>Figure 1. DPI-1047 (architecture mismatch) → python-oracledb Thin mode fix</em></p>
 <p>To solve this architecture problem, Oracle released <strong>python-oracledb,</strong> the successor to <code>cx_Oracle</code>. Its <strong>Thin mode</strong> is essential for running a Python server on ARM. (Connecting from within the library without an Instant Client is called <strong>Thin mode.</strong>)</p>
 <ul>

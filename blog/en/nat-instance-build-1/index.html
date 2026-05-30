@@ -68,7 +68,7 @@
 <a class="tb-embed-card" href="en/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)</div><div class="tb-embed-excerpt">The Part 1 community AMI runs an old (EOS) OS and is hard to maintain. In Part 2 we build a NAT instance on the latest Ubuntu by configuring iptables directly (IP forwarding + MASQUERADE), and persist the rules across reboots.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
 <h2 id="nat-gateway-nat-instance">NAT Gateway &amp; NAT Instance?</h2>
 <p>While handling network/application architecture on AWS, the network diagram I drew looks like this.</p>
-<p><img alt="Architecture connecting a Private Subnet to the internet via a NAT Instance (EC2) instead of a NAT Gateway" src="assets/posts/nat-instance-build-1/img1.png" width="1994" height="1126" loading="lazy">
+<p><img alt="Architecture connecting a Private Subnet to the internet via a NAT Instance (EC2) instead of a NAT Gateway" src="assets/posts/nat-instance-build-1/img1.webp" width="1600" height="904" loading="lazy">
 <em>Figure 1. Connecting a Private Subnet to the internet with a NAT Instance (EC2) instead of a NAT Gateway</em></p>
 <p>Normally a Private Subnet needs a NAT Gateway to talk to the internet. But in this setup, instead of placing a separate NAT Gateway in the Public Subnet, I used an <strong>EC2 (NAT Instance)</strong> to connect the Private Subnet to the internet while it also serves as a Reverse Proxy and a Bastion server.</p>
 <p>The pros and cons of a NAT Instance:</p>
@@ -85,46 +85,46 @@
 <p>There are two main ways to create a NAT Instance on AWS.</p>
 <h2 id="method-1-using-the-aws-community-ami">Method 1. Using the AWS community AMI</h2>
 <h3 id="1-create-a-nat-instance-from-the-ami">1) Create a NAT Instance from the AMI</h3>
-<p><img alt="Selecting 'Browse more AMIs' in the EC2 launch screen" src="assets/posts/nat-instance-build-1/img2.png" width="1438" height="732" loading="lazy">
+<p><img alt="Selecting 'Browse more AMIs' in the EC2 launch screen" src="assets/posts/nat-instance-build-1/img2.webp" width="1438" height="732" loading="lazy">
 <em>Figure 2. Select 'Browse more AMIs' in the EC2 launch screen</em></p>
 <p>In the EC2 launch screen, click <strong>'Browse more AMIs.'</strong></p>
-<p><img alt="Searching amzn-ami-vpc-nat in the Community AMIs tab" src="assets/posts/nat-instance-build-1/img3.png" width="2554" height="1228" loading="lazy">
+<p><img alt="Searching amzn-ami-vpc-nat in the Community AMIs tab" src="assets/posts/nat-instance-build-1/img3.webp" width="1600" height="769" loading="lazy">
 <em>Figure 3. Searching in the Community AMIs tab</em></p>
 <p>In the Community AMIs tab, search for <code>amzn-ami-vpc-nat</code>. The registered AMIs differ per region; in the Seoul region several appear. I picked the one with the most recent publish date.</p>
-<p><img alt="Launching an EC2 (NAT Instance) from the selected NAT AMI" src="assets/posts/nat-instance-build-1/img4.png" width="1698" height="1218" loading="lazy">
+<p><img alt="Launching an EC2 (NAT Instance) from the selected NAT AMI" src="assets/posts/nat-instance-build-1/img4.webp" width="1600" height="1148" loading="lazy">
 <em>Figure 4. Launching the NAT Instance</em></p>
 <p>When you select the AMI, Figure 4 shows the CPU architecture (here x86_64), storage format, etc. that match the AMI, and you can pick an instance type. An EC2 launched this way is already configured to pass incoming traffic on to another destination (i.e., it acts as a NAT Gateway).</p>
 <blockquote>
 <p>Note: For SSH, the username is shown as <code>ec2-user</code> as in Figure 4.</p>
 </blockquote>
 <p>Place the EC2 in your VPC's <strong>Public Subnet</strong>. The Public Subnet's route table must of course be connected to an Internet Gateway and allow VPC-internal local traffic. I recommend setting security via security groups and NACLs. (Basic AWS concepts are only mentioned, not detailed, here.)</p>
-<p><img alt="Public Subnet route table (connected to the Internet Gateway)" src="assets/posts/nat-instance-build-1/img5.png" width="2592" height="636" loading="lazy">
+<p><img alt="Public Subnet route table (connected to the Internet Gateway)" src="assets/posts/nat-instance-build-1/img5.webp" width="1600" height="393" loading="lazy">
 <em>Reference. Public Subnet route table — must connect to the Internet Gateway for external communication</em></p>
 <h3 id="2-private-subnet-routing-nat-instance-console-settings">2) Private Subnet routing &amp; NAT Instance console settings</h3>
 <p>With a NAT Gateway, you'd also connect it in the Private Subnet's route table. A NAT Instance needs the same.</p>
-<p><img alt="Setting the target to the NAT instance in the Private Subnet route table" src="assets/posts/nat-instance-build-1/img6.png" width="2588" height="638" loading="lazy">
+<p><img alt="Setting the target to the NAT instance in the Private Subnet route table" src="assets/posts/nat-instance-build-1/img6.webp" width="1600" height="394" loading="lazy">
 <em>Figure 5. Private Subnet route table setup</em></p>
 <p>In the Private Subnet route table, set the target to <strong>'Instance'</strong> and select the NAT Instance you created (e.g., <code>nat-instance</code>). This means all internet-bound traffic from the Private Subnet goes through the NAT Instance.</p>
-<p><img alt="Target mapped to an ENI (network card) starting with eni-" src="assets/posts/nat-instance-build-1/img7.png" width="2368" height="328" loading="lazy">
+<p><img alt="Target mapped to an ENI (network card) starting with eni-" src="assets/posts/nat-instance-build-1/img7.webp" width="1600" height="222" loading="lazy">
 <em>Reference. Network card (ENI) mapping</em></p>
 <p>After setup, the target starts with <code>eni-</code>, an <strong>Elastic Network Interface</strong> that maps directly to a network card resource. You can infer that the OS forwards traffic to another destination through Layer 2 (data link) and Layer 3 (network). (The community AMI has this configured.)</p>
 <p>Now change the EC2 instance setting itself. In the EC2 dashboard, click <code>nat-instance</code> → top-right <strong>'Actions' → 'Networking' → 'Change source/destination check.'</strong> (Besides the route table, you must also change the instance setting.)</p>
-<p><img alt="NAT instance Actions &gt; Networking &gt; Change source/destination check menu" src="assets/posts/nat-instance-build-1/img8.png" width="2446" height="942" loading="lazy">
+<p><img alt="NAT instance Actions &gt; Networking &gt; Change source/destination check menu" src="assets/posts/nat-instance-build-1/img8.webp" width="1600" height="616" loading="lazy">
 <em>Figure 6. Changing NAT Instance networking settings</em></p>
-<p><img alt="Selecting 'Stop' for the source/destination check" src="assets/posts/nat-instance-build-1/img9.png" width="1624" height="748" loading="lazy">
+<p><img alt="Selecting 'Stop' for the source/destination check" src="assets/posts/nat-instance-build-1/img9.webp" width="1600" height="737" loading="lazy">
 <em>Figure 7. Source/destination check — select 'Stop'</em></p>
 <p>As in Figure 7, select <strong>'Stop'</strong> for the source/destination check. AWS drops traffic that doesn't reach the target EC2, so to route traffic through one instance to another you need this setting.</p>
 <blockquote>
 <p>Required — the default security group usually only opens SSH. Configure the security group to at least allow communication.</p>
 </blockquote>
-<p><img alt="Private EC2 security group inbound settings" src="assets/posts/nat-instance-build-1/img10.png" width="2874" height="812" loading="lazy">
+<p><img alt="Private EC2 security group inbound settings" src="assets/posts/nat-instance-build-1/img10.webp" width="1600" height="452" loading="lazy">
 <em>Reference. Private EC2 security group (allow-all traffic as an example)</em></p>
 <p>Here, for demonstration, I set the Private Subnet EC2's security group to allow all traffic. In practice, configure it per your project policy.</p>
 <p>I also did not set an Elastic IP this time; even without an EIP, as long as the NAT Instance's public IP is enabled, a random IP is attached. By DHCP policy the public IP changes if you stop/start the EC2, but if you keep it running, it's fine without an EIP.</p>
 <h2 id="result-of-building-the-nat-instance">Result of building the NAT Instance</h2>
-<p><img alt="Before connecting the NAT Instance — apt-get update fails" src="assets/posts/nat-instance-build-1/img11.png" width="1996" height="822" loading="lazy">
+<p><img alt="Before connecting the NAT Instance — apt-get update fails" src="assets/posts/nat-instance-build-1/img11.webp" width="1600" height="659" loading="lazy">
 <em>Figure 8. Before connecting the NAT Instance</em></p>
-<p><img alt="After connecting the NAT Instance — apt-get update works" src="assets/posts/nat-instance-build-1/img12.png" width="1700" height="694" loading="lazy">
+<p><img alt="After connecting the NAT Instance — apt-get update works" src="assets/posts/nat-instance-build-1/img12.webp" width="1600" height="653" loading="lazy">
 <em>Figure 9. After connecting the NAT Instance</em></p>
 <p>Before connecting, <code>sudo apt-get update</code> can't update the Debian-family apt repositories; after connecting, it downloads normally.</p>
 <h2 id="wrap-up">Wrap-up</h2>

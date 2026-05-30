@@ -60,12 +60,12 @@
       <div class="tb-prose" data-table-style="classic">
 <h2 id="_1">중심극한정리란?</h2>
 <p><strong>표본 크기가 충분히 크면, 모집단 분포가 무엇이든 표본 평균의 분포는 정규분포에 근접</strong>한다는 이론이다.</p>
-<p><img alt="표본 크기 n이 커질수록 표본 평균의 분포가 정규분포로" src="assets/posts/central-limit-theorem/img1.png" width="2160" height="696" loading="lazy">
+<p><img alt="표본 크기 n이 커질수록 표본 평균의 분포가 정규분포로" src="assets/posts/central-limit-theorem/img1.webp" width="1600" height="516" loading="lazy">
 <em>그림 1. sample mean distribution (n이 커질수록)</em></p>
 <p>임의의 분포에서 X를 추출해도 표본 크기 $n$이 커질수록 표본 평균의 분포는 정규분포에 가까워진다. 이 표본 평균의 분포는 다음과 같이 표현된다.</p>
 <p>$$\bar{X} \sim N\!\left(\mu,\ \dfrac{\sigma^2}{n}\right)$$
 <em>수식 1. 표본 평균의 분포</em></p>
-<p><img alt="모집단으로부터 샘플링" src="assets/posts/central-limit-theorem/img3.png" width="1898" height="1242" loading="lazy">
+<p><img alt="모집단으로부터 샘플링" src="assets/posts/central-limit-theorem/img3.webp" width="1600" height="1047" loading="lazy">
 <em>그림 2. 모집단으로부터 샘플링</em></p>
 <p>샘플링 횟수를 $M$, 한 번에 뽑는 크기(표본 개수)를 $N$이라 하자. $M=500$으로 고정하고 $N=1, 30, 300, 3000$으로 늘려가며 5가지 분포에서 샘플링했다.</p>
 <h3 id="5">실험한 분포 5가지</h3>
@@ -77,25 +77,25 @@
 <li>베르누이(Bernoulli)</li>
 </ol>
 <h2 id="clt">CLT 실험</h2>
-<p><img alt="M=500, N=1 일 때" src="assets/posts/central-limit-theorem/img4.png" width="2136" height="1204" loading="lazy">
+<p><img alt="M=500, N=1 일 때" src="assets/posts/central-limit-theorem/img4.webp" width="1600" height="902" loading="lazy">
 <em>그림 3. M=500, N=1</em></p>
 <p>$N=1$일 때 균일·F·베르누이는 가우시안과 크게 다르다. (카이제곱은 비교적 유사, 가우시안은 당연히 정규.)</p>
-<p><img alt="N=30 (M=500)" src="assets/posts/central-limit-theorem/img5.png" width="2116" height="1206" loading="lazy">
+<p><img alt="N=30 (M=500)" src="assets/posts/central-limit-theorem/img5.webp" width="1600" height="912" loading="lazy">
 <em>그림 4. N=30 (M=500)</em></p>
 <p>$N=30$이 되자 균일·F·베르누이도 서서히 가우시안 형태로 변한다.</p>
 <blockquote>
 <p><strong>표본 크기 30의 의미</strong> — 표본 크기 30 이상이면 어떤 모양의 분포에서 샘플링해도 표본 평균은 정규분포로 수렴하는 경향을 보인다.</p>
 </blockquote>
-<p><img alt="N=300 (M=500)" src="assets/posts/central-limit-theorem/img6.png" width="2120" height="1208" loading="lazy">
+<p><img alt="N=300 (M=500)" src="assets/posts/central-limit-theorem/img6.webp" width="1600" height="912" loading="lazy">
 <em>그림 5. N=300 (M=500)</em></p>
-<p><img alt="N=3000 (M=500)" src="assets/posts/central-limit-theorem/img7.png" width="2130" height="1200" loading="lazy">
+<p><img alt="N=3000 (M=500)" src="assets/posts/central-limit-theorem/img7.webp" width="1600" height="901" loading="lazy">
 <em>그림 6. N=3000 (M=500)</em></p>
 <p>$N$이 더 커질수록 정규분포에 더 정교하게 맞아간다.</p>
 <h2 id="clt_1">그래서 CLT는 어디에 쓰이나?</h2>
-<p><img alt="중심극한정리의 용도" src="assets/posts/central-limit-theorem/img8.png" width="2148" height="1274" loading="lazy">
+<p><img alt="중심극한정리의 용도" src="assets/posts/central-limit-theorem/img8.webp" width="1600" height="949" loading="lazy">
 <em>그림 7. 중심극한정리의 용도</em></p>
 <p>통계학의 중요한 목표 하나는 <strong>집단의 대표값인 평균을 추정</strong>하는 것이다. 실제로 관심 대상의 분포 형태는 모르는 경우가 대부분인데, <strong>CLT는 표본 크기 $N$이 커질수록 표본 평균이 정규분포에 가까워진다</strong>는 사실을 알려줘 분석에 큰 희망을 준다. $N$을 충분히 키우면 표본 평균이 정규분포를 따르고, 이를 통해 모수 추정·신뢰구간 설정이 가능하다. 단, 모집단 표준편차 $\sigma$를 모르면 정규분포 대신 <strong>t분포</strong>를 쓴다.</p>
-<p><img alt="t분포와 z(정규)분포 사이의 관계" src="assets/posts/central-limit-theorem/img9.png" width="1096" height="668" loading="lazy">
+<p><img alt="t분포와 z(정규)분포 사이의 관계" src="assets/posts/central-limit-theorem/img9.webp" width="1096" height="668" loading="lazy">
 <em>그림 8. t분포와 z(정규)분포 사이의 관계</em></p>
 <p>t분포는 표본 표준편차 기반이라 표본 정보만으로 그릴 수 있다. 자유도(df)가 커질수록 Z분포에 가까워져, df=30(약 $N=31$)이면 거의 같아진다. 그래서 평균 검정에서 $n&gt;30$이면 t분포·정규분포 어느 쪽을 써도 무방하고, 30 미만이면 비모수 검정이 권장된다.</p>
 <h2 id="_2">결론</h2>

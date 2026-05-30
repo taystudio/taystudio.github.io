@@ -69,7 +69,7 @@
 <p>The network diagram was covered in Part 1, so I'll just recap the situation. For a Private Subnet to reach the internet, you need a NAT Gateway (translating Public IP ↔ Private IP — essentially a router's role). Instead of an AWS NAT Gateway, we build a NAT Instance ourselves to cut costs. Part 2 covers how to make a <strong>plain OS with no NAT setup act as a NAT</strong>.</p>
 <h2 id="configuring-the-nat-instance-ec2">Configuring the NAT Instance (EC2)</h2>
 <h3 id="1-launch-a-basic-ec2">1. Launch a basic EC2</h3>
-<p><img alt="Launching the NAT Instance EC2 from the latest Ubuntu LTS AMI" src="assets/posts/nat-instance-build-2/img1.png" width="1224" height="900" loading="lazy">
+<p><img alt="Launching the NAT Instance EC2 from the latest Ubuntu LTS AMI" src="assets/posts/nat-instance-build-2/img1.webp" width="1224" height="900" loading="lazy">
 <em>Figure 1. Launching the NAT Instance EC2</em></p>
 <p>Use the <strong>LTS AMI provided directly by AWS</strong> (not the community one). I prefer Ubuntu, so I chose Ubuntu 24.04 LTS. The NAT Instance must of course sit in the Public Subnet; all other route table examples are in Part 1.</p>
 <h3 id="2-manipulating-iptables-on-the-ec2-os-nat-setup">2. Manipulating iptables on the EC2 OS (NAT setup)</h3>
@@ -88,7 +88,7 @@ sudo sysctl -p
 <li><code>/etc/sysctl.conf</code> — applies the setting permanently.</li>
 <li><code>sudo sysctl -p</code> — applies the setting immediately.</li>
 </ul>
-<p><img alt="/etc/sysctl.conf editor — net.ipv4.ip_forward commented out" src="assets/posts/nat-instance-build-2/img2.png" width="1154" height="764" loading="lazy">
+<p><img alt="/etc/sysctl.conf editor — net.ipv4.ip_forward commented out" src="assets/posts/nat-instance-build-2/img2.webp" width="1154" height="764" loading="lazy">
 <em>Figure 2. The /etc/sysctl.conf editor</em></p>
 <p>Alternatively, opening <code>sysctl.conf</code> shows <code>net.ipv4.ip_forward=1</code> disabled with a <code>#</code> as in Figure 2. You can just uncomment it and apply.</p>
 <h4 id="2-2-add-an-iptables-nat-rule">2-2. Add an iptables NAT rule</h4>
@@ -106,7 +106,7 @@ sudo sysctl -p
 <pre class="codehilite"><code class="language-bash">ip addr
 </code></pre>
 
-<p><img alt="Running ip addr — checking the network interface name (ens5)" src="assets/posts/nat-instance-build-2/img3.png" width="1224" height="444" loading="lazy">
+<p><img alt="Running ip addr — checking the network interface name (ens5)" src="assets/posts/nat-instance-build-2/img3.webp" width="1224" height="444" loading="lazy">
 <em>Figure 3. Checking the network interface name (e.g., <code>ens5</code>)</em></p>
 <p>In the figure above, <code>ens5</code> is the interface name.</p>
 <h4 id="2-3-verify-the-result">2-3. Verify the result</h4>
@@ -120,7 +120,7 @@ sudo sysctl -p
 <li><code>-n</code> — show IPs instead of hostnames.</li>
 <li><code>-v</code> — show verbose info (packet/byte counts, etc.).</li>
 </ul>
-<p><img alt="Comparing iptables before/after adding the NAT rule — POSTROUTING MASQUERADE" src="assets/posts/nat-instance-build-2/img4.png" width="1138" height="866" loading="lazy">
+<p><img alt="Comparing iptables before/after adding the NAT rule — POSTROUTING MASQUERADE" src="assets/posts/nat-instance-build-2/img4.webp" width="1138" height="866" loading="lazy">
 <em>Figure 4. Result after adding the iptables rule (top: before / bottom: after)</em></p>
 <p>As in Figure 4, the <code>MASQUERADE</code> rule should be added to the <code>POSTROUTING</code> chain. Once confirmed, save it so the setting persists across reboots.</p>
 <h4 id="2-4-persist-the-rules-survive-reboots">2-4. Persist the rules (survive reboots)</h4>
@@ -139,7 +139,7 @@ sudo apt-get install -y iptables-persistent
 <p>Enable the service so the rules auto-load after a reboot.</p>
 <p>That completes the OS-side NAT Instance setup. The rest (Private Subnet route table, disabling the EC2 source/destination check) is identical to Part 1.</p>
 <h3 id="3-result-verifying-private-subnet-internet-connectivity">3. Result — verifying Private Subnet internet connectivity</h3>
-<p><img alt="After building the NAT Instance, apt-get update succeeds on the Private Subnet EC2" src="assets/posts/nat-instance-build-2/img5.png" width="1558" height="614" loading="lazy">
+<p><img alt="After building the NAT Instance, apt-get update succeeds on the Private Subnet EC2" src="assets/posts/nat-instance-build-2/img5.webp" width="1558" height="614" loading="lazy">
 <em>Figure 5. NAT Instance result — internet connectivity confirmed</em></p>
 <p>After finishing the setup, running <code>sudo apt-get update</code> on the Private Subnet EC2 confirms it now has internet.</p>
 <h2 id="wrap-up">Wrap-up</h2>

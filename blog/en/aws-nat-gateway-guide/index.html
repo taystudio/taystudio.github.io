@@ -59,7 +59,7 @@
 
       <div class="tb-prose" data-table-style="classic">
 <h2 id="1-why-you-need-a-nat-gateway">1. Why You Need a NAT Gateway</h2>
-<p><img alt="Difference in Private Subnet internet communication with and without a NAT Gateway" src="assets/posts/aws-nat-gateway-guide/img1.png" width="1426" height="1069" loading="lazy">
+<p><img alt="Difference in Private Subnet internet communication with and without a NAT Gateway" src="assets/posts/aws-nat-gateway-guide/img1.webp" width="1426" height="1069" loading="lazy">
 <em>Figure 1. Comparing Private Subnet communication structure with and without a NAT Gateway</em></p>
 <p>Instances in a VPC's Private Subnet don't have a public IP, for security. But they still need internet for security-patch updates (<code>apt</code>, <code>yum</code>, <code>dnf</code>) and external API calls. The NAT Gateway is what acts as a <strong>gateway that allows outbound communication only, while keeping security intact.</strong></p>
 <ul>
@@ -72,22 +72,22 @@
 <p>For testing, I pre-built a <strong>Public Subnet</strong> (where the Bastion EC2 lives) and a <strong>Private Subnet</strong> (where the test EC2 lives), as in Figure 1.</p>
 <h3 id="22-configuring-the-nat-gateway">2.2 Configuring the NAT Gateway</h3>
 <h4 id="step-1-pre-check-verify-internet-connectivity">Step 1. Pre-check — verify internet connectivity</h4>
-<p><img alt="apt update failing on the Private Subnet EC2 before NAT Gateway setup" src="assets/posts/aws-nat-gateway-guide/img2.jpg" width="1657" height="895" loading="lazy">
+<p><img alt="apt update failing on the Private Subnet EC2 before NAT Gateway setup" src="assets/posts/aws-nat-gateway-guide/img2.webp" width="1600" height="864" loading="lazy">
 <em>Figure 2. Before NAT setup — EC2 internet connection error</em></p>
 <p>Without a NAT Gateway, connecting to the Private Subnet EC2 and running <code>sudo apt update</code> is blocked because it can't reach the outside, as in Figure 2. Now we start building toward the architecture in Figure 1 (right).</p>
 <blockquote>
 <p>Note: Before setup, it's good to pre-create an <strong>Elastic IP (EIP)</strong>. There is an auto-assign option, but in practice I recommend manual assignment for management consistency.</p>
 </blockquote>
 <h4 id="step-2-create-the-nat-gateway">Step 2. Create the NAT Gateway</h4>
-<p><img alt="Location of the NAT Gateway menu in the AWS VPC dashboard" src="assets/posts/aws-nat-gateway-guide/img3.png" width="2000" height="971" loading="lazy">
+<p><img alt="Location of the NAT Gateway menu in the AWS VPC dashboard" src="assets/posts/aws-nat-gateway-guide/img3.webp" width="1600" height="777" loading="lazy">
 <em>Figure 3. The NAT Gateway menu in the AWS VPC console</em></p>
 <p><img alt="The 'Create NAT gateway' button (top-right of the console)" src="assets/posts/aws-nat-gateway-guide/img4.jpg" width="1637" height="401" loading="lazy">
 <em>Figure 4. The Create NAT gateway button (top-right)</em></p>
 <p>In the AWS console, go to <strong>VPC → NAT gateways</strong>, then click the <code>[Create NAT gateway]</code> button at the top-right.</p>
 <h4 id="step-3-creation-options-and-attaching-the-elastic-ip-eip">Step 3. Creation options and attaching the Elastic IP (EIP)</h4>
-<p><img alt="NAT Gateway detail settings window including VPC/subnet selection" src="assets/posts/aws-nat-gateway-guide/img5.png" width="1613" height="980" loading="lazy">
+<p><img alt="NAT Gateway detail settings window including VPC/subnet selection" src="assets/posts/aws-nat-gateway-guide/img5.webp" width="1600" height="972" loading="lazy">
 <em>Figure 5. NAT Gateway creation options</em></p>
-<p><img alt="Allocating/matching the outbound Elastic IP (EIP) for the NAT Gateway" src="assets/posts/aws-nat-gateway-guide/img6.png" width="1578" height="921" loading="lazy">
+<p><img alt="Allocating/matching the outbound Elastic IP (EIP) for the NAT Gateway" src="assets/posts/aws-nat-gateway-guide/img6.webp" width="1578" height="921" loading="lazy">
 <em>Figure 6. Attaching the Elastic IP (EIP)</em></p>
 <p>On the creation screen, choose these options (Figures 5–6).</p>
 <ul>
@@ -95,13 +95,13 @@
 <li><strong>Connectivity type</strong> — choose 'Public.'</li>
 <li><strong>Elastic IP allocation</strong> — attach the EIP you created manually, as in Figure 6. A fixed public IP gives reliability for external communication.</li>
 </ul>
-<p><img alt="Status and attached IP info of the created nat-xxxx gateway" src="assets/posts/aws-nat-gateway-guide/img7.jpg" width="1621" height="587" loading="lazy">
+<p><img alt="Status and attached IP info of the created nat-xxxx gateway" src="assets/posts/aws-nat-gateway-guide/img7.webp" width="1600" height="579" loading="lazy">
 <em>Figure 7. NAT Gateway details after creation</em></p>
 <p>Once created, you'll see a <code>nat-xxxx</code>-style ID along with the attached IP address, as in Figure 7.</p>
 <h4 id="step-4-update-the-route-table">Step 4. Update the route table</h4>
 <p><img alt="Adding a 0.0.0.0/0 route that sends Private Subnet traffic to the NAT Gateway" src="assets/posts/aws-nat-gateway-guide/img8.jpg" width="1848" height="374" loading="lazy">
 <em>Figure 8. Private Subnet route table — connecting the NAT Gateway</em></p>
-<p><img alt="The private route table after the NAT Gateway target is set" src="assets/posts/aws-nat-gateway-guide/img9.jpg" width="1626" height="606" loading="lazy">
+<p><img alt="The private route table after the NAT Gateway target is set" src="assets/posts/aws-nat-gateway-guide/img9.webp" width="1600" height="596" loading="lazy">
 <em>Figure 9. Route table update result</em></p>
 <p>Now that the NAT Gateway exists, route the Private Subnet's traffic through it.</p>
 <ul>
@@ -110,7 +110,7 @@
 <li>After saving, confirm the route is active as in Figure 9.</li>
 </ul>
 <h4 id="step-5-final-check-private-subnet-internet-connectivity">Step 5. Final check — Private Subnet internet connectivity</h4>
-<p><img alt="sudo apt update succeeding on the Private Subnet EC2 after the NAT Gateway is connected" src="assets/posts/aws-nat-gateway-guide/img10.jpg" width="1189" height="892" loading="lazy">
+<p><img alt="sudo apt update succeeding on the Private Subnet EC2 after the NAT Gateway is connected" src="assets/posts/aws-nat-gateway-guide/img10.webp" width="1189" height="892" loading="lazy">
 <em>Figure 10. After connecting the NAT Gateway — apt update succeeds</em></p>
 <p>Back on the Private Subnet EC2, run <code>sudo apt update</code>. As in Figure 10, it now reaches the external repositories and updates successfully.</p>
 <h2 id="3-nat-gateway-cost-analysis-seoul-region">3. NAT Gateway Cost Analysis (Seoul Region)</h2>

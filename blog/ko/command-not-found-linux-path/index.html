@@ -87,7 +87,7 @@ drwx------ 27 thlee  staff    864 .zsh_sessions
 </code></pre>
 
 <p>vim으로 홈 디렉터리(<code>~</code>)의 <code>.zshrc</code>를 연다.</p>
-<p><img alt=".zshrc에 export PATH로 Python 경로를 설정한 화면" src="assets/posts/command-not-found-linux-path/img1.png" width="1128" height="736" loading="lazy">
+<p><img alt=".zshrc에 export PATH로 Python 경로를 설정한 화면" src="assets/posts/command-not-found-linux-path/img1.webp" width="1128" height="736" loading="lazy">
 <em>그림 1. 환경 변수 설정</em></p>
 <pre class="codehilite"><code class="language-bash">export PATH=&quot;/Library/Frameworks/Python.framework/Versions/3.11/bin&quot;
 </code></pre>
@@ -112,7 +112,7 @@ zsh: command not found: vim
 
 <p>이러면 <code>.zshrc</code>/<code>.bashrc</code>에서 환경변수를 다시 수정할 수조차 없다.</p>
 <h3 id="_2">왜 발생했나?</h3>
-<p><img alt="/bin 디렉터리 내의 ls·pwd·kill 등 실행 파일 목록" src="assets/posts/command-not-found-linux-path/img2.png" width="1128" height="734" loading="lazy">
+<p><img alt="/bin 디렉터리 내의 ls·pwd·kill 등 실행 파일 목록" src="assets/posts/command-not-found-linux-path/img2.webp" width="1128" height="734" loading="lazy">
 <em>그림 2. /bin 디렉터리 내의 ls·pwd·kill 등 실행 파일</em></p>
 <p><code>ls</code>·<code>vim</code>·<code>vi</code>·<code>kill</code> 등은 모두 <strong>실행 파일</strong>이다. 단지 OS가 환경변수(PATH)에 그 경로를 갖고 있어서, 셸에서 <code>ls</code>만 쳐도 실행됐던 것이다.</p>
 <p>그런데 <code>export PATH="/Library/.../3.11/bin"</code>을 적용하며 <strong>PATH를 통째로 덮어써</strong> 버렸다. 더 이상 <code>ls</code>·<code>vi</code>·<code>vim</code>을 찾을 수 없게 된 것이다. 따라서 PATH를 다시 바로잡으면 된다.</p>
@@ -142,7 +142,7 @@ thlee@MacBookAir ~ % echo $PATH
 </code></pre>
 
 <p>즉 기존 경로를 뒤에 유지하면서 새 경로를 앞에 추가한다는 의미다.</p>
-<p><img alt="PATH 복구 후 ls 명령이 다시 동작하는 화면" src="assets/posts/command-not-found-linux-path/img3.png" width="1138" height="740" loading="lazy">
+<p><img alt="PATH 복구 후 ls 명령이 다시 동작하는 화면" src="assets/posts/command-not-found-linux-path/img3.webp" width="1138" height="740" loading="lazy">
 <em>그림 3. 원상복귀된 환경변수 경로</em></p>
 <p>이제 <code>ls</code>가 다시 동작한다. 단, 이건 현재 셸 세션에만 적용된 임시 복구다. <strong><code>.zshrc</code>/<code>.bashrc</code>에 들어가 설정을 제대로 고쳐야 한다.</strong> 안 고치고 다시 <code>source</code>하면 또 기본 경로가 사라진다.</p>
 <h2 id="_3">결론 요약</h2>
@@ -151,7 +151,7 @@ thlee@MacBookAir ~ % echo $PATH
 </code></pre>
 
 <p>이후 <code>.zshrc</code>/<code>.bashrc</code>에서 추가하고 싶은 경로 뒤에 <code>:$PATH</code>를 붙이면 된다.</p>
-<p><img alt=".zshrc에 새 경로:$PATH 형태로 최종 설정한 화면" src="assets/posts/command-not-found-linux-path/img4.png" width="1130" height="738" loading="lazy">
+<p><img alt=".zshrc에 새 경로:$PATH 형태로 최종 설정한 화면" src="assets/posts/command-not-found-linux-path/img4.webp" width="1130" height="738" loading="lazy">
 <em>그림 4. 기존 경로 추가 (최종)</em></p>
 <p>앞으로 어떤 경로를 환경변수로 추가하든 꼭 <code>$PATH</code>를 함께 넣자. 꼭 뒤일 필요는 없다.</p>
 <pre class="codehilite"><code class="language-text">&quot;$PATH:{새 경로}&quot;  =  &quot;{기존 경로}:{새 경로}&quot;

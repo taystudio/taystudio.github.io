@@ -61,11 +61,11 @@
 <blockquote>
 <p>📅 A retrospective on <strong>research I did for my undergraduate thesis in November 2019</strong>. Won the <strong>Gold Award</strong> at the KSME (Korean Society of Mechanical Engineers) Fluid Mechanics Competition. Re-organized in 2024, with an honest note about a pitfall I only spotted two years later in grad school.</p>
 </blockquote>
-<p><img alt="Korean Society of Mechanical Engineers conference in Jeju, 2019" src="assets/posts/ksme-pm25-cnn-prediction/img1.jpg" width="1546" height="884" loading="lazy">
+<p><img alt="Korean Society of Mechanical Engineers conference in Jeju, 2019" src="assets/posts/ksme-pm25-cnn-prediction/img1.webp" width="1546" height="884" loading="lazy">
 <em>Figure 1. KSME 2019 academic conference in Jeju — Fluid Mechanics Competition gold-award ceremony.</em></p>
 <h2 id="what-i-did">What I did</h2>
 <p>Trained a <strong>neural network (ANN) to predict PM2.5 concentrations</strong>, using weather and air-quality data, <strong>6 hours and 12 hours ahead</strong>.</p>
-<p><img alt="PM2.5 prediction result, 6 hours ahead" src="assets/posts/ksme-pm25-cnn-prediction/img2.png" width="773" height="174" loading="lazy">
+<p><img alt="PM2.5 prediction result, 6 hours ahead" src="assets/posts/ksme-pm25-cnn-prediction/img2.webp" width="773" height="174" loading="lazy">
 <em>Figure 2. PM2.5 prediction, 6 hours ahead (conference slide).</em></p>
 <h2 id="why-i-thought-it-mattered">Why I thought it mattered</h2>
 <p>The conventional approach to PM2.5 forecasting is <strong>numerical methods</strong> (CFD + atmospheric chemistry models), which require:
@@ -83,7 +83,7 @@
 <li><strong>Period</strong>: 2008 to Q3 2018</li>
 <li><strong>Volume</strong>: <strong>32 variables × 94,225 observations</strong></li>
 </ul>
-<p><img alt="Data collection sources" src="assets/posts/ksme-pm25-cnn-prediction/img3.png" width="953" height="496" loading="lazy">
+<p><img alt="Data collection sources" src="assets/posts/ksme-pm25-cnn-prediction/img3.webp" width="953" height="496" loading="lazy">
 <em>Figure 3. Data collection and sources.</em></p>
 <h3 id="b-data-preprocessing-3-step-variable-selection">B. Data preprocessing — 3-step variable selection</h3>
 <h4 id="step-1-drop-sparse-variables">Step 1. Drop sparse variables</h4>
@@ -107,21 +107,21 @@
 </blockquote>
 <h3 id="c-imputation">C. Imputation</h3>
 <p>Used <strong>Predictive Mean Matching (PMM)</strong>. Linear-model-based imputation can produce <strong>non-physical values</strong> (e.g., negative concentrations), so I rejected it.</p>
-<p><img alt="Imputation results" src="assets/posts/ksme-pm25-cnn-prediction/img6.png" width="1002" height="493" loading="lazy">
+<p><img alt="Imputation results" src="assets/posts/ksme-pm25-cnn-prediction/img6.webp" width="1002" height="493" loading="lazy">
 <em>Figure 6. PMM imputation results.</em></p>
 <h2 id="model-ann-window-learning">Model — ANN + Window Learning</h2>
-<p><img alt="NN model architecture" src="assets/posts/ksme-pm25-cnn-prediction/img7.png" width="969" height="537" loading="lazy">
+<p><img alt="NN model architecture" src="assets/posts/ksme-pm25-cnn-prediction/img7.webp" width="969" height="537" loading="lazy">
 <em>Figure 7. Training model — neural-network architecture.</em></p>
 <p>A basic ANN with <strong>Window Learning</strong> on top — the standard pattern for time-series forecasting:</p>
 <blockquote>
 <p>Take <strong>72 hours of prior data</strong> as one input window → predict PM2.5 at <strong>6 / 12 / 24 hours ahead</strong>.</p>
 </blockquote>
-<p><img alt="Batch configuration" src="assets/posts/ksme-pm25-cnn-prediction/img8.png" width="1387" height="523" loading="lazy">
+<p><img alt="Batch configuration" src="assets/posts/ksme-pm25-cnn-prediction/img8.webp" width="1387" height="523" loading="lazy">
 <em>Figure 8. Batch configuration — 14 variables restructured, batch size 100.</em></p>
 <h2 id="results">Results</h2>
-<p><img alt="Train/test scatter" src="assets/posts/ksme-pm25-cnn-prediction/img9.png" width="820" height="554" loading="lazy">
+<p><img alt="Train/test scatter" src="assets/posts/ksme-pm25-cnn-prediction/img9.webp" width="820" height="554" loading="lazy">
 <em>Figure 9. Train / test scatter plots.</em></p>
-<p><img alt="Predicted vs. observed time series" src="assets/posts/ksme-pm25-cnn-prediction/img10.png" width="892" height="595" loading="lazy">
+<p><img alt="Predicted vs. observed time series" src="assets/posts/ksme-pm25-cnn-prediction/img10.webp" width="892" height="595" loading="lazy">
 <em>Figure 10. Predicted vs. observed PM2.5 time series.</em></p>
 <p>At the time of the 2019 presentation, the results "looked fine." Scatter R²/MAE were reasonable, and the time-series plot tracked the overall trend.</p>
 <h2 id="two-years-later-the-pitfall-i-missed">Two years later — the pitfall I missed</h2>

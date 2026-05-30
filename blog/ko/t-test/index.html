@@ -70,7 +70,7 @@
 <p><img alt="독립된 두 집단 (평균과 분산은 같다)" src="assets/posts/t-test/img1.png" width="1272" height="566" loading="lazy">
 <em>그림 1. 독립된 두 집단 (평균과 분산은 같다)</em></p>
 <p>1번·2번 약 효과를 비교하려 동일 체질 집단에 각각 투여했다고 하자. 실제로 두 약의 평균 효과·분산은 같다. 그런데 표본을 뽑아 관찰하니 1번 평균은 ①, 2번 평균은 ②에 나왔다. 표본 평균이 다르다고 효과가 다르다 결론지을 수 있을까? <strong>아니다.</strong> 효과는 같은데 변동성 때문에 평균이 다르게 나온 경우다.</p>
-<p><img alt="유의수준 5% — 3번 약물 예시 추가" src="assets/posts/t-test/img2.png" width="1878" height="570" loading="lazy">
+<p><img alt="유의수준 5% — 3번 약물 예시 추가" src="assets/posts/t-test/img2.webp" width="1600" height="486" loading="lazy">
 <em>그림 2. 유의수준 5% : 3번 약물 예시 추가</em></p>
 <p>따라서 <strong>특정 평균이 단순 변동성에 의한 일반적(95%) 결과인지, 변동성을 넘은 극단(5%) 결과인지 판단하는 것</strong>이 평균 검정의 핵심이다. 그림2에 X3 분포를 추가했다. 직관적으로 X1·X2 평균은 같다고, X3 평균은 다르다고 볼 수 있다.</p>
 <p>$$\bar{X}_1 \sim (\mu_1,\ \mathrm{std}_1) \qquad \bar{X}_2 \sim (\mu_2,\ \mathrm{std}_2)$$</p>
@@ -87,7 +87,7 @@
 <p>가정은 그 위에 이론이 성립한다는 의미다. 충족 여부에 따라 쓰는 기법이 달라진다.</p>
 <h4 id="21">2.1 정규성 가정</h4>
 <p>t검정은 <strong>모집단이 정규분포를 따른다</strong>는 가정하에 수행된다. 특히 표본이 작을 때 중요하다.</p>
-<p><img alt="자유도(df)가 커질수록 t분포는 Z분포에 가까워진다" src="assets/posts/t-test/img4.png" width="1096" height="658" loading="lazy">
+<p><img alt="자유도(df)가 커질수록 t분포는 Z분포에 가까워진다" src="assets/posts/t-test/img4.webp" width="1096" height="658" loading="lazy">
 <em>참고 — 표본 크기(df)가 커질수록 t분포는 Z분포에 근접 (df=30이면 거의 Z분포)</em></p>
 <ul>
 <li>표본이 충분히 크면($n&gt;30$) <strong>중심극한정리</strong>로 표본평균이 정규분포에 가까워져, 모집단이 완벽한 정규성을 안 따라도 t검정을 쓸 수 있다.</li>
@@ -143,7 +143,7 @@
 <p>표본 평균이 기준 평균과의 차이가 0에서 멀수록 다르고, 0에 가까울수록 같다. 표준편차로 나눠 표준화한다. 이 통계량은 t분포를 따른다.</p>
 <p>$$t = \dfrac{\bar{x} - \mu_0}{s / \sqrt{n}} = \dfrac{119 - 120}{1.58 / \sqrt{5}} = -1.41$$
 <em>One Sample t-test t-value 계산 결과</em></p>
-<p><img alt="One Sample 가설검정 (t분포)" src="assets/posts/t-test/img7.png" width="1318" height="790" loading="lazy">
+<p><img alt="One Sample 가설검정 (t분포)" src="assets/posts/t-test/img7.webp" width="1318" height="790" loading="lazy">
 <em>그림 3. One Sample t-test 가설 검정 (t분포)</em></p>
 <p>자유도 4인 t분포에서 p-value를 계산. 같냐 다르냐 판단이라 <strong>양측검정</strong>(각 측 유의수준 0.025). t-value −1.41 이하 영역의 p-value는 0.2313 &gt; 0.025 → 귀무가설 기각 불가 = <strong>유의미한 차이 없음(채택)</strong>.</p>
 <h4 id="32-t-two-sample">3.2 독립표본 t검정 (Two Sample)</h4>
@@ -192,14 +192,14 @@
 <p>$$t = \dfrac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\dfrac{1}{n_1} + \dfrac{1}{n_2}}}, \qquad s_p = \sqrt{\dfrac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}}$$</p>
 <p>$$t = \dfrac{\bar{X}_1 - \bar{X}_2}{\sqrt{s_p^2\left(\dfrac{1}{n_1} + \dfrac{1}{n_2}\right)}} = \dfrac{116.23 - 123}{\sqrt{2.223\left(\dfrac{1}{3} + \dfrac{1}{2}\right)}} \approx -4.91$$
 <em>Student's t-test t-value 계산 결과</em></p>
-<p><img alt="Student's t-test 가설검정 (t분포)" src="assets/posts/t-test/img10.png" width="1342" height="806" loading="lazy">
+<p><img alt="Student's t-test 가설검정 (t분포)" src="assets/posts/t-test/img10.webp" width="1342" height="806" loading="lazy">
 <em>그림 4. Student's t-test 가설 검정 (t분포)</em></p>
 <p>t-value −4.91 이하 영역 p-value 0.0162 &lt; 0.025 → 귀무가설 기각, <strong>대립가설 채택</strong>(두 집단 평균이 다름).</p>
 <p><strong>b) 등분산 불만족 — Welch's t-test</strong></p>
 <p>$$t = \dfrac{\bar{x}_1 - \bar{x}_2}{\sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}}$$</p>
 <p>$$t = \dfrac{\bar{X}_1 - \bar{X}_2}{\sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}} = \dfrac{116.33 - 123}{\sqrt{\dfrac{2.33385}{3} + \dfrac{2}{2}}} \approx \dfrac{-6.67}{1.3334} \approx -5.00$$
 <em>Welch's t-test t-value 계산 결과</em></p>
-<p><img alt="Welch's t-test 가설검정" src="assets/posts/t-test/img13.png" width="1342" height="806" loading="lazy">
+<p><img alt="Welch's t-test 가설검정" src="assets/posts/t-test/img13.webp" width="1342" height="806" loading="lazy">
 <em>그림 5. Welch's t-test</em></p>
 <p>t-value −6.47 이하 영역 p-value 0.0137 &lt; 0.025 → 귀무가설 기각, <strong>대립가설 채택</strong>.</p>
 <h4 id="33-t-paired-sample">3.3 대응표본 t검정 (Paired Sample)</h4>
@@ -252,7 +252,7 @@ t &amp;= \dfrac{\bar{D}}{s_D / \sqrt{n}} = \dfrac{9.2}{0.84 / \sqrt{5}} \approx 
 \end{aligned}$$
 <em>Paired Sample t-test t-value 계산 과정 및 결과</em></p>
 <p>대응되는 표본들의 차이값($D_i$)으로 평균·분산을 구한다.</p>
-<p><img alt="Paired t-test 가설검정" src="assets/posts/t-test/img16.png" width="1342" height="806" loading="lazy">
+<p><img alt="Paired t-test 가설검정" src="assets/posts/t-test/img16.webp" width="1342" height="806" loading="lazy">
 <em>그림 6. Paired t-test</em></p>
 <p>t-value 24.50 이상 영역 p-value ≈ 0 &lt; 0.025 → 귀무가설 기각, <strong>대립가설 채택</strong>(전후 평균이 다름).</p>
 <h2 id="_4">맺음말</h2>
