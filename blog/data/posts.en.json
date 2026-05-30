@@ -58,7 +58,7 @@
       "cloud",
       "review"
     ],
-    "image": "assets/posts/aws-summit-2024/cover.jpg",
+    "image": "assets/posts/aws-summit-2024/cover.webp",
     "lang": "en"
   },
   {
@@ -208,7 +208,7 @@
       "pre-assignment",
       "review"
     ],
-    "image": "assets/posts/career-sk-ax-newgrad-2023/cover.jpg",
+    "image": "assets/posts/career-sk-ax-newgrad-2023/cover.webp",
     "lang": "en"
   },
   {
@@ -226,7 +226,7 @@
       "normal-distribution",
       "t-distribution"
     ],
-    "image": "assets/posts/central-limit-theorem/cover.jpg",
+    "image": "assets/posts/central-limit-theorem/cover.webp",
     "lang": "en"
   },
   {
@@ -245,7 +245,7 @@
       "cd",
       "filesystem"
     ],
-    "image": "assets/posts/cmd-change-drive-windows/cover.jpg",
+    "image": "assets/posts/cmd-change-drive-windows/cover.webp",
     "lang": "en"
   },
   {
@@ -265,7 +265,7 @@
       "zsh",
       "command not found"
     ],
-    "image": "assets/posts/command-not-found-linux-path/cover.jpg",
+    "image": "assets/posts/command-not-found-linux-path/cover.webp",
     "lang": "en"
   },
   {
@@ -283,7 +283,7 @@
       "Bayesian",
       "p-value"
     ],
-    "image": "assets/posts/confidence-interval/cover.jpg",
+    "image": "assets/posts/confidence-interval/cover.webp",
     "lang": "en"
   },
   {
@@ -301,7 +301,7 @@
       "population-variance",
       "estimation"
     ],
-    "image": "assets/posts/degrees-of-freedom/cover.jpg",
+    "image": "assets/posts/degrees-of-freedom/cover.webp",
     "lang": "en"
   },
   {
@@ -357,7 +357,7 @@
       "p-value",
       "test-statistic"
     ],
-    "image": "assets/posts/hypothesis-testing/cover.jpg",
+    "image": "assets/posts/hypothesis-testing/cover.webp",
     "lang": "en"
   },
   {
@@ -432,7 +432,7 @@
       "thesis",
       "review"
     ],
-    "image": "assets/posts/ksme-pm25-cnn-prediction/cover.jpg",
+    "image": "assets/posts/ksme-pm25-cnn-prediction/cover.webp",
     "lang": "en"
   },
   {
@@ -451,7 +451,7 @@
       "account-management",
       "DBA"
     ],
-    "image": "assets/posts/mssql-login-user-schema/cover.png",
+    "image": "assets/posts/mssql-login-user-schema/cover.webp",
     "lang": "en"
   },
   {
@@ -508,7 +508,7 @@
       "web-server",
       "AWS"
     ],
-    "image": "assets/posts/nginx-install-ubuntu-centos/cover.png",
+    "image": "assets/posts/nginx-install-ubuntu-centos/cover.webp",
     "lang": "en"
   },
   {
@@ -528,7 +528,7 @@
       "ARM",
       "SQLAlchemy"
     ],
-    "image": "assets/posts/python-oracledb-arm-dpi-1047/cover.png",
+    "image": "assets/posts/python-oracledb-arm-dpi-1047/cover.webp",
     "lang": "en"
   },
   {
@@ -567,7 +567,7 @@
       "Java",
       "concurrency"
     ],
-    "image": "assets/posts/snowflake-id-generator/cover.png",
+    "image": "assets/posts/snowflake-id-generator/cover.webp",
     "lang": "en"
   },
   {
@@ -604,7 +604,7 @@
       "homoscedasticity",
       "normality"
     ],
-    "image": "assets/posts/t-test/cover.jpg",
+    "image": "assets/posts/t-test/cover.webp",
     "lang": "en"
   },
   {
@@ -622,7 +622,7 @@
       "variability",
       "probability"
     ],
-    "image": "assets/posts/uncertainty-variance/cover.jpg",
+    "image": "assets/posts/uncertainty-variance/cover.webp",
     "lang": "en"
   }
 ]

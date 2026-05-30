@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>웹 성능 측정 — curl·sips·Python 만으로 TTFB·페이지 무게·이미지 audit 다 잡기 · Tay Blog</title>
+<meta name="description" content="Lighthouse 안 띄우고도 페이지 속도·무게·이미지 비대 진단 가능. curl -w 의 timing 변수로 TTFB·total·전송 속도, sips 로 해상도·바이트, Python 으로 페이지별 이미지 총합. CI 자동화·정량 비교에 바로 쓰는 30줄 스크립트.">
+<link rel="canonical" href="https://taystudios.com/blog/ko/web-performance-measure-curl-sips/">
+
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="웹 성능 측정 — curl·sips·Python 만으로 TTFB·페이지 무게·이미지 audit 다 잡기 · Tay Blog">
+<meta property="og:description" content="Lighthouse 안 띄우고도 페이지 속도·무게·이미지 비대 진단 가능. curl -w 의 timing 변수로 TTFB·total·전송 속도, sips 로 해상도·바이트, Python 으로 페이지별 이미지 총합. CI 자동화·정량 비교에 바로 쓰는 30줄 스크립트.">
+<meta property="og:url" content="https://taystudios.com/blog/ko/web-performance-measure-curl-sips/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/web-performance-measure-curl-sips/cover.svg"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/web-performance-measure-curl-sips/cover.svg">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "웹 성능 측정 — curl·sips·Python 만으로 TTFB·페이지 무게·이미지 audit 다 잡기", "description": "Lighthouse 안 띄우고도 페이지 속도·무게·이미지 비대 진단 가능. curl -w 의 timing 변수로 TTFB·total·전송 속도, sips 로 해상도·바이트, Python 으로 페이지별 이미지 총합. CI 자동화·정량 비교에 바로 쓰는 30줄 스크립트.", "datePublished": "2026-05-31T00:00:00+09:00", "dateModified": "2026-05-31T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/web-performance-measure-curl-sips/"}, "image": ["https://taystudios.com/blog/assets/posts/web-performance-measure-curl-sips/cover.svg"], "keywords": "performance, curl, web-perf, CWV, LCP, TTFB, 페이지속도, sips, audit, 측정"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Web Development", "item": "https://taystudios.com/blog/ko/category/web-dev/"}, {"@type": "ListItem", "position": 3, "name": "웹 성능 측정 — curl·sips·Python 만으로 TTFB·페이지 무게·이미지 audit 다 잡기", "item": "https://taystudios.com/blog/ko/web-performance-measure-curl-sips/"}]}</script><meta property="article:published_time" content="2026-05-31T00:00:00+09:00"><meta property="article:modified_time" content="2026-05-31T00:00:00+09:00"><meta property="article:tag" content="performance"><meta property="article:tag" content="curl"><meta property="article:tag" content="web-perf"><meta property="article:tag" content="CWV"><meta property="article:tag" content="LCP"><meta property="article:tag" content="TTFB"><meta property="article:tag" content="페이지속도"><meta property="article:tag" content="sips"><meta property="article:tag" content="audit"><meta property="article:tag" content="측정">
+<link rel="stylesheet" href="assets/style.css?v=1780099189">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/web-dev/">Web Development</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">웹 성능 측정 — curl·sips·Python 만으로 TTFB·페이지 무게·이미지 audit 다 잡기</span></nav>
+        <h1 class="tb-article-title">웹 성능 측정 — curl·sips·Python 만으로 TTFB·페이지 무게·이미지 audit 다 잡기</h1>
+        <div class="tb-article-meta">
+          <time>2026.05.31</time>
+          <span>·</span><span>#performance #curl #web-perf #CWV #LCP #TTFB #페이지속도 #sips #audit #측정</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">왜 직접 측정해야 하나</a></li><li class="tb-toc-h2"><a href="#macoslinux">도구 — 다 macOS·Linux 기본 또는 표준</a></li><li class="tb-toc-h2"><a href="#part-1-curl-w-ttfbtotalsize">Part 1 — curl -w 로 TTFB·total·size</a></li><li class="tb-toc-h3"><a href="#-w-write-out-format-string">핵심: -w (write-out) format string</a></li><li class="tb-toc-h3"><a href="#_2">변수 의미</a></li><li class="tb-toc-h3"><a href="#taystudioscomblogko">실측 예시 (taystudios.com/blog/ko/)</a></li><li class="tb-toc-h3"><a href="#fresh">캐시 우회 — 매번 fresh 측정</a></li><li class="tb-toc-h2"><a href="#part-2-sips-bytes">Part 2 — sips 로 이미지 해상도·bytes</a></li><li class="tb-toc-h3"><a href="#audit-python">한 폴더 전체 audit (Python)</a></li><li class="tb-toc-h3"><a href="#audit">실측 (이 블로그 audit 결과 일부)</a></li><li class="tb-toc-h2"><a href="#part-3-html">Part 3 — 페이지별 이미지 가중 (HTML 파싱 + 집계)</a></li><li class="tb-toc-h3"><a href="#_3">실측 (현 블로그)</a></li><li class="tb-toc-h2"><a href="#part-4-live-url">Part 4 — 전체 페이지·자원 합산 (live URL 기준)</a></li><li class="tb-toc-h2"><a href="#part-5-cwv">Part 5 — CWV 와 연결</a></li><li class="tb-toc-h2"><a href="#part-6-lighthouse">Part 6 — Lighthouse 와 비교</a></li><li class="tb-toc-h2"><a href="#ci-bash">CI 자동화 — bash 한 줄로</a></li><li class="tb-toc-h2"><a href="#_4">정리</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p><strong>결론 먼저</strong>: Lighthouse·WebPageTest 띄우지 않아도 페이지 속도·무게·이미지 비대를 <strong>30 줄 스크립트로 정량 측정</strong> 가능. CI 에 박아두면 회귀 자동 잡힘.</p>
+</blockquote>
+<h2 id="_1">왜 직접 측정해야 하나</h2>
+<p>브라우저 직감으로 "느린 거 같아…" 라고 끝나면 fix 가 우선순위 안 잡힘. 다음 세 가지를 숫자로 잡아야 함:</p>
+<ol>
+<li><strong>TTFB (Time To First Byte)</strong> — 서버가 응답 시작까지. 인프라·CDN·SSR 지표.</li>
+<li><strong>페이지 총 무게</strong> — HTML + JS + CSS + 이미지 합산. LCP·INP 의 원료.</li>
+<li><strong>이미지 가중</strong> — 거의 모든 느린 사이트의 진짜 범인. 카드 200×200 표시인데 원본 1024×1024 다운로드 식.</li>
+</ol>
+<p>Lighthouse 는 종합 지표 좋지만 <strong>로컬 환경 ↔ 네트워크 가변성</strong> 때문에 매번 다른 점수. <strong>curl + sips 기반 측정은 결정론적</strong>·<strong>ms 단위 정확</strong>·<strong>cron·CI 자동화 가능</strong>. Lighthouse 는 PR 마지막 점검용, 이쪽은 일상 audit.</p>
+<h2 id="macoslinux">도구 — 다 macOS·Linux 기본 또는 표준</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>도구</th>
+<th>설치</th>
+<th>용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>curl</code></td>
+<td>macOS·Linux 기본</td>
+<td>TTFB·total·전송 속도·페이지 size</td>
+</tr>
+<tr>
+<td><code>sips</code></td>
+<td>macOS 기본 (없으면 <code>identify</code> from ImageMagick)</td>
+<td>이미지 해상도·bytes</td>
+</tr>
+<tr>
+<td><code>python3</code></td>
+<td>macOS·Linux 기본</td>
+<td>HTML 파싱·이미지 src 추출·집계</td>
+</tr>
+</tbody>
+</table></div>
+<p>별도 설치 없음.</p>
+<hr />
+<h2 id="part-1-curl-w-ttfbtotalsize">Part 1 — <code>curl -w</code> 로 TTFB·total·size</h2>
+<h3 id="-w-write-out-format-string">핵심: <code>-w</code> (write-out) format string</h3>
+<p><code>curl -w</code> 는 요청 끝나면 timing·response 정보를 templated string 으로 출력. 7 개 변수가 핵심:</p>
+<pre class="codehilite"><code class="language-bash">curl -w &quot;
+  DNS:        %{time_namelookup}s
+  Connect:    %{time_connect}s
+  TLS:        %{time_appconnect}s
+  TTFB:       %{time_starttransfer}s
+  Total:      %{time_total}s
+  Size:       %{size_download} bytes
+  Speed:      %{speed_download} bytes/s
+&quot; -o /tmp/out.html -s &quot;https://taystudios.com/blog/ko/&quot;
+</code></pre>
+
+<p><code>-o /tmp/out.html</code> 으로 body 를 파일에 저장, <code>-s</code> 로 progress bar 끔.</p>
+<h3 id="_2">변수 의미</h3>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>변수</th>
+<th>무엇을 측정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>time_namelookup</code></td>
+<td>DNS 해석 끝까지</td>
+</tr>
+<tr>
+<td><code>time_connect</code></td>
+<td>TCP 핸드셰이크 끝까지 (<code>namelookup</code> 포함)</td>
+</tr>
+<tr>
+<td><code>time_appconnect</code></td>
+<td><strong>TLS 핸드셰이크 끝까지</strong> (HTTPS only)</td>
+</tr>
+<tr>
+<td><code>time_pretransfer</code></td>
+<td>요청 보내기 직전 (협상 완료)</td>
+</tr>
+<tr>
+<td><code>time_starttransfer</code></td>
+<td><strong>TTFB — 응답 첫 바이트 받은 시점</strong></td>
+</tr>
+<tr>
+<td><code>time_total</code></td>
+<td>응답 body 완전히 받은 시점</td>
+</tr>
+<tr>
+<td><code>size_download</code></td>
+<td>받은 body 바이트 (응답 본문 size)</td>
+</tr>
+<tr>
+<td><code>speed_download</code></td>
+<td>평균 다운로드 속도 (bytes/s)</td>
+</tr>
+</tbody>
+</table></div>
+<p>각 값은 누적이라 <strong>단계별 시간 = 다음 단계 - 이전 단계</strong>:</p>
+<pre class="codehilite"><code>DNS:    time_namelookup
+TCP:    time_connect - time_namelookup
+TLS:    time_appconnect - time_connect
+서버:   time_starttransfer - time_appconnect   ← 실제 서버 처리 + 응답 시작
+전송:   time_total - time_starttransfer        ← body 전송
+</code></pre>
+
+<h3 id="taystudioscomblogko">실측 예시 (taystudios.com/blog/ko/)</h3>
+<pre class="codehilite"><code>  DNS:        0.014286s     ← 14ms DNS
+  Connect:    0.048982s     ← 35ms TCP
+  TLS:        0.089744s     ← 41ms TLS
+  TTFB:       0.337152s     ← 247ms 서버 응답 (GitHub Pages CDN)
+  Total:      0.337994s     ← 0.8ms body 전송
+  Size:       21702 bytes   ← HTML 22KB
+</code></pre>
+
+<p><strong>해석</strong>: TTFB 247ms 가 시간의 73% — CDN edge 응답. 개선 여지는 같은 edge 에서 caching warm-up. HTML 자체 22KB body 는 0.8ms — 무시 가능.</p>
+<h3 id="fresh">캐시 우회 — 매번 fresh 측정</h3>
+<p>CDN·브라우저 캐시 때문에 두 번째 요청은 빨라짐. <strong>baseline 측정엔 매번 cache miss 강제</strong>:</p>
+<pre class="codehilite"><code class="language-bash"># Cache busting: URL 에 timestamp 쿼리
+curl -s &quot;https://taystudios.com/blog/ko/?ts=$(date +%s)&quot;
+
+# 또는 Cache-Control 헤더로 명시
+curl -s -H &quot;Cache-Control: no-cache&quot; &quot;https://taystudios.com/blog/ko/&quot;
+
+# 둘 다 — 가장 안전
+curl -s -H &quot;Cache-Control: no-cache&quot; &quot;https://taystudios.com/blog/ko/?ts=$(date +%s)&quot;
+</code></pre>
+
+<p><code>?ts=</code> 같은 dummy query 는 CDN 캐시 키를 바꿔 새 응답 강제. Cache-Control 헤더는 상위 proxy 에 신호.</p>
+<hr />
+<h2 id="part-2-sips-bytes">Part 2 — <code>sips</code> 로 이미지 해상도·bytes</h2>
+<p><code>sips</code> 는 macOS 기본 image 도구. 1 줄로 해상도 query:</p>
+<pre class="codehilite"><code class="language-bash">sips -g pixelWidth -g pixelHeight cover.jpg
+
+# 출력:
+#   /path/cover.jpg
+#     pixelWidth: 1024
+#     pixelHeight: 1024
+</code></pre>
+
+<p>bytes 는 <code>stat</code>:</p>
+<pre class="codehilite"><code class="language-bash">stat -f %z cover.jpg          # macOS
+stat -c %s cover.jpg          # Linux
+</code></pre>
+
+<h3 id="audit-python">한 폴더 전체 audit (Python)</h3>
+<pre class="codehilite"><code class="language-python">import subprocess
+from pathlib import Path
+
+for f in sorted(Path('blog/assets/posts').rglob('cover.*')):
+    sz = f.stat().st_size
+    out = subprocess.check_output(
+        ['sips', '-g', 'pixelWidth', '-g', 'pixelHeight', str(f)],
+        stderr=subprocess.DEVNULL
+    ).decode()
+    dims = [l.split(':')[1].strip() for l in out.split('\n') if 'pixel' in l]
+    w, h = dims[0], dims[1]
+    flag = '🔴' if sz &gt; 200_000 else '🟡' if sz &gt; 50_000 else '✓'
+    print(f'{sz/1024:&gt;7.1f}KB  {w}x{h}  {flag}  {f}')
+</code></pre>
+
+<h3 id="audit">실측 (이 블로그 audit 결과 일부)</h3>
+<pre class="codehilite"><code>416.5KB  1332x2088  🔴  aws-summit-2024/cover.jpg     ← og:image 비례 X
+375.0KB  1024x1024  🔴  hypothesis-testing/cover.jpg
+375.0KB  1024x1024  🔴  uncertainty-variance/cover.jpg
+375.0KB  1024x1024  🔴  t-test/cover.jpg
+  4.5KB   200x200   ✓  career-ktds-newgrad-2021/cover.jpg    ← 회사 로고
+  4.1KB   225x225   ✓  kaist-grad-mech-written-set1/cover.png
+</code></pre>
+
+<p><strong>진단</strong>: 통계 시리즈 7편 모두 <strong>1024×1024 / 375KB</strong> — 카드 썸네일은 200×200 만 표시되는데 25배 큰 원본 다운로드. <strong>즉시 fix 대상</strong>.</p>
+<hr />
+<h2 id="part-3-html">Part 3 — 페이지별 이미지 가중 (HTML 파싱 + 집계)</h2>
+<p><code>curl -s URL</code> 로 받은 HTML 에서 <code>&lt;img src&gt;</code> 다 뽑아 총합:</p>
+<pre class="codehilite"><code class="language-python">import re
+from pathlib import Path
+
+# 빌드된 HTML 에서 페이지별 cover 총합
+for page in ['blog/ko/index.html', 'blog/ko/category/data/index.html']:
+    h = open(page).read()
+    imgs = re.findall(r'src=&quot;([^&quot;]*cover\.[a-z]+)&quot;', h)
+    total = 0
+    for src in imgs:
+        f = Path('blog') / src
+        if f.exists():
+            total += f.stat().st_size
+    print(f'{page}: {len(imgs)} covers · {total/1024:.1f} KB')
+</code></pre>
+
+<h3 id="_3">실측 (현 블로그)</h3>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>페이지</th>
+<th>covers</th>
+<th>total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/blog/ko/</code> (홈 첫 페이지 10글)</td>
+<td>10</td>
+<td><strong>1524 KB</strong></td>
+</tr>
+<tr>
+<td><code>/blog/ko/category/data/</code> (통계 7편)</td>
+<td>7</td>
+<td><strong>2625 KB</strong> 🔴</td>
+</tr>
+<tr>
+<td><code>/blog/ko/category/reviews/career/</code> (회사 로고 6글)</td>
+<td>6</td>
+<td>250 KB ✓</td>
+</tr>
+</tbody>
+</table></div>
+<p>통계 카테고리만 따로 2.6 MB. 모바일 4G 환경 (~50Mbps) 에서 <strong>0.4 초 추가 다운로드</strong> = LCP 직격.</p>
+<blockquote>
+<p>💡 <strong>HTML 자체는 빠른데 (TTFB 247ms) 이미지 때문에 체감 느림</strong> 같은 케이스를 1 분 안에 진단할 수 있는 게 이 방법의 핵심 가치.</p>
+</blockquote>
+<hr />
+<h2 id="part-4-live-url">Part 4 — 전체 페이지·자원 합산 (live URL 기준)</h2>
+<p>빌드된 HTML 이 없는 환경 (live URL audit) 에선 <code>curl</code> 로 받아서 자원 URL 추출 → 각자 <code>curl</code> 로 size 측정:</p>
+<pre class="codehilite"><code class="language-bash">#!/bin/bash
+URL=&quot;https://taystudios.com/blog/ko/&quot;
+TMPDIR=$(mktemp -d)
+
+# 1. HTML 받기
+curl -s &quot;$URL?ts=$(date +%s)&quot; -o &quot;$TMPDIR/page.html&quot;
+HTML_SIZE=$(stat -f %z &quot;$TMPDIR/page.html&quot;)
+
+# 2. 모든 이미지·JS·CSS URL 추출 (절대화)
+python3 -c &quot;
+import re, sys
+from urllib.parse import urljoin
+base = '$URL'
+html = open('$TMPDIR/page.html').read()
+patterns = [
+    r'&lt;img[^&gt;]+src=[\&quot;\']([^\&quot;\']+)[\&quot;\']',
+    r'&lt;script[^&gt;]+src=[\&quot;\']([^\&quot;\']+)[\&quot;\']',
+    r'&lt;link[^&gt;]+href=[\&quot;\']([^\&quot;\']+)[\&quot;\'][^&gt;]+rel=[\&quot;\']stylesheet[\&quot;\']',
+]
+for p in patterns:
+    for m in re.findall(p, html):
+        if m.startswith(('http','//')):
+            print(m if not m.startswith('//') else 'https:'+m)
+        else:
+            print(urljoin(base, m))
+&quot; &gt; &quot;$TMPDIR/urls.txt&quot;
+
+# 3. 각 자원 size 측정
+TOTAL=$HTML_SIZE
+while read u; do
+  sz=$(curl -o /dev/null -s -w &quot;%{size_download}&quot; &quot;$u&quot;)
+  echo &quot;$sz $u&quot;
+  TOTAL=$((TOTAL + sz))
+done &lt; &quot;$TMPDIR/urls.txt&quot;
+
+echo
+echo &quot;HTML:  $((HTML_SIZE / 1024)) KB&quot;
+echo &quot;Total: $((TOTAL / 1024)) KB ($(echo &quot;scale=2; $TOTAL/1048576&quot; | bc) MB)&quot;
+</code></pre>
+
+<p>CI 환경에서 매 PR 마다 돌리면 페이지 무게 회귀를 정량 잡음.</p>
+<hr />
+<h2 id="part-5-cwv">Part 5 — CWV 와 연결</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>측정값</th>
+<th>CWV 메트릭</th>
+<th>임계</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TTFB</td>
+<td>(FCP 의 일부)</td>
+<td>200ms 이하 = good, 600ms+ = poor</td>
+</tr>
+<tr>
+<td>페이지 무게</td>
+<td><strong>LCP</strong> (Largest Contentful Paint)</td>
+<td>2.5s 이하 = good (4G/모바일 기준)</td>
+</tr>
+<tr>
+<td>이미지 가중</td>
+<td>LCP·INP 둘 다</td>
+<td>LCP 의 70% 가 이미지인 사이트가 흔함</td>
+</tr>
+</tbody>
+</table></div>
+<p>대략적 환산 (3G slow 시뮬):
+- HTML 50KB + 이미지 500KB = <strong>~3s LCP</strong> (good)
+- HTML 50KB + 이미지 2MB = <strong>~8s LCP</strong> (poor)</p>
+<p><strong>이미지 무게가 LCP 의 1차 변수</strong>. 이게 이 글의 audit 방법론이 강조하는 이유.</p>
+<hr />
+<h2 id="part-6-lighthouse">Part 6 — Lighthouse 와 비교</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th></th>
+<th>curl + sips audit</th>
+<th>Lighthouse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>측정 종류</td>
+<td>정량 (bytes, ms)</td>
+<td>종합 점수 (0-100)</td>
+</tr>
+<tr>
+<td>환경</td>
+<td>결정론적 (네트워크만 가변)</td>
+<td>가변 (CPU·throttling 시뮬레이션)</td>
+</tr>
+<tr>
+<td>속도</td>
+<td>&lt; 5 초</td>
+<td>30~60 초/run</td>
+</tr>
+<tr>
+<td>CI 적합</td>
+<td>✓ 자동화 쉬움</td>
+<td>△ headless Chrome 필요</td>
+</tr>
+<tr>
+<td>발견 가능</td>
+<td>무거운 자원·TTFB</td>
+<td>+ JS execution·CLS·a11y·SEO 점수</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>병행 사용</strong>:
+- 일상 audit·CI 회귀 잡기 → curl + sips
+- 정기 큰 진단 (월/분기) → Lighthouse + PageSpeed Insights</p>
+<hr />
+<h2 id="ci-bash">CI 자동화 — bash 한 줄로</h2>
+<pre class="codehilite"><code class="language-bash"># .github/workflows/perf-check.yml 안에 추가
+- name: Cover image size guard
+  run: |
+    fail=0
+    for f in blog/assets/posts/*/cover.*; do
+      sz=$(stat -c %s &quot;$f&quot;)
+      if [ &quot;$sz&quot; -gt 100000 ]; then
+        echo &quot;::error::$f is $((sz/1024))KB (&gt;100KB) — optimize&quot;
+        fail=1
+      fi
+    done
+    exit $fail
+</code></pre>
+
+<p>PR 에서 cover 가 100KB 넘으면 CI 빨강. 직접 손 안 대도 회귀 차단.</p>
+<hr />
+<h2 id="_4">정리</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>단계</th>
+<th>도구</th>
+<th>1 줄</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TTFB·페이지 시간</td>
+<td><code>curl -w</code></td>
+<td><code>curl -w "%{time_starttransfer}s\n" -o /dev/null -s URL</code></td>
+</tr>
+<tr>
+<td>이미지 audit</td>
+<td><code>sips</code> + <code>find</code> + <code>stat</code></td>
+<td><code>find . -name cover.\* -exec sips -g pixelWidth -g pixelHeight {} +</code></td>
+</tr>
+<tr>
+<td>페이지별 가중</td>
+<td>Python <code>re.findall</code></td>
+<td>HTML → <code>&lt;img src&gt;</code> 모음 → 각 file size sum</td>
+</tr>
+<tr>
+<td>CI guard</td>
+<td>bash + <code>stat -c %s</code></td>
+<td>PR 마다 자동 size threshold 검증</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>진정한 효과</strong>: 매 배포 전·후 <code>bash perf-baseline.sh</code> 한 번 돌리면 회귀·개선 정량 비교. <strong>느낌이 아니라 숫자로 토론</strong> 가능.</p>
+<hr />
+<blockquote>
+<p>📝 이 글의 실제 측정 데이터는 본 블로그 (<code>taystudios.com/blog/</code>) 의 cover 이미지 audit 결과입니다. 결과적으로 통계 시리즈 7편 cover 가 1024×1024 PNG (각 375KB) 인 게 발견됐고, WebP 800×800 로 일괄 변환 → 페이지당 평균 1MB+ 절감 예정.</p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/fastapi-getting-started/">Python FastAPI 시작하기 — 개론·설치·Pycharm 실행 (feat. uvicorn)</a></li><li><a href="ko/command-not-found-linux-path/">Linux &#39;command not found&#39; (ls·vi·vim) 해결 — PATH 환경변수 복구</a></li><li><a href="ko/cmd-change-drive-windows/">Windows CMD에서 D드라이브로 이동하는 방법 (cd가 안 될 때)</a></li><li><a href="ko/python-windows-install-path/">윈도우 Python 설치 + 환경변수(PATH) 설정 — &#39;python&#39; 명령어 인식 안 될 때</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fweb-performance-measure-curl-sips%2F&amp;text=%EC%9B%B9%20%EC%84%B1%EB%8A%A5%20%EC%B8%A1%EC%A0%95%20%E2%80%94%20curl%C2%B7sips%C2%B7Python%20%EB%A7%8C%EC%9C%BC%EB%A1%9C%20TTFB%C2%B7%ED%8E%98%EC%9D%B4%EC%A7%80%20%EB%AC%B4%EA%B2%8C%C2%B7%EC%9D%B4%EB%AF%B8%EC%A7%80%20audit%20%EB%8B%A4%20%EC%9E%A1%EA%B8%B0" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fweb-performance-measure-curl-sips%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::spring-boot|fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/spring-boot/"><span>Java: Spring Boot</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/web-performance-measure-curl-sips/">웹 성능 측정 — curl·sips·Python 만으로 TTFB·페이지 무게·이미지 audit 다 잡기</a></li><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/python-oracledb-arm-dpi-1047/">AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="ko/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Linux">#Linux <span>2</span></a><a class="tb-side-tag" href="ko/tags/#NAT Instance">#NAT Instance <span>2</span></a><a class="tb-side-tag" href="ko/tags/#PATH">#PATH <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (168) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="privacy/">Privacy</a><a href="about/">About</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

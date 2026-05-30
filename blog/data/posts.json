@@ -58,7 +58,7 @@
       "클라우드",
       "후기"
     ],
-    "image": "assets/posts/aws-summit-2024/cover.jpg",
+    "image": "assets/posts/aws-summit-2024/cover.webp",
     "lang": "ko"
   },
   {
@@ -212,7 +212,7 @@
       "사전과제",
       "후기"
     ],
-    "image": "assets/posts/career-sk-ax-newgrad-2023/cover.jpg",
+    "image": "assets/posts/career-sk-ax-newgrad-2023/cover.webp",
     "lang": "ko"
   },
   {
@@ -230,7 +230,7 @@
       "정규분포",
       "t분포"
     ],
-    "image": "assets/posts/central-limit-theorem/cover.jpg",
+    "image": "assets/posts/central-limit-theorem/cover.webp",
     "lang": "ko"
   },
   {
@@ -249,7 +249,7 @@
       "cd",
       "파일시스템"
     ],
-    "image": "assets/posts/cmd-change-drive-windows/cover.jpg",
+    "image": "assets/posts/cmd-change-drive-windows/cover.webp",
     "lang": "ko"
   },
   {
@@ -269,7 +269,7 @@
       "zsh",
       "command not found"
     ],
-    "image": "assets/posts/command-not-found-linux-path/cover.jpg",
+    "image": "assets/posts/command-not-found-linux-path/cover.webp",
     "lang": "ko"
   },
   {
@@ -287,7 +287,7 @@
       "베이지안",
       "p-value"
     ],
-    "image": "assets/posts/confidence-interval/cover.jpg",
+    "image": "assets/posts/confidence-interval/cover.webp",
     "lang": "ko"
   },
   {
@@ -305,7 +305,7 @@
       "모분산",
       "추정"
     ],
-    "image": "assets/posts/degrees-of-freedom/cover.jpg",
+    "image": "assets/posts/degrees-of-freedom/cover.webp",
     "lang": "ko"
   },
   {
@@ -361,7 +361,7 @@
       "p-value",
       "검정통계량"
     ],
-    "image": "assets/posts/hypothesis-testing/cover.jpg",
+    "image": "assets/posts/hypothesis-testing/cover.webp",
     "lang": "ko"
   },
   {
@@ -440,7 +440,7 @@
       "졸업논문",
       "후기"
     ],
-    "image": "assets/posts/ksme-pm25-cnn-prediction/cover.jpg",
+    "image": "assets/posts/ksme-pm25-cnn-prediction/cover.webp",
     "lang": "ko"
   },
   {
@@ -459,7 +459,7 @@
       "계정관리",
       "DBA"
     ],
-    "image": "assets/posts/mssql-login-user-schema/cover.png",
+    "image": "assets/posts/mssql-login-user-schema/cover.webp",
     "lang": "ko"
   },
   {
@@ -516,7 +516,7 @@
       "웹서버",
       "AWS"
     ],
-    "image": "assets/posts/nginx-install-ubuntu-centos/cover.png",
+    "image": "assets/posts/nginx-install-ubuntu-centos/cover.webp",
     "lang": "ko"
   },
   {
@@ -536,7 +536,7 @@
       "ARM",
       "SQLAlchemy"
     ],
-    "image": "assets/posts/python-oracledb-arm-dpi-1047/cover.png",
+    "image": "assets/posts/python-oracledb-arm-dpi-1047/cover.webp",
     "lang": "ko"
   },
   {
@@ -575,7 +575,7 @@
       "Java",
       "동시성"
     ],
-    "image": "assets/posts/snowflake-id-generator/cover.png",
+    "image": "assets/posts/snowflake-id-generator/cover.webp",
     "lang": "ko"
   },
   {
@@ -612,7 +612,7 @@
       "등분산성",
       "정규성"
     ],
-    "image": "assets/posts/t-test/cover.jpg",
+    "image": "assets/posts/t-test/cover.webp",
     "lang": "ko"
   },
   {
@@ -630,7 +630,30 @@
       "변동성",
       "확률"
     ],
-    "image": "assets/posts/uncertainty-variance/cover.jpg",
+    "image": "assets/posts/uncertainty-variance/cover.webp",
+    "lang": "ko"
+  },
+  {
+    "slug": "web-performance-measure-curl-sips",
+    "title": "웹 성능 측정 — curl·sips·Python 만으로 TTFB·페이지 무게·이미지 audit 다 잡기",
+    "date": "2026-05-31",
+    "excerpt": "Lighthouse 안 띄우고도 페이지 속도·무게·이미지 비대 진단 가능. curl -w 의 timing 변수로 TTFB·total·전송 속도, sips 로 해상도·바이트, Python 으로 페이지별 이미지 총합. CI 자동화·정량 비교에 바로 쓰는 30줄 스크립트.",
+    "category": [
+      "web-dev"
+    ],
+    "tags": [
+      "performance",
+      "curl",
+      "web-perf",
+      "CWV",
+      "LCP",
+      "TTFB",
+      "페이지속도",
+      "sips",
+      "audit",
+      "측정"
+    ],
+    "image": "assets/posts/web-performance-measure-curl-sips/cover.svg",
     "lang": "ko"
   }
 ]

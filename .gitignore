@@ -61,6 +61,9 @@ blog/guide/
 #   sidebar.js·category-posts.js 가 site.json·posts(.en).json·embeds.json 을 runtime fetch.
 #   assets 안의 style.css·script.js·이미지·embeds 썸네일도 HTML 이 직접 참조.
 
+# 이미지 압축 전 원본 백업 — 로컬 롤백용, public 에 안 올림
+*.bak
+
 # dist/ — 임시 build 결과물 (publish 전 검증용)
 dist/
 
