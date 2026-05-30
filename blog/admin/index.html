@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Admin · TAYSTUDIO Blog</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="assets/style.css?v=1779623755">
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+
+<style>@view-transition{navigation:none}</style><script>/* admin local-only guard */(function(){var h=location.hostname;if(h==="localhost"||h==="127.0.0.1"||h==="::1"||h===""||/^192\.168\./.test(h)||/^10\./.test(h)||/^172\.(1[6-9]|2\d|3[01])\./.test(h)||/\.local$/.test(h))return;var st=document.createElement("style");st.textContent="body{display:none!important}";document.head.appendChild(st);try{document.title="403 · 접근 불가";}catch(e){}document.addEventListener("DOMContentLoaded",function(){document.body.style.display="";document.body.innerHTML='<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:40px;text-align:center;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Noto Sans KR,sans-serif;color:#222;background:#fff">'+'<div style="font-size:80px;line-height:1">🔒</div>'+'<h1 style="margin:0;font-size:32px;font-weight:700">403</h1>'+'<p style="margin:0;font-size:18px;font-weight:600">접근 권한이 없습니다</p>'+'<p style="margin:0;color:#888;max-width:420px;line-height:1.6">이 페이지는 관리자 전용입니다. 운영자가 아니면 들어올 수 없습니다.</p>'+'<a href="/blog/" style="margin-top:10px;padding:10px 22px;background:#222;color:#fff;text-decoration:none;border-radius:8px;font-weight:600">← 블로그 홈으로</a>'+'</div>';});})();</script>
+<script>/* admin sw kill */(function(){if(!("serviceWorker" in navigator))return;navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});if("caches" in window)caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k);});});});})();</script>
+<script>/* admin dev-server check */(function(){function banner(){document.addEventListener("DOMContentLoaded",function(){var b=document.createElement("div");b.style.cssText="position:fixed;top:0;left:0;right:0;z-index:99998;background:#c0392b;color:#fff;padding:10px 16px;text-align:center;font-size:13px;font-weight:600;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Noto Sans KR,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.2)";b.innerHTML='⚠️ dev-server(8088) 미연결 — admin 게시·저장은 dev-server 에서만 됩니다. '+'현재: '+location.origin+' → '+'<a href="http://localhost:8088'+location.pathname+location.search+'" style="color:#fff;text-decoration:underline">localhost:8088 로 열기</a>'+' &nbsp;(터미널: python3 blog/scripts/dev-server.py 8088)';document.body.appendChild(b);document.body.style.paddingTop="42px";});}if(location.port==="8088")return;fetch("http://localhost:8088/_admin/health",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.ok){location.replace("http://localhost:8088"+location.pathname+location.search);}else{banner();}}).catch(banner);})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-admin-container">
+
+    <div class="tb-admin-header">
+      <h1>🔒 Admin</h1>
+      <a class="tb-btn tb-btn-primary" href="admin/write/">✏️ 새 글 작성</a>
+    </div>
+
+    <nav class="tb-admin-nav">
+      <a class="active" href="admin/">글 목록</a>
+      <a href="admin/write/">글 작성</a>
+      <a href="admin/settings/">설정</a>
+    </nav>
+
+    <!-- 언어 필터 — 글 목록을 전체/한국어/영어로 나눠 보기 -->
+    <div id="postLangFilter" class="tb-lang-filter" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap">
+      <button type="button" class="tb-btn" data-filter="all">전체 <span data-c>0</span></button>
+      <button type="button" class="tb-btn" data-filter="ko">🇰🇷 한국어 <span data-c>0</span></button>
+      <button type="button" class="tb-btn" data-filter="en">🇺🇸 English <span data-c>0</span></button>
+    </div>
+
+    <div class="tb-admin-card">
+      <table class="tb-admin-table">
+        <thead>
+          <tr>
+            <th style="width:50%">제목</th>
+            <th>카테고리</th>
+            <th>날짜</th>
+            <th>액션</th>
+          </tr>
+        </thead>
+        <tbody id="postList">
+          <tr><td colspan="4" style="padding:20px;text-align:center;color:var(--muted);font-size:13px">
+            글 목록 로드 중...
+          </td></tr>
+          <tr style="display:none">
+            <td>
+              <strong>Hello, World — 블로그를 시작하며</strong>
+              <div style="font-size:12px;color:var(--muted);margin-top:2px">/blog/hello-world/</div>
+            </td>
+            <td><span style="font-size:12px">web-dev / spring-boot</span></td>
+            <td><span style="font-size:13px;color:var(--muted)">2026-04-17</span></td>
+            <td>
+              <div class="tb-admin-actions">
+                <a class="tb-btn" href="hello-world/" target="_blank">보기</a>
+                <a class="tb-btn" href="admin/edit/?slug=hello-world">편집</a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tb-admin-card">
+      <h2 style="margin:0 0 8px;font-size:15px;font-weight:600">📝 임시저장 (초안 _drafts)</h2>
+      <p style="margin:0;color:var(--muted);font-size:13px">비공개 초안 파일 (blog/_source/_drafts/{ko,en}/). 편집해서 게재하거나 삭제할 수 있습니다.</p>
+      <div id="draftList" style="margin-top:12px">
+        <div class="tb-empty">
+          <p>임시저장된 초안 없음.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb-admin-card">
+      <h2 style="margin:0 0 8px;font-size:15px;font-weight:600">💡 운영 가이드</h2>
+      <ul style="margin:0;padding-left:20px;color:var(--muted);font-size:14px;line-height:1.8">
+        <li>이 admin 페이지는 <strong>local 전용</strong>입니다. (production 배포 안 됨, robots noindex + 외부 403)</li>
+        <li><strong>📤 게재</strong> → <code>blog/_source/_posts/{ko,en}/</code> 저장 + 빌드 → 공개. <strong>💾 임시저장</strong> → <code>_drafts/{ko,en}/</code> 비공개 초안.</li>
+        <li>저장·빌드는 <strong>dev-server(8088)</strong> 통해 동작 (<code>python3 blog/scripts/dev-server.py 8088</code>).</li>
+        <li>git commit·push → GitHub Pages 자동 배포 (production).</li>
+      </ul>
+    </div>
+
+  </div>
+</main>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780150263"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="admin/admin.js?v=1780182363"></script>
+</body>
+</html>

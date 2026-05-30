@@ -46,8 +46,14 @@ blog/_drafts/
 blog/_templates/
 # build.py · dev-server.py — 빌드/dev 도구
 blog/scripts/
-# 관리자 UI — 로컬 전용 (외부 403 가드 있지만 아예 배포 X 가 안전)
-blog/admin/
+# 관리자 UI — 로컬 전용. admin/index.html 만 deploy (외부 403 가드 페이지로 작동),
+# 나머지 .js·write·settings 등은 ignore (source code 자체 노출 안 함).
+# (negation `!` 는 부모 폴더 ignore 상태에선 안 먹어서, 명시 ignore 패턴으로 분리.)
+blog/admin/*.js
+blog/admin/write/
+blog/admin/settings/
+blog/admin/edit/
+blog/admin/posting-todo/
 # 운영·troubleshooting 노트
 blog/plan/
 # 글감 백로그
