@@ -8,6 +8,10 @@
   var catPath = list.dataset.category;
   if (!catPath) return;
 
+  // FOUC guard — 빌드 시점에 이미 글 li 가 서버 렌더된 경우 fetch·재렌더 skip.
+  // 서버가 글을 못 박은 경우 (legacy 빌드 / 빌드 후 글 추가) 만 hydrate.
+  if (list.querySelector('a.tb-post-card')) return;
+
   // 언어 판별 — /blog/{ko,en}/ 둘 다 detect. seg = {lang}/ (ko/en 모두 명시).
   var _lm = location.pathname.match(/^\/blog\/(ko|en)(?:\/|$)/);
   var lang = _lm ? _lm[1] : 'ko';

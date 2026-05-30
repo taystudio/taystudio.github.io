@@ -55,7 +55,7 @@
 
       <header class="tb-article-header">
         <h1 class="tb-article-title">AWS</h1>
-        <p class="tb-hero-desc" data-category-count>Posts collected under this category.</p>
+        <p class="tb-hero-desc" data-category-count>5 posts</p>
       </header>
 
       <section style="margin:24px 0;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:8px">
@@ -68,15 +68,11 @@
 
       <h2 style="font-size:16px;font-weight:600;margin:24px 0 12px">Posts</h2>
       <ul class="tb-post-list" id="categoryPosts" data-category="cloud/aws">
-<li><div class="tb-empty-state">
-  <div class="tb-empty-icon">📭</div>
-  <h3>No posts yet</h3>
-  <p>Browse other categories or check out all posts.</p>
-  <div class="tb-empty-actions">
-    <a class="tb-btn tb-btn-primary" href="en/">← All posts</a>
-    <a class="tb-btn" href="en/category/cloud/">↑ Parent — Cloud &amp; Architecture</a>
-  </div>
-</div></li>
+        <li><a class="tb-post-card" href="en/aws-nat-gateway-guide/"><div class="tb-post-thumb has-img"><img src="assets/posts/aws-nat-gateway-guide/cover.png" alt="" loading="lazy"></div><div class="tb-post-body"><h3 class="tb-post-title">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</h3><p class="tb-post-excerpt">A NAT Gateway lets Private Subnet EC2s use outbound internet (apt, external APIs) while staying secure — step-by-step creation, EIP attach, routing + a cost analysis and the NAT-instance alternative.</p><div class="tb-post-meta"><time>2026-02-14</time><span>·</span><span class="tb-post-tags">#AWS #NAT Gateway #VPC #networking #cost-optimization</span></div></div></a></li>
+        <li><a class="tb-post-card" href="en/aws-cost-optimization/"><div class="tb-post-thumb has-img"><img src="assets/posts/aws-cost-optimization/cover.png" alt="" loading="lazy"></div><div class="tb-post-body"><h3 class="tb-post-title">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</h3><p class="tb-post-excerpt">~20% from EC2 architecture (x86 → ARM/Graviton) alone, and up to 55% (about ₩2M/month) off by replacing ALB, NAT, and RDS with Nginx, a NAT instance, and an EC2 DB — real quotes and strategy.</p><div class="tb-post-meta"><time>2026-02-12</time><span>·</span><span class="tb-post-tags">#AWS #cost-optimization #Graviton #ARM #RDS</span></div></div></a></li>
+        <li><a class="tb-post-card" href="en/ec2-ssh-unprotected-private-key/"><div class="tb-post-thumb has-img"><img src="assets/posts/ec2-ssh-unprotected-private-key/cover.png" alt="" loading="lazy"></div><div class="tb-post-body"><h3 class="tb-post-title">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</h3><p class="tb-post-excerpt">When SSH-ing into EC2 you get &#39;WARNING: UNPROTECTED PRIVATE KEY FILE&#39; — the .pem key&#39;s permissions are too open. Fix it instantly with chmod 400.</p><div class="tb-post-meta"><time>2026-02-08</time><span>·</span><span class="tb-post-tags">#AWS #EC2 #SSH #troubleshooting #Linux</span></div></div></a></li>
+        <li><a class="tb-post-card" href="en/nat-instance-build-2/"><div class="tb-post-thumb has-img"><img src="assets/posts/nat-instance-build-2/cover.png" alt="" loading="lazy"></div><div class="tb-post-body"><h3 class="tb-post-title">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)</h3><p class="tb-post-excerpt">The Part 1 community AMI runs an old (EOS) OS and is hard to maintain. In Part 2 we build a NAT instance on the latest Ubuntu by configuring iptables directly (IP forwarding + MASQUERADE), and persist the rules across reboots.</p><div class="tb-post-meta"><time>2024-12-29</time><span>·</span><span class="tb-post-tags">#AWS #NAT Instance #iptables #networking #cost-saving</span></div></div></a></li>
+        <li><a class="tb-post-card" href="en/nat-instance-build-1/"><div class="tb-post-thumb has-img"><img src="assets/posts/nat-instance-build-1/cover.png" alt="" loading="lazy"></div><div class="tb-post-body"><h3 class="tb-post-title">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance from an AMI (Part 1)</h3><p class="tb-post-excerpt">A NAT Gateway costs $32+/month in fixed fees. To save money, I connected a Private Subnet to the internet using an EC2 NAT Instance — Part 1 uses the AWS community AMI (amzn-ami-vpc-nat).</p><div class="tb-post-meta"><time>2024-12-28</time><span>·</span><span class="tb-post-tags">#AWS #NAT Instance #VPC #networking #cost-saving</span></div></div></a></li>
       </ul>
     </article>
 
@@ -102,6 +98,6 @@
 <script src="assets/sidebar.js?v=1780150263"></script>
 <script src="assets/nav.js?v=1779678971"></script>
 <script src="assets/anchors.js?v=1779960701"></script>
-<script src="assets/category-posts.js?v=1780150266"></script>
+<script src="assets/category-posts.js?v=1780179402"></script>
 </body>
 </html>
