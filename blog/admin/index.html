@@ -28,6 +28,9 @@
   try { document.title = "관리자 전용 · TAYSTUDIO Blog"; } catch(e) {}
 
   document.addEventListener("DOMContentLoaded", function() {
+    // 가드 stylesheet 제거 — body{display:none!important} 해제 (inline 으로 못 덮음)
+    st.remove();
+
     // 사이트 테마 변수 활용 — dark mode 자동
     var s = document.createElement("style");
     s.textContent = [
