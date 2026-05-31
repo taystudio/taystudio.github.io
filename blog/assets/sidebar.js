@@ -213,10 +213,9 @@
             saveCollapsed();
           };
 
-          // ▶ 화살표·라벨(a 태그) 둘 다 토글 트리거
+          // ▶ 화살표만 토글. 라벨(a) 은 기본 동작(=카테고리 페이지 이동) 유지.
           toggle.addEventListener('click', doToggle);
-          a.addEventListener('click', doToggle);
-          // 우클릭·새탭은 그대로 작동 (href 유지)
+          // (이전엔 a 도 doToggle 로 가로채 부모 카테고리 페이지 진입 불가 버그였음)
         }
 
         ul.appendChild(li);
