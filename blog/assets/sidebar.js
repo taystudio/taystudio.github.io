@@ -283,8 +283,9 @@
           }
           saveCollapsed();
         };
+        // ▶ 토글 아이콘 클릭만 접힘/펼침. <a> 이름 클릭은 기본 동작(=카테고리 페이지 이동) 유지.
+        // 이전엔 <a> 클릭도 doToggle 로 가로채서 부모 카테고리 페이지에 진입 불가했던 버그 수정.
         toggle.addEventListener('click', doToggle);
-        if (a) a.addEventListener('click', doToggle);
       });
     }
 
