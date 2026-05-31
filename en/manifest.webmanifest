@@ -1,7 +1,7 @@
 {
   "name": "TAYSTUDIO — Free privacy-first browser tools",
   "short_name": "TAYSTUDIO",
-  "description": "28 free everyday tools — calculators, image, PDF, video, and text utilities. All processing in your browser, no upload, no signup.",
+  "description": "36 free everyday tools — calculators, image, PDF, video, and text utilities. All processing in your browser, no upload, no signup.",
   "start_url": "/en/",
   "scope": "/en/",
   "display": "standalone",

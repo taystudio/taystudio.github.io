@@ -133,6 +133,10 @@ function loadFile(file) {
     alert('이미지 파일만 선택해주세요.');
     return;
   }
+  if (file.size === 0) {
+    alert('빈 파일입니다. 다른 이미지를 선택해주세요.');
+    return;
+  }
   if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, '이미지')) return;
   originalFile = file;
   const url = URL.createObjectURL(file);
