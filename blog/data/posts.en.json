@@ -624,5 +624,28 @@
     ],
     "image": "assets/posts/uncertainty-variance/cover.webp",
     "lang": "en"
+  },
+  {
+    "slug": "web-performance-measure-curl-sips",
+    "title": "Measuring Web Performance — TTFB, Page Weight, Image Audit with curl, sips, and Python",
+    "date": "2026-05-31",
+    "excerpt": "You don't need Lighthouse for diagnosis. curl -w timing variables give you TTFB and total time, sips reads image dimensions and bytes, and Python aggregates per-page asset weight. A 30-line script you can drop into CI for quantitative regression checks.",
+    "category": [
+      "web-dev"
+    ],
+    "tags": [
+      "performance",
+      "curl",
+      "web-perf",
+      "CWV",
+      "LCP",
+      "TTFB",
+      "page-speed",
+      "sips",
+      "audit",
+      "measurement"
+    ],
+    "image": "assets/posts/web-performance-measure-curl-sips/cover.svg",
+    "lang": "en"
   }
 ]
