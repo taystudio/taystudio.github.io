@@ -97,7 +97,7 @@
           "name": "공시가격이 시세랑 다른가요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "네. 공시가격은 국토교통부가 매년 1월 1일 기준으로 산정·고시하는 가격으로, 일반적으로 시세의 약 60~80% 수준입니다. 재산세 과세표준은 공시가격 × 60% (공정시장가액비율). 즉 시세 10억 → 공시 약 7억 → 과표 약 4.2억."
+            "text": "네. 공시가격은 국토교통부가 매년 1월 1일 기준으로 산정·고시하는 가격으로, 일반적으로 시세의 약 60~80% 수준입니다. 재산세 과세표준 = 공시가격 × 공정시장가액비율. 일반 주택 60%, 1세대 1주택 특례 시 시가표준액 3억 이하 43% / 3~6억 44% / 6억 초과 45% 차등 적용 (지방세법 시행령 제109조, 2026년도)."
           }
         },
         {
@@ -167,7 +167,7 @@
         <div id="rateLabel" class="result-sub">-</div>
       </div>
       <div class="breakdown">
-        <div class="breakdown-row"><span class="label">과세표준 (공시가 × 60%)</span><span id="base" class="value">0원</span></div>
+        <div class="breakdown-row"><span class="label">과세표준 (공시가 × 공정시장가액비율)</span><span id="base" class="value">0원</span></div>
         <div class="breakdown-row"><span class="label">재산세 (본세)</span><span id="propTax" class="value">0원</span></div>
         <div class="breakdown-row"><span class="label">도시지역분 (0.14%)</span><span id="urban" class="value">0원</span></div>
         <div class="breakdown-row total"><span class="label">지방교육세 (재산세의 20%)</span><span id="eduTax" class="value">0원</span></div>
@@ -192,7 +192,7 @@
           </tbody>
         </table>
       </div>
-      <p class="small">과세표준 = 공시가격 × 60% (공정시장가액비율). 1주택 특례는 공시 9억 이하 + 단독명의만.</p>
+      <p class="small">과세표준 = 공시가격 × 공정시장가액비율. <b>일반 주택 60%</b>, <b>1세대 1주택 특례 시 차등 적용</b> (3억 이하 43% / 3~6억 44% / 6억 초과 45% — 지방세법 시행령 제109조, 2026년도). 1주택 특례세율은 공시 9억 이하 + 단독명의만.</p>
     </section>
 
     <section class="tool-article">
@@ -209,6 +209,47 @@
         </table>
       </div>
       <p class="small">7월·9월 두 차례 분납. 위택스에서 자동 고지서 발송.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>공시가격 × 보유 유형 매트릭스 — 연 총 보유세 (재산세 + 도시지역분 + 지방교육세)</h2>
+      <p>같은 공시가격이라도 보유 유형에 따라 연간 재산세 총액이 크게 달라집니다. 1세대 1주택 단독명의는 시가표준액 차등 공정시장가액비율(43/44/45%) + 특례세율을 함께 받아 가장 유리합니다.</p>
+      <div class="ref-table">
+        <table>
+          <thead>
+            <tr>
+              <th rowspan="2">공시가격</th>
+              <th colspan="3">연 총 보유세</th>
+              <th rowspan="2">1주택 vs 다주택 차이</th>
+            </tr>
+            <tr>
+              <th>1세대 1주택 (단독명의)</th>
+              <th>다주택 합산<sup>1</sup></th>
+              <th>공동명의 (1/2씩)<sup>2</sup></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1억</td><td class="highlight">86,000</td><td>156,000</td><td>156,000</td><td>−70,000 (45%)</td></tr>
+            <tr><td>2억</td><td class="highlight">187,600</td><td>312,000</td><td>312,000</td><td>−124,400 (40%)</td></tr>
+            <tr><td>3억</td><td class="highlight">299,400</td><td>558,000</td><td>432,000</td><td>−258,600 (46%)</td></tr>
+            <tr><td>4억</td><td class="highlight">524,800</td><td>822,000</td><td>624,000</td><td>−297,200 (36%)</td></tr>
+            <tr><td>5억</td><td class="highlight">692,000</td><td>1,086,000</td><td>816,000</td><td>−394,000 (36%)</td></tr>
+            <tr><td>6억</td><td class="highlight">859,200</td><td>1,548,000</td><td>1,116,000</td><td>−688,800 (44%)</td></tr>
+            <tr><td>7억</td><td class="highlight">1,260,000</td><td>1,920,000</td><td>1,380,000</td><td>−660,000 (34%)</td></tr>
+            <tr><td>8억</td><td class="highlight">1,512,000</td><td>2,292,000</td><td>1,644,000</td><td>−780,000 (34%)</td></tr>
+            <tr><td>9억</td><td class="highlight">1,764,000</td><td>2,664,000</td><td>1,908,000</td><td>−900,000 (34%)</td></tr>
+            <tr><td>12억<sup>3</sup></td><td>2,664,000</td><td>3,780,000</td><td>3,096,000</td><td>−1,116,000 (30%)</td></tr>
+            <tr><td>15억<sup>3</sup></td><td>3,501,000</td><td>4,896,000</td><td>4,212,000</td><td>−1,395,000 (28%)</td></tr>
+            <tr><td>20억<sup>3</sup></td><td>4,896,000</td><td>6,756,000</td><td>6,072,000</td><td>−1,860,000 (28%)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">
+        <sup>1</sup> 다주택자는 공정시장가액비율 60% + 일반세율 적용. 종합부동산세 별도 (공시 9억 초과).<br>
+        <sup>2</sup> 공동명의는 각자 1주택 단독명의가 아니므로 특례 X. 단 종부세 합산은 절반씩 분리 (양도세는 트레이드오프).<br>
+        <sup>3</sup> 공시 9억 초과 1주택은 특례세율 미적용, 공정시장가액비율 45% + 일반세율 적용. 종합부동산세 (1주택 12억 공제) 별도 합산 필요.<br>
+        <b>1주택자가 단독명의 특례를 받으면 일반 다주택 대비 28~46% 절감</b>. 다만 공동명의는 종부세에서 유리할 수 있어 케이스별 비교 필요.
+      </p>
     </section>
 
     <section class="disclosure-group">
@@ -241,7 +282,7 @@
           <div class="case-grid">
             <div class="case"><b>공시가격</b>국토교통부가 매년 1월 1일 기준으로 산정·고시. 시세의 약 60~80% 수준 (지역·유형별 차이).</div>
             <div class="case"><b>현실화율</b>2020년부터 공시가격 현실화 정책으로 시세 대비 비율을 90%까지 단계적 상향했으나, 2024년 정부 정책 변경으로 동결.</div>
-            <div class="case"><b>공정시장가액비율</b>주택은 공시가격의 60% (지방세법 시행령 제109조). 즉 과세표준 = 시세의 36~48% 수준.</div>
+            <div class="case"><b>공정시장가액비율</b>일반 주택 60%, <b>1세대 1주택 특례는 시가표준 차등</b> (3억 이하 43% / 3~6억 44% / 6억 초과 45%) — 지방세법 시행령 제109조 (2026년도 한시 적용, 매년 갱신). 1주택자는 일반 세부담의 약 27~33% 경감.</div>
             <div class="case"><b>이의신청</b>매년 4월에 공시가격 열람·이의신청 가능. 객관적 사유(인근 주택 비교 등) 있으면 조정 가능.</div>
           </div>
         </div>
@@ -326,7 +367,7 @@
         <summary>공시가격이 시세랑 다른가요?</summary>
         <div class="answer">
           네. 공시가격은 국토교통부가 매년 1월 1일 기준으로 산정·고시하는 가격으로, 일반적으로
-          시세의 약 60 ~ 80% 수준입니다. 재산세 과세표준은 <b>공시가격 × 60%</b> (공정시장가액비율).
+          시세의 약 60 ~ 80% 수준입니다. 재산세 과세표준 = <b>공시가격 × 공정시장가액비율</b>. 일반 주택은 60%, 1세대 1주택 특례 시 시가표준 3억 이하 43% / 3~6억 44% / 6억 초과 45% 차등 (2026년도).
           즉 시세 10억 → 공시 약 7억 → 과표 약 4.2억.
         </div>
       </details>
@@ -370,10 +411,10 @@
 
     <section class="sources">
       <h2>적용된 법령·고시 및 출처</h2>
-      <div class="updated">최종 검증: 2026-04-29 / 적용 기준: 2026년 1월</div>
+      <div class="updated">최종 검증: 2026-06-01 / 적용 기준: 2026년도 재산세 (시행령 2026.5.29 개정, 2026.6.1 시행)</div>
       <ul>
         <li><b>주택 재산세 세율</b> — 지방세법 제111조 (일반세율 0.1~0.4%), 제111조의2 (1주택 특례세율 0.05~0.35%). <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A7%80%EB%B0%A9%EC%84%B8%EB%B2%95/%EC%A0%9C111%EC%A1%B0" target="_blank" rel="noopener">국가법령정보센터</a></li>
-        <li><b>공정시장가액비율 60%</b> (주택) — 지방세법 시행령 제109조</li>
+        <li><b>공정시장가액비율</b> — 지방세법 시행령 제109조. 일반 주택 60%, 1세대 1주택 특례 시 시가표준 3억 이하 43% / 3~6억 44% / 6억 초과 45% 차등 (2026년도 한시 적용, 2026.6.1 시행). 출처: <a href="https://www.korea.kr/news/policyNewsView.do?newsId=148941752" target="_blank" rel="noopener">행정안전부 「1주택자 재산세 부담 올해도 지속 완화」</a> · <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsId=001649" target="_blank" rel="noopener">지방세법 시행령</a></li>
         <li><b>도시지역분 0.14%</b> — 지방세법 제112조</li>
         <li><b>지방교육세 20%</b> (재산세의) — 지방세법 제151조</li>
         <li><b>위택스 지방세 미리계산</b> — <a href="https://www.wetax.go.kr/tcp/loi/J030801M01.do" target="_blank" rel="noopener">위택스 (행정안전부)</a></li>

@@ -245,6 +245,21 @@
       </details>
     </section>
 
+    <section class="sources">
+      <h2>적용된 산정 방식·출처</h2>
+      <div class="updated">최종 검증: 2026-06-01 / 적용 기준: ISO 8601 (Gregorian Calendar)</div>
+      <ul>
+        <li><b>D-Day 용어 유래</b> — 군사 작전 시점을 의미하는 미군 표현. WWI 1918년부터 사용되었고, 1944년 6월 6일 노르망디 상륙작전 (Operation Overlord)으로 대중에 알려졌습니다.</li>
+        <li><b>날짜 산정</b> — JavaScript Date 객체 기반. 윤년·서머타임 자동 처리 (Gregorian Calendar 365.2425일/년).</li>
+        <li><b>월 환산</b> — 평균 한 달 30.4375일 (= 365.25 ÷ 12) 기준.</li>
+        <li><b>연 환산</b> — Julian 평균 365.25일/년 (Gregorian 365.2425일과 0.008일 차이, 1년에 12분 차이).</li>
+        <li><b>D-0 / D-N / D+N 표기</b> — D-Day 기준 음수 = 도래 전, 양수 = 도래 후. 한국 군대·교육·홍보 통용 표기.</li>
+      </ul>
+      <div class="note">
+        ⚠️ 본 계산기는 양력 (Gregorian Calendar) 기준입니다. 음력 환산은 별도 처리 필요. 윤일 (2월 29일) 입력 시 일부 환산에 윤년 차이 발생 가능.
+      </div>
+    </section>
+
     <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
       <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 38개 계산기 모두 보기</a>
     </nav>

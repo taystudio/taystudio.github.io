@@ -37,7 +37,7 @@ document.getElementById("form").addEventListener("submit", (e) => {
   // 정상범위 체중 (BMI 18.5~22.9)
   const minNormal = 18.5 * m * m;
   const maxNormal = 22.9 * m * m;
-  const idealWeight = 21 * m * m;
+  const idealWeight = 22 * m * m;  // 한국 비만학회 정상 범위 (18.5~22.9) 중간값 — HTML FAQ "BMI 22 기준 175cm → 67.4kg" 일치
 
   document.getElementById("result").style.display = "block";
   document.getElementById("bmi").textContent = bmi.toFixed(1);
@@ -45,7 +45,7 @@ document.getElementById("form").addEventListener("submit", (e) => {
   document.getElementById("category").textContent = cls.label;
   document.getElementById("category").style.color = cls.color;
   document.getElementById("idealRange").textContent = `${minNormal.toFixed(1)}~${maxNormal.toFixed(1)}kg`;
-  document.getElementById("ideal").textContent = `${idealWeight.toFixed(1)}kg (BMI 21 기준)`;
+  document.getElementById("ideal").textContent = `${idealWeight.toFixed(1)}kg (BMI 22 기준)`;
   const diff = weight - idealWeight;
   document.getElementById("diff").textContent =
     diff > 0 ? `+${diff.toFixed(1)}kg 초과` : diff < 0 ? `${diff.toFixed(1)}kg 부족` : "이상 체중과 일치";

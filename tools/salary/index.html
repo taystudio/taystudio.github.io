@@ -32,8 +32,8 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <title>연봉 실수령액 계산기 2026 | 4대보험·세금 차감</title>
-  <meta name="description" content="2026년 기준 연봉 실수령액(월급 세후) 즉시 계산. 국민연금 4.5%·건강보험 3.545%·장기요양 0.4591%·고용보험 0.9%·소득세 누진세율·지방소득세까지 반영. 4대보험·세금 항목별 추정치 제공. 무료, 가입 없음.">
-  <meta name="keywords" content="연봉 실수령액, 연봉 계산기, 월급 실수령, 4대보험 계산, 세후 월급">
+  <meta name="description" content="2026년 기준 연봉 실수령액(월급 세후) 즉시 계산. 국민연금 9.5%(근로자 4.75%)·건강보험 7.19%(근로자 3.595%)·장기요양 0.9448%·고용보험 0.9%·소득세 누진세율·지방소득세까지 반영. 2026~2033 국민연금 8년 인상 시뮬레이션 표 포함. 무료, 가입 없음.">
+  <meta name="keywords" content="연봉 실수령액, 연봉 계산기, 월급 실수령, 4대보험 계산, 세후 월급, 국민연금 인상">
   <link rel="canonical" href="https://taystudios.com/tools/salary/">
   <link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/salary/">
   <link rel="alternate" hreflang="x-default" href="https://taystudios.com/tools/salary/">
@@ -176,8 +176,8 @@
     },
     {
       "@type": "Dataset",
-      "name": "2026년 한국 4대보험 요율 + 소득세 누진세율",
-      "description": "한국 직장인의 2026년 4대보험 (국민연금 4.5% · 건강보험 3.595% · 장기요양 0.9182% · 고용보험 0.9%) + 소득세 누진세율 8단계 (과세표준 1,400만~10억 구간, 6%~45%) 데이터셋. 근로자 부담 기준. 국민건강보험공단·국민연금공단·근로복지공단·국세청 공식 요율 + 근로소득세액공제 한도 (74만/66만/50만) 포함. 연봉 실수령액 계산용.",
+      "name": "2026년 한국 4대보험 요율 + 소득세 누진세율 + 국민연금 2026~2033 인상 일정",
+      "description": "한국 직장인의 2026년 4대보험 (국민연금 9.5%/근로자 4.75% · 건강보험 7.19%/근로자 3.595% · 장기요양 0.9448% · 고용보험 0.9%) + 소득세 누진세율 8단계 (과세표준 1,400만~10억, 6%~45%) + 2025.12.29 정부 발표에 따른 국민연금 보험료율 8년 단계적 인상 계획 (2026 9.5% → 2033 13%, 매년 0.5%p) 데이터셋. 근로자 부담 기준. 국민건강보험공단·국민연금공단·근로복지공단·국세청 공식 요율 + 근로소득세액공제 한도(74만/66만/50만) + 국민연금 월 보수 상한 637만원 포함.",
       "url": "https://taystudios.com/tools/salary/",
       "spatialCoverage": {
         "@type": "Place",
@@ -201,21 +201,21 @@
       "variableMeasured": [
         {
           "@type": "PropertyValue",
-          "name": "국민연금 (근로자 부담)",
-          "value": "4.5%",
-          "description": "소득월액의 4.5% (사업주 동률 부담)"
+          "name": "국민연금 (근로자 부담, 2026)",
+          "value": "4.75%",
+          "description": "보수월액의 4.75% (사업주 동률 부담, 합계 9.5%). 2025.12.29 정부 발표에 따라 2026년부터 매년 0.5%p 인상, 2033년 13% 도달 예정."
         },
         {
           "@type": "PropertyValue",
-          "name": "건강보험 (근로자 부담)",
-          "value": "3.545%",
-          "description": "소득월액의 3.545% (사업주 동률 부담)"
+          "name": "건강보험 (근로자 부담, 2026)",
+          "value": "3.595%",
+          "description": "보수월액의 3.595% (사업주 동률 부담, 합계 7.19%). 2026년 기준."
         },
         {
           "@type": "PropertyValue",
-          "name": "장기요양보험 (건강보험료의)",
-          "value": "12.95%",
-          "description": "건강보험료의 12.95% (근로자 부담분 = 약 0.4591%)"
+          "name": "장기요양보험 (보수월액 직접 비율, 2026)",
+          "value": "0.9448%",
+          "description": "보수월액의 0.9448% (근로자 부담분 = 0.4724%). 2026년부터 보수월액 직접 비율 방식 적용."
         },
         {
           "@type": "PropertyValue",
@@ -371,6 +371,62 @@
         </table>
       </div>
       <p class="small">국민연금은 2026년부터 매년 0.5%p씩 인상되어 2033년 합계 13%(근로자 6.5%)에 도달합니다. 산재보험은 100% 회사 부담이라 근로자 실수령액에 영향 없음.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>국민연금 인상 시뮬레이션 — 2026 ~ 2033 (8년)</h2>
+      <p>2025년 12월 정부 발표로 <b>국민연금 보험료율이 2007년 이후 19년 만에 인상</b>됩니다. 현행 9%에서 <b>13%로 4%p 인상</b>되며, 2026년부터 매년 0.5%p씩 8년간 단계적으로 적용됩니다. 근로자 부담은 4.5% → 6.5%로 약 <b>1.44배</b> 증가.</p>
+
+      <h3 style="margin-top:20px;font-size:16px">연도별 보험료율 변화</h3>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>연도</th><th>합계</th><th>근로자</th><th>회사</th><th>2026 대비</th></tr></thead>
+          <tbody>
+            <tr><td>2026</td><td>9.5%</td><td class="highlight">4.75%</td><td>4.75%</td><td>—</td></tr>
+            <tr><td>2027</td><td>10.0%</td><td>5.00%</td><td>5.00%</td><td>+0.25%p</td></tr>
+            <tr><td>2028</td><td>10.5%</td><td>5.25%</td><td>5.25%</td><td>+0.50%p</td></tr>
+            <tr><td>2029</td><td>11.0%</td><td>5.50%</td><td>5.50%</td><td>+0.75%p</td></tr>
+            <tr><td>2030</td><td>11.5%</td><td>5.75%</td><td>5.75%</td><td>+1.00%p</td></tr>
+            <tr><td>2031</td><td>12.0%</td><td>6.00%</td><td>6.00%</td><td>+1.25%p</td></tr>
+            <tr><td>2032</td><td>12.5%</td><td>6.25%</td><td>6.25%</td><td>+1.50%p</td></tr>
+            <tr><td>2033</td><td><b>13.0%</b></td><td><b class="highlight">6.50%</b></td><td>6.50%</td><td><b>+1.75%p</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top:20px;font-size:16px">연봉별 월 국민연금 부담 추이 (근로자 부담분)</h3>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>연도</th><th>3,000만</th><th>5,000만</th><th>8,000만</th><th>1.2억<sup>*</sup></th></tr></thead>
+          <tbody>
+            <tr><td>2026</td><td>118,750</td><td>197,917</td><td>302,575</td><td>302,575</td></tr>
+            <tr><td>2027</td><td>125,000</td><td>208,333</td><td>318,500</td><td>318,500</td></tr>
+            <tr><td>2028</td><td>131,250</td><td>218,750</td><td>334,425</td><td>334,425</td></tr>
+            <tr><td>2029</td><td>137,500</td><td>229,167</td><td>350,350</td><td>350,350</td></tr>
+            <tr><td>2030</td><td>143,750</td><td>239,583</td><td>366,275</td><td>366,275</td></tr>
+            <tr><td>2031</td><td>150,000</td><td>250,000</td><td>382,200</td><td>382,200</td></tr>
+            <tr><td>2032</td><td>156,250</td><td>260,417</td><td>398,125</td><td>398,125</td></tr>
+            <tr><td>2033</td><td><b class="highlight">162,500</b></td><td><b class="highlight">270,833</b></td><td><b class="highlight">414,050</b></td><td><b class="highlight">414,050</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small"><sup>*</sup> 국민연금 산정 기준 <b>월 보수 상한 637만원</b> (2025.7~2026.6 적용)이 있어 월 보수가 상한을 초과하는 구간 (연봉 약 7,650만원 이상)부터는 부담액이 동일하게 절단됩니다. 8,000만·1.2억이 같은 이유. 상한은 매년 전국 평균소득 인상률 따라 조정.</p>
+
+      <h3 style="margin-top:20px;font-size:16px">연봉별 8년 누적 본인 추가 부담 (2026 → 2033)</h3>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>연봉</th><th>8년 누적 추가</th><th>월평균 추가</th><th>2033년 월 부담</th><th>2026년 월 부담</th></tr></thead>
+          <tbody>
+            <tr><td>3,000만</td><td class="highlight">2,100,000원</td><td>21,875원</td><td>162,500원</td><td>118,750원</td></tr>
+            <tr><td>5,000만</td><td class="highlight">3,500,000원</td><td>36,458원</td><td>270,833원</td><td>197,917원</td></tr>
+            <tr><td>8,000만</td><td class="highlight">5,350,800원</td><td>55,738원</td><td>414,050원</td><td>302,575원</td></tr>
+            <tr><td>1.2억<sup>*</sup></td><td class="highlight">5,350,800원</td><td>55,738원</td><td>414,050원</td><td>302,575원</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">평균 직장인(연봉 5천만) 기준 <b>8년간 350만원 추가 부담</b>, 월 평균 약 3.6만원 더 빠지게 됩니다. 다만 인상된 보험료는 그대로 본인의 노후 연금액 산정에 반영되어 수령액도 증가하므로 단순 손실이 아닙니다.</p>
+
+      <p class="small" style="margin-top:12px;padding:12px;background:var(--accent-bg);border-radius:6px"><b>📌 본 계산기는 이미 2026년 9.5%(근로자 4.75%) 기준으로 적용 중</b>입니다. 2027년 이후 보험료율은 연도가 바뀔 때마다 본 사이트에서도 단계적으로 반영 예정.</p>
     </section>
 
     <section class="tool-article">
