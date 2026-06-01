@@ -150,9 +150,11 @@ function getQuality() {
 modeRadios.forEach(r => r.addEventListener('change', () => {
   const mode = getMode();
   modeRadioLabels.forEach(l => l.classList.toggle('active', l.dataset.mode === mode));
-  // 사진 옵션은 photo 또는 auto 일 때 (auto 가 photo 로 갈 수 있어서) 표시
-  photoOptions.classList.toggle('hidden', mode === 'logo');
-  logoOptions.classList.toggle('hidden', mode === 'photo' || mode === 'auto');
+  // 자동 모드는 모든 결정을 자동으로 → 품질·tolerance 모두 숨김
+  // 사진 모드 → 품질 선택 노출
+  // 로고 모드 → tolerance·배경색 노출
+  photoOptions.classList.toggle('hidden', mode !== 'photo');
+  logoOptions.classList.toggle('hidden', mode !== 'logo');
   // 자동 감지 결과 표시는 auto 모드일 때만
   const autoResult = document.getElementById('autoDetectResult');
   if (autoResult) autoResult.style.display = (mode === 'auto' && autoResult.textContent) ? 'block' : 'none';
@@ -223,6 +225,7 @@ function setProgress(key, current, total) {
     else if (key.startsWith('compute:')) label = '배경 분석 중';
     else if (key === 'starting') label = '준비 중';
     else if (key === 'chroma') label = '색상 기반 제거 중';
+    else if (key === 'cleanup') label = '흰 배경 잔여 정리 중';
   }
   progressText.textContent = label + ' — ' + (Number.isFinite(pct) ? pct + '%' : '...');
 }
@@ -334,6 +337,58 @@ function hexToRgb(hex) {
   return { r: parseInt(m[1], 16), g: parseInt(m[2], 16), b: parseInt(m[3], 16) };
 }
 
+/**
+ * ML 결과 hybrid 후처리 — ISNet 마스크에 흰 배경 픽셀 강제 알파 0 보강.
+ *
+ * 동기:
+ *  ISNet 같은 ML matting 모델이 흰 배경 일부를 "회색 부드러운 배경" 등으로
+ *  판단해 알파를 0이 아닌 값으로 남기는 경우, 결과가 "번지듯" 보임.
+ *  ML 마스크는 신뢰하되, RGB가 명확히 흰색에 가까운 픽셀은 강제 알파 0 처리.
+ *
+ * 알고리즘:
+ *  - ML 결과 이미지의 각 픽셀 (R,G,B,A) 검사
+ *  - A > 0 (ML 이 전경으로 판단했지만):
+ *      · R,G,B 모두 ≥ threshold(default 240) AND
+ *      · 색상 분산 < 10 (단색 흰색에 가까움)
+ *      → 알파 0 으로 강제 (배경으로 재분류)
+ *  - 회색 텍스트(R≈140 등)는 threshold 미만이라 그대로 보존
+ *  - 검은 텍스트(R<50)는 명확한 전경이라 그대로 보존
+ *
+ * → ML 의 인물·털 디테일은 유지하면서 흰 배경 잔여만 깨끗 제거.
+ */
+async function hybridWhiteCleanup(blob, threshold = 240) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const url = URL.createObjectURL(blob);
+    img.onload = () => {
+      const w = img.naturalWidth, h = img.naturalHeight;
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+      const imageData = ctx.getImageData(0, 0, w, h);
+      const data = imageData.data;
+      const len = data.length;
+      for (let i = 0; i < len; i += 4) {
+        const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
+        if (a === 0) continue;  // 이미 투명 — skip
+        if (r >= threshold && g >= threshold && b >= threshold) {
+          const maxDiff = Math.max(Math.abs(r - g), Math.abs(g - b), Math.abs(r - b));
+          if (maxDiff < 10) {
+            data[i + 3] = 0;  // 흰색에 매우 가까운 픽셀 → 강제 알파 0
+          }
+        }
+      }
+      ctx.putImageData(imageData, 0, 0);
+      canvas.toBlob((b) => resolve(b), 'image/png');
+    };
+    img.onerror = () => resolve(blob);  // 실패 시 원본 그대로
+    img.src = url;
+  });
+}
+
 async function run() {
   if (!currentFile) return;
   const myRun = ++runSeq;
@@ -373,13 +428,19 @@ async function run() {
       blob = await chromaKey(currentFile, bg, tolerance);
       setProgress('chroma', 100, 100);
     } else {
-      const quality = getQuality();
+      // 사진 모드 — 사용자 명시 사진은 사용자 선택 품질 그대로, 자동 모드는 균형(fp16) default
+      const quality = (mode === 'auto') ? 'isnet_fp16' : getQuality();
       blob = await removeBackground(currentFile, {
         model: quality,
         output: { format: 'image/png', quality: 0.9 },
         publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
         progress: setProgress
       });
+      // ML 결과에 흰 배경 후처리 적용 (threshold 240 + 색상 분산 < 10 = 거의 순수 흰색만)
+      // 인물 가장자리 등 미세 디테일은 보존되고, ML 이 미스한 흰 배경 잔여만 깨끗 제거
+      setProgress('cleanup', 0, 100);
+      blob = await hybridWhiteCleanup(blob, 240);
+      setProgress('cleanup', 100, 100);
     }
 
     if (myRun !== activeRun) return;
