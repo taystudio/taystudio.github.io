@@ -225,6 +225,7 @@ function setProgress(key, current, total) {
     else if (key.startsWith('compute:')) label = '배경 분석 중';
     else if (key === 'starting') label = '준비 중';
     else if (key === 'chroma') label = '색상 기반 제거 중';
+    else if (key === 'combine') label = '회색 텍스트 복원 합성';
     else if (key === 'cleanup') label = '흰 배경 잔여 정리 중';
   }
   progressText.textContent = label + ' — ' + (Number.isFinite(pct) ? pct + '%' : '...');
@@ -338,24 +339,104 @@ function hexToRgb(hex) {
 }
 
 /**
- * ML 결과 hybrid 후처리 — ISNet 마스크에 흰 배경 픽셀 강제 알파 0 보강.
+ * ML 결과 hybrid 후처리 — ISNet 마스크의 흰 배경 잔여를 강제 알파 0.
  *
  * 동기:
- *  ISNet 같은 ML matting 모델이 흰 배경 일부를 "회색 부드러운 배경" 등으로
- *  판단해 알파를 0이 아닌 값으로 남기는 경우, 결과가 "번지듯" 보임.
- *  ML 마스크는 신뢰하되, RGB가 명확히 흰색에 가까운 픽셀은 강제 알파 0 처리.
+ *  ISNet ML matting 모델이 흰 배경 일부를 "회색 부드러운 배경" 등으로 판단해
+ *  결과를 점진 알파(semi-transparent)로 출력하면 사용자에게 흰 번짐(halo) 으로 보임.
+ *  ML 마스크는 신뢰하되 RGB가 명확히 흰색에 가까운 픽셀은 강제 제거.
+ *
+ * 알고리즘 (3 단계):
+ *  1. 완전 흰 픽셀 (R,G,B ≥ threshold) 모두 → alpha 0
+ *      · 단색 흰색 (분산 < 10) — 배경 거의 확실
+ *      · 또는 점진 알파 (alpha < 255) 인 흰 픽셀 — ML 의 soft mask 잔여
+ *  2. 거의 흰 픽셀 (R,G,B ≥ threshold-25) 중 점진 알파 → 알파 비례 감쇠
+ *      · 안티에일리어싱 흰 가장자리 (예: RGB 220 alpha 100) → 알파 30 으로 감쇠
+ *      · 검은·회색 전경 안티에일리어싱은 영향 없음 (R < 215)
+ *  3. 명확한 전경 (alpha 255, RGB < threshold) → 보존
+ *
+ * 결과:
+ *  - 검은 텍스트(R<50) 보존
+ *  - 회색 텍스트(R 100-180) 보존
+ *  - 인물·옷·디테일 (alpha 255) 보존
+ *  - 흰 배경 잔여(semi-transparent) 모두 제거
+ */
+/**
+ * ML + Chroma Key OR 합성 — 흰 배경 케이스에서 회색·검은 텍스트 복원.
+ *
+ * 동기:
+ *  ISNet ML 모델이 회색 텍스트(예: "AI-Readable Data") 를 "부드러운 배경" 으로
+ *  오분류해 알파 0 만들면 hybridWhiteCleanup 으로는 복원 불가.
+ *  원본 이미지의 chroma key 결과와 합성하면 회색·검은 전경이 모두 살아남음.
  *
  * 알고리즘:
- *  - ML 결과 이미지의 각 픽셀 (R,G,B,A) 검사
- *  - A > 0 (ML 이 전경으로 판단했지만):
- *      · R,G,B 모두 ≥ threshold(default 240) AND
- *      · 색상 분산 < 10 (단색 흰색에 가까움)
- *      → 알파 0 으로 강제 (배경으로 재분류)
- *  - 회색 텍스트(R≈140 등)는 threshold 미만이라 그대로 보존
- *  - 검은 텍스트(R<50)는 명확한 전경이라 그대로 보존
+ *  1. 원본 이미지에 chroma key 처리 (흰 배경 제거 → 회색·검은 픽셀 모두 보존)
+ *  2. ML 결과와 chroma key 결과의 알파 OR 합성:
+ *      · final_alpha = max(ml_alpha, chroma_alpha)
+ *      · final_RGB = 원본 RGB (chroma key 의 원본 색상 유지)
+ *  3. 흰 배경은 두 마스크 모두 알파 0 → 깨끗 투명
+ *     회색 텍스트는 ML 0, chroma 255 → 알파 255 (복원!)
+ *     ML 잡은 디테일은 ML 255, chroma 0/일부 → 알파 255 유지
  *
- * → ML 의 인물·털 디테일은 유지하면서 흰 배경 잔여만 깨끗 제거.
+ * 안전성:
+ *  - 흰 옷 인물 사진 → ML 마스크가 사람 영역 알파 255 잡음 → 흰 옷 보존
+ *  - 다른 색 배경 사진 → chroma key 가 흰 배경 안 잡음 → ML 결과 그대로
+ *  - 회색 부제 + 흰 배경 로고 → 둘 다 살아남음
  */
+async function combineMlAndChromaKey(file, mlBlob, bgRGB, tolerance = 25) {
+  // 1. 원본에 chroma key 처리
+  const chromaBlob = await chromaKey(file, bgRGB, tolerance);
+
+  // 2. 두 결과를 동일 캔버스에 합성
+  return new Promise((resolve) => {
+    const mlImg = new Image();
+    const crImg = new Image();
+    const mlUrl = URL.createObjectURL(mlBlob);
+    const crUrl = URL.createObjectURL(chromaBlob);
+    let loaded = 0;
+    function onload() {
+      loaded++;
+      if (loaded < 2) return;
+      const w = mlImg.naturalWidth, h = mlImg.naturalHeight;
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      // ML 결과 그리기
+      ctx.drawImage(mlImg, 0, 0);
+      const mlData = ctx.getImageData(0, 0, w, h);
+      // Chroma key 결과 별도 캔버스
+      const crCanvas = document.createElement('canvas');
+      crCanvas.width = w;
+      crCanvas.height = h;
+      const crCtx = crCanvas.getContext('2d', { willReadFrequently: true });
+      crCtx.drawImage(crImg, 0, 0);
+      const crData = crCtx.getImageData(0, 0, w, h);
+      // OR 합성
+      const ml = mlData.data, cr = crData.data;
+      const len = ml.length;
+      for (let i = 0; i < len; i += 4) {
+        const finalAlpha = Math.max(ml[i + 3], cr[i + 3]);
+        // RGB 는 원본 색상 (chroma key 가 원본 보존)
+        ml[i] = cr[i];
+        ml[i + 1] = cr[i + 1];
+        ml[i + 2] = cr[i + 2];
+        ml[i + 3] = finalAlpha;
+      }
+      ctx.putImageData(mlData, 0, 0);
+      URL.revokeObjectURL(mlUrl);
+      URL.revokeObjectURL(crUrl);
+      canvas.toBlob((b) => resolve(b), 'image/png');
+    }
+    mlImg.onload = onload;
+    crImg.onload = onload;
+    mlImg.onerror = () => resolve(mlBlob);
+    crImg.onerror = () => resolve(mlBlob);
+    mlImg.src = mlUrl;
+    crImg.src = crUrl;
+  });
+}
+
 async function hybridWhiteCleanup(blob, threshold = 240) {
   return new Promise((resolve) => {
     const img = new Image();
@@ -371,20 +452,39 @@ async function hybridWhiteCleanup(blob, threshold = 240) {
       const imageData = ctx.getImageData(0, 0, w, h);
       const data = imageData.data;
       const len = data.length;
+      const nearWhite = threshold - 25;  // 거의 흰색 임계 (245-25 = 220)
+      let removed = 0, attenuated = 0;
       for (let i = 0; i < len; i += 4) {
         const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
-        if (a === 0) continue;  // 이미 투명 — skip
-        if (r >= threshold && g >= threshold && b >= threshold) {
-          const maxDiff = Math.max(Math.abs(r - g), Math.abs(g - b), Math.abs(r - b));
-          if (maxDiff < 10) {
-            data[i + 3] = 0;  // 흰색에 매우 가까운 픽셀 → 강제 알파 0
-          }
+        if (a === 0) continue;
+        const maxDiff = Math.max(Math.abs(r - g), Math.abs(g - b), Math.abs(r - b));
+
+        // Stage 1: 완전 흰 픽셀 (semi-transparent 포함) — 강제 알파 0
+        if (r >= threshold && g >= threshold && b >= threshold && maxDiff < 12) {
+          data[i + 3] = 0;
+          removed++;
+          continue;
+        }
+
+        // Stage 2: 거의 흰 픽셀 + 점진 알파 — 비례 감쇠 (안티에일리어싱 흰 가장자리)
+        // 검은·회색 전경 안티에일리어싱은 R < 215 라 영향 X
+        if (a < 255 && r >= nearWhite && g >= nearWhite && b >= nearWhite && maxDiff < 15) {
+          // RGB 가 흰색에 얼마나 가까운지 비율 (220 → 0%, 245 → 100%)
+          const minRGB = Math.min(r, g, b);
+          const whiteness = Math.max(0, (minRGB - nearWhite) / (threshold - nearWhite));
+          // 흰색일수록 더 많이 감쇠
+          data[i + 3] = Math.round(a * (1 - whiteness));
+          attenuated++;
         }
       }
       ctx.putImageData(imageData, 0, 0);
-      canvas.toBlob((b) => resolve(b), 'image/png');
+      canvas.toBlob((blobOut) => {
+        // 메타데이터 함께 반환
+        if (blobOut) blobOut._cleanup = { removed, attenuated };
+        resolve(blobOut);
+      }, 'image/png');
     };
-    img.onerror = () => resolve(blob);  // 실패 시 원본 그대로
+    img.onerror = () => resolve(blob);
     img.src = url;
   });
 }
@@ -436,8 +536,18 @@ async function run() {
         publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
         progress: setProgress
       });
-      // ML 결과에 흰 배경 후처리 적용 (threshold 240 + 색상 분산 < 10 = 거의 순수 흰색만)
-      // 인물 가장자리 등 미세 디테일은 보존되고, ML 이 미스한 흰 배경 잔여만 깨끗 제거
+
+      // 흰 배경 케이스 — ML + chroma key OR 합성으로 회색 텍스트 복원
+      // 자동 감지된 배경색이 흰색 계열이면 적용 (다른 색 배경 사진은 chroma 영향 미미)
+      const bg = bgColorAutoDetected || hexToRgb(bgColorPicker.value);
+      const isWhitishBg = bg.r > 220 && bg.g > 220 && bg.b > 220;
+      if (isWhitishBg) {
+        setProgress('combine', 0, 100);
+        blob = await combineMlAndChromaKey(currentFile, blob, bg, 25);
+        setProgress('combine', 100, 100);
+      }
+
+      // 추가 cleanup — 합성 후에도 남는 흰 픽셀 잔여 정리
       setProgress('cleanup', 0, 100);
       blob = await hybridWhiteCleanup(blob, 240);
       setProgress('cleanup', 100, 100);
