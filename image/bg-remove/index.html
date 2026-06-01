@@ -169,6 +169,12 @@
     .progress-bar { height:8px; background:var(--border); border-radius:4px; overflow:hidden; }
     .progress-fill { height:100%; background:var(--primary); transition:width .25s; width:0; }
     .progress-text { font-size:12.5px; color:var(--muted); margin-top:6px; }
+    /* drop zone 안 thumbnail (업로드 후 미리보기) */
+    .drop-thumbnail { display:none; max-width:200px; max-height:140px; margin:0 auto 12px; border-radius:8px; border:1px solid var(--border); background:rgba(15,23,42,0.04); object-fit:contain; }
+    @media (prefers-color-scheme:dark) { .drop-thumbnail { background:rgba(255,255,255,0.04); } }
+    .file-drop-zone.has-file .drop-icon { display:none; }
+    .file-drop-zone.has-file .drop-thumbnail { display:block; }
+
     .preview-pair { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
     @media (max-width:520px) { .preview-pair { grid-template-columns:1fr; } }
     .preview-pair .preview-cell { padding:10px; background:rgba(15,23,42,0.04); border:1px solid var(--border); border-radius:10px; text-align:center; }
@@ -198,6 +204,7 @@
     <div class="card">
       <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="배경 제거 이미지 업로드">
         <div class="drop-icon" aria-hidden="true">✂️</div>
+        <img class="drop-thumbnail" id="dropThumbnail" alt="업로드 미리보기">
         <div class="drop-title" id="dropTitle">이미지를 드래그하거나 클릭해서 선택</div>
         <div class="drop-hint">JPG · PNG · WebP — 가로 1500~2000px 권장</div>
         <input type="file" id="fileInput" accept="image/*">

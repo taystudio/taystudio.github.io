@@ -14,6 +14,7 @@ import { removeBackground } from '/image/vendor/imgly-bg-remove.mjs?v=2026-05-22
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const dropTitle = document.getElementById('dropTitle');
+const dropThumbnail = document.getElementById('dropThumbnail');
 const removeBtn = document.getElementById('removeBtn');
 const cancelBtn = document.getElementById('cancelBtn');
 const clearBtn = document.getElementById('clearBtn');
@@ -150,6 +151,11 @@ function loadFile(file) {
   if (origUrl) URL.revokeObjectURL(origUrl);
   origUrl = URL.createObjectURL(file);
   origImg.src = origUrl;
+  // drop zone 안 thumbnail 표시 (업로드 직후 미리보기)
+  if (dropThumbnail) {
+    dropThumbnail.src = origUrl;
+    dropZone.classList.add('has-file');
+  }
   removeBtn.disabled = false;
   result.hidden = true;
   progressWrap.hidden = true;
@@ -314,6 +320,10 @@ function clearAll() {
   dropTitle.textContent = '이미지를 드래그하거나 클릭해서 선택';
   origImg.removeAttribute('src');
   resultImg.removeAttribute('src');
+  if (dropThumbnail) {
+    dropThumbnail.removeAttribute('src');
+    dropZone.classList.remove('has-file');
+  }
   removeBtn.disabled = true;
   result.hidden = true;
   progressWrap.hidden = true;
