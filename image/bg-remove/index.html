@@ -137,8 +137,8 @@
     /* 모드/모델 선택 UI */
     .mode-select { margin:14px 0 6px; }
     .mode-select-title { font-size:13px; font-weight:600; margin-bottom:8px; color:var(--muted); letter-spacing:.03em; }
-    .mode-radios { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    @media (max-width:520px) { .mode-radios { grid-template-columns:1fr; } }
+    .mode-radios { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+    @media (max-width:780px) { .mode-radios { grid-template-columns:1fr; } }
     .mode-radio { display:flex; gap:10px; align-items:flex-start; padding:12px 14px; background:rgba(15,23,42,0.03); border:1px solid var(--border); border-radius:10px; cursor:pointer; transition:all .15s; }
     .mode-radio:hover { border-color:var(--primary); background:rgba(37,99,235,0.04); }
     .mode-radio input[type="radio"] { margin-top:3px; accent-color:var(--primary); }
@@ -212,9 +212,16 @@
 
       <div class="mode-select">
         <div class="mode-select-title">처리 방식 선택</div>
-        <div class="mode-radios">
-          <label class="mode-radio active" data-mode="photo">
-            <input type="radio" name="mode" value="photo" checked>
+        <div class="mode-radios" id="modeRadios">
+          <label class="mode-radio active" data-mode="auto">
+            <input type="radio" name="mode" value="auto" checked>
+            <span>
+              <span class="mode-label">⚡ 자동 (Recommended)</span>
+              <span class="mode-desc">업로드된 이미지를 분석해 흰 배경+텍스트면 로고 모드, 아니면 사진 모드로 자동 처리. 대부분의 케이스에 최적.</span>
+            </span>
+          </label>
+          <label class="mode-radio" data-mode="photo">
+            <input type="radio" name="mode" value="photo">
             <span>
               <span class="mode-label">📷 사진·인물 (AI)</span>
               <span class="mode-desc">인물·반려동물·물건 등 자연스러운 배경. 머리카락 디테일 보존. ML 모델 추론 3~10초.</span>
@@ -228,6 +235,7 @@
             </span>
           </label>
         </div>
+        <div id="autoDetectResult" style="display:none;margin-top:8px;padding:8px 12px;background:rgba(37,99,235,0.06);border:1px solid rgba(37,99,235,0.2);border-radius:6px;font-size:12.5px;color:var(--muted)"></div>
 
         <div class="photo-options" id="photoOptions">
           <div class="photo-options-title">AI 모델 품질 (사진 모드)</div>

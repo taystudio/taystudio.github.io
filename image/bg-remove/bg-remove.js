@@ -55,7 +55,92 @@ function fmtBytes(n) {
 }
 
 function getMode() {
-  return document.querySelector('input[name="mode"]:checked')?.value || 'photo';
+  return document.querySelector('input[name="mode"]:checked')?.value || 'auto';
+}
+
+/**
+ * 자동 모드 분석 — 업로드 이미지의 4 모서리 + 중앙 픽셀을 샘플링하여
+ * 흰 배경 + 단색 분포 → 로고 모드 / 그 외 → 사진 모드 분기.
+ *
+ * 휴리스틱:
+ *  - 4 모서리 평균 RGB > (235, 235, 235): 흰 배경 후보
+ *  - 모서리 간 색 분산 (max diff) < 25: 단색·단순 배경
+ *  - 중앙 픽셀이 모서리와 충분히 다름 (피사체 존재)
+ *  → 모두 만족 시 'logo' 분기
+ */
+async function autoDetectMode(file) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      const w = Math.min(img.naturalWidth, 400);
+      const h = Math.min(img.naturalHeight, 400);
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(url);
+
+      function avg(x, y, sz) {
+        const d = ctx.getImageData(Math.max(0, x), Math.max(0, y), sz, sz).data;
+        let r = 0, g = 0, b = 0, n = 0;
+        for (let i = 0; i < d.length; i += 4) { r += d[i]; g += d[i+1]; b += d[i+2]; n++; }
+        return { r: r/n, g: g/n, b: b/n };
+      }
+
+      const samples = {
+        tl: avg(0, 0, 10),
+        tr: avg(w - 10, 0, 10),
+        bl: avg(0, h - 10, 10),
+        br: avg(w - 10, h - 10, 10),
+        center: avg(Math.floor(w/2) - 5, Math.floor(h/2) - 5, 10),
+      };
+
+      // 4 모서리 평균 색 (배경 추정)
+      const cornerAvg = {
+        r: (samples.tl.r + samples.tr.r + samples.bl.r + samples.br.r) / 4,
+        g: (samples.tl.g + samples.tr.g + samples.bl.g + samples.br.g) / 4,
+        b: (samples.tl.b + samples.tr.b + samples.bl.b + samples.br.b) / 4,
+      };
+
+      // 모서리 간 색 분산
+      const cornerVals = [samples.tl, samples.tr, samples.bl, samples.br];
+      let maxDiff = 0;
+      for (let i = 0; i < cornerVals.length; i++) {
+        for (let j = i + 1; j < cornerVals.length; j++) {
+          const d = Math.max(
+            Math.abs(cornerVals[i].r - cornerVals[j].r),
+            Math.abs(cornerVals[i].g - cornerVals[j].g),
+            Math.abs(cornerVals[i].b - cornerVals[j].b)
+          );
+          if (d > maxDiff) maxDiff = d;
+        }
+      }
+
+      // 중앙 vs 모서리 — 피사체 존재 여부
+      const centerVsCorner = Math.max(
+        Math.abs(samples.center.r - cornerAvg.r),
+        Math.abs(samples.center.g - cornerAvg.g),
+        Math.abs(samples.center.b - cornerAvg.b)
+      );
+
+      const isWhitishBg = cornerAvg.r > 235 && cornerAvg.g > 235 && cornerAvg.b > 235;
+      const isSimpleBg = maxDiff < 25;
+      const hasSubject = centerVsCorner > 40;
+
+      const mode = (isWhitishBg && isSimpleBg && hasSubject) ? 'logo' : 'photo';
+      resolve({
+        mode,
+        bgColor: { r: Math.round(cornerAvg.r), g: Math.round(cornerAvg.g), b: Math.round(cornerAvg.b) },
+        reason: mode === 'logo'
+          ? `흰 배경 + 단순 배경 감지 (모서리 평균 ${Math.round(cornerAvg.r)},${Math.round(cornerAvg.g)},${Math.round(cornerAvg.b)} · 분산 ${Math.round(maxDiff)})`
+          : `자연스러운 배경 (모서리 평균 ${Math.round(cornerAvg.r)},${Math.round(cornerAvg.g)},${Math.round(cornerAvg.b)} · 분산 ${Math.round(maxDiff)})`
+      });
+    };
+    img.onerror = () => resolve({ mode: 'photo', bgColor: { r: 255, g: 255, b: 255 }, reason: '분석 실패 — 사진 모드 fallback' });
+    img.src = url;
+  });
 }
 function getQuality() {
   return document.querySelector('input[name="quality"]:checked')?.value || 'isnet_quint8';
@@ -65,9 +150,12 @@ function getQuality() {
 modeRadios.forEach(r => r.addEventListener('change', () => {
   const mode = getMode();
   modeRadioLabels.forEach(l => l.classList.toggle('active', l.dataset.mode === mode));
-  photoOptions.classList.toggle('hidden', mode !== 'photo');
-  logoOptions.classList.toggle('hidden', mode !== 'logo');
-  // 모드 변경 시 자동 감지된 배경색 재초기화 (다음 처리에서 다시 감지)
+  // 사진 옵션은 photo 또는 auto 일 때 (auto 가 photo 로 갈 수 있어서) 표시
+  photoOptions.classList.toggle('hidden', mode === 'logo');
+  logoOptions.classList.toggle('hidden', mode === 'photo' || mode === 'auto');
+  // 자동 감지 결과 표시는 auto 모드일 때만
+  const autoResult = document.getElementById('autoDetectResult');
+  if (autoResult) autoResult.style.display = (mode === 'auto' && autoResult.textContent) ? 'block' : 'none';
   if (mode === 'logo' && currentFile && !bgColorAutoDetected) {
     autoDetectBackgroundColor();
   }
@@ -151,7 +239,6 @@ function loadFile(file) {
   if (origUrl) URL.revokeObjectURL(origUrl);
   origUrl = URL.createObjectURL(file);
   origImg.src = origUrl;
-  // drop zone 안 thumbnail 표시 (업로드 직후 미리보기)
   if (dropThumbnail) {
     dropThumbnail.src = origUrl;
     dropZone.classList.add('has-file');
@@ -161,9 +248,26 @@ function loadFile(file) {
   progressWrap.hidden = true;
   progressFill.style.width = '0%';
   if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', 0);
-  // 새 파일 → 배경색 자동 감지 (로고 모드일 때 즉시 반영, 사진 모드일 때도 캐시)
   bgColorAutoDetected = null;
   autoDetectBackgroundColor(false);
+
+  // 자동 모드일 때 — 업로드 직후 분석 → 추천 모드 표시
+  if (getMode() === 'auto') {
+    autoDetectMode(file).then(({ mode, bgColor, reason }) => {
+      const autoResult = document.getElementById('autoDetectResult');
+      if (autoResult) {
+        const modeLabel = mode === 'logo' ? '🎨 로고 모드' : '📷 사진 모드';
+        autoResult.innerHTML = `<b>자동 감지:</b> ${modeLabel} 추천 · <span style="font-size:11.5px">${reason}</span>`;
+        autoResult.style.display = 'block';
+      }
+      // 자동 모드면 로고 사용 시 배경색 채움
+      if (mode === 'logo' && bgColorPicker) {
+        const hex = '#' + [bgColor.r, bgColor.g, bgColor.b].map(v => v.toString(16).padStart(2, '0')).join('');
+        bgColorPicker.value = hex;
+        bgColorAutoDetected = bgColor;
+      }
+    });
+  }
 }
 
 /**
@@ -245,20 +349,30 @@ async function run() {
   tempImg.src = origUrl;
   await new Promise((r) => { tempImg.onload = r; tempImg.onerror = r; });
   const origDim = tempImg.naturalWidth + '×' + tempImg.naturalHeight;
-  const mode = getMode();
+  let mode = getMode();
+  let effectiveMode = mode;
+
+  // 자동 모드 — 분석 후 실제 적용할 모드 결정
+  if (mode === 'auto') {
+    const detected = await autoDetectMode(currentFile);
+    effectiveMode = detected.mode;
+    if (detected.mode === 'logo' && bgColorPicker) {
+      const hex = '#' + [detected.bgColor.r, detected.bgColor.g, detected.bgColor.b]
+        .map(v => v.toString(16).padStart(2, '0')).join('');
+      bgColorPicker.value = hex;
+    }
+  }
 
   try {
     let blob;
 
-    if (mode === 'logo') {
-      // 로고·그래픽 모드 — chroma key
+    if (effectiveMode === 'logo') {
       setProgress('chroma', 0, 100);
       const bg = hexToRgb(bgColorPicker.value);
       const tolerance = parseInt(toleranceRange.value, 10) || 20;
       blob = await chromaKey(currentFile, bg, tolerance);
       setProgress('chroma', 100, 100);
     } else {
-      // 사진·인물 모드 — ML 모델
       const quality = getQuality();
       blob = await removeBackground(currentFile, {
         model: quality,
@@ -285,7 +399,9 @@ async function run() {
 
     progressFill.style.width = '100%';
     if (progressFill.parentElement) progressFill.parentElement.setAttribute('aria-valuenow', 100);
-    progressText.textContent = '완료 ✓ (' + (ms / 1000).toFixed(1) + 's, ' + (mode === 'logo' ? '로고 모드' : 'AI 모델') + ')';
+    const modeName = effectiveMode === 'logo' ? '로고 모드' : 'AI 모델';
+    const autoLabel = (mode === 'auto') ? '자동 → ' : '';
+    progressText.textContent = '완료 ✓ (' + (ms / 1000).toFixed(1) + 's, ' + autoLabel + modeName + ')';
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (e) {
