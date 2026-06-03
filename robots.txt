@@ -1,3 +1,5 @@
+#DaumWebMasterTool:bf99212fd1d23e131ff793c4e85d5732a7df994446307c882eeff525e6ba8233:MeMBEDgiMukoYtb9XFlQLw==
+
 User-agent: *
 Allow: /
 Disallow: /dash-tay9k3m/
