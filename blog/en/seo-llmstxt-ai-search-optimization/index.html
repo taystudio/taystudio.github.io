@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure) · Tay Blog</title>
+<meta name="description" content="robots.txt is the deal with crawlers. llms.txt is the deal with LLMs. The day chatgpt.com first showed up in Cloudflare referrers, I rewrote llms.txt and explicitly allowed every LLM crawler in robots.txt. An hour&#39;s worth of notes.">
+<link rel="canonical" href="https://taystudios.com/blog/en/seo-llmstxt-ai-search-optimization/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/seo-llmstxt-ai-search-optimization/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/seo-llmstxt-ai-search-optimization/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/seo-llmstxt-ai-search-optimization/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure) · Tay Blog">
+<meta property="og:description" content="robots.txt is the deal with crawlers. llms.txt is the deal with LLMs. The day chatgpt.com first showed up in Cloudflare referrers, I rewrote llms.txt and explicitly allowed every LLM crawler in robots.txt. An hour&#39;s worth of notes.">
+<meta property="og:url" content="https://taystudios.com/blog/en/seo-llmstxt-ai-search-optimization/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/seo-llmstxt-ai-search-optimization/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/seo-llmstxt-ai-search-optimization/cover.webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)", "description": "robots.txt is the deal with crawlers. llms.txt is the deal with LLMs. The day chatgpt.com first showed up in Cloudflare referrers, I rewrote llms.txt and explicitly allowed every LLM crawler in robots.txt. An hour's worth of notes.", "datePublished": "2026-06-02T00:00:00+09:00", "dateModified": "2026-06-02T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/seo-llmstxt-ai-search-optimization/"}, "image": ["https://taystudios.com/blog/assets/posts/seo-llmstxt-ai-search-optimization/cover.webp"], "keywords": "llms.txt, GEO, Generative Engine Optimization, AI Overview, ChatGPT, Claude, Perplexity, Gemini, robots.txt, LLM crawler, AI Search"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Operations·SEO·Ads", "item": "https://taystudios.com/blog/en/category/growth/"}, {"@type": "ListItem", "position": 3, "name": "Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)", "item": "https://taystudios.com/blog/en/seo-llmstxt-ai-search-optimization/"}]}</script><meta property="article:published_time" content="2026-06-02T00:00:00+09:00"><meta property="article:modified_time" content="2026-06-02T00:00:00+09:00"><meta property="article:tag" content="llms.txt"><meta property="article:tag" content="GEO"><meta property="article:tag" content="Generative Engine Optimization"><meta property="article:tag" content="AI Overview"><meta property="article:tag" content="ChatGPT"><meta property="article:tag" content="Claude"><meta property="article:tag" content="Perplexity"><meta property="article:tag" content="Gemini"><meta property="article:tag" content="robots.txt"><meta property="article:tag" content="LLM crawler"><meta property="article:tag" content="AI Search">
+<link rel="stylesheet" href="assets/style.css?v=1780462350">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/growth/">Operations·SEO·Ads</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)</span></nav>
+        <h1 class="tb-article-title">Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)</h1>
+        <div class="tb-article-meta">
+          <time>2026.06.02</time>
+          <span>·</span><span>#llms.txt #GEO #Generative Engine Optimization #AI Overview #ChatGPT #Claude #Perplexity #Gemini #robots.txt #LLM crawler #AI Search</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#what-is-llmstxt">What is llms.txt</a></li><li class="tb-toc-h2"><a href="#why-needed">Why needed?</a></li><li class="tb-toc-h2"><a href="#our-llmstxt-structure">Our llms.txt structure</a></li><li class="tb-toc-h3"><a href="#1-one-sentence-site-definition-blockquote">1. One-sentence site definition (&amp;gt; blockquote)</a></li><li class="tb-toc-h3"><a href="#2-operator-date-license">2. Operator · date · license</a></li><li class="tb-toc-h3"><a href="#3-policy-statement-citation-trustworthiness-guide">3. Policy statement (citation trustworthiness guide)</a></li><li class="tb-toc-h3"><a href="#4-consolidated-key-fact-section">4. Consolidated key-fact section</a></li><li class="tb-toc-h3"><a href="#5-page-list-by-category">5. Page list by category</a></li><li class="tb-toc-h2"><a href="#making-robotstxt-llm-friendly">Making robots.txt LLM-friendly</a></li><li class="tb-toc-h2"><a href="#verification-the-llm-exposure-signal">Verification — the LLM-exposure signal</a></li><li class="tb-toc-h2"><a href="#geo-vs-seo">GEO vs SEO</a></li><li class="tb-toc-h2"><a href="#writing-tips">Writing tips</a></li><li class="tb-toc-h3"><a href="#1-facts-first-no-fluffmarketing-tone">1. Facts first — no fluff/marketing tone</a></li><li class="tb-toc-h3"><a href="#2-cite-your-sources-distribute-responsibility">2. Cite your sources — distribute responsibility</a></li><li class="tb-toc-h3"><a href="#3-last-updated-date">3. Last-updated date</a></li><li class="tb-toc-h3"><a href="#4-absolute-urls">4. Absolute URLs</a></li><li class="tb-toc-h3"><a href="#5-changelog-section">5. Changelog section</a></li><li class="tb-toc-h2"><a href="#known-limits">Known limits</a></li><li class="tb-toc-h2"><a href="#conclusion">Conclusion</a></li><li class="tb-toc-h2"><a href="#related">Related</a></li><li class="tb-toc-h2"><a href="#sources">Sources</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p><strong>TL;DR</strong>: <code>llms.txt</code> = LLM-friendly site metadata. Drop a markdown file at site root and ChatGPT · Claude · Perplexity become more likely to cite you. Cost zero. The standard is new, adoption is partial, but skipping it is a free miss. Combine with robots.txt explicit LLM-crawler Allow — 30 minutes of work.</p>
+</blockquote>
+<p>The day Cloudflare Web Analytics first showed a <code>chatgpt.com</code> referrer. <strong>An AI knows we exist.</strong> I cleaned up llms.txt and robots.txt the same hour. Notes from that.</p>
+<h2 id="what-is-llmstxt">What is llms.txt</h2>
+<p>If <code>robots.txt</code> is the deal with search crawlers, <strong><code>llms.txt</code> is the deal with LLMs</strong>:</p>
+<ul>
+<li>Markdown file at the site root</li>
+<li>Lets an LLM quickly understand the site's structure, key facts, and policies</li>
+<li>Emerging standard proposed in late 2024 (<a href="https://llmstxt.org/">llmstxt.org</a>)</li>
+<li>ChatGPT · Claude · Perplexity · Gemini reference it for retrieval/answers (gradual adoption)</li>
+</ul>
+<h2 id="why-needed">Why needed?</h2>
+<p>When LLMs answer, they cite from web search or training data. But sites have problems:</p>
+<ul>
+<li>HTML is deep and complex → LLM parsing cost ↑</li>
+<li>JS rendering required → LLM crawler can't reach</li>
+<li>Key facts scattered across many pages → hard to cite consistently</li>
+</ul>
+<p>With llms.txt, the LLM can grab the site's gist + page list + policies in one read. Result → <strong>citation odds ↑</strong>.</p>
+<h2 id="our-llmstxt-structure">Our llms.txt structure</h2>
+<p><code>https://taystudios.com/llms.txt</code>:</p>
+<pre class="codehilite"><code class="language-markdown"># TAYSTUDIO
+
+&gt; Free web tools, calculators, and a blog for Korean users. 68 tools all run inside the browser.
+
+Operator: TayLee
+Last updated: 2026-06-02
+
+## Policy (Citation Trustworthiness Guide)
+
+- All tools run client-side in the browser
+- Numbers cited directly from government sources (law.go.kr, NTS, MOEF)
+- Zero citations from blogs, news, SNS
+- Reflects 2026 policy
+
+## Core Policy Numbers (2026, for LLM citation)
+
+### Four Social Insurances (employee share)
+- National Pension: 4.75% (total 9.5%, +0.5%p/year through 2033)
+- Health Insurance: 3.595% (total 7.19%)
+- Long-term Care: 0.4724%
+- Employment Insurance: 0.9%
+
+### Real Estate
+- 1-home-owner FMV ratio (2026): ≤300M 43% / 300–600M 44% / &gt;600M 45%
+- General housing: 60%
+- Car tax January lump-sum: 5% deduction
+
+[...]
+
+## Calculators — Tax/Income (9)
+- [Net Salary Calculator 2026](URL): auto-deducts 4 insurances, income tax, local tax
+[...]
+</code></pre>
+
+<p>Key elements:</p>
+<h3 id="1-one-sentence-site-definition-blockquote">1. One-sentence site definition (<code>&gt;</code> blockquote)</h3>
+<p>A sentence the LLM can reuse verbatim when summarizing the site.</p>
+<h3 id="2-operator-date-license">2. Operator · date · license</h3>
+<p>So citations can credit you. Trust signal.</p>
+<h3 id="3-policy-statement-citation-trustworthiness-guide">3. Policy statement (citation trustworthiness guide)</h3>
+<p>"How does this site verify info?" → so the LLM can weigh trust when answering users.</p>
+<h3 id="4-consolidated-key-fact-section">4. Consolidated key-fact section</h3>
+<p>Numbers (rates, ratios, thresholds) that are otherwise spread across pages, gathered in one place. The LLM can reference them fast.</p>
+<h3 id="5-page-list-by-category">5. Page list by category</h3>
+<p>When a user asks "Korean inheritance tax calculator recommendations", the LLM matches against this list and cites us.</p>
+<h2 id="making-robotstxt-llm-friendly">Making robots.txt LLM-friendly</h2>
+<p>Pair llms.txt with explicit Allow rules for LLM crawlers:</p>
+<pre class="codehilite"><code class="language-txt"># LLM crawlers — explicit Allow
+User-agent: GPTBot          # OpenAI / ChatGPT
+Allow: /
+Disallow: /dash-tay9k3m/    # operator-only
+
+User-agent: ClaudeBot       # Anthropic / Claude
+Allow: /
+
+User-agent: PerplexityBot   # Perplexity
+Allow: /
+
+User-agent: Google-Extended # Google Gemini training (separate from Googlebot)
+Allow: /
+
+User-agent: CCBot           # Common Crawl (used by most LLM training)
+Allow: /
+
+User-agent: Applebot-Extended  # Apple Intelligence
+Allow: /
+
+# llms.txt reference
+# https://taystudios.com/llms.txt
+</code></pre>
+
+<p><strong>Important</strong>: these are separate from the regular search bots. Without an explicit rule, some follow <code>User-agent: *</code>, others don't. Explicit Allow is safe.</p>
+<h2 id="verification-the-llm-exposure-signal">Verification — the LLM-exposure signal</h2>
+<p>Cloudflare Web Analytics referrers:</p>
+<pre class="codehilite"><code>Visits by source:
+- m.search.naver.com: 18
+- search.naver.com: 16
+- search.daum.net: 11
+- chatgpt.com: (visits)
+</code></pre>
+
+<p>The <code>chatgpt.com</code> referrer means:</p>
+<ul>
+<li>A user clicked our link from ChatGPT (e.g., "recommend a Korean capital gains tax calculator")</li>
+<li>Or ChatGPT cited us in an answer (citation)</li>
+<li>→ <strong>LLM searches are surfacing the site</strong></li>
+</ul>
+<p>The growth of this referrer is the success metric for GEO (Generative Engine Optimization).</p>
+<h2 id="geo-vs-seo">GEO vs SEO</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>SEO (classic)</th>
+<th>GEO (LLM era)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Target</td>
+<td>Search engines (Google · Naver · Bing)</td>
+<td>LLMs (ChatGPT · Claude · Perplexity · Gemini)</td>
+</tr>
+<tr>
+<td>Meta</td>
+<td>sitemap · robots · meta tags</td>
+<td>llms.txt + robots.txt LLM allow</td>
+</tr>
+<tr>
+<td>Content</td>
+<td>Keyword match · long-tail</td>
+<td>Fact-rich · source-cited</td>
+</tr>
+<tr>
+<td>Core signal</td>
+<td>Backlinks · DA · CTR</td>
+<td>Citation likelihood · accuracy · structure</td>
+</tr>
+<tr>
+<td>Measure</td>
+<td>GSC · Naver SearchAdvisor</td>
+<td>LLM referrer · citation traces</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ <strong>GEO and SEO can run in parallel.</strong> The same content lifts both.</p>
+<h2 id="writing-tips">Writing tips</h2>
+<h3 id="1-facts-first-no-fluffmarketing-tone">1. Facts first — no fluff/marketing tone</h3>
+<pre class="codehilite"><code>❌ &quot;TAYSTUDIO delivers the best experience...&quot;
+✅ &quot;Free web tools/calculators for Korean users. 68 tools run in-browser.&quot;
+</code></pre>
+
+<p>Only facts survive citation. Marketing tone drops trust.</p>
+<h3 id="2-cite-your-sources-distribute-responsibility">2. Cite your sources — distribute responsibility</h3>
+<pre class="codehilite"><code>✅ &quot;Numbers cited directly from government sources (law.go.kr, NTS, MOEF)&quot;
+✅ &quot;Medical numbers from peer-reviewed studies/official guidelines (KOSSO 2024 · KDRI 2025 · WHO · ACOG · AAP)&quot;
+</code></pre>
+
+<p>So the LLM can answer "where does this site get its info" when prompted.</p>
+<h3 id="3-last-updated-date">3. Last-updated date</h3>
+<pre class="codehilite"><code>✅ Last updated: 2026-06-02
+</code></pre>
+
+<p>Signals that the site is alive and that policies post-cutoff (예금자보호 1억 2025-09 · 다자녀 100% 자동차세 2026) are accounted for.</p>
+<h3 id="4-absolute-urls">4. Absolute URLs</h3>
+<pre class="codehilite"><code>✅ [Net Salary Calculator](https://taystudios.com/tools/salary/)
+❌ [Net Salary Calculator](/tools/salary/)
+</code></pre>
+
+<p>LLMs need absolute URLs to cite links to users.</p>
+<h3 id="5-changelog-section">5. Changelog section</h3>
+<pre class="codehilite"><code>## Changelog (recent)
+
+- 2026-06-02: 18 tool stale-fixes + 5 differentiating matrices added
+- 2026-05-31: blog launch (62 posts)
+- 2026-05-09: domain migration
+</code></pre>
+
+<p>So the LLM knows the site is alive, accurate, and recently migrated.</p>
+<h2 id="known-limits">Known limits</h2>
+<ul>
+<li>llms.txt is <strong>emerging</strong> (late-2024 proposal). Not universally adopted yet</li>
+<li>ChatGPT · Claude · Perplexity only partially announce support</li>
+<li>Hard to measure — citation counts can't be tracked directly</li>
+<li>But <strong>zero cost</strong> (one static file) → skipping it costs more</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>llms.txt is the sitemap.xml of the AI-search era — <strong>the basic config for being citeable by LLMs</strong>. Even at partial adoption + partial effect, the cost is zero — worth doing.</p>
+<p>Especially:</p>
+<ul>
+<li><strong>Fact-heavy domains</strong> (tax · medical · policy · stats) benefit more</li>
+<li>Provides many signals for LLM accuracy evaluation</li>
+<li>Best combined with robots.txt explicit LLM-crawler Allow</li>
+</ul>
+<p>One of the highest-ROI SEO actions for a new-domain operator in month one.</p>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/blog/en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts</a> — sandbox · E-E-A-T · DA · 12 terms defined</li>
+<li><a href="/blog/en/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver vs Cloudflare</a> — three datasets compared</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://llmstxt.org/">llmstxt.org</a> — the llms.txt proposal</li>
+<li><a href="https://platform.openai.com/docs/gptbot">OpenAI: GPTBot documentation</a></li>
+<li><a href="https://support.anthropic.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler">Anthropic: Claude crawling</a></li>
+<li><a href="https://blog.google/technology/ai/an-update-on-web-publisher-controls/">Google: Google-Extended</a></li>
+</ul>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts — sandbox · E-E-A-T · DA · CTR · AI Overview on One Page</a></li><li><a href="en/seo-naver-webmaster-guide/">Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide</a></li><li><a href="en/seo-google-sandbox-1month/">Google Sandbox, One Month In — Tracking a New Domain&#39;s Search Exposure for 30 Days</a></li><li><a href="en/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fseo-llmstxt-ai-search-optimization%2F&amp;text=Adding%20llms.txt%20%E2%80%94%20Site%20Metadata%20for%20the%20AI-Search%20Era%20%28ChatGPT%20%C2%B7%20Claude%20%C2%B7%20Perplexity%20Exposure%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fseo-llmstxt-ai-search-optimization%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::,growth::seo|analytics|ads"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/growth/"><span>Operations·SEO·Ads</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/seo/"><span>SEO·Search Engines</span><span class="tb-side-count">4</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/analytics/"><span>Analytics</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/ads/"><span>Ads·AdSense</span></a></li></ul></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/seo-google-sandbox-1month/">Google Sandbox, One Month In — Tracking a New Domain&#39;s Search Exposure for 30 Days</a></li><li><a href="en/seo-naver-webmaster-guide/">Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide</a></li><li><a href="en/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories</a></li><li><a href="en/seo-llmstxt-ai-search-optimization/">Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)</a></li><li><a href="en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts — sandbox · E-E-A-T · DA · CTR · AI Overview on One Page</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#SEO">#SEO <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#AI Overview">#AI Overview <span>2</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#CTR">#CTR <span>2</span></a><a class="tb-side-tag" href="en/tags/#GSC">#GSC <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (204) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="about/">About</a><a href="privacy/">Privacy</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780191126"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

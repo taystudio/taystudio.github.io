@@ -1,5 +1,29 @@
 [
   {
+    "slug": "analytics-gsc-vs-naver-vs-cloudflare",
+    "title": "GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories",
+    "date": "2026-06-02",
+    "excerpt": "GSC: 2 clicks in 3 months. Naver: 230 clicks in 30 days. Cloudflare: 57 visits a day. Same site, 33–115× gap. Which one is the real traffic, and which one are you missing?",
+    "category": [
+      "growth",
+      "analytics"
+    ],
+    "tags": [
+      "GSC",
+      "Google Search Console",
+      "Naver SearchAdvisor",
+      "Cloudflare Web Analytics",
+      "analytics tools",
+      "SEO",
+      "Korean Search Market",
+      "traffic analysis",
+      "impressions",
+      "CTR"
+    ],
+    "image": "assets/posts/analytics-gsc-vs-naver-vs-cloudflare/cover.webp",
+    "lang": "en"
+  },
+  {
     "slug": "aws-cost-optimization",
     "title": "[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration & Fixed-Cost Optimization",
     "date": "2026-02-12",
@@ -548,6 +572,102 @@
       "Windows"
     ],
     "image": "assets/posts/python-windows-install-path/cover.webp",
+    "lang": "en"
+  },
+  {
+    "slug": "seo-google-sandbox-1month",
+    "title": "Google Sandbox, One Month In — Tracking a New Domain's Search Exposure for 30 Days",
+    "date": "2026-06-03",
+    "excerpt": "Moved a GitHub Pages site to a custom domain. One month later: indexing is gradually OK, search impressions follow a spike-then-dip pattern. Naver and Cloudflare data is what kept me sane. 6–12 weeks until recovery.",
+    "category": [
+      "growth",
+      "seo"
+    ],
+    "tags": [
+      "Google sandbox",
+      "new domain",
+      "domain migration",
+      "GSC",
+      "search visibility",
+      "SEO",
+      "retro",
+      "measurement",
+      "taystudios"
+    ],
+    "image": "assets/posts/seo-google-sandbox-1month/cover.webp",
+    "lang": "en"
+  },
+  {
+    "slug": "seo-llmstxt-ai-search-optimization",
+    "title": "Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)",
+    "date": "2026-06-02",
+    "excerpt": "robots.txt is the deal with crawlers. llms.txt is the deal with LLMs. The day chatgpt.com first showed up in Cloudflare referrers, I rewrote llms.txt and explicitly allowed every LLM crawler in robots.txt. An hour's worth of notes.",
+    "category": [
+      "growth",
+      "seo"
+    ],
+    "tags": [
+      "llms.txt",
+      "GEO",
+      "Generative Engine Optimization",
+      "AI Overview",
+      "ChatGPT",
+      "Claude",
+      "Perplexity",
+      "Gemini",
+      "robots.txt",
+      "LLM crawler",
+      "AI Search"
+    ],
+    "image": "assets/posts/seo-llmstxt-ai-search-optimization/cover.webp",
+    "lang": "en"
+  },
+  {
+    "slug": "seo-naver-webmaster-guide",
+    "title": "Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide",
+    "date": "2026-06-03",
+    "excerpt": "Naver carries 80% of Korean-site traffic, yet most operators skip Naver SearchAdvisor and let the engine find their site by accident. Registration in 5 minutes, sitemap submission, and manual crawl requests — step by step.",
+    "category": [
+      "growth",
+      "seo"
+    ],
+    "tags": [
+      "Naver",
+      "SearchAdvisor",
+      "sitemap",
+      "search engine registration",
+      "Korean SEO",
+      "indexing",
+      "robots.txt",
+      "guide"
+    ],
+    "image": "assets/posts/seo-naver-webmaster-guide/cover.webp",
+    "lang": "en"
+  },
+  {
+    "slug": "seo-search-engines-concepts",
+    "title": "12 Core SEO·Search-Engine Concepts — sandbox · E-E-A-T · DA · CTR · AI Overview on One Page",
+    "date": "2026-06-02",
+    "excerpt": "What Google sandbox is · why a fresh domain disappears from search · the real reason CTR drops · how AI Overview eats traffic. 12 concepts I bumped into the hard way after one month of running a new domain, in one page.",
+    "category": [
+      "growth",
+      "seo"
+    ],
+    "tags": [
+      "SEO",
+      "Search Engine",
+      "sandbox",
+      "E-E-A-T",
+      "Domain Authority",
+      "CTR",
+      "zero-click",
+      "AI Overview",
+      "Korean Search Market",
+      "llms.txt",
+      "schema.org",
+      "JSON-LD"
+    ],
+    "image": "assets/posts/seo-search-engines-concepts/cover.webp",
     "lang": "en"
   },
   {

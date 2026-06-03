@@ -380,6 +380,17 @@ a:hover { color: var(--accent); }
 }
 .tb-side-list { list-style: none; padding: 0; margin: 0; }
 .tb-side-list li { padding: 2px 0; }
+/* 카테고리 위젯 — 현재 카테고리 수 (parent 7 + child 14) 다 보이는 길이.
+   안전 cap: 카테고리 늘어나도 viewport 거의 안 넘게 — 그 이상은 자체 스크롤 */
+.tb-side-list[data-cat-signature] {
+  max-height: calc(100vh - 20px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+.tb-side-list[data-cat-signature]::-webkit-scrollbar { width: 6px; }
+.tb-side-list[data-cat-signature]::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.tb-side-list[data-cat-signature]::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 .tb-side-list a {
   display: flex;
   align-items: center;

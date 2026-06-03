@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Google Sandbox, One Month In — Tracking a New Domain&#39;s Search Exposure for 30 Days · Tay Blog</title>
+<meta name="description" content="Moved a GitHub Pages site to a custom domain. One month later: indexing is gradually OK, search impressions follow a spike-then-dip pattern. Naver and Cloudflare data is what kept me sane. 6–12 weeks until recovery.">
+<link rel="canonical" href="https://taystudios.com/blog/en/seo-google-sandbox-1month/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/seo-google-sandbox-1month/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/seo-google-sandbox-1month/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/seo-google-sandbox-1month/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Google Sandbox, One Month In — Tracking a New Domain&#39;s Search Exposure for 30 Days · Tay Blog">
+<meta property="og:description" content="Moved a GitHub Pages site to a custom domain. One month later: indexing is gradually OK, search impressions follow a spike-then-dip pattern. Naver and Cloudflare data is what kept me sane. 6–12 weeks until recovery.">
+<meta property="og:url" content="https://taystudios.com/blog/en/seo-google-sandbox-1month/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/seo-google-sandbox-1month/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/seo-google-sandbox-1month/cover.webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Google Sandbox, One Month In — Tracking a New Domain's Search Exposure for 30 Days", "description": "Moved a GitHub Pages site to a custom domain. One month later: indexing is gradually OK, search impressions follow a spike-then-dip pattern. Naver and Cloudflare data is what kept me sane. 6–12 weeks until recovery.", "datePublished": "2026-06-03T00:00:00+09:00", "dateModified": "2026-06-03T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/seo-google-sandbox-1month/"}, "image": ["https://taystudios.com/blog/assets/posts/seo-google-sandbox-1month/cover.webp"], "keywords": "Google sandbox, new domain, domain migration, GSC, search visibility, SEO, retro, measurement, taystudios"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Operations·SEO·Ads", "item": "https://taystudios.com/blog/en/category/growth/"}, {"@type": "ListItem", "position": 3, "name": "Google Sandbox, One Month In — Tracking a New Domain's Search Exposure for 30 Days", "item": "https://taystudios.com/blog/en/seo-google-sandbox-1month/"}]}</script><meta property="article:published_time" content="2026-06-03T00:00:00+09:00"><meta property="article:modified_time" content="2026-06-03T00:00:00+09:00"><meta property="article:tag" content="Google sandbox"><meta property="article:tag" content="new domain"><meta property="article:tag" content="domain migration"><meta property="article:tag" content="GSC"><meta property="article:tag" content="search visibility"><meta property="article:tag" content="SEO"><meta property="article:tag" content="retro"><meta property="article:tag" content="measurement"><meta property="article:tag" content="taystudios">
+<link rel="stylesheet" href="assets/style.css?v=1780462350">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/growth/">Operations·SEO·Ads</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Google Sandbox, One Month In — Tracking a New Domain&#39;s Search Exposure for 30 Days</span></nav>
+        <h1 class="tb-article-title">Google Sandbox, One Month In — Tracking a New Domain&#39;s Search Exposure for 30 Days</h1>
+        <div class="tb-article-meta">
+          <time>2026.06.03</time>
+          <span>·</span><span>#Google sandbox #new domain #domain migration #GSC #search visibility #SEO #retro #measurement #taystudios</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#background">Background</a></li><li class="tb-toc-h2"><a href="#what-google-sandbox-is">What Google Sandbox is</a></li><li class="tb-toc-h2"><a href="#30-day-data">30-day data</a></li><li class="tb-toc-h3"><a href="#gsc-google-search-console">GSC (Google Search Console)</a></li><li class="tb-toc-h3"><a href="#bing-webmaster">Bing Webmaster</a></li><li class="tb-toc-h3"><a href="#naver-searchadvisor-registered-522">Naver SearchAdvisor (registered 5/22)</a></li><li class="tb-toc-h3"><a href="#cloudflare-web-analytics">Cloudflare Web Analytics</a></li><li class="tb-toc-h2"><a href="#finding-1-google-sandbox-only-throttles-rankings">Finding 1 — Google sandbox only throttles rankings</a></li><li class="tb-toc-h2"><a href="#finding-2-what-the-514-spike-was">Finding 2 — What the 5/14 spike was</a></li><li class="tb-toc-h2"><a href="#finding-3-naver-has-no-equivalent-of-sandbox">Finding 3 — Naver has no equivalent of sandbox</a></li><li class="tb-toc-h2"><a href="#finding-4-ai-search-is-becoming-a-new-channel">Finding 4 — AI search is becoming a new channel</a></li><li class="tb-toc-h2"><a href="#estimated-when-google-sandbox-lifts">Estimated — when Google sandbox lifts</a></li><li class="tb-toc-h2"><a href="#actions-during-sandbox">Actions during sandbox</a></li><li class="tb-toc-h3"><a href="#content-reinforcement">Content reinforcement</a></li><li class="tb-toc-h3"><a href="#diversify-search-channels">Diversify search channels</a></li><li class="tb-toc-h3"><a href="#status-month-1">Status (month 1)</a></li><li class="tb-toc-h2"><a href="#operator-takeaways">Operator takeaways</a></li><li class="tb-toc-h3"><a href="#1-set-the-right-expectation-before-migrating">1. Set the right expectation before migrating</a></li><li class="tb-toc-h3"><a href="#2-dont-read-gsc-alone">2. Don&#39;t read GSC alone</a></li><li class="tb-toc-h3"><a href="#3-differentiated-content-is-sandbox-independent">3. Differentiated content is sandbox-independent</a></li><li class="tb-toc-h3"><a href="#4-ai-search-exposure-is-a-separate-channel">4. AI-search exposure is a separate channel</a></li><li class="tb-toc-h2"><a href="#one-liner">One-liner</a></li><li class="tb-toc-h2"><a href="#related">Related</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p><strong>TL;DR</strong>: Google sandbox is real. Indexing on a new domain proceeds gradually (started 5/22), but search impressions follow a <strong>spike-then-dip</strong> pattern (peak 5/14 → near zero by 5/24). Without Naver and Cloudflare data, I would have panicked. Expected to expire in 6–12 weeks.</p>
+</blockquote>
+<h2 id="background">Background</h2>
+<p><code>taystudio.github.io</code> → <code>taystudios.com</code> (2026-05-09 migration). Treated as a fresh domain by Google. I tracked 30 days of data across GSC · Naver · Cloudflare and recorded what happened.</p>
+<h2 id="what-google-sandbox-is">What Google Sandbox is</h2>
+<p>Google's unofficial algorithm that places fresh domains in a "probation" state:
+- <strong>6–12 weeks</strong> — indexed, but ranking is throttled
+- Aimed at killing spam/MFA (Made For AdSense) sites
+- "Will this site still be alive in 6 weeks?" type evaluation
+- Officially denied by Google, but widely observed in the SEO community</p>
+<h2 id="30-day-data">30-day data</h2>
+<h3 id="gsc-google-search-console">GSC (Google Search Console)</h3>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Clicks</th>
+<th>Impressions</th>
+<th>Avg position</th>
+<th>CTR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5/9 (migration)</td>
+<td>0</td>
+<td>0</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>5/14</td>
+<td>1</td>
+<td><strong>450 (peak)</strong></td>
+<td>14</td>
+<td>0.2%</td>
+</tr>
+<tr>
+<td>5/17</td>
+<td>0</td>
+<td>300</td>
+<td>13</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>5/20</td>
+<td>1</td>
+<td>280</td>
+<td>12</td>
+<td>0.4%</td>
+</tr>
+<tr>
+<td>5/24</td>
+<td>0</td>
+<td>10</td>
+<td>18</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>5/28</td>
+<td>0</td>
+<td>5</td>
+<td>22</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>6/2</td>
+<td>0</td>
+<td>~0</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p>= Peak on 5/14 → dip by 5/24 → near zero. From the operator's seat, "Did the site die?".</p>
+<h3 id="bing-webmaster">Bing Webmaster</h3>
+<p>Similar pattern:
+- Data through 5/12 (residual from old domain)
+- 5/22 — sitemap discovered, 124 URLs
+- But zero search impressions (Bing has its own new-domain queue)</p>
+<h3 id="naver-searchadvisor-registered-522">Naver SearchAdvisor (registered 5/22)</h3>
+<p>This is where it flipped:
+- Spike started right after 5/22 registration
+- Peak 5/27 at <strong>7,600 impressions</strong>
+- After 5/28, stable 2,000–3,000/day
+- 30-day totals: <strong>26,000 impressions + 230 clicks</strong></p>
+<p>= <strong>33–115× Google</strong>. Korean users + Naver's matching is much stronger for this content.</p>
+<h3 id="cloudflare-web-analytics">Cloudflare Web Analytics</h3>
+<p>Real traffic across all channels:
+- ~55 visits/day
+- 79% Naver/Daum referrers
+- Some chatgpt.com referrers (AI-search exposure starting)
+- The site itself works fine</p>
+<h2 id="finding-1-google-sandbox-only-throttles-rankings">Finding 1 — Google sandbox only throttles <strong>rankings</strong></h2>
+<p>Indexing itself proceeded normally:
+- 5/22: 122 pages indexed
+- 5/29: 7 pages "not indexed" (4 redirects · 1 canonical · 2 queued — all normal reasons)
+- 6/2: 124 sitemap URLs all discovered</p>
+<p>= Google <strong>found, crawled, and indexed</strong> the site fine. What's throttled is <strong>position on the SERP</strong>. On the same keywords, older domains keep winning.</p>
+<h2 id="finding-2-what-the-514-spike-was">Finding 2 — What the 5/14 spike was</h2>
+<p>A sudden bump to 450 impressions on 5/14 looks like Google running a <strong>probationary test</strong> — exposing a fresh domain to gauge user response (CTR, dwell time).</p>
+<p>Then 5/17–24 dip = "evaluation result: keep in sandbox." A 0.3% CTR was probably below the bar for a fresh domain.</p>
+<h2 id="finding-3-naver-has-no-equivalent-of-sandbox">Finding 3 — Naver has no equivalent of sandbox</h2>
+<p>Registered 5/22 → indexing + impressions started immediately. <strong>Hit 2,000+ daily impressions within 3 days.</strong> Once a sitemap is submitted, Naver processes it quickly. No meaningful penalty for fresh domains.</p>
+<h2 id="finding-4-ai-search-is-becoming-a-new-channel">Finding 4 — AI search is becoming a new channel</h2>
+<p>A <code>chatgpt.com</code> referrer appeared in Cloudflare. LLMs (ChatGPT · Claude · Perplexity) starting to cite the site in search/answers. <strong>A channel independent of Google sandbox.</strong></p>
+<h2 id="estimated-when-google-sandbox-lifts">Estimated — when Google sandbox lifts</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>Domain age</th>
+<th>Sandbox status</th>
+<th>Search impressions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Week 1 (5/16)</td>
+<td>Initial evaluation</td>
+<td>Spike starts</td>
+</tr>
+<tr>
+<td>Week 2 (5/22)</td>
+<td>Evaluation continues</td>
+<td>Spike peaks</td>
+</tr>
+<tr>
+<td>Week 3 (5/29)</td>
+<td>Dip</td>
+<td>Near zero</td>
+</tr>
+<tr>
+<td><strong>Week 6 (6/20)</strong></td>
+<td><strong>Partial recovery expected</strong></td>
+<td>Gradual rise</td>
+</tr>
+<tr>
+<td><strong>Week 12 (7/30)</strong></td>
+<td><strong>Full recovery expected</strong></td>
+<td>Normal impressions</td>
+</tr>
+</tbody>
+</table></div>
+<p>This timeline is community lore (not Google-official). Content quality / E-E-A-T / backlinks can shorten it.</p>
+<h2 id="actions-during-sandbox">Actions during sandbox</h2>
+<h3 id="content-reinforcement">Content reinforcement</h3>
+<ul>
+<li>18 tools stale-fixed (24 wrong numbers)</li>
+<li>5 differentiating matrices added (inheritance break-even · loan DSR · 6+6 parental leave …)</li>
+<li>Top-5 page title/description rewritten for CTR</li>
+<li>Started a blog post series</li>
+</ul>
+<h3 id="diversify-search-channels">Diversify search channels</h3>
+<ul>
+<li>Registered on Naver SearchAdvisor + submitted sitemaps</li>
+<li>Bing Webmaster URL Submission (10)</li>
+<li>Daum Webmaster on the to-do list</li>
+<li>Updated llms.txt + explicit Allow for LLM crawlers in robots.txt (diversify into AI-search)</li>
+</ul>
+<h3 id="status-month-1">Status (month 1)</h3>
+<ul>
+<li>Google: sandbox (waiting)</li>
+<li>Naver: ~50 visits/day, steady</li>
+<li>Bing: sitemap discovered, crawl pending</li>
+<li>AI search: some referrers showing up</li>
+</ul>
+<h2 id="operator-takeaways">Operator takeaways</h2>
+<h3 id="1-set-the-right-expectation-before-migrating">1. Set the right expectation before migrating</h3>
+<p>A new domain = 0–3 months of near-zero Google traffic. If your business depends on search traffic, migrate carefully.</p>
+<h3 id="2-dont-read-gsc-alone">2. Don't read GSC alone</h3>
+<p>Don't panic on one dataset. Combine with Naver + Cloudflare + Bing.</p>
+<h3 id="3-differentiated-content-is-sandbox-independent">3. Differentiated content is sandbox-independent</h3>
+<p>Matrices, simulations, visualizations — long-tail SEO accumulates regardless. They pay off the moment sandbox lifts.</p>
+<h3 id="4-ai-search-exposure-is-a-separate-channel">4. AI-search exposure is a separate channel</h3>
+<p>ChatGPT/Claude/Perplexity citations = future traffic. Lean into llms.txt.</p>
+<h2 id="one-liner">One-liner</h2>
+<blockquote>
+<p><strong>Google sandbox is real. For a Korean site, Naver carries you through it.</strong> Don't panic — time + content + channel mix.</p>
+</blockquote>
+<p>I'll write a follow-up at the end of July / early August to confirm whether sandbox actually ends, with real numbers.</p>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/blog/en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts</a> — sandbox · E-E-A-T · DA · CTR</li>
+<li><a href="/blog/en/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver vs Cloudflare</a> — three datasets compared</li>
+<li><a href="/blog/en/seo-naver-webmaster-guide/">Naver SearchAdvisor Guide</a> — the 80% traffic channel</li>
+</ul>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts — sandbox · E-E-A-T · DA · CTR · AI Overview on One Page</a></li><li><a href="en/seo-naver-webmaster-guide/">Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide</a></li><li><a href="en/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories</a></li><li><a href="en/seo-llmstxt-ai-search-optimization/">Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fseo-google-sandbox-1month%2F&amp;text=Google%20Sandbox%2C%20One%20Month%20In%20%E2%80%94%20Tracking%20a%20New%20Domain%27s%20Search%20Exposure%20for%2030%20Days" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fseo-google-sandbox-1month%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::,growth::seo|analytics|ads"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/growth/"><span>Operations·SEO·Ads</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/seo/"><span>SEO·Search Engines</span><span class="tb-side-count">4</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/analytics/"><span>Analytics</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/ads/"><span>Ads·AdSense</span></a></li></ul></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/seo-google-sandbox-1month/">Google Sandbox, One Month In — Tracking a New Domain&#39;s Search Exposure for 30 Days</a></li><li><a href="en/seo-naver-webmaster-guide/">Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide</a></li><li><a href="en/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories</a></li><li><a href="en/seo-llmstxt-ai-search-optimization/">Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)</a></li><li><a href="en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts — sandbox · E-E-A-T · DA · CTR · AI Overview on One Page</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#SEO">#SEO <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#AI Overview">#AI Overview <span>2</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#CTR">#CTR <span>2</span></a><a class="tb-side-tag" href="en/tags/#GSC">#GSC <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (204) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="about/">About</a><a href="privacy/">Privacy</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780191126"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

@@ -8,7 +8,7 @@
     "en"
   ],
   "defaultLang": "ko",
-  "postsPerPage": "10",
+  "postsPerPage": "",
   "authorName": "TayLee",
   "authorEmail": "thlee991@gmail.com",
   "authorGithub": "taystudio",
@@ -46,10 +46,6 @@
       "slug": "web-dev",
       "name": "Web Development",
       "children": [
-        {
-          "slug": "spring-boot",
-          "name": "Java: Spring Boot"
-        },
         {
           "slug": "fastapi",
           "name": "Python: FastAPI"
@@ -126,6 +122,28 @@
     {
       "slug": "data",
       "name": "Data Analysis & Statistics"
+    },
+    {
+      "slug": "growth",
+      "name": "운영·SEO·광고",
+      "name_en": "Operations·SEO·Ads",
+      "children": [
+        {
+          "slug": "seo",
+          "name": "SEO·검색엔진",
+          "name_en": "SEO·Search Engines"
+        },
+        {
+          "slug": "analytics",
+          "name": "데이터 분석",
+          "name_en": "Analytics"
+        },
+        {
+          "slug": "ads",
+          "name": "광고·AdSense",
+          "name_en": "Ads·AdSense"
+        }
+      ]
     }
   ],
   "menu": [

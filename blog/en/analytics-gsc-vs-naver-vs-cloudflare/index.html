@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories · Tay Blog</title>
+<meta name="description" content="GSC: 2 clicks in 3 months. Naver: 230 clicks in 30 days. Cloudflare: 57 visits a day. Same site, 33–115× gap. Which one is the real traffic, and which one are you missing?">
+<link rel="canonical" href="https://taystudios.com/blog/en/analytics-gsc-vs-naver-vs-cloudflare/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/analytics-gsc-vs-naver-vs-cloudflare/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/analytics-gsc-vs-naver-vs-cloudflare/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/analytics-gsc-vs-naver-vs-cloudflare/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories · Tay Blog">
+<meta property="og:description" content="GSC: 2 clicks in 3 months. Naver: 230 clicks in 30 days. Cloudflare: 57 visits a day. Same site, 33–115× gap. Which one is the real traffic, and which one are you missing?">
+<meta property="og:url" content="https://taystudios.com/blog/en/analytics-gsc-vs-naver-vs-cloudflare/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/analytics-gsc-vs-naver-vs-cloudflare/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/analytics-gsc-vs-naver-vs-cloudflare/cover.webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories", "description": "GSC: 2 clicks in 3 months. Naver: 230 clicks in 30 days. Cloudflare: 57 visits a day. Same site, 33–115× gap. Which one is the real traffic, and which one are you missing?", "datePublished": "2026-06-02T00:00:00+09:00", "dateModified": "2026-06-02T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/analytics-gsc-vs-naver-vs-cloudflare/"}, "image": ["https://taystudios.com/blog/assets/posts/analytics-gsc-vs-naver-vs-cloudflare/cover.webp"], "keywords": "GSC, Google Search Console, Naver SearchAdvisor, Cloudflare Web Analytics, analytics tools, SEO, Korean Search Market, traffic analysis, impressions, CTR"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Operations·SEO·Ads", "item": "https://taystudios.com/blog/en/category/growth/"}, {"@type": "ListItem", "position": 3, "name": "GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories", "item": "https://taystudios.com/blog/en/analytics-gsc-vs-naver-vs-cloudflare/"}]}</script><meta property="article:published_time" content="2026-06-02T00:00:00+09:00"><meta property="article:modified_time" content="2026-06-02T00:00:00+09:00"><meta property="article:tag" content="GSC"><meta property="article:tag" content="Google Search Console"><meta property="article:tag" content="Naver SearchAdvisor"><meta property="article:tag" content="Cloudflare Web Analytics"><meta property="article:tag" content="analytics tools"><meta property="article:tag" content="SEO"><meta property="article:tag" content="Korean Search Market"><meta property="article:tag" content="traffic analysis"><meta property="article:tag" content="impressions"><meta property="article:tag" content="CTR">
+<link rel="stylesheet" href="assets/style.css?v=1780462350">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/growth/">Operations·SEO·Ads</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories</span></nav>
+        <h1 class="tb-article-title">GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories</h1>
+        <div class="tb-article-meta">
+          <time>2026.06.02</time>
+          <span>·</span><span>#GSC #Google Search Console #Naver SearchAdvisor #Cloudflare Web Analytics #analytics tools #SEO #Korean Search Market #traffic analysis #impressions #CTR</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#the-trigger-panic-over-gsc">The trigger — panic over GSC</a></li><li class="tb-toc-h2"><a href="#what-each-tool-actually-measures">What each tool actually measures</a></li><li class="tb-toc-h2"><a href="#actual-numbers-same-site-one-month">Actual numbers — same site, one month</a></li><li class="tb-toc-h3"><a href="#google-search-console-last-30-days">Google Search Console (last 30 days)</a></li><li class="tb-toc-h3"><a href="#naver-searchadvisor-last-30-days">Naver SearchAdvisor (last 30 days)</a></li><li class="tb-toc-h3"><a href="#cloudflare-web-analytics-24-hours">Cloudflare Web Analytics (24 hours)</a></li><li class="tb-toc-h2"><a href="#finding-1-google-is-a-20-channel-for-korean-sites">Finding 1 — Google is a 20% channel for Korean sites</a></li><li class="tb-toc-h3"><a href="#a-google-sandbox-the-612-week-probation-for-new-domains">a. Google sandbox (the 6–12 week probation for new domains)</a></li><li class="tb-toc-h3"><a href="#b-ai-overview-kills-clicks">b. AI Overview kills clicks</a></li><li class="tb-toc-h3"><a href="#c-korean-nlp">c. Korean NLP</a></li><li class="tb-toc-h2"><a href="#finding-2-cloudflares-real-data-is-inside-visits-detail">Finding 2 — Cloudflare&#39;s real data is inside &quot;Visits detail&quot;</a></li><li class="tb-toc-h2"><a href="#finding-3-top-page-mismatch">Finding 3 — Top-page mismatch</a></li><li class="tb-toc-h2"><a href="#how-to-use-each-tool">How to use each tool</a></li><li class="tb-toc-h3"><a href="#gsc-for-google-evaluation-keyword-discovery">GSC — for Google evaluation + keyword discovery</a></li><li class="tb-toc-h3"><a href="#naver-searchadvisor-the-main-channel-for-korean-users">Naver SearchAdvisor — the main channel for Korean users</a></li><li class="tb-toc-h3"><a href="#cloudflare-web-analytics-real-traffic-sources">Cloudflare Web Analytics — real traffic + sources</a></li><li class="tb-toc-h2"><a href="#our-action-priorities">Our action priorities</a></li><li class="tb-toc-h2"><a href="#one-liner">One-liner</a></li><li class="tb-toc-h2"><a href="#related">Related</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p><strong>TL;DR</strong>: For a Korean-targeted site, GSC (Google Search Console) shows only <strong>10–20%</strong> of the real traffic. The real channels are <strong>Naver SearchAdvisor + Cloudflare Web Analytics</strong>. GSC is the side dish, not the main course.</p>
+</blockquote>
+<h2 id="the-trigger-panic-over-gsc">The trigger — panic over GSC</h2>
+<p>One month after migrating a new domain (<code>taystudios.com</code>). Opened GSC:</p>
+<pre class="codehilite"><code>Last 3 months:
+- Total clicks: 2
+- Total impressions: 777
+- Avg CTR: 0.3%
+- Avg position: 14.8
+</code></pre>
+
+<p>Impressions peaked 5/14, dropped to near zero by 5/24. "<strong>Is the site dead?</strong>"</p>
+<p>Then Cloudflare Web Analytics:</p>
+<pre class="codehilite"><code>Last 24 hours:
+- Page views: 79
+- Visits: 55
+</code></pre>
+
+<p>55 people a day. The data contradicts. And here's the truth — <strong>the two tools measure completely different things</strong>.</p>
+<h2 id="what-each-tool-actually-measures">What each tool actually measures</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>What it measures</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Google Search Console</strong></td>
+<td>Impressions/clicks on <strong>Google search results only</strong></td>
+<td>google.com → our site</td>
+</tr>
+<tr>
+<td><strong>Naver SearchAdvisor</strong></td>
+<td>Same, for Naver</td>
+<td>naver.com → our site</td>
+</tr>
+<tr>
+<td><strong>Cloudflare Web Analytics</strong></td>
+<td><strong>All</strong> traffic that hits the site</td>
+<td>Direct · Bing · Naver · Daum · referral · social · LLM — everything</td>
+</tr>
+</tbody>
+</table></div>
+<p>= GSC ↓ + Cloudflare stable = <strong>traffic from non-Google sources is stable</strong>. No contradiction.</p>
+<h2 id="actual-numbers-same-site-one-month">Actual numbers — same site, one month</h2>
+<h3 id="google-search-console-last-30-days">Google Search Console (last 30 days)</h3>
+<pre class="codehilite"><code>Clicks: 2
+Impressions: 777
+CTR: 0.3%
+Avg position: 14.8
+</code></pre>
+
+<p>Top 5 keywords surfacing the site:</p>
+<ul>
+<li>"image watermark" (impressions 2, clicks <strong>1</strong>, position 8.5)</li>
+<li>"net salary 80M KRW" (impressions 4, position 6.8)</li>
+<li>"Local Tax Act housing property tax rate 2026" (impressions 3, position 10.3)</li>
+<li>"MOIS car acquisition tax 7%" (impressions 2, position 11.5)</li>
+<li>"background remover site" (impressions 2, position 48.5)</li>
+</ul>
+<h3 id="naver-searchadvisor-last-30-days">Naver SearchAdvisor (last 30 days)</h3>
+<pre class="codehilite"><code>Total clicks: 230 (= 115× GSC)
+Total impressions: 26,000 (= 33× GSC)
+Avg CTR: 0.9% (= 3× GSC)
+</code></pre>
+
+<p>Impressions spiked from 5/22 → averaged 2,000–3,000/day → peaked at 7,600 on 5/27.</p>
+<h3 id="cloudflare-web-analytics-24-hours">Cloudflare Web Analytics (24 hours)</h3>
+<pre class="codehilite"><code>Page views: 79
+Visits: 55
+Country: Korea 53 / China 1 / US 1
+
+Visits by source:
+- m.search.naver.com: ~18
+- search.naver.com: 16
+- search.daum.net: 11
+- chatgpt.com: (yes)
+- Total Naver+Daum = 45 (79%)
+
+Top page: /tools/baby-formula/ (16 visits)
+</code></pre>
+
+<h2 id="finding-1-google-is-a-20-channel-for-korean-sites">Finding 1 — Google is a 20% channel for Korean sites</h2>
+<pre class="codehilite"><code>Naver = 33–115× GSC
+</code></pre>
+
+<p>Google's market share in Korea is 30–35%, but our Google traffic is even smaller. Reasons:</p>
+<h3 id="a-google-sandbox-the-612-week-probation-for-new-domains">a. Google sandbox (the 6–12 week probation for new domains)</h3>
+<p>Migration 5/9 → 6/2 = week 3.5. 122 pages indexed but rankings are throttled.</p>
+<h3 id="b-ai-overview-kills-clicks">b. AI Overview kills clicks</h3>
+<p>Searching "net salary 50M KRW" gets a direct AI answer from Google → no click. Google's Korean policy AI (Gemini) is stronger than Naver's.</p>
+<h3 id="c-korean-nlp">c. Korean NLP</h3>
+<p>Queries like "parental leave benefits calculator" — Naver matches our pages more accurately. Google's Korean NLP is weaker than Naver's homegrown model.</p>
+<p>→ <strong>Looking at GSC misses 80% of the channel mix.</strong></p>
+<h2 id="finding-2-cloudflares-real-data-is-inside-visits-detail">Finding 2 — Cloudflare's real data is inside "Visits detail"</h2>
+<p>The main screen doesn't have it. Click the <strong>Visits card</strong> → detail view:</p>
+<pre class="codehilite"><code>Visits by source (Referrers):
+- m.search.naver.com
+- search.naver.com
+- search.daum.net
+- chatgpt.com
+
+Hosts:
+- taystudios.com
+
+Top paths:
+- /tools/baby-formula/: 16
+- /tools/salary/: ...
+- /image/bg-remove/: ...
+
+Browsers, OS, Country, Device types
+</code></pre>
+
+<p>This detail shows the real sources. Even with GSC at "0 Google clicks today," Naver mobile + desktop + Daum still bring 50+ visits.</p>
+<p>Especially <code>chatgpt.com</code> referrer = <strong>LLM searches are starting to surface the site</strong>. Neither GSC nor Naver shows this.</p>
+<h2 id="finding-3-top-page-mismatch">Finding 3 — Top-page mismatch</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Top page</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GSC top keyword → page</td>
+<td>salary · property-tax · cartax · bg-remove</td>
+</tr>
+<tr>
+<td><strong>Cloudflare top visited page</strong></td>
+<td><code>/tools/baby-formula/</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>baby-formula doesn't show in GSC at all, yet it's #1 in Cloudflare.</strong> Why? Naver "infant formula amount" matches well. That traffic is invisible to GSC, so baby-formula is invisible from Google's angle.</p>
+<p>→ <strong>To know the real top pages, look at Cloudflare.</strong> GSC data is just the tip of the iceberg.</p>
+<h2 id="how-to-use-each-tool">How to use each tool</h2>
+<h3 id="gsc-for-google-evaluation-keyword-discovery">GSC — for Google evaluation + keyword discovery</h3>
+<ul>
+<li>Which queries surface the site</li>
+<li>Indexing status (how many pages indexed)</li>
+<li>Average position</li>
+<li>Per-page index exclusion reasons</li>
+<li><strong>Don't use it as a traffic gauge</strong> — Korean sites only see the tip</li>
+</ul>
+<h3 id="naver-searchadvisor-the-main-channel-for-korean-users">Naver SearchAdvisor — the main channel for Korean users</h3>
+<ul>
+<li>Most important for Korean-targeted sites</li>
+<li>Sitemap submission, manual page collection requests</li>
+<li>Impression/click trends (covers almost all Korean traffic)</li>
+<li>robots and page diagnostics</li>
+<li><strong>Without registration, the engine only finds the site by chance — very slow</strong></li>
+</ul>
+<h3 id="cloudflare-web-analytics-real-traffic-sources">Cloudflare Web Analytics — real traffic + sources</h3>
+<ul>
+<li>All channels combined (Direct + every engine + referral)</li>
+<li>Sources detail — where visitors came from</li>
+<li>Top paths — the actually popular pages</li>
+<li>Country, device, browser breakdown</li>
+<li>LLM referrers (chatgpt.com · perplexity.ai) starting to appear</li>
+<li><strong>Privacy-friendly</strong> — no personal tracking</li>
+</ul>
+<h2 id="our-action-priorities">Our action priorities</h2>
+<p>After combining all three:</p>
+<ol>
+<li><strong>Register Naver Webmaster + submit sitemap</strong> — biggest ROI (79% of traffic)</li>
+<li><strong>Request indexing via GSC URL Inspection on changed pages</strong> — partially route around sandbox</li>
+<li><strong>Bing Webmaster</strong> (1-click GSC import) — +1–3%</li>
+<li><strong>Daum Webmaster</strong> — +5–10%</li>
+<li><strong>Check Cloudflare sources regularly</strong> — track the LLM-referrer trend</li>
+</ol>
+<h2 id="one-liner">One-liner</h2>
+<blockquote>
+<p><strong>Korean sites can't be evaluated on GSC alone.</strong> Naver + Cloudflare, side by side.</p>
+</blockquote>
+<p>GSC shows "Google search data". The real traffic for a Korean-targeted site is Korean engines + AI search + Direct — that's the main current. <strong>Judging the site by one dataset misses the picture.</strong> The classic trap for new-domain operators.</p>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/blog/en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts</a> — sandbox · E-E-A-T · DA · CTR · AI Overview</li>
+<li>(Coming) Adding llms.txt — site metadata for the AI-search era</li>
+</ul>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts — sandbox · E-E-A-T · DA · CTR · AI Overview on One Page</a></li><li><a href="en/seo-google-sandbox-1month/">Google Sandbox, One Month In — Tracking a New Domain&#39;s Search Exposure for 30 Days</a></li><li><a href="en/seo-naver-webmaster-guide/">Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide</a></li><li><a href="en/seo-llmstxt-ai-search-optimization/">Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fanalytics-gsc-vs-naver-vs-cloudflare%2F&amp;text=GSC%20vs%20Naver%20SearchAdvisor%20vs%20Cloudflare%20%E2%80%94%20Same%20Site%2C%20Three%20Datasets%2C%20Three%20Stories" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fanalytics-gsc-vs-naver-vs-cloudflare%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::,growth::seo|analytics|ads"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/growth/"><span>Operations·SEO·Ads</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/seo/"><span>SEO·Search Engines</span><span class="tb-side-count">4</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/analytics/"><span>Analytics</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/ads/"><span>Ads·AdSense</span></a></li></ul></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/seo-google-sandbox-1month/">Google Sandbox, One Month In — Tracking a New Domain&#39;s Search Exposure for 30 Days</a></li><li><a href="en/seo-naver-webmaster-guide/">Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide</a></li><li><a href="en/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories</a></li><li><a href="en/seo-llmstxt-ai-search-optimization/">Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)</a></li><li><a href="en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts — sandbox · E-E-A-T · DA · CTR · AI Overview on One Page</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#SEO">#SEO <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#AI Overview">#AI Overview <span>2</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#CTR">#CTR <span>2</span></a><a class="tb-side-tag" href="en/tags/#GSC">#GSC <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (204) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="about/">About</a><a href="privacy/">Privacy</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780191126"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

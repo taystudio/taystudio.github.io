@@ -139,6 +139,61 @@
           }
         }
       ]
+    },
+    {
+      "@type": "Dataset",
+      "name": "심박수 5 Zone 운동 강도 데이터셋 (ACSM 표준)",
+      "description": "Karvonen·% HRmax 방식 운동 강도 분류 5 단계 + Zone 2 (Fatmax · 지방연소) · Zone 4-5 (인터벌) 별 BPM 범위·목적·대화 가능 여부·심폐 효과. Tanaka 2001 (HRmax = 208 − 0.7 × age) · Gulati 2010 (여성: 206 − 0.88 × age) · Karvonen 1957 HRR 공식 + Achten 2002 Fatmax 기준 포함. ACSM 11th ed (2021) 권장.",
+      "url": "https://taystudios.com/tools/heart-rate/",
+      "creator": {
+        "@type": "Organization",
+        "name": "American College of Sports Medicine (ACSM)",
+        "url": "https://www.acsm.org/"
+      },
+      "license": "https://www.acsm.org/",
+      "isAccessibleForFree": true,
+      "keywords": [
+        "심박수",
+        "운동 강도",
+        "Zone 2",
+        "Fatmax",
+        "HRmax",
+        "Karvonen",
+        "Tanaka",
+        "ACSM"
+      ],
+      "variableMeasured": [
+        {
+          "@type": "PropertyValue",
+          "name": "Zone 1 (회복)",
+          "value": "50-60% HRmax",
+          "description": "Warm-up·cool-down. 대화 매우 편함. 회복 운동."
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Zone 2 (지구력·Fatmax)",
+          "value": "60-70% HRmax",
+          "description": "유산소 base·지방 연소 최대 (Fatmax = HRmax 약 60-65%, Achten 2002). 코호흡 가능, 대화 OK. 주 5-10시간 누적 권장."
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Zone 3 (템포)",
+          "value": "70-80% HRmax",
+          "description": "유산소 임계점 근처. 짧은 문장만 가능. 빠른 회복 운동."
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Zone 4 (인터벌·LT)",
+          "value": "80-90% HRmax",
+          "description": "젖산 임계점. VO2max 향상. 5-15분 인터벌 + 회복 반복."
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Zone 5 (Max·스프린트)",
+          "value": "90-100% HRmax",
+          "description": "최대 강도. 30초-3분 스프린트. 주 1-2회, 충분한 회복."
+        }
+      ]
     }
   ]
 }

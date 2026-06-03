@@ -116,6 +116,80 @@
           }
         }
       ]
+    },
+    {
+      "@type": "Dataset",
+      "name": "표준체중 5 공식 + 임신 체중 증가 권장",
+      "description": "성인 표준체중 5 공식 (BMI 22 한국 표준 · Devine 1974 · Robinson 1983 · Miller 1983 · Hamwi 1964) + IOM 2009 임신 BMI별 체중 증가 권장 (KDRI 2020 한국 적용). 모든 공식 60인치 (152.4cm) 기준점.",
+      "url": "https://taystudios.com/tools/ideal-weight/",
+      "creator": {
+        "@type": "Organization",
+        "name": "대한비만학회 · IOM (Institute of Medicine) · 4 학술 공식",
+        "url": "https://www.kosso.or.kr/"
+      },
+      "license": "https://www.law.go.kr/",
+      "isAccessibleForFree": true,
+      "keywords": [
+        "표준체중",
+        "BMI 22",
+        "Devine",
+        "Robinson",
+        "Miller",
+        "Hamwi",
+        "임신 체중"
+      ],
+      "variableMeasured": [
+        {
+          "@type": "PropertyValue",
+          "name": "BMI 22 (한국 표준)",
+          "value": "22 × 키(m)²",
+          "description": "대한비만학회 정상 범위 (18.5~22.9) 중간값. 한국인 표준"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Devine 1974",
+          "value": "남 50 + 2.3×(in-60) / 여 45.5 + 2.3×(in-60)",
+          "description": "약물 용량 계산용. 가장 흔히 인용"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Robinson 1983",
+          "value": "남 52 + 1.9× / 여 49 + 1.7×",
+          "description": "보수적 추정"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Miller 1983",
+          "value": "남 56.2 + 1.41× / 여 53.1 + 1.36×",
+          "description": "Devine 보다 약간 더 보수"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Hamwi 1964",
+          "value": "남 48 + 2.7× / 여 45.5 + 2.2×",
+          "description": "가장 오래된 공식, 일부 임상 사용"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "임신 권장 증가 — 저체중 (BMI<18.5)",
+          "value": "12.5-18kg"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "임신 권장 증가 — 정상 (18.5-22.9)",
+          "value": "11.5-16kg"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "임신 권장 증가 — 과체중 (23-24.9)",
+          "value": "7-11.5kg"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "임신 권장 증가 — 비만 (25+)",
+          "value": "5-9kg"
+        }
+      ]
     }
   ]
 }

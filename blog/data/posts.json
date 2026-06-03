@@ -1,5 +1,29 @@
 [
   {
+    "slug": "analytics-gsc-vs-naver-vs-cloudflare",
+    "title": "GSC vs Naver SearchAdvisor vs Cloudflare — 같은 사이트, 3종 데이터의 진짜 의미",
+    "date": "2026-06-02",
+    "excerpt": "GSC 3개월 클릭 2건 vs Naver 30일 클릭 230건 vs Cloudflare 일 57 visits. 같은 사이트인데 데이터가 33~115배 차이 나는 이유와 어느 쪽이 진짜 트래픽인지.",
+    "category": [
+      "growth",
+      "analytics"
+    ],
+    "tags": [
+      "GSC",
+      "Google Search Console",
+      "Naver SearchAdvisor",
+      "Cloudflare Web Analytics",
+      "분석 도구",
+      "SEO",
+      "한국 검색시장",
+      "트래픽 분석",
+      "노출",
+      "CTR"
+    ],
+    "image": "assets/posts/analytics-gsc-vs-naver-vs-cloudflare/cover.webp",
+    "lang": "ko"
+  },
+  {
     "slug": "aws-cost-optimization",
     "title": "[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화",
     "date": "2026-02-12",
@@ -556,6 +580,102 @@
       "Windows"
     ],
     "image": "assets/posts/python-windows-install-path/cover.webp",
+    "lang": "ko"
+  },
+  {
+    "slug": "seo-google-sandbox-1month",
+    "title": "Google sandbox 한 달 실측 — 신규 도메인 migration 후 검색 노출 변화 30일 추적",
+    "date": "2026-06-03",
+    "excerpt": "GitHub Pages 도메인을 사용자 도메인으로 옮긴 후 한 달. Google 색인은 점진 OK, 그러나 검색 노출은 spike → dip 패턴. Naver·Cloudflare 데이터까지 합쳐서 본 진짜 영향.",
+    "category": [
+      "growth",
+      "seo"
+    ],
+    "tags": [
+      "Google sandbox",
+      "신규 도메인",
+      "도메인 migration",
+      "GSC",
+      "검색 노출",
+      "SEO",
+      "회고",
+      "실측",
+      "taystudios"
+    ],
+    "image": "assets/posts/seo-google-sandbox-1month/cover.webp",
+    "lang": "ko"
+  },
+  {
+    "slug": "seo-llmstxt-ai-search-optimization",
+    "title": "llms.txt 도입기 — AI 검색 시대의 사이트 메타데이터 (ChatGPT·Claude·Perplexity 노출)",
+    "date": "2026-06-02",
+    "excerpt": "robots.txt 가 검색 크롤러 약속이면 llms.txt 는 LLM 약속. ChatGPT referrer 가 Cloudflare 에 보이기 시작한 시점에 llms.txt 갱신 + LLM crawler 명시 Allow 한 한 시간.",
+    "category": [
+      "growth",
+      "seo"
+    ],
+    "tags": [
+      "llms.txt",
+      "GEO",
+      "Generative Engine Optimization",
+      "AI Overview",
+      "ChatGPT",
+      "Claude",
+      "Perplexity",
+      "Gemini",
+      "robots.txt",
+      "LLM crawler",
+      "AI 검색"
+    ],
+    "image": "assets/posts/seo-llmstxt-ai-search-optimization/cover.webp",
+    "lang": "ko"
+  },
+  {
+    "slug": "seo-naver-webmaster-guide",
+    "title": "Naver SearchAdvisor 등록·sitemap 제출 완전 가이드 — 트래픽 80% 채널 잡기",
+    "date": "2026-06-03",
+    "excerpt": "한국 사이트 트래픽의 80% 가 Naver 인데 Naver SearchAdvisor 등록 안 해놓으면 자체 크롤로만 우연히 발견됨. 등록 5분 + sitemap 제출 + 페이지 수집 요청까지 step-by-step.",
+    "category": [
+      "growth",
+      "seo"
+    ],
+    "tags": [
+      "Naver",
+      "SearchAdvisor",
+      "sitemap",
+      "검색엔진 등록",
+      "한국 SEO",
+      "색인",
+      "robots.txt",
+      "가이드"
+    ],
+    "image": "assets/posts/seo-naver-webmaster-guide/cover.webp",
+    "lang": "ko"
+  },
+  {
+    "slug": "seo-search-engines-concepts",
+    "title": "SEO·검색엔진 핵심 개념 12 — sandbox·E-E-A-T·DA·CTR·AI Overview 한 페이지 정리",
+    "date": "2026-06-02",
+    "excerpt": "Google sandbox 가 뭔지·왜 신규 도메인은 검색 안 나오는지·CTR 이 낮은 진짜 이유·AI Overview 가 트래픽을 가로채는 메커니즘. SEO 무지 상태에서 시작해 1개월 운영하면서 직접 부딪힌 12개 개념을 한 페이지로 정리.",
+    "category": [
+      "growth",
+      "seo"
+    ],
+    "tags": [
+      "SEO",
+      "검색엔진",
+      "sandbox",
+      "E-E-A-T",
+      "Domain Authority",
+      "CTR",
+      "zero-click",
+      "AI Overview",
+      "한국 검색시장",
+      "llms.txt",
+      "schema.org",
+      "JSON-LD"
+    ],
+    "image": "assets/posts/seo-search-engines-concepts/cover.webp",
     "lang": "ko"
   },
   {

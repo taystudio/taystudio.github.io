@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Google sandbox 한 달 실측 — 신규 도메인 migration 후 검색 노출 변화 30일 추적 · Tay Blog</title>
+<meta name="description" content="GitHub Pages 도메인을 사용자 도메인으로 옮긴 후 한 달. Google 색인은 점진 OK, 그러나 검색 노출은 spike → dip 패턴. Naver·Cloudflare 데이터까지 합쳐서 본 진짜 영향.">
+<link rel="canonical" href="https://taystudios.com/blog/ko/seo-google-sandbox-1month/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/seo-google-sandbox-1month/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/seo-google-sandbox-1month/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/seo-google-sandbox-1month/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Google sandbox 한 달 실측 — 신규 도메인 migration 후 검색 노출 변화 30일 추적 · Tay Blog">
+<meta property="og:description" content="GitHub Pages 도메인을 사용자 도메인으로 옮긴 후 한 달. Google 색인은 점진 OK, 그러나 검색 노출은 spike → dip 패턴. Naver·Cloudflare 데이터까지 합쳐서 본 진짜 영향.">
+<meta property="og:url" content="https://taystudios.com/blog/ko/seo-google-sandbox-1month/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/seo-google-sandbox-1month/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/seo-google-sandbox-1month/cover.webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Google sandbox 한 달 실측 — 신규 도메인 migration 후 검색 노출 변화 30일 추적", "description": "GitHub Pages 도메인을 사용자 도메인으로 옮긴 후 한 달. Google 색인은 점진 OK, 그러나 검색 노출은 spike → dip 패턴. Naver·Cloudflare 데이터까지 합쳐서 본 진짜 영향.", "datePublished": "2026-06-03T00:00:00+09:00", "dateModified": "2026-06-03T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/seo-google-sandbox-1month/"}, "image": ["https://taystudios.com/blog/assets/posts/seo-google-sandbox-1month/cover.webp"], "keywords": "Google sandbox, 신규 도메인, 도메인 migration, GSC, 검색 노출, SEO, 회고, 실측, taystudios"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "운영·SEO·광고", "item": "https://taystudios.com/blog/ko/category/growth/"}, {"@type": "ListItem", "position": 3, "name": "Google sandbox 한 달 실측 — 신규 도메인 migration 후 검색 노출 변화 30일 추적", "item": "https://taystudios.com/blog/ko/seo-google-sandbox-1month/"}]}</script><meta property="article:published_time" content="2026-06-03T00:00:00+09:00"><meta property="article:modified_time" content="2026-06-03T00:00:00+09:00"><meta property="article:tag" content="Google sandbox"><meta property="article:tag" content="신규 도메인"><meta property="article:tag" content="도메인 migration"><meta property="article:tag" content="GSC"><meta property="article:tag" content="검색 노출"><meta property="article:tag" content="SEO"><meta property="article:tag" content="회고"><meta property="article:tag" content="실측"><meta property="article:tag" content="taystudios">
+<link rel="stylesheet" href="assets/style.css?v=1780462350">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/growth/">운영·SEO·광고</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Google sandbox 한 달 실측 — 신규 도메인 migration 후 검색 노출 변화 30일 추적</span></nav>
+        <h1 class="tb-article-title">Google sandbox 한 달 실측 — 신규 도메인 migration 후 검색 노출 변화 30일 추적</h1>
+        <div class="tb-article-meta">
+          <time>2026.06.03</time>
+          <span>·</span><span>#Google sandbox #신규 도메인 #도메인 migration #GSC #검색 노출 #SEO #회고 #실측 #taystudios</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">배경</a></li><li class="tb-toc-h2"><a href="#google-sandbox">Google Sandbox 가 뭔지</a></li><li class="tb-toc-h2"><a href="#30">30일 데이터 추적</a></li><li class="tb-toc-h3"><a href="#gsc-google-search-console">GSC (Google Search Console)</a></li><li class="tb-toc-h3"><a href="#bing-webmaster">Bing Webmaster</a></li><li class="tb-toc-h3"><a href="#naver-searchadvisor-522">Naver SearchAdvisor (5/22 등록)</a></li><li class="tb-toc-h3"><a href="#cloudflare-web-analytics">Cloudflare Web Analytics</a></li><li class="tb-toc-h2"><a href="#1-google-sandbox">발견 1 — Google sandbox 는 &quot;검색 순위&quot; 만 영향</a></li><li class="tb-toc-h2"><a href="#2-514-spike">발견 2 — 5/14 spike 의 정체</a></li><li class="tb-toc-h2"><a href="#3-naver-sandbox">발견 3 — Naver 는 sandbox 같은 평가 없음</a></li><li class="tb-toc-h2"><a href="#4-ai">발견 4 — AI 검색이 새로운 채널</a></li><li class="tb-toc-h2"><a href="#google-sandbox_1">추정 — Google sandbox 종료 시점</a></li><li class="tb-toc-h2"><a href="#sandbox">우리 액션 — sandbox 시기에 한 일</a></li><li class="tb-toc-h3"><a href="#_2">콘텐츠 강화</a></li><li class="tb-toc-h3"><a href="#_3">검색엔진 분산</a></li><li class="tb-toc-h3"><a href="#1">결과 (1개월 차)</a></li><li class="tb-toc-h2"><a href="#_4">운영자 교훈</a></li><li class="tb-toc-h3"><a href="#1-migration-expectation">1. 도메인 migration 전 정확한 expectation</a></li><li class="tb-toc-h3"><a href="#2-gsc">2. GSC 만 보면 망함</a></li><li class="tb-toc-h3"><a href="#3-sandbox">3. 콘텐츠 차별화는 sandbox 와 무관</a></li><li class="tb-toc-h3"><a href="#4-ai_1">4. AI 검색 노출 시작은 별개 채널</a></li><li class="tb-toc-h2"><a href="#_5">한 줄 결론</a></li><li class="tb-toc-h2"><a href="#_6">관련 글</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p><strong>결론 먼저</strong>: Google sandbox 는 실재한다. 신규 도메인 → 색인은 점진적으로 됨 (5/22 부터 spike) 그러나 검색 노출은 spike → dip 패턴 (5/14 정점 → 5/24 거의 0). Naver·Cloudflare 가 받쳐주지 않았으면 패닉했을 상황. 6-12주 자동 종료 expected.</p>
+</blockquote>
+<h2 id="_1">배경</h2>
+<p><code>taystudio.github.io</code> → <code>taystudios.com</code> (2026-05-09 migration). 신규 도메인 취급. 5/9 이후 30일간 GSC·Naver·Cloudflare 3종 데이터 추적 + 무슨 일이 일어났는지.</p>
+<h2 id="google-sandbox">Google Sandbox 가 뭔지</h2>
+<p>Google 이 신규 도메인을 일정 기간 "견습" 상태로 두는 비공식 알고리즘:
+- <strong>6-12주</strong> 색인은 되지만 검색 순위 상승 제한
+- 스팸·MFA(Made For AdSense) 사이트 차단 목적
+- "이 사이트가 6주 후에도 살아있나" 평가
+- Google 공식 부정하지만 SEO 업계에서 widely observed</p>
+<h2 id="30">30일 데이터 추적</h2>
+<h3 id="gsc-google-search-console">GSC (Google Search Console)</h3>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>기간</th>
+<th>클릭</th>
+<th>노출</th>
+<th>평균 순위</th>
+<th>CTR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5/9 (migration)</td>
+<td>0</td>
+<td>0</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>5/14</td>
+<td>1</td>
+<td><strong>450 (peak)</strong></td>
+<td>14</td>
+<td>0.2%</td>
+</tr>
+<tr>
+<td>5/17</td>
+<td>0</td>
+<td>300</td>
+<td>13</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>5/20</td>
+<td>1</td>
+<td>280</td>
+<td>12</td>
+<td>0.4%</td>
+</tr>
+<tr>
+<td>5/24</td>
+<td>0</td>
+<td>10</td>
+<td>18</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>5/28</td>
+<td>0</td>
+<td>5</td>
+<td>22</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>6/2</td>
+<td>0</td>
+<td>~0</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p>= <strong>5/14 정점 → 5/24 dip → 거의 0</strong>. 사용자 입장에서는 "사이트 망했나?".</p>
+<h3 id="bing-webmaster">Bing Webmaster</h3>
+<p>비슷한 패턴:
+- 5/12 까지 데이터 있음 (옛 도메인 잔여)
+- 5/22 부터 sitemap discovered 124 URLs
+- 그러나 검색 노출 0 (Bing 도 신규 도메인 평가 큐 대기)</p>
+<h3 id="naver-searchadvisor-522">Naver SearchAdvisor (5/22 등록)</h3>
+<p>여기서 <strong>반전</strong>:
+- 5/22 등록 직후 spike 시작
+- 5/27 정점 <strong>7,600 노출</strong>
+- 5/28 이후 일 평균 2,000-3,000 안정
+- 30일 합계: <strong>노출 26,000 + 클릭 230</strong></p>
+<p>= <strong>Google 의 33-115배</strong>. 한국 사용자 대상이라 Naver 매칭이 훨씬 좋음.</p>
+<h3 id="cloudflare-web-analytics">Cloudflare Web Analytics</h3>
+<p>전체 트래픽 (모든 채널):
+- 일 visits 평균 55명
+- 79% 가 Naver/Daum referrer
+- ChatGPT referrer 일부 (AI 검색 노출 시작)
+- 사이트 자체는 정상 작동</p>
+<h2 id="1-google-sandbox">발견 1 — Google sandbox 는 "검색 순위" 만 영향</h2>
+<p>색인 자체는 점진적으로 OK:
+- 5/22 122 페이지 색인됨
+- 5/29 색인 안 된 페이지 7건 (redirect 4·canonical 1·큐 2 = 정상 사유)
+- 6/2 sitemap 124 URL 모두 발견</p>
+<p>= Google 이 사이트 발견·크롤·색인은 정상 진행. <strong>검색 결과 페이지의 순위만 제한</strong>. 같은 키워드에 다른 사이트 (오래된 도메인) 가 우선.</p>
+<h2 id="2-514-spike">발견 2 — 5/14 spike 의 정체</h2>
+<p>5/14 갑자기 노출 450 → Google 이 신규 도메인에 <strong>테스트 노출</strong> 한 듯. 사이트가 진짜인지 사용자 반응 (CTR·체류시간) 확인.</p>
+<p>그 후 5/17~24 dip = "평가 결과 일단 sandbox 유지". 클릭률 0.3% 가 신규 도메인의 평가 기준 못 미친 것으로 추정.</p>
+<h2 id="3-naver-sandbox">발견 3 — Naver 는 sandbox 같은 평가 없음</h2>
+<p>5/22 등록 → 즉시 색인 + 노출 시작. <strong>3일만에 일 노출 2,000+ 도달</strong>. Naver 는 sitemap 제출되면 빠르게 처리. 신규 도메인이라도 큰 페널티 X.</p>
+<h2 id="4-ai">발견 4 — AI 검색이 새로운 채널</h2>
+<p>Cloudflare 에서 <code>chatgpt.com</code> referrer 출현. LLM (ChatGPT·Claude·Perplexity) 이 우리 사이트 학습·검색에서 인용 시작. <strong>Google sandbox 와 무관한 채널</strong>.</p>
+<h2 id="google-sandbox_1">추정 — Google sandbox 종료 시점</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>도메인 age</th>
+<th>sandbox 상태</th>
+<th>검색 노출</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1주 (5/16)</td>
+<td>초기 평가</td>
+<td>spike 시작</td>
+</tr>
+<tr>
+<td>2주 (5/22)</td>
+<td>평가 진행</td>
+<td>spike 정점</td>
+</tr>
+<tr>
+<td>3주 (5/29)</td>
+<td>dip</td>
+<td>거의 0</td>
+</tr>
+<tr>
+<td><strong>6주 (6/20)</strong></td>
+<td><strong>부분 회복 시작 expected</strong></td>
+<td>노출 점진 증가</td>
+</tr>
+<tr>
+<td><strong>12주 (7/30)</strong></td>
+<td><strong>전체 회복 expected</strong></td>
+<td>정상 노출</td>
+</tr>
+</tbody>
+</table></div>
+<p>이 timeline 은 일반 SEO 경험치 (Google 공식 X). 콘텐츠 quality·E-E-A-T·백링크에 따라 단축 가능.</p>
+<h2 id="sandbox">우리 액션 — sandbox 시기에 한 일</h2>
+<h3 id="_2">콘텐츠 강화</h3>
+<ul>
+<li>18 도구 stale fix (잘못된 수치 24건)</li>
+<li>차별화 매트릭스 5건 add (inheritance break-even·loan DSR·6+6 부모공동 등)</li>
+<li>Top 5 페이지 title·description CTR 최적화</li>
+<li>블로그 글 시리즈 시작</li>
+</ul>
+<h3 id="_3">검색엔진 분산</h3>
+<ul>
+<li>Naver SearchAdvisor 등록 + sitemap 제출</li>
+<li>Bing Webmaster URL submission (10건)</li>
+<li>Daum Webmaster 예정</li>
+<li>llms.txt + robots.txt LLM crawler Allow (AI 검색 분산)</li>
+</ul>
+<h3 id="1">결과 (1개월 차)</h3>
+<ul>
+<li>Google: sandbox 진행 중 (대기)</li>
+<li>Naver: 일 visits 50+ 안정</li>
+<li>Bing: sitemap discovered, 크롤 대기</li>
+<li>AI 검색: 일부 referrer 출현</li>
+</ul>
+<h2 id="_4">운영자 교훈</h2>
+<h3 id="1-migration-expectation">1. 도메인 migration 전 정확한 expectation</h3>
+<p>신규 도메인 = 검색 0-3개월 노출 안 됨. 비즈니스가 검색 트래픽 의존이면 migration 신중하게.</p>
+<h3 id="2-gsc">2. GSC 만 보면 망함</h3>
+<p>데이터 한쪽만 보고 패닉 X. Naver + Cloudflare + Bing 합쳐서 봐야.</p>
+<h3 id="3-sandbox">3. 콘텐츠 차별화는 sandbox 와 무관</h3>
+<p>매트릭스·시뮬레이션·시각화 같은 차별화 콘텐츠는 long-tail SEO 에 누적. sandbox 종료 후 즉시 노출 ↑.</p>
+<h3 id="4-ai_1">4. AI 검색 노출 시작은 별개 채널</h3>
+<p>ChatGPT·Claude·Perplexity 가 인용 시작 → 미래 트래픽. llms.txt 적극 활용.</p>
+<h2 id="_5">한 줄 결론</h2>
+<blockquote>
+<p><strong>Google sandbox 는 진짜다. 그러나 한국 사이트면 Naver 가 받쳐준다.</strong> 패닉 X, 시간 + 콘텐츠 + 채널 분산.</p>
+</blockquote>
+<p>7월 말 ~ 8월에 다시 회고 글 작성 예정. sandbox 정말 종료되는지 실측 데이터로.</p>
+<h2 id="_6">관련 글</h2>
+<ul>
+<li><a href="/blog/ko/seo-search-engines-concepts/">12 Core SEO·검색엔진 개념</a> — sandbox 정의·E-E-A-T·DA·CTR</li>
+<li><a href="/blog/ko/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver vs Cloudflare</a> — 3종 데이터 비교</li>
+<li><a href="/blog/ko/seo-naver-webmaster-guide/">Naver SearchAdvisor 등록 가이드</a> — 트래픽 80% 채널</li>
+</ul>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/seo-search-engines-concepts/">SEO·검색엔진 핵심 개념 12 — sandbox·E-E-A-T·DA·CTR·AI Overview 한 페이지 정리</a></li><li><a href="ko/seo-naver-webmaster-guide/">Naver SearchAdvisor 등록·sitemap 제출 완전 가이드 — 트래픽 80% 채널 잡기</a></li><li><a href="ko/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver SearchAdvisor vs Cloudflare — 같은 사이트, 3종 데이터의 진짜 의미</a></li><li><a href="ko/seo-llmstxt-ai-search-optimization/">llms.txt 도입기 — AI 검색 시대의 사이트 메타데이터 (ChatGPT·Claude·Perplexity 노출)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fseo-google-sandbox-1month%2F&amp;text=Google%20sandbox%20%ED%95%9C%20%EB%8B%AC%20%EC%8B%A4%EC%B8%A1%20%E2%80%94%20%EC%8B%A0%EA%B7%9C%20%EB%8F%84%EB%A9%94%EC%9D%B8%20migration%20%ED%9B%84%20%EA%B2%80%EC%83%89%20%EB%85%B8%EC%B6%9C%20%EB%B3%80%ED%99%94%2030%EC%9D%BC%20%EC%B6%94%EC%A0%81" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fseo-google-sandbox-1month%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::,growth::seo|analytics|ads"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/growth/"><span>운영·SEO·광고</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/growth/seo/"><span>SEO·검색엔진</span><span class="tb-side-count">4</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/growth/analytics/"><span>데이터 분석</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/growth/ads/"><span>광고·AdSense</span></a></li></ul></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/seo-google-sandbox-1month/">Google sandbox 한 달 실측 — 신규 도메인 migration 후 검색 노출 변화 30일 추적</a></li><li><a href="ko/seo-naver-webmaster-guide/">Naver SearchAdvisor 등록·sitemap 제출 완전 가이드 — 트래픽 80% 채널 잡기</a></li><li><a href="ko/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver SearchAdvisor vs Cloudflare — 같은 사이트, 3종 데이터의 진짜 의미</a></li><li><a href="ko/seo-llmstxt-ai-search-optimization/">llms.txt 도입기 — AI 검색 시대의 사이트 메타데이터 (ChatGPT·Claude·Perplexity 노출)</a></li><li><a href="ko/seo-search-engines-concepts/">SEO·검색엔진 핵심 개념 12 — sandbox·E-E-A-T·DA·CTR·AI Overview 한 페이지 정리</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#SEO">#SEO <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#AI Overview">#AI Overview <span>2</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#CTR">#CTR <span>2</span></a><a class="tb-side-tag" href="ko/tags/#GSC">#GSC <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (210) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="about/">About</a><a href="privacy/">Privacy</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780191126"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

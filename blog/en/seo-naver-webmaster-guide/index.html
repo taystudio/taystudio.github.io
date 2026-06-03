@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide · Tay Blog</title>
+<meta name="description" content="Naver carries 80% of Korean-site traffic, yet most operators skip Naver SearchAdvisor and let the engine find their site by accident. Registration in 5 minutes, sitemap submission, and manual crawl requests — step by step.">
+<link rel="canonical" href="https://taystudios.com/blog/en/seo-naver-webmaster-guide/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/seo-naver-webmaster-guide/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/seo-naver-webmaster-guide/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/seo-naver-webmaster-guide/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide · Tay Blog">
+<meta property="og:description" content="Naver carries 80% of Korean-site traffic, yet most operators skip Naver SearchAdvisor and let the engine find their site by accident. Registration in 5 minutes, sitemap submission, and manual crawl requests — step by step.">
+<meta property="og:url" content="https://taystudios.com/blog/en/seo-naver-webmaster-guide/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/seo-naver-webmaster-guide/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/seo-naver-webmaster-guide/cover.webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide", "description": "Naver carries 80% of Korean-site traffic, yet most operators skip Naver SearchAdvisor and let the engine find their site by accident. Registration in 5 minutes, sitemap submission, and manual crawl requests — step by step.", "datePublished": "2026-06-03T00:00:00+09:00", "dateModified": "2026-06-03T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/seo-naver-webmaster-guide/"}, "image": ["https://taystudios.com/blog/assets/posts/seo-naver-webmaster-guide/cover.webp"], "keywords": "Naver, SearchAdvisor, sitemap, search engine registration, Korean SEO, indexing, robots.txt, guide"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Operations·SEO·Ads", "item": "https://taystudios.com/blog/en/category/growth/"}, {"@type": "ListItem", "position": 3, "name": "Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide", "item": "https://taystudios.com/blog/en/seo-naver-webmaster-guide/"}]}</script><meta property="article:published_time" content="2026-06-03T00:00:00+09:00"><meta property="article:modified_time" content="2026-06-03T00:00:00+09:00"><meta property="article:tag" content="Naver"><meta property="article:tag" content="SearchAdvisor"><meta property="article:tag" content="sitemap"><meta property="article:tag" content="search engine registration"><meta property="article:tag" content="Korean SEO"><meta property="article:tag" content="indexing"><meta property="article:tag" content="robots.txt"><meta property="article:tag" content="guide">
+<link rel="stylesheet" href="assets/style.css?v=1780462350">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/growth/">Operations·SEO·Ads</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide</span></nav>
+        <h1 class="tb-article-title">Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide</h1>
+        <div class="tb-article-meta">
+          <time>2026.06.03</time>
+          <span>·</span><span>#Naver #SearchAdvisor #sitemap #search engine registration #Korean SEO #indexing #robots.txt #guide</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#why-gsc-alone-isnt-enough">Why GSC alone isn&#39;t enough</a></li><li class="tb-toc-h2"><a href="#step-1-sign-up-for-naver-searchadvisor-1-min">Step 1. Sign up for Naver SearchAdvisor (1 min)</a></li><li class="tb-toc-h2"><a href="#step-2-verify-ownership-3-min">Step 2. Verify ownership (3 min)</a></li><li class="tb-toc-h3"><a href="#option-a-html-meta-tag-simplest-recommended">Option A. HTML meta tag (simplest — recommended)</a></li><li class="tb-toc-h3"><a href="#option-b-html-file-upload">Option B. HTML file upload</a></li><li class="tb-toc-h3"><a href="#option-c-webmaster-tools-api-skip-not-for-regular-operators">Option C. WebMaster Tools API (skip — not for regular operators)</a></li><li class="tb-toc-h2"><a href="#step-3-submit-your-sitemaps-1-min-the-most-important">Step 3. Submit your sitemaps (1 min — the most important)</a></li><li class="tb-toc-h2"><a href="#step-4-request-page-collection-2-min">Step 4. Request page collection (2 min)</a></li><li class="tb-toc-h2"><a href="#step-5-diagnose-monitor">Step 5. Diagnose + monitor</a></li><li class="tb-toc-h3"><a href="#verify-robotstxt">Verify &amp;gt; robots.txt</a></li><li class="tb-toc-h3"><a href="#verify-webpage-diagnostics">Verify &amp;gt; Webpage Diagnostics</a></li><li class="tb-toc-h3"><a href="#reports-site-diagnostics">Reports &amp;gt; Site Diagnostics</a></li><li class="tb-toc-h2"><a href="#common-traps">Common traps</a></li><li class="tb-toc-h3"><a href="#1-https-vs-http-www-vs-non-www">1. HTTPS vs HTTP / www vs non-www</a></li><li class="tb-toc-h3"><a href="#2-pasting-two-sitemaps-on-one-line">2. Pasting two sitemaps on one line</a></li><li class="tb-toc-h3"><a href="#3-burning-all-50-crawl-requests-at-once">3. Burning all 50 crawl requests at once</a></li><li class="tb-toc-h3"><a href="#4-expecting-results-right-after-registration">4. Expecting results right after registration</a></li><li class="tb-toc-h2"><a href="#also-register-daum-kakao-510-min">Also register Daum (Kakao) (5–10 min)</a></li><li class="tb-toc-h2"><a href="#timeline-after-registration">Timeline after registration</a></li><li class="tb-toc-h2"><a href="#one-liner">One-liner</a></li><li class="tb-toc-h2"><a href="#related">Related</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<blockquote>
+<p><strong>TL;DR</strong>: For a Korean-targeted site, <strong>Naver SearchAdvisor beats Google Search Console for ROI</strong> (it's an 80% traffic channel). Five minutes for registration + sitemap submission + crawl requests.</p>
+</blockquote>
+<p>After a month on this domain, GSC showed 2 clicks and 777 impressions — looked like the site was dead. Then I registered Naver SearchAdvisor and saw <strong>26,000 impressions + 230 clicks in 30 days</strong>. 33–115× Google's numbers. For Korean users, this is the main channel.</p>
+<h2 id="why-gsc-alone-isnt-enough">Why GSC alone isn't enough</h2>
+<p>Korean market share:
+- <strong>Naver</strong>: 50–60%
+- <strong>Google</strong>: 30–35%
+- <strong>Daum (Kakao)</strong>: 5–10%
+- Bing/others: &lt;5%</p>
+<p>= GSC alone misses <strong>60–70% of Korean traffic</strong>. With a fresh domain in Google sandbox, you see even less.</p>
+<h2 id="step-1-sign-up-for-naver-searchadvisor-1-min">Step 1. Sign up for Naver SearchAdvisor (1 min)</h2>
+<ol>
+<li>Go to <a href="https://searchadvisor.naver.com">searchadvisor.naver.com</a></li>
+<li>Top-right <strong>Login</strong> → sign in with a Naver account (create one if needed)</li>
+<li>Top menu <strong>Webmaster Tools</strong> → <strong>Site Registration</strong></li>
+</ol>
+<h2 id="step-2-verify-ownership-3-min">Step 2. Verify ownership (3 min)</h2>
+<p>Enter your site URL (e.g., <code>https://taystudios.com</code>). Then <strong>pick a verification method</strong>:</p>
+<h3 id="option-a-html-meta-tag-simplest-recommended">Option A. HTML meta tag (simplest — recommended)</h3>
+<p>Paste the meta tag Naver gives you into your <code>&lt;head&gt;</code>:</p>
+<pre class="codehilite"><code class="language-html">&lt;meta name=&quot;naver-site-verification&quot; content=&quot;abc123def456...&quot; /&gt;
+</code></pre>
+
+<p>For a static site on GitHub Pages, add it to <code>index.html</code> or the shared layout <code>&lt;head&gt;</code> and redeploy. Then click <strong>Verify</strong> in the Naver console.</p>
+<h3 id="option-b-html-file-upload">Option B. HTML file upload</h3>
+<p>Upload a named HTML file to the site root, e.g., <code>https://taystudios.com/naverabc123def456.html</code>.</p>
+<h3 id="option-c-webmaster-tools-api-skip-not-for-regular-operators">Option C. WebMaster Tools API (skip — not for regular operators)</h3>
+<p>→ <strong>HTML meta tag</strong> is the fast, safe path. Recommend Option A.</p>
+<h2 id="step-3-submit-your-sitemaps-1-min-the-most-important">Step 3. Submit your sitemaps (1 min — the most important)</h2>
+<p>After verification, on the left menu:</p>
+<p><strong>Request &gt; Submit Sitemap</strong></p>
+<pre class="codehilite"><code>Sitemap URL input:
+https://taystudios.com/sitemap.xml
+
+→ Submit → Success
+</code></pre>
+
+<p>If you have a separate blog/subsite sitemap, <strong>submit them one at a time</strong>:</p>
+<pre class="codehilite"><code>https://taystudios.com/sitemap.xml
+https://taystudios.com/blog/sitemap.xml
+</code></pre>
+
+<p>The trap I keep falling into — submitting only one and forgetting the other. Unless it's a sitemap index (<code>sitemap-index.xml</code>), each sitemap must be <strong>submitted directly</strong>.</p>
+<h2 id="step-4-request-page-collection-2-min">Step 4. Request page collection (2 min)</h2>
+<p>Without nudging, Naver finds new pages on its own (days to weeks). To <strong>bump priority manually</strong>:</p>
+<p><strong>Request &gt; Page Collection Request</strong></p>
+<p>Paste a URL → submit. <strong>50 URLs per day</strong> quota.</p>
+<p>Suggested — top pages + recently changed ones first:</p>
+<pre class="codehilite"><code>https://taystudios.com/                    # home
+https://taystudios.com/tools/              # tools hub
+https://taystudios.com/tools/salary/       # top tool
+https://taystudios.com/tools/property-tax/
+https://taystudios.com/tools/cartax/
+https://taystudios.com/image/bg-remove/
+https://taystudios.com/blog/en/            # blog home
+https://taystudios.com/blog/en/recent-post/  # latest posts
+</code></pre>
+
+<h2 id="step-5-diagnose-monitor">Step 5. Diagnose + monitor</h2>
+<h3 id="verify-robotstxt">Verify &gt; robots.txt</h3>
+<p>Confirms your robots.txt isn't blocking Naver Yeti. Usually fine, occasionally surprises you.</p>
+<h3 id="verify-webpage-diagnostics">Verify &gt; Webpage Diagnostics</h3>
+<p>Per-page SEO score, meta, structure. Start with pages already getting impressions.</p>
+<h3 id="reports-site-diagnostics">Reports &gt; Site Diagnostics</h3>
+<p>Total impressions/clicks/CTR. Data starts accumulating 1–2 weeks after registration.</p>
+<h2 id="common-traps">Common traps</h2>
+<h3 id="1-https-vs-http-www-vs-non-www">1. HTTPS vs HTTP / www vs non-www</h3>
+<p><code>https://taystudios.com</code> and <code>https://www.taystudios.com</code> are <strong>separate sites</strong> to Naver. If you serve both, register both and configure a redirect.</p>
+<h3 id="2-pasting-two-sitemaps-on-one-line">2. Pasting two sitemaps on one line</h3>
+<pre class="codehilite"><code>❌ https://taystudios.com/sitemap.xml, https://taystudios.com/blog/sitemap.xml
+✅ Submit each separately
+</code></pre>
+
+<h3 id="3-burning-all-50-crawl-requests-at-once">3. Burning all 50 crawl requests at once</h3>
+<p>The 50 is a per-day cap. Spread different pages across days.</p>
+<h3 id="4-expecting-results-right-after-registration">4. Expecting results right after registration</h3>
+<p>Naver's crawl queue takes <strong>1–2 weeks</strong> to process. Zero data the first few days is normal.</p>
+<h2 id="also-register-daum-kakao-510-min">Also register Daum (Kakao) (5–10 min)</h2>
+<p>Same Korean market. After Naver, it's the biggest:</p>
+<ul>
+<li><a href="https://webmaster.daum.net">webmaster.daum.net</a></li>
+<li>Log in with Kakao</li>
+<li>Register the site + submit the sitemap (process is essentially the same)</li>
+</ul>
+<p>Daum partly uses Google results, but it also runs its own index. Expect +5–10% traffic after registration.</p>
+<h2 id="timeline-after-registration">Timeline after registration</h2>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Expectation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Right after</td>
+<td>Sitemap discovered (URL count appears)</td>
+</tr>
+<tr>
+<td>1 week</td>
+<td>Crawling starts</td>
+</tr>
+<tr>
+<td>2 weeks</td>
+<td>Indexing starts</td>
+</tr>
+<tr>
+<td>3–4 weeks</td>
+<td>First search-result impressions</td>
+</tr>
+<tr>
+<td>4–6 weeks</td>
+<td>Steady impression/click data</td>
+</tr>
+</tbody>
+</table></div>
+<p>For my site, impressions spiked from 5/22 → 30 days later: 26,000 impressions/month. Naver seems to have its own probation period, similar in feel to Google sandbox.</p>
+<h2 id="one-liner">One-liner</h2>
+<blockquote>
+<p><strong>If your site targets Korea, Naver SearchAdvisor comes before GSC.</strong> Five minutes of work, 80% of the traffic channel.</p>
+</blockquote>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/blog/en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts</a> — sandbox · E-E-A-T · CTR</li>
+<li><a href="/blog/en/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver vs Cloudflare</a> — what three datasets really mean</li>
+</ul>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/seo-llmstxt-ai-search-optimization/">Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)</a></li><li><a href="en/seo-google-sandbox-1month/">Google Sandbox, One Month In — Tracking a New Domain&#39;s Search Exposure for 30 Days</a></li><li><a href="en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts — sandbox · E-E-A-T · DA · CTR · AI Overview on One Page</a></li><li><a href="en/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fseo-naver-webmaster-guide%2F&amp;text=Naver%20SearchAdvisor%20%E2%80%94%20Registration%2C%20Sitemap%2C%20and%20Crawl%20Request%3A%20The%20Complete%20Guide" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fseo-naver-webmaster-guide%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::,growth::seo|analytics|ads"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/growth/"><span>Operations·SEO·Ads</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/seo/"><span>SEO·Search Engines</span><span class="tb-side-count">4</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/analytics/"><span>Analytics</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/ads/"><span>Ads·AdSense</span></a></li></ul></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/seo-google-sandbox-1month/">Google Sandbox, One Month In — Tracking a New Domain&#39;s Search Exposure for 30 Days</a></li><li><a href="en/seo-naver-webmaster-guide/">Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide</a></li><li><a href="en/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories</a></li><li><a href="en/seo-llmstxt-ai-search-optimization/">Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)</a></li><li><a href="en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts — sandbox · E-E-A-T · DA · CTR · AI Overview on One Page</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#SEO">#SEO <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#AI Overview">#AI Overview <span>2</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#CTR">#CTR <span>2</span></a><a class="tb-side-tag" href="en/tags/#GSC">#GSC <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (204) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="about/">About</a><a href="privacy/">Privacy</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780191126"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

@@ -392,6 +392,66 @@
     </section>
 
     <section class="tool-article">
+      <h2>패널 종류 매트릭스 — IPS · VA · OLED · 미니LED · QLED</h2>
+      <p>같은 해상도·크기라도 패널이 다르면 색·명암·응답 속도가 완전히 다릅니다. 용도별 선택 기준.</p>
+      <div class="ref-table">
+        <table>
+          <thead>
+            <tr><th>패널</th><th>명암비</th><th>색재현 (sRGB)</th><th>응답속도</th><th>HDR</th><th>번인</th><th>적합 용도</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>IPS</b></td><td>1,000:1</td><td>99-100%</td><td>4-5ms</td><td>HDR400</td><td>없음</td>
+              <td>사무·문서·일반 영상</td>
+            </tr>
+            <tr>
+              <td><b>VA</b></td><td>3,000-4,000:1</td><td>95-99%</td><td>4-8ms</td><td>HDR400-600</td><td>없음</td>
+              <td>영상·곡면·예산</td>
+            </tr>
+            <tr>
+              <td><b>OLED</b></td><td>∞ (완전 검정)</td><td>100% DCI-P3</td><td>0.03ms</td><td class="highlight">HDR True Black 400-1000</td><td>가능성 있음</td>
+              <td>영상편집·게임·HDR 콘텐츠</td>
+            </tr>
+            <tr>
+              <td><b>미니LED</b></td><td>10,000-100,000:1</td><td>99-100%</td><td>4-5ms</td><td>HDR1000+</td><td>없음</td>
+              <td>전문 영상·HDR·고휘도</td>
+            </tr>
+            <tr>
+              <td><b>QLED</b> (VA 베이스)</td><td>3,000-4,000:1</td><td>100% DCI-P3</td><td>4-8ms</td><td>HDR400-600</td><td>없음</td>
+              <td>VA + 양자점 색재현</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">
+        <b>핵심 차이</b> — IPS = 색 정확 + 시야각 좋음 / VA = 검정 진함 + 명암비 / OLED = 완전 검정 + 0.03ms (게이밍·영상) / 미니LED = 고휘도 HDR + 번인 X / QLED = VA + 양자점 색.<br>
+        <b>OLED 번인</b>: 같은 정적 이미지 (Windows taskbar 등) 장시간 표시 시. 영상·게임 중심이면 거의 영향 X. 사무 중심 + 고정 UI 라면 IPS·미니LED.<br>
+        <b>가격 (2026 27인치 4K 기준)</b>: IPS 60-90만 · VA 50-80만 · OLED 120-200만 · 미니LED 150-250만.
+      </p>
+    </section>
+
+    <section class="tool-article">
+      <h2>VESA DisplayHDR 등급별 차이</h2>
+      <p>HDR 표시 인증 표준. 인증 등급에 따라 휘도·로컬 디밍·색재현 요구가 다름.</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>등급</th><th>최대 휘도</th><th>로컬 디밍</th><th>색재현</th><th>실용 평가</th></tr></thead>
+          <tbody>
+            <tr><td>DisplayHDR 400</td><td>400 nit</td><td>X</td><td>sRGB 95%</td><td>HDR 라벨만, 실제 효과 미미</td></tr>
+            <tr><td>DisplayHDR 600</td><td>600 nit</td><td>로컬 디밍 권장</td><td>DCI-P3 90%</td><td>입문 HDR — 명암 향상 가능</td></tr>
+            <tr><td>DisplayHDR 1000</td><td class="highlight">1,000 nit</td><td>필수</td><td>DCI-P3 90%+</td><td>본격 HDR 시작</td></tr>
+            <tr><td>DisplayHDR 1400</td><td>1,400 nit</td><td>필수</td><td>DCI-P3 95%+</td><td>전문 HDR</td></tr>
+            <tr><td>HDR True Black 400/500/600</td><td>400-600 nit</td><td>OLED (픽셀 단위)</td><td>DCI-P3 90%+</td><td>OLED 전용 등급</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">
+        <b>HDR 400</b> 은 사실상 HDR 효과 거의 없음 — 마케팅 라벨. <b>HDR 600 이상</b>부터 HDR 콘텐츠 차이 체감. OLED 는 DisplayHDR 1000 받기 어려워 별도 <b>HDR True Black</b> 등급으로 인증.<br>
+        영화·HDR 게임 시 600+ 권장. 사무·코딩은 HDR 무의미.
+      </p>
+    </section>
+
+    <section class="tool-article">
       <h2>관련 계산기</h2>
       <div class="related-calc">
         <a href="../storage/">저장공간 계산기<span class="desc">영상·사진 용량 + SSD 권장</span></a>
