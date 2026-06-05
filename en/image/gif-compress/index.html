@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/en/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://esm.sh">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="GIF Compressor | Reduce Animated GIF Size (Browser-Based, Free)">
+  <meta property="og:description" content="Compress animated GIFs — adjust colors, lossy, and optimize level for 30~80% size reduction. Keeps all frames. Browser-based via gifsicle.wasm, no upload.">
+  <meta property="og:url" content="https://taystudios.com/en/image/gif-compress/">
+  <meta property="og:image" content="https://taystudios.com/og-image-en.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image-en.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GIF Compressor | Reduce Animated GIF Size (Free)">
+  <meta name="twitter:description" content="Compress animated GIFs — 30~80% smaller while keeping all frames. Browser-based via gifsicle.wasm, no upload.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>GIF Compressor | Reduce Animated GIF Size (Browser-Based, Free)</title>
+  <meta name="description" content="Compress animated GIFs — adjust colors, lossy, and optimize for 30~80% size reduction. All frames preserved. gifsicle.wasm, browser-based, no upload.">
+  <meta name="keywords" content="gif compressor, compress animated gif, reduce gif size, shrink gif, gifsicle online, lossy gif, gif optimizer">
+  <link rel="canonical" href="https://taystudios.com/en/image/gif-compress/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/gif-compress/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/gif-compress/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/gif-compress/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "GIF Compressor (Animated GIF, Browser-Based)",
+      "description": "Compress animated GIFs — gifsicle.wasm browser port adjusts colors, lossy, optimize. 30~80% size reduction. All frames preserved. No upload.",
+      "url": "https://taystudios.com/en/image/gif-compress/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript and WebAssembly",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "Preserves GIF animation (multi-frame)",
+        "Adjustable colors · lossy · optimize",
+        "30~80% size reduction (by strength)",
+        "No upload — gifsicle.wasm runs in your browser"
+      ],
+      "dateModified": "2026-06-05",
+      "softwareVersion": "2026.06"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/en/image/" },
+        { "@type": "ListItem", "position": 3, "name": "GIF Compress", "item": "https://taystudios.com/en/image/gif-compress/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does the animation survive compression?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. gifsicle.wasm preserves every frame of a multi-frame GIF while adjusting colors, lossy, and optimize. The standard image compressor uses canvas API and keeps only the first frame — this tool is GIF-specific so the animation stays intact." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the lossy option?",
+          "acceptedAnswer": { "@type": "Answer", "text": "lossy slightly dithers pixel colors to improve LZW compression. Higher values give smaller files but introduce visible noise. Recommended: 0~80 (visually lossless). 100~200 is fine for social/messengers with slight noise." }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens when I reduce the color count?",
+          "acceptedAnswer": { "@type": "Answer", "text": "GIF uses a 256-color palette. Reducing to 128 · 64 · 32 makes the file smaller but flattens gradients and smooth color transitions. Logos · illustrations · single-color GIFs work fine at 64; photographic GIFs should stay at 256." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why doesn't the regular image compressor work for GIFs?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The image compressor uses canvas API's toBlob(), which doesn't support multi-frame. Upload a GIF and only the first frame is kept and re-encoded as JPG · PNG · WebP. To keep the animation, use this GIF compressor." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it handle large GIFs (50MB+)?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Technically yes, but mobile devices may stall at 30MB+. Desktop Chrome handles up to ~100MB reliably. For huge GIFs, reduce fps and resolution first with video/to-gif and then compress." }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to Compress an Animated GIF",
+      "description": "Reduce GIF size with gifsicle.wasm while preserving every frame.",
+      "totalTime": "PT1M",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Select GIF", "text": "Drag-and-drop a GIF or click to select. Animated GIFs recommended." },
+        { "@type": "HowToStep", "position": 2, "name": "Pick strength", "text": "Adjust the strength slider (1~5). Level 3 recommended — sets lossy, colors, optimize automatically." },
+        { "@type": "HowToStep", "position": 3, "name": "Compress", "text": "Click Compress. gifsicle.wasm runs in-browser. 30~80% smaller." },
+        { "@type": "HowToStep", "position": 4, "name": "Download", "text": "Download the compressed GIF. Animation and frames preserved." }
+      ]
+    }
+  ]
+}
+  </script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Image</a> · GIF Compress</div>
+    <h1>GIF Compressor — Shrink Animated GIFs</h1>
+    <p class="subtitle">Reduce GIF size while keeping the animation — fits messenger and blog attachment limits. gifsicle.wasm runs in your browser, no upload.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Files are not uploaded to any server.</b> gifsicle.wasm processes everything in your browser.</div>
+    </div>
+
+    <div class="card">
+      <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload GIF file (click or Enter/Space)">
+        <div class="drop-icon" aria-hidden="true">🎞️</div>
+        <div class="drop-title" id="dropTitle">Drag a GIF here or click to select</div>
+        <div class="drop-hint">GIF only — animation preserved · 1 file at a time · max 100MB</div>
+        <input type="file" id="fileInput" accept="image/gif,.gif">
+      </label>
+
+      <div class="field" style="margin-top:16px">
+        <label for="level">Compression strength (1 = best quality · 5 = max compression)</label>
+        <div class="range-row">
+          <input type="range" id="level" min="1" max="5" step="1" value="3">
+          <span class="range-value" id="levelValue">3 (recommended)</span>
+        </div>
+        <p class="small" id="levelHint" style="color:var(--muted);margin-top:6px;font-size:13px;line-height:1.5">Recommended · 30~60% smaller</p>
+      </div>
+
+      <div class="image-actions">
+        <button type="button" id="compressBtn" disabled>Compress</button>
+        <button type="button" id="clearBtn">Reset</button>
+      </div>
+
+      <div id="progress" hidden style="margin-top:12px;padding:10px 14px;border-radius:6px;background:var(--bg-2);font-size:13px;color:var(--muted)" role="status" aria-live="polite">
+        <span id="progressText">Loading gifsicle.wasm…</span>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense slot ]</div>
+
+    <div id="result" class="result" hidden aria-live="polite" aria-atomic="true">
+      <div class="image-preview">
+        <img id="previewImg" alt="Compressed GIF preview" loading="lazy">
+      </div>
+      <div class="image-meta">
+        <span>Original <b id="origSize">—</b></span>
+        <span>Compressed <b id="compSize">—</b></span>
+        <span>Reduction <b id="reduceRate">—</b></span>
+        <span>Resolution <b id="dimText">—</b></span>
+      </div>
+      <div class="image-actions">
+        <a id="downloadBtn" class="download-btn" download>⬇ Download</a>
+      </div>
+    </div>
+
+    <section class="tool-article">
+      <h2>Strength Reference</h2>
+      <p class="small">Estimated for a 500KB GIF (640×360, 30 frames). Actual size depends on color and frame complexity.</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Strength</th><th>lossy</th><th>colors</th><th>Est. size</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>0</td><td>256</td><td>400~480KB</td><td>Near-lossless, slight shrink</td></tr>
+            <tr><td>2</td><td>40</td><td>256</td><td>300~400KB</td><td>Web-safe, visually lossless</td></tr>
+            <tr><td>3</td><td>80</td><td>256</td><td>200~300KB</td><td>Social/messenger sweet spot</td></tr>
+            <tr><td>4</td><td>140</td><td>128</td><td>120~200KB</td><td>Thumbnails / previews</td></tr>
+            <tr><td>5</td><td>200</td><td>64</td><td>80~150KB</td><td>Max compression, slight noise</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related Tools</h2>
+      <div class="related-calc">
+        <a href="../compress/">Image Compressor<span class="desc">JPG · PNG · WebP — quality slider</span></a>
+        <a href="/en/video/to-gif/">Video → GIF<span class="desc">Convert MP4 · MOV to GIF (fps · size)</span></a>
+        <a href="../resize/">Image Resizer<span class="desc">px · % resize</span></a>
+        <a href="/en/video/compress/">Video Compressor<span class="desc">For messenger size limits</span></a>
+        <a href="../">All Image Tools<span class="desc">15 — QR · PDF · OCR</span></a>
+        <a href="/en/text/counter/">Character Counter<span class="desc">Resumes · social posts</span></a>
+        <a href="/en/tools/">38 Calculators<span class="desc">Tax · finance · daily</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <details>
+        <summary>What is gifsicle.wasm?</summary>
+        <div class="answer">
+          gifsicle is the standard GIF compression/editing tool, maintained since 1997 by Eddie Kohler (Harvard CS professor). It's a C library shipped in almost every Linux distribution. The <b>WebAssembly port</b> runs the same engine in your browser. The colors / lossy / optimize options are identical to the original gifsicle CLI.
+        </div>
+      </details>
+      <details>
+        <summary>Large files (50MB+)?</summary>
+        <div class="answer">
+          Technically possible, but wasm memory limits (~500MB on mobile, ~2GB on desktop Chrome) can stall large GIFs. <b>First use video/to-gif to reduce fps and resolution</b>, then compress here. Most huge GIFs come from 30+ fps at 1280×720+.
+        </div>
+      </details>
+      <details>
+        <summary>Why does strength 5 only get me ~50% smaller?</summary>
+        <div class="answer">
+          GIF is already LZW-compressed, so further compression has a ceiling. <b>For bigger reductions</b>: ① drop fps (10fps = ~50% smaller), ② drop resolution (640 → 320 = ~75% smaller), ③ trim frames. These three are best applied upstream with video/to-gif.
+        </div>
+      </details>
+      <details>
+        <summary>Does it work on mobile?</summary>
+        <div class="answer">
+          Yes (iOS Safari, Chrome, Firefox all support wasm). Memory limits make 10MB or smaller GIFs ideal on mobile; desktop Chrome handles 100MB. The first run downloads gifsicle.wasm (~200KB), then it's cached.
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">FAQ</h2>
+      <details>
+        <summary>Does the animation survive compression?</summary>
+        <div class="answer">Yes. gifsicle.wasm preserves every frame of a multi-frame GIF while adjusting colors, lossy, and optimize. The standard image compressor uses canvas API and keeps only the first frame — this tool is GIF-specific so the animation stays intact.</div>
+      </details>
+      <details>
+        <summary>What is the lossy option?</summary>
+        <div class="answer">It slightly dithers pixel colors to boost LZW compression. Higher values yield smaller files but visible noise creeps in. Recommended 0~80 (visually lossless). 100~200 is fine for social and messengers with mild noise.</div>
+      </details>
+      <details>
+        <summary>What happens when I reduce the color count?</summary>
+        <div class="answer">GIF uses a 256-color palette. Reducing to 128 · 64 · 32 shrinks the file but flattens gradients and smooth color transitions. Logos · illustrations · single-color GIFs work fine at 64. Photographic GIFs should stay at 256.</div>
+      </details>
+      <details>
+        <summary>Why doesn't the regular image compressor work for GIFs?</summary>
+        <div class="answer">The image compressor uses canvas API's toBlob(), which doesn't support multi-frame. Upload a GIF and only the first frame is kept and re-encoded as JPG · PNG · WebP. To keep the animation, use this GIF compressor.</div>
+      </details>
+      <details>
+        <summary>Will already-small GIFs get even smaller?</summary>
+        <div class="answer">There's a floor. A GIF already under 100KB may only shrink by <10%. <b>Large GIFs (1MB+)</b> see the biggest gains (30~80%).</div>
+      </details>
+      <details>
+        <summary>Can I batch-process multiple GIFs?</summary>
+        <div class="answer">Single file at a time for now. Batch processing is planned. For many files, lock in the strength and run them one after another — it's fast.</div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>References</h2>
+      <div class="updated">Last verified: 2026-06-05 / based on gifsicle.wasm 1.95.</div>
+      <ul>
+        <li>gifsicle (Eddie Kohler, Harvard) — <a href="https://www.lcdf.org/gifsicle/" rel="nofollow noopener" target="_blank">official site</a></li>
+        <li>gifsicle-wasm-browser — <a href="https://github.com/renzhezhilu/gifsicle-wasm-browser" rel="nofollow noopener" target="_blank">GitHub</a></li>
+        <li>GIF89a spec — <a href="https://www.w3.org/Graphics/GIF/spec-gif89a.txt" rel="nofollow noopener" target="_blank">W3C 1990</a></li>
+      </ul>
+      <div class="note">⚠️ For printing or legal submissions, keep the original safe. Compression is irreversible.</div>
+    </section>
+
+    <nav class="cross-link"><a href="../">→ See all image tools</a></nav>
+  </main>
+  <site-footer></site-footer>
+
+<script type="module">
+  // gifsicle-wasm-browser — WebAssembly port of gifsicle
+  // Preserves every GIF frame while adjusting colors / lossy / optimize in-browser.
+  const $ = (id) => document.getElementById(id);
+
+  const dropZone = $('dropZone');
+  const fileInput = $('fileInput');
+  const compressBtn = $('compressBtn');
+  const clearBtn = $('clearBtn');
+  const level = $('level');
+  const levelValue = $('levelValue');
+  const levelHint = $('levelHint');
+  const progress = $('progress');
+  const progressText = $('progressText');
+  const result = $('result');
+  const previewImg = $('previewImg');
+  const downloadBtn = $('downloadBtn');
+  const origSizeEl = $('origSize');
+  const compSizeEl = $('compSize');
+  const reduceRateEl = $('reduceRate');
+  const dimTextEl = $('dimText');
+
+  let currentFile = null;
+  let gifsicle = null;  // lazy load
+  let dimensions = null;
+
+  // Strength → gifsicle command
+  const LEVELS = {
+    1: { lossy: 0, colors: 256, label: '1 — Near-lossless' },
+    2: { lossy: 40, colors: 256, label: '2 — Light (lossy=40)' },
+    3: { lossy: 80, colors: 256, label: '3 (recommended) — lossy=80' },
+    4: { lossy: 140, colors: 128, label: '4 — Strong (lossy=140 · 128 colors)' },
+    5: { lossy: 200, colors: 64, label: '5 — Max (lossy=200 · 64 colors)' },
+  };
+  const HINTS = {
+    1: 'Near-lossless · 10~25% smaller',
+    2: 'Visually lossless · 20~40% smaller',
+    3: 'Recommended · 30~60% smaller',
+    4: 'Social/messenger ready · 50~70% smaller',
+    5: 'Max compression · slight noise · 60~80% smaller',
+  };
+
+  function fmtBytes(n) {
+    if (n < 1024) return n + ' B';
+    if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
+    return (n / 1024 / 1024).toFixed(2) + ' MB';
+  }
+
+  function setProgress(text) {
+    if (text == null) { progress.hidden = true; return; }
+    progressText.textContent = text;
+    progress.hidden = false;
+  }
+
+  level.addEventListener('input', () => {
+    const v = parseInt(level.value, 10);
+    levelValue.textContent = LEVELS[v].label.split('—')[0].trim();
+    levelHint.textContent = HINTS[v];
+  });
+
+  function selectFile(file) {
+    if (!file) return;
+    if (!/\.gif$/i.test(file.name) && file.type !== 'image/gif') {
+      alert('Only GIF files are accepted.');
+      return;
+    }
+    if (file.size > 100 * 1024 * 1024) {
+      if (!confirm(`${fmtBytes(file.size)} is a large file. Mobile devices may stall. Continue?`)) return;
+    }
+    currentFile = file;
+    $('dropTitle').textContent = file.name + ' (' + fmtBytes(file.size) + ')';
+    compressBtn.disabled = false;
+    result.hidden = true;
+    // Read dimensions
+    const img = new Image();
+    img.onload = () => {
+      dimensions = { w: img.naturalWidth, h: img.naturalHeight };
+      URL.revokeObjectURL(img.src);
+    };
+    img.src = URL.createObjectURL(file);
+  }
+
+  // drop zone events
+  dropZone.addEventListener('click', () => fileInput.click());
+  dropZone.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+  });
+  fileInput.addEventListener('change', (e) => selectFile(e.target.files[0]));
+  ['dragenter', 'dragover'].forEach(ev => dropZone.addEventListener(ev, (e) => {
+    e.preventDefault(); dropZone.classList.add('dragover');
+  }));
+  ['dragleave', 'drop'].forEach(ev => dropZone.addEventListener(ev, (e) => {
+    e.preventDefault(); dropZone.classList.remove('dragover');
+  }));
+  dropZone.addEventListener('drop', (e) => {
+    const f = e.dataTransfer.files[0];
+    if (f) { fileInput.files = e.dataTransfer.files; selectFile(f); }
+  });
+
+  clearBtn.addEventListener('click', () => {
+    currentFile = null;
+    dimensions = null;
+    fileInput.value = '';
+    $('dropTitle').textContent = 'Drag a GIF here or click to select';
+    compressBtn.disabled = true;
+    result.hidden = true;
+    setProgress(null);
+  });
+
+  async function loadGifsicle() {
+    if (gifsicle) return gifsicle;
+    setProgress('Loading gifsicle.wasm… (first time, ~200KB)');
+    try {
+      const mod = await import('https://esm.sh/gifsicle-wasm-browser@1.5.19');
+      gifsicle = mod.default || mod;
+      return gifsicle;
+    } catch (e) {
+      throw new Error('Failed to load gifsicle.wasm: ' + e.message);
+    }
+  }
+
+  compressBtn.addEventListener('click', async () => {
+    if (!currentFile) return;
+    compressBtn.disabled = true;
+    try {
+      await loadGifsicle();
+      setProgress('Compressing…');
+      const v = parseInt(level.value, 10);
+      const cfg = LEVELS[v];
+      const cmd = [`-O3 --lossy=${cfg.lossy} --colors=${cfg.colors} input.gif -o /out/output.gif`];
+      const out = await gifsicle.run({
+        input: [{ file: currentFile, name: 'input.gif' }],
+        command: cmd,
+      });
+      const outBlob = out[0];
+      const url = URL.createObjectURL(outBlob);
+      previewImg.src = url;
+      downloadBtn.href = url;
+      downloadBtn.download = currentFile.name.replace(/\.gif$/i, '') + '-compressed.gif';
+      origSizeEl.textContent = fmtBytes(currentFile.size);
+      compSizeEl.textContent = fmtBytes(outBlob.size);
+      const reduce = Math.max(0, Math.round((1 - outBlob.size / currentFile.size) * 100));
+      reduceRateEl.textContent = reduce + '%';
+      dimTextEl.textContent = dimensions ? `${dimensions.w}×${dimensions.h}` : '—';
+      result.hidden = false;
+      setProgress(null);
+    } catch (e) {
+      console.error(e);
+      alert('Compression failed: ' + e.message);
+      setProgress(null);
+    } finally {
+      compressBtn.disabled = false;
+    }
+  });
+
+  // Initial hint
+  levelHint.textContent = HINTS[3];
+</script>
+</body>
+</html>
