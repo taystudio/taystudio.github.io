@@ -372,6 +372,30 @@
     "lang": "ko"
   },
   {
+    "slug": "github-pages-custom-domain",
+    "title": "GitHub Pages 커스텀 도메인 연결 4단계 — Cloudflare DNS·CNAME·HTTPS 자동·검색엔진 재등록",
+    "date": "2026-06-05",
+    "excerpt": ".github.io 무료 도메인을 사용자 .com 으로 옮기는 4단계 가이드. Cloudflare DNS·repo CNAME·HTTPS 자동 발급·검색엔진 재등록까지 UI 화면 그대로.",
+    "category": [
+      "growth",
+      "seo"
+    ],
+    "tags": [
+      "GitHub Pages",
+      "커스텀 도메인",
+      "CNAME",
+      "DNS",
+      "Cloudflare",
+      "A record",
+      "HTTPS",
+      "Lets Encrypt",
+      "도메인 migration",
+      "SEO"
+    ],
+    "image": "assets/posts/github-pages-custom-domain/cover.webp",
+    "lang": "ko"
+  },
+  {
     "slug": "hypothesis-testing",
     "title": "가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리",
     "date": "2026-05-27",
@@ -584,23 +608,23 @@
   },
   {
     "slug": "seo-google-sandbox-1month",
-    "title": "Google sandbox 한 달 실측 — 신규 도메인 migration 후 검색 노출 변화 30일 추적",
+    "title": "구글 샌드박스 실측 30일 — 신규 도메인 검색 노출 회복 패턴·탈출 방법 (GSC·네이버·Cloudflare)",
     "date": "2026-06-03",
-    "excerpt": "GitHub Pages 도메인을 사용자 도메인으로 옮긴 후 한 달. Google 색인은 점진 OK, 그러나 검색 노출은 spike → dip 패턴. Naver·Cloudflare 데이터까지 합쳐서 본 진짜 영향.",
+    "excerpt": "신규 .com 도메인 migration 후 한 달. Google 색인은 점진 OK, 검색 노출은 spike → dip → 회복 패턴. 네이버·Cloudflare 데이터까지 합쳐서 본 진짜 영향과 6-12주 회복 timeline.",
     "category": [
       "growth",
       "seo"
     ],
     "tags": [
       "Google sandbox",
+      "구글 샌드박스",
       "신규 도메인",
       "도메인 migration",
       "GSC",
       "검색 노출",
       "SEO",
       "회고",
-      "실측",
-      "taystudios"
+      "실측"
     ],
     "image": "assets/posts/seo-google-sandbox-1month/cover.webp",
     "lang": "ko"
@@ -632,22 +656,22 @@
   },
   {
     "slug": "seo-naver-webmaster-guide",
-    "title": "Naver SearchAdvisor 등록·sitemap 제출 완전 가이드 — 트래픽 80% 채널 잡기",
+    "title": "네이버 서치어드바이저 등록·사이트맵 제출 완전 가이드 — 한국 SEO 트래픽 80% 채널 잡기",
     "date": "2026-06-03",
-    "excerpt": "한국 사이트 트래픽의 80% 가 Naver 인데 Naver SearchAdvisor 등록 안 해놓으면 자체 크롤로만 우연히 발견됨. 등록 5분 + sitemap 제출 + 페이지 수집 요청까지 step-by-step.",
+    "excerpt": "한국 사이트 트래픽 80% 가 네이버인데 서치어드바이저 등록 안 하면 자체 크롤로만 우연히 발견됨. 등록 5분 + 사이트맵 제출 + 페이지 수집 요청까지 step-by-step UI 가이드.",
     "category": [
       "growth",
       "seo"
     ],
     "tags": [
-      "Naver",
-      "SearchAdvisor",
-      "sitemap",
+      "네이버",
+      "서치어드바이저",
+      "Naver SearchAdvisor",
+      "사이트맵",
       "검색엔진 등록",
       "한국 SEO",
       "색인",
-      "robots.txt",
-      "가이드"
+      "robots.txt"
     ],
     "image": "assets/posts/seo-naver-webmaster-guide/cover.webp",
     "lang": "ko"

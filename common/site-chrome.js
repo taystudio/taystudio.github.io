@@ -465,6 +465,15 @@ function getAltLangUrl() {
   window.gtag('config', GA_ID);
 })();
 
+// GoatCounter — privacy-friendly daily unique visitors, no cookie
+(function () {
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = '//gc.zgo.at/count.js';
+  s.setAttribute('data-goatcounter', 'https://taystudios.goatcounter.com/count');
+  document.head.appendChild(s);
+})();
+
 (function () {
   const s = document.createElement('script');
   s.defer = true;

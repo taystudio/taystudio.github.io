@@ -368,6 +368,30 @@
     "lang": "en"
   },
   {
+    "slug": "github-pages-custom-domain",
+    "title": "Connecting a Custom Domain to GitHub Pages — 4 Steps (Cloudflare DNS · CNAME · HTTPS · Re-Indexing)",
+    "date": "2026-06-05",
+    "excerpt": "Move from .github.io to a custom .com in 4 steps. Cloudflare DNS, repo CNAME, Let's Encrypt HTTPS auto-issued, and re-indexing across search engines — UI walkthroughs included.",
+    "category": [
+      "growth",
+      "seo"
+    ],
+    "tags": [
+      "GitHub Pages",
+      "custom domain",
+      "CNAME",
+      "DNS",
+      "Cloudflare",
+      "A record",
+      "HTTPS",
+      "Lets Encrypt",
+      "domain migration",
+      "SEO"
+    ],
+    "image": "assets/posts/github-pages-custom-domain/cover.webp",
+    "lang": "en"
+  },
+  {
     "slug": "hypothesis-testing",
     "title": "Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value",
     "date": "2026-05-27",
@@ -576,9 +600,9 @@
   },
   {
     "slug": "seo-google-sandbox-1month",
-    "title": "Google Sandbox, One Month In — Tracking a New Domain's Search Exposure for 30 Days",
+    "title": "Google Sandbox After 30 Days — New Domain Search Recovery Patterns (GSC · Naver · Cloudflare Data)",
     "date": "2026-06-03",
-    "excerpt": "Moved a GitHub Pages site to a custom domain. One month later: indexing is gradually OK, search impressions follow a spike-then-dip pattern. Naver and Cloudflare data is what kept me sane. 6–12 weeks until recovery.",
+    "excerpt": "30 days after migrating to a new .com domain. Indexing gradually OK, impressions follow a spike → dip → recovery pattern. Naver and Cloudflare data carry the load while Google sandbox runs its 6–12 week course.",
     "category": [
       "growth",
       "seo"
@@ -591,8 +615,7 @@
       "search visibility",
       "SEO",
       "retro",
-      "measurement",
-      "taystudios"
+      "measurement"
     ],
     "image": "assets/posts/seo-google-sandbox-1month/cover.webp",
     "lang": "en"

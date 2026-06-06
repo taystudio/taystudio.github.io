@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Connecting a Custom Domain to GitHub Pages — 4 Steps (Cloudflare DNS · CNAME · HTTPS · Re-Indexing) · Tay Blog</title>
+<meta name="description" content="Move from .github.io to a custom .com in 4 steps. Cloudflare DNS, repo CNAME, Let&#39;s Encrypt HTTPS auto-issued, and re-indexing across search engines — UI walkthroughs included.">
+<link rel="canonical" href="https://taystudios.com/blog/en/github-pages-custom-domain/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/github-pages-custom-domain/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/github-pages-custom-domain/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/github-pages-custom-domain/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Connecting a Custom Domain to GitHub Pages — 4 Steps (Cloudflare DNS · CNAME · HTTPS · Re-Indexing) · Tay Blog">
+<meta property="og:description" content="Move from .github.io to a custom .com in 4 steps. Cloudflare DNS, repo CNAME, Let&#39;s Encrypt HTTPS auto-issued, and re-indexing across search engines — UI walkthroughs included.">
+<meta property="og:url" content="https://taystudios.com/blog/en/github-pages-custom-domain/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/github-pages-custom-domain/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/github-pages-custom-domain/cover.webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Connecting a Custom Domain to GitHub Pages — 4 Steps (Cloudflare DNS · CNAME · HTTPS · Re-Indexing)", "description": "Move from .github.io to a custom .com in 4 steps. Cloudflare DNS, repo CNAME, Let's Encrypt HTTPS auto-issued, and re-indexing across search engines — UI walkthroughs included.", "datePublished": "2026-06-05T00:00:00+09:00", "dateModified": "2026-06-05T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/github-pages-custom-domain/"}, "image": ["https://taystudios.com/blog/assets/posts/github-pages-custom-domain/cover.webp"], "keywords": "GitHub Pages, custom domain, CNAME, DNS, Cloudflare, A record, HTTPS, Lets Encrypt, domain migration, SEO"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Operations·SEO·Ads", "item": "https://taystudios.com/blog/en/category/growth/"}, {"@type": "ListItem", "position": 3, "name": "Connecting a Custom Domain to GitHub Pages — 4 Steps (Cloudflare DNS · CNAME · HTTPS · Re-Indexing)", "item": "https://taystudios.com/blog/en/github-pages-custom-domain/"}]}</script><meta property="article:published_time" content="2026-06-05T00:00:00+09:00"><meta property="article:modified_time" content="2026-06-05T00:00:00+09:00"><meta property="article:tag" content="GitHub Pages"><meta property="article:tag" content="custom domain"><meta property="article:tag" content="CNAME"><meta property="article:tag" content="DNS"><meta property="article:tag" content="Cloudflare"><meta property="article:tag" content="A record"><meta property="article:tag" content="HTTPS"><meta property="article:tag" content="Lets Encrypt"><meta property="article:tag" content="domain migration"><meta property="article:tag" content="SEO">
+<link rel="stylesheet" href="assets/style.css?v=1780537661">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-79C40NJRYT"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-79C40NJRYT');</script>
+<script data-goatcounter="https://taystudios.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="en/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="en/">Home</a><a class="tb-nav-hide-sm" href="en/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <div class="tb-search" data-tb-search data-lang="en"><input type="search" class="tb-search-input" placeholder="Search posts" autocomplete="off" aria-label="Search posts"><div class="tb-search-results" role="listbox" hidden></div></div>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+  <script src="assets/search.js" defer></script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/growth/">Operations·SEO·Ads</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Connecting a Custom Domain to GitHub Pages — 4 Steps (Cloudflare DNS · CNAME · HTTPS · Re-Indexing)</span></nav>
+        <h1 class="tb-article-title">Connecting a Custom Domain to GitHub Pages — 4 Steps (Cloudflare DNS · CNAME · HTTPS · Re-Indexing)</h1>
+        <div class="tb-article-meta">
+          <time>2026.06.05</time>
+          <span>·</span><span>#GitHub Pages #custom domain #CNAME #DNS #Cloudflare #A record #HTTPS #Lets Encrypt #domain migration #SEO</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#why-move">Why move</a></li><li class="tb-toc-h2"><a href="#4-step-overview">4-step overview</a></li><li class="tb-toc-h2"><a href="#1-cloudflare-dns">1. Cloudflare DNS</a></li><li class="tb-toc-h3"><a href="#ui-where-to-click">UI — where to click</a></li><li class="tb-toc-h3"><a href="#two-traps">Two traps</a></li><li class="tb-toc-h3"><a href="#verify">Verify</a></li><li class="tb-toc-h2"><a href="#2-the-cname-file-in-your-repo">2. The CNAME file in your repo</a></li><li class="tb-toc-h3"><a href="#make-the-file">Make the file</a></li><li class="tb-toc-h3"><a href="#github-ui-side">GitHub UI side</a></li><li class="tb-toc-h3"><a href="#lets-encrypt-cert">Let&#39;s Encrypt cert</a></li><li class="tb-toc-h2"><a href="#3-site-wide-rewrite">3. Site-wide rewrite</a></li><li class="tb-toc-h3"><a href="#what-needs-to-change">What needs to change</a></li><li class="tb-toc-h3"><a href="#how-i-handled-it">How I handled it</a></li><li class="tb-toc-h2"><a href="#4-re-index-everywhere">4. Re-index everywhere</a></li><li class="tb-toc-h3"><a href="#google-search-console">Google Search Console</a></li><li class="tb-toc-h3"><a href="#naver-searchadvisor-korean-market">Naver SearchAdvisor (Korean market)</a></li><li class="tb-toc-h3"><a href="#bing-webmaster-tools">Bing Webmaster Tools</a></li><li class="tb-toc-h3"><a href="#daum-webmaster-tools-korean-kakao">Daum Webmaster Tools (Korean — Kakao)</a></li><li class="tb-toc-h3"><a href="#indexnow-bonus">IndexNow (bonus)</a></li><li class="tb-toc-h2"><a href="#what-dns-and-cname-actually-are">What DNS and CNAME actually are</a></li><li class="tb-toc-h3"><a href="#dns-phonebook">DNS = phonebook</a></li><li class="tb-toc-h3"><a href="#how-browsers-find-the-ip-5-hops">How browsers find the IP (5 hops)</a></li><li class="tb-toc-h3"><a href="#a-vs-cname">A vs CNAME</a></li><li class="tb-toc-h3"><a href="#cname-at-apex-zone-root-forbidden-by-rfc-1912">CNAME at apex (zone root) — forbidden by RFC 1912</a></li><li class="tb-toc-h3"><a href="#host-header">Host header</a></li><li class="tb-toc-h2"><a href="#my-measurements-30-day-sandbox-window">My measurements — 30-day sandbox window</a></li><li class="tb-toc-h2"><a href="#if-youre-doing-the-same-migration">If you&#39;re doing the same migration</a></li><li class="tb-toc-h2"><a href="#related-posts">Related posts</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<p>A write-up of moving <code>taystudio.github.io</code> to <code>taystudios.com</code> on 2026-05-09. As of 6/5 the first 30 days of post-migration data are in, so I'm including the actual numbers too.</p>
+<h2 id="why-move">Why move</h2>
+<p><code>.github.io</code> works fine. For Korean SEO specifically there's barely a difference. But four things bothered me.</p>
+<ul>
+<li><strong>Domain authority starts at zero</strong> — <code>.github.io</code> is on the <a href="https://publicsuffix.org/">Public Suffix List</a>, so browsers and search engines treat subdomains as separate sites. <code>taystudio.github.io</code> and <code>someone.github.io</code> are isolated from each other — good for safety, but authority never accumulates.</li>
+<li><strong>English AdSense RPM</strong> — <code>.github.io</code> URLs read as "developer blog" in English-speaking markets, so general-audience CTR is low. RPM lands around <code>$1~3</code>. With <code>.com</code> people report <code>$3~8</code>.</li>
+<li><strong>Press / editorial backlinks</strong> — journalists and reputable blogs tend to skip <code>.github.io</code> URLs. Not perceived as a serious source.</li>
+<li><strong>Brand</strong> — having "github" in your URL just weakens brand recognition.</li>
+</ul>
+<p>English market + AdSense + brand — all three were decisive levers for me. <strong>Timing matters most</strong>, though. Once you've got hundreds of URLs and backlinks pointing at the old domain, migration cost explodes. My site had ~100 URLs at the time, which was the right moment.</p>
+<h2 id="4-step-overview">4-step overview</h2>
+<pre class="codehilite"><code>① Cloudflare DNS         (4 A records + CNAME www)
+② GitHub repo CNAME file (1 line)
+③ Site-wide rewrite      (canonical · sitemap · robots)
+④ Re-index everywhere    (GSC · Naver · Bing · Daum)
+</code></pre>
+
+<p>Zero downtime. Both domains stay live during the transition.</p>
+<hr />
+<h2 id="1-cloudflare-dns">1. Cloudflare DNS</h2>
+<p>I bought the domain at Cloudflare Registrar (any registrar works — Namecheap, Gandi, GoDaddy, etc.). DNS is also Cloudflare — fastest and free.</p>
+<h3 id="ui-where-to-click">UI — where to click</h3>
+<ol>
+<li><a href="https://dash.cloudflare.com">dash.cloudflare.com</a> → click your site → left menu <strong>DNS → Records</strong>.</li>
+<li><strong><code>Add record</code></strong> button → add the 5 records below:</li>
+</ol>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Content (Value)</th>
+<th>Proxy status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><code>@</code></td>
+<td><code>185.199.108.153</code></td>
+<td>DNS only (gray cloud)</td>
+</tr>
+<tr>
+<td>A</td>
+<td><code>@</code></td>
+<td><code>185.199.109.153</code></td>
+<td>DNS only</td>
+</tr>
+<tr>
+<td>A</td>
+<td><code>@</code></td>
+<td><code>185.199.110.153</code></td>
+<td>DNS only</td>
+</tr>
+<tr>
+<td>A</td>
+<td><code>@</code></td>
+<td><code>185.199.111.153</code></td>
+<td>DNS only</td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td><code>www</code></td>
+<td><code>&lt;your username&gt;.github.io</code></td>
+<td>DNS only</td>
+</tr>
+</tbody>
+</table></div>
+<p>Type <code>@</code> in the <code>Name</code> field and it auto-resolves to apex (<code>taystudios.com</code>). For <code>www</code>, just type <code>www</code> — Cloudflare expands it to <code>www.taystudios.com</code>.</p>
+<h3 id="two-traps">Two traps</h3>
+<ul>
+<li><strong>Register all 4 A records</strong>. GitHub Pages load-balances across 4 IPs. If you only set one, the site goes down whenever that IP does.</li>
+<li><strong>Start with DNS only (gray cloud)</strong>. If you turn the proxy on (orange cloud), GitHub Pages' Let's Encrypt issuer can't reach the origin IP, and cert issuance fails. Turn proxy on <strong>after</strong> the cert is issued.</li>
+</ul>
+<h3 id="verify">Verify</h3>
+<pre class="codehilite"><code class="language-bash">dig taystudios.com +short
+# 185.199.108.153
+# 185.199.109.153
+# 185.199.110.153
+# 185.199.111.153
+
+dig www.taystudios.com +short
+# taystudio.github.io.
+# 185.199.108.153
+# ...
+</code></pre>
+
+<p>Global resolver cache propagation typically takes 30 minutes to 24 hours. Mine resolved in Korea within an hour.</p>
+<hr />
+<h2 id="2-the-cname-file-in-your-repo">2. The <code>CNAME</code> file in your repo</h2>
+<p>This is the file that tells GitHub Pages "this repo serves this domain."</p>
+<h3 id="make-the-file">Make the file</h3>
+<p>At your repo root, create a file named exactly <code>CNAME</code> (no extension, all uppercase). One line inside:</p>
+<pre class="codehilite"><code>taystudios.com
+</code></pre>
+
+<p>The apex domain, no <code>www</code>. Done.</p>
+<h3 id="github-ui-side">GitHub UI side</h3>
+<ol>
+<li>Repo page → top <strong>Settings</strong> tab.</li>
+<li>Left menu <strong>Pages</strong>.</li>
+<li><strong>Custom domain</strong> field → enter <code>taystudios.com</code> → <strong>Save</strong>.</li>
+<li>A few minutes later (5~30 min) you'll see <strong><code>✓ DNS check successful</code></strong>.</li>
+<li>The <strong>Enforce HTTPS</strong> checkbox below becomes enabled — tick it.</li>
+</ol>
+<p>If you enter the domain into <code>Custom domain</code>, GitHub creates the CNAME file at the repo root for you automatically. Creating it manually (step 1) does the same thing.</p>
+<h3 id="lets-encrypt-cert">Let's Encrypt cert</h3>
+<p>GitHub auto-issues an SSL cert via Let's Encrypt. 5 to 30 minutes. Once issued, the <code>Enforce HTTPS</code> checkbox becomes clickable (was grayed out).</p>
+<p>Auto-renewed every 90 days. Cost zero. Configuration zero.</p>
+<p>→ After the cert is issued you can flip Cloudflare proxy on (optional).</p>
+<hr />
+<h2 id="3-site-wide-rewrite">3. Site-wide rewrite</h2>
+<p>The most SEO-critical part of the migration. If a single URL still points to the old domain, Google may keep treating the old domain as the canonical, and authority won't transfer.</p>
+<h3 id="what-needs-to-change">What needs to change</h3>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;link rel="canonical"&gt;</code></td>
+<td><code>taystudios.com/...</code></td>
+</tr>
+<tr>
+<td><code>&lt;meta property="og:url"&gt;</code></td>
+<td>same</td>
+</tr>
+<tr>
+<td><code>&lt;link rel="alternate" hreflang&gt;</code></td>
+<td>same</td>
+</tr>
+<tr>
+<td><code>&lt;loc&gt;</code> in <code>sitemap.xml</code></td>
+<td>same</td>
+</tr>
+<tr>
+<td><code>Sitemap:</code> URL in <code>robots.txt</code></td>
+<td>same</td>
+</tr>
+<tr>
+<td><code>llms.txt</code> (if you have one)</td>
+<td>same</td>
+</tr>
+<tr>
+<td>schema.org JSON-LD <code>@id</code> · <code>url</code></td>
+<td>same</td>
+</tr>
+<tr>
+<td>Absolute internal links</td>
+<td><code>taystudio.github.io</code> → <code>taystudios.com</code></td>
+</tr>
+<tr>
+<td>IndexNow key file URL</td>
+<td>same</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="how-i-handled-it">How I handled it</h3>
+<p>My build script (<code>blog/scripts/build.py</code>) reads <code>site.json</code>'s <code>siteUrl</code> once and rewrites everything from that. One value changed, one build run, done.</p>
+<p>If you don't have a build script:</p>
+<pre class="codehilite"><code class="language-bash"># bulk-rewrite old domain → new domain
+grep -rl &quot;taystudio.github.io&quot; . | xargs sed -i '' 's|taystudio.github.io|taystudios.com|g'
+</code></pre>
+
+<p>(macOS sed is <code>-i ''</code>, Linux is <code>-i</code>)</p>
+<p>Push to GitHub after the rewrite — auto-deploy from there.</p>
+<hr />
+<h2 id="4-re-index-everywhere">4. Re-index everywhere</h2>
+<p>To Google · Naver · Bing · Daum, <code>.com</code> is a brand new domain. Data accumulated on the old property doesn't auto-transfer, so register fresh.</p>
+<h3 id="google-search-console">Google Search Console</h3>
+<ol>
+<li><a href="https://search.google.com/search-console">search.google.com/search-console</a> → top-left <strong>Add property</strong>.</li>
+<li>Pick <strong>URL prefix</strong> → enter <code>https://taystudios.com</code>.</li>
+<li>Ownership verification — the <strong>HTML tag</strong> method is easiest. Grab the <code>&lt;meta name="google-site-verification" content="..."&gt;</code> line, drop it in <code>&lt;head&gt;</code>, build → verify.</li>
+<li>Left menu <strong>Sitemaps</strong> → enter <code>sitemap.xml</code> → submit.</li>
+<li><strong>URL Inspection</strong> → enter URLs of priority pages (home · popular posts) → <strong>Request indexing</strong>. ~10/day quota.</li>
+</ol>
+<p>→ Bing Webmaster Tools can auto-import sitemaps from GSC. Doing GSC also covers Bing.</p>
+<h3 id="naver-searchadvisor-korean-market">Naver SearchAdvisor (Korean market)</h3>
+<ol>
+<li><a href="https://searchadvisor.naver.com">searchadvisor.naver.com</a> → login → top-right <strong>Site management</strong>.</li>
+<li><strong>Add site</strong> → <code>https://taystudios.com</code>.</li>
+<li>Ownership — download the HTML verification file, upload to your site root. Build → verify.</li>
+<li>Left menu <strong>Request → Submit sitemap</strong> → <code>sitemap.xml</code>.</li>
+<li><strong>Request → Crawl webpage</strong> → one URL per line (50/day).</li>
+</ol>
+<p>→ Naver carries 80%+ of Korean-market traffic. If you target Korea, Naver is more urgent than GSC.</p>
+<h3 id="bing-webmaster-tools">Bing Webmaster Tools</h3>
+<ol>
+<li><a href="https://www.bing.com/webmasters">bing.com/webmasters</a> → log in with a Microsoft account.</li>
+<li><strong>Add site</strong> → auto-import from GSC is recommended.</li>
+<li>From the old domain's property you can use <strong>Site Move</strong> to send an explicit move signal.</li>
+</ol>
+<h3 id="daum-webmaster-tools-korean-kakao">Daum Webmaster Tools (Korean — Kakao)</h3>
+<p>(Not called "SearchAdvisor". The UI menu is still labeled "Webmaster Tools". URL is <code>webmaster.daum.net</code>.)</p>
+<ol>
+<li><a href="https://webmaster.daum.net">webmaster.daum.net</a> → Kakao login.</li>
+<li><strong>Add site</strong> → <code>https://taystudios.com</code>.</li>
+<li>Ownership — meta tag or a verification token added to the first line of <code>robots.txt</code>.</li>
+<li><strong>Sitemap</strong> menu → submit <code>sitemap.xml</code>.</li>
+<li><strong>Request crawl</strong> → individual URLs.</li>
+</ol>
+<h3 id="indexnow-bonus">IndexNow (bonus)</h3>
+<p>Single ping to Bing · Yandex · Naver · Seznam. Generate a key once, drop the URL in <code>robots.txt</code>, done.</p>
+<pre class="codehilite"><code class="language-bash">curl &quot;https://api.indexnow.org/IndexNow?url=https://taystudios.com/&amp;key=&lt;your-key&gt;&quot;
+</code></pre>
+
+<hr />
+<h2 id="what-dns-and-cname-actually-are">What DNS and CNAME actually are</h2>
+<p>Worth understanding once — then the 4 steps above make sense.</p>
+<h3 id="dns-phonebook">DNS = phonebook</h3>
+<p>Humans remember names (<code>taystudios.com</code>); computers only know IPs (<code>185.199.108.153</code>). DNS translates name → IP.</p>
+<h3 id="how-browsers-find-the-ip-5-hops">How browsers find the IP (5 hops)</h3>
+<p>(when resolver cache is empty)</p>
+<pre class="codehilite"><code>Browser
+  → ISP DNS (KT · SKB · Google 8.8.8.8 ...)
+  → Root nameserver (&quot;.&quot;)
+  → TLD nameserver (&quot;.com&quot;)
+  → Domain nameserver (Cloudflare)
+  → A record response (185.199.108.153)
+</code></pre>
+
+<p>In practice the resolver caches results based on TTL (default 1 hour), so every lookup doesn't hit root. When you buy a new domain or change records, resolver caches around the world are empty and have to walk all 5 hops = <strong>DNS propagation</strong>.</p>
+<h3 id="a-vs-cname">A vs CNAME</h3>
+<p>A record — domain → IP directly:</p>
+<pre class="codehilite"><code>taystudios.com   A   185.199.108.153
+</code></pre>
+
+<p>CNAME — domain → another domain (alias):</p>
+<pre class="codehilite"><code>www.taystudios.com   CNAME   taystudio.github.io
+</code></pre>
+
+<p>When a resolver gets a CNAME it looks up the A record for that other domain. One extra hop, but the alias automatically follows whenever the target's IP changes.</p>
+<h3 id="cname-at-apex-zone-root-forbidden-by-rfc-1912">CNAME at apex (zone root) — forbidden by RFC 1912</h3>
+<p><code>taystudios.com</code> itself = <strong>no CNAME</strong>. It collides with other record types (MX · NS), and the standard forbids it.
+<code>www.taystudios.com</code> · <code>blog.taystudios.com</code> = <strong>CNAME OK</strong>.</p>
+<p>→ That's why apex uses 4 A records and <code>www</code> uses CNAME. Cloudflare supports "CNAME flattening" to fake apex CNAME, but GitHub Pages' official recommendation is 4 A records.</p>
+<h3 id="host-header">Host header</h3>
+<p>GitHub Pages' 4 IPs (185.199.108~111.153) are shared across millions of sites. How does your site get served?</p>
+<pre class="codehilite"><code>HTTP/1.1 GET /
+Host: taystudios.com   ← this is the key
+</code></pre>
+
+<p>The browser sends a <code>Host</code> header → GitHub looks up <code>CNAME file == "taystudios.com"</code> internally and maps to your repo. → <strong>The 1-line CNAME file is the actual binding.</strong></p>
+<hr />
+<h2 id="my-measurements-30-day-sandbox-window">My measurements — 30-day sandbox window</h2>
+<p>Data from the 30 days after 5/9 migration:</p>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>GSC impressions</th>
+<th>Naver impressions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5/9 (migration)</td>
+<td>0</td>
+<td>(residual on old domain)</td>
+</tr>
+<tr>
+<td>5/14 (Week 1)</td>
+<td><strong>450 peak</strong></td>
+<td>spike begins</td>
+</tr>
+<tr>
+<td>5/24 (Week 3)</td>
+<td>10 (dip)</td>
+<td>7,600 peak</td>
+</tr>
+<tr>
+<td>6/2 (Week 4)</td>
+<td>~0</td>
+<td>2,000~3,000/day steady</td>
+</tr>
+</tbody>
+</table></div>
+<p>Google clearly entered sandbox. 6~12 weeks expected. Naver has no sandbox — recovers immediately. Full retrospective in the <a href="/blog/en/seo-google-sandbox-1month/">Google Sandbox 30-day post</a>.</p>
+<hr />
+<h2 id="if-youre-doing-the-same-migration">If you're doing the same migration</h2>
+<ol>
+<li><strong>Move early, while URL count is low</strong>. Pre-backlink is the cheapest time. Once you have 100+ URLs, redirect / canonical work explodes.</li>
+<li><strong>Zero downtime</strong> — both domains stay live. Visitors landing on the old domain get auto-redirected by GitHub to the new one (as long as the old repo's CNAME file is removed).</li>
+<li><strong>Canonical consistency</strong> — bulk-rewrite with sed or your build script in one pass. If even one URL still points to the old domain, authority transfer fails.</li>
+<li><strong>Don't panic looking at Google alone</strong> — sandbox keeps impressions near zero for ~a month. Naver · Bing · Cloudflare together show the site is actually fine.</li>
+</ol>
+<p>The domain swap itself takes about an hour. Authority transfer is the 1~3 month wait.</p>
+<h2 id="related-posts">Related posts</h2>
+<ul>
+<li><a href="/blog/en/seo-google-sandbox-1month/">Google Sandbox After 30 Days</a> — GSC · Naver · Cloudflare tracking</li>
+<li><a href="/blog/en/seo-naver-webmaster-guide/">Naver SearchAdvisor — Complete Registration Guide</a> — 80% of Korean-market traffic</li>
+<li><a href="/blog/en/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver vs Cloudflare</a> — three data sources compared</li>
+</ul>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/seo-google-sandbox-1month/">Google Sandbox After 30 Days — New Domain Search Recovery Patterns (GSC · Naver · Cloudflare Data)</a></li><li><a href="en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts — sandbox · E-E-A-T · DA · CTR · AI Overview on One Page</a></li><li><a href="en/seo-naver-webmaster-guide/">Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide</a></li><li><a href="en/seo-llmstxt-ai-search-optimization/">Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fgithub-pages-custom-domain%2F&amp;text=Connecting%20a%20Custom%20Domain%20to%20GitHub%20Pages%20%E2%80%94%204%20Steps%20%28Cloudflare%20DNS%20%C2%B7%20CNAME%20%C2%B7%20HTTPS%20%C2%B7%20Re-Indexing%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fgithub-pages-custom-domain%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::,growth::seo|analytics|ads"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/career/"><span>Career</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="en/category/growth/"><span>Operations·SEO·Ads</span><span class="tb-side-count">6</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/seo/"><span>SEO·Search Engines</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/analytics/"><span>Analytics</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="en/category/growth/ads/"><span>Ads·AdSense</span></a></li></ul></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="en/github-pages-custom-domain/">Connecting a Custom Domain to GitHub Pages — 4 Steps (Cloudflare DNS · CNAME · HTTPS · Re-Indexing)</a></li><li><a href="en/seo-google-sandbox-1month/">Google Sandbox After 30 Days — New Domain Search Recovery Patterns (GSC · Naver · Cloudflare Data)</a></li><li><a href="en/seo-naver-webmaster-guide/">Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide</a></li><li><a href="en/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories</a></li><li><a href="en/seo-llmstxt-ai-search-optimization/">Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="en/tags/#review">#review <span>9</span></a><a class="tb-side-tag" href="en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="en/tags/#coding-test">#coding-test <span>6</span></a><a class="tb-side-tag" href="en/tags/#new-grad">#new-grad <span>5</span></a><a class="tb-side-tag" href="en/tags/#SEO">#SEO <span>4</span></a><a class="tb-side-tag" href="en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="en/tags/#AI Overview">#AI Overview <span>2</span></a><a class="tb-side-tag" href="en/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="en/tags/#Baekjoon">#Baekjoon <span>2</span></a><a class="tb-side-tag" href="en/tags/#CTR">#CTR <span>2</span></a><a class="tb-side-tag" href="en/tags/#GSC">#GSC <span>2</span></a><a class="tb-side-tag" href="en/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag" href="en/tags/#KAIST">#KAIST <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="en/tags/">All tags (211) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="about/">About</a><a href="privacy/">Privacy</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780191126"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

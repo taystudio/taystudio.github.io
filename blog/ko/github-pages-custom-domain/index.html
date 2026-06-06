@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>GitHub Pages 커스텀 도메인 연결 4단계 — Cloudflare DNS·CNAME·HTTPS 자동·검색엔진 재등록 · Tay Blog</title>
+<meta name="description" content=".github.io 무료 도메인을 사용자 .com 으로 옮기는 4단계 가이드. Cloudflare DNS·repo CNAME·HTTPS 자동 발급·검색엔진 재등록까지 UI 화면 그대로.">
+<link rel="canonical" href="https://taystudios.com/blog/ko/github-pages-custom-domain/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/github-pages-custom-domain/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/github-pages-custom-domain/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/github-pages-custom-domain/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="GitHub Pages 커스텀 도메인 연결 4단계 — Cloudflare DNS·CNAME·HTTPS 자동·검색엔진 재등록 · Tay Blog">
+<meta property="og:description" content=".github.io 무료 도메인을 사용자 .com 으로 옮기는 4단계 가이드. Cloudflare DNS·repo CNAME·HTTPS 자동 발급·검색엔진 재등록까지 UI 화면 그대로.">
+<meta property="og:url" content="https://taystudios.com/blog/ko/github-pages-custom-domain/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tay Blog">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/github-pages-custom-domain/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/github-pages-custom-domain/cover.webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "GitHub Pages 커스텀 도메인 연결 4단계 — Cloudflare DNS·CNAME·HTTPS 자동·검색엔진 재등록", "description": ".github.io 무료 도메인을 사용자 .com 으로 옮기는 4단계 가이드. Cloudflare DNS·repo CNAME·HTTPS 자동 발급·검색엔진 재등록까지 UI 화면 그대로.", "datePublished": "2026-06-05T00:00:00+09:00", "dateModified": "2026-06-05T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/github-pages-custom-domain/"}, "image": ["https://taystudios.com/blog/assets/posts/github-pages-custom-domain/cover.webp"], "keywords": "GitHub Pages, 커스텀 도메인, CNAME, DNS, Cloudflare, A record, HTTPS, Lets Encrypt, 도메인 migration, SEO"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "운영·SEO·광고", "item": "https://taystudios.com/blog/ko/category/growth/"}, {"@type": "ListItem", "position": 3, "name": "GitHub Pages 커스텀 도메인 연결 4단계 — Cloudflare DNS·CNAME·HTTPS 자동·검색엔진 재등록", "item": "https://taystudios.com/blog/ko/github-pages-custom-domain/"}]}</script><meta property="article:published_time" content="2026-06-05T00:00:00+09:00"><meta property="article:modified_time" content="2026-06-05T00:00:00+09:00"><meta property="article:tag" content="GitHub Pages"><meta property="article:tag" content="커스텀 도메인"><meta property="article:tag" content="CNAME"><meta property="article:tag" content="DNS"><meta property="article:tag" content="Cloudflare"><meta property="article:tag" content="A record"><meta property="article:tag" content="HTTPS"><meta property="article:tag" content="Lets Encrypt"><meta property="article:tag" content="도메인 migration"><meta property="article:tag" content="SEO">
+<link rel="stylesheet" href="assets/style.css?v=1780537661">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-79C40NJRYT"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-79C40NJRYT');</script>
+<script data-goatcounter="https://taystudios.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="ko/">Tay Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="ko/">Home</a><a class="tb-nav-hide-sm" href="ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <div class="tb-search" data-tb-search data-lang="ko"><input type="search" class="tb-search-input" placeholder="글 검색" autocomplete="off" aria-label="글 검색"><div class="tb-search-results" role="listbox" hidden></div></div>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="ko/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>기술 노트·가이드</small></span><span class="tsi-cur">현재</span></a><a class="tb-studios-item" href="/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>계산기·이미지·PDF·동영상</small></span></a><span class="tb-studios-more">+ 더 추가 예정</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="English">🌐 EN</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+  <script src="assets/search.js" defer></script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/growth/">운영·SEO·광고</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">GitHub Pages 커스텀 도메인 연결 4단계 — Cloudflare DNS·CNAME·HTTPS 자동·검색엔진 재등록</span></nav>
+        <h1 class="tb-article-title">GitHub Pages 커스텀 도메인 연결 4단계 — Cloudflare DNS·CNAME·HTTPS 자동·검색엔진 재등록</h1>
+        <div class="tb-article-meta">
+          <time>2026.06.05</time>
+          <span>·</span><span>#GitHub Pages #커스텀 도메인 #CNAME #DNS #Cloudflare #A record #HTTPS #Lets Encrypt #도메인 migration #SEO</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">왜 옮겼나</a></li><li class="tb-toc-h2"><a href="#4">4단계 요약</a></li><li class="tb-toc-h2"><a href="#1-cloudflare-dns">1. Cloudflare DNS 설정</a></li><li class="tb-toc-h3"><a href="#ui">UI — 어디서 뭘 누르나</a></li><li class="tb-toc-h3"><a href="#_2">함정 두 개</a></li><li class="tb-toc-h3"><a href="#_3">확인</a></li><li class="tb-toc-h2"><a href="#2-github-repo-cname">2. GitHub repo 의 CNAME 파일</a></li><li class="tb-toc-h3"><a href="#_4">파일 만들기</a></li><li class="tb-toc-h3"><a href="#github-ui">GitHub UI 에서 설정</a></li><li class="tb-toc-h3"><a href="#lets-encrypt">Let&#39;s Encrypt 인증서</a></li><li class="tb-toc-h2"><a href="#3">3. 사이트 일괄 치환</a></li><li class="tb-toc-h3"><a href="#_5">바꿔야 할 곳</a></li><li class="tb-toc-h3"><a href="#_6">우리 처리</a></li><li class="tb-toc-h2"><a href="#4_1">4. 검색엔진 재등록</a></li><li class="tb-toc-h3"><a href="#google-search-console">Google Search Console</a></li><li class="tb-toc-h3"><a href="#naver-searchadvisor">Naver SearchAdvisor</a></li><li class="tb-toc-h3"><a href="#bing-webmaster">Bing Webmaster</a></li><li class="tb-toc-h3"><a href="#daum">Daum 웹마스터 도구</a></li><li class="tb-toc-h3"><a href="#indexnow">IndexNow (덤)</a></li><li class="tb-toc-h2"><a href="#dnscname">DNS·CNAME 이 뭔지</a></li><li class="tb-toc-h3"><a href="#dns">DNS = 전화번호부</a></li><li class="tb-toc-h3"><a href="#ip-5">브라우저가 IP 찾는 5단계</a></li><li class="tb-toc-h3"><a href="#a-vs-cname">A vs CNAME</a></li><li class="tb-toc-h3"><a href="#apex-zone-root-cname-rfc-1912">apex (zone root) 엔 CNAME 못 씀 — RFC 1912</a></li><li class="tb-toc-h3"><a href="#host-header">Host header</a></li><li class="tb-toc-h2"><a href="#sandbox-30">우리 실측 — sandbox 30일</a></li><li class="tb-toc-h2"><a href="#_7">같은 작업 할 사람한테</a></li><li class="tb-toc-h2"><a href="#_8">관련 글</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<p><code>taystudio.github.io</code> 를 <code>taystudios.com</code> 으로 옮긴 작업 후기. 2026-05-09 에 했고, 6/5 시점에 30일 데이터 다 나왔으니 실측까지 같이 정리함.</p>
+<h2 id="_1">왜 옮겼나</h2>
+<p><code>.github.io</code> 도 잘 굴러간다. 한국 SEO 만 보면 차이도 별로 없음. 그런데 4가지가 걸렸음.</p>
+<ul>
+<li><strong>도메인 권위가 0부터 시작</strong> — <code>.github.io</code> 가 <a href="https://publicsuffix.org/">Public Suffix List</a> 에 등재돼서 브라우저·검색엔진이 <em>서브도메인</em> 으로 취급. <code>taystudio.github.io</code> 와 <code>someone.github.io</code> 가 서로 영향 안 주게끔 격리됨. 좋은 건데 권위가 누적이 안 됨.</li>
+<li><strong>AdSense 영어 RPM</strong> — 영어권에서 <code>.github.io</code> URL 은 개발자 블로그 인상이라 일반인 CTR 이 낮음. 보통 RPM <code>$1~3</code> 정도. <code>.com</code> 으로 가면 <code>$3~8</code> 까지 봤다는 사례 많음.</li>
+<li><strong>언론·매체 백링크</strong> — <code>.github.io</code> 는 인용 자체를 피하는 경향. 진지한 출처로 안 보임.</li>
+<li><strong>브랜드</strong> — URL 에 "github" 박혀있는 거 자체가 brand 가 약함.</li>
+</ul>
+<p>영어 시장 + AdSense + brand 셋 다 결정적이라 옮기기로 함. 다만 <strong>타이밍이 중요</strong>. URL 백 개 쌓이고 백링크 박히기 시작하면 옮기는 비용 폭증. 우리 사이트는 그때 100개 정도였어서 지금이 적기였음.</p>
+<h2 id="4">4단계 요약</h2>
+<pre class="codehilite"><code>① Cloudflare DNS 설정    (A 4개 + CNAME www)
+② GitHub repo CNAME 파일 (1줄)
+③ 사이트 일괄 치환        (canonical·sitemap·robots)
+④ 검색엔진 재등록         (GSC·Naver·Bing·Daum)
+</code></pre>
+
+<p>다운타임 0초. 양쪽 도메인 다 살아있는 상태로 점진 전환됨.</p>
+<hr />
+<h2 id="1-cloudflare-dns">1. Cloudflare DNS 설정</h2>
+<p>도메인은 Cloudflare Registrar 에서 샀음 (가비아·후이즈 다 가능). DNS 도 Cloudflare 가 가장 빠르고 무료.</p>
+<h3 id="ui">UI — 어디서 뭘 누르나</h3>
+<ol>
+<li><a href="https://dash.cloudflare.com">dash.cloudflare.com</a> 로그인 → 사이트 클릭 → 좌측 메뉴 <strong>DNS → Records</strong>.</li>
+<li><strong><code>Add record</code></strong> 버튼 → 아래 5개 입력:</li>
+</ol>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Name</th>
+<th>Content (Value)</th>
+<th>Proxy status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><code>@</code></td>
+<td><code>185.199.108.153</code></td>
+<td>DNS only (회색 구름)</td>
+</tr>
+<tr>
+<td>A</td>
+<td><code>@</code></td>
+<td><code>185.199.109.153</code></td>
+<td>DNS only</td>
+</tr>
+<tr>
+<td>A</td>
+<td><code>@</code></td>
+<td><code>185.199.110.153</code></td>
+<td>DNS only</td>
+</tr>
+<tr>
+<td>A</td>
+<td><code>@</code></td>
+<td><code>185.199.111.153</code></td>
+<td>DNS only</td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td><code>www</code></td>
+<td><code>&lt;본인 username&gt;.github.io</code></td>
+<td>DNS only</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>Name</code> 칸에 <code>@</code> 치면 자동으로 apex (<code>taystudios.com</code>) 로 변환됨. <code>www</code> 는 그냥 <code>www</code> 만 치면 <code>www.taystudios.com</code> 으로 잡힘.</p>
+<h3 id="_2">함정 두 개</h3>
+<ul>
+<li><strong>A record 4개 다 등록</strong>. GitHub Pages 가 4 IP 로 load balancing 함. 하나만 박으면 그 IP 다운 시 사이트 다운.</li>
+<li><strong>Proxy 처음엔 DNS only (회색 구름)</strong>. 주황 구름 (Proxy ON) 으로 켜면 GitHub Pages 의 Let's Encrypt 인증서가 origin IP 를 못 잡아서 cert 발급 fail. 인증서 발급 끝난 다음에 Proxy 켜기.</li>
+</ul>
+<h3 id="_3">확인</h3>
+<pre class="codehilite"><code class="language-bash">dig taystudios.com +short
+# 185.199.108.153
+# 185.199.109.153
+# 185.199.110.153
+# 185.199.111.153
+
+dig www.taystudios.com +short
+# taystudio.github.io.
+# 185.199.108.153
+# ...
+</code></pre>
+
+<p>전 세계 resolver 캐시까지 전파되는 데 보통 30분 ~ 24시간. 한국에서는 1시간 안에 됐음.</p>
+<hr />
+<h2 id="2-github-repo-cname">2. GitHub repo 의 <code>CNAME</code> 파일</h2>
+<p>이게 GitHub Pages 에 "이 repo 가 어떤 도메인 받을지" 알려주는 핵심 파일.</p>
+<h3 id="_4">파일 만들기</h3>
+<p>repo 루트에 파일명 정확히 <code>CNAME</code> (확장자 X, 전부 대문자). 안에 한 줄:</p>
+<pre class="codehilite"><code>taystudios.com
+</code></pre>
+
+<p><code>www</code> 없는 apex 도메인. 끝.</p>
+<h3 id="github-ui">GitHub UI 에서 설정</h3>
+<ol>
+<li>repo 페이지 → 상단 <strong>Settings</strong> 탭.</li>
+<li>좌측 메뉴 <strong>Pages</strong>.</li>
+<li><strong>Custom domain</strong> 입력란에 <code>taystudios.com</code> 치고 <strong>Save</strong>.</li>
+<li>잠시 후 (5~30분) <strong><code>✓ DNS check successful</code></strong> 메시지 뜸.</li>
+<li>그 아래 <strong>Enforce HTTPS</strong> 체크박스가 활성화되면 체크.</li>
+</ol>
+<p><code>Custom domain</code> 에 입력하면 GitHub 가 자동으로 repo 루트에 CNAME 파일 만들어줌. 위 1번처럼 직접 만들어도 똑같음.</p>
+<h3 id="lets-encrypt">Let's Encrypt 인증서</h3>
+<p>GitHub 가 Let's Encrypt 에서 SSL 자동 발급. 5분 ~ 30분. 발급되면 <code>Enforce HTTPS</code> 체크박스가 회색에서 클릭 가능한 상태로 바뀜.</p>
+<p>90일마다 자동 갱신. 비용 0원. 설정 0개.</p>
+<p>→ 발급 끝난 다음에 Cloudflare 로 돌아가서 Proxy 켜도 됨 (선택).</p>
+<hr />
+<h2 id="3">3. 사이트 일괄 치환</h2>
+<p>migration 에서 SEO 적으로 제일 중요한 부분. 옛 도메인 가리키는 URL 이 어디 하나라도 남아있으면 Google 이 옛 도메인을 canonical 로 인식해서 권위 이전이 안 됨.</p>
+<h3 id="_5">바꿔야 할 곳</h3>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>영역</th>
+<th>변경</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;link rel="canonical"&gt;</code></td>
+<td><code>taystudios.com/...</code></td>
+</tr>
+<tr>
+<td><code>&lt;meta property="og:url"&gt;</code></td>
+<td>동일</td>
+</tr>
+<tr>
+<td><code>&lt;link rel="alternate" hreflang&gt;</code></td>
+<td>동일</td>
+</tr>
+<tr>
+<td><code>sitemap.xml</code> 의 <code>&lt;loc&gt;</code></td>
+<td>동일</td>
+</tr>
+<tr>
+<td><code>robots.txt</code> 의 <code>Sitemap:</code> URL</td>
+<td>동일</td>
+</tr>
+<tr>
+<td><code>llms.txt</code> (있다면)</td>
+<td>동일</td>
+</tr>
+<tr>
+<td>schema.org JSON-LD 의 <code>@id</code>·<code>url</code></td>
+<td>동일</td>
+</tr>
+<tr>
+<td>내부 절대 경로 link</td>
+<td><code>taystudio.github.io</code> → <code>taystudios.com</code></td>
+</tr>
+<tr>
+<td>IndexNow key file URL</td>
+<td>동일</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="_6">우리 처리</h3>
+<p>build script (<code>blog/scripts/build.py</code>) 가 <code>site.json</code> 의 <code>siteUrl</code> 하나만 보고 전부 자동 갱신하게 짜여있어서 한 줄 바꾸고 빌드 한 번 돌리니 끝났음.</p>
+<p>build script 안 쓰는 경우 sed 로:</p>
+<pre class="codehilite"><code class="language-bash"># 옛 도메인 → 새 도메인 일괄 치환
+grep -rl &quot;taystudio.github.io&quot; . | xargs sed -i '' 's|taystudio.github.io|taystudios.com|g'
+</code></pre>
+
+<p>(macOS sed 는 <code>-i ''</code>, Linux 는 <code>-i</code>)</p>
+<p>치환 후 GitHub 에 push 하면 자동 deploy.</p>
+<hr />
+<h2 id="4_1">4. 검색엔진 재등록</h2>
+<p><code>.com</code> 은 Google·Naver·Bing·Daum 입장에서 신규 도메인. 옛 property 에 쌓인 데이터가 자동 이전되지 않으니 새로 등록.</p>
+<h3 id="google-search-console">Google Search Console</h3>
+<ol>
+<li><a href="https://search.google.com/search-console">search.google.com/search-console</a> → 좌상단 <strong>속성 추가</strong>.</li>
+<li><strong>URL 접두어</strong> 선택 → <code>https://taystudios.com</code> 입력.</li>
+<li>소유권 확인 — <strong>HTML 태그</strong> 방법이 제일 쉬움. <code>&lt;meta name="google-site-verification" content="..."&gt;</code> 한 줄 받아서 <code>&lt;head&gt;</code> 에 박고 빌드 → 확인.</li>
+<li>좌측 <strong>Sitemaps</strong> → <code>sitemap.xml</code> 입력 → 제출.</li>
+<li><strong>URL 검사</strong> → 우선 페이지 (홈·인기 글) URL 넣고 <strong>색인 생성 요청</strong>. 일 10개 한도.</li>
+</ol>
+<p>→ Bing Webmaster 는 GSC sitemap 자동 import 기능 있음. GSC 만 하면 Bing 도 같이 잡힘.</p>
+<h3 id="naver-searchadvisor">Naver SearchAdvisor</h3>
+<ol>
+<li><a href="https://searchadvisor.naver.com">searchadvisor.naver.com</a> 로그인 → 우상단 <strong>사이트 관리</strong>.</li>
+<li><strong>사이트 등록</strong> → <code>https://taystudios.com</code> 입력.</li>
+<li>소유권 확인 — HTML 파일 다운로드 받아서 사이트 루트에 업로드. 빌드 → 확인.</li>
+<li>좌측 <strong>요청 → 사이트맵 제출</strong> → <code>sitemap.xml</code>.</li>
+<li><strong>요청 → 웹페이지 수집</strong> → 개별 URL 한 줄씩 (일 50건).</li>
+</ol>
+<p>→ 한국 트래픽은 Naver 가 80% 받쳐주기 때문에 GSC 보다 Naver 가 더 급함.</p>
+<h3 id="bing-webmaster">Bing Webmaster</h3>
+<ol>
+<li><a href="https://www.bing.com/webmasters">bing.com/webmasters</a> → Microsoft 계정 로그인.</li>
+<li><strong>사이트 추가</strong> → GSC 에서 자동 import 권장.</li>
+<li>옛 도메인 property 에서 <strong>사이트 이동</strong> (Site Move) 기능 사용 가능. 명시적 신호 전달.</li>
+</ol>
+<h3 id="daum">Daum 웹마스터 도구</h3>
+<p>(이름이 SearchAdvisor 아님. UI 상 메뉴는 여전히 "웹마스터 도구". URL 은 <code>webmaster.daum.net</code>)</p>
+<ol>
+<li><a href="https://webmaster.daum.net">webmaster.daum.net</a> → 카카오 로그인.</li>
+<li><strong>사이트 등록</strong> → <code>https://taystudios.com</code>.</li>
+<li>소유권 확인 — meta 태그 or 인증 토큰을 <code>robots.txt</code> 첫 줄에 추가.</li>
+<li><strong>사이트맵</strong> 메뉴 → <code>sitemap.xml</code> 제출.</li>
+<li><strong>수집 요청</strong> → 개별 URL.</li>
+</ol>
+<h3 id="indexnow">IndexNow (덤)</h3>
+<p>Bing·Yandex·Naver·Seznam 동시 ping. key 1번만 발급받아서 <code>robots.txt</code> 에 박아두면 됨.</p>
+<pre class="codehilite"><code class="language-bash">curl &quot;https://api.indexnow.org/IndexNow?url=https://taystudios.com/&amp;key=&lt;your-key&gt;&quot;
+</code></pre>
+
+<hr />
+<h2 id="dnscname">DNS·CNAME 이 뭔지</h2>
+<p>migration 하다 보면 이게 다 뭔 소린가 싶어서 정리. 알면 위 4단계가 왜 그렇게 생긴 건지 보임.</p>
+<h3 id="dns">DNS = 전화번호부</h3>
+<p>사람은 이름 (<code>taystudios.com</code>) 기억, 컴퓨터는 IP (<code>185.199.108.153</code>) 만 인식. DNS 가 이름 → IP 통역.</p>
+<h3 id="ip-5">브라우저가 IP 찾는 5단계</h3>
+<p>(resolver 캐시가 다 비었을 때)</p>
+<pre class="codehilite"><code>브라우저
+  → ISP DNS (KT·SKB 8.8.8.8 등)
+  → Root nameserver (&quot;.&quot;)
+  → TLD nameserver (&quot;.com&quot;)
+  → 도메인 nameserver (Cloudflare)
+  → A record 응답 (185.199.108.153)
+</code></pre>
+
+<p>실제로는 resolver 가 TTL (기본 1시간) 동안 캐시하기 때문에 매번 root 까지 안 감. 도메인 처음 사거나 DNS record 바꾸면 전 세계 resolver 캐시 비어서 5단계 다 돌아야 함 = <strong>DNS 전파 (propagation)</strong>.</p>
+<h3 id="a-vs-cname">A vs CNAME</h3>
+<p>A record — 도메인 → IP 직접:</p>
+<pre class="codehilite"><code>taystudios.com   A   185.199.108.153
+</code></pre>
+
+<p>CNAME — 도메인 → 다른 도메인 (alias):</p>
+<pre class="codehilite"><code>www.taystudios.com   CNAME   taystudio.github.io
+</code></pre>
+
+<p>resolver 가 CNAME 받으면 "그 다른 도메인 A 를 다시 조회" 함. 한 단계 더 거치지만 앞 도메인 IP 바뀌어도 자동 따라가는 게 장점.</p>
+<h3 id="apex-zone-root-cname-rfc-1912">apex (zone root) 엔 CNAME 못 씀 — RFC 1912</h3>
+<p><code>taystudios.com</code> 자체 = <strong>CNAME X</strong>. 다른 record (MX·NS) 와 충돌 나서 표준상 금지.
+<code>www.taystudios.com</code>·<code>blog.taystudios.com</code> = <strong>CNAME OK</strong>.</p>
+<p>→ 그래서 apex 는 A 4개, www 는 CNAME 으로 잡는 거. Cloudflare 는 "CNAME flattening" 으로 apex CNAME 가능하지만 GitHub Pages 공식 권장은 A 4개.</p>
+<h3 id="host-header">Host header</h3>
+<p>GitHub Pages IP 4개 (185.199.108~111.153) 는 수백만 사이트 공유. 어떻게 내 사이트만 찾아오나?</p>
+<pre class="codehilite"><code>HTTP/1.1 GET /
+Host: taystudios.com   ← 이게 핵심
+</code></pre>
+
+<p>브라우저가 보내는 <code>Host</code> 헤더 + GitHub 내부에서 <code>CNAME 파일 == "taystudios.com"</code> 인 repo 찾아서 매핑. → 그래서 <strong>repo CNAME 파일 1줄이 결정적</strong>.</p>
+<hr />
+<h2 id="sandbox-30">우리 실측 — sandbox 30일</h2>
+<p>5/9 migration 직후 30일 동안 데이터:</p>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>시점</th>
+<th>GSC 노출</th>
+<th>Naver 노출</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5/9 (migration)</td>
+<td>0</td>
+<td>(옛 도메인 잔여)</td>
+</tr>
+<tr>
+<td>5/14 (Week 1)</td>
+<td><strong>450 peak</strong></td>
+<td>spike 시작</td>
+</tr>
+<tr>
+<td>5/24 (Week 3)</td>
+<td>10 (dip)</td>
+<td>7,600 peak</td>
+</tr>
+<tr>
+<td>6/2 (Week 4)</td>
+<td>~0</td>
+<td>2,000-3,000/일 안정</td>
+</tr>
+</tbody>
+</table></div>
+<p>Google 은 sandbox 진입 명확. 6-12주 expected. Naver 는 sandbox 없어서 즉시 회복. 자세한 회고는 <a href="/blog/ko/seo-google-sandbox-1month/">Google sandbox 한 달 실측</a> 글에 따로 정리.</p>
+<hr />
+<h2 id="_7">같은 작업 할 사람한테</h2>
+<ol>
+<li><strong>URL 적을 때 옮기기</strong>. 백링크 박히기 전이 제일 싸다. 100+ URL 쌓이면 redirect·canonical 작업 비용 폭증.</li>
+<li><strong>다운타임 0</strong> — 양쪽 도메인 동시 작동함. 사용자가 옛 도메인으로 와도 GitHub 가 새 도메인으로 자동 redirect (단, 옛 repo 의 CNAME 파일 비워두기).</li>
+<li><strong>canonical 일관성</strong> — sed 든 build script 든 한 번에 일괄 치환. 하나라도 옛 도메인 남으면 권위 이전 fail.</li>
+<li><strong>Google 만 보고 패닉 X</strong> — sandbox 라 한 달 노출 거의 0 됨. Naver·Bing·Cloudflare 합쳐서 보면 사이트 정상 돌아감이 보임.</li>
+</ol>
+<p>도메인 옮기는 거 자체는 1시간이면 끝. 권위 이전만 1-3개월 기다리면 됨.</p>
+<h2 id="_8">관련 글</h2>
+<ul>
+<li><a href="/blog/ko/seo-google-sandbox-1month/">Google sandbox 한 달 실측</a> — migration 후 30일 GSC·Naver·Cloudflare 추적</li>
+<li><a href="/blog/ko/seo-naver-webmaster-guide/">Naver SearchAdvisor 등록 가이드</a> — 한국 트래픽 80% 채널</li>
+<li><a href="/blog/ko/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver vs Cloudflare</a> — 3종 데이터 비교</li>
+</ul>
+      </div>
+
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/seo-google-sandbox-1month/">구글 샌드박스 실측 30일 — 신규 도메인 검색 노출 회복 패턴·탈출 방법 (GSC·네이버·Cloudflare)</a></li><li><a href="ko/seo-search-engines-concepts/">SEO·검색엔진 핵심 개념 12 — sandbox·E-E-A-T·DA·CTR·AI Overview 한 페이지 정리</a></li><li><a href="ko/seo-naver-webmaster-guide/">네이버 서치어드바이저 등록·사이트맵 제출 완전 가이드 — 한국 SEO 트래픽 80% 채널 잡기</a></li><li><a href="ko/seo-llmstxt-ai-search-optimization/">llms.txt 도입기 — AI 검색 시대의 사이트 메타데이터 (ChatGPT·Claude·Perplexity 노출)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fgithub-pages-custom-domain%2F&amp;text=GitHub%20Pages%20%EC%BB%A4%EC%8A%A4%ED%85%80%20%EB%8F%84%EB%A9%94%EC%9D%B8%20%EC%97%B0%EA%B2%B0%204%EB%8B%A8%EA%B3%84%20%E2%80%94%20Cloudflare%20DNS%C2%B7CNAME%C2%B7HTTPS%20%EC%9E%90%EB%8F%99%C2%B7%EA%B2%80%EC%83%89%EC%97%94%EC%A7%84%20%EC%9E%AC%EB%93%B1%EB%A1%9D" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fgithub-pages-custom-domain%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::fastapi|os-settings,cloud::aws|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::,growth::seo|analytics|ads"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/web-dev/"><span>Web Development</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">7</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/reviews/"><span>Reviews</span><span class="tb-side-count">10</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/career/"><span>취업 / 이직</span><span class="tb-side-count">6</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/grad-school/"><span>대학원</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/reviews/conferences/"><span>컨퍼런스</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="ko/category/growth/"><span>운영·SEO·광고</span><span class="tb-side-count">6</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/growth/seo/"><span>SEO·검색엔진</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/growth/analytics/"><span>데이터 분석</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="ko/category/growth/ads/"><span>광고·AdSense</span></a></li></ul></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="ko/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">최근 글</h3><ul class="tb-side-recent"><li><a href="ko/github-pages-custom-domain/">GitHub Pages 커스텀 도메인 연결 4단계 — Cloudflare DNS·CNAME·HTTPS 자동·검색엔진 재등록</a></li><li><a href="ko/seo-google-sandbox-1month/">구글 샌드박스 실측 30일 — 신규 도메인 검색 노출 회복 패턴·탈출 방법 (GSC·네이버·Cloudflare)</a></li><li><a href="ko/seo-naver-webmaster-guide/">네이버 서치어드바이저 등록·사이트맵 제출 완전 가이드 — 한국 SEO 트래픽 80% 채널 잡기</a></li><li><a href="ko/analytics-gsc-vs-naver-vs-cloudflare/">GSC vs Naver SearchAdvisor vs Cloudflare — 같은 사이트, 3종 데이터의 진짜 의미</a></li><li><a href="ko/seo-llmstxt-ai-search-optimization/">llms.txt 도입기 — AI 검색 시대의 사이트 메타데이터 (ChatGPT·Claude·Perplexity 노출)</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">태그</h3><div class="tb-side-tags"><a class="tb-side-tag" href="ko/tags/#후기">#후기 <span>9</span></a><a class="tb-side-tag" href="ko/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="ko/tags/#통계">#통계 <span>7</span></a><a class="tb-side-tag" href="ko/tags/#코딩테스트">#코딩테스트 <span>6</span></a><a class="tb-side-tag" href="ko/tags/#신입공채">#신입공채 <span>5</span></a><a class="tb-side-tag" href="ko/tags/#SEO">#SEO <span>4</span></a><a class="tb-side-tag" href="ko/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="ko/tags/#네트워크">#네트워크 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#인적성">#인적성 <span>3</span></a><a class="tb-side-tag" href="ko/tags/#AI Overview">#AI Overview <span>2</span></a><a class="tb-side-tag" href="ko/tags/#APIGateway">#APIGateway <span>2</span></a><a class="tb-side-tag" href="ko/tags/#ARM">#ARM <span>2</span></a><a class="tb-side-tag" href="ko/tags/#CTR">#CTR <span>2</span></a><a class="tb-side-tag" href="ko/tags/#GSC">#GSC <span>2</span></a><a class="tb-side-tag" href="ko/tags/#Java">#Java <span>2</span></a><a class="tb-side-tag tb-side-tag-more" href="ko/tags/">전체 태그 (217) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="about/">About</a><a href="privacy/">Privacy</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1780191126"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ 복사됨';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>
