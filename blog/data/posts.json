@@ -113,34 +113,35 @@
   },
   {
     "slug": "career-ktds-newgrad-2021",
-    "title": "[신입 공채] KT DS — 코테 + 면접 (최종 합격) 후기 (2021 하반기)",
+    "title": "[신입 공채] KT DS - 코테 및 면접 (최종 합격) 후기",
     "date": "2021-12-22",
-    "excerpt": "2021년 하반기 KT DS 신입 공채 — 코테(프로그래머스 3문제 Silver4·Silver1·Easy SQL) + 인적성 + 사전과제(1시간 PPT 1장) + 1day 면접(기술 4:1 + 임원 2:다수). 기계공학+AI 석사로 IT 비배경에서 SK E&S·삼성 떨어지고 KT DS 최종 합격까지의 진흙탕 면접 복기.",
+    "excerpt": "2021 하반기 KT DS 신입 공채 응용SW개발/운영 직무 — 인적성 + 코테 (프로그래머스 Java 3문제 알고리즘 2 + SQL 1) + 1day 면접 (사전과제 PT + 실무 + 임원 다대다). 진흙탕 실무 면접에도 최종 합격한 솔직 후기.",
     "category": [
       "reviews",
       "career"
     ],
     "tags": [
-      "KTDS",
-      "KT그룹",
-      "SI",
+      "KT",
+      "KT DS",
+      "ktds",
       "신입공채",
       "코딩테스트",
       "인적성",
       "면접",
-      "자기소개서",
       "사전과제",
-      "취준후기",
-      "후기"
+      "실무면접",
+      "임원면접",
+      "SI",
+      "합격후기"
     ],
     "image": "assets/posts/career-ktds-newgrad-2021/cover.jpg",
     "lang": "ko"
   },
   {
     "slug": "career-lg-electronics-newgrad-2022",
-    "title": "[신입 공채] LG 전자 — 코테 + 1차·2차 면접 (최종 탈락) 후기 (2022 하반기)",
+    "title": "[신입 공채] LG 전자 - 코테 및 면접 (최종 탈락) 후기",
     "date": "2022-12-15",
-    "excerpt": "2022 하반기 LG 전자 신입 공채 (가산 R&D 캠퍼스, H&A 사업부) — 코테(프로그래머스 Java 3문제 만점·만점·부분점수) + 인적성 + 1차 면접(석박사 발표) + 2차 면접(임원+영어 OPIc) → 최종 탈락. 직무 매칭 misalignment 가 결과를 갈랐다고 본 케이스.",
+    "excerpt": "2022 하반기 LG 전자 신입 공채 (가산 R&D 캠퍼스, H&A 사업부) — 코테 (프로그래머스 Java 3문제 만점·만점·부분점수) + 인적성 + 1차 면접 (석박사 발표) + 2차 면접 (임원 + 영어 OPIc) → 최종 탈락. 직무 매칭 misalignment 가 결과를 갈랐다고 본 케이스.",
     "category": [
       "reviews",
       "career"
@@ -157,9 +158,10 @@
       "영어면접",
       "2차면접",
       "임원면접",
+      "OPIc",
       "후기"
     ],
-    "image": "assets/posts/career-lg-electronics-newgrad-2022/cover.png",
+    "image": "assets/posts/career-lg-electronics-newgrad-2022/cover.jpg",
     "lang": "ko"
   },
   {

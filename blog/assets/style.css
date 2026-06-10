@@ -432,7 +432,8 @@ a:hover { color: var(--accent); }
   color: var(--muted); margin-bottom: 8px; }
 .tb-toc ul { list-style: none; padding: 0; margin: 0; }
 /* padding-left 는 건드리지 않음 — 레벨별 들여쓰기(.tb-toc-hN)가 적용되도록 */
-.tb-toc li { padding-top: 3px; padding-bottom: 3px; }
+.tb-toc li { padding-top: 1px; padding-bottom: 1px; margin: 0; line-height: 1.4; letter-spacing: 0; }
+.tb-toc ul { line-height: 1.4; }
 .tb-toc a { color: var(--fg); text-decoration: none; }
 .tb-toc a:hover { color: var(--accent); }
 /* 헤딩 레벨별 들여쓰기 — ## 0, ### 한 단계, #### 두 단계 (필요하면 #### 로 더 들여씀) */
@@ -1333,4 +1334,15 @@ html.dark .tb-theme-toggle .ti-light { display: inline; }
 .tb-content .callout p:last-child, .tb-prose .callout p:last-child, .callout p:last-child { margin-bottom: 0; }
 @media (prefers-color-scheme: dark) {
   .tb-content .callout, .tb-prose .callout, .callout { background: #2a2f38; color: #d8d8d8; border-left-color: #5a8f74; }
+}
+
+/* 그림 캡션 — 그림 좌측 아래 정렬 (default max-width = 그림 default 720px 와 일치) */
+.tb-content p > em:only-child, .tb-content p:has(> img) > em {
+  display: block;
+  text-align: left;
+  font-size: 12.5px;
+  color: #888;
+  letter-spacing: 0;
+  max-width: 720px;
+  margin: 6px auto 20px;
 }

@@ -113,51 +113,55 @@
   },
   {
     "slug": "career-ktds-newgrad-2021",
-    "title": "[New Grad] KT DS — Coding Test + Interview (Final Offer) Recap (2021 H2)",
+    "title": "[New Grad] KT DS - Coding Test & Interview (Final Offer) Recap",
     "date": "2021-12-22",
-    "excerpt": "KT DS 2021 H2 new-grad recruitment — coding test (Programmers, 3 problems: Silver-4 stock sim, Silver-1 impl, Easy SQL) + aptitude + pre-assignment (1h, 1-page PPT) + 1-day interview (technical 4:1 + executive 2:N). Honest recap from a mechanical engineering + AI master's background with little IT experience.",
+    "excerpt": "2021 H2 KT DS new-grad recruitment, Application SW Dev/Operations role — aptitude + coding test (Programmers, Python, 3 problems: 2 algo + 1 SQL) + 1-day interview (pre-assignment PT + technical 4:1 + executive group). A muddy technical interview that somehow ended in a final offer.",
     "category": [
       "reviews",
       "career"
     ],
     "tags": [
-      "KTDS",
-      "KT-Group",
-      "SI",
+      "KT",
+      "KT DS",
+      "ktds",
       "new-grad",
       "coding-test",
-      "aptitude-test",
+      "aptitude",
       "interview",
       "pre-assignment",
-      "korean-job-market",
-      "review"
+      "technical-interview",
+      "executive-interview",
+      "SI",
+      "acceptance-review"
     ],
     "image": "assets/posts/career-ktds-newgrad-2021/cover.jpg",
     "lang": "en"
   },
   {
     "slug": "career-lg-electronics-newgrad-2022",
-    "title": "[New Grad] LG Electronics — Coding Test + 1st/2nd Interview (Rejected) Recap (2022 H2)",
+    "title": "[New Grad] LG Electronics - Coding Test & Interview (Final Rejection) Recap",
     "date": "2022-12-15",
-    "excerpt": "LG Electronics 2022 H2 new-grad recruitment for R&D Campus in Gasan (H&A division) — coding test (Programmers, Java, 3 problems, two perfect + one partial) + aptitude + 1st interview (master's/PhD research presentation, 6-page PPT) + 2nd interview (executive + English OPIc) → final rejection. A case where job-role misalignment drove the result.",
+    "excerpt": "2022 H2 LG Electronics new-grad recruitment (Gasan R&D Campus, H&A division) — coding test (Programmers, Java, 3 problems: full · full · partial) + aptitude + 1st interview (research presentation) + 2nd interview (executive + English OPIc) → finally rejected. A case where role misalignment shaped the outcome.",
     "category": [
       "reviews",
       "career"
     ],
     "tags": [
       "LG",
-      "LG-Electronics",
-      "HA",
-      "RD",
+      "LG Electronics",
+      "H&A",
+      "R&D",
       "new-grad",
       "coding-test",
-      "aptitude-test",
+      "aptitude",
       "interview",
-      "english-interview",
+      "English-interview",
+      "2nd-interview",
       "executive-interview",
-      "review"
+      "OPIc",
+      "recap"
     ],
-    "image": "assets/posts/career-lg-electronics-newgrad-2022/cover.png",
+    "image": "assets/posts/career-lg-electronics-newgrad-2022/cover.jpg",
     "lang": "en"
   },
   {
