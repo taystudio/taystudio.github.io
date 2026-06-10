@@ -191,52 +191,50 @@
   },
   {
     "slug": "career-samsung-coding-test-review",
-    "title": "[신입 공채] 삼성전자 코딩테스트 — 5회 도전 후기 (Samsung Research · 혁신센터 · Device Platform)",
+    "title": "[신입 공채] 삼성전자 코딩테스트:코테 후기 (삼성 리서치 Samsung Research / 혁신센터)",
     "date": "2024-10-08",
-    "excerpt": "삼성전자 코딩테스트 5회 응시 후기 — 대학원 시절(DX·삼성리서치)부터 입사 후(DX·DS·디바이스 플랫폼)까지. 백준·코드트리 기반 4시간 시뮬레이션 1–2문제 / Python·Java·C++ 가능. 매번 다른 실수 — 출력 포맷 누락, 언어 전환 함정, BFS 과잉 설계. 자기 점검 회고.",
+    "excerpt": "삼성전자 Samsung Research 5번의 코딩테스트 도전기 — 서류 결과 발표 일정, 시험장 환경, 언어별 제약사항, 그리고 각 도전마다 배운 교훈.",
     "category": [
-      "reviews",
-      "career"
+      "career",
+      "interview"
     ],
     "tags": [
       "삼성전자",
-      "삼성리서치",
+      "삼성 리서치",
       "혁신센터",
-      "DevicePlatform",
-      "신입공채",
+      "디바이스플랫폼센터",
       "코딩테스트",
       "코테",
       "백준",
       "코드트리",
-      "시뮬레이션",
-      "후기"
+      "신입공채",
+      "취업후기"
     ],
     "image": "assets/posts/career-samsung-coding-test-review/cover.jpg",
     "lang": "ko"
   },
   {
     "slug": "career-sk-ax-newgrad-2023",
-    "title": "[신입 공채] SK AX (구 C&C) — 코테 + 면접 (최종 합격) 후기 (2023 하반기)",
+    "title": "[신입 공채] SK AX (구 C&C) - 코테 및 면접 (최종 합격) 후기",
     "date": "2023-12-05",
-    "excerpt": "2023 하반기 SK C&C (현 SK AX) 신입 공채 — 코테(2h 4문제: 시뮬·DP·시뮬·SQL 누적합) + SKCT 심층(1.5h 인성) + 1day 면접(토론 + 직무/인성). 토론 면접에서 긴장 다 풀려서 직무 면접 편하게 본 후 최종 합격. 합격까지의 흐름 복기.",
+    "excerpt": "SK Inc. AX (구 C&C) 2023 하반기 신입공채 SW직군 합격 후기 — 서류·코딩테스트·SKCT 심층·1day 면접 (토론 + 직무/인성) 일정과 형식 정리.",
     "category": [
-      "reviews",
-      "career"
+      "career",
+      "interview"
     ],
     "tags": [
       "SK",
-      "SKAX",
-      "SKC&C",
-      "SKCT",
+      "SK AX",
+      "SK C&C",
       "신입공채",
       "코딩테스트",
+      "SKCT",
       "토론면접",
       "직무면접",
       "인성면접",
-      "사전과제",
-      "후기"
+      "합격후기"
     ],
-    "image": "assets/posts/career-sk-ax-newgrad-2023/cover.webp",
+    "image": "assets/posts/career-sk-ax-newgrad-2023/cover.jpg",
     "lang": "ko"
   },
   {

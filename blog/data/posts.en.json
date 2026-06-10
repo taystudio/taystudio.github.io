@@ -188,51 +188,50 @@
   },
   {
     "slug": "career-samsung-coding-test-review",
-    "title": "Samsung Electronics Coding Test — 5 Attempts Recap (Samsung Research · Innovation Center · Device Platform)",
+    "title": "[New Grad] Samsung Electronics Coding Test Review (Samsung Research / Innovation Center)",
     "date": "2024-10-08",
-    "excerpt": "Samsung Electronics coding test — 5 attempts across grad school (DX · Samsung Research) and post-employment (DX · DS · Device Platform). 4-hour simulation problems based on Baekjoon/codetree, Python/Java/C++ allowed. Each attempt failed differently: output format omission, language-switch trap, BFS over-engineering. Honest retrospective.",
+    "excerpt": "5 attempts at the Samsung Research coding test — application timelines, exam environment, language restrictions, and lessons from each round.",
     "category": [
-      "reviews",
-      "career"
+      "career",
+      "interview"
     ],
     "tags": [
-      "Samsung",
-      "Samsung-Research",
-      "Innovation-Center",
-      "Device-Platform",
-      "new-grad",
-      "coding-test",
+      "Samsung Electronics",
+      "Samsung Research",
+      "Innovation Center",
+      "Device Platform Center",
+      "coding test",
+      "algorithm",
       "Baekjoon",
-      "codetree",
-      "simulation",
-      "review"
+      "CodeTree",
+      "new graduate",
+      "interview review"
     ],
     "image": "assets/posts/career-samsung-coding-test-review/cover.jpg",
     "lang": "en"
   },
   {
     "slug": "career-sk-ax-newgrad-2023",
-    "title": "[New Grad] SK AX (formerly SK C&C) — Coding Test + Interview (Final Offer) Recap (2023 H2)",
+    "title": "[New Grad] SK AX (formerly C&C) - Coding Test & Interview (Final Acceptance) Review",
     "date": "2023-12-05",
-    "excerpt": "SK C&C (now SK AX) 2023 H2 new-grad recruitment — coding test (2h, 4 problems: sim, DP, sim, SQL aggregation) + SKCT in-depth (1.5h personality) + 1-day interview (group discussion + role/personality). Group discussion was actually fun and burned off the nerves before the role interview. Final offer.",
+    "excerpt": "SK Inc. AX (formerly C&C) 2023 H2 new graduate SW hiring — application, coding test (4 problems), SKCT psychological, 1-day interview (discussion + job/personality).",
     "category": [
-      "reviews",
-      "career"
+      "career",
+      "interview"
     ],
     "tags": [
       "SK",
-      "SKAX",
-      "SKC&C",
+      "SK AX",
+      "SK C&C",
+      "new graduate hiring",
+      "coding test",
       "SKCT",
-      "new-grad",
-      "coding-test",
-      "group-discussion",
-      "technical-interview",
-      "executive-interview",
-      "pre-assignment",
-      "review"
+      "discussion interview",
+      "job interview",
+      "personality interview",
+      "acceptance review"
     ],
-    "image": "assets/posts/career-sk-ax-newgrad-2023/cover.webp",
+    "image": "assets/posts/career-sk-ax-newgrad-2023/cover.jpg",
     "lang": "en"
   },
   {
