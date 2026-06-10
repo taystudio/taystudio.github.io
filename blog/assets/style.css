@@ -1316,3 +1316,21 @@ html.dark .tb-theme-toggle .ti-light { display: inline; }
   .tb-search-input:focus { width: 200px; }
   .tb-search-results { width: 280px; max-width: 92vw; }
 }
+
+/* Notion-style callout — 본문 내 강조 박스 (회색 + 좌측 accent bar) */
+.tb-content .callout, .tb-prose .callout, .callout {
+  background: #eef2f7;
+  border-left: 3px solid #3f6f54;
+  border-radius: 6px;
+  padding: 14px 18px 14px 16px;
+  margin: 16px 0;
+  line-height: 1.75;
+  letter-spacing: -0.005em;
+  color: #2d2d2d;
+}
+.tb-content .callout p, .tb-prose .callout p, .callout p { margin: 8px 0; line-height: 1.75; }
+.tb-content .callout p:first-child, .tb-prose .callout p:first-child, .callout p:first-child { margin-top: 0; }
+.tb-content .callout p:last-child, .tb-prose .callout p:last-child, .callout p:last-child { margin-bottom: 0; }
+@media (prefers-color-scheme: dark) {
+  .tb-content .callout, .tb-prose .callout, .callout { background: #2a2f38; color: #d8d8d8; border-left-color: #5a8f74; }
+}
