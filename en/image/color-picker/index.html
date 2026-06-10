@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO official = https://taystudios.com · source = github.com/taystudio/taystudios.com · No unauthorized copy/redistribution -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/en/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="Color Picker · Image Palette Extractor | Hex·RGB·HSL·CMYK + WCAG Contrast (Free)">
+  <meta property="og:description" content="Convert between Hex · RGB · HSL · CMYK simultaneously. Extract 8 dominant colors from any image. WCAG AA/AAA contrast checker. Free, browser-only, no upload.">
+  <meta property="og:url" content="https://taystudios.com/en/image/color-picker/">
+  <meta property="og:image" content="https://taystudios.com/og-image-en.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image-en.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Color Picker · Palette Extractor · Hex·RGB·HSL·CMYK + WCAG (Free)">
+  <meta name="twitter:description" content="Convert Hex·RGB·HSL·CMYK at once. Extract 8 colors from any image. WCAG AA/AAA contrast grading. No upload.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
+  <title>Color Picker · Image Palette Extractor | Hex·RGB·HSL·CMYK + WCAG Contrast (Free)</title>
+  <meta name="description" content="Convert between Hex · RGB · HSL · CMYK simultaneously. Extract 8 dominant colors from any image. WCAG AA/AAA contrast checker. Free, browser-only, no upload.">
+  <meta name="keywords" content="color picker, hex rgb converter, image palette extractor, color extractor from image, WCAG contrast checker, hsl cmyk converter">
+  <link rel="canonical" href="https://taystudios.com/en/image/color-picker/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/color-picker/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/color-picker/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/color-picker/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Color Picker · Palette Extractor · Contrast Checker",
+      "description": "Convert between Hex, RGB, HSL, and CMYK simultaneously. Extract 8 dominant colors from any uploaded image via 16-step RGB quantization. WCAG AA/AAA contrast checker. Browser-only, no upload.",
+      "url": "https://taystudios.com/en/image/color-picker/",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript and Canvas API",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "Hex, RGB, HSL, CMYK simultaneous conversion",
+        "Auto-extract 8 dominant colors from any image (16-step RGB quantization)",
+        "WCAG AA, AAA, AA Large contrast grading",
+        "1-click clipboard copy for every code",
+        "Browser-only processing — image never uploaded"
+      ],
+      "dateModified": "2026-06-10",
+      "softwareVersion": "2026.06"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/en/image/" },
+        { "@type": "ListItem", "position": 3, "name": "Color Picker", "item": "https://taystudios.com/en/image/color-picker/" }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to extract 8 dominant colors from an image",
+      "description": "Steps to auto-extract the main color codes from a photo, poster, or design image.",
+      "totalTime": "PT30S",
+      "step": [
+        { "@type": "HowToStep", "name": "Upload image", "text": "Drag or click to select an image. JPG, PNG, WebP, GIF, and SVG all supported." },
+        { "@type": "HowToStep", "name": "Auto analysis", "text": "Canvas API quantizes pixels into 16-step RGB bins, returning the top 8 most frequent colors." },
+        { "@type": "HowToStep", "name": "Use palette", "text": "Click any swatch to load it into the color picker. Hex, RGB, HSL, CMYK codes shown automatically." },
+        { "@type": "HowToStep", "name": "Copy codes", "text": "Click any code box to copy to clipboard instantly." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What's the difference between Hex and RGB?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Hex is hexadecimal notation (e.g., #3F6F54). RGB is decimal (e.g., rgb(63,111,84)). Both represent the same color. Hex is shorter and more common in CSS/HTML; RGB is convenient when manipulating colors in JavaScript or canvas." }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the WCAG AA / AAA thresholds?",
+          "acceptedAnswer": { "@type": "Answer", "text": "WCAG 2.1 body-text contrast: AA 4.5+, AAA 7+. Large text (18pt+, or 14pt+ bold): AA Large 3+, AAA 4.5+. This tool auto-computes the selected color vs white and black backgrounds and shows the grade." }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the image palette extraction work?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The image is resized to 100×100 on canvas. Each pixel's RGB is quantized to 16 levels per channel (4 bits each). The top 8 most populated bins are averaged and returned. Faster and more visually consistent than k-means for small palettes." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my image uploaded anywhere?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. FileReader loads the image into browser memory, canvas analyzes pixels, and results display in your browser. Zero network requests. Zero server storage. Code is open-source and verifiable in DevTools Network tab." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work on mobile?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. iOS Safari and Android Chrome both supported. You can pick images directly from camera roll. The color picker uses the OS native picker (iOS 14+, Android 8+ recommended)." }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .cp-section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:16px; }
+    .cp-picker-row { display:flex; gap:20px; align-items:center; flex-wrap:wrap; }
+    .cp-picker-row input[type=color] { width:120px; height:120px; border:1px solid var(--border); border-radius:14px; cursor:pointer; background:none; padding:6px; flex-shrink:0; }
+    .cp-input-group { display:flex; flex-direction:column; gap:6px; flex:1; min-width:160px; }
+    .cp-input-group label { font-size:12px; color:var(--muted); font-weight:600; }
+    .cp-hex-input { padding:10px 14px; border:1px solid var(--border); border-radius:8px; font-size:16px; font-family:-apple-system,"SF Mono",Menlo,monospace; text-transform:uppercase; background:var(--bg); color:var(--text); }
+    .cp-codes { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; flex:1; min-width:0; }
+    .cp-code { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:12px 14px; cursor:pointer; transition:border-color 0.15s,transform 0.1s; }
+    .cp-code:hover { border-color:var(--primary); transform:translateY(-1px); }
+    .cp-code:active { transform:translateY(0); }
+    .cp-code-label { font-size:11px; color:var(--muted); font-weight:700; letter-spacing:0.04em; }
+    .cp-code-val { font-size:15px; font-weight:600; font-family:-apple-system,"SF Mono",Menlo,monospace; margin-top:3px; color:var(--text); word-break:break-all; }
+    .cp-contrast-box { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px; }
+    .cp-contrast-item { padding:14px; border-radius:8px; text-align:center; font-weight:600; font-size:14px; }
+    .cp-contrast-label { font-size:11px; opacity:0.7; margin-bottom:4px; font-weight:500; }
+    .cp-grade { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; margin-left:6px; font-weight:700; }
+    .cp-grade.pass { background:rgba(16,185,129,0.2); }
+    .cp-grade.fail { background:rgba(239,68,68,0.2); }
+    .cp-drop { border:2px dashed var(--border); border-radius:12px; padding:48px 20px; text-align:center; cursor:pointer; transition:border-color 0.15s, background 0.15s; }
+    .cp-drop:hover, .cp-drop.over { border-color:var(--primary); background:var(--bg); }
+    .cp-drop-title { font-size:16px; font-weight:600; margin:0 0 6px; }
+    .cp-drop-hint { font-size:13px; color:var(--muted); margin:0; }
+    .cp-preview { width:100%; max-height:280px; object-fit:contain; border-radius:10px; margin-top:16px; background:var(--bg); display:none; }
+    .cp-palette { display:grid; grid-template-columns:repeat(auto-fit,minmax(100px,1fr)); gap:10px; margin-top:16px; }
+    .cp-swatch { aspect-ratio:1; border-radius:10px; cursor:pointer; position:relative; overflow:hidden; border:1px solid var(--border); transition:transform 0.1s; }
+    .cp-swatch:hover { transform:scale(1.04); }
+    .cp-swatch-label { position:absolute; bottom:0; left:0; right:0; padding:6px 6px; background:rgba(0,0,0,0.55); color:#fff; font-size:11px; font-family:-apple-system,"SF Mono",Menlo,monospace; text-align:center; }
+    .cp-toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--text); color:var(--bg); padding:10px 22px; border-radius:8px; font-size:14px; opacity:0; transition:opacity 0.2s, transform 0.2s; pointer-events:none; z-index:9999; box-shadow:var(--shadow-lg); }
+    .cp-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+    .cp-h2 { font-size:18px; font-weight:600; margin:0 0 16px; }
+    .cp-howto-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin:8px 0 16px; }
+    .cp-howto-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; position:relative; }
+    .cp-howto-num { display:inline-flex; width:30px; height:30px; align-items:center; justify-content:center; background:var(--primary); color:#fff; border-radius:50%; font-weight:700; font-size:14px; margin-bottom:10px; }
+    .cp-howto-card h3 { margin:0 0 8px; font-size:15px; font-weight:700; color:var(--text); }
+    .cp-howto-card ol { margin:0; padding-left:18px; font-size:13.5px; line-height:1.65; color:var(--muted); }
+    .cp-howto-card ol li { margin-bottom:4px; }
+    .cp-howto-card ol li b { color:var(--text); }
+    .cp-usecase-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin:8px 0 20px; }
+    .cp-usecase { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+    .cp-usecase .ic { font-size:22px; margin-bottom:6px; line-height:1; }
+    .cp-usecase b { display:block; font-size:14px; color:var(--text); margin-bottom:4px; }
+    .cp-usecase p { margin:0; font-size:12.5px; line-height:1.55; color:var(--muted); }
+    .cp-format-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin:8px 0 16px; }
+    .cp-format { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px; }
+    .cp-format-name { font-size:14px; font-weight:700; color:var(--primary); margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; }
+    .cp-format-name .badge { font-size:10px; padding:2px 8px; background:var(--bg); color:var(--muted); border-radius:4px; font-weight:600; }
+    .cp-format-ex { font-family:-apple-system,"SF Mono",Menlo,monospace; font-size:13px; color:var(--text); background:var(--bg); padding:6px 8px; border-radius:5px; margin:4px 0 8px; word-break:break-all; }
+    .cp-format-desc { font-size:12px; color:var(--muted); line-height:1.55; margin:0; }
+    .cp-wcag-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:8px; margin:8px 0 12px; }
+    .cp-wcag-card { padding:12px 14px; border-radius:8px; border:1px solid var(--border); background:var(--card); }
+    .cp-wcag-card.aaa { border-left:4px solid #16a34a; }
+    .cp-wcag-card.aa { border-left:4px solid #2563eb; }
+    .cp-wcag-card.lg { border-left:4px solid #f59e0b; }
+    .cp-wcag-card.fail { border-left:4px solid #dc2626; }
+    .cp-wcag-grade { font-size:14px; font-weight:700; margin-bottom:4px; display:flex; justify-content:space-between; }
+    .cp-wcag-ratio { font-size:11px; color:var(--muted); font-family:-apple-system,"SF Mono",Menlo,monospace; }
+    .cp-wcag-use { font-size:12px; color:var(--muted); line-height:1.5; }
+    .cp-system-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin:8px 0 16px; }
+    .cp-system { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px; }
+    .cp-system-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+    .cp-system-name { font-size:14px; font-weight:700; color:var(--text); }
+    .cp-system-swatch { display:inline-block; width:24px; height:24px; border-radius:5px; border:1px solid var(--border); vertical-align:middle; }
+    .cp-system-code { font-family:-apple-system,"SF Mono",Menlo,monospace; font-size:12px; color:var(--muted); display:flex; align-items:center; gap:8px; margin:4px 0; }
+    .cp-system-desc { font-size:12px; color:var(--muted); line-height:1.5; margin:4px 0 0; }
+    .cp-algo-card { background:linear-gradient(135deg, rgba(37,99,235,0.04), rgba(37,99,235,0.01)); border:1px solid var(--border); border-radius:12px; padding:18px 20px; margin:8px 0 16px; }
+    .cp-algo-card h3 { font-size:14px; margin:0 0 10px; color:var(--primary); font-weight:700; }
+    .cp-algo-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; margin:10px 0; }
+    .cp-algo-step { background:var(--card); border-radius:8px; padding:10px 12px; font-size:12.5px; line-height:1.5; color:var(--text); border:1px solid var(--border); }
+    .cp-algo-step b { color:var(--primary); font-size:11px; display:block; margin-bottom:2px; letter-spacing:0.04em; }
+    .cp-algo-pros-cons { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; font-size:12.5px; line-height:1.6; }
+    .cp-algo-pros, .cp-algo-cons { padding:10px 14px; border-radius:8px; background:var(--card); border:1px solid var(--border); }
+    .cp-algo-pros b { color:#16a34a; }
+    .cp-algo-cons b { color:#d97706; }
+    @media (max-width:520px) {
+      .cp-picker-row input[type=color] { width:80px; height:80px; }
+      .cp-algo-pros-cons { grid-template-columns:1fr; }
+    }
+  </style>
+  <script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Image</a> · Color Picker</div>
+    <h1>Color Picker · Palette Extractor · Contrast Checker</h1>
+    <p class="subtitle">Convert Hex · RGB · HSL · CMYK at once. Extract 8 dominant colors from any image. WCAG AA/AAA contrast checker.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>Your image never leaves the browser.</b> All color analysis runs locally with zero network requests and zero server storage.</div>
+    </div>
+
+    <!-- Color picker + 4-format conversion -->
+    <div class="cp-section">
+      <h2 class="cp-h2">Color Picker · 4-Format Live Conversion</h2>
+      <div class="cp-picker-row">
+        <input type="color" id="picker" value="#3f6f54" aria-label="Pick color">
+        <div class="cp-input-group">
+          <label for="hexInput">Hex direct input</label>
+          <input type="text" id="hexInput" class="cp-hex-input" value="#3F6F54" maxlength="7" placeholder="#RRGGBB" aria-label="Enter Hex color code directly">
+        </div>
+      </div>
+      <div class="cp-codes" id="codes" style="margin-top:18px"></div>
+
+      <div class="ad-slot">[ AdSense ad slot ]</div>
+
+      <h2 class="cp-h2" style="margin-top:20px">WCAG Contrast Check</h2>
+      <div class="cp-contrast-box">
+        <div class="cp-contrast-item" id="cWhite" style="background:#fff;color:#000;">
+          <div class="cp-contrast-label">vs White</div>
+          <span id="cWhiteVal">-</span>
+        </div>
+        <div class="cp-contrast-item" id="cBlack" style="background:#000;color:#fff;">
+          <div class="cp-contrast-label">vs Black</div>
+          <span id="cBlackVal">-</span>
+        </div>
+      </div>
+      <p class="small" style="color:var(--muted);margin:10px 0 0;font-size:12px;line-height:1.6">
+        WCAG 2.1 · Body text: AA 4.5+, AAA 7+ · Large text (18pt+ or 14pt+ bold): AA Large 3+, AAA 4.5+
+      </p>
+    </div>
+
+    <!-- Image palette extraction -->
+    <div class="cp-section">
+      <h2 class="cp-h2">Extract Palette from Image</h2>
+      <label class="cp-drop" id="drop" role="button" tabindex="0" aria-label="Upload image file (click or Enter/Space)">
+        <p class="cp-drop-title" id="dropTitle">Drag image or click to select</p>
+        <p class="cp-drop-hint">JPG · PNG · WebP · GIF · SVG — auto-extracts 8 dominant colors</p>
+        <input type="file" id="file" accept="image/*" hidden>
+      </label>
+      <img id="preview" class="cp-preview" alt="Uploaded image preview">
+      <div class="cp-palette" id="palette" aria-live="polite" aria-atomic="true"></div>
+    </div>
+
+    <section class="tool-article">
+      <h2>How to use — 3 flows</h2>
+      <div class="cp-howto-grid">
+        <div class="cp-howto-card">
+          <span class="cp-howto-num">1</span>
+          <h3>Color conversion</h3>
+          <ol>
+            <li>Click the <b>color picker</b> or type a <b>Hex code directly</b></li>
+            <li>4 codes (Hex·RGB·HSL·CMYK) shown instantly</li>
+            <li>Click any code box → <b>copies to clipboard</b></li>
+          </ol>
+        </div>
+        <div class="cp-howto-card">
+          <span class="cp-howto-num">2</span>
+          <h3>Image palette extraction</h3>
+          <ol>
+            <li><b>Drag-drop</b> or click to upload an image</li>
+            <li>Top 8 dominant colors auto-extracted</li>
+            <li>Click any swatch → loads into the picker</li>
+          </ol>
+        </div>
+        <div class="cp-howto-card">
+          <span class="cp-howto-num">3</span>
+          <h3>WCAG contrast check</h3>
+          <ol>
+            <li>Pick a color → contrast auto-computed</li>
+            <li>Shows grade vs white & black backgrounds</li>
+            <li>Body text should be <b>AA 4.5+</b></li>
+          </ol>
+        </div>
+      </div>
+
+      <h2>Common use cases</h2>
+      <div class="cp-usecase-grid">
+        <div class="cp-usecase">
+          <div class="ic">🎨</div>
+          <b>Designers — Quick conversion</b>
+          <p>Convert Hex ↔ RGB ↔ HSL outside Figma/Photoshop. No workflow break.</p>
+        </div>
+        <div class="cp-usecase">
+          <div class="ic">📸</div>
+          <b>Bloggers · Creators</b>
+          <p>Extract 8 colors from movie posters or photos → unified SNS/blog header palette.</p>
+        </div>
+        <div class="cp-usecase">
+          <div class="ic">💻</div>
+          <b>Web developers</b>
+          <p>Map design palettes → Tailwind config · CSS variables (<code>--brand</code>).</p>
+        </div>
+        <div class="cp-usecase">
+          <div class="ic">♿</div>
+          <b>Accessibility · UI/UX</b>
+          <p>Hit AAA contrast → friendly to visually impaired & elderly users. Affects AdSense RPM.</p>
+        </div>
+        <div class="cp-usecase">
+          <div class="ic">📈</div>
+          <b>Marketers</b>
+          <p>Pull core colors from competitor ads → trend tracking, palette analysis.</p>
+        </div>
+        <div class="cp-usecase">
+          <div class="ic">🏠</div>
+          <b>Interior · Fashion</b>
+          <p>Extract main colors from clothing or interior photos → find matching color codes.</p>
+        </div>
+        <div class="cp-usecase">
+          <div class="ic">📚</div>
+          <b>Students · Design study</b>
+          <p>Learn Hex hex notation · RGB mixing · HSL hue · WCAG accessibility while using the tool.</p>
+        </div>
+      </div>
+
+      <h2>Color code formats — when to use which?</h2>
+      <div class="cp-format-grid">
+        <div class="cp-format">
+          <div class="cp-format-name">Hex <span class="badge">Basic</span></div>
+          <div class="cp-format-ex">#3F6F54</div>
+          <p class="cp-format-desc">6-digit hex (R·G·B 2 each). CSS·HTML standard, shortest.</p>
+        </div>
+        <div class="cp-format">
+          <div class="cp-format-name">RGB <span class="badge">JS</span></div>
+          <div class="cp-format-ex">rgb(63, 111, 84)</div>
+          <p class="cp-format-desc">Decimal 0-255. JS·SVG·canvas, supports alpha (RGBA).</p>
+        </div>
+        <div class="cp-format">
+          <div class="cp-format-name">HSL <span class="badge">Adjust</span></div>
+          <div class="cp-format-ex">hsl(146, 28%, 34%)</div>
+          <p class="cp-format-desc">Hue 0-360°·saturation·lightness. Easier lighter/darker tweaks.</p>
+        </div>
+        <div class="cp-format">
+          <div class="cp-format-name">CMYK <span class="badge">Print</span></div>
+          <div class="cp-format-ex">38, 0, 24, 56</div>
+          <p class="cp-format-desc">Cyan·Magenta·Yellow·Black. Print mockup (apply ICC for press).</p>
+        </div>
+      </div>
+
+      <h2>WCAG contrast grades</h2>
+      <p style="font-size:13px;color:var(--muted);margin:0 0 12px;">WCAG 2.1 — measures readability by luminance ratio between text & background.</p>
+      <div class="cp-wcag-grid">
+        <div class="cp-wcag-card aaa">
+          <div class="cp-wcag-grade">AAA <span class="cp-wcag-ratio">7.0+</span></div>
+          <div class="cp-wcag-use">Enhanced accessibility — medical, government, public sites</div>
+        </div>
+        <div class="cp-wcag-card aa">
+          <div class="cp-wcag-grade">AA <span class="cp-wcag-ratio">4.5+</span></div>
+          <div class="cp-wcag-use">Body text standard — typical site/blog target</div>
+        </div>
+        <div class="cp-wcag-card lg">
+          <div class="cp-wcag-grade">AA Large <span class="cp-wcag-ratio">3.0+</span></div>
+          <div class="cp-wcag-use">Large text (18pt+ or 14pt+ bold)</div>
+        </div>
+        <div class="cp-wcag-card fail">
+          <div class="cp-wcag-grade">Fail <span class="cp-wcag-ratio">&lt; 3.0</span></div>
+          <div class="cp-wcag-use">Poor readability — avoid</div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin:8px 0 0;">Note: AdSense also uses readability as a quality signal. Low contrast → lower RPM/CTR.</p>
+
+      <h2>Palette extraction algorithm</h2>
+      <div class="cp-algo-card">
+        <h3>16-step RGB quantization + frequency sort</h3>
+        <p style="margin:0 0 8px;font-size:13px;color:var(--muted);">Lightweight and consistent — no heavy ML like k-means.</p>
+        <div class="cp-algo-steps">
+          <div class="cp-algo-step"><b>STEP 1</b>Resize image to 100×100 px on canvas</div>
+          <div class="cp-algo-step"><b>STEP 2</b>Quantize each pixel's RGB to 4 bits (16 steps)</div>
+          <div class="cp-algo-step"><b>STEP 3</b>Count pixel frequency per bin</div>
+          <div class="cp-algo-step"><b>STEP 4</b>Return top 8 bins' average RGB</div>
+        </div>
+        <div class="cp-algo-pros-cons">
+          <div class="cp-algo-pros"><b>✓ Pros</b><br>Sub-50ms speed · deterministic results · zero external libraries</div>
+          <div class="cp-algo-cons"><b>△ Limits</b><br>Slightly lower hue-cluster accuracy than k-means (sufficient for typical use)</div>
+        </div>
+      </div>
+
+      <h2>Common color systems</h2>
+      <div class="cp-system-grid">
+        <div class="cp-system">
+          <div class="cp-system-head"><span class="cp-system-name">Tailwind CSS</span><span class="cp-system-swatch" style="background:#2563EB"></span></div>
+          <div class="cp-system-code"><span class="cp-system-swatch" style="width:14px;height:14px;background:#64748B"></span>slate-500: #64748B</div>
+          <div class="cp-system-code"><span class="cp-system-swatch" style="width:14px;height:14px;background:#2563EB"></span>blue-600: #2563EB</div>
+          <p class="cp-system-desc">10-step lightness scale. Developer-friendly.</p>
+        </div>
+        <div class="cp-system">
+          <div class="cp-system-head"><span class="cp-system-name">Material Design</span><span class="cp-system-swatch" style="background:#3F51B5"></span></div>
+          <div class="cp-system-code"><span class="cp-system-swatch" style="width:14px;height:14px;background:#3F51B5"></span>Indigo 500: #3F51B5</div>
+          <p class="cp-system-desc">Google guidelines. Android-friendly.</p>
+        </div>
+        <div class="cp-system">
+          <div class="cp-system-head"><span class="cp-system-name">iOS Human Interface</span><span class="cp-system-swatch" style="background:#007AFF"></span></div>
+          <div class="cp-system-code"><span class="cp-system-swatch" style="width:14px;height:14px;background:#007AFF"></span>System Blue: #007AFF</div>
+          <p class="cp-system-desc">Apple system colors. iOS/macOS recommended.</p>
+        </div>
+        <div class="cp-system">
+          <div class="cp-system-head"><span class="cp-system-name">Pantone</span><span class="cp-system-swatch" style="background:#FF6F61"></span></div>
+          <div class="cp-system-code">Living Coral 16-1546</div>
+          <p class="cp-system-desc">Print/fashion industry standard (license required).</p>
+        </div>
+      </div>
+
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../compress/">Image Compressor<span class="desc">JPG · PNG · WebP — reduce file size</span></a>
+        <a href="../exif-remove/">EXIF Metadata Remover<span class="desc">Strip GPS · date · camera info</span></a>
+        <a href="../resize/">Image Resizer<span class="desc">px · % dimension adjust</span></a>
+        <a href="../format-convert/">Image Format Converter<span class="desc">PNG ↔ JPG ↔ WebP ↔ AVIF</span></a>
+      </div>
+
+      <h2 style="margin-bottom:12px;font-size:18px">FAQ</h2>
+      <details><summary>Hex vs RGB?</summary><p>Same color, different notation. Hex is hexadecimal (<code>#3F6F54</code>), RGB is decimal (<code>rgb(63,111,84)</code>). Hex is shorter for CSS/HTML; RGB is easier when manipulating colors in JavaScript or canvas. Both interchangeable.</p></details>
+      <details><summary>WCAG AA / AAA grade thresholds?</summary><p>WCAG 2.1 body text: <b>AA 4.5+</b>, <b>AAA 7+</b>. Large text (18pt+ or 14pt+ bold): <b>AA Large 3+</b>, <b>AAA 4.5+</b>. This tool computes contrast against white and black; AA is the common target, AAA is enhanced accessibility.</p></details>
+      <details><summary>How does image palette extraction work?</summary><p>Canvas resizes the image to 100×100, then quantizes each pixel's RGB to 16 levels per channel (4 bits each). Top 8 most populated bins are averaged and returned. Faster than k-means and produces visually consistent results for small palettes.</p></details>
+      <details><summary>Is my image uploaded?</summary><p>No. FileReader loads the image into memory, canvas analyzes pixels, results display in browser. Zero network requests, zero server storage. Verify in DevTools Network tab.</p></details>
+      <details><summary>Does it work on mobile?</summary><p>Yes. iOS Safari and Android Chrome both supported. Pick directly from camera roll. Color picker uses OS native picker (iOS 14+, Android 8+ recommended).</p></details>
+      <details><summary>Is the CMYK conversion accurate?</summary><p>RGB → CMYK is a basic math conversion and won't match actual print color spaces (ICC profiles). For print press, use professional tools (Adobe, Affinity) with proper ICC application. The CMYK shown here is an approximate reference.</p></details>
+
+      <h2>References</h2>
+      <ul class="small" style="color:var(--muted);font-size:13px;line-height:1.7">
+        <li><a href="https://www.w3.org/TR/WCAG21/#contrast-minimum" rel="noopener nofollow">WCAG 2.1 — Contrast (Minimum)</a> · grading basis</li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color" rel="noopener nofollow">MDN — input type=color</a> · native picker API</li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API" rel="noopener nofollow">MDN — Canvas API</a> · pixel analysis foundation</li>
+      </ul>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ All Image tools</a>
+    </nav>
+  </main>
+
+  <div class="cp-toast" id="toast">Copied</div>
+
+  <site-footer></site-footer>
+  <script src="./color-picker.js" defer></script>
+</body>
+</html>

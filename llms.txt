@@ -112,7 +112,7 @@
 - [저장공간 환산](https://taystudios.com/tools/storage/): KB·MB·GB·TB + 영상·사진 용량
 - [모니터 인치·해상도](https://taystudios.com/tools/monitor/): PPI·픽셀 피치·시야거리 (ITU-R BT.2022)
 
-## 이미지 도구 (14)
+## 이미지 도구 (16)
 
 - [이미지 압축](https://taystudios.com/image/compress/): canvas.toBlob, WebP·JPG
 - [이미지 리사이즈](https://taystudios.com/image/resize/): px·% 모드, MAX 16000
@@ -128,6 +128,8 @@
 - [이미지 합치기](https://taystudios.com/image/merge/): 가로·세로·격자
 - [이미지 모자이크](https://taystudios.com/image/mosaic/): drag rect + strength
 - [EXIF 메타데이터 제거](https://taystudios.com/image/exif-remove/): GPS·날짜·기종
+- [GIF 압축](https://taystudios.com/image/gif-compress/): gifsicle.wasm, 애니메이션 유지
+- [컬러 픽커·팔레트 추출](https://taystudios.com/image/color-picker/): Hex·RGB·HSL·CMYK + 이미지 8색 추출 + WCAG 대비
 
 ## PDF 도구 (8)
 

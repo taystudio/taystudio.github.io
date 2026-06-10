@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudios.com · source = github.com/taystudio/taystudios.com · 무단 복제·재배포 금지 -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Image">
+  <meta property="og:title" content="컬러 픽커·색상 변환·팔레트 추출 | Hex·RGB·HSL·CMYK + WCAG 대비 검사 (무료)">
+  <meta property="og:description" content="Hex·RGB·HSL·CMYK 4종 색상 코드 동시 변환 + 이미지에서 주요 색상 8개 자동 추출 + WCAG AA·AAA 가독성 대비 검사. 디자이너·블로거·개발자용, 무료, 외부 전송 없음.">
+  <meta property="og:url" content="https://taystudios.com/image/color-picker/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="컬러 픽커·색상 변환·팔레트 추출 | Hex·RGB·HSL·CMYK + WCAG 대비 검사 (무료)">
+  <meta name="twitter:description" content="Hex·RGB·HSL·CMYK 4종 동시 변환 + 이미지에서 색상 8개 자동 추출 + WCAG 가독성 검사. 무료·외부 전송 없음.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <title>컬러 픽커·색상 변환·팔레트 추출 | Hex·RGB·HSL·CMYK + WCAG 대비 검사 (무료)</title>
+  <meta name="description" content="Hex·RGB·HSL·CMYK 4종 색상 코드 동시 변환 + 이미지에서 주요 색상 8개 자동 추출 + WCAG AA·AAA 가독성 대비 검사. 디자이너·블로거·개발자용, 무료, 외부 전송 없음.">
+  <meta name="keywords" content="컬러 픽커, 색상 변환, Hex RGB 변환, 이미지 색상 추출, 팔레트 추출, color picker, palette extractor, WCAG contrast">
+  <link rel="canonical" href="https://taystudios.com/image/color-picker/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/image/color-picker/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/color-picker/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/color-picker/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "컬러 픽커·색상 변환·팔레트 추출",
+      "description": "Hex·RGB·HSL·CMYK 4종 색상 코드 동시 변환 + 이미지에서 주요 색상 8개 자동 추출 + WCAG AA·AAA 가독성 대비 검사. 디자이너·블로거·개발자용 무료 도구. 모든 처리는 브라우저 안에서만 — 이미지 외부 전송 없음.",
+      "url": "https://taystudios.com/image/color-picker/",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript and Canvas API",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true,
+      "featureList": [
+        "Hex·RGB·HSL·CMYK 4종 코드 동시 변환",
+        "이미지에서 주요 색상 8개 자동 추출 (16단계 RGB 양자화)",
+        "WCAG AA·AAA·AA Large 대비 등급 자동 판정",
+        "1-click 클립보드 복사 (모든 색상 코드)",
+        "이미지 외부 전송 없음 — 브라우저 안에서만 처리"
+      ],
+      "dateModified": "2026-06-10",
+      "softwareVersion": "2026.06"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Image", "item": "https://taystudios.com/image/" },
+        { "@type": "ListItem", "position": 3, "name": "컬러 픽커", "item": "https://taystudios.com/image/color-picker/" }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "이미지에서 주요 색상 8개 추출하는 방법",
+      "description": "사진·디자인·포스터 이미지에서 핵심 색상 코드를 자동 추출하는 절차.",
+      "totalTime": "PT30S",
+      "step": [
+        { "@type": "HowToStep", "name": "이미지 업로드", "text": "이미지를 드래그하거나 클릭해서 선택. JPG·PNG·WebP·GIF·SVG 모두 지원." },
+        { "@type": "HowToStep", "name": "자동 분석", "text": "canvas API 가 픽셀을 16단계 RGB 로 양자화해 빈도 높은 색상 8개를 자동 추출." },
+        { "@type": "HowToStep", "name": "팔레트 사용", "text": "추출된 swatch 클릭 시 컬러 픽커에 즉시 로딩됨. Hex·RGB·HSL·CMYK 코드 자동 표시." },
+        { "@type": "HowToStep", "name": "코드 복사", "text": "원하는 색상 코드 박스 클릭 → 클립보드 자동 복사." }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Hex 와 RGB 의 차이는?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Hex 는 16진수 표기 (예: #3F6F54), RGB 는 10진수 (예: rgb(63,111,84)). 둘은 같은 색을 다르게 표현하는 방식. CSS·HTML 에서는 Hex 가 짧아 자주 사용되고, JS 에서 색을 다룰 때는 RGB 가 편리함." }
+        },
+        {
+          "@type": "Question",
+          "name": "WCAG AA·AAA 등급 기준은?",
+          "acceptedAnswer": { "@type": "Answer", "text": "WCAG 2.1 기준 본문 텍스트 대비 비율: AA 4.5:1 이상, AAA 7:1 이상. 큰 글씨 (18pt 이상 또는 14pt 굵게) 는 AA Large 3:1, AAA 4.5:1. 본 도구는 선택 색상 vs 흰색·검정 대비를 자동 계산해 등급 표시." }
+        },
+        {
+          "@type": "Question",
+          "name": "이미지에서 색상을 어떻게 추출하나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "canvas API 로 이미지를 100×100 으로 축소 후 모든 픽셀의 RGB 값을 16단계로 양자화 (각 채널을 4비트). 같은 bin 의 픽셀 빈도를 세서 상위 8개를 평균 색으로 반환. k-means 보다 빠르고 한눈에 보기 좋은 결과." }
+        },
+        {
+          "@type": "Question",
+          "name": "내 이미지가 외부로 전송되나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "전송되지 않습니다. 이미지는 FileReader 로 브라우저 메모리에 로드되고 canvas 에서 픽셀 분석 후 결과만 표시됩니다. 네트워크 요청 없음, 서버 저장 없음. 코드는 오픈소스로 검증 가능." }
+        },
+        {
+          "@type": "Question",
+          "name": "모바일에서도 동작하나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "네. iOS Safari·Android Chrome 모두 지원. 카메라 롤에서 직접 이미지 선택 가능. 컬러 픽커는 OS 네이티브 picker 사용." }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .cp-section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:16px; }
+    .cp-picker-row { display:flex; gap:20px; align-items:center; flex-wrap:wrap; }
+    .cp-picker-row input[type=color] { width:120px; height:120px; border:1px solid var(--border); border-radius:14px; cursor:pointer; background:none; padding:6px; flex-shrink:0; }
+    .cp-input-group { display:flex; flex-direction:column; gap:6px; flex:1; min-width:160px; }
+    .cp-input-group label { font-size:12px; color:var(--muted); font-weight:600; }
+    .cp-hex-input { padding:10px 14px; border:1px solid var(--border); border-radius:8px; font-size:16px; font-family:-apple-system,"SF Mono",Menlo,monospace; text-transform:uppercase; background:var(--bg); color:var(--text); }
+    .cp-codes { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; flex:1; min-width:0; }
+    .cp-code { background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:12px 14px; cursor:pointer; transition:border-color 0.15s,transform 0.1s; }
+    .cp-code:hover { border-color:var(--primary); transform:translateY(-1px); }
+    .cp-code:active { transform:translateY(0); }
+    .cp-code-label { font-size:11px; color:var(--muted); font-weight:700; letter-spacing:0.04em; }
+    .cp-code-val { font-size:15px; font-weight:600; font-family:-apple-system,"SF Mono",Menlo,monospace; margin-top:3px; color:var(--text); word-break:break-all; }
+    .cp-contrast-box { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px; }
+    .cp-contrast-item { padding:14px; border-radius:8px; text-align:center; font-weight:600; font-size:14px; }
+    .cp-contrast-label { font-size:11px; opacity:0.7; margin-bottom:4px; font-weight:500; }
+    .cp-grade { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; margin-left:6px; font-weight:700; }
+    .cp-grade.pass { background:rgba(16,185,129,0.2); }
+    .cp-grade.fail { background:rgba(239,68,68,0.2); }
+    .cp-drop { border:2px dashed var(--border); border-radius:12px; padding:48px 20px; text-align:center; cursor:pointer; transition:border-color 0.15s, background 0.15s; }
+    .cp-drop:hover, .cp-drop.over { border-color:var(--primary); background:var(--bg); }
+    .cp-drop-title { font-size:16px; font-weight:600; margin:0 0 6px; }
+    .cp-drop-hint { font-size:13px; color:var(--muted); margin:0; }
+    .cp-preview { width:100%; max-height:280px; object-fit:contain; border-radius:10px; margin-top:16px; background:var(--bg); display:none; }
+    .cp-palette { display:grid; grid-template-columns:repeat(auto-fit,minmax(100px,1fr)); gap:10px; margin-top:16px; }
+    .cp-swatch { aspect-ratio:1; border-radius:10px; cursor:pointer; position:relative; overflow:hidden; border:1px solid var(--border); transition:transform 0.1s; }
+    .cp-swatch:hover { transform:scale(1.04); }
+    .cp-swatch-label { position:absolute; bottom:0; left:0; right:0; padding:6px 6px; background:rgba(0,0,0,0.55); color:#fff; font-size:11px; font-family:-apple-system,"SF Mono",Menlo,monospace; text-align:center; }
+    .cp-toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px); background:var(--text); color:var(--bg); padding:10px 22px; border-radius:8px; font-size:14px; opacity:0; transition:opacity 0.2s, transform 0.2s; pointer-events:none; z-index:9999; box-shadow:var(--shadow-lg); }
+    .cp-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+    .cp-h2 { font-size:18px; font-weight:600; margin:0 0 16px; }
+    /* 콘텐츠 섹션 — 카드·grid 시각화 */
+    .cp-howto-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin:8px 0 16px; }
+    .cp-howto-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 20px; position:relative; }
+    .cp-howto-num { display:inline-flex; width:30px; height:30px; align-items:center; justify-content:center; background:var(--primary); color:#fff; border-radius:50%; font-weight:700; font-size:14px; margin-bottom:10px; }
+    .cp-howto-card h3 { margin:0 0 8px; font-size:15px; font-weight:700; color:var(--text); }
+    .cp-howto-card ol { margin:0; padding-left:18px; font-size:13.5px; line-height:1.65; color:var(--muted); }
+    .cp-howto-card ol li { margin-bottom:4px; }
+    .cp-howto-card ol li b { color:var(--text); }
+    .cp-usecase-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin:8px 0 20px; }
+    .cp-usecase { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+    .cp-usecase .ic { font-size:22px; margin-bottom:6px; line-height:1; }
+    .cp-usecase b { display:block; font-size:14px; color:var(--text); margin-bottom:4px; }
+    .cp-usecase p { margin:0; font-size:12.5px; line-height:1.55; color:var(--muted); }
+    .cp-format-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; margin:8px 0 16px; }
+    .cp-format { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px; }
+    .cp-format-name { font-size:14px; font-weight:700; color:var(--primary); margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; }
+    .cp-format-name .badge { font-size:10px; padding:2px 8px; background:var(--bg); color:var(--muted); border-radius:4px; font-weight:600; }
+    .cp-format-ex { font-family:-apple-system,"SF Mono",Menlo,monospace; font-size:13px; color:var(--text); background:var(--bg); padding:6px 8px; border-radius:5px; margin:4px 0 8px; word-break:break-all; }
+    .cp-format-desc { font-size:12px; color:var(--muted); line-height:1.55; margin:0; }
+    .cp-wcag-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:8px; margin:8px 0 12px; }
+    .cp-wcag-card { padding:12px 14px; border-radius:8px; border:1px solid var(--border); background:var(--card); }
+    .cp-wcag-card.aaa { border-left:4px solid #16a34a; }
+    .cp-wcag-card.aa { border-left:4px solid #2563eb; }
+    .cp-wcag-card.lg { border-left:4px solid #f59e0b; }
+    .cp-wcag-card.fail { border-left:4px solid #dc2626; }
+    .cp-wcag-grade { font-size:14px; font-weight:700; margin-bottom:4px; display:flex; justify-content:space-between; }
+    .cp-wcag-ratio { font-size:11px; color:var(--muted); font-family:-apple-system,"SF Mono",Menlo,monospace; }
+    .cp-wcag-use { font-size:12px; color:var(--muted); line-height:1.5; }
+    .cp-system-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin:8px 0 16px; }
+    .cp-system { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px; }
+    .cp-system-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+    .cp-system-name { font-size:14px; font-weight:700; color:var(--text); }
+    .cp-system-swatch { display:inline-block; width:24px; height:24px; border-radius:5px; border:1px solid var(--border); vertical-align:middle; }
+    .cp-system-code { font-family:-apple-system,"SF Mono",Menlo,monospace; font-size:12px; color:var(--muted); display:flex; align-items:center; gap:8px; margin:4px 0; }
+    .cp-system-desc { font-size:12px; color:var(--muted); line-height:1.5; margin:4px 0 0; }
+    .cp-algo-card { background:linear-gradient(135deg, rgba(37,99,235,0.04), rgba(37,99,235,0.01)); border:1px solid var(--border); border-radius:12px; padding:18px 20px; margin:8px 0 16px; }
+    .cp-algo-card h3 { font-size:14px; margin:0 0 10px; color:var(--primary); font-weight:700; }
+    .cp-algo-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; margin:10px 0; }
+    .cp-algo-step { background:var(--card); border-radius:8px; padding:10px 12px; font-size:12.5px; line-height:1.5; color:var(--text); border:1px solid var(--border); }
+    .cp-algo-step b { color:var(--primary); font-size:11px; display:block; margin-bottom:2px; letter-spacing:0.04em; }
+    .cp-algo-pros-cons { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; font-size:12.5px; line-height:1.6; }
+    .cp-algo-pros, .cp-algo-cons { padding:10px 14px; border-radius:8px; background:var(--card); border:1px solid var(--border); }
+    .cp-algo-pros b { color:#16a34a; }
+    .cp-algo-cons b { color:#d97706; }
+    @media (max-width:520px) {
+      .cp-picker-row input[type=color] { width:80px; height:80px; }
+      .cp-algo-pros-cons { grid-template-columns:1fr; }
+    }
+  </style>
+  <script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">이미지</a> · 컬러 픽커</div>
+    <h1>컬러 픽커·색상 변환·팔레트 추출</h1>
+    <p class="subtitle">Hex·RGB·HSL·CMYK 4종 동시 변환 + 이미지에서 주요 색상 8개 자동 추출 + WCAG AA·AAA 가독성 검사.</p>
+
+    <div class="privacy-box">
+      <span class="icon" aria-hidden="true">🔒</span>
+      <div><b>이미지가 외부 서버로 전송되지 않습니다.</b> 색상 분석은 브라우저 안에서만 처리되며, 네트워크 요청·서버 저장 없음.</div>
+    </div>
+
+    <!-- 컬러 픽커 + 4종 변환 -->
+    <div class="cp-section">
+      <h2 class="cp-h2">컬러 픽커 · 4종 코드 동시 변환</h2>
+      <div class="cp-picker-row">
+        <input type="color" id="picker" value="#3f6f54" aria-label="색상 선택">
+        <div class="cp-input-group">
+          <label for="hexInput">Hex 직접 입력</label>
+          <input type="text" id="hexInput" class="cp-hex-input" value="#3F6F54" maxlength="7" placeholder="#RRGGBB" aria-label="Hex 색상 코드 직접 입력">
+        </div>
+      </div>
+      <div class="cp-codes" id="codes" style="margin-top:18px"></div>
+
+      <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+      <h2 class="cp-h2" style="margin-top:20px">WCAG 가독성 대비 (Contrast)</h2>
+      <div class="cp-contrast-box">
+        <div class="cp-contrast-item" id="cWhite" style="background:#fff;color:#000;">
+          <div class="cp-contrast-label">vs 흰색 배경</div>
+          <span id="cWhiteVal">-</span>
+        </div>
+        <div class="cp-contrast-item" id="cBlack" style="background:#000;color:#fff;">
+          <div class="cp-contrast-label">vs 검정 배경</div>
+          <span id="cBlackVal">-</span>
+        </div>
+      </div>
+      <p class="small" style="color:var(--muted);margin:10px 0 0;font-size:12px;line-height:1.6">
+        WCAG 2.1 기준 · 본문 텍스트 AA 4.5+, AAA 7+ · 큰 글씨 (18pt+ 또는 14pt+ 굵게) AA Large 3+, AAA 4.5+
+      </p>
+    </div>
+
+    <!-- 이미지에서 팔레트 추출 -->
+    <div class="cp-section">
+      <h2 class="cp-h2">이미지에서 팔레트 추출</h2>
+      <label class="cp-drop" id="drop" role="button" tabindex="0" aria-label="이미지 파일 업로드 (클릭 또는 Enter/Space)">
+        <p class="cp-drop-title" id="dropTitle">이미지를 드래그하거나 클릭해서 선택</p>
+        <p class="cp-drop-hint">JPG · PNG · WebP · GIF · SVG — 자동으로 주요 색상 8개 추출</p>
+        <input type="file" id="file" accept="image/*" hidden>
+      </label>
+      <img id="preview" class="cp-preview" alt="업로드된 이미지 미리보기">
+      <div class="cp-palette" id="palette" aria-live="polite" aria-atomic="true"></div>
+    </div>
+
+    <section class="tool-article">
+      <h2>사용 방법 — 3가지 흐름</h2>
+      <div class="cp-howto-grid">
+        <div class="cp-howto-card">
+          <span class="cp-howto-num">1</span>
+          <h3>색상 변환</h3>
+          <ol>
+            <li><b>컬러 픽커 클릭</b> 또는 <b>Hex 직접 입력</b></li>
+            <li>4종 코드(Hex·RGB·HSL·CMYK) 즉시 표시</li>
+            <li>코드 박스 클릭 → <b>클립보드 자동 복사</b></li>
+          </ol>
+        </div>
+        <div class="cp-howto-card">
+          <span class="cp-howto-num">2</span>
+          <h3>이미지 팔레트 추출</h3>
+          <ol>
+            <li>이미지 <b>드래그·드롭</b> 또는 업로드</li>
+            <li>주요 색상 8개 자동 추출</li>
+            <li>swatch 클릭 → 컬러 픽커 로딩</li>
+          </ol>
+        </div>
+        <div class="cp-howto-card">
+          <span class="cp-howto-num">3</span>
+          <h3>WCAG 가독성 검증</h3>
+          <ol>
+            <li>색 선택 후 자동 대비 계산</li>
+            <li>흰색·검정 배경 vs 글자 등급 표시</li>
+            <li>본문 텍스트는 <b>AA 이상</b> 권장</li>
+          </ol>
+        </div>
+      </div>
+
+      <h2>이런 상황에 씁니다</h2>
+      <div class="cp-usecase-grid">
+        <div class="cp-usecase">
+          <div class="ic">🎨</div>
+          <b>디자이너 — 빠른 변환</b>
+          <p>Figma·Photoshop 외부에서 Hex ↔ RGB ↔ HSL 즉시 변환. 작업 흐름 단절 X.</p>
+        </div>
+        <div class="cp-usecase">
+          <div class="ic">📸</div>
+          <b>블로거·크리에이터</b>
+          <p>좋아하는 영화 포스터·사진에서 톤 8색 추출 → SNS·블로그 헤더 컬러 통일.</p>
+        </div>
+        <div class="cp-usecase">
+          <div class="ic">💻</div>
+          <b>웹 개발자</b>
+          <p>디자인 시안 → Tailwind config·CSS 변수 (<code>--brand</code>) 매핑.</p>
+        </div>
+        <div class="cp-usecase">
+          <div class="ic">♿</div>
+          <b>접근성·UI/UX</b>
+          <p>본문 글씨 대비 AAA 등급 → 시각장애·고령 사용자 친화. AdSense RPM 영향.</p>
+        </div>
+        <div class="cp-usecase">
+          <div class="ic">📈</div>
+          <b>마케터</b>
+          <p>경쟁사 광고에서 핵심 색 추출 → 우리 광고 컬러 분석·트렌드 추적.</p>
+        </div>
+        <div class="cp-usecase">
+          <div class="ic">🏠</div>
+          <b>인테리어·패션</b>
+          <p>옷·인테리어 사진 → 메인 색 8개 추출 → 매칭 컬러 코드 찾기.</p>
+        </div>
+        <div class="cp-usecase">
+          <div class="ic">📚</div>
+          <b>학생·디자인 학습</b>
+          <p>Hex 16진수·RGB 혼합·HSL 색조·WCAG 접근성 기준 — 도구로 자연 학습.</p>
+        </div>
+      </div>
+
+      <h2>색상 코드 4종 — 언제 어떤 거?</h2>
+      <div class="cp-format-grid">
+        <div class="cp-format">
+          <div class="cp-format-name">Hex <span class="badge">기본</span></div>
+          <div class="cp-format-ex">#3F6F54</div>
+          <p class="cp-format-desc">16진수 6자리 (R·G·B 각 2자리). CSS·HTML 표준, 가장 짧음.</p>
+        </div>
+        <div class="cp-format">
+          <div class="cp-format-name">RGB <span class="badge">JS</span></div>
+          <div class="cp-format-ex">rgb(63, 111, 84)</div>
+          <p class="cp-format-desc">10진수 0-255. JS·SVG·캔버스, 알파 (RGBA) 추가 가능.</p>
+        </div>
+        <div class="cp-format">
+          <div class="cp-format-name">HSL <span class="badge">조정</span></div>
+          <div class="cp-format-ex">hsl(146, 28%, 34%)</div>
+          <p class="cp-format-desc">색조 0-360°·채도·명도. lighter/darker 조정 직관적.</p>
+        </div>
+        <div class="cp-format">
+          <div class="cp-format-name">CMYK <span class="badge">인쇄</span></div>
+          <div class="cp-format-ex">38, 0, 24, 56</div>
+          <p class="cp-format-desc">Cyan·Magenta·Yellow·Black. 인쇄 시안 (정확값은 ICC 적용).</p>
+        </div>
+      </div>
+
+      <h2>WCAG 대비 등급</h2>
+      <p style="font-size:13px;color:var(--muted);margin:0 0 12px;">WCAG 2.1 기준 — 글자와 배경의 luminance 비율로 가독성 측정.</p>
+      <div class="cp-wcag-grid">
+        <div class="cp-wcag-card aaa">
+          <div class="cp-wcag-grade">AAA <span class="cp-wcag-ratio">7.0+</span></div>
+          <div class="cp-wcag-use">강화 접근성 — 의료·정부·공공 사이트</div>
+        </div>
+        <div class="cp-wcag-card aa">
+          <div class="cp-wcag-grade">AA <span class="cp-wcag-ratio">4.5+</span></div>
+          <div class="cp-wcag-use">본문 표준 — 일반 사이트·블로그 목표</div>
+        </div>
+        <div class="cp-wcag-card lg">
+          <div class="cp-wcag-grade">AA Large <span class="cp-wcag-ratio">3.0+</span></div>
+          <div class="cp-wcag-use">큰 글씨 (18pt+, 14pt+ 굵게)</div>
+        </div>
+        <div class="cp-wcag-card fail">
+          <div class="cp-wcag-grade">Fail <span class="cp-wcag-ratio">&lt; 3.0</span></div>
+          <div class="cp-wcag-use">가독성 부족 — 사용 자제</div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin:8px 0 0;">참고: AdSense 도 가독성을 평가 지표로 사용. 대비 낮으면 RPM·CTR 손해.</p>
+
+      <h2>팔레트 추출 알고리즘</h2>
+      <div class="cp-algo-card">
+        <h3>16단계 RGB 양자화 + 빈도 정렬</h3>
+        <p style="margin:0 0 8px;font-size:13px;color:var(--muted);">k-means 같은 무거운 ML 대신, 가볍고 일관된 알고리즘 사용.</p>
+        <div class="cp-algo-steps">
+          <div class="cp-algo-step"><b>STEP 1</b>이미지를 canvas 에 100×100 px 로 축소</div>
+          <div class="cp-algo-step"><b>STEP 2</b>각 픽셀 RGB 채널을 4비트(16단계) 양자화</div>
+          <div class="cp-algo-step"><b>STEP 3</b>같은 bin 의 픽셀 빈도 카운트</div>
+          <div class="cp-algo-step"><b>STEP 4</b>상위 8개 bin 평균 RGB 반환</div>
+        </div>
+        <div class="cp-algo-pros-cons">
+          <div class="cp-algo-pros"><b>✓ 장점</b><br>50ms 이하 빠름 · 확률적 X 일관 결과 · 외부 라이브러리 0</div>
+          <div class="cp-algo-cons"><b>△ 한계</b><br>k-means 보다 색조 클러스터 정확도 약간 낮음 (일반 사용엔 충분)</div>
+        </div>
+      </div>
+
+      <h2>자주 쓰는 컬러 시스템</h2>
+      <div class="cp-system-grid">
+        <div class="cp-system">
+          <div class="cp-system-head"><span class="cp-system-name">Tailwind CSS</span><span class="cp-system-swatch" style="background:#2563EB"></span></div>
+          <div class="cp-system-code"><span class="cp-system-swatch" style="width:14px;height:14px;background:#64748B"></span>slate-500: #64748B</div>
+          <div class="cp-system-code"><span class="cp-system-swatch" style="width:14px;height:14px;background:#2563EB"></span>blue-600: #2563EB</div>
+          <p class="cp-system-desc">10단계 명도 스케일. 개발자 친화.</p>
+        </div>
+        <div class="cp-system">
+          <div class="cp-system-head"><span class="cp-system-name">Material Design</span><span class="cp-system-swatch" style="background:#3F51B5"></span></div>
+          <div class="cp-system-code"><span class="cp-system-swatch" style="width:14px;height:14px;background:#3F51B5"></span>Indigo 500: #3F51B5</div>
+          <p class="cp-system-desc">Google 가이드라인. 안드로이드 친화.</p>
+        </div>
+        <div class="cp-system">
+          <div class="cp-system-head"><span class="cp-system-name">iOS Human Interface</span><span class="cp-system-swatch" style="background:#007AFF"></span></div>
+          <div class="cp-system-code"><span class="cp-system-swatch" style="width:14px;height:14px;background:#007AFF"></span>System Blue: #007AFF</div>
+          <p class="cp-system-desc">Apple 시스템 컬러. iOS·macOS 권장.</p>
+        </div>
+        <div class="cp-system">
+          <div class="cp-system-head"><span class="cp-system-name">Pantone</span><span class="cp-system-swatch" style="background:#FF6F61"></span></div>
+          <div class="cp-system-code">Living Coral 16-1546</div>
+          <p class="cp-system-desc">인쇄·패션 표준 (라이선스 필요).</p>
+        </div>
+      </div>
+
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../compress/">이미지 압축<span class="desc">JPG·PNG·WebP — 용량 줄이기</span></a>
+        <a href="../exif-remove/">EXIF 메타데이터 제거<span class="desc">GPS·날짜·기종 박힌 사진 정리</span></a>
+        <a href="../resize/">이미지 리사이즈<span class="desc">px·% 단위 크기 조정</span></a>
+        <a href="../format-convert/">이미지 포맷 변환<span class="desc">PNG ↔ JPG ↔ WebP ↔ AVIF</span></a>
+      </div>
+
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+      <details><summary>Hex 와 RGB 의 차이는?</summary><p>같은 색을 다른 표기로 나타낸 것. Hex 는 16진수 (<code>#3F6F54</code>), RGB 는 10진수 (<code>rgb(63,111,84)</code>). CSS·HTML 에서는 Hex 가 짧아 자주 쓰이고, JS·캔버스에서 색을 다룰 때는 RGB 가 편리함. 둘 다 같은 색을 표현.</p></details>
+      <details><summary>WCAG AA·AAA 등급 기준?</summary><p>WCAG 2.1 기준 본문 텍스트 <b>AA 4.5+</b>, <b>AAA 7+</b>. 큰 글씨 (18pt 이상 또는 14pt 굵게) 는 <b>AA Large 3+</b>, <b>AAA 4.5+</b>. 본 도구는 선택한 색 vs 흰색·검정 대비를 자동 계산해 등급 라벨 표시. AA 가 일반적 목표, AAA 는 강화 접근성.</p></details>
+      <details><summary>이미지에서 색상 추출 방식?</summary><p>canvas API 로 이미지를 100×100 으로 축소 → 모든 픽셀 RGB 를 16단계로 양자화 (각 채널 4비트) → 같은 bin 픽셀 빈도 → 상위 8개 평균 색 반환. k-means 보다 빠르고 결과가 시각적으로 일관됨.</p></details>
+      <details><summary>이미지가 외부로 전송되나요?</summary><p>전송 안 됨. FileReader 로 브라우저 메모리에 로드 → canvas 픽셀 분석 → 결과 표시. 네트워크 요청 0, 서버 저장 0. 브라우저 DevTools Network 탭에서 직접 확인 가능.</p></details>
+      <details><summary>모바일에서도 동작?</summary><p>iOS Safari · Android Chrome 모두 지원. 카메라 롤에서 사진 직접 선택 가능. 컬러 픽커는 OS 네이티브 picker 사용 (iOS 14+, Android 8+ 권장).</p></details>
+      <details><summary>CMYK 변환이 정확한가요?</summary><p>RGB → CMYK 는 단순 수학 변환이라 실제 인쇄 색역 (ICC profile) 과 다를 수 있음. 인쇄 발주용은 Adobe·Affinity 같은 전문 도구에서 ICC 적용 필요. 본 도구의 CMYK 는 근사 참고값.</p></details>
+      <details><summary>HSL 은 언제 쓰면 좋아요?</summary><p>같은 색조의 <b>밝기·채도만 미세 조정</b>할 때 유리. 예: <code>hsl(146, 28%, 34%)</code> 를 <code>hsl(146, 28%, 50%)</code> 로 바꾸면 같은 녹색 계열의 lighter shade. CSS 변수 디자인 시스템 만들 때 HSL 이 RGB·Hex 보다 직관적.</p></details>
+      <details><summary>알파 채널 (투명도) 지원하나요?</summary><p>현재 도구는 불투명 색상 4종 (Hex·RGB·HSL·CMYK) 만 지원. 알파 채널은 <code>rgba(63,111,84,0.5)</code> 또는 <code>#3F6F5480</code> 형식으로 직접 추가 필요. 향후 슬라이더 추가 검토 중.</p></details>
+      <details><summary>왜 이미지의 모든 색이 다 안 나오나요?</summary><p>8색 제한 + 16단계 양자화 때문. 비슷한 색들 (예: <code>#3F6F54</code> 와 <code>#406F55</code>) 은 같은 bin 으로 묶여서 1개로 표시됨. <b>주요 색감 추출</b> 이 목적이라 이 동작이 의도된 것. 모든 픽셀 색은 100×100=10,000 개의 미세 색조를 다 보여줘도 가치 X.</p></details>
+      <details><summary>Pantone 색상도 변환되나요?</summary><p>Pantone 은 인쇄 산업 전용 라이선스 색 시스템 (PMS). 표준 RGB/CMYK 와 1:1 매핑이 없어 본 도구로 변환 불가. Pantone Connect 또는 Adobe 도구 필요.</p></details>
+      <details><summary>접근성 — 색맹 사용자도 사용 가능한가요?</summary><p>네. 컬러 픽커 자체는 시각 기능 필요하지만, <b>WCAG 대비 결과는 숫자·등급 라벨</b>로 표시되어 색맹 사용자도 검증 가능. 키보드 (Tab·Enter·Space) 로 전체 조작 가능, aria-label 모두 박혀있음.</p></details>
+
+      <h2>참고</h2>
+      <ul class="small" style="color:var(--muted);font-size:13px;line-height:1.7">
+        <li><a href="https://www.w3.org/TR/WCAG21/#contrast-minimum" rel="noopener nofollow">WCAG 2.1 — Contrast (Minimum)</a> · 본 도구의 contrast 등급 기준</li>
+        <li><a href="https://developer.mozilla.org/ko/docs/Web/HTML/Element/input/color" rel="noopener nofollow">MDN — input type=color</a> · 네이티브 컬러 픽커 API</li>
+        <li><a href="https://developer.mozilla.org/ko/docs/Web/API/Canvas_API" rel="noopener nofollow">MDN — Canvas API</a> · 픽셀 분석 기반</li>
+      </ul>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 이미지 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <div class="cp-toast" id="toast">복사됨</div>
+
+  <site-footer></site-footer>
+  <script src="./color-picker.js" defer></script>
+</body>
+</html>

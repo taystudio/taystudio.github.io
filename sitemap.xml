@@ -985,6 +985,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/gif-compress/"/>
   </url>
   <url>
+    <loc>https://taystudios.com/image/color-picker/</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/color-picker/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/color-picker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/color-picker/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/en/image/color-picker/</loc>
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/color-picker/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/color-picker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/color-picker/"/>
+  </url>
+  <url>
     <loc>https://taystudios.com/en/image/exif-remove/</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>

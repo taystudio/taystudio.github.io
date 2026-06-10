@@ -467,6 +467,44 @@
       .preview-section { margin-top: 56px; }
     }
 
+    /* What's New 우상단 floating bell + popover */
+    .whatsnew-fab { position:fixed; top:84px; right:20px; z-index:90; width:46px; height:46px; border-radius:50%; background:#fff; border:1px solid var(--border, #e5e7eb); box-shadow:0 2px 12px rgba(0,0,0,.08); cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; transition:transform .15s, box-shadow .15s, top .2s; }
+    .whatsnew-fab.is-scrolled { top:20px; }
+    .whatsnew-popover.is-scrolled { top:76px; }
+    .whatsnew-fab:hover { transform:translateY(-2px); box-shadow:0 4px 20px rgba(0,0,0,.12); }
+    .whatsnew-fab svg { width:20px; height:20px; color:var(--text, #1a1d23); }
+    .whatsnew-fab .wn-dot { position:absolute; top:8px; right:8px; width:9px; height:9px; background:#dc2626; border-radius:50%; border:2px solid #fff; display:none; animation:wn-pulse 2s ease-in-out infinite; }
+    .whatsnew-fab.has-new .wn-dot { display:block; }
+    @keyframes wn-pulse { 0%, 100% { transform:scale(1); } 50% { transform:scale(1.2); } }
+    .whatsnew-popover { position:fixed; top:140px; right:20px; z-index:91; width:380px; max-width:calc(100vw - 40px); max-height:calc(100vh - 200px); background:#fff; border:1px solid var(--border, #e5e7eb); border-radius:14px; box-shadow:0 12px 40px rgba(0,0,0,.15); overflow:hidden; display:flex; flex-direction:column; opacity:0; transform:translateY(-8px); transition:opacity .2s, transform .2s; pointer-events:none; }
+    .whatsnew-popover.open { opacity:1; transform:translateY(0); pointer-events:auto; }
+    .wn-pop-header { padding:14px 18px; border-bottom:1px solid var(--border, #e5e7eb); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; gap:12px; }
+    .wn-pop-title { font-size:14px; font-weight:700; color:var(--text, #1a1d23); display:flex; align-items:center; gap:8px; flex:1 1 auto; min-width:0; white-space:nowrap; }
+    .wn-pop-close { background:none; border:none; cursor:pointer; padding:0; color:var(--muted, #6b7280); font-size:16px; line-height:1; border-radius:6px; flex:0 0 auto; width:30px; height:30px; min-width:30px; min-height:30px; display:inline-flex; align-items:center; justify-content:center; }
+    .wn-pop-close:hover { background:var(--bg, #f7f8fa); color:var(--text, #1a1d23); }
+    .wn-pop-body { padding:14px 18px; overflow-y:auto; flex:1; }
+    .wn-date-group { margin-top:14px; padding-top:14px; border-top:1px dashed var(--border, #e5e7eb); }
+    .wn-date-group:first-child { margin-top:0; padding-top:0; border-top:none; }
+    .wn-date-label { font-size:11px; color:var(--muted, #6b7280); font-weight:600; margin-bottom:8px; letter-spacing:0.04em; }
+    .wn-item { display:flex; align-items:flex-start; gap:8px; padding:6px 0; font-size:13px; line-height:1.55; color:var(--text, #1a1d23); }
+    .wn-item a { color:inherit; text-decoration:none; flex:1; }
+    .wn-item a:hover { color:var(--primary, #2563eb); }
+    .wn-tag { display:inline-flex; align-items:center; padding:2px 7px; font-size:10px; font-weight:700; border-radius:4px; flex-shrink:0; letter-spacing:0.02em; }
+    .wn-tag.NEW { background:rgba(22,163,74,0.12); color:#16a34a; }
+    .wn-tag.UPDATE { background:rgba(37,99,235,0.12); color:#2563eb; }
+    .wn-tag.FIX { background:rgba(217,119,6,0.12); color:#d97706; }
+    @media (max-width: 640px) {
+      .whatsnew-fab { top:auto; bottom:20px; right:20px; }
+      .whatsnew-popover { top:auto; bottom:80px; right:20px; left:20px; width:auto; max-height:60vh; }
+    }
+    @media (prefers-color-scheme: dark) {
+      .whatsnew-fab { background:#1a1d23; border-color:#2a2d33; }
+      .whatsnew-fab svg { color:#e5e7eb; }
+      .whatsnew-popover { background:#1a1d23; border-color:#2a2d33; }
+      .wn-pop-header { border-color:#2a2d33; }
+      .wn-pop-title, .wn-item { color:#e5e7eb; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .hub-bg::before, .live-dot, .fade-up { animation: none !important; }
       .fade-up { opacity: 1 !important; transform: none !important; }
@@ -508,6 +546,85 @@
         </div>
       </aside>
     </section>
+
+    <button type="button" class="whatsnew-fab" id="whatsnewFab" hidden aria-label="최근 업데이트 보기" title="최근 업데이트">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+      </svg>
+      <span class="wn-dot" aria-hidden="true"></span>
+    </button>
+    <aside class="whatsnew-popover" id="whatsnewPopover" hidden role="dialog" aria-label="최근 업데이트">
+      <div class="wn-pop-header">
+        <div class="wn-pop-title">
+          <span aria-hidden="true">📢</span>
+          <span>최근 업데이트</span>
+        </div>
+        <button type="button" class="wn-pop-close" id="whatsnewClose" aria-label="닫기">✕</button>
+      </div>
+      <div class="wn-pop-body" id="whatsnewBody"></div>
+    </aside>
+
+    <script>
+      (function () {
+        const fab = document.getElementById('whatsnewFab');
+        const popover = document.getElementById('whatsnewPopover');
+        const closeBtn = document.getElementById('whatsnewClose');
+        const bodyEl = document.getElementById('whatsnewBody');
+        const isEn = location.pathname.indexOf('/en/') === 0;
+        const itemsKey = isEn ? 'items_en' : 'items_ko';
+        const LAST_SEEN_KEY = 'taystudios.changelog.lastSeen';
+        let latestDate = null;
+        fetch('/data/changelog.json').then(r => r.json()).then(data => {
+          const raw = data.updates || [];
+          if (!raw.length) return;
+          // 최신순 정렬
+          raw.sort((a, b) => b.date.localeCompare(a.date));
+          // 필터: 최근 10개 항목(날짜 그룹) OR 3개월 이내 중 더 많은 쪽
+          const cutoff = new Date();
+          cutoff.setMonth(cutoff.getMonth() - 3);
+          const byDate = raw.filter(u => new Date(u.date) >= cutoff);
+          const byCount = raw.slice(0, 10);
+          const updates = byDate.length >= byCount.length ? byDate : byCount;
+          fab.hidden = false;
+          popover.hidden = false;
+          latestDate = updates[0].date;
+          // 새 update 표시 (마지막 본 날짜와 비교)
+          const lastSeen = localStorage.getItem(LAST_SEEN_KEY);
+          if (lastSeen !== latestDate) fab.classList.add('has-new');
+          // popover body render
+          bodyEl.innerHTML = updates.map((u, idx) => {
+            const items = u[itemsKey] || [];
+            const itemsHtml = items.map(it => {
+              const tag = it.tag ? `<span class="wn-tag ${it.tag}">${it.tag}</span>` : '';
+              const text = it.url ? `<a href="${it.url}">${it.text}</a>` : `<span>${it.text}</span>`;
+              return `<div class="wn-item">${tag}${text}</div>`;
+            }).join('');
+            return `<div class="wn-date-group"><div class="wn-date-label">${u.date}</div>${itemsHtml}</div>`;
+          }).join('');
+        }).catch(() => {});
+        function openPop() {
+          popover.classList.add('open');
+          fab.classList.remove('has-new');
+          if (latestDate) localStorage.setItem(LAST_SEEN_KEY, latestDate);
+        }
+        function closePop() { popover.classList.remove('open'); }
+        fab.addEventListener('click', () => { popover.classList.contains('open') ? closePop() : openPop(); });
+        closeBtn.addEventListener('click', closePop);
+        document.addEventListener('click', (e) => {
+          if (popover.classList.contains('open') && !popover.contains(e.target) && !fab.contains(e.target)) closePop();
+        });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePop(); });
+        // 스크롤 다운 시 fab + popover 위로 붙음 (site-header 사라진 공간 활용)
+        function onScroll() {
+          const scrolled = window.scrollY > 100;
+          fab.classList.toggle('is-scrolled', scrolled);
+          popover.classList.toggle('is-scrolled', scrolled);
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
+    </script>
 
     <section class="hub-grid">
       <a class="hub-card fade-up d1" href="./tools/">

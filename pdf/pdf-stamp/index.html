@@ -201,6 +201,63 @@
     .img-card { border:1px solid var(--border); border-radius:8px; padding:8px; background:var(--card); }
     .img-card-meta { font-size:12px; color:var(--text); padding:8px 0; text-align:center; word-break:break-all; }
     .img-card-dl { display:block; padding:6px 0; text-align:center; font-size:13px; background:var(--primary); color:#fff; border-radius:5px; text-decoration:none; }
+    /* PDF 워터마크 미리보기 + 드래그 위치 조정 */
+    .wm-preview-wrap { margin:16px 0 4px; }
+    .wm-preview-title { font-size:13px; color:var(--muted); margin:0 0 10px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+    .wm-preview-title .hint { font-size:12.5px; font-weight:700; color:#fff; background:var(--primary); padding:6px 12px; border-radius:999px; letter-spacing:0.01em; box-shadow:0 2px 8px rgba(37,99,235,0.25); display:inline-flex; align-items:center; gap:6px; animation:wm-hint-pulse 2.4s ease-in-out 0s 2; }
+    @keyframes wm-hint-pulse { 0%, 100% { transform:scale(1); box-shadow:0 2px 8px rgba(37,99,235,0.25); } 50% { transform:scale(1.06); box-shadow:0 4px 14px rgba(37,99,235,0.5); } }
+    .wm-preview-title .hint::before { content:""; display:inline-block; width:0; height:0; border-top:5px solid transparent; border-bottom:5px solid transparent; border-right:6px solid #fff; }
+    .wm-preview-title .hint::after { content:""; display:inline-block; width:0; height:0; border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:6px solid #fff; }
+    .wm-canvas-frame { position:relative; background:#f4f4f6; border:1px solid var(--border); border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; min-height:200px; }
+    .wm-canvas-frame canvas { display:block; max-width:100%; height:auto; }
+    .wm-text-overlay { position:absolute; cursor:move; user-select:none; font-family:Helvetica, Arial, sans-serif; font-weight:700; padding:0; line-height:1; transform-origin:center center; touch-action:none; pointer-events:auto; white-space:nowrap; transition:box-shadow .15s, outline-color .15s; outline:2px solid transparent; outline-offset:2px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; }
+    .wm-text-overlay:hover, .wm-text-overlay.dragging { outline-color:var(--primary); box-shadow:0 2px 12px rgba(37,99,235,.25); }
+    .wm-text-overlay:focus { outline-color:var(--primary); }
+    .wm-coord-row { display:flex; gap:14px; margin-top:8px; font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; flex-wrap:wrap; justify-content:space-between; align-items:center; }
+    .wm-coord-row .coord-vals { font-family:-apple-system,"SF Mono",Menlo,monospace; }
+    .wm-coord-row button { background:transparent; border:1px solid var(--border); padding:4px 10px; border-radius:6px; font-size:11px; cursor:pointer; color:var(--muted); }
+    .wm-coord-row button:hover { border-color:var(--primary); color:var(--primary); }
+    .wm-loading { color:var(--muted); font-size:13px; padding:60px 20px; text-align:center; }
+    .wm-preset-row { display:flex; gap:14px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+    .wm-preset-label { font-size:12px; color:var(--muted); }
+    .wm-preset-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; width:108px; }
+    .wm-preset-grid button { aspect-ratio:1; border:1px solid var(--border); background:var(--card); border-radius:6px; cursor:pointer; font-size:16px; color:var(--muted); padding:0; transition:all .12s; line-height:1; }
+    .wm-preset-grid button:hover { border-color:var(--primary); color:var(--primary); background:var(--bg); }
+    .wm-preset-grid button.active { background:var(--primary); color:#fff; border-color:var(--primary); font-weight:700; }
+    .wm-mode-wrap { margin:14px 0 4px; }
+    .wm-mode-title { font-size:13px; font-weight:600; color:var(--muted); margin-bottom:8px; }
+    .wm-mode-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px; }
+    .wm-mode-opt { display:flex; align-items:flex-start; gap:10px; padding:12px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); cursor:pointer; transition:border-color .12s, background .12s; }
+    .wm-mode-opt:hover { border-color:var(--primary); }
+    .wm-mode-opt input[type=radio] { margin-top:3px; flex-shrink:0; cursor:pointer; }
+    .wm-mode-opt:has(input[type=radio]:checked) { border-color:var(--primary); background:var(--bg); }
+    .wm-mode-label { flex:1; }
+    .wm-mode-label b { display:block; font-size:13.5px; color:var(--text); margin-bottom:3px; }
+    .wm-mode-label p { font-size:11.5px; color:var(--muted); line-height:1.5; margin:0; }
+    .wm-mode-details { margin-top:10px; border-top:1px dashed var(--border); padding-top:12px; }
+    .wm-mode-details > summary { cursor:pointer; font-size:12.5px; color:var(--primary); font-weight:600; padding:6px 10px; border-radius:6px; user-select:none; display:inline-block; }
+    .wm-mode-details > summary:hover { background:var(--bg); }
+    .wm-mode-details[open] > summary { margin-bottom:14px; }
+    .wm-mode-detail-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:12px; margin-bottom:14px; }
+    .wm-mode-detail { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+    .wm-mode-detail h4 { font-size:13.5px; margin:0 0 10px; color:var(--primary); font-weight:700; }
+    .wm-mode-detail h4 .badge { font-size:10px; padding:2px 7px; background:var(--bg); color:var(--muted); border-radius:4px; font-weight:600; margin-left:6px; vertical-align:middle; }
+    .wm-mode-detail ul { padding-left:16px; margin:0; font-size:12px; line-height:1.65; color:var(--text); }
+    .wm-mode-detail ul ul { margin-top:3px; padding-left:14px; color:var(--muted); font-size:11.5px; }
+    .wm-mode-detail li { margin-bottom:5px; }
+    .wm-mode-detail b { color:var(--primary); }
+    .wm-mode-detail .neg b { color:#c0392b; }
+    .wm-mode-detail .pos b { color:#16a34a; }
+    .wm-mode-tip { padding:12px 14px; background:linear-gradient(135deg, rgba(37,99,235,0.06), rgba(37,99,235,0.02)); border:1px solid var(--border); border-radius:8px; font-size:12.5px; color:var(--text); line-height:1.6; }
+    .wm-mode-tip b { color:var(--primary); }
+    .wm-mode-tip p { margin:4px 0 0; }
+    .wm-mode-table { width:100%; border-collapse:collapse; margin-bottom:14px; font-size:12px; }
+    .wm-mode-table th, .wm-mode-table td { padding:7px 10px; border:1px solid var(--border); text-align:left; }
+    .wm-mode-table th { background:var(--bg); font-weight:600; color:var(--muted); font-size:11px; }
+    .wm-mode-table td:first-child { font-weight:600; color:var(--text); background:var(--card); width:30%; }
+    .wm-mode-table td.good { color:#16a34a; font-weight:600; }
+    .wm-mode-table td.bad { color:#c0392b; font-weight:500; }
+    .wm-mode-table td.warn { color:#d97706; }
   </style>
 <script src="/common/site-chrome.js"></script>
 </head>
@@ -259,6 +316,141 @@
               <option value="blue">파랑</option>
               <option value="black">검정</option>
             </select>
+          </div>
+        </div>
+
+        <!-- 출력 모드 선택 -->
+        <div class="wm-mode-wrap">
+          <div class="wm-mode-title">출력 모드</div>
+          <div class="wm-mode-row">
+            <label class="wm-mode-opt">
+              <input type="radio" name="wmMode" value="vector" checked>
+              <div class="wm-mode-label">
+                <b>벡터 (기본)</b>
+                <p>텍스트 PDF · 확대 무한 선명 · 텍스트 검색 가능 · 파일 가벼움</p>
+              </div>
+            </label>
+            <label class="wm-mode-opt">
+              <input type="radio" name="wmMode" value="image">
+              <div class="wm-mode-label">
+                <b>이미지 (정밀 매칭)</b>
+                <p>미리보기와 위치 픽셀 단위 일치 · 텍스트 추출 불가 (워터마크 방어) · 확대 약 300%까지 선명</p>
+              </div>
+            </label>
+          </div>
+
+          <details class="wm-mode-details">
+            <summary>📖 두 모드 비교 · 상세 설명 (펼치기)</summary>
+
+            <table class="wm-mode-table">
+              <thead><tr><th>항목</th><th>벡터 모드</th><th>이미지 모드</th></tr></thead>
+              <tbody>
+                <tr><td>작동 원리</td><td>pdf-lib drawText (Tm matrix + Tj operator) — PDF 표준 텍스트 객체</td><td>canvas API 로 텍스트 raster → PNG 임베드</td></tr>
+                <tr><td>미리보기 ↔ PDF 위치 매칭</td><td class="warn">~0.4 pt (0.1mm) 미세 차이</td><td class="good">픽셀 단위 일치</td></tr>
+                <tr><td>확대 (zoom) 품질</td><td class="good">무한 확대 선명 (vector)</td><td class="warn">~300% 까지 선명, 그 이상 흐려짐</td></tr>
+                <tr><td>텍스트 검색 (Ctrl+F)</td><td class="good">가능</td><td class="bad">불가</td></tr>
+                <tr><td>워터마크 추출·삭제</td><td class="bad">Acrobat 등으로 가능</td><td class="good">불가 (raster 라 텍스트 없음)</td></tr>
+                <tr><td>스크린 리더 접근성</td><td class="good">텍스트로 인식</td><td class="warn">image 라 못 읽음</td></tr>
+                <tr><td>파일 크기 증가</td><td class="good">+수 KB</td><td class="warn">+수십~수백 KB (페이지당 PNG)</td></tr>
+                <tr><td>처리 속도</td><td class="good">매우 빠름</td><td class="warn">canvas render → PNG encode (약간 느림)</td></tr>
+              </tbody>
+            </table>
+
+            <div class="wm-mode-detail-grid">
+              <div class="wm-mode-detail">
+                <h4>벡터 모드 <span class="badge">기본 추천</span></h4>
+                <ul>
+                  <li class="pos"><b>장점</b>
+                    <ul>
+                      <li>무한 확대해도 글자 가장자리 깨지지 않음</li>
+                      <li>PDF 뷰어에서 <code>Ctrl+F</code> 로 "CONFIDENTIAL" 검색 가능</li>
+                      <li>파일 가벼움 — 다중 페이지 워터마크에도 size 부담 X</li>
+                      <li>스크린 리더 접근성 유지 (시각장애 사용자 친화)</li>
+                    </ul>
+                  </li>
+                  <li class="neg"><b>단점</b>
+                    <ul>
+                      <li>typography metric 차이로 미리보기와 ~0.4pt (0.1mm) 위치 차이 — 육안 거의 안 보임</li>
+                      <li>Adobe Acrobat 등에서 워터마크 텍스트 객체 선택·삭제 가능 (보안 약함)</li>
+                    </ul>
+                  </li>
+                  <li><b>추천 케이스</b>
+                    <ul>
+                      <li>일반 회사 문서·보고서·견적서</li>
+                      <li>블로그·SNS 배포용 PDF 워터마크</li>
+                      <li>이력서·포트폴리오 (검색 가능성 중요)</li>
+                      <li>다중 페이지·대용량 PDF (파일 크기 우선)</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="wm-mode-detail">
+                <h4>이미지 모드 <span class="badge">정밀·보안</span></h4>
+                <ul>
+                  <li class="pos"><b>장점</b>
+                    <ul>
+                      <li>canvas API 가 미리보기와 동일 typography rendering → 픽셀 단위 일치</li>
+                      <li>워터마크가 PNG 라 텍스트 추출·선택·삭제 불가</li>
+                      <li>도장 인상 강력 — 법적 증거자료·기밀 표시 적합</li>
+                    </ul>
+                  </li>
+                  <li class="neg"><b>단점</b>
+                    <ul>
+                      <li>약 300% 이상 확대 시 글자 가장자리 antialiasing 흐려짐</li>
+                      <li>파일 크기 +수십~수백 KB (페이지 사이즈별 PNG 한 개 임베드)</li>
+                      <li>Ctrl+F 텍스트 검색 X</li>
+                      <li>스크린 리더가 워터마크 못 읽음 — WCAG 접근성 영향</li>
+                    </ul>
+                  </li>
+                  <li><b>추천 케이스</b>
+                    <ul>
+                      <li>계약서·NDA·법적 문서 (워터마크 변조 방지)</li>
+                      <li>디자인 시안·시각 정확도 우선 문서</li>
+                      <li>경쟁사 노출 위험 있는 기밀 자료</li>
+                      <li>워터마크가 본문 특정 위치에 정확히 박혀야 할 때</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="wm-mode-tip">
+              <b>💡 결정 가이드</b>
+              <p>잘 모르겠으면 <b>벡터 (기본)</b> — 대부분 케이스에 충분. 위치가 정말 미리보기와 픽셀 단위 일치해야 하거나 워터마크 변조 방지가 핵심이면 <b>이미지</b>.</p>
+              <p style="margin-top:8px"><b>호환성</b>: 두 모드 모두 모든 표준 PDF 뷰어 (Adobe Acrobat·macOS Preview·Chrome PDF·iOS·Android) 에서 정상 표시. 단 이미지 모드는 OCR 도구로 텍스트 인식하면 검색 가능 (간접).</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- 실시간 미리보기 + 드래그로 위치 조정 -->
+        <div class="wm-preview-wrap" id="wmPreviewWrap" hidden>
+          <div class="wm-preview-title">
+            <span><b>미리보기</b> — 첫 PDF 의 1쪽</span>
+            <span class="hint">워터마크를 드래그해서 위치 조정</span>
+          </div>
+          <div class="wm-canvas-frame" id="wmCanvasFrame">
+            <div class="wm-loading" id="wmLoading">PDF 미리보기 준비 중…</div>
+            <canvas id="wmCanvas" hidden></canvas>
+            <div class="wm-text-overlay" id="wmTextOverlay" tabindex="0" role="button" aria-label="워터마크 위치 드래그 (화살표 키로 미세 조정)" hidden>CONFIDENTIAL</div>
+          </div>
+          <div class="wm-coord-row">
+            <span>위치 (가로·세로 %): <b class="coord-vals" id="wmCoordText">50% · 50%</b></span>
+            <button type="button" id="wmReset">↺ 중앙으로 리셋</button>
+          </div>
+          <div class="wm-preset-row">
+            <span class="wm-preset-label">한 번에 위치 선택:</span>
+            <div class="wm-preset-grid" id="wmPresetGrid" role="group" aria-label="워터마크 위치 9 preset">
+              <button type="button" data-pos="tl" aria-label="좌상단" title="좌상단">↖</button>
+              <button type="button" data-pos="tc" aria-label="상단 중앙" title="상단 중앙">↑</button>
+              <button type="button" data-pos="tr" aria-label="우상단" title="우상단">↗</button>
+              <button type="button" data-pos="ml" aria-label="좌측 중앙" title="좌측 중앙">←</button>
+              <button type="button" data-pos="mc" class="active" aria-label="중앙" title="중앙">●</button>
+              <button type="button" data-pos="mr" aria-label="우측 중앙" title="우측 중앙">→</button>
+              <button type="button" data-pos="bl" aria-label="좌하단" title="좌하단">↙</button>
+              <button type="button" data-pos="bc" aria-label="하단 중앙" title="하단 중앙">↓</button>
+              <button type="button" data-pos="br" aria-label="우하단" title="우하단">↘</button>
+            </div>
           </div>
         </div>
       </div>
@@ -397,6 +589,6 @@
 
   <site-footer></site-footer>
   <script src="/pdf/vendor/pdf-lib.min.js" defer></script>
-  <script src="./pdf-stamp.js" defer></script>
+  <script type="module" src="./pdf-stamp.js?v=1781068128"></script>
 </body>
 </html>

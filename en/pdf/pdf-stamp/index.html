@@ -202,6 +202,63 @@
     .img-card { border:1px solid var(--border); border-radius:8px; padding:8px; background:var(--card); }
     .img-card-meta { font-size:12px; color:var(--text); padding:8px 0; text-align:center; word-break:break-all; }
     .img-card-dl { display:block; padding:6px 0; text-align:center; font-size:13px; background:var(--primary); color:#fff; border-radius:5px; text-decoration:none; }
+    /* Watermark preview + drag position */
+    .wm-preview-wrap { margin:16px 0 4px; }
+    .wm-preview-title { font-size:13px; color:var(--muted); margin:0 0 10px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+    .wm-preview-title .hint { font-size:12.5px; font-weight:700; color:#fff; background:var(--primary); padding:6px 12px; border-radius:999px; letter-spacing:0.01em; box-shadow:0 2px 8px rgba(37,99,235,0.25); display:inline-flex; align-items:center; gap:6px; animation:wm-hint-pulse 2.4s ease-in-out 0s 2; }
+    @keyframes wm-hint-pulse { 0%, 100% { transform:scale(1); box-shadow:0 2px 8px rgba(37,99,235,0.25); } 50% { transform:scale(1.06); box-shadow:0 4px 14px rgba(37,99,235,0.5); } }
+    .wm-preview-title .hint::before { content:""; display:inline-block; width:0; height:0; border-top:5px solid transparent; border-bottom:5px solid transparent; border-right:6px solid #fff; }
+    .wm-preview-title .hint::after { content:""; display:inline-block; width:0; height:0; border-top:5px solid transparent; border-bottom:5px solid transparent; border-left:6px solid #fff; }
+    .wm-canvas-frame { position:relative; background:#f4f4f6; border:1px solid var(--border); border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; min-height:200px; }
+    .wm-canvas-frame canvas { display:block; max-width:100%; height:auto; }
+    .wm-text-overlay { position:absolute; cursor:move; user-select:none; font-family:Helvetica, Arial, sans-serif; font-weight:700; padding:0; line-height:1; transform-origin:center center; touch-action:none; pointer-events:auto; white-space:nowrap; transition:box-shadow .15s, outline-color .15s; outline:2px solid transparent; outline-offset:2px; border-radius:4px; }
+    .wm-text-overlay:hover, .wm-text-overlay.dragging { outline-color:var(--primary); box-shadow:0 2px 12px rgba(37,99,235,.25); }
+    .wm-text-overlay:focus { outline-color:var(--primary); }
+    .wm-coord-row { display:flex; gap:14px; margin-top:8px; font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; flex-wrap:wrap; justify-content:space-between; align-items:center; }
+    .wm-coord-row .coord-vals { font-family:-apple-system,"SF Mono",Menlo,monospace; }
+    .wm-coord-row button { background:transparent; border:1px solid var(--border); padding:4px 10px; border-radius:6px; font-size:11px; cursor:pointer; color:var(--muted); }
+    .wm-coord-row button:hover { border-color:var(--primary); color:var(--primary); }
+    .wm-loading { color:var(--muted); font-size:13px; padding:60px 20px; text-align:center; }
+    .wm-preset-row { display:flex; gap:14px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+    .wm-preset-label { font-size:12px; color:var(--muted); }
+    .wm-preset-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; width:108px; }
+    .wm-preset-grid button { aspect-ratio:1; border:1px solid var(--border); background:var(--card); border-radius:6px; cursor:pointer; font-size:16px; color:var(--muted); padding:0; transition:all .12s; line-height:1; }
+    .wm-preset-grid button:hover { border-color:var(--primary); color:var(--primary); background:var(--bg); }
+    .wm-preset-grid button.active { background:var(--primary); color:#fff; border-color:var(--primary); font-weight:700; }
+    .wm-mode-wrap { margin:14px 0 4px; }
+    .wm-mode-title { font-size:13px; font-weight:600; color:var(--muted); margin-bottom:8px; }
+    .wm-mode-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px; }
+    .wm-mode-opt { display:flex; align-items:flex-start; gap:10px; padding:12px 14px; border:1px solid var(--border); border-radius:10px; background:var(--card); cursor:pointer; transition:border-color .12s, background .12s; }
+    .wm-mode-opt:hover { border-color:var(--primary); }
+    .wm-mode-opt input[type=radio] { margin-top:3px; flex-shrink:0; cursor:pointer; }
+    .wm-mode-opt:has(input[type=radio]:checked) { border-color:var(--primary); background:var(--bg); }
+    .wm-mode-label { flex:1; }
+    .wm-mode-label b { display:block; font-size:13.5px; color:var(--text); margin-bottom:3px; }
+    .wm-mode-label p { font-size:11.5px; color:var(--muted); line-height:1.5; margin:0; }
+    .wm-mode-details { margin-top:10px; border-top:1px dashed var(--border); padding-top:12px; }
+    .wm-mode-details > summary { cursor:pointer; font-size:12.5px; color:var(--primary); font-weight:600; padding:6px 10px; border-radius:6px; user-select:none; display:inline-block; }
+    .wm-mode-details > summary:hover { background:var(--bg); }
+    .wm-mode-details[open] > summary { margin-bottom:14px; }
+    .wm-mode-detail-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:12px; margin-bottom:14px; }
+    .wm-mode-detail { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+    .wm-mode-detail h4 { font-size:13.5px; margin:0 0 10px; color:var(--primary); font-weight:700; }
+    .wm-mode-detail h4 .badge { font-size:10px; padding:2px 7px; background:var(--bg); color:var(--muted); border-radius:4px; font-weight:600; margin-left:6px; vertical-align:middle; }
+    .wm-mode-detail ul { padding-left:16px; margin:0; font-size:12px; line-height:1.65; color:var(--text); }
+    .wm-mode-detail ul ul { margin-top:3px; padding-left:14px; color:var(--muted); font-size:11.5px; }
+    .wm-mode-detail li { margin-bottom:5px; }
+    .wm-mode-detail b { color:var(--primary); }
+    .wm-mode-detail .neg b { color:#c0392b; }
+    .wm-mode-detail .pos b { color:#16a34a; }
+    .wm-mode-tip { padding:12px 14px; background:linear-gradient(135deg, rgba(37,99,235,0.06), rgba(37,99,235,0.02)); border:1px solid var(--border); border-radius:8px; font-size:12.5px; color:var(--text); line-height:1.6; }
+    .wm-mode-tip b { color:var(--primary); }
+    .wm-mode-tip p { margin:4px 0 0; }
+    .wm-mode-table { width:100%; border-collapse:collapse; margin-bottom:14px; font-size:12px; }
+    .wm-mode-table th, .wm-mode-table td { padding:7px 10px; border:1px solid var(--border); text-align:left; }
+    .wm-mode-table th { background:var(--bg); font-weight:600; color:var(--muted); font-size:11px; }
+    .wm-mode-table td:first-child { font-weight:600; color:var(--text); background:var(--card); width:30%; }
+    .wm-mode-table td.good { color:#16a34a; font-weight:600; }
+    .wm-mode-table td.bad { color:#c0392b; font-weight:500; }
+    .wm-mode-table td.warn { color:#d97706; }
   </style>
 <script src="/common/site-chrome.js"></script>
 </head>
@@ -259,6 +316,141 @@
               <option value="blue">Blue</option>
               <option value="black">Black</option>
             </select>
+          </div>
+        </div>
+
+        <!-- Output mode -->
+        <div class="wm-mode-wrap">
+          <div class="wm-mode-title">Output mode</div>
+          <div class="wm-mode-row">
+            <label class="wm-mode-opt">
+              <input type="radio" name="wmMode" value="vector" checked>
+              <div class="wm-mode-label">
+                <b>Vector (default)</b>
+                <p>Text-based PDF · Infinite zoom · Text searchable · Smaller file</p>
+              </div>
+            </label>
+            <label class="wm-mode-opt">
+              <input type="radio" name="wmMode" value="image">
+              <div class="wm-mode-label">
+                <b>Image (pixel-perfect)</b>
+                <p>Matches preview exactly · Non-extractable text (anti-tamper) · Sharp up to ~300% zoom</p>
+              </div>
+            </label>
+          </div>
+
+          <details class="wm-mode-details">
+            <summary>📖 Compare modes · Detailed explanation (expand)</summary>
+
+            <table class="wm-mode-table">
+              <thead><tr><th>Aspect</th><th>Vector mode</th><th>Image mode</th></tr></thead>
+              <tbody>
+                <tr><td>How it works</td><td>pdf-lib drawText (Tm matrix + Tj operator) — PDF standard text object</td><td>canvas API raster → PNG embed</td></tr>
+                <tr><td>Preview ↔ PDF position</td><td class="warn">~0.4 pt (0.1mm) micro offset</td><td class="good">Pixel-perfect match</td></tr>
+                <tr><td>Zoom quality</td><td class="good">Infinite (vector)</td><td class="warn">Sharp up to ~300%, blurry beyond</td></tr>
+                <tr><td>Text search (Ctrl+F)</td><td class="good">Yes</td><td class="bad">No</td></tr>
+                <tr><td>Watermark extraction/removal</td><td class="bad">Possible (Adobe Acrobat etc.)</td><td class="good">Not possible (raster, no text object)</td></tr>
+                <tr><td>Screen reader accessibility</td><td class="good">Reads as text</td><td class="warn">Image — not readable</td></tr>
+                <tr><td>File size impact</td><td class="good">+few KB</td><td class="warn">+tens to hundreds of KB</td></tr>
+                <tr><td>Processing speed</td><td class="good">Very fast</td><td class="warn">Slightly slower (canvas + PNG encode)</td></tr>
+              </tbody>
+            </table>
+
+            <div class="wm-mode-detail-grid">
+              <div class="wm-mode-detail">
+                <h4>Vector Mode <span class="badge">Default</span></h4>
+                <ul>
+                  <li class="pos"><b>Pros</b>
+                    <ul>
+                      <li>Infinite zoom without pixelation</li>
+                      <li><code>Ctrl+F</code> can search "CONFIDENTIAL" in PDF viewers</li>
+                      <li>Lightweight — minimal size impact even on multi-page PDFs</li>
+                      <li>Screen reader accessible (good for visually impaired users)</li>
+                    </ul>
+                  </li>
+                  <li class="neg"><b>Cons</b>
+                    <ul>
+                      <li>~0.4pt (0.1mm) position offset vs preview due to typography metric differences — barely visible to the eye</li>
+                      <li>Watermark text object can be selected and deleted in Adobe Acrobat (weak security)</li>
+                    </ul>
+                  </li>
+                  <li><b>Best for</b>
+                    <ul>
+                      <li>General business documents, reports, quotes</li>
+                      <li>Blog / SNS distribution PDFs</li>
+                      <li>Resumes / portfolios (text search matters)</li>
+                      <li>Multi-page or large PDFs (file size priority)</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="wm-mode-detail">
+                <h4>Image Mode <span class="badge">Precise / Secure</span></h4>
+                <ul>
+                  <li class="pos"><b>Pros</b>
+                    <ul>
+                      <li>Same typography rendering pipeline as preview → pixel-perfect match</li>
+                      <li>Watermark is PNG — cannot be extracted, selected, or deleted as text</li>
+                      <li>Strong stamp impression — good for legal evidence, confidential markings</li>
+                    </ul>
+                  </li>
+                  <li class="neg"><b>Cons</b>
+                    <ul>
+                      <li>Antialiasing visible at &gt;300% zoom</li>
+                      <li>File size +tens to hundreds of KB (one PNG per page size)</li>
+                      <li>Ctrl+F text search doesn't work</li>
+                      <li>Screen readers can't read the watermark — WCAG accessibility impact</li>
+                    </ul>
+                  </li>
+                  <li><b>Best for</b>
+                    <ul>
+                      <li>Contracts, NDAs, legal documents (anti-tamper)</li>
+                      <li>Design drafts where visual accuracy matters</li>
+                      <li>Confidential material at risk of competitor exposure</li>
+                      <li>When watermark must align with specific body content</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="wm-mode-tip">
+              <b>💡 Decision guide</b>
+              <p>When in doubt, use <b>Vector (default)</b> — works for most cases. Choose <b>Image</b> when pixel-perfect position with preview matters, or when anti-tamper protection is critical.</p>
+              <p style="margin-top:8px"><b>Compatibility</b>: Both modes work in all standard PDF viewers (Adobe Acrobat, macOS Preview, Chrome PDF, iOS, Android). Note: Image mode watermarks become searchable indirectly if processed through OCR tools.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- Live preview + drag to position -->
+        <div class="wm-preview-wrap" id="wmPreviewWrap" hidden>
+          <div class="wm-preview-title">
+            <span><b>Preview</b> — page 1 of the first PDF</span>
+            <span class="hint">Drag the watermark to position</span>
+          </div>
+          <div class="wm-canvas-frame" id="wmCanvasFrame">
+            <div class="wm-loading" id="wmLoading">Loading PDF preview…</div>
+            <canvas id="wmCanvas" hidden></canvas>
+            <div class="wm-text-overlay" id="wmTextOverlay" tabindex="0" role="button" aria-label="Drag watermark to position (arrow keys for fine-tune)" hidden>CONFIDENTIAL</div>
+          </div>
+          <div class="wm-coord-row">
+            <span>Position (x · y %): <b class="coord-vals" id="wmCoordText">50% · 50%</b></span>
+            <button type="button" id="wmReset">↺ Reset to center</button>
+          </div>
+          <div class="wm-preset-row">
+            <span class="wm-preset-label">Quick position:</span>
+            <div class="wm-preset-grid" id="wmPresetGrid" role="group" aria-label="Watermark 9 preset positions">
+              <button type="button" data-pos="tl" aria-label="Top-left" title="Top-left">↖</button>
+              <button type="button" data-pos="tc" aria-label="Top-center" title="Top-center">↑</button>
+              <button type="button" data-pos="tr" aria-label="Top-right" title="Top-right">↗</button>
+              <button type="button" data-pos="ml" aria-label="Middle-left" title="Middle-left">←</button>
+              <button type="button" data-pos="mc" class="active" aria-label="Center" title="Center">●</button>
+              <button type="button" data-pos="mr" aria-label="Middle-right" title="Middle-right">→</button>
+              <button type="button" data-pos="bl" aria-label="Bottom-left" title="Bottom-left">↙</button>
+              <button type="button" data-pos="bc" aria-label="Bottom-center" title="Bottom-center">↓</button>
+              <button type="button" data-pos="br" aria-label="Bottom-right" title="Bottom-right">↘</button>
+            </div>
           </div>
         </div>
       </div>
@@ -395,6 +587,6 @@
 
   <site-footer></site-footer>
   <script src="/pdf/vendor/pdf-lib.min.js" defer></script>
-  <script src="./pdf-stamp.js" defer></script>
+  <script type="module" src="./pdf-stamp.js?v=1781068128"></script>
 </body>
 </html>

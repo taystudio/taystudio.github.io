@@ -15,6 +15,9 @@ Thumbs.db
 mockup-*.html
 .mockup-*.html
 
+# Sample — 도구 prototype 검토용 (정식 promote 전까지 비공개)
+sample/
+
 # 남편 운영 노트 — 사적 페이지 (noindex, 비공개)
 husband-care/
 husband-care-deploy/
