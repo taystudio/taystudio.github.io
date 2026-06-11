@@ -78,3 +78,6 @@ dist/
 
 # 게임·prototype — TAYSTUDIO 본 사이트와 분리 (별 사이트로 운영 또는 추후 통합 결정)
 games/
+
+# JS 난독화 — 원본 source 는 private backup 만 (난독화된 .js 만 public)
+*.src.js

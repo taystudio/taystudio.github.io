@@ -1,6 +1,15 @@
 {
   "updates": [
     {
+      "date": "2026-06-11",
+      "items_ko": [
+        { "text": "PDF 전자서명 도구 추가 — 자필 서명·텍스트·이미지로 PDF에 서명, 드래그로 위치·크기 조정. 계약서·서약서·민원에", "url": "/pdf/pdf-esign/", "tag": "NEW" }
+      ],
+      "items_en": [
+        { "text": "PDF e-sign tool added — sign PDFs with handwriting, text, or image; drag to position and resize. For contracts, agreements, forms", "url": "/en/pdf/pdf-esign/", "tag": "NEW" }
+      ]
+    },
+    {
       "date": "2026-06-10",
       "items_ko": [
         { "text": "색깔 고르기 도구 추가 — 사진에서 주요 색 8개 자동으로 뽑아내고, 디자인용 색 코드 (Hex·RGB) 자동 변환", "url": "/image/color-picker/", "tag": "NEW" },

@@ -141,6 +141,7 @@
 - [이미지 → PDF](https://taystudios.com/pdf/img-to-pdf/): 다중 이미지 묶음
 - [PDF 암호 설정](https://taystudios.com/pdf/pdf-encrypt/): pdf-lib-plus-encrypt RC4 128
 - [PDF 암호 해제](https://taystudios.com/pdf/pdf-unlock/): 본인 소유 PDF 한정
+- [PDF 전자서명](https://taystudios.com/pdf/pdf-esign/): 자필·텍스트·이미지 서명 드래그 삽입
 
 ## 동영상 도구 (5)
 

@@ -405,6 +405,21 @@ h2 {
   box-shadow: 0 1px 4px rgba(239, 68, 68, 0.3);
   animation: ts-new-pulse 2s ease-in-out infinite;
 }
+/* UPDATE 배지 — 기능 개선 도구. data-update 속성으로 토글 (NEW 보다 차분한 파랑) */
+.tool-card[data-update]::after {
+  content: "UPDATE";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 2px 7px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #06b6d4);
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(37, 99, 235, 0.3);
+}
 @keyframes ts-new-pulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.06); }

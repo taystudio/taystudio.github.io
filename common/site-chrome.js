@@ -396,7 +396,7 @@ const TRANSLATED_PATHS = new Set([
   // PDF (8선 전부)
   '/pdf/',
   '/pdf/pdf-merge/', '/pdf/pdf-split/', '/pdf/pdf-edit/', '/pdf/pdf-to-image/', '/pdf/img-to-pdf/',
-  '/pdf/pdf-stamp/', '/pdf/pdf-encrypt/', '/pdf/pdf-unlock/',
+  '/pdf/pdf-stamp/', '/pdf/pdf-encrypt/', '/pdf/pdf-unlock/', '/pdf/pdf-esign/',
   // Video (5선 전부)
   '/video/',
   '/video/compress/', '/video/trim/', '/video/rotate/', '/video/to-gif/', '/video/to-mp3/',
