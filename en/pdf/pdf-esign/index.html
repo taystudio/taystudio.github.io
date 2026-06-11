@@ -250,7 +250,7 @@
         <div id="pdfRender" style="display:none;">
           <div class="es-page-nav">
             <button id="prevPage">←</button>
-            <span><b id="pageNum">1</b> / <span id="pageCount">1</span></span>
+            <span><input type="number" id="pageNum" value="1" min="1" style="width:48px;padding:3px 6px;border:1px solid var(--border);border-radius:5px;text-align:center;background:var(--card);color:var(--text);font-size:13px;"> / <span id="pageCount">1</span></span>
             <button id="nextPage">→</button>
             <span style="margin-left:auto"><i class="fa-regular fa-hand"></i> Drag the signature · handle to resize</span>
           </div>
@@ -357,6 +357,6 @@
   <site-footer></site-footer>
   <script src="/common/site-chrome.js"></script>
   <script src="/pdf/vendor/pdf-lib.min.js" defer></script>
-  <script type="module" src="./pdf-esign.js?v=1781146289"></script>
+  <script type="module" src="./pdf-esign.js?v=1781147393"></script>
 </body>
 </html>
