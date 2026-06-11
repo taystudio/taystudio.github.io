@@ -130,6 +130,7 @@
 - [EXIF 메타데이터 제거](https://taystudios.com/image/exif-remove/): GPS·날짜·기종
 - [GIF 압축](https://taystudios.com/image/gif-compress/): gifsicle.wasm, 애니메이션 유지
 - [컬러 픽커·팔레트 추출](https://taystudios.com/image/color-picker/): Hex·RGB·HSL·CMYK + 이미지 8색 추출 + WCAG 대비
+- [Favicon 생성기](https://taystudios.com/image/favicon-gen/): 텍스트·이모지·이미지 → 다중 해상도 PNG + manifest·HTML 코드
 
 ## PDF 도구 (8)
 

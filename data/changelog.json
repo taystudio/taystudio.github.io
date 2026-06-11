@@ -3,41 +3,99 @@
     {
       "date": "2026-06-11",
       "items_ko": [
-        { "text": "PDF 전자서명 도구 추가 — 자필 서명·텍스트·이미지로 PDF에 서명, 드래그로 위치·크기 조정. 계약서·서약서·민원에", "url": "/pdf/pdf-esign/", "tag": "NEW" }
+        {
+          "text": "Favicon 생성기 추가 — 텍스트·이모지·이미지로 favicon·PWA 아이콘 다중 해상도 한 번에 + HTML 코드 자동 생성",
+          "url": "/image/favicon-gen/",
+          "tag": "NEW"
+        },
+        {
+          "text": "PDF 전자서명 도구 추가 — 자필 서명·텍스트·이미지로 PDF에 서명, 드래그로 위치·크기 조정. 계약서·서약서·민원에",
+          "url": "/pdf/pdf-esign/",
+          "tag": "NEW"
+        }
       ],
       "items_en": [
-        { "text": "PDF e-sign tool added — sign PDFs with handwriting, text, or image; drag to position and resize. For contracts, agreements, forms", "url": "/en/pdf/pdf-esign/", "tag": "NEW" }
+        {
+          "text": "Favicon generator added — make favicon & PWA icons in all sizes from text/emoji/image + auto HTML code",
+          "url": "/en/image/favicon-gen/",
+          "tag": "NEW"
+        },
+        {
+          "text": "PDF e-sign tool added — sign PDFs with handwriting, text, or image; drag to position and resize. For contracts, agreements, forms",
+          "url": "/en/pdf/pdf-esign/",
+          "tag": "NEW"
+        }
       ]
     },
     {
       "date": "2026-06-10",
       "items_ko": [
-        { "text": "색깔 고르기 도구 추가 — 사진에서 주요 색 8개 자동으로 뽑아내고, 디자인용 색 코드 (Hex·RGB) 자동 변환", "url": "/image/color-picker/", "tag": "NEW" },
-        { "text": "PDF 워터마크 더 정확해짐 — 미리보기에서 본 위치 그대로 PDF 에 박힘 (벡터·이미지 모드 선택 가능)", "url": "/pdf/pdf-stamp/", "tag": "UPDATE" }
+        {
+          "text": "색깔 고르기 도구 추가 — 사진에서 주요 색 8개 자동으로 뽑아내고, 디자인용 색 코드 (Hex·RGB) 자동 변환",
+          "url": "/image/color-picker/",
+          "tag": "NEW"
+        },
+        {
+          "text": "PDF 워터마크 더 정확해짐 — 미리보기에서 본 위치 그대로 PDF 에 박힘 (벡터·이미지 모드 선택 가능)",
+          "url": "/pdf/pdf-stamp/",
+          "tag": "UPDATE"
+        }
       ],
       "items_en": [
-        { "text": "Color picker added — auto-extracts 8 main colors from any photo + converts color codes (Hex·RGB) for designers", "url": "/en/image/color-picker/", "tag": "NEW" },
-        { "text": "PDF watermark is now more precise — appears exactly where you see it in preview (Vector / Image mode)", "url": "/en/pdf/pdf-stamp/", "tag": "UPDATE" }
+        {
+          "text": "Color picker added — auto-extracts 8 main colors from any photo + converts color codes (Hex·RGB) for designers",
+          "url": "/en/image/color-picker/",
+          "tag": "NEW"
+        },
+        {
+          "text": "PDF watermark is now more precise — appears exactly where you see it in preview (Vector / Image mode)",
+          "url": "/en/pdf/pdf-stamp/",
+          "tag": "UPDATE"
+        }
       ]
     },
     {
       "date": "2026-06-07",
       "items_ko": [
-        { "text": "블로그 글 검색 가능 — 키워드 치면 바로 찾아짐", "url": "/blog/ko/", "tag": "NEW" },
-        { "text": "블로그 카테고리 메뉴 정리 + 페이지 오류 화면 깔끔하게 수정", "url": "/blog/ko/", "tag": "UPDATE" }
+        {
+          "text": "블로그 글 검색 가능 — 키워드 치면 바로 찾아짐",
+          "url": "/blog/ko/",
+          "tag": "NEW"
+        },
+        {
+          "text": "블로그 카테고리 메뉴 정리 + 페이지 오류 화면 깔끔하게 수정",
+          "url": "/blog/ko/",
+          "tag": "UPDATE"
+        }
       ],
       "items_en": [
-        { "text": "Blog search added — type keyword to find posts instantly", "url": "/en/blog/", "tag": "NEW" },
-        { "text": "Blog category menu cleaned up + 404 error page redesigned", "url": "/en/blog/", "tag": "UPDATE" }
+        {
+          "text": "Blog search added — type keyword to find posts instantly",
+          "url": "/en/blog/",
+          "tag": "NEW"
+        },
+        {
+          "text": "Blog category menu cleaned up + 404 error page redesigned",
+          "url": "/en/blog/",
+          "tag": "UPDATE"
+        }
       ]
     },
     {
       "date": "2026-06-05",
       "items_ko": [
-        { "text": "GIF (움짤) 용량 줄이기 도구 추가 — 카톡·이메일 첨부 한도 맞춤. 움직이는 GIF 그대로 유지", "url": "/image/gif-compress/", "tag": "NEW" }
+        {
+          "text": "GIF (움짤) 용량 줄이기 도구 추가 — 카톡·이메일 첨부 한도 맞춤. 움직이는 GIF 그대로 유지",
+          "url": "/image/gif-compress/",
+          "tag": "NEW"
+        }
       ],
       "items_en": [
-        { "text": "GIF compressor added — fit messenger/email size limits while keeping animation intact", "url": "/en/image/gif-compress/", "tag": "NEW" }
+        {
+          "text": "GIF compressor added — fit messenger/email size limits while keeping animation intact",
+          "url": "/en/image/gif-compress/",
+          "tag": "NEW"
+        }
       ]
     }
   ]

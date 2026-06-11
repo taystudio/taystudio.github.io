@@ -1012,6 +1012,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/color-picker/"/>
   </url>
   <url>
+    <loc>https://taystudios.com/image/favicon-gen/</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/favicon-gen/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/favicon-gen/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/favicon-gen/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/en/image/favicon-gen/</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/favicon-gen/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/favicon-gen/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/favicon-gen/"/>
+  </url>
+  <url>
     <loc>https://taystudios.com/en/image/color-picker/</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
