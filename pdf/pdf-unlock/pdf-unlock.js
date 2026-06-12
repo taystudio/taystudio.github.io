@@ -1,23 +1,23 @@
 /**
- * PDF 비밀번호 해제 — PDF.js (Mozilla, Apache 2.0) + pdf-lib (Hopding, MIT).
- * 최종 검증: 2026-05-17
+ * PDF 비밀번호 해제 — qpdf (WebAssembly, Apache 2.0) + pdf-lib (페이지 수 표시용).
+ * 최종 검증: 2026-06-12
  *
  * 동작:
  *  1. 암호화된 PDF 1개 등록
  *  2. 사용자가 알고 있는 비밀번호 입력
- *  3. PDF.js getDocument({ password }) 로 비밀번호 검증
- *     - PasswordException(코드 1: 필요, 코드 2: 불일치) → alert
- *  4. 검증 통과 시 pdf-lib PDFDocument.load({ ignoreEncryption: true })
- *     + PDFDocument.create() 에 페이지 복사 → save()
- *     - 두 방식 모두 결과는 암호 없는 PDF. copyPages 방식이 더 깨끗.
- *  5. Blob → 다운로드 링크. 파일명: {original}-unlocked.pdf
+ *  3. qpdf-wasm: callMain(['/in.pdf', '--password=…', '--decrypt', '--', '/out.pdf'])
+ *     - return code 2 또는 stderr "invalid password" → 비밀번호 불일치 alert
+ *     - return code 0 → 무손실 복호화 완료 (텍스트·이미지·링크 전부 보존)
+ *  4. 복호화된 bytes → Blob → 다운로드. 파일명: {original}-unlocked.pdf
  *
- * 글로벌: window.PDFLib (pdf-lib UMD)
- * 모듈 import: pdfjsLib (ESM)
+ * 왜 qpdf인가:
+ *   pdf-lib·PDF.js 는 암호화 PDF 의 콘텐츠를 복호화하지 못한다(렌더링만 가능).
+ *   qpdf 는 실제 복호화 엔진이라 원본 구조를 그대로 보존한 채 암호만 제거한다.
+ *
+ * 모듈 import: createQpdf (ESM) · 글로벌: window.PDFLib (페이지 수 카운트용, 선택)
  */
 
-import * as pdfjsLib from '/pdf/vendor/pdf.min.mjs';
-pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf/vendor/pdf.worker.min.mjs';
+import createQpdf from '/pdf/vendor/qpdf.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -94,6 +94,32 @@ function clearAll() {
   togglePw.setAttribute('aria-pressed', 'false');
 }
 
+// qpdf 모듈 인스턴스는 callMain 1회 실행 후 재사용이 보장되지 않으므로 변환마다 새로 만든다.
+async function runQpdfDecrypt(inputBytes, password) {
+  const stderr = [];
+  const qpdf = await createQpdf({
+    locateFile: () => '/pdf/vendor/qpdf.wasm',
+    print: () => {},
+    printErr: (s) => { stderr.push(String(s)); },
+    noExitRuntime: true
+  });
+  qpdf.FS.writeFile('/in.pdf', inputBytes);
+  let rc;
+  try {
+    rc = qpdf.callMain(['/in.pdf', '--password=' + password, '--decrypt', '--', '/out.pdf']);
+  } catch (e) {
+    // emscripten 은 비정상 종료 시 ExitStatus 를 throw 할 수 있다 → status 코드 회수
+    rc = (e && typeof e.status === 'number') ? e.status : 1;
+  }
+  const err = stderr.join('\n');
+  const badPw = rc === 2 || /invalid password/i.test(err);
+  let out = null;
+  if (!badPw) {
+    try { out = qpdf.FS.readFile('/out.pdf'); } catch (_) { out = null; }
+  }
+  return { rc, err, badPw, out };
+}
+
 async function unlock() {
   if (!currentFile) return;
   const password = passwordInput.value;
@@ -102,82 +128,43 @@ async function unlock() {
     passwordInput.focus();
     return;
   }
-  if (!window.PDFLib) {
-    alert('PDF 라이브러리가 아직 로드되지 않았습니다. 잠시 후 다시 시도하세요.');
-    return;
-  }
 
   unlockBtn.disabled = true;
   const orig = unlockBtn.textContent;
   unlockBtn.textContent = '처리 중...';
   progressWrap.hidden = false;
-  progressFill.style.width = '10%';
-  progressWrap.setAttribute('aria-valuenow', '10');
-  progressText.textContent = '비밀번호 검증 중…';
+  progressFill.style.width = '15%';
+  progressWrap.setAttribute('aria-valuenow', '15');
+  progressText.textContent = '엔진 로드 중…';
 
   try {
     const arrayBuffer = await currentFile.arrayBuffer();
+    const inputBytes = new Uint8Array(arrayBuffer);
 
-    // 1) PDF.js로 비밀번호 검증 (PasswordException으로 불일치 감지)
-    let pdfJsDoc;
-    try {
-      pdfJsDoc = await pdfjsLib.getDocument({
-        data: arrayBuffer.slice(0),
-        password: password
-      }).promise;
-    } catch (err) {
-      // PasswordException 코드: 1=PASSWORD_REQUIRED, 2=PASSWORD_INCORRECT
-      const name = err && err.name;
-      const code = err && err.code;
-      if (name === 'PasswordException' || code === 1 || code === 2) {
-        progressWrap.hidden = true;
-        progressFill.style.width = '0%';
-        alert('비밀번호가 일치하지 않습니다.');
-        passwordInput.focus();
-        passwordInput.select();
-        return;
-      }
-      throw err;
+    progressFill.style.width = '45%';
+    progressWrap.setAttribute('aria-valuenow', '45');
+    progressText.textContent = '비밀번호 검증 및 암호 제거 중…';
+
+    const { badPw, out, err } = await runQpdfDecrypt(inputBytes, password);
+
+    if (badPw) {
+      progressWrap.hidden = true;
+      progressFill.style.width = '0%';
+      alert('비밀번호가 일치하지 않습니다.');
+      passwordInput.focus();
+      passwordInput.select();
+      return;
     }
-
-    const pageCount = pdfJsDoc.numPages;
-    pdfJsDoc.destroy();
-
-    progressFill.style.width = '50%';
-    progressWrap.setAttribute('aria-valuenow', '50');
-    progressText.textContent = '암호 제거 중…';
-
-    // 2) pdf-lib로 암호 없는 새 PDF 생성
-    //    PDF.js가 비밀번호 검증을 통과했으므로 ignoreEncryption 으로 안전하게 로드 가능.
-    //    copyPages로 새 문서 구성 → 암호화 사전·메타데이터 자동 제거.
-    const { PDFDocument } = window.PDFLib;
-    const src = await PDFDocument.load(arrayBuffer, {
-      ignoreEncryption: true,
-      password: password // 최신 pdf-lib는 무시. 폴백용.
-    });
-    const out = await PDFDocument.create();
-    const indices = src.getPageIndices();
-    const pages = await out.copyPages(src, indices);
-    pages.forEach((p) => out.addPage(p));
-
-    // 원본 메타데이터 일부 보존 (제목 등) — 단 권한·암호 비트는 자연히 사라짐
-    try {
-      const title = src.getTitle();
-      const author = src.getAuthor();
-      const subject = src.getSubject();
-      if (title) out.setTitle(title);
-      if (author) out.setAuthor(author);
-      if (subject) out.setSubject(subject);
-    } catch (_) { /* 메타데이터 없을 수 있음 */ }
+    if (!out || out.length === 0) {
+      throw new Error(err || '복호화 결과가 비어 있습니다.');
+    }
 
     progressFill.style.width = '85%';
     progressWrap.setAttribute('aria-valuenow', '85');
     progressText.textContent = '저장 중…';
 
-    const bytes = await out.save();
-
     if (resultUrl) URL.revokeObjectURL(resultUrl);
-    const blob = new Blob([bytes], { type: 'application/pdf' });
+    const blob = new Blob([out], { type: 'application/pdf' });
     resultUrl = URL.createObjectURL(blob);
     downloadBtn.href = resultUrl;
 
@@ -187,7 +174,15 @@ async function unlock() {
       ? window.TayStudio.sanitizeFilename(outName)
       : outName;
 
-    resultPages.textContent = pageCount + '쪽';
+    // 페이지 수 표시 (이미 로드된 pdf-lib 로 카운트, 실패해도 무시)
+    let pageLabel = '';
+    try {
+      if (window.PDFLib) {
+        const doc = await window.PDFLib.PDFDocument.load(out);
+        pageLabel = doc.getPageCount() + '쪽';
+      }
+    } catch (_) { /* 페이지 수 못 세도 다운로드는 정상 */ }
+    resultPages.textContent = pageLabel || '—';
     resultSize.textContent = fmtBytes(blob.size);
 
     progressFill.style.width = '100%';

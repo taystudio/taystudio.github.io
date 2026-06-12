@@ -1,22 +1,24 @@
 /**
- * Remove PDF Password — PDF.js (Mozilla, Apache 2.0) + pdf-lib (Hopding, MIT).
- * Last reviewed: 2026-05-17
+ * PDF Password Remover — qpdf (WebAssembly, Apache 2.0) + pdf-lib (page count display).
+ * Last verified: 2026-06-12
  *
  * Flow:
- *  1. Register a single encrypted PDF
- *  2. User types the password they already know
- *  3. PDF.js getDocument({ password }) verifies the password
- *     - PasswordException (code 1: required, code 2: incorrect) → alert
- *  4. On success, pdf-lib PDFDocument.load({ ignoreEncryption: true })
- *     + PDFDocument.create() copyPages → save() produces a clean PDF
- *  5. Blob → download link. Filename: {original}-unlocked.pdf
+ *  1. Register one encrypted PDF
+ *  2. User enters the password they know
+ *  3. qpdf-wasm: callMain(['/in.pdf', '--password=…', '--decrypt', '--', '/out.pdf'])
+ *     - return code 2 or stderr "invalid password" → wrong-password alert
+ *     - return code 0 → lossless decryption (text, images, links all preserved)
+ *  4. Decrypted bytes → Blob → download. Filename: {original}-unlocked.pdf
  *
- * Globals: window.PDFLib (pdf-lib UMD)
- * Module import: pdfjsLib (ESM)
+ * Why qpdf:
+ *   pdf-lib / PDF.js cannot decrypt encrypted PDF content (rendering only).
+ *   qpdf is a real decryption engine — it removes the password while keeping the
+ *   original structure intact.
+ *
+ * Module import: createQpdf (ESM) · Global: window.PDFLib (for page count, optional)
  */
 
-import * as pdfjsLib from '/pdf/vendor/pdf.min.mjs';
-pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf/vendor/pdf.worker.min.mjs';
+import createQpdf from '/pdf/vendor/qpdf.mjs';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -54,6 +56,7 @@ function updateButtonState() {
   if (actionRow) actionRow.hidden = !has;
   unlockBtn.disabled = !has;
   if (has) {
+    // Auto-focus password input right after a PDF is uploaded
     setTimeout(() => passwordInput.focus(), 50);
   }
 }
@@ -92,6 +95,32 @@ function clearAll() {
   togglePw.setAttribute('aria-pressed', 'false');
 }
 
+// A qpdf module instance is not guaranteed to be reusable after one callMain, so create a fresh one per conversion.
+async function runQpdfDecrypt(inputBytes, password) {
+  const stderr = [];
+  const qpdf = await createQpdf({
+    locateFile: () => '/pdf/vendor/qpdf.wasm',
+    print: () => {},
+    printErr: (s) => { stderr.push(String(s)); },
+    noExitRuntime: true
+  });
+  qpdf.FS.writeFile('/in.pdf', inputBytes);
+  let rc;
+  try {
+    rc = qpdf.callMain(['/in.pdf', '--password=' + password, '--decrypt', '--', '/out.pdf']);
+  } catch (e) {
+    // emscripten may throw ExitStatus on abnormal exit → recover status code
+    rc = (e && typeof e.status === 'number') ? e.status : 1;
+  }
+  const err = stderr.join('\n');
+  const badPw = rc === 2 || /invalid password/i.test(err);
+  let out = null;
+  if (!badPw) {
+    try { out = qpdf.FS.readFile('/out.pdf'); } catch (_) { out = null; }
+  }
+  return { rc, err, badPw, out };
+}
+
 async function unlock() {
   if (!currentFile) return;
   const password = passwordInput.value;
@@ -100,82 +129,43 @@ async function unlock() {
     passwordInput.focus();
     return;
   }
-  if (!window.PDFLib) {
-    alert('PDF library is still loading. Please try again in a moment.');
-    return;
-  }
 
   unlockBtn.disabled = true;
   const orig = unlockBtn.textContent;
   unlockBtn.textContent = 'Processing...';
   progressWrap.hidden = false;
-  progressFill.style.width = '10%';
-  progressWrap.setAttribute('aria-valuenow', '10');
-  progressText.textContent = 'Verifying password…';
+  progressFill.style.width = '15%';
+  progressWrap.setAttribute('aria-valuenow', '15');
+  progressText.textContent = 'Loading engine…';
 
   try {
     const arrayBuffer = await currentFile.arrayBuffer();
+    const inputBytes = new Uint8Array(arrayBuffer);
 
-    // 1) Verify password with PDF.js (PasswordException signals mismatch)
-    let pdfJsDoc;
-    try {
-      pdfJsDoc = await pdfjsLib.getDocument({
-        data: arrayBuffer.slice(0),
-        password: password
-      }).promise;
-    } catch (err) {
-      // PasswordException codes: 1=PASSWORD_REQUIRED, 2=PASSWORD_INCORRECT
-      const name = err && err.name;
-      const code = err && err.code;
-      if (name === 'PasswordException' || code === 1 || code === 2) {
-        progressWrap.hidden = true;
-        progressFill.style.width = '0%';
-        alert('Password does not match.');
-        passwordInput.focus();
-        passwordInput.select();
-        return;
-      }
-      throw err;
+    progressFill.style.width = '45%';
+    progressWrap.setAttribute('aria-valuenow', '45');
+    progressText.textContent = 'Verifying password & stripping encryption…';
+
+    const { badPw, out, err } = await runQpdfDecrypt(inputBytes, password);
+
+    if (badPw) {
+      progressWrap.hidden = true;
+      progressFill.style.width = '0%';
+      alert('Password does not match.');
+      passwordInput.focus();
+      passwordInput.select();
+      return;
     }
-
-    const pageCount = pdfJsDoc.numPages;
-    pdfJsDoc.destroy();
-
-    progressFill.style.width = '50%';
-    progressWrap.setAttribute('aria-valuenow', '50');
-    progressText.textContent = 'Stripping encryption…';
-
-    // 2) Build a clean PDF with pdf-lib.
-    //    PDF.js already verified the password, so ignoreEncryption is safe.
-    //    copyPages into a fresh document drops the encryption dictionary.
-    const { PDFDocument } = window.PDFLib;
-    const src = await PDFDocument.load(arrayBuffer, {
-      ignoreEncryption: true,
-      password: password // newer pdf-lib forks may consume this; harmless otherwise
-    });
-    const out = await PDFDocument.create();
-    const indices = src.getPageIndices();
-    const pages = await out.copyPages(src, indices);
-    pages.forEach((p) => out.addPage(p));
-
-    // Preserve harmless metadata; permission bits are dropped by construction
-    try {
-      const title = src.getTitle();
-      const author = src.getAuthor();
-      const subject = src.getSubject();
-      if (title) out.setTitle(title);
-      if (author) out.setAuthor(author);
-      if (subject) out.setSubject(subject);
-    } catch (_) { /* metadata may be absent */ }
+    if (!out || out.length === 0) {
+      throw new Error(err || 'Decryption produced no output.');
+    }
 
     progressFill.style.width = '85%';
     progressWrap.setAttribute('aria-valuenow', '85');
     progressText.textContent = 'Saving…';
 
-    const bytes = await out.save();
-
     if (resultUrl) URL.revokeObjectURL(resultUrl);
-    const blob = new Blob([bytes], { type: 'application/pdf' });
+    const blob = new Blob([out], { type: 'application/pdf' });
     resultUrl = URL.createObjectURL(blob);
     downloadBtn.href = resultUrl;
 
@@ -185,7 +175,16 @@ async function unlock() {
       ? window.TayStudio.sanitizeFilename(outName)
       : outName;
 
-    resultPages.textContent = pageCount + (pageCount === 1 ? ' page' : ' pages');
+    // Page count display (count with already-loaded pdf-lib, ignore on failure)
+    let pageLabel = '';
+    try {
+      if (window.PDFLib) {
+        const doc = await window.PDFLib.PDFDocument.load(out);
+        const n = doc.getPageCount();
+        pageLabel = n + (n === 1 ? ' page' : ' pages');
+      }
+    } catch (_) { /* download still works without page count */ }
+    resultPages.textContent = pageLabel || '—';
     resultSize.textContent = fmtBytes(blob.size);
 
     progressFill.style.width = '100%';
@@ -237,7 +236,7 @@ togglePw.addEventListener('click', () => {
   }
 });
 
-// Enter triggers unlock
+// Enter key triggers unlock
 passwordInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && !unlockBtn.disabled) { e.preventDefault(); unlock(); }
 });
