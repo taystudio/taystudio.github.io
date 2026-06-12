@@ -1,6 +1,23 @@
 {
   "updates": [
     {
+      "date": "2026-06-12",
+      "items_ko": [
+        {
+          "text": "PDF 비밀번호 해제 도구 개선 — 비밀번호 걸린 PDF의 암호를 확실하게 풀어줍니다. 글자·이미지·링크 모두 그대로 보존",
+          "url": "/pdf/pdf-unlock/",
+          "tag": "UPDATE"
+        }
+      ],
+      "items_en": [
+        {
+          "text": "PDF password remover improved — reliably unlocks password-protected PDFs while keeping text, images, and links fully intact",
+          "url": "/en/pdf/pdf-unlock/",
+          "tag": "UPDATE"
+        }
+      ]
+    },
+    {
       "date": "2026-06-11",
       "items_ko": [
         {
