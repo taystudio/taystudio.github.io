@@ -410,7 +410,7 @@
         <summary>Unicode rules (emoji, CJK, ZWJ-joined)</summary>
         <div class="body">
           <p>Counts in <b>Unicode codepoints</b>. CJK characters (漢 / あ) and standalone emoji (👋) count as 1 each. ZWJ-joined family emoji (<code>👨‍👩‍👧</code> = 5 codepoints) is counted as 5 here — X (Twitter) counts it as 1, so platform-specific behavior may differ.</p>
-          <p>Korean NFC / NFD normalization is auto-applied, so macOS Finder NFD-decomposed jamo doesn't inflate the count.</p>
+          <p>Korean is also counted by codepoint. A precomposed (NFC) syllable like "각" is 1 character, but decomposed (NFD) text — common when copying from macOS Finder — splits each syllable into separate jamo codepoints (ㄱ·ㅏ·ㄱ), so one syllable may count as 2-3. No normalization is applied, so if the count looks higher than expected, your input may be NFD-decomposed — retype it or paste a precomposed version for an accurate count.</p>
         </div>
       </details>
 

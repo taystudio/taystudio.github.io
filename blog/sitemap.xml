@@ -15,20 +15,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/"/>
   </url>
   <url>
-    <loc>https://taystudios.com/blog/ko/tags/</loc>
-    <lastmod>2026-06-15</lastmod>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/tags/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/tags/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/tags/"/>
-  </url>
-  <url>
-    <loc>https://taystudios.com/blog/en/tags/</loc>
-    <lastmod>2026-06-15</lastmod>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/tags/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/tags/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/tags/"/>
-  </url>
-  <url>
     <loc>https://taystudios.com/blog/ko/category/web-dev/</loc>
     <lastmod>2026-06-15</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/"/>
@@ -197,18 +183,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/growth/seo/"/>
   </url>
   <url>
-    <loc>https://taystudios.com/blog/ko/p/2/</loc>
-    <lastmod>2026-06-15</lastmod>
-  </url>
-  <url>
-    <loc>https://taystudios.com/blog/ko/p/3/</loc>
-    <lastmod>2026-06-15</lastmod>
-  </url>
-  <url>
-    <loc>https://taystudios.com/blog/ko/p/4/</loc>
-    <lastmod>2026-06-15</lastmod>
-  </url>
-  <url>
     <loc>https://taystudios.com/blog/ko/analytics-gsc-vs-naver-vs-cloudflare/</loc>
     <lastmod>2026-06-02</lastmod>
   </url>
@@ -355,18 +329,6 @@
   <url>
     <loc>https://taystudios.com/blog/ko/web-performance-measure-curl-sips/</loc>
     <lastmod>2026-05-31</lastmod>
-  </url>
-  <url>
-    <loc>https://taystudios.com/blog/en/p/2/</loc>
-    <lastmod>2026-06-15</lastmod>
-  </url>
-  <url>
-    <loc>https://taystudios.com/blog/en/p/3/</loc>
-    <lastmod>2026-06-15</lastmod>
-  </url>
-  <url>
-    <loc>https://taystudios.com/blog/en/p/4/</loc>
-    <lastmod>2026-06-15</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/analytics-gsc-vs-naver-vs-cloudflare/</loc>
@@ -518,10 +480,6 @@
   </url>
   <url>
     <loc>https://taystudios.com/blog/about/</loc>
-    <lastmod>2026-06-15</lastmod>
-  </url>
-  <url>
-    <loc>https://taystudios.com/blog/guestbook/</loc>
     <lastmod>2026-06-15</lastmod>
   </url>
   <url>

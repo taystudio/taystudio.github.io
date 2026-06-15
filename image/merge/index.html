@@ -294,6 +294,27 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <details>
+        <summary>가로·세로·격자 — 크기가 제각각인 사진을 어떻게 정렬하나</summary>
+        <div class="answer">
+          합치기는 새 캔버스 하나에 사진들을 <code>drawImage</code>로 차례로 그립니다. 정렬 기준은 모드마다 다릅니다. <b>가로</b> 모드는 <b>첫 번째 사진의 높이</b>를 기준선으로 잡고, 나머지 사진은 비율을 유지한 채 그 높이에 맞춰 너비를 다시 계산해 옆으로 이어 붙입니다. <b>세로</b> 모드는 반대로 <b>첫 사진의 너비</b>에 맞춰 각 사진 높이를 비율대로 환산합니다. <b>격자</b> 모드는 첫 사진 크기를 한 칸(셀)으로 삼고, 각 사진을 칸 안에 잘리지 않게 들어가는 최대 크기(contain-fit)로 가운데 배치합니다. 그래서 <b>기준이 되는 첫 사진을 가장 대표적인 비율로 두는 것</b>이 결과 품질에 영향을 줍니다. 칸 사이 간격과 배경색은 빈 영역을 채우는 색입니다.
+        </div>
+      </details>
+      <details>
+        <summary>몇 장까지, 얼마나 큰 결과가 가능한가 (캔버스 한계)</summary>
+        <div class="answer">
+          결과물은 결국 브라우저 캔버스 한 장이고, 캔버스에는 한 변 최대 픽셀 수 한계가 있습니다. 이 도구는 안전 마진을 둔 <b>16,000px</b>를 상한으로 검증합니다. 가로·세로 합치기는 이어 붙인 누적 길이가, 격자는 칸 수×셀 크기가 이 값을 넘으면 합치기를 멈추고 <b>예상 크기와 함께 경고</b>를 띄웁니다(코드에서 직접 계산한 실제 수치). 실제 브라우저 한계는 Chrome·Safari가 약 16,384px, Firefox가 약 11,000px 수준으로 알려져 있어 16,000은 그 아래의 보수적 기준입니다. 특히 고해상도 사진을 세로로 길게 여러 장 이어 붙일 때 누적 높이가 빠르게 한계에 닿으므로, 카톡 대화 캡처처럼 장수가 많은 작업은 미리 각 장을 적당히 줄여두면 안전합니다. 한계에 걸리면 사진 수를 줄이거나, 먼저 리사이즈로 각 사진을 작게 만든 뒤 합치세요.
+        </div>
+      </details>
+      <details>
+        <summary>간격·배경색·순서·출력 포맷 — 결과를 좌우하는 옵션</summary>
+        <div class="answer">
+          기본 모드는 <b>세로(캡처 합본)</b>입니다. 카톡·메신저 대화를 여러 장 찍어 한 장으로 잇는 게 가장 흔한 쓰임이라, 처음 열면 세로 + 간격 0px로 맞춰져 있어 바로 자연스럽게 이어집니다. <b>간격</b>은 0~80px(2px 단위)로 사진 사이를 띄우는 값이고, 그 빈 자리와 격자에서 칸보다 작은 사진의 남는 영역은 <b>배경색</b>으로 채워집니다. 캡처 합본은 흰 배경 + 간격 0이 깔끔하고, 제품 컷 모음 같은 건 간격을 살짝 주고 회색·흰색 배경을 깔면 구분이 잘 됩니다. <b>순서</b>는 파일 목록의 ↑·↓ 버튼으로 바꾸며 미리보기에 즉시 반영되는데, 가로·세로 모드는 정렬 기준이 <b>맨 앞(첫 번째) 사진</b>이므로 가장 대표적인 비율의 사진을 1번에 두면 나머지가 거기에 맞춰져 결과가 안정적입니다. 격자에서는 각 사진이 칸 안에 <b>잘리지 않게(contain-fit) 가운데 정렬</b>되므로, 비율이 다른 사진을 섞어도 잘려나가지 않고 여백으로 채워집니다. 출력은 <b>JPG(품질 0.92)</b> 또는 PNG(무손실) 중 고르며, 사진 위주 합본은 용량이 작은 JPG, 글자·도식이 또렷해야 하는 캡처는 PNG가 유리합니다. 합치기를 누르면 미리보기와 동일한 결과를 즉시 한 장으로 내려받습니다.
+        </div>
+      </details>
+    </section>
+
     <section class="tool-article">
       <h2>관련 도구</h2>
       <div class="related-calc">
@@ -319,6 +340,10 @@
     <section class="sources">
       <h2>참고</h2>
       <div class="updated">최종 검증: 2026-05-10 / 브라우저 native Canvas API 사용 (외부 라이브러리 없음).</div>
+      <ul>
+        <li>Canvas API (<code>drawImage</code>·캔버스 크기 한계) — <a href="https://developer.mozilla.org/ko/docs/Web/API/Canvas_API" rel="nofollow noopener" target="_blank">MDN</a></li>
+        <li><code>CanvasRenderingContext2D.drawImage()</code> — <a href="https://developer.mozilla.org/ko/docs/Web/API/CanvasRenderingContext2D/drawImage" rel="nofollow noopener" target="_blank">MDN</a></li>
+      </ul>
       <div class="note">⚠️ 결과가 너무 크면(20MB+) JPG 출력 + 압축 도구로 추가 정리 권장.</div>
     </section>
 

@@ -41,6 +41,14 @@
   }
   function checkFileSize(file, sizeMB, label) {
     if (!file) return false;
+    if (file.size === 0) {
+      if (isEnglish()) {
+        alert(`${label || 'File'} is empty (0 bytes). Please select a valid file.`);
+      } else {
+        alert(`${label || '파일'}이(가) 비어 있습니다(0바이트). 정상 파일을 선택해주세요.`);
+      }
+      return false;
+    }
     const maxBytes = sizeMB * 1024 * 1024;
     if (file.size > maxBytes) {
       const actualMB = (file.size / 1024 / 1024).toFixed(1);

@@ -102,7 +102,7 @@
           "name": "PDF가 외부 서버로 업로드되나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "전송되지 않습니다. 모든 암호화는 브라우저의 pdf-lib(WebAssembly)에서 이뤄지며, 비밀번호와 PDF 내용 모두 사이트 운영자가 볼 수 없습니다."
+            "text": "전송되지 않습니다. 모든 암호화는 브라우저의 pdf-lib(JavaScript 라이브러리)에서 이뤄지며, 비밀번호와 PDF 내용 모두 사이트 운영자가 볼 수 없습니다."
           }
         },
         {
@@ -213,7 +213,7 @@
 
     <div class="privacy-box">
       <span class="icon" aria-hidden="true">🔒</span>
-      <div><b>PDF 파일과 비밀번호가 외부 서버로 전송되지 않습니다.</b> 모든 암호화는 브라우저 pdf-lib(WebAssembly)에서 처리.</div>
+      <div><b>PDF 파일과 비밀번호가 외부 서버로 전송되지 않습니다.</b> 모든 암호화는 브라우저 pdf-lib(JavaScript 라이브러리)에서 처리.</div>
     </div>
 
     <div class="card">
@@ -373,7 +373,7 @@
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
 
-      <details><summary>PDF와 비밀번호가 외부로 전송되나요?</summary><div class="answer">전송되지 않습니다. 모든 암호화는 <b>브라우저 pdf-lib(WebAssembly)</b>에서. 비밀번호·PDF 내용 모두 사이트 운영자도 볼 수 없습니다.</div></details>
+      <details><summary>PDF와 비밀번호가 외부로 전송되나요?</summary><div class="answer">전송되지 않습니다. 모든 암호화는 <b>브라우저 pdf-lib(JavaScript 라이브러리)</b>에서. 비밀번호·PDF 내용 모두 사이트 운영자도 볼 수 없습니다.</div></details>
       <details><summary>어떤 암호화 방식인가요?</summary><div class="answer"><b>RC4 128-bit</b> (PDF 1.7 표준). Adobe Acrobat·Preview·Chrome PDF 뷰어 등 모든 표준 뷰어와 호환.</div></details>
       <details><summary>비밀번호를 잊으면?</summary><div class="answer">복구 불가. 비밀번호는 브라우저에서만 쓰이고 어디에도 저장되지 않습니다. <b>별도 저장 필수</b>.</div></details>
       <details><summary>사용자 비밀번호와 소유자 비밀번호 차이는?</summary><div class="answer"><b>사용자 비밀번호</b>: PDF 열 때 필요. <b>소유자 비밀번호</b>: 권한 제한 해제 시 필요. 본 도구는 둘 다 같은 비밀번호로 설정.</div></details>
@@ -384,7 +384,7 @@
 
     <section class="sources">
       <h2>참고</h2>
-      <div class="updated">최종 검증: 2026-05-17 / pdf-lib-plus-encrypt (MIT) WebAssembly 기반.</div>
+      <div class="updated">최종 검증: 2026-05-17 / pdf-lib-plus-encrypt (MIT) JavaScript 라이브러리.</div>
       <ul>
         <li>pdf-lib-plus-encrypt (MIT) — <a href="https://github.com/brennanmcquerry/pdf-lib-plus-encrypt" rel="nofollow noopener" target="_blank">GitHub</a></li>
         <li>PDF 1.7 표준 — ISO 32000-1, Section 7.6 Encryption</li>

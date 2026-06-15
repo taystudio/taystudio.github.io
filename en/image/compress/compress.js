@@ -96,19 +96,24 @@ function compress() {
   if (!currentFile || !currentImage || !currentImage.complete) return;
 
   const canvas = document.createElement('canvas');
-  canvas.width = currentImage.naturalWidth;
-  canvas.height = currentImage.naturalHeight;
-  const ctx = canvas.getContext('2d');
-
-  // JPEG doesn't support transparency → fill white first (avoid black background).
-  if (formatSel.value === 'image/jpeg') {
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }
-  ctx.drawImage(currentImage, 0, 0);
-
   const type = formatSel.value;
   const quality = parseFloat(qualityInput.value);
+
+  try {
+    canvas.width = currentImage.naturalWidth;
+    canvas.height = currentImage.naturalHeight;
+    const ctx = canvas.getContext('2d');
+
+    // JPEG doesn't support transparency → fill white first (avoid black background).
+    if (type === 'image/jpeg') {
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    ctx.drawImage(currentImage, 0, 0);
+  } catch (e) {
+    alert('Compression failed. The image may be too large or your browser may be out of memory. Try a smaller image.');
+    return;
+  }
 
   canvas.toBlob((blob) => {
     if (!blob) {

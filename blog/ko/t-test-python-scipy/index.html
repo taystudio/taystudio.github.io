@@ -59,7 +59,7 @@
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#1-python">1. Python 통계 라이브러리</a></li><li class="tb-toc-h3"><a href="#scipy">SciPy</a></li><li class="tb-toc-h3"><a href="#statsmodels">Statsmodels</a></li><li class="tb-toc-h2"><a href="#2-one-sample-t-test-statsttest_1samp">2. One-sample t-test — stats.ttest_1samp</a></li><li class="tb-toc-h3"><a href="#axis-2d">axis 옵션 — 2D 배열일 때</a></li><li class="tb-toc-h2"><a href="#3-two-sample-t-test-statsttest_ind">3. Two-sample t-test — stats.ttest_ind</a></li><li class="tb-toc-h3"><a href="#31-students-t-test-ok">3.1 Student&#39;s t-test — 등분산 가정 OK</a></li><li class="tb-toc-h3"><a href="#axis-2d_1">axis — 2D 배열 비교</a></li><li class="tb-toc-h3"><a href="#32-welchs-t-test-x">3.2 Welch&#39;s t-test — 등분산 X</a></li><li class="tb-toc-h2"><a href="#4-paired-samples-t-test-statsttest_rel">4. Paired-samples t-test — stats.ttest_rel</a></li><li class="tb-toc-h2"><a href="#_1">결론</a></li><li class="tb-toc-h2"><a href="#_2">참고</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#1-python">1. Python 통계 라이브러리</a></li><li class="tb-toc-h3"><a href="#scipy">SciPy</a></li><li class="tb-toc-h3"><a href="#statsmodels">Statsmodels</a></li><li class="tb-toc-h2"><a href="#2-one-sample-t-test-statsttest_1samp">2. One-sample t-test — stats.ttest_1samp</a></li><li class="tb-toc-h3"><a href="#axis-2d">axis 옵션 — 2D 배열일 때</a></li><li class="tb-toc-h2"><a href="#3-two-sample-t-test-statsttest_ind">3. Two-sample t-test — stats.ttest_ind</a></li><li class="tb-toc-h3"><a href="#31-students-t-test-ok">3.1 Student's t-test — 등분산 가정 OK</a></li><li class="tb-toc-h3"><a href="#axis-2d_1">axis — 2D 배열 비교</a></li><li class="tb-toc-h3"><a href="#32-welchs-t-test-x">3.2 Welch's t-test — 등분산 X</a></li><li class="tb-toc-h2"><a href="#4-paired-samples-t-test-statsttest_rel">4. Paired-samples t-test — stats.ttest_rel</a></li><li class="tb-toc-h2"><a href="#_1">결론</a></li><li class="tb-toc-h2"><a href="#_2">참고</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -81,7 +81,7 @@
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
 <p>이론은 이전 글로 다뤘으니, 이 글은 <strong>SciPy로 t검정 3종을 코드로 구현</strong>한다. 손으로 계산한 결과와 SciPy 결과가 일치하는지 확인하면서 가면 이해가 굳어진다.</p>
-<a class="tb-embed-card" href="ko/t-test/"><div class="tb-embed-thumb"><img src="assets/posts/t-test/cover.webp" alt="" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired)</div><div class="tb-embed-excerpt">두 집단 평균이 다른 게 진짜 차이인지 단순 변동성인지 — t검정의 당위성·가정(정규성·등분산성)·종류별 계산 예시.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<a class="tb-embed-card" href="ko/t-test/"><div class="tb-embed-thumb"><img src="assets/posts/t-test/cover.webp" alt="평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired)" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired)</div><div class="tb-embed-excerpt">두 집단 평균이 다른 게 진짜 차이인지 단순 변동성인지 — t검정의 당위성·가정(정규성·등분산성)·종류별 계산 예시.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
 <h2 id="1-python">1. Python 통계 라이브러리</h2>
 <p>Python 생태계의 대표 통계 라이브러리는 <strong>SciPy</strong> 와 <strong>Statsmodels</strong>. (머신러닝 쪽은 <strong>scikit-learn</strong>.)</p>
 <h3 id="scipy">SciPy</h3>

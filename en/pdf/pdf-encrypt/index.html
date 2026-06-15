@@ -102,7 +102,7 @@
           "name": "Are my PDFs or passwords uploaded?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. All encryption runs in your browser via pdf-lib (WebAssembly). Neither the PDF content nor the password leaves your device — the site operator cannot see them."
+            "text": "No. All encryption runs in your browser via pdf-lib (JavaScript library). Neither the PDF content nor the password leaves your device — the site operator cannot see them."
           }
         },
         {
@@ -213,7 +213,7 @@
 
     <div class="privacy-box">
       <span class="icon" aria-hidden="true">🔒</span>
-      <div><b>Your PDF and password never leave your browser.</b> All encryption runs locally via pdf-lib (WebAssembly).</div>
+      <div><b>Your PDF and password never leave your browser.</b> All encryption runs locally via pdf-lib (JavaScript library).</div>
     </div>
 
     <div class="card">
@@ -373,7 +373,7 @@
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">FAQ</h2>
 
-      <details><summary>Are my PDF or password uploaded?</summary><div class="answer">No. All encryption runs in your <b>browser via pdf-lib (WebAssembly)</b>. The PDF content and password never leave your device — the site operator cannot see them.</div></details>
+      <details><summary>Are my PDF or password uploaded?</summary><div class="answer">No. All encryption runs in your <b>browser via pdf-lib (JavaScript library)</b>. The PDF content and password never leave your device — the site operator cannot see them.</div></details>
       <details><summary>What encryption method?</summary><div class="answer"><b>RC4 128-bit</b> (PDF 1.7 standard). Compatible with Adobe Acrobat, Preview, Chrome PDF viewer, and any standards-compliant reader.</div></details>
       <details><summary>What if I lose the password?</summary><div class="answer">Recovery is impossible. The password is used only in the browser and never stored. <b>Store it separately</b> in a password manager.</div></details>
       <details><summary>User vs. owner password?</summary><div class="answer"><b>User password</b>: required to open the PDF. <b>Owner password</b>: required to lift permission restrictions. This tool uses the same value for both.</div></details>
@@ -384,7 +384,7 @@
 
     <section class="sources">
       <h2>References</h2>
-      <div class="updated">Last verified: 2026-05-17 / pdf-lib-plus-encrypt (MIT) WebAssembly.</div>
+      <div class="updated">Last verified: 2026-05-17 / pdf-lib-plus-encrypt (MIT) JavaScript library.</div>
       <ul>
         <li>pdf-lib-plus-encrypt (MIT) — <a href="https://github.com/brennanmcquerry/pdf-lib-plus-encrypt" rel="nofollow noopener" target="_blank">GitHub</a></li>
         <li>PDF 1.7 standard — ISO 32000-1, Section 7.6 Encryption</li>

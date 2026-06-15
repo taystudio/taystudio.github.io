@@ -34,7 +34,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <title>복리 계산기 | 일시투자·월적립 미래가치 즉시</title>
-  <meta name="description" content="일시투자 원금·월 적립금에 복리를 적용해 만기 미래가치를 즉시 계산. 연·월 복리 선택, 총 투자금 대비 수익 배수, 72의 법칙 시각화. 적금·예금·ETF 장기 시뮬레이션. 브라우저 안에서 처리.">
+  <meta name="description" content="일시투자 원금·월 적립금에 월복리를 적용해 만기 미래가치를 즉시 계산. 총 투자금 대비 수익 배수, 72의 법칙 시각화. 적금·예금·ETF 장기 시뮬레이션. 브라우저 안에서 처리.">
   <meta name="keywords" content="복리 계산기, 미래가치, 월 적립, 투자 시뮬레이션">
   <link rel="canonical" href="https://taystudios.com/tools/compound/">
   <link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/compound/">
@@ -92,7 +92,7 @@
           "name": "단리와 복리는 정확히 뭐가 달라요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "단리는 원금에만 이자가 붙고, 복리는 이자에도 이자가 붙습니다. 1억·연 7%·30년 기준 단리는 총 3.1억(원리금), 복리는 약 7.6억으로 4.5억 차이. 기간이 길수록 복리 효과가 폭발적으로 커집니다 (이게 워런 버핏이 말하는 'snowball')."
+            "text": "단리는 원금에만 이자가 붙고, 복리는 이자에도 이자가 붙습니다. 1억·연 7%·30년 기준 단리는 총 3.1억(원리금), 월복리는 약 8.1억으로 5억 차이. 기간이 길수록 복리 효과가 폭발적으로 커집니다 (이게 워런 버핏이 말하는 'snowball')."
           }
         },
         {
@@ -201,7 +201,7 @@
           <li>P = 원금, M = 월 적립금, r = 월이율(연이율 ÷ 12), n = 총 개월수</li>
         </ol>
       </div>
-      <p class="small">엑셀 FV 함수와 동일. 연복리·월복리 모두 위 식으로 통일 (월이율로 변환).</p>
+      <p class="small">엑셀 FV 함수와 동일. 본 계산기는 <b>월복리</b>로 계산합니다 (연이율 ÷ 12를 월이율로 적용, 월 단위 복리). 아래 모든 표·예시도 월복리 기준입니다.</p>
     </section>
 
     <section class="tool-article">
@@ -293,7 +293,7 @@
               <thead><tr><th>구분</th><th>30년 후</th><th>차이</th></tr></thead>
               <tbody>
                 <tr><td>단리 (원금 + 7% × 30년)</td><td>3억 1,000만</td><td>—</td></tr>
-                <tr><td>복리 (1.07<sup>30</sup>)</td><td class="highlight">7억 6,123만</td><td>+4억 5,123만</td></tr>
+                <tr><td>복리 (월복리, 연 7%)</td><td class="highlight">8억 1,165만</td><td>+5억 165만</td></tr>
               </tbody>
             </table>
           </div>
@@ -348,7 +348,7 @@
         <summary>단리와 복리는 정확히 뭐가 달라요?</summary>
         <div class="answer">
           단리는 원금에만 이자가 붙고, 복리는 <b>이자에도 이자가 붙습니다</b>. 1억·연
-          7%·30년 기준 단리는 총 3.1억(원리금), 복리는 약 7.6억으로 4.5억 차이. 기간이
+          7%·30년 기준 단리는 총 3.1억(원리금), 월복리는 약 8.1억으로 5억 차이. 기간이
           길수록 복리 효과가 폭발적으로 커집니다 (이게 워런 버핏이 말하는 'snowball').
         </div>
       </details>

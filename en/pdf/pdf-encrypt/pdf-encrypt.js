@@ -146,6 +146,12 @@
 
   pw1.addEventListener('input', refreshBtnState);
   pw2.addEventListener('input', refreshBtnState);
+  // Enter key triggers encryption (only when enabled)
+  [pw1, pw2].forEach((el) => {
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !encryptBtn.disabled) { e.preventDefault(); encryptPdf(); }
+    });
+  });
   pwShow.addEventListener('change', () => {
     const t = pwShow.checked ? 'text' : 'password';
     pw1.type = t;

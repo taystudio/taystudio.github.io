@@ -370,6 +370,27 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <details>
+        <summary>Position, tile, opacity, rotation — how a watermark is composited</summary>
+        <div class="answer">
+          A watermark composites text or a logo on top of the original pixels with Canvas. <b>Opacity</b> uses <code>globalAlpha</code> (0-1) so the photo shows through. <b>Rotation</b> does <code>translate</code> to the draw point, then <code>rotate</code> (degrees→radians) to tilt the canvas before drawing. <b>Position</b> is a 9-cell grid (corners, edges, center); each cell is computed about 20px inside the edge plus half the watermark size, so nothing clips off-frame. <b>Repeat (tile)</b> walks across and down in steps of the watermark size plus 80px gap, covering the whole image. Text scales by font size; a logo scales its width as a percentage of the photo's width.
+        </div>
+      </details>
+      <details>
+        <summary>Where to use it — copyright marking vs leak tracing</summary>
+        <div class="answer">
+          There are two broad uses. <b>Copyright / attribution</b> puts a nickname, URL or logo somewhere visible but non-obscuring (bottom-right, 50-70% opacity) to mark whose work it is. <b>Leak deterrence / tracing</b> uses a repeating tile crossing the whole image + rotation + low opacity (30-40%), making it hard to crop or erase, often stamping the recipient and date so a leak can be traced back. A watermark doesn't make copying impossible — it raises the cost and effort. For valuable assets, also consider low-resolution publishing or copyright registration (Korea Copyright Commission, <a href="https://www.copyright.or.kr" rel="nofollow noopener" target="_blank">copyright.or.kr</a>).
+        </div>
+      </details>
+      <details>
+        <summary>9-way position, tile spacing, batch — the actual options and coordinates</summary>
+        <div class="answer">
+          Position is chosen from a <b>9-cell grid</b> (top-left, top-center, top-right, mid-left, center, mid-right, bottom-left, bottom-center, bottom-right), and each cell is offset inward by <b>half the watermark size + 20px</b> so the mark never clips at the edge (e.g. bottom-right uses x = <code>w − (watermarkWidth/2 + 20)</code>). With <b>tile (repeat)</b> on, it sweeps the whole image at a stride of <b>the watermark size plus 80px</b> of spacing. <b>Rotation</b> (−45° to +45°) is converted from degrees to radians, and <b>opacity</b> (10-100%) is applied via <code>globalAlpha</code>. Text size is an absolute px value (12-120), while logo size is expressed as a <b>percentage of the photo width</b>, so the same proportion applies consistently across photos of different widths. You position it on the first-photo preview, then apply to <b>all uploaded photos with the same settings at once</b>, with a progress bar showing the count. Duplicate filenames get a suffix like <code>_watermark-2</code> to avoid overwriting, and if one image fails to encode mid-batch the <b>already-succeeded images are preserved</b> and shown. Output is JPG (quality 0.95), PNG or WebP; since <b>JPG has no transparency it is flattened onto a white background</b> to avoid a black backdrop — choose PNG to keep a transparent logo on a transparent background.
+        </div>
+      </details>
+    </section>
+
     <section class="tool-article">
       <h2>Related tools</h2>
       <div class="related-calc">
@@ -397,6 +418,7 @@
       <div class="updated">Last verified: 2026-05-10 / Browser native Canvas API (no external libraries).</div>
       <ul>
         <li>Canvas API — <a href="https://developer.mozilla.org/docs/Web/API/Canvas_API" rel="nofollow noopener" target="_blank">MDN</a></li>
+        <li>Copyright protection guidance — Korea Copyright Commission (<a href="https://www.copyright.or.kr" rel="nofollow noopener" target="_blank">copyright.or.kr</a>)</li>
       </ul>
       <div class="note">⚠️ Watermark deters theft but is not 100% prevention. For valuable assets, also consider low-resolution publishing or copyright registration.</div>
     </section>

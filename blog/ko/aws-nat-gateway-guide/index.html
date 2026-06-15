@@ -162,7 +162,7 @@
 <p>NAT Gateway는 <strong>생성만 해두고 쓰지 않아도</strong> 시간당 약 60원(월 4.5만 원)의 고정비가 무조건 청구된다. 테스트 목적이라면 사용 직후 반드시 삭제하는 습관이 필요하다.</p>
 </blockquote>
 <p>상세한 AWS 요금 체계는 별도 정리한 비용 절감 글을 참고하자.</p>
-<a class="tb-embed-card" href="ko/aws-cost-optimization/"><div class="tb-embed-thumb"><img src="assets/posts/aws-cost-optimization/cover.png" alt="" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</div><div class="tb-embed-excerpt">EC2 아키텍처(x86→ARM/Graviton) 전환만으로 ~20%, ALB·NAT·RDS를 Nginx·NAT 인스턴스·EC2 DB로 직접 구축해 월 운영비를 최대 55%(약 200만 원) 낮춘 실제 견적과 전략.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<a class="tb-embed-card" href="ko/aws-cost-optimization/"><div class="tb-embed-thumb"><img src="assets/posts/aws-cost-optimization/cover.png" alt="[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</div><div class="tb-embed-excerpt">EC2 아키텍처(x86→ARM/Graviton) 전환만으로 ~20%, ALB·NAT·RDS를 Nginx·NAT 인스턴스·EC2 DB로 직접 구축해 월 운영비를 최대 55%(약 200만 원) 낮춘 실제 견적과 전략.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
 <h2 id="4">4. 엔터프라이즈급 비용 최적화 전략</h2>
 <p>단순히 쓰는 법을 넘어, 아키텍처 관점에서 비용을 줄이는 포인트 3가지.</p>
 <ul>
@@ -203,8 +203,8 @@
 </tbody>
 </table></div>
 <p>비용을 아끼고 싶다면, 기존에 구축한 Bastion 서버를 활용해 NAT Instance로 구성하는 방법이 가장 효율적이다. 상세한 구축 과정은 아래 글에서 확인할 수 있다.</p>
-<a class="tb-embed-card" href="ko/nat-instance-build-1/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-1/cover.png" alt="" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)</div><div class="tb-embed-excerpt">NAT Gateway는 월 $32+ 고정비가 든다. 비용을 아끼려 EC2(NAT Instance)로 Private Subnet 인터넷을 연결한 방법 — 1부는 AWS 커뮤니티 AMI(amzn-ami-vpc-nat)를 이용한 구성.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
-<a class="tb-embed-card" href="ko/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)</div><div class="tb-embed-excerpt">1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<a class="tb-embed-card" href="ko/nat-instance-build-1/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-1/cover.png" alt="[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)</div><div class="tb-embed-excerpt">NAT Gateway는 월 $32+ 고정비가 든다. 비용을 아끼려 EC2(NAT Instance)로 Private Subnet 인터넷을 연결한 방법 — 1부는 AWS 커뮤니티 AMI(amzn-ami-vpc-nat)를 이용한 구성.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<a class="tb-embed-card" href="ko/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)</div><div class="tb-embed-excerpt">1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
 <hr />
 <blockquote>
 <p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/34" rel="nofollow noopener">taehyuklee.tistory.com/34</a></p>

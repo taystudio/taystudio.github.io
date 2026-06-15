@@ -275,6 +275,27 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <details>
+        <summary>Mosaic vs blur vs solid black — what happens at the pixel level</summary>
+        <div class="answer">
+          All three apply a different transform to the same box. <b>Mosaic</b> shrinks the selected region by the strength (px) ratio, then scales it back up with no interpolation (<code>imageSmoothingEnabled = false</code>). Each block collapses to one average color, so the original pixel detail is genuinely discarded. <b>Blur</b> uses the Canvas <code>filter: blur(Npx)</code> to weight-average neighboring pixels. Color isn't removed, just smeared between neighbors — so a weak blur (e.g. 2-5px) carries a known risk of text edges re-emerging via a deblur pass. <b>Solid black</b> overwrites the region with <code>#000</code>, so the pixels underneath are not present in the output file.
+        </div>
+      </details>
+      <details>
+        <summary>Which is safest for privacy</summary>
+        <div class="answer">
+          Recovery difficulty roughly ranks <b>solid black &gt; strong mosaic &gt; weak mosaic ≈ weak blur</b>. For low-entropy, fixed-pattern data — ID numbers, account numbers, license plates — weak censoring can be guessed or reconstructed, so prefer <b>solid black</b>. For faces, mosaic 12-20px usually makes identification hard enough. Korea's Personal Information Protection Commission advises masking third-party identifying details when publishing photos/video (<a href="https://www.pipc.go.kr" rel="nofollow noopener" target="_blank">pipc.go.kr</a>). One more thing: censoring only touches visible pixels, so <b>EXIF metadata</b> like capture GPS stays intact. Strip EXIF before uploading to social media.
+        </div>
+      </details>
+      <details>
+        <summary>How strength and region selection actually work</summary>
+        <div class="answer">
+          You mark what to hide by <b>dragging a box on the photo</b> with mouse, touch or pen (unified via Pointer Events). You can draw multiple boxes, each processed independently, and you can <b>mix mosaic, blur and solid black within one photo</b> — each box keeps whichever mode was selected when you drew it. The <b>strength slider, by contrast, is reapplied to everything</b>: move it and all existing boxes are recomputed at the new strength, so you can lay down regions first and dial in strength while watching the result. The strength value (2-80) is fed directly into mosaic as the <b>side length in pixels of one block</b>. At strength 15 the region is crushed into 15px cells, and because interpolation is turned off when building the block (<code>imageSmoothingEnabled = false</code>) a larger value means bigger, coarser cells. In blur mode the same value becomes the <code>blur(Npx)</code> radius. Choosing <b>solid black disables the strength slider</b> automatically (strength is meaningless there). A misdrawn box can be removed one at a time with <b>Undo</b> or cleared all at once, and small areas are easier to draw after <b>zooming in (0.3-3×)</b>. Output is JPG, PNG or WebP; since <b>JPG has no transparency it is flattened onto a white background</b> before encoding at quality 0.95 (so a transparent PNG exported as JPG doesn't come out with a black background). Pick PNG to keep transparency.
+        </div>
+      </details>
+    </section>
+
     <section class="tool-article">
       <h2>Related tools</h2>
       <div class="related-calc">
@@ -298,6 +319,10 @@
     <section class="sources">
       <h2>References</h2>
       <div class="updated">Last verified: 2026-05-10 / Browser native Canvas API + filter (no external libraries).</div>
+      <ul>
+        <li>Canvas API (pixelation / blur filter mechanics) — <a href="https://developer.mozilla.org/docs/Web/API/Canvas_API" rel="nofollow noopener" target="_blank">MDN</a></li>
+        <li>Personal data protection guidance — Korea PIPC (<a href="https://www.pipc.go.kr" rel="nofollow noopener" target="_blank">pipc.go.kr</a>)</li>
+      </ul>
       <div class="note">⚠️ For critical info (ID numbers, account numbers, license plates), use <b>solid black</b>. Mosaic at low strength may be reversed.</div>
     </section>
 

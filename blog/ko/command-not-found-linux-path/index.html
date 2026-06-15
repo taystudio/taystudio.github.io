@@ -90,7 +90,7 @@ bash: ls: command not found
 </code></pre>
 
 <p>이 글에서는 어쩌다 이 문제가 발생했는지, 그리고 어떻게 해결하는지를 살펴본다. (환경변수(PATH) 개념이 처음이라면, Windows에서의 PATH 설정을 다룬 아래 글도 함께 참고하면 좋다.)</p>
-<a class="tb-embed-card" href="ko/python-windows-install-path/"><div class="tb-embed-thumb"><img src="assets/posts/python-windows-install-path/cover.webp" alt="" loading="lazy" width="512" height="179"></div><div class="tb-embed-body"><div class="tb-embed-title">윈도우 Python 설치 + 환경변수(PATH) 설정 — &#39;python&#39; 명령어 인식 안 될 때</div><div class="tb-embed-excerpt">윈도우에서 Python을 설치하고 시스템 환경변수(PATH)에 설치 경로와 Scripts(pip) 경로를 등록해, cmd에서 &#39;python&#39;·&#39;pip&#39;만 입력해도 실행되게 하는 과정. USER/SYSTEM 변수 차이와 pip로 설치한 라이브러리의 site-packages 구조까지 정리.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<a class="tb-embed-card" href="ko/python-windows-install-path/"><div class="tb-embed-thumb"><img src="assets/posts/python-windows-install-path/cover.webp" alt="윈도우 Python 설치 + 환경변수(PATH) 설정 — &#39;python&#39; 명령어 인식 안 될 때" loading="lazy" width="512" height="179"></div><div class="tb-embed-body"><div class="tb-embed-title">윈도우 Python 설치 + 환경변수(PATH) 설정 — &#39;python&#39; 명령어 인식 안 될 때</div><div class="tb-embed-excerpt">윈도우에서 Python을 설치하고 시스템 환경변수(PATH)에 설치 경로와 Scripts(pip) 경로를 등록해, cmd에서 &#39;python&#39;·&#39;pip&#39;만 입력해도 실행되게 하는 과정. USER/SYSTEM 변수 차이와 pip로 설치한 라이브러리의 site-packages 구조까지 정리.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
 <blockquote>
 <p>macOS도 리눅스 계열의 일종이므로, 다른 리눅스(Ubuntu·CentOS)에서도 거의 똑같이 적용된다. 여기서는 macOS(zsh) 기준으로 설명한다.</p>
 </blockquote>
@@ -182,7 +182,7 @@ thlee@MacBookAir ~ % echo $PATH
 <p>앞에 넣어도 되며 탐색 순서만 달라진다. 다만 <strong>뒤에 붙이는 것을 권장</strong>한다. OS는 PATH의 경로를 순서대로 탐색하므로, 기본 명령어가 뒤로 밀릴수록 탐색이 느려질 수 있다.</p>
 <hr />
 <p>같은 OS 설정 카테고리의 Windows 편(CMD 드라이브 이동)도 참고하자.</p>
-<a class="tb-embed-card" href="ko/cmd-change-drive-windows/"><div class="tb-embed-thumb"><img src="assets/posts/cmd-change-drive-windows/cover.webp" alt="" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Windows CMD에서 D드라이브로 이동하는 방법 (cd가 안 될 때)</div><div class="tb-embed-excerpt">Windows CMD에서 cd로는 다른 드라이브로 못 넘어간다. C:에서 D 드라이브로 이동하려면 &#39;D:&#39;를 입력해야 하는 이유 — 드라이브마다 독립 루트를 갖는 Windows 파일시스템과 단일 루트(/)인 Linux의 구조 차이.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<a class="tb-embed-card" href="ko/cmd-change-drive-windows/"><div class="tb-embed-thumb"><img src="assets/posts/cmd-change-drive-windows/cover.webp" alt="Windows CMD에서 D드라이브로 이동하는 방법 (cd가 안 될 때)" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Windows CMD에서 D드라이브로 이동하는 방법 (cd가 안 될 때)</div><div class="tb-embed-excerpt">Windows CMD에서 cd로는 다른 드라이브로 못 넘어간다. C:에서 D 드라이브로 이동하려면 &#39;D:&#39;를 입력해야 하는 이유 — 드라이브마다 독립 루트를 갖는 Windows 파일시스템과 단일 루트(/)인 Linux의 구조 차이.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
 <hr />
 <blockquote>
 <p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/22" rel="nofollow noopener">taehyuklee.tistory.com/22</a></p>

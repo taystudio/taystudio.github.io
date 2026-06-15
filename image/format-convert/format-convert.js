@@ -270,6 +270,8 @@
       newSize.textContent = fmtSize(totalSize);
       result.hidden = false;
       renderGrid();
+    } else {
+      alert('변환에 모두 실패했습니다. 손상된 파일이거나 브라우저가 해당 포맷을 지원하지 않을 수 있습니다. 다른 파일·포맷으로 시도해주세요.');
     }
   });
 

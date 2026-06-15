@@ -294,6 +294,27 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <details>
+        <summary>Horizontal vs vertical vs grid — how mismatched photo sizes get aligned</summary>
+        <div class="answer">
+          Combining draws each photo onto one new canvas with <code>drawImage</code>. The alignment rule differs by mode. <b>Horizontal</b> takes the <b>first photo's height</b> as the baseline and rescales every other photo's width to match that height, keeping aspect ratio, then lays them side by side. <b>Vertical</b> does the opposite — it matches the <b>first photo's width</b> and scales each height proportionally. <b>Grid</b> uses the first photo's size as one cell, then places each photo centered at the largest size that fits inside the cell without cropping (contain-fit). So <b>putting your most representative aspect ratio first</b> affects the result quality. Gap and background color fill the empty space between/around cells.
+        </div>
+      </details>
+      <details>
+        <summary>How many photos, how large a result (canvas limit)</summary>
+        <div class="answer">
+          The output is ultimately a single browser canvas, and canvases cap the maximum pixels per side. This tool validates against a safety-margin cap of <b>16,000px</b>. For horizontal/vertical the stitched cumulative length, and for grid the columns×cell size, must stay under that value — otherwise combining stops and shows a <b>warning with the projected dimensions</b> (computed directly in code). Real browser limits are reportedly ~16,384px on Chrome/Safari and ~11,000px on Firefox, so 16,000 is a conservative line below those. If you hit the cap, reduce the photo count, or resize each photo smaller first, then combine.
+        </div>
+      </details>
+      <details>
+        <summary>Gap, background, order, output format — the options that shape the result</summary>
+        <div class="answer">
+          The default mode is <b>vertical (caption stitch)</b>. Stitching several chat/messenger screenshots into one image is the most common use, so it opens at vertical + gap 0px and joins seamlessly out of the box. <b>Gap</b> is 0-80px (2px steps) of spacing between photos, and that empty space — plus any leftover area in grid cells smaller than the photo — is filled with the <b>background color</b>. A white background with gap 0 looks clean for caption stitches, while a small gap with a gray or white background separates product shots nicely. <b>Order</b> is changed with the ↑/↓ buttons in the file list and updates the preview instantly; since horizontal and vertical modes align to the <b>first photo</b>, putting your most representative aspect ratio at position 1 makes the rest scale to it for a stable result. In grid mode each photo is <b>contain-fit and centered</b> inside its cell, so mixing different aspect ratios pads with background instead of cropping. Output is <b>JPG (quality 0.92)</b> or PNG (lossless): JPG keeps photo-heavy stitches small, while PNG is better for captures where text and diagrams must stay crisp. Pressing combine downloads exactly what the preview shows as one image.
+        </div>
+      </details>
+    </section>
+
     <section class="tool-article">
       <h2>Related tools</h2>
       <div class="related-calc">
@@ -319,6 +340,10 @@
     <section class="sources">
       <h2>References</h2>
       <div class="updated">Last verified: 2026-05-10 / Browser native Canvas API (no external libraries).</div>
+      <ul>
+        <li>Canvas API (<code>drawImage</code> / canvas size limits) — <a href="https://developer.mozilla.org/docs/Web/API/Canvas_API" rel="nofollow noopener" target="_blank">MDN</a></li>
+        <li><code>CanvasRenderingContext2D.drawImage()</code> — <a href="https://developer.mozilla.org/docs/Web/API/CanvasRenderingContext2D/drawImage" rel="nofollow noopener" target="_blank">MDN</a></li>
+      </ul>
       <div class="note">⚠️ If result is large (20MB+), consider JPG output + image compression for upload.</div>
     </section>
 

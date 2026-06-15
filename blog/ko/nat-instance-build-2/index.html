@@ -87,7 +87,7 @@
 <li>iptables로 NAT Instance 직접 구성 — <strong>2부 (이 글)</strong></li>
 </ol>
 <p>1부에서는 AWS 커뮤니티 AMI로 NAT Instance를 구축했다. 하지만 그 AMI는 서비스 종료된 구형 OS라 유지 관리가 어렵다는 단점이 있다. 그래서 2부에서는 <strong>AWS 최신 OS에서 iptables를 조작해 직접 NAT Instance를 구성</strong>한다.</p>
-<a class="tb-embed-card" href="ko/nat-instance-build-1/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-1/cover.png" alt="" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)</div><div class="tb-embed-excerpt">NAT Gateway는 월 $32+ 고정비가 든다. 비용을 아끼려 EC2(NAT Instance)로 Private Subnet 인터넷을 연결한 방법 — 1부는 AWS 커뮤니티 AMI(amzn-ami-vpc-nat)를 이용한 구성.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<a class="tb-embed-card" href="ko/nat-instance-build-1/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-1/cover.png" alt="[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)</div><div class="tb-embed-excerpt">NAT Gateway는 월 $32+ 고정비가 든다. 비용을 아끼려 EC2(NAT Instance)로 Private Subnet 인터넷을 연결한 방법 — 1부는 AWS 커뮤니티 AMI(amzn-ami-vpc-nat)를 이용한 구성.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
 <p>네트워크 개략도는 1부에서 다뤘으니 상황만 짚는다. 사설망(Private Subnet)이 인터넷과 통신하려면 NAT Gateway가 필요하다(Public IP ↔ Private IP 변환, 즉 공유기 역할). AWS NAT Gateway 대신 비용 절감을 위해 NAT Instance를 직접 구축하며, 2부에서는 <strong>NAT 설정이 안 된 기본 OS가 NAT 역할을 하도록</strong> 설정하는 방법을 다룬다.</p>
 <h2 id="nat-instanceec2">NAT Instance(EC2) 구성 방법</h2>
 <h3 id="1-ec2">1. 기본 EC2 생성</h3>

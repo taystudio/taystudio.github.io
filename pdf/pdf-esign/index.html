@@ -34,7 +34,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <title>PDF 전자서명 | 무료 PDF 서명 도구 (그리기·텍스트·이미지)</title>
-  <meta name="description" content="PDF 전자서명 무료 도구. 자필 서명 그리기·텍스트 서명·서명 이미지 삽입을 드래그로 위치·크기 조정. pdf-lib WebAssembly 기반, 계약서·서약서·민원. 외부 업로드 없음, 브라우저 안에서 처리.">
+  <meta name="description" content="PDF 전자서명 무료 도구. 자필 서명 그리기·텍스트 서명·서명 이미지 삽입을 드래그로 위치·크기 조정. pdf-lib JavaScript 라이브러리 기반, 계약서·서약서·민원. 외부 업로드 없음, 브라우저 안에서 처리.">
   <meta name="keywords" content="pdf 전자서명, pdf 서명, pdf 사인, pdf 도장 찍기, 전자 서명 무료, pdf 서명 삽입, pdf esign, 계약서 서명">
   <link rel="canonical" href="https://taystudios.com/pdf/pdf-esign/">
   <link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-esign/">
@@ -92,7 +92,7 @@
         {
           "@type": "Question",
           "name": "PDF가 외부 서버로 업로드되나요?",
-          "acceptedAnswer": { "@type": "Answer", "text": "전송되지 않습니다. 모든 처리는 브라우저의 pdf-lib(WebAssembly)와 pdf.js에서 이뤄지며, 사이트 운영자도 PDF 내용을 볼 수 없습니다." }
+          "acceptedAnswer": { "@type": "Answer", "text": "전송되지 않습니다. 모든 처리는 브라우저의 pdf-lib·pdf.js JavaScript 라이브러리에서 이뤄지며, 사이트 운영자도 PDF 내용을 볼 수 없습니다." }
         },
         {
           "@type": "Question",
@@ -167,7 +167,7 @@
     <p class="lede">PDF에 <b>자필 서명·텍스트 서명·서명 이미지</b>를 삽입하고 드래그로 위치·크기를 조정합니다. 파일은 <b>외부 업로드 없이</b> 브라우저 안에서만 처리됩니다.</p>
 
     <div class="privacy-box" style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--muted);margin:14px 0;">
-      🔒 <b>입력 PDF·서명은 외부로 전송되지 않습니다.</b> pdf-lib·pdf.js (WebAssembly) 로 브라우저 안에서만 처리.
+      🔒 <b>입력 PDF·서명은 외부로 전송되지 않습니다.</b> pdf-lib·pdf.js JavaScript 라이브러리로 브라우저 안에서만 처리.
     </div>
 
     <div class="es-layout">
@@ -318,7 +318,7 @@
 
       <h2>개인정보·보안</h2>
       <ul>
-        <li><b>외부 업로드 없음</b> — PDF와 서명은 사용자 브라우저 메모리에서만 처리됩니다. pdf-lib·pdf.js(WebAssembly)가 클라이언트 사이드로 동작.</li>
+        <li><b>외부 업로드 없음</b> — PDF와 서명은 사용자 브라우저 메모리에서만 처리됩니다. pdf-lib·pdf.js JavaScript 라이브러리가 클라이언트 사이드로 동작.</li>
         <li><b>서버 저장 없음</b> — 운영자도 파일 내용을 볼 수 없습니다. 작업 후 탭을 닫으면 메모리에서 사라집니다.</li>
         <li><b>네트워크 확인</b> — 브라우저 개발자도구의 Network 탭에서 파일 업로드 요청이 없음을 직접 확인할 수 있습니다.</li>
       </ul>
@@ -332,7 +332,7 @@
       </div>
 
       <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
-      <details><summary>PDF가 외부 서버로 업로드되나요?</summary><div class="answer">전송되지 않습니다. <b>브라우저의 pdf-lib·pdf.js(WebAssembly)</b>에서만 처리하며, 운영자도 PDF 내용을 볼 수 없습니다.</div></details>
+      <details><summary>PDF가 외부 서버로 업로드되나요?</summary><div class="answer">전송되지 않습니다. <b>브라우저의 pdf-lib·pdf.js JavaScript 라이브러리</b>에서만 처리하며, 운영자도 PDF 내용을 볼 수 없습니다.</div></details>
       <details><summary>전자서명이 법적 효력이 있나요?</summary><div class="answer">본 도구는 서명 이미지를 PDF에 <b>시각적으로 삽입</b>하는 도구입니다. 공인전자서명(PKI)·타임스탬프 기능은 없습니다. 법적 효력이 중요한 계약은 전자서명 인증 서비스를 권장합니다. 일반 서약서·내부 결재·간단한 동의서에는 충분합니다.</div></details>
       <details><summary>서명을 여러 방식으로 만들 수 있나요?</summary><div class="answer">네. (1) 자필 그리기 (2) 텍스트 입력 (필기체·세리프·고딕) (3) 서명 이미지 업로드 — 3가지를 지원합니다.</div></details>
       <details><summary>위치와 크기를 조정할 수 있나요?</summary><div class="answer">네. PDF 미리보기 위에서 서명을 <b>드래그</b>해 위치를 맞추고, 우하단 <b>모서리 핸들</b>로 크기를 조정합니다. 투명도도 조정 가능합니다.</div></details>
@@ -340,7 +340,7 @@
 
       <section class="sources" style="margin-top:32px;">
         <h2>참고</h2>
-        <div class="updated">최종 검증: 2026-06-11 / pdf-lib (MIT)·pdf.js (Apache 2.0) WebAssembly 라이브러리 사용.</div>
+        <div class="updated">최종 검증: 2026-06-11 / pdf-lib (MIT)·pdf.js (Apache 2.0) JavaScript 라이브러리 사용.</div>
         <ul>
           <li>pdf-lib (MIT) — <a href="https://github.com/Hopding/pdf-lib" rel="nofollow noopener" target="_blank">GitHub</a></li>
           <li>pdf.js (Apache 2.0) — <a href="https://mozilla.github.io/pdf.js/" rel="nofollow noopener" target="_blank">Mozilla</a></li>

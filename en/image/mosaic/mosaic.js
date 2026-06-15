@@ -1,4 +1,4 @@
-// 모자이크/블러 — 박스 그리기 + 픽셀화/블러/검정 처리.
+// Mosaic / blur — draw boxes + pixelate / blur / black-out.
 
 (function () {
   const dropZone = document.getElementById('dropZone');
@@ -27,16 +27,26 @@
   const state = {
     bitmap: null,
     fileName: '',
-    boxes: [],   // { x, y, w, h, mode, strength }  in image coords
+    boxes: [],   // { x, y, w, h, mode }  in image coords
     drawing: null,
-    zoom: 1.0,   // fit-scale 위 배율 (0.3~3.0)
+    zoom: 1.0,   // multiplier on top of fit-scale (0.3~3.0)
   };
+
+  // Drag frame-drop avoidance:
+  //  - committed boxes composited into an offscreen cache (`bakedCanvas`)
+  //  - while dragging, putImage the cache as-is and only stroke the drawing rect
+  //  - invalidateBaked + rebuildBaked only on add/remove/undo/reset/strength/mode change
+  //  - avoids reprocessing N boxes on every pointermove
+  let bakedCanvas = null;
+  let bakedDirty = true;
+  let rafPending = false;
+  let pendingShowDrawing = false;
 
   fileInput.addEventListener('change', () => { if (fileInput.files[0]) loadFile(fileInput.files[0]); fileInput.value = ''; });
   dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
   dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
   dropZone.addEventListener('drop', e => { e.preventDefault(); if (window.TayStudio && TayStudio.rejectFolderDrop(e)) return; dropZone.classList.remove('drag-over'); if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]); });
-  // Ctrl+V 이미지 붙여넣기
+  // Ctrl+V paste image
   if (window.TayStudio && TayStudio.bindPasteImage) {
     TayStudio.bindPasteImage(files => { loadFile(files[0]); });
   }
@@ -50,6 +60,8 @@
   async function loadFile(file) {
     if (!file.type.startsWith('image/')) return;
     if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(file, 100, 'Image')) return;
+    // Explicitly release previous bitmap — prevent memory leak on re-upload
+    if (state.bitmap && state.bitmap.close) state.bitmap.close();
     try {
       state.bitmap = await createImageBitmap(file);
     } catch (e) {
@@ -58,9 +70,26 @@
     }
     state.fileName = file.name;
     state.boxes = [];
+    bakedDirty = true;
     toggleUI(true);
     fitCanvas();
     redraw();
+  }
+
+  function invalidateBaked() { bakedDirty = true; }
+
+  function rebuildBaked() {
+    if (!state.bitmap) return;
+    if (!bakedCanvas) bakedCanvas = document.createElement('canvas');
+    if (bakedCanvas.width !== cv.width || bakedCanvas.height !== cv.height) {
+      bakedCanvas.width = cv.width;
+      bakedCanvas.height = cv.height;
+    }
+    const bctx = bakedCanvas.getContext('2d');
+    bctx.clearRect(0, 0, bakedCanvas.width, bakedCanvas.height);
+    bctx.drawImage(state.bitmap, 0, 0);
+    state.boxes.forEach(b => applyBoxTo(bctx, bakedCanvas, b));
+    bakedDirty = false;
   }
 
   function fitCanvas() {
@@ -104,13 +133,20 @@
   }
 
   modeSel.addEventListener('change', () => {
-    strengthField.style.opacity = modeSel.value === 'black' ? 0.4 : 1;
+    const isBlack = modeSel.value === 'black';
+    strengthField.style.opacity = isBlack ? 0.4 : 1;
+    strengthIn.disabled = isBlack;  // black mode ignores strength → block keyboard/SR
+    // mode change only affects new boxes → existing box results unchanged. No cache invalidate needed.
+  });
+  strengthIn.addEventListener('input', () => {
+    strengthVal.textContent = strengthIn.value;
+    // strength applies retroactively to boxes → invalidate cache and recomposite
+    invalidateBaked();
     redraw();
   });
-  strengthIn.addEventListener('input', () => { strengthVal.textContent = strengthIn.value; redraw(); });
 
-  // Pointer Events로 마우스·터치·펜 통합. setPointerCapture로 캔버스 밖 추적까지 안전.
-  // rect.width = 실제 렌더된 CSS width, cv.width = native pixel. 둘 비율로 정확한 native 좌표 환산.
+  // Pointer Events unify mouse/touch/pen. setPointerCapture keeps tracking outside the canvas.
+  // rect.width = rendered CSS width, cv.width = native pixels. Ratio gives exact native coords.
   function evtPos(e) {
     const rect = cv.getBoundingClientRect();
     const sx = cv.width / rect.width;
@@ -133,14 +169,14 @@
     const p = evtPos(e);
     state.drawing.w = p.x - state.drawing.x;
     state.drawing.h = p.y - state.drawing.y;
-    redraw(true);
+    scheduleRedraw(true);
   }
   function endDraw(e) {
     if (!state.drawing) return;
     e.preventDefault();
     const d = state.drawing;
-    // normalize negative w/h. mode만 박스에 고정(mosaic·blur·black 혼용 가능),
-    // strength는 전역 슬라이더 값을 redraw 시 매번 읽음 → 사후 조정 가능.
+    // normalize negative w/h. Only mode is fixed per box (mosaic/blur/black can be mixed);
+    // strength reads the global slider on each redraw → can be adjusted afterwards.
     const box = {
       x: Math.min(d.x, d.x + d.w),
       y: Math.min(d.y, d.y + d.h),
@@ -148,11 +184,29 @@
       h: Math.abs(d.h),
       mode: modeSel.value,
     };
-    if (box.w > 5 && box.h > 5) {
+    // 5px MIN is in native pixels. At fitScale 0.25 a 20px box the user drew shouldn't be
+    // silently dropped, so convert by screen ratio before comparing. Plus a 1px floor fallback.
+    const rect = cv.getBoundingClientRect();
+    const minNative = Math.max(1, 5 * (cv.width / Math.max(1, rect.width)));
+    if (box.w >= minNative && box.h >= minNative) {
       state.boxes.push(box);
+      invalidateBaked();
     }
     state.drawing = null;
     redraw();
+  }
+
+  // pointermove fires at ~60Hz → throttle with rAF so redraw runs once per frame
+  function scheduleRedraw(showDrawing) {
+    if (showDrawing) pendingShowDrawing = true;
+    if (rafPending) return;
+    rafPending = true;
+    requestAnimationFrame(() => {
+      rafPending = false;
+      const sd = pendingShowDrawing;
+      pendingShowDrawing = false;
+      redraw(sd);
+    });
   }
 
   cv.addEventListener('pointerdown', startDraw);
@@ -162,9 +216,10 @@
 
   function redraw(showDrawing) {
     if (!state.bitmap) return;
+    if (bakedDirty) rebuildBaked();
     const ctx = cv.getContext('2d');
-    ctx.drawImage(state.bitmap, 0, 0);
-    state.boxes.forEach(b => applyBox(ctx, b));
+    // baked = original + all boxes composited. While drawing, putImage as-is and only stroke the drawing rect.
+    ctx.drawImage(bakedCanvas, 0, 0);
     if (showDrawing && state.drawing) {
       ctx.save();
       ctx.strokeStyle = '#2563eb';
@@ -175,16 +230,15 @@
     }
   }
 
-  function applyBox(ctx, box) {
+  // applyBoxTo transforms only the region on the source canvas (baked with original drawn) and redraws it in place.
+  function applyBoxTo(ctx, srcCanvas, box) {
     if (box.mode === 'black') {
       ctx.fillStyle = '#000';
       ctx.fillRect(box.x, box.y, box.w, box.h);
       return;
     }
-    // strength 매번 슬라이더에서 읽음 → 사후 조정 가능
     const strength = parseInt(strengthIn.value, 10);
     if (box.mode === 'mosaic') {
-      // 픽셀화: 영역 → 작은 캔버스 → 다시 큰 캔버스 (smoothing off)
       const px = Math.max(2, Math.round(strength));
       const sw = Math.max(1, Math.floor(box.w / px));
       const sh = Math.max(1, Math.floor(box.h / px));
@@ -192,7 +246,7 @@
       tmp.width = sw; tmp.height = sh;
       const tctx = tmp.getContext('2d');
       tctx.imageSmoothingEnabled = false;
-      tctx.drawImage(cv, box.x, box.y, box.w, box.h, 0, 0, sw, sh);
+      tctx.drawImage(srcCanvas, box.x, box.y, box.w, box.h, 0, 0, sw, sh);
       ctx.save();
       ctx.imageSmoothingEnabled = false;
       ctx.drawImage(tmp, 0, 0, sw, sh, box.x, box.y, box.w, box.h);
@@ -200,29 +254,47 @@
       return;
     }
     if (box.mode === 'blur') {
-      // 가우시안: filter blur(N) 적용 + 영역만 클리핑
       const tmp = document.createElement('canvas');
       tmp.width = box.w; tmp.height = box.h;
       const tctx = tmp.getContext('2d');
       tctx.filter = `blur(${strength}px)`;
-      tctx.drawImage(cv, box.x, box.y, box.w, box.h, 0, 0, box.w, box.h);
+      tctx.drawImage(srcCanvas, box.x, box.y, box.w, box.h, 0, 0, box.w, box.h);
       ctx.drawImage(tmp, box.x, box.y);
     }
   }
 
-  undoBtn.addEventListener('click', () => { state.boxes.pop(); redraw(); });
-  resetBtn.addEventListener('click', () => { state.boxes = []; redraw(); });
+  undoBtn.addEventListener('click', () => { state.boxes.pop(); invalidateBaked(); redraw(); });
+  resetBtn.addEventListener('click', () => { state.boxes = []; invalidateBaked(); redraw(); });
   downloadBtn.addEventListener('click', () => {
     const fmtSel = document.getElementById('mosaicFormat');
     const outMime = (fmtSel && fmtSel.value) || 'image/jpeg';
     const outExt = outMime === 'image/png' ? 'png' : outMime === 'image/webp' ? 'webp' : 'jpg';
     const outQuality = outMime === 'image/png' ? undefined : 0.95;
-    cv.toBlob(blob => {
+    // encode baked as-is so the drawing rect isn't included
+    if (bakedDirty) rebuildBaked();
+    const exportSrc = bakedCanvas || cv;
+    // JPG output has no alpha → fill white background
+    let encodeSrc = exportSrc;
+    if (outMime === 'image/jpeg') {
+      const tmp = document.createElement('canvas');
+      tmp.width = exportSrc.width; tmp.height = exportSrc.height;
+      const tctx = tmp.getContext('2d');
+      tctx.fillStyle = '#ffffff';
+      tctx.fillRect(0, 0, tmp.width, tmp.height);
+      tctx.drawImage(exportSrc, 0, 0);
+      encodeSrc = tmp;
+    }
+    encodeSrc.toBlob(blob => {
+      if (!blob) {
+        alert('Failed to create download — your browser may not support this format, or it may be out of memory. Try a different format.');
+        return;
+      }
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
       const base = state.fileName.replace(/\.[^.]+$/, '');
-      a.download = `${base}_mosaic.${outExt}`;
+      const name = `${base}_mosaic.${outExt}`;
+      a.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(name) : name);
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     }, outMime, outQuality);
@@ -232,6 +304,7 @@
     state.bitmap = null;
     state.boxes = [];
     state.fileName = '';
+    bakedDirty = true;
     toggleUI(false);
   });
 })();

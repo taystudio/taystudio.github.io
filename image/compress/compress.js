@@ -100,19 +100,24 @@ function compress() {
   if (!currentFile || !currentImage || !currentImage.complete) return;
 
   const canvas = document.createElement('canvas');
-  canvas.width = currentImage.naturalWidth;
-  canvas.height = currentImage.naturalHeight;
-  const ctx = canvas.getContext('2d');
-
-  // JPEG는 투명 미지원 → 흰 배경으로 채움 (검은 배경 방지)
-  if (formatSel.value === 'image/jpeg') {
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }
-  ctx.drawImage(currentImage, 0, 0);
-
   const type = formatSel.value;
   const quality = parseFloat(qualityInput.value);
+
+  try {
+    canvas.width = currentImage.naturalWidth;
+    canvas.height = currentImage.naturalHeight;
+    const ctx = canvas.getContext('2d');
+
+    // JPEG는 투명 미지원 → 흰 배경으로 채움 (검은 배경 방지)
+    if (type === 'image/jpeg') {
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    ctx.drawImage(currentImage, 0, 0);
+  } catch (e) {
+    alert('압축 실패. 이미지가 너무 크거나 브라우저 메모리가 부족할 수 있습니다. 더 작은 이미지로 시도해주세요.');
+    return;
+  }
 
   canvas.toBlob((blob) => {
     if (!blob) {

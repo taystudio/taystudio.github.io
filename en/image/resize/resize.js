@@ -187,22 +187,26 @@ function doResize() {
   if (!dims) return;
 
   const canvas = document.createElement('canvas');
-  canvas.width = dims.w;
-  canvas.height = dims.h;
-  const ctx = canvas.getContext('2d');
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = 'high';
-
   const type = effectiveOutputType();
-
-  if (type === 'image/jpeg') {
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }
-  ctx.drawImage(currentImage, 0, 0, dims.w, dims.h);
-
   const lossy = (type === 'image/jpeg' || type === 'image/webp');
   const quality = lossy ? parseFloat(qualityInput.value) : undefined;
+
+  try {
+    canvas.width = dims.w;
+    canvas.height = dims.h;
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    if (type === 'image/jpeg') {
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    ctx.drawImage(currentImage, 0, 0, dims.w, dims.h);
+  } catch (e) {
+    alert('Resize failed. The image may be too large or your browser may be out of memory. Try a smaller size.');
+    return;
+  }
 
   canvas.toBlob((blob) => {
     if (!blob) {

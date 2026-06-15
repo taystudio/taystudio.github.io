@@ -185,6 +185,48 @@
       <p class="small">Either order works — the result shows total days regardless of date order, plus a today-vs-target badge.</p>
     </section>
 
+    <section class="disclosure-group">
+      <h2>Why the Same Date Shows a Different D-Day in Different Apps</h2>
+      <details>
+        <summary>"Counting the start day" vs not — where the off-by-one comes from</summary>
+        <div class="answer">
+          The most common one-day mismatch comes from whether the start date counts as day 1.
+          Some calendars treat the first day as "day 1" (start inclusive); others count only the
+          pure gap between two dates. This tool uses the <b>pure difference</b> — for example,
+          June 1 and June 2 return 1 day. If you want the start day included (like "day we met = day 1"),
+          just add 1 to the result.
+        </div>
+      </details>
+      <details>
+        <summary>Why the result doesn't drift when times are involved</summary>
+        <div class="answer">
+          Even though you enter dates only, both dates are internally <b>normalized to midnight (00:00)</b>
+          before the difference is computed. So whether it's morning or late night, the same two dates
+          always return the same day count. The "today vs target" badge (D-N / D-Day / D+N) is also
+          measured from today's midnight to the target, so it never gets cut off into a ±1 wobble.
+        </div>
+      </details>
+      <details>
+        <summary>Why months and years are labeled "avg"</summary>
+        <div class="answer">
+          Weeks divide cleanly by 7 ("X weeks Y days"), but months and years don't — month lengths
+          vary and leap years exist. So months use an average of ~30 days and years ~365 days, shown
+          as an <b>approximation</b>. It's for a rough sense ("about 6 months"). If you need the exact
+          "same date N months later," pick that calendar day directly and re-enter the two dates.
+        </div>
+      </details>
+      <details>
+        <summary>Does it handle lunar-calendar anniversaries?</summary>
+        <div class="answer">
+          No. This tool counts the difference between two dates on the <b>Gregorian calendar</b> only.
+          A lunar-calendar date falls on a different Gregorian date each year, so entering it directly
+          won't line up. To track a lunar anniversary, first find this year's <b>Gregorian date</b> for
+          it and enter that as the target. Ranges that span a leap day (Feb 29) correctly include that day.
+        </div>
+      </details>
+      <p class="small">Calculation is Gregorian, JavaScript Date based. Start-inclusive counting and lunar conversion are manual adjustments as described above.</p>
+    </section>
+
     <section class="tool-article">
       <h2>Related Calculators</h2>
       <div class="related-calc">

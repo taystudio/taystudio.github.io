@@ -59,7 +59,7 @@
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#nat-instance">글의 개요 — NAT Instance 구성 (비용 절감)</a></li><li class="tb-toc-h2"><a href="#nat-gateway-nat-instance">NAT Gateway &amp;amp; NAT Instance?</a></li><li class="tb-toc-h2"><a href="#1-aws-ami">방법 1. AWS 커뮤니티 제공 AMI 이용</a></li><li class="tb-toc-h3"><a href="#1-ami-nat-instance">1) AMI로 NAT Instance 생성</a></li><li class="tb-toc-h3"><a href="#2-private-subnet-nat-instance">2) Private Subnet 라우팅 &amp;amp; NAT Instance 콘솔 설정</a></li><li class="tb-toc-h2"><a href="#nat-instance_1">NAT Instance 구축 결과</a></li><li class="tb-toc-h2"><a href="#_1">맺음말</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#nat-instance">글의 개요 — NAT Instance 구성 (비용 절감)</a></li><li class="tb-toc-h2"><a href="#nat-gateway-nat-instance">NAT Gateway &amp; NAT Instance?</a></li><li class="tb-toc-h2"><a href="#1-aws-ami">방법 1. AWS 커뮤니티 제공 AMI 이용</a></li><li class="tb-toc-h3"><a href="#1-ami-nat-instance">1) AMI로 NAT Instance 생성</a></li><li class="tb-toc-h3"><a href="#2-private-subnet-nat-instance">2) Private Subnet 라우팅 &amp; NAT Instance 콘솔 설정</a></li><li class="tb-toc-h2"><a href="#nat-instance_1">NAT Instance 구축 결과</a></li><li class="tb-toc-h2"><a href="#_1">맺음말</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -87,7 +87,7 @@
 <li>IP-tables로 NAT Instance 직접 구성 — 2부</li>
 </ol>
 <p>이번 1부에서는 AWS 커뮤니티에서 제공되는 NAT Instance AMI를 이용한다. IP-Tables로 직접 NAT Instance를 구성하려면 2부를 참고하면 된다.</p>
-<a class="tb-embed-card" href="ko/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)</div><div class="tb-embed-excerpt">1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<a class="tb-embed-card" href="ko/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)</div><div class="tb-embed-excerpt">1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
 <h2 id="nat-gateway-nat-instance">NAT Gateway &amp; NAT Instance?</h2>
 <p>AWS에서 네트워크·애플리케이션 아키텍처 구성을 맡으며 그린 네트워크 구성도는 아래와 같다.</p>
 <p><img alt="NAT Gateway 대신 NAT Instance(EC2)를 이용한 Private Subnet 인터넷 연결 아키텍처" src="assets/posts/nat-instance-build-1/img1.webp" width="1600" height="904" loading="lazy">
@@ -152,7 +152,7 @@
 <h2 id="_1">맺음말</h2>
 <p>AWS 커뮤니티의 NAT 인스턴스용 AMI를 쓰면 별다른 설정 없이 NAT 인스턴스를 구축할 수 있다. 하지만 이 AMI는 <strong>오래된 OS 버전</strong>을 쓰고 <strong>서비스 종료(EOS)</strong> 상태다. 패키지 수동 다운로드 시 필요한 파일을 찾기 어렵고 지원 사이트도 제한적이라, 유지 관리가 매우 힘들고 NAT 기능 외 다른 용도로 쓰기 어렵다.</p>
 <p>나는 NAT 인스턴스를 Reverse Proxy 서버로도 쓰려 했기에 OS 버전 관리가 중요하다. 최소한 HTTPS를 위한 인증서 패키지가 제공돼야 하는데 위 AMI는 이를 지원하지 않았다. 그래서 <strong>2부에서는 AWS 최신 OS 기반으로 직접 NAT 인스턴스를 구축</strong>하는 방법을 다룬다.</p>
-<a class="tb-embed-card" href="ko/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)</div><div class="tb-embed-excerpt">1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<a class="tb-embed-card" href="ko/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)</div><div class="tb-embed-excerpt">1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
 <hr />
 <blockquote>
 <p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/27" rel="nofollow noopener">taehyuklee.tistory.com/27</a></p>

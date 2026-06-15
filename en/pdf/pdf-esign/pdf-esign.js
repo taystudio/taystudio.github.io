@@ -1,1 +1,248 @@
-const a0u=a0b;function a0a(){const U=['Aw1Hz2uVCg5N','y2XPy2S','BgLUzuPVAw4','zw1WDhLtDgf0zq','BNvTugfNzxm','zMLSBfn0EwXL','zg93BMXVywq','BgLUzvDPzhrO','io2oMoYDToYNGa','y2HHBMDL','ywrK','nJy2mtu2qLHWsxbW','zgLZywjSzwq','C3rYB2TL','BgvMDa','7yg066AT7zwy66M0ioYeNoUQHEUqNcbqreyG64UK7jQ066gC65oC','CgrMqNL0zxm','Bw92zvrV','A2v5zg93BG','lNbKzG','z2v0sw1Hz2veyxrH','yxjYyxLcDwzMzxi','C3r5Bgu','uergtgLI','uergicSG7isC66QfioUrMcdRI6qG7ksa67Me65cy66M0io2zNoYeSE2zLa','iZfHmweXyq','zgf0yq','BwLKzgXL','Bwf4','mJrWDufstuq','Cg9PBNrLCMrVD24','Dg9W','uergio2mJoYDVoYDHcdSHkdTG53TLBtSO7ZSHlJSMPqU','zgf0yxnLDa','Cg9PBNrLCMXLyxzL','yxbWBgLJyxrPB24VCgrM','mtCZntKXmu53B2nOAW','mty2mdHoue1UANO','DhLWzq','zM9YrwfJAa','BwvHC3vYzvrLEhq','l3bKzI92zw5KB3iVCgrMlNDVCMTLCI5TAw4UBwPZ','z2v0u2L6zq','C3rYB2TLu3r5Bgu','CMv2B2TLt2jQzwn0vvjm','ywrKrxzLBNrmAxn0zw5LCG','mZi3mZzmBxfkCfi','D2LKDgG','C2LNq2XLyxjcDg4','BwvZC2fNzq','y2vPBa','zw1IzwrqBMC','odyWotu2men3yMDpzW','Cg9PBNrLCNvW','B25SB2fK','zhjHD0LTywDL','C2XPy2u','CgfNzu51Bq','mtaXnxjHyufjCq','7j2066Ae7j2eioYEHEUGPE2vToYJVoYeUoYALc4','rhjHDW','zg93BMXVywrcDg4','uerg66w8ioYxTcdSIjGG7jEg7iQ164Ui64UKlIdSHPdSG4hRKjJSL4JQSBdRGPGG7jwu7zI466gCioUZTo2yUoUqNcdTJiZSNBZSNBWG7iIyioYEIoYkTEUlIoUlPc4','B25PBNb1Da','CxvLCNLtzwXLy3rVCKfSBa','mtq0mJe1mLvXzKjIsG','C2LNv3jHCa','AgfZlwrYyxDPBMC','ywn0AxzL','zM9UDa','zMLSBfrLEhq','BM9Uzq','ChGG','CMvZDwX0','Cg9PBNrLCKLK','mtyWDhLRCeXX','ChjLDMvUDerLzMf1Bhq','rw50zxi','C2LNrgf0yvvYBa','C2LNu2nHBgu','CgrMsw5MBW','DMfSDwu','z2v0rg9JDw1LBNq','y3vYCMvUDfbHz2u','y2XPzw50wa','7isC66QfioYcVEYEHsdSPjeG7jIK66wy6RcaioUWNoYdNE2wIoYkTEUlIoUlPdOG','CgrMuMvUzgvY','C2LNt3bHy2L0Eq','CgfNzunVDw50','y2fUDMfZ','C2LNsgfUzgXLqLi','ChjVBwLZzq','y2XPzw50sgvPz2H0','yMX1CG','mtG3nJm2swjRz0Pj','CgrMq2fUDMfZ','BgLUzunHCa','D29YA2vYu3jJ','DgfI','CMvTB3zL','y2XPzw50wq','sw1Hz2u','y2XHC3nmAxn0','C2LNvgv4DfnPEMu','zMLSzxm','7isC66Qf7j2eioUOVoYGGcdQT7JROktSO7ZSHlJSMPqU','imk3ia','r2XVyMfSv29YA2vYt3b0Aw9UCW','CM91BMq','ChjLDLbHz2u','A2v5','Cg9PBNrLCM1VDMu','DgfYz2v0','z2v0vMLLD3bVCNq','CgfNzunHBNzHCW','BgvUz3rO','AhjLzG','CgrMrg9J','yMfZzq','DhjPBq','ouPMC3nuuq','y3jLyxrLrwXLBwvUDa','C2LNvxnLqNrU','Dgv4DenVBNrLBNq','C2LNvhLWzvvZzuj0BG','lMvZlxrHyNmGyNv0Dg9U','nta2AxDpBhDO','C2LNug9Z','C2v0ug9PBNrLCKnHChr1CMu','Bg9Hza','z2v0rwXLBwvUDej5swq','zhjHz2DPBMC','Dg9mB3DLCKnHC2u','BwLU','Dg9eyxrHvvjm','B25JBgLJAW','y2XPzw50v2LKDgG','z2v0ugfNzq','y2XLyxjszwn0','C2LNrM9UDa','z2v0qM91BMrPBMDdBgLLBNrszwn0','B3bHy2L0Eq','Dgv4DejHC2vSAw5L','C2LNsw1Hz2vjBNb1Da','BMfTzq','z2v0q29UDgv4Da','C2LNBMvKlNbKzG','yMvNAw5qyxrO','zw5KC1DPDgG','B25JAgfUz2u','CMvHzefZrgf0yvvsta','BMv4DfbHz2u','AgvPz2H0','C2LNt3zLCMXHEq','vhLWzq','C2f2zq','zgLZCgXHEq','C3rVCfbYB3bHz2f0Aw9U'];a0a=function(){return U;};return a0a();}(function(a,b){const t=a0b,c=a();while(!![]){try{const d=-parseInt(t(0xf1))/0x1*(-parseInt(t(0x187))/0x2)+-parseInt(t(0xf0))/0x3+-parseInt(t(0x12a))/0x4*(parseInt(t(0x117))/0x5)+parseInt(t(0xfa))/0x6*(parseInt(t(0x106))/0x7)+parseInt(t(0x10d))/0x8*(parseInt(t(0x144))/0x9)+-parseInt(t(0x100))/0xa+parseInt(t(0x14a))/0xb*(parseInt(t(0x175))/0xc);if(d===b)break;else c['push'](c['shift']());}catch(e){c['push'](c['shift']());}}}(a0a,0xbf4f2));import*as a0c from'/pdf/vendor/pdf.min.mjs';a0c[a0u(0x137)][a0u(0x12d)]=a0u(0xf5);const $=a=>document[a0u(0x14e)](a);let state={'pdfBytes':null,'pdfDoc':null,'currentPage':0x1,'pageCount':0x1,'pageCanvas':null,'sigDataUrl':null,'sigPos':{'x':0.5,'y':0.7},'sigScale':0x28};const sigCanvas=$('sigCanvas'),sigCtx=sigCanvas['getContext']('2d');sigCtx[a0u(0xf7)]=a0u(0x183),sigCtx[a0u(0x171)]=0x4,sigCtx[a0u(0x12c)]=a0u(0x138),sigCtx[a0u(0x16c)]=a0u(0x138);let drawing=![];function getXY(a){const v=a0u,b=sigCanvas[v(0x158)](),c=((a[v(0x120)]??a['touches']?.[0x0]?.[v(0x120)])-b[v(0x178)])*(sigCanvas[v(0xfb)]/b[v(0xfb)]),d=((a[v(0x130)]??a['touches']?.[0x0]?.[v(0x130)])-b[v(0xeb)])*(sigCanvas[v(0x164)]/b[v(0x164)]);return[c,d];}function dStart(a){const w=a0u;a['preventDefault'](),drawing=!![];const [b,c]=getXY(a);sigCtx[w(0x15f)](),sigCtx[w(0x17b)](b,c),$(w(0x10e))[w(0x132)][w(0x174)]('has-drawing');}function dMove(a){const x=a0u;if(!drawing)return;a['preventDefault']();const [b,c]=getXY(a);sigCtx['lineTo'](b,c),sigCtx[x(0x177)]();}function dEnd(){drawing=![];}sigCanvas[a0u(0xf9)](a0u(0x188),dStart),sigCanvas[a0u(0xf9)](a0u(0x13b),dMove),sigCanvas[a0u(0xf9)](a0u(0x101),dEnd),sigCanvas[a0u(0xf9)](a0u(0xee),dEnd),$(a0u(0xfc))['onclick']=()=>{const y=a0u;sigCtx[y(0x156)](0x0,0x0,sigCanvas[y(0xfb)],sigCanvas[y(0x164)]),$(y(0x10e))['classList'][y(0x12f)](y(0x10f));},$(a0u(0x146))['onclick']=()=>{const z=a0u,a=sigCtx[z(0x17e)](0x0,0x0,sigCanvas[z(0xfb)],sigCanvas[z(0x164)]);let b=![];for(let c=0x3;c<a['data'][z(0x13f)];c+=0x4)if(a[z(0x184)][c]>0x0){b=!![];break;}if(!b){alert(z(0x135));return;}state[z(0x11a)]=sigCanvas[z(0x152)]('image/png'),showSigOverlay();},$(a0u(0x148))[a0u(0x153)]=()=>{const A=a0u,a=$('sigTextInput')[A(0x11d)][A(0x143)]();if(!a){alert(A(0x107));return;}const b=$(A(0x157))[A(0x11d)],d=+$(A(0x133))[A(0x11d)],e=document[A(0x145)](A(0x125));let f=e[A(0x15d)]('2d');f[A(0x111)]=d+A(0x114)+b;const g=Math[A(0xfe)](f[A(0xf4)](a)[A(0xfb)])+0x28,i=Math[A(0xfe)](d*1.6);e[A(0xfb)]=g,e[A(0x164)]=i,f=e[A(0x15d)]('2d'),f[A(0x111)]=d+A(0x114)+b,f[A(0x16f)]=A(0x183),f[A(0x15a)]=A(0x185),f[A(0x112)](a,0x14,i/0x2),state[A(0x11a)]=e['toDataURL'](A(0x16a)),showSigOverlay();},$(a0u(0x15b))[a0u(0x161)]=a=>{const B=a0u,b=a[B(0x13c)][B(0x134)][0x0];if(!b)return;const c=new FileReader();c[B(0x102)]=d=>{const C=B;state[C(0x11a)]=d['target'][C(0x115)],showSigOverlay();},c[B(0x162)](b);},document[a0u(0x10c)]('.es-tabs\x20button')[a0u(0xf3)](a=>{a['onclick']=()=>{const D=a0b;document[D(0x10c)](D(0x149))[D(0xf3)](c=>c['classList'][D(0x12f)](D(0x110))),a['classList'][D(0x174)](D(0x110)),[D(0x108),D(0x166),D(0x131)][D(0xf3)](c=>$(D(0x12e)+c)[D(0x180)][D(0x168)]=c['toLowerCase']()===a[D(0xed)][D(0x12e)]?'':'none');};}),$('pdfInput')[a0u(0x161)]=async a=>{const E=a0u,b=a[E(0x13c)][E(0x134)][0x0];if(!b)return;if(b[E(0xf2)]!==E(0xef)&&!b['name'][E(0x150)]()[E(0x160)](E(0x17d))){alert(E(0xec));return;}try{state[E(0x17a)]=await b[E(0x17f)](),state['pdfDoc']=await a0c[E(0x11e)]({'data':state['pdfBytes'][E(0x104)](0x0)})[E(0x127)],state[E(0x124)]=state[E(0x141)][E(0x16e)],state[E(0x11f)]=0x1,$(E(0x16d))[E(0x180)]['display']=E(0x113),$(E(0x122))[E(0x180)][E(0x168)]='',$(E(0x11c))[E(0x147)]=b[E(0x15c)]+E(0x136)+state[E(0x124)]+E(0x172),$('pageCount')[E(0x147)]=state[E(0x124)],await renderPage();}catch(c){alert(E(0x10a));}};function a0b(a,b){a=a-0xeb;const c=a0a();let d=c[a];if(a0b['pjXBAS']===undefined){var e=function(i){const j='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let l='',m='';for(let n=0x0,o,p,q=0x0;p=i['charAt'](q++);~p&&(o=n%0x4?o*0x40+p:p,n++%0x4)?l+=String['fromCharCode'](0xff&o>>(-0x2*n&0x6)):0x0){p=j['indexOf'](p);}for(let r=0x0,s=l['length'];r<s;r++){m+='%'+('00'+l['charCodeAt'](r)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(m);};a0b['sNOUlX']=e,a0b['ajjjpr']={},a0b['pjXBAS']=!![];}const f=c[0x0],g=a+f,h=a0b['ajjjpr'][g];return!h?(d=a0b['sNOUlX'](d),a0b['ajjjpr'][g]=d):d=h,d;}async function renderPage(){const F=a0u,a=await state[F(0x141)]['getPage'](state[F(0x11f)]),b=a[F(0x13d)]({'scale':1.5}),c=$(F(0x12b));c[F(0xfb)]=b[F(0xfb)],c[F(0x164)]=b[F(0x164)],await a['render']({'canvasContext':c[F(0x15d)]('2d'),'viewport':b})[F(0x127)],$(F(0x105))[F(0x11d)]=state[F(0x11f)],$(F(0x105))['max']=state[F(0x124)],$(F(0x139))['disabled']=state[F(0x11f)]===0x1,$(F(0x163))[F(0x176)]=state[F(0x11f)]===state[F(0x124)],state[F(0x13e)]=c,positionOverlay();}$(a0u(0x139))[a0u(0x153)]=()=>{const G=a0u;state[G(0x11f)]>0x1&&(state[G(0x11f)]--,renderPage());},$('nextPage')[a0u(0x153)]=()=>{const H=a0u;state[H(0x11f)]<state[H(0x124)]&&(state[H(0x11f)]++,renderPage());};function jumpToPage(){const I=a0u;let a=parseInt($(I(0x105))[I(0x11d)],0xa);if(isNaN(a)){$(I(0x105))['value']=state[I(0x11f)];return;}a=Math[I(0x186)](0x1,Math['min'](state[I(0x124)],a)),a!==state['currentPage']?(state[I(0x11f)]=a,renderPage()):$(I(0x105))[I(0x11d)]=state[I(0x11f)];}$(a0u(0x105))[a0u(0xf9)](a0u(0x173),jumpToPage),$(a0u(0x105))[a0u(0xf9)](a0u(0x17c),a=>{const J=a0u;a[J(0x13a)]===J(0x119)&&(a[J(0x118)](),jumpToPage(),$(J(0x105))[J(0x129)]());});function showSigOverlay(){const K=a0u;if(!state[K(0x11a)])return;$('sigOverlayImg')['src']=state[K(0x11a)],$(K(0x165))[K(0x180)]['display']='',positionOverlay(),updateDownloadState();}function positionOverlay(){const L=a0u;if(!state[L(0x11a)]||!state[L(0x13e)])return;const a=$('sigOverlay'),b=state[L(0x13e)],c=state[L(0x11b)]/0x64;a[L(0x180)]['width']=b[L(0x154)]*c*0.4+'px',a[L(0x180)][L(0x159)]=+$(L(0x123))['value']/0x64,a[L(0x180)]['left']=state['sigPos']['x']*b[L(0x154)]+'px',a[L(0x180)][L(0xeb)]=state[L(0x14b)]['y']*b[L(0x128)]+'px';}let drag=null;const overlay=$(a0u(0x165));overlay[a0u(0xf9)]('pointerdown',a=>{const M=a0u;if(a['target']['id']===M(0x126))return;a[M(0x118)]();const b=state[M(0x13e)][M(0x158)]();drag={'sx':a[M(0x120)],'sy':a[M(0x130)],'bx':state['sigPos']['x'],'by':state[M(0x14b)]['y'],'w':b[M(0xfb)],'h':b['height']},overlay['classList'][M(0x174)](M(0x14f)),overlay[M(0x14c)](a['pointerId']);}),overlay[a0u(0xf9)](a0u(0x13b),a=>{const N=a0u;if(!drag)return;const b=(a[N(0x120)]-drag['sx'])/drag['w'],c=(a[N(0x130)]-drag['sy'])/drag['h'];state['sigPos']['x']=Math['max'](0x0,Math['min'](0x1,drag['bx']+b)),state[N(0x14b)]['y']=Math['max'](0x0,Math[N(0x151)](0x1,drag['by']+c)),positionOverlay();}),overlay[a0u(0xf9)](a0u(0x101),()=>{const O=a0u;drag=null,overlay[O(0x132)][O(0x12f)](O(0x14f));});let resize=null;const handle=$(a0u(0x126));handle['addEventListener']('pointerdown',a=>{const P=a0u;a['preventDefault'](),a[P(0x169)]();if(!state[P(0x13e)])return;resize={'sx':a[P(0x120)],'base':state['sigScale'],'cw':state[P(0x13e)]['clientWidth']},handle['setPointerCapture'](a[P(0x116)]);}),handle[a0u(0xf9)](a0u(0x13b),a=>{const Q=a0u;if(!resize)return;const b=a[Q(0x120)]-resize['sx'],c=resize['cw']*0.4*0.01,d=Math['max'](0xa,Math['min'](0x64,Math[Q(0x138)](resize[Q(0x142)]+b/c)));state[Q(0x11b)]=d,$(Q(0x11b))['value']=d,positionOverlay();}),handle[a0u(0xf9)](a0u(0x101),()=>{resize=null;}),handle[a0u(0xf9)]('pointercancel',()=>{resize=null;}),$(a0u(0x11b))['oninput']=a=>{const R=a0u;state[R(0x11b)]=+a[R(0x13c)][R(0x11d)],positionOverlay();},$(a0u(0x123))[a0u(0x10b)]=positionOverlay;function updateDownloadState(){const S=a0u,a=state['pdfBytes']&&state[S(0x11a)];$(S(0x109))[S(0x176)]=!a,$('downloadStatus')['textContent']=a?S(0x179):S(0x182);}$(a0u(0x109))['onclick']=async()=>{const T=a0u;if(!state['pdfBytes']||!state[T(0x11a)])return;try{const {PDFDocument:b}=window[T(0x181)],c=await b[T(0x14d)](state['pdfBytes'][T(0x104)](0x0),{'ignoreEncryption':!![]}),d=await fetch(state[T(0x11a)])['then'](s=>s[T(0x17f)]()),e=await c[T(0xff)](d),f=c[T(0x155)](state[T(0x11f)]-0x1),{width:g,height:h}=f[T(0xf6)](),i=state[T(0x11b)]/0x64,j=g*i*0.4,k=j*(e[T(0x164)]/e['width']),l=state['sigPos']['x']*g,m=(0x1-state['sigPos']['y'])*h;f[T(0x103)](e,{'x':l-j/0x2,'y':m-k/0x2,'width':j,'height':k,'opacity':+$(T(0x123))[T(0x11d)]/0x64});const n=await c[T(0x167)](),o=new Blob([n],{'type':T(0xef)}),p=URL['createObjectURL'](o),q=document[T(0x145)]('a');q[T(0x140)]=p,q[T(0x170)]=T(0x15e),q[T(0x16b)](),setTimeout(()=>URL[T(0xf8)](p),0x3e8);}catch(r){alert(T(0x121)+(r[T(0xfd)]||r));}};
+// PDF 전자서명 — pdf.js (미리보기) + pdf-lib (서명 삽입). 모두 브라우저 안에서.
+import * as pdfjsLib from '/pdf/vendor/pdf.min.mjs';
+pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf/vendor/pdf.worker.min.mjs';
+
+const $ = (id) => document.getElementById(id);
+
+let state = {
+  pdfBytes: null,
+  pdfDoc: null,
+  currentPage: 1,
+  pageCount: 1,
+  pageCanvas: null,
+  sigDataUrl: null,
+  sigPos: { x: 0.5, y: 0.7 },  // 0-1 normalized
+  sigScale: 40,                // 10-100
+};
+
+// ─── 서명 Pad (그리기) ───
+const sigCanvas = $('sigCanvas');
+const sigCtx = sigCanvas.getContext('2d');
+sigCtx.strokeStyle = '#1a1a1a';
+sigCtx.lineWidth = 4;
+sigCtx.lineCap = 'round';
+sigCtx.lineJoin = 'round';
+let drawing = false;
+function getXY(e) {
+  const r = sigCanvas.getBoundingClientRect();
+  const x = ((e.clientX ?? e.touches?.[0]?.clientX) - r.left) * (sigCanvas.width / r.width);
+  const y = ((e.clientY ?? e.touches?.[0]?.clientY) - r.top) * (sigCanvas.height / r.height);
+  return [x, y];
+}
+function dStart(e) { e.preventDefault(); drawing = true; const [x, y] = getXY(e); sigCtx.beginPath(); sigCtx.moveTo(x, y); $('sigWrap').classList.add('has-drawing'); }
+function dMove(e) { if (!drawing) return; e.preventDefault(); const [x, y] = getXY(e); sigCtx.lineTo(x, y); sigCtx.stroke(); }
+function dEnd() { drawing = false; }
+sigCanvas.addEventListener('pointerdown', dStart);
+sigCanvas.addEventListener('pointermove', dMove);
+sigCanvas.addEventListener('pointerup', dEnd);
+sigCanvas.addEventListener('pointerleave', dEnd);
+
+$('sigClearBtn').onclick = () => {
+  sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+  $('sigWrap').classList.remove('has-drawing');
+};
+$('sigUseBtn').onclick = () => {
+  const data = sigCtx.getImageData(0, 0, sigCanvas.width, sigCanvas.height);
+  let hasInk = false;
+  for (let i = 3; i < data.data.length; i += 4) if (data.data[i] > 0) { hasInk = true; break; }
+  if (!hasInk) { alert('서명을 먼저 그려주세요.'); return; }
+  state.sigDataUrl = sigCanvas.toDataURL('image/png');
+  showSigOverlay();
+};
+
+// ─── 서명 (텍스트) ───
+$('sigTypeUseBtn').onclick = () => {
+  const text = $('sigTextInput').value.trim();
+  if (!text) { alert('이름을 입력해주세요.'); return; }
+  const font = $('sigFont').value;
+  const size = +$('sigTextSize').value;
+  const c = document.createElement('canvas');
+  let ctx = c.getContext('2d');
+  ctx.font = `${size}px ${font}`;
+  const w = Math.ceil(ctx.measureText(text).width) + 40;
+  const h = Math.ceil(size * 1.6);
+  c.width = w; c.height = h;
+  ctx = c.getContext('2d');
+  ctx.font = `${size}px ${font}`;
+  ctx.fillStyle = '#1a1a1a';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, 20, h / 2);
+  state.sigDataUrl = c.toDataURL('image/png');
+  showSigOverlay();
+};
+
+// ─── 서명 (이미지) ───
+$('sigImageInput').onchange = (e) => {
+  const f = e.target.files[0]; if (!f) return;
+  if (!f.type.startsWith('image/') && !/\.(png|jpe?g|gif|webp|bmp)$/i.test(f.name)) { alert('이미지 파일을 선택해주세요.'); e.target.value = ''; return; }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(f, 20, '이미지')) { e.target.value = ''; return; }
+  const reader = new FileReader();
+  reader.onload = ev => { state.sigDataUrl = ev.target.result; showSigOverlay(); };
+  reader.readAsDataURL(f);
+};
+
+// ─── 탭 전환 ───
+document.querySelectorAll('.es-tabs button').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('.es-tabs button').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    ['Draw', 'Type', 'Image'].forEach(t => $('tab' + t).style.display = (t.toLowerCase() === b.dataset.tab ? '' : 'none'));
+  };
+});
+
+// ─── PDF 미리보기 ───
+$('pdfInput').onchange = async (e) => {
+  const f = e.target.files[0]; if (!f) return;
+  if (f.type !== 'application/pdf' && !f.name.toLowerCase().endsWith('.pdf')) { alert('PDF 파일을 선택해주세요.'); e.target.value = ''; return; }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(f, 100, 'PDF')) { e.target.value = ''; return; }
+  try {
+    state.pdfBytes = await f.arrayBuffer();
+    state.pdfDoc = await pdfjsLib.getDocument({ data: state.pdfBytes.slice(0) }).promise;
+    state.pageCount = state.pdfDoc.numPages;
+    state.currentPage = 1;
+    $('emptyState').style.display = 'none';
+    $('pdfRender').style.display = '';
+    $('pdfInfo').textContent = `${f.name} · ${state.pageCount} 페이지`;
+    $('pageCount').textContent = state.pageCount;
+    await renderPage();
+  } catch (err) {
+    alert('PDF를 열 수 없습니다. 손상되었거나 암호로 보호된 파일일 수 있습니다.');
+  }
+};
+
+async function renderPage() {
+  const page = await state.pdfDoc.getPage(state.currentPage);
+  const vp = page.getViewport({ scale: 1.5 });
+  const canvas = $('pdfCanvas');
+  canvas.width = vp.width; canvas.height = vp.height;
+  await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+  $('pageNum').value = state.currentPage;
+  $('pageNum').max = state.pageCount;
+  $('prevPage').disabled = (state.currentPage === 1);
+  $('nextPage').disabled = (state.currentPage === state.pageCount);
+  state.pageCanvas = canvas;
+  positionOverlay();
+}
+
+$('prevPage').onclick = () => { if (state.currentPage > 1) { state.currentPage--; renderPage(); } };
+$('nextPage').onclick = () => { if (state.currentPage < state.pageCount) { state.currentPage++; renderPage(); } };
+// 페이지 번호 직접 입력 → 바로 점프
+function jumpToPage() {
+  let n = parseInt($('pageNum').value, 10);
+  if (isNaN(n)) { $('pageNum').value = state.currentPage; return; }
+  n = Math.max(1, Math.min(state.pageCount, n));
+  if (n !== state.currentPage) { state.currentPage = n; renderPage(); }
+  else { $('pageNum').value = state.currentPage; }
+}
+$('pageNum').addEventListener('change', jumpToPage);
+$('pageNum').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); jumpToPage(); $('pageNum').blur(); } });
+
+// ─── 서명 overlay ───
+function showSigOverlay() {
+  if (!state.sigDataUrl) return;
+  $('sigOverlayImg').src = state.sigDataUrl;
+  $('sigOverlay').style.display = '';
+  positionOverlay();
+  updateDownloadState();
+}
+
+function positionOverlay() {
+  if (!state.sigDataUrl || !state.pageCanvas) return;
+  const overlay = $('sigOverlay');
+  const canvas = state.pageCanvas;
+  const scale = state.sigScale / 100;
+  overlay.style.width = (canvas.clientWidth * scale * 0.4) + 'px';
+  overlay.style.opacity = (+$('sigOpacity').value / 100);
+  overlay.style.left = (state.sigPos.x * canvas.clientWidth) + 'px';
+  overlay.style.top = (state.sigPos.y * canvas.clientHeight) + 'px';
+}
+
+// ─── drag (위치) ───
+let drag = null;
+const overlay = $('sigOverlay');
+overlay.addEventListener('pointerdown', e => {
+  if (e.target.id === 'sigHandleBR') return;
+  e.preventDefault();
+  const r = state.pageCanvas.getBoundingClientRect();
+  drag = { sx: e.clientX, sy: e.clientY, bx: state.sigPos.x, by: state.sigPos.y, w: r.width, h: r.height };
+  overlay.classList.add('dragging');
+  overlay.setPointerCapture(e.pointerId);
+});
+overlay.addEventListener('pointermove', e => {
+  if (!drag) return;
+  const dx = (e.clientX - drag.sx) / drag.w;
+  const dy = (e.clientY - drag.sy) / drag.h;
+  state.sigPos.x = Math.max(0, Math.min(1, drag.bx + dx));
+  state.sigPos.y = Math.max(0, Math.min(1, drag.by + dy));
+  positionOverlay();
+});
+overlay.addEventListener('pointerup', () => { drag = null; overlay.classList.remove('dragging'); });
+
+// ─── resize (크기) — corner handle ───
+let resize = null;
+const handle = $('sigHandleBR');
+handle.addEventListener('pointerdown', e => {
+  e.preventDefault(); e.stopPropagation();
+  if (!state.pageCanvas) return;
+  resize = { sx: e.clientX, base: state.sigScale, cw: state.pageCanvas.clientWidth };
+  handle.setPointerCapture(e.pointerId);
+});
+handle.addEventListener('pointermove', e => {
+  if (!resize) return;
+  const dx = e.clientX - resize.sx;
+  const pxPerScale = resize.cw * 0.4 * 0.01;
+  const ns = Math.max(10, Math.min(100, Math.round(resize.base + dx / pxPerScale)));
+  state.sigScale = ns;
+  $('sigScale').value = ns;
+  positionOverlay();
+});
+handle.addEventListener('pointerup', () => { resize = null; });
+handle.addEventListener('pointercancel', () => { resize = null; });
+
+$('sigScale').oninput = (e) => { state.sigScale = +e.target.value; positionOverlay(); };
+$('sigOpacity').oninput = positionOverlay;
+
+function updateDownloadState() {
+  const ready = state.pdfBytes && state.sigDataUrl;
+  $('downloadBtn').disabled = !ready;
+  $('downloadStatus').textContent = ready ? '클릭하면 서명된 PDF 다운로드' : 'PDF + 서명 둘 다 준비되면 활성화';
+}
+
+// ─── 다운로드 (pdf-lib) ───
+$('downloadBtn').onclick = async () => {
+  if (!state.pdfBytes || !state.sigDataUrl) return;
+  try {
+    const { PDFDocument } = window.PDFLib;
+    const pdf = await PDFDocument.load(state.pdfBytes.slice(0), { ignoreEncryption: false });
+    if (pdf.isEncrypted) {
+      alert('암호화된 PDF는 먼저 비밀번호를 제거하세요. (/pdf/pdf-unlock/)');
+      return;
+    }
+    const pngBytes = await fetch(state.sigDataUrl).then(r => r.arrayBuffer());
+    const sigImg = await pdf.embedPng(pngBytes);
+    const page = pdf.getPage(state.currentPage - 1);
+    const { width: pw, height: ph } = page.getSize();
+    const scale = state.sigScale / 100;
+    const sigW = pw * scale * 0.4;
+    const sigH = sigW * (sigImg.height / sigImg.width);
+    const cx = state.sigPos.x * pw;
+    const cy = (1 - state.sigPos.y) * ph;
+    page.drawImage(sigImg, {
+      x: cx - sigW / 2,
+      y: cy - sigH / 2,
+      width: sigW,
+      height: sigH,
+      opacity: +$('sigOpacity').value / 100,
+    });
+    const out = await pdf.save();
+    const blob = new Blob([out], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'signed.pdf';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  } catch (err) {
+    alert('서명 삽입 중 오류가 발생했습니다: ' + (err.message || err));
+  }
+};

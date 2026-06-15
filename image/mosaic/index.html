@@ -273,6 +273,27 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <details>
+        <summary>모자이크·블러·검정 박스 — 픽셀 단위로 무슨 일이 일어나나</summary>
+        <div class="answer">
+          세 방식은 같은 박스 영역에 서로 다른 변환을 겁니다. <b>모자이크</b>는 선택 영역을 강도(px) 비율만큼 작게 축소했다가 보간 없이(<code>imageSmoothingEnabled = false</code>) 다시 원래 크기로 늘립니다. 한 칸이 평균 한 색으로 뭉개져 원래 픽셀 정보가 실제로 버려집니다. <b>블러</b>는 Canvas <code>filter: blur(Npx)</code>로 주변 픽셀을 가중 평균해 번지게 합니다. 색 정보가 사라지는 게 아니라 이웃끼리 섞이는 것이라, 약한 블러(예: 2~5px)는 디블러 연산으로 글자 윤곽이 다시 드러날 위험이 알려져 있습니다. <b>검정 박스</b>는 해당 영역을 <code>#000</code>으로 덮어쓰므로 그 아래 픽셀이 결과 파일에 남지 않습니다.
+        </div>
+      </details>
+      <details>
+        <summary>개인정보 보호 관점에서 뭐가 안전한가</summary>
+        <div class="answer">
+          복원 난이도는 대체로 <b>검정 박스 &gt; 강한 모자이크 &gt; 약한 모자이크 ≈ 약한 블러</b> 순입니다. 주민등록번호·계좌번호·번호판처럼 글자 수가 적고 패턴이 정해진 정보는 약한 가림이 추정·복원될 수 있어 <b>검정 박스</b>를 권합니다. 얼굴은 모자이크 12~20px 정도면 식별이 충분히 어려워집니다. 개인정보보호위원회는 사진·영상 공개 시 제3자 식별정보를 가리도록 안내합니다(<a href="https://www.pipc.go.kr" rel="nofollow noopener" target="_blank">pipc.go.kr</a>). 강한 모자이크는 한 칸이 충분히 커서(큰 px) 칸 안의 원래 디테일이 거의 회복 불가능해지므로, 약한 모자이크보다 안전합니다. 한 가지 더 — 가림은 보이는 픽셀만 처리하므로, 촬영 위치(GPS)나 기기 정보 같은 <b>EXIF 메타데이터</b>는 결과 파일에 그대로 남습니다. 글자가 가려졌다고 안심하지 말고, SNS 업로드 전 EXIF 제거를 함께 권장합니다.
+        </div>
+      </details>
+      <details>
+        <summary>강도·영역 선택은 어떻게 동작하나 (실제 조작)</summary>
+        <div class="answer">
+          가릴 곳은 사진 위에 <b>마우스·터치·펜으로 박스를 드래그</b>해 직접 지정합니다(Pointer Events 통합). 박스는 여러 개 그릴 수 있고 각각 독립적으로 처리되며, 한 사진 안에서 박스마다 모자이크·블러·검정을 <b>섞어 쓸 수 있습니다</b> — 그릴 당시 선택돼 있던 방식이 그 박스에 고정됩니다. 반면 <b>강도 슬라이더는 사후에 전체에 다시 적용</b>됩니다. 슬라이더를 움직이면 이미 그려 둔 박스들이 한꺼번에 새 강도로 다시 계산되므로, 일단 영역만 잡아 두고 결과를 보며 강도를 맞추는 식으로 쓰면 됩니다. 강도 값(2~80)은 모자이크에서 <b>한 픽셀 블록의 한 변 길이(px)</b>로 직접 들어갑니다. 예를 들어 강도 15면 가린 영역을 15px 단위로 뭉개고, 블록을 만들 때 보간을 끄기 때문에(<code>imageSmoothingEnabled = false</code>) 값이 클수록 칸이 커지고 더 거칠게 가려집니다. 블러 모드에서는 같은 값이 <code>blur(Npx)</code>의 반경으로 쓰입니다. <b>검정 박스를 고르면 강도 슬라이더는 자동으로 비활성화</b>됩니다(강도가 의미 없으므로). 잘못 그린 박스는 <b>Undo</b>로 마지막 하나만 취소하거나 <b>전체 지우기</b>로 한 번에 비울 수 있고, 작은 부위는 <b>확대(0.3~3배)</b> 후 그리면 더 정확합니다. 다운로드 포맷은 JPG·PNG·WebP 중 고르며, <b>JPG는 투명을 지원하지 않아 출력 전 흰 배경을 깔고</b> 품질 0.95로 인코딩합니다(투명 PNG를 JPG로 내보내면 배경이 검게 나오는 문제를 막기 위한 처리). 투명 영역을 보존하려면 PNG를 고르세요.
+        </div>
+      </details>
+    </section>
+
     <section class="tool-article">
       <h2>관련 도구</h2>
       <div class="related-calc">
@@ -296,6 +317,10 @@
     <section class="sources">
       <h2>참고</h2>
       <div class="updated">최종 검증: 2026-05-10 / 브라우저 native Canvas API + filter 사용 (외부 라이브러리 없음).</div>
+      <ul>
+        <li>Canvas API (픽셀화·blur filter 원리) — <a href="https://developer.mozilla.org/ko/docs/Web/API/Canvas_API" rel="nofollow noopener" target="_blank">MDN</a></li>
+        <li>개인정보 보호 안내 — 개인정보보호위원회 (<a href="https://www.pipc.go.kr" rel="nofollow noopener" target="_blank">pipc.go.kr</a>)</li>
+      </ul>
       <div class="note">⚠️ 중요 정보(주민번호·계좌·번호판) 가리기는 <b>검정 박스 권장</b>. 모자이크는 강도 따라 복원 가능성 있습니다.</div>
     </section>
 

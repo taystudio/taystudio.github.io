@@ -259,6 +259,8 @@
       newSize.textContent = fmtSize(totalSize);
       result.hidden = false;
       renderGrid();
+    } else {
+      alert('All conversions failed. The files may be corrupted, or your browser may not support this output format. Try different files or a different format.');
     }
   });
 

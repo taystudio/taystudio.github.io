@@ -66,7 +66,7 @@
         "90° clockwise / 90° counter-clockwise / 180° rotation",
         "Horizontal flip (mirror)",
         "Vertical flip",
-        "Audio is copied losslessly — same fidelity",
+        "Audio re-encoded to AAC 128k — virtually identical quality",
         "Your video never leaves your browser"
       ],
       "dateModified": "2026-05-05",
@@ -119,7 +119,7 @@
           "name": "Is the audio preserved?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes — audio is copied losslessly (-c:a copy) without re-encoding. Only the video track is rotated, so audio fidelity is unchanged. Some input codecs (AC-3, DTS) aren't compatible with the MP4 container and will fall back to AAC automatically."
+            "text": "Audio is re-encoded to AAC 128k. A lossless copy (-c:a copy) always fails for some containers like .mov against the MP4 container, so rather than try-then-retry (which costs memory twice on mobile), we simplify by re-encoding to AAC from the start. 128k AAC is virtually indistinguishable from the source."
           }
         },
         {
@@ -380,9 +380,9 @@
         </div>
       </details>
       <details>
-        <summary>Is the audio preserved?</summary>
+        <summary>How is the audio handled?</summary>
         <div class="answer">
-          Audio is copied losslessly (<code>-c:a copy</code>) without re-encoding. Only the video track is rotated, so audio fidelity is unchanged. Some codecs (AC-3, DTS) aren't compatible with MP4 and will fall back to AAC automatically.
+          Audio is re-encoded to <code>AAC 128k</code>. A lossless copy (<code>-c:a copy</code>) would be possible with a try-then-fallback approach, but containers like .mov always fail the first attempt, costing memory twice on mobile. So we re-encode to AAC from the start for stability. 128k AAC is virtually indistinguishable from the source.
         </div>
       </details>
       <details>
@@ -410,21 +410,23 @@
       </details>
 
       <details>
-        <summary>Rotate + scale options</summary>
+        <summary>Output resolution options</summary>
         <div class="body">
-          <p>90° / 270° rotation swaps aspect ratio (16:9 → 9:16). Options:</p>
+          <p>You can pick the output resolution along with rotation (the original aspect ratio is always preserved — no stretching or cropping):</p>
           <ul>
-            <li><b>Scale auto</b> — keep aspect, add black bars (preserves original frame, default)</li>
-            <li><b>Scale fit</b> — stretch to the target aspect (slight distortion, no bars)</li>
-            <li><b>Scale crop</b> — crop to the target aspect (edge loss, no bars)</li>
+            <li><b>Keep original</b> — same resolution. Recommended on desktop.</li>
+            <li><b>1080p (FHD)</b> — downscales if the long edge exceeds 1080.</li>
+            <li><b>720p (HD)</b> — default. Recommended on mobile.</li>
+            <li><b>480p (SD)</b> — lightest, minimal memory pressure.</li>
           </ul>
+          <p class="small">Downscaling is applied before rotation to save memory (<code>scale=-2:height</code>); the <code>-2</code> keeps dimensions even and preserves the aspect ratio.</p>
         </div>
       </details>
 
       <details>
         <summary>Audio handling</summary>
         <div class="body">
-          <p>Rotation / flip touches video only — audio is copied without re-encoding (no quality loss). Container conversion may force AAC re-encode at the source bitrate.</p>
+          <p>Rotation / flip changes video pixels; audio is re-encoded to <code>AAC 128k</code>. A lossless copy always fails for containers like .mov, so AAC re-encoding is applied to every input for stability. 128k AAC is virtually identical to the source.</p>
         </div>
       </details>
 
@@ -459,7 +461,7 @@
       <details>
         <summary>What is the output format?</summary>
         <div class="answer">
-          Output is always <b>MP4 (H.264)</b> — playable on virtually any device. Audio is copied as-is when possible, falling back to AAC only when the codec isn't MP4-compatible.
+          Output is always <b>MP4 (H.264)</b> — playable on virtually any device. Audio is re-encoded to AAC 128k.
         </div>
       </details>
       <details>
