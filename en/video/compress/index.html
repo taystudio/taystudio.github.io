@@ -281,6 +281,14 @@
     </section>
 
     <section class="tool-article">
+      <h2>Why is the file bigger than a desktop app at the same CRF?</h2>
+      <p>Even with an identical quality setting (CRF), the final file size depends heavily on how <b>long the encoder is allowed to think</b>. ffmpeg's <code>-preset</code> option controls that effort, ranging from <code>ultrafast</code> to <code>veryslow</code> — slower presets pack the same quality into a smaller file.</p>
+      <p>This tool encodes with <code>libx264 -preset ultrafast</code>. The fast preset is chosen for speed. Static hosting such as GitHub Pages cannot send the <code>Cross-Origin-Opener-Policy</code> / <code>Cross-Origin-Embedder-Policy</code> headers, so the browser disables SharedArrayBuffer and ffmpeg.wasm can only run <b>single-threaded</b>. With no multithreading, a slow preset could push a 5-minute clip to tens of minutes, so the tool favors a realistic wait time over maximum compression.</p>
+      <p>So here are realistic expectations. On desktop Chrome, encoding runs at roughly <b>0.3–1× the clip's duration</b> (a 5-minute clip usually takes 1–3 minutes); mobile is about 2–3× slower. iOS Safari caps memory at around 500MB per tab, so long 1080p videos may stall midway.</p>
+      <p>The takeaway: <b>it's normal for this tool to shrink less than a dedicated desktop app (e.g. HandBrake) at the same CRF</b>. If you need a smaller file, raising the CRF a notch or two (e.g. 28→30) or dropping the resolution to 720p or below is the most reliable lever in this environment.</p>
+    </section>
+
+    <section class="tool-article">
       <h2>Related tools</h2>
       <div class="related-calc">
         <a href="/en/image/compress/">Image Compress<span class="desc">Photo size reduction — same function for images</span></a>

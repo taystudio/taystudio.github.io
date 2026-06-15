@@ -76,7 +76,7 @@
       "@type": "FAQPage",
       "mainEntity": [
         { "@type": "Question", "name": "업로드한 PDF가 정말 외부로 안 가나요?", "acceptedAnswer": { "@type": "Answer", "text": "네. 모든 처리는 사용자 브라우저의 JavaScript·WebAssembly로만 일어납니다. PDF 합치기·자르기·편집·이미지→PDF는 pdf-lib, PDF→이미지·편집 썸네일은 pdf.js로 클라이언트 사이드 동작. 사이트 운영자도 파일 내용을 볼 수 없으며 외부 서버로 전송되지 않습니다." } },
-        { "@type": "Question", "name": "암호 걸린 PDF도 작업되나요?", "acceptedAnswer": { "@type": "Answer", "text": "암호로 잠긴 PDF는 자동으로 처리되지 않을 수 있습니다. 본 사이트는 잠금 해제(decrypt)를 지원하지 않습니다. PDF 뷰어에서 암호 해제 후 다시 업로드하세요. 단순히 ignoreEncryption 플래그로 일부 가벼운 보호는 우회되지만, 강한 암호는 동작 X." } },
+        { "@type": "Question", "name": "암호 걸린 PDF도 작업되나요?", "acceptedAnswer": { "@type": "Answer", "text": "합치기·자르기·편집·변환 도구는 암호로 잠긴 PDF를 바로 처리하지 못합니다. 비밀번호를 알고 있다면 'PDF 비밀번호 제거' 도구로 먼저 암호를 풀고(qpdf로 복호화) 다시 업로드하세요. 비밀번호를 모르는 PDF는 풀 수 없습니다." } },
         { "@type": "Question", "name": "큰 PDF는 어디까지 처리되나요?", "acceptedAnswer": { "@type": "Answer", "text": "데스크톱 Chrome 기준 200MB·200쪽까지 무난. 모바일은 50MB·50쪽 권장. 메모리 부족 시 PDF 자르기로 범위를 좁힌 후 작업하세요. 편집 도구는 썸네일 생성 때문에 더 보수적인 한계." } },
         { "@type": "Question", "name": "결과 PDF에 폰트·이미지·하이퍼링크는 보존되나요?", "acceptedAnswer": { "@type": "Answer", "text": "pdf-lib는 페이지 객체를 원본 그대로 복사하므로 폰트·이미지·하이퍼링크 대부분 유지됩니다. 단 PDF 폼 인터랙티브 동작·디지털 서명·일부 주석은 변경 후 동작이 달라질 수 있습니다." } },
         { "@type": "Question", "name": "모바일에서 동작이 불안정해요", "acceptedAnswer": { "@type": "Answer", "text": "모바일 Safari·Chrome은 메모리 한계가 ~500MB 정도라 큰 PDF는 데스크톱 권장. 또한 카톡·라인 등 in-app 브라우저는 동영상·PDF 처리에 부적합 — '외부 브라우저로 열기' 옵션을 사용하세요(자동 안내 배너 노출)." } }
@@ -168,7 +168,7 @@
             <li><b>합치기·자르기·편집·이미지→PDF</b> — pdf-lib (MIT, JavaScript)</li>
             <li><b>편집 썸네일·PDF→이미지</b> — pdf.js (Mozilla, Apache-2.0)</li>
             <li><b>비밀번호 설정</b> — pdf-lib-plus-encrypt CDN (RC4 128bit). 인쇄·복사·편집·주석 권한 4종 제한 옵션</li>
-            <li><b>비밀번호 제거</b> — pdf.js로 비밀번호 검증 → pdf-lib <code>ignoreEncryption</code>로 무손실 재저장. 텍스트·이미지·하이퍼링크 모두 보존</li>
+            <li><b>비밀번호 제거</b> — qpdf (Apache 2.0, WebAssembly)로 비밀번호 검증·복호화. 암호화 레이어만 제거하고 페이지 구조는 보존 → 텍스트·이미지·하이퍼링크 모두 유지</li>
             <li><b>다중 파일 batch</b> — pdf-merge·pdf-stamp·img-to-pdf 모두 합계 100MB total 가드</li>
           </ul>
           <p class="small">모든 라이브러리는 사이트에 vendoring(직접 commit)되어 외부 CDN 의존도가 없습니다. 외부 네트워크 오프라인 상태에서도 도구 동작 가능.</p>
@@ -193,17 +193,18 @@
       <details>
         <summary>결과 PDF에 폰트·이미지·하이퍼링크는 보존되나요?</summary>
         <div class="body">
-          <p>pdf-lib는 페이지 객체를 원본 그대로 복사하므로 폰트·이미지·하이퍼링크 대부분 유지됩니다. 단 PDF 폼 인터랙티브 동작·디지털 서명·일부 주석은 변경 후 동작이 달라질 수 있습니다. PDF 비밀번호 제거 시도 텍스트·이미지·하이퍼링크 무손실 — 이미지화로 처리 안 함.</p>
+          <p>pdf-lib는 페이지 객체를 원본 그대로 복사하므로 폰트·이미지·하이퍼링크 대부분 유지됩니다. 단 PDF 폼 인터랙티브 동작·디지털 서명·일부 주석은 변경 후 동작이 달라질 수 있습니다. 비밀번호 제거는 qpdf가 암호화 레이어만 벗기므로 텍스트·이미지·하이퍼링크 무손실 — 이미지화로 처리하지 않습니다.</p>
         </div>
       </details>
     </section>
 
     <section class="sources">
       <h2>출처·기술 스택</h2>
-      <div class="updated">최종 검증: 2026-05-17</div>
+      <div class="updated">최종 검증: 2026-06-12</div>
       <ul>
         <li><b>pdf-lib</b> — MIT / <a href="https://pdf-lib.js.org/" target="_blank" rel="noopener">pdf-lib.js.org</a></li>
         <li><b>pdf.js</b> — Apache 2.0 / <a href="https://mozilla.github.io/pdf.js/" target="_blank" rel="noopener">mozilla.github.io/pdf.js</a></li>
+        <li><b>qpdf (비밀번호 제거·복호화)</b> — Apache 2.0 / <a href="https://github.com/qpdf/qpdf" target="_blank" rel="noopener">github.com/qpdf/qpdf</a></li>
         <li><b>pdf-lib-plus-encrypt</b> — MIT (pdf-lib fork) / <a href="https://github.com/cantoo-scribe/pdf-lib" target="_blank" rel="noopener">github.com/cantoo-scribe/pdf-lib</a></li>
         <li><b>JSZip (PDF→이미지 ZIP 다운로드)</b> — MIT / <a href="https://stuk.github.io/jszip/" target="_blank" rel="noopener">stuk.github.io/jszip</a></li>
         <li><b>PDF Spec 1.7</b> — ISO 32000-1:2008 / <a href="https://www.iso.org/standard/51502.html" target="_blank" rel="noopener">ISO 32000-1</a></li>
@@ -218,7 +219,7 @@
       </details>
       <details>
         <summary>암호 걸린 PDF도 작업되나요?</summary>
-        <div class="answer">암호로 잠긴 PDF는 자동으로 처리되지 않을 수 있습니다. <b>본 사이트는 잠금 해제(decrypt)를 지원하지 않습니다</b>. PDF 뷰어에서 암호 해제 후 다시 업로드하세요. 단순히 ignoreEncryption 플래그로 일부 가벼운 보호는 우회되지만, 강한 암호는 동작 X.</div>
+        <div class="answer">합치기·자르기·편집·변환 도구는 암호로 잠긴 PDF를 바로 처리하지 못합니다. 비밀번호를 알고 있다면 <b>'PDF 비밀번호 제거'</b> 도구로 먼저 암호를 풀고(qpdf로 복호화) 다시 업로드하세요. 비밀번호를 모르는 PDF는 풀 수 없습니다.</div>
       </details>
       <details>
         <summary>큰 PDF는 어디까지 처리되나요?</summary>

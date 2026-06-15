@@ -357,6 +357,25 @@
     </section>
 
     <section class="tool-article">
+      <h2>mm를 픽셀로 직접 계산해 보기</h2>
+      <p>이 도구의 출력 픽셀은 사람이 정한 게 아니라 <b>딱 하나의 공식</b>으로 자동 계산됩니다. 위 표의 숫자가 어디서 나왔는지 직접 검산할 수 있습니다.</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>단계</th><th>계산</th></tr></thead>
+          <tbody>
+            <tr><td>1 inch = 25.4 mm (고정)</td><td>—</td></tr>
+            <tr><td>300 DPI = 1 inch에 300 px</td><td>1 mm = 300 ÷ 25.4 ≈ <b>11.811 px</b></td></tr>
+            <tr><td>가로 35 mm</td><td>35 × 11.811 ≈ 413.4 → <b>413 px</b></td></tr>
+            <tr><td>세로 45 mm</td><td>45 × 11.811 ≈ 531.5 → <b>531 px</b></td></tr>
+            <tr><td>결과 (여권 규격)</td><td><b>413 × 531 px</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>소수점은 가까운 정수로 반올림합니다. 그래서 30×40mm는 354×472px, 51×51mm(미국 비자)는 602×602px, 33×48mm(중국 비자)는 390×567px로 떨어집니다. <b>'직접 입력'</b>에 원하는 mm를 넣으면 같은 공식으로 픽셀이 즉시 표시되므로, 표에 없는 사이즈도 직접 확인하며 만들 수 있습니다.</p>
+      <p class="small" style="color:var(--muted);margin-top:8px">참고: frame을 크게 잡든 작게 잡든 <b>최종 출력 픽셀은 선택한 규격 값으로 고정</b>됩니다. 크롭한 영역이 출력 크기에 맞춰 다시 그려지기(리샘플) 때문이며, 원본을 크게 잡을수록 더 선명합니다.</p>
+    </section>
+
+    <section class="tool-article">
       <h2>관련 도구</h2>
       <div class="related-calc">
         <a href="../bg-remove/">배경 제거 (누끼)<span class="desc">증명사진 흰배경 만들기</span></a>

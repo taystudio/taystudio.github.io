@@ -263,6 +263,28 @@
       </div>
     </section>
 
+    <section class="disclosure-group">
+      <h2 style="margin-bottom:12px;font-size:18px">When compressing backfires — recompression &amp; generation loss</h2>
+      <details>
+        <summary>What if I compress an already-compressed JPG again?</summary>
+        <div class="answer">
+          JPEG is a <b>lossy format</b>, so a little information is discarded every time it's saved. This tool redraws the photo onto a canvas at full resolution and re-encodes it with <code>toBlob</code>, so compressing a JPG that was already saved at 0.7 again at 0.7 barely shrinks the file while dropping quality one more notch. This is called <b>generation loss</b>. Avoid compressing the same photo repeatedly — export once from the original at the quality you want.
+        </div>
+      </details>
+      <details>
+        <summary>It got bigger after compression (the + sign)</summary>
+        <div class="answer">
+          A red <b>+</b> on the reduction rate means the output is larger than the input. Two common causes: ① the original was already heavily compressed but you re-encoded it at quality 0.9 or higher, or ② the image is a flat graphic or screenshot — not a photo — exported as JPEG. Lower the quality value, or for images with few colors try PNG or WebP, which can be smaller.
+        </div>
+      </details>
+      <details>
+        <summary>Lowering quality barely reduces the size</summary>
+        <div class="answer">
+          Highly detailed photos (grass, sand, fur, noise) carry a lot of information, so there's a limit to what quality alone can do — the canvas keeps the original <b>resolution</b> and only adjusts quality. In that case reducing resolution is far more effective: shrink the width with the resize tool first, then compress. Cutting a 4000px photo down to 1600px alone drops the file size dramatically.
+        </div>
+      </details>
+    </section>
+
     <section class="tool-article">
       <h2>Related tools</h2>
       <div class="related-calc">

@@ -251,6 +251,20 @@
     </section>
 
     <section class="tool-article">
+      <h2>Why HEIC opens on some devices but not others</h2>
+      <p>HEIC files don't fail to open because they are a "bad" format. The image inside is compressed with the <b>HEVC (H.265) codec</b>, and HEVC is a patent-licensed codec — not every operating system or app ships a built-in decoder for it. The same photo opens instantly where a decoder is present and shows up as an "unsupported format" where it isn't.</p>
+      <p>A rough picture of compatibility today:</p>
+      <div class="case-grid">
+        <div class="case"><b>iPhone, iPad, Mac (recent)</b><span>Supported out of the box — within Apple's ecosystem HEIC opens with no conversion.</span></div>
+        <div class="case"><b>Windows 10 / 11</b><span>File Explorer and the Photos app often need a separate HEVC codec extension. Without it, previews simply don't render.</span></div>
+        <div class="case"><b>Android</b><span>Recent devices and galleries increasingly let you view HEIC, but uploads, editing, and many apps still reject it.</span></div>
+        <div class="case"><b>Web uploads, forums, messengers</b><span>Many upload fields accept only JPG/PNG, so HEIC attachments may be blocked outright or appear broken.</span></div>
+        <div class="case"><b>Older devices and legacy software</b><span>They don't understand HEVC at all, so nothing opens the file — converting is effectively the only path.</span></div>
+      </div>
+      <p>So the moment to convert to JPG is <b>whenever you can't control the recipient's environment</b>: submitting photos to a government office, school, or employer; sharing with someone you don't know; or using an old PC or program. When the destination is uncertain, send JPG instead of HEIC. Conversely, if both sides are Apple devices, leaving the file as HEIC to save space and quality is a perfectly reasonable choice.</p>
+    </section>
+
+    <section class="tool-article">
       <h2>Related tools</h2>
       <div class="related-calc">
         <a href="../compress/">Image Compress<span class="desc">Shrink further after conversion</span></a>

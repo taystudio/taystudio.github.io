@@ -279,6 +279,14 @@
     </section>
 
     <section class="tool-article">
+      <h2>같은 CRF인데 왜 데스크톱 앱보다 용량이 큰가요?</h2>
+      <p>동영상 압축은 같은 화질 설정(CRF)이라도 인코더가 얼마나 <b>오래 고민하느냐</b>에 따라 결과 용량이 크게 달라집니다. ffmpeg의 <code>-preset</code> 옵션이 그 "고민의 양"을 정하는데, <code>ultrafast</code>부터 <code>veryslow</code>까지 단계가 있고 느린 단계일수록 같은 화질을 더 작은 용량에 담아냅니다.</p>
+      <p>이 도구는 내부적으로 <code>libx264 -preset ultrafast</code>로 인코딩합니다. 빠른 preset을 고른 이유는 처리 속도 때문입니다. GitHub Pages 같은 정적 호스팅은 <code>Cross-Origin-Opener-Policy</code> / <code>Cross-Origin-Embedder-Policy</code> 헤더를 줄 수 없어 브라우저의 SharedArrayBuffer가 꺼지고, 그 결과 ffmpeg.wasm이 <b>단일 스레드</b>로만 돌아갑니다. 멀티스레드를 못 쓰는 환경에서 느린 preset까지 쓰면 5분 영상에 수십 분이 걸릴 수 있어, 현실적인 대기 시간을 위해 속도를 우선한 설정입니다.</p>
+      <p>그래서 현실적인 기대치는 이렇습니다. 데스크톱 Chrome에서 인코딩 속도는 대략 <b>원본 길이의 0.3~1배</b> 수준(5분 영상이면 보통 1~3분), 모바일은 그보다 2~3배 더 걸립니다. iOS Safari는 탭당 메모리가 약 500MB로 제한되어 1080p 장편 영상은 도중에 멈출 수 있습니다.</p>
+      <p>요점은 <b>"이 도구가 데스크톱 전문 앱(HandBrake 등)보다 같은 CRF에서 용량을 덜 줄이는 건 정상"</b>이라는 점입니다. 더 작은 용량이 꼭 필요하면 CRF를 한두 단계 올리거나(예: 28→30) 해상도를 720p 이하로 내리는 쪽이, 이 환경에서는 가장 효과가 확실합니다.</p>
+    </section>
+
+    <section class="tool-article">
       <h2>관련 도구</h2>
       <div class="related-calc">
         <a href="/image/compress/">이미지 압축<span class="desc">사진 화질·용량 조정</span></a>

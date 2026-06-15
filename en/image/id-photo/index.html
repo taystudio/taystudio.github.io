@@ -357,6 +357,25 @@
     </section>
 
     <section class="tool-article">
+      <h2>Calculate mm to pixels yourself</h2>
+      <p>The output pixel size isn't picked by hand — it comes from <b>one fixed formula</b>. You can verify every number in the table above.</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Step</th><th>Calculation</th></tr></thead>
+          <tbody>
+            <tr><td>1 inch = 25.4 mm (fixed)</td><td>—</td></tr>
+            <tr><td>300 DPI = 300 px per inch</td><td>1 mm = 300 ÷ 25.4 ≈ <b>11.811 px</b></td></tr>
+            <tr><td>Width 35 mm</td><td>35 × 11.811 ≈ 413.4 → <b>413 px</b></td></tr>
+            <tr><td>Height 45 mm</td><td>45 × 11.811 ≈ 531.5 → <b>531 px</b></td></tr>
+            <tr><td>Result (passport size)</td><td><b>413 × 531 px</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Decimals are rounded to the nearest whole pixel. That's why 30×40mm lands on 354×472px, 51×51mm (US visa) on 602×602px, and 33×48mm (China visa) on 390×567px. Enter any size under <b>"Custom mm"</b> and the same formula shows the pixels instantly, so you can check sizes that aren't in the table.</p>
+      <p class="small" style="color:var(--muted);margin-top:8px">Note: whether you draw the crop frame large or small, the <b>final output stays locked to your chosen preset's pixel size</b> — the cropped area is redrawn (resampled) to fit the output, and a larger source crop gives a sharper result.</p>
+    </section>
+
+    <section class="tool-article">
       <h2>Related tools</h2>
       <div class="related-calc">
         <a href="../bg-remove/">Background Remover<span class="desc">Make a clean white background</span></a>

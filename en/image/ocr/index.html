@@ -126,7 +126,7 @@
           "name": "Which languages are supported?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Currently English, Korean, and English + Korean mixed. Mixed mode downloads both language models, so the first run takes longer. Other languages like Japanese and Chinese are planned."
+            "text": "English, Korean, and English + Korean mixed, plus Traditional Chinese (Han), Simplified Chinese, Japanese, and Korean + Han mixed — seven modes in total. Mixed modes download both language models, so the first run takes longer."
           }
         },
         {
@@ -281,6 +281,30 @@
     </section>
 
     <section class="tool-article">
+      <h2>How to choose the recognition language</h2>
+      <p class="small" style="color:var(--muted);margin-bottom:10px">
+        OCR only looks for characters within the language model you select. Picking a language the image doesn't contain adds misreads; leaving out a language you need garbles that part. Match the mode to the scripts actually in your image.
+      </p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Image content</th><th>Recommended mode</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td>Korean only</td><td>Korean</td><td>Lightest model (~13MB)</td></tr>
+            <tr><td>Latin letters / digits only</td><td>English</td><td>Good for invoices, codes, URLs</td></tr>
+            <tr><td>Korean body with Latin / digits mixed in</td><td>Korean + English (mixed)</td><td>Downloads both models, slower first run</td></tr>
+            <tr><td>Classical / Traditional Han characters</td><td>Chinese (Traditional)</td><td>For old Korean texts, inscriptions</td></tr>
+            <tr><td>Simplified Chinese</td><td>Chinese (Simplified)</td><td>—</td></tr>
+            <tr><td>Japanese (kana + kanji)</td><td>Japanese</td><td>—</td></tr>
+            <tr><td>Korean mixed with Han characters</td><td>Korean + Han (mixed)</td><td>Old newspapers, academic notation</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small" style="color:var(--muted);margin-top:10px">
+        Mixed modes download both language models, so the first run takes longer, and the larger candidate set leaves slightly more room for misreads than a single language. If only one language is present, a single mode is faster and more accurate. Running several images in the same language back-to-back reuses the engine, so the second image onward is quicker. Extracted text is automatically cleaned of trailing spaces and excess blank lines and runs of spaces.
+      </p>
+    </section>
+
+    <section class="tool-article">
       <h2>Related tools</h2>
       <div class="related-calc">
         <a href="../qr-scan/">QR Code Scanner<span class="desc">QR-specific decoding</span></a>
@@ -353,9 +377,8 @@
       <details>
         <summary>Which languages are supported?</summary>
         <div class="answer">
-          Currently <b>English, Korean, and English + Korean mixed</b>.
-          Mixed mode downloads both language models, so the first run takes longer.
-          Other languages like Japanese and Chinese are planned.
+          <b>English, Korean, English + Korean mixed, Traditional Chinese (Han), Simplified Chinese, Japanese, and Korean + Han mixed</b> — seven modes in total.
+          Mixed modes download both language models, so the first run takes longer. See "How to choose the recognition language" above for which mode to pick.
         </div>
       </details>
 

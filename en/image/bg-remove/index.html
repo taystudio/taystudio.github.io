@@ -240,6 +240,49 @@
     </section>
 
     <section class="tool-article">
+      <h2>How background removal runs inside your browser — on-device AI inference</h2>
+      <p>
+        Most online cutout sites upload your photo to a server, process it on their GPU, and send the
+        result back. This tool works differently. The <b>AI model (ISNet)</b> that finds the background
+        runs <b>directly inside your browser</b> via <code>onnxruntime-web</code>. Your photo never leaves
+        your device — privacy here is a structural property, not just a promise.
+      </p>
+      <h3>1. First load: download the model once</h3>
+      <p>
+        The first time you use photo mode, the model file (your choice of Fast 44MB / Balanced 88MB /
+        Accurate 176MB) and the WebAssembly runtime are downloaded once from the
+        <code>staticimgly.com</code> CDN. This downloads <b>the program (model weights), not your photo</b>.
+        The assets are stored in the browser's IndexedDB / HTTP cache, so from the second run onward in the
+        same browser it starts instantly with no extra download.
+      </p>
+      <h3>2. Inference: the model decides foreground vs background per pixel</h3>
+      <p>
+        The model takes your photo and computes, <b>for every single pixel, the probability that it belongs
+        to the foreground (subject)</b>, producing an alpha mask. This runs on your device's CPU/GPU through
+        WASM (with WebGPU acceleration where available). So speed depends on <b>your own hardware and the
+        image resolution</b>, not on a server.
+      </p>
+      <h3>Easy images vs hard images — and why</h3>
+      <p>
+        What separates an easy photo from a hard one comes down to <b>how clear the boundary is</b>.
+      </p>
+      <ul>
+        <li><b>Works well</b> — people, pets, and products with crisp outlines and strong color/brightness
+          contrast against the background. The model confidently pushes the foreground probability toward
+          0 or 1, so edges come out clean.</li>
+        <li><b>Hard cases</b> — (1) <b>hair and fur</b>, where foreground and background mix within a single
+          pixel; (2) <b>semi-transparent</b> areas like glass, water, or smoke; (3) subjects whose color is
+          similar to the background, making the boundary ambiguous; and (4) busy, cluttered backgrounds. Here
+          the foreground probability hovers near 0.5 and the mask gets rough.</li>
+      </ul>
+      <p>
+        Picking a larger (more accurate) model improves these details, but increases download size and
+        processing time. For simple images like a plain white background, <b>logo mode (color-based removal)</b>
+        can be faster and cleaner than the AI.
+      </p>
+    </section>
+
+    <section class="tool-article">
       <h2>Related tools</h2>
       <div class="related-calc">
         <a href="../compress/">Image Compress<span class="desc">Transparent PNG → smaller JPG</span></a>

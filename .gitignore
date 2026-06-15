@@ -81,3 +81,6 @@ games/
 
 # JS 난독화 — 원본 source 는 private backup 만 (난독화된 .js 만 public)
 *.src.js
+
+# 세션 인계 문서 (내부용 — private backup 만)
+handsover.md

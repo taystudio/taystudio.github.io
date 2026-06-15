@@ -61,8 +61,8 @@
         "Preserve original text, images, and fonts",
         "No upload — password and file stay in your browser"
       ],
-      "dateModified": "2026-05-17",
-      "softwareVersion": "2026.05"
+      "dateModified": "2026-06-12",
+      "softwareVersion": "2026.06"
     },
     {
       "@type": "BreadcrumbList",
@@ -88,7 +88,7 @@
           "name": "Are my PDF and password sent to a server?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Processing happens entirely inside your browser using PDF.js and pdf-lib. The site operator cannot see your file contents or your password."
+            "text": "No. Processing happens entirely inside your browser using the qpdf (WebAssembly) engine. The site operator cannot see your file contents or your password."
           }
         },
         {
@@ -96,7 +96,7 @@
           "name": "Are text, images, and formatting preserved?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. pdf-lib copies the original page objects into a new file, so text, images, fonts, and hyperlinks are preserved. The result remains fully searchable and copyable."
+            "text": "Yes. qpdf strips only the encryption layer and keeps the original page and object structure intact, so text, images, fonts, and hyperlinks are preserved. The result remains fully searchable and copyable."
           }
         },
         {
@@ -120,7 +120,7 @@
           "name": "What happens if the password is wrong?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "PDF.js validates the password; if it does not match, an alert is shown and processing stops. The password never leaves your browser memory."
+            "text": "qpdf validates the password; if it does not match, an alert is shown and processing stops. The password never leaves your browser memory."
           }
         }
       ]
@@ -133,7 +133,7 @@
       "step": [
         { "@type": "HowToStep", "position": 1, "name": "Select the PDF", "text": "Drag and drop or click to choose the encrypted PDF." },
         { "@type": "HowToStep", "position": 2, "name": "Enter the password", "text": "Type the password you use to open the PDF. The password never leaves your browser." },
-        { "@type": "HowToStep", "position": 3, "name": "Unlock", "text": "Click Unlock — PDF.js verifies the password, then pdf-lib writes a new PDF without encryption." },
+        { "@type": "HowToStep", "position": 3, "name": "Unlock", "text": "Click Unlock — qpdf verifies the password and decrypts the file, writing a new PDF without encryption." },
         { "@type": "HowToStep", "position": 4, "name": "Download", "text": "Download the result. Original text, images, and layout are preserved." }
       ]
     }
@@ -262,8 +262,8 @@
       <details>
         <summary>Libraries used</summary>
         <div class="answer">
-          Password verification and page parsing are handled by <a href="https://github.com/mozilla/pdf.js" rel="nofollow noopener" target="_blank">PDF.js</a> (Mozilla, Apache 2.0).
-          Writing the new, unencrypted PDF is handled by <a href="https://github.com/Hopding/pdf-lib" rel="nofollow noopener" target="_blank">pdf-lib</a> (MIT).
+          Password verification and decryption are handled by <a href="https://github.com/qpdf/qpdf" rel="nofollow noopener" target="_blank">qpdf</a> (Apache 2.0), compiled to WebAssembly.
+          Showing the result's page count is handled by <a href="https://github.com/Hopding/pdf-lib" rel="nofollow noopener" target="_blank">pdf-lib</a> (MIT).
           Both are 100% client-side.
         </div>
       </details>
@@ -278,15 +278,15 @@
       <details>
         <summary>Is the password really not uploaded?</summary>
         <div class="answer">
-          Correct. <code>PDF.js</code> validates the password directly inside your browser; only the success/failure result is exposed to the page's JavaScript.
+          Correct. <code>qpdf</code> (WebAssembly) validates the password and decrypts directly inside your browser; only the resulting PDF is exposed to the page's JavaScript.
           The password string is never sent over the network — it lives only in browser memory. <b>The tool works fully offline</b> after the first page load.
         </div>
       </details>
       <details>
         <summary>The output size is different from the original — normal?</summary>
         <div class="answer">
-          Yes. pdf-lib copies page objects as-is, so fonts and images carry over. The encryption dictionary and metadata are removed, which may slightly shrink the file,
-          while object compression differences can occasionally make it slightly larger.
+          Yes. qpdf keeps the page and object structure as-is, so fonts and images carry over. The encryption layer and metadata are removed, which may slightly shrink the file,
+          while object-rewrite differences can occasionally make it slightly larger.
         </div>
       </details>
     </section>
@@ -311,13 +311,14 @@
       </details>
 
       <details>
-        <summary>2-stage processing — PDF.js + pdf-lib</summary>
+        <summary>How it works — qpdf decryption engine (WebAssembly)</summary>
         <div class="body">
+          <p>The real PDF decryption engine, <b>qpdf</b>, runs directly in your browser:</p>
           <ol>
-            <li><b>Password validation (PDF.js)</b> — <code>pdfjsLib.getDocument({ data, password })</code>. On wrong password, PasswordException code 2 surfaces. Enter key triggers + show/hide toggle.</li>
-            <li><b>Lossless re-save (pdf-lib)</b> — after validation, <code>PDFDocument.load(data, { ignoreEncryption: true })</code> loads and re-saves. Text, images, hyperlinks, and metadata are preserved.</li>
+            <li><b>Decryption (qpdf-wasm)</b> — <code>callMain(['/in.pdf', '--password=…', '--decrypt', '--', '/out.pdf'])</code> validates the supplied password and, on success, produces a new PDF with both the user and owner passwords removed. On a wrong password it stops immediately (return code 2 / "invalid password"). Enter key triggers + show/hide toggle.</li>
+            <li><b>Page count (pdf-lib)</b> — the decrypted output is read with <code>PDFDocument.load()</code> only to show the page count. It plays no part in the decryption.</li>
           </ol>
-          <p class="small">Not a rasterization approach — text search / copy / OCR all keep working. File size may vary ±10%.</p>
+          <p class="small">qpdf strips only the encryption layer and leaves the page/object structure intact, so it is lossless. Not a rasterization approach — text search / copy / OCR all keep working. File size may vary ±10%.</p>
         </div>
       </details>
 
@@ -342,10 +343,10 @@
         <div class="body">
           <ul>
             <li><b>No password = no unlock</b> — no brute force here. If you don't have the password, request a re-issue from the source.</li>
-            <li><b>Code 1 vs code 2</b> — PasswordException code 1 (no password supplied) / code 2 (wrong password). Distinct user alerts.</li>
-            <li><b>Compatibility</b> — very old PDFs (pre-1.4) or non-standard encryption may fail in pdf-lib. Unlock via a PDF viewer first, then retry.</li>
+            <li><b>Wrong-password handling</b> — qpdf validates the password and signals a mismatch via return code 2 / "invalid password", which shows a "Password does not match" alert.</li>
+            <li><b>Compatibility</b> — non-standard or corrupted encryption may fail to decrypt. Unlock via a PDF viewer first, then retry.</li>
             <li><b>Digital-signature invalidation</b> — by design. For signed PDFs, keep the original.</li>
-            <li><b>File-size variance</b> — pdf-lib's object compression differs from the original; ±10% is normal.</li>
+            <li><b>File-size variance</b> — qpdf's object rewriting differs from the original; ±10% is normal.</li>
           </ul>
         </div>
       </details>
@@ -365,7 +366,7 @@
       <details>
         <summary>Are my PDF and password sent to a server?</summary>
         <div class="answer">
-          No. Processing happens entirely inside <b>your browser using PDF.js and pdf-lib</b>.
+          No. Processing happens entirely inside <b>your browser using the qpdf (WebAssembly) engine</b>.
           The site operator cannot see your file contents or your password. The password is held only in JS memory and then discarded.
         </div>
       </details>
@@ -373,7 +374,7 @@
       <details>
         <summary>Are text, images, and formatting preserved?</summary>
         <div class="answer">
-          Yes. pdf-lib copies the <b>original page objects as-is</b>, so text, images, fonts, and hyperlinks are preserved.
+          Yes. qpdf strips <b>only the encryption layer</b> and keeps the page/object structure intact, so text, images, fonts, and hyperlinks are preserved.
           The result remains fully searchable and copyable.
         </div>
       </details>
@@ -398,7 +399,7 @@
       <details>
         <summary>What happens if the password is wrong?</summary>
         <div class="answer">
-          PDF.js validates the password; if it does not match, an alert reading <b>"Password does not match"</b> is shown and processing stops.
+          qpdf validates the password; if it does not match, an alert reading <b>"Password does not match"</b> is shown and processing stops.
           The password never leaves your browser memory.
         </div>
       </details>
@@ -406,9 +407,9 @@
 
     <section class="sources">
       <h2>References</h2>
-      <div class="updated">Last reviewed: 2026-05-17 / Powered by PDF.js (Apache 2.0) + pdf-lib (MIT).</div>
+      <div class="updated">Last reviewed: 2026-06-12 / Powered by qpdf (Apache 2.0, WebAssembly) for decryption + pdf-lib (MIT) for page count.</div>
       <ul>
-        <li>PDF.js (Apache 2.0) — <a href="https://github.com/mozilla/pdf.js" rel="nofollow noopener" target="_blank">GitHub</a></li>
+        <li>qpdf (Apache 2.0) — <a href="https://github.com/qpdf/qpdf" rel="nofollow noopener" target="_blank">GitHub</a></li>
         <li>pdf-lib (MIT) — <a href="https://github.com/Hopding/pdf-lib" rel="nofollow noopener" target="_blank">GitHub</a></li>
         <li>PDF encryption spec — ISO 32000-1 §7.6 (Encryption)</li>
         <li>File API — <a href="https://developer.mozilla.org/en-US/docs/Web/API/File_API" rel="nofollow noopener" target="_blank">MDN</a></li>
