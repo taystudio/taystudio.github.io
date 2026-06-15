@@ -825,18 +825,44 @@ button:hover {
 }
 
 .faq .answer {
-  padding: 4px 20px 20px;
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.75;
+  padding: 10px 22px 22px;
+  font-size: 14.5px;
+  color: color-mix(in srgb, var(--text) 82%, var(--muted));
+  line-height: 1.82;
 }
 
 .disclosure-group .body {
-  padding: 4px 20px 20px;
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.75;
+  padding: 10px 22px 22px;
+  font-size: 14.5px;
+  color: color-mix(in srgb, var(--text) 82%, var(--muted));
+  line-height: 1.82;
 }
+
+/* 카드 본문 내부 요소 간격 — 단락·목록·소제목이 한 덩어리로 붙지 않게 (가독성) */
+.faq .answer > p,
+.disclosure-group .body > p,
+.hub-faq .answer > p { margin: 0 0 12px; }
+.faq .answer > *:last-child,
+.disclosure-group .body > *:last-child,
+.hub-faq .answer > *:last-child { margin-bottom: 0; }
+
+.disclosure-group .body h3,
+.faq .answer h3 { margin: 18px 0 8px; font-size: 14.5px; font-weight: 700; }
+.disclosure-group .body h3:first-child,
+.faq .answer h3:first-child { margin-top: 0; }
+
+.faq .answer ul, .faq .answer ol,
+.disclosure-group .body ul, .disclosure-group .body ol,
+.hub-faq .answer ul, .hub-faq .answer ol {
+  margin: 10px 0 14px;
+  padding-left: 20px;
+}
+.faq .answer li,
+.disclosure-group .body li,
+.hub-faq .answer li { margin-bottom: 8px; }
+.faq .answer li:last-child,
+.disclosure-group .body li:last-child,
+.hub-faq .answer li:last-child { margin-bottom: 0; }
 
 .disclosure-group .body > *:last-child {
   margin-bottom: 0;
@@ -853,6 +879,38 @@ button:hover {
 .disclosure-group .body .ref-table {
   background: var(--bg);
 }
+
+/* disclosure-group 에서 inner wrapper 로 .answer 를 쓰는 도구도 .body 와 동일 처리.
+   (smooth-details JS 는 :scope > .body, :scope > .answer 둘 다 잡음 — CSS 만 누락이었음) */
+.disclosure-group .answer {
+  padding: 10px 22px 22px;
+  font-size: 14.5px;
+  color: color-mix(in srgb, var(--text) 82%, var(--muted));
+  line-height: 1.82;
+}
+.disclosure-group .answer > p { margin: 0 0 12px; }
+.disclosure-group .answer > *:last-child { margin-bottom: 0; }
+.disclosure-group .answer h3 { margin: 18px 0 8px; font-size: 14.5px; font-weight: 700; }
+.disclosure-group .answer h3:first-child { margin-top: 0; }
+.disclosure-group .answer ul,
+.disclosure-group .answer ol { margin: 10px 0 14px; padding-left: 20px; }
+.disclosure-group .answer li { margin-bottom: 8px; }
+.disclosure-group .answer li:last-child { margin-bottom: 0; }
+.disclosure-group details.sd-anim > .answer {
+  overflow: hidden;
+  transition:
+    height .32s cubic-bezier(.16,1,.3,1),
+    opacity .24s cubic-bezier(.16,1,.3,1),
+    padding-top .32s cubic-bezier(.16,1,.3,1),
+    padding-bottom .32s cubic-bezier(.16,1,.3,1);
+}
+.disclosure-group details.sd-anim:not([open]) > .answer {
+  height: 0 !important; opacity: 0; padding-top: 0 !important; padding-bottom: 0 !important;
+}
+.disclosure-group details.sd-anim.sd-closing > .answer {
+  padding-top: 0 !important; padding-bottom: 0 !important;
+}
+.disclosure-group details.sd-anim[open] > .answer { opacity: 1; }
 
 .sources {
   margin-top: 32px;
@@ -1320,9 +1378,9 @@ button:hover {
 
 .tool-article p {
   font-size: 14px;
-  line-height: 1.7;
-  color: var(--muted);
-  margin-bottom: 12px;
+  line-height: 1.82;
+  color: color-mix(in srgb, var(--text) 82%, var(--muted));
+  margin-bottom: 14px;
 }
 
 .tool-article p strong,
@@ -1332,7 +1390,27 @@ button:hover {
 
 .tool-article .small {
   font-size: 12.5px;
-  line-height: 1.6;
+  line-height: 1.65;
+}
+
+.tool-article h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 22px 0 8px;
+  color: var(--text);
+}
+.tool-article ul,
+.tool-article ol {
+  margin: 10px 0 16px;
+  padding-left: 20px;
+  color: color-mix(in srgb, var(--text) 82%, var(--muted));
+}
+.tool-article li {
+  margin-bottom: 8px;
+  line-height: 1.72;
+}
+.tool-article li:last-child {
+  margin-bottom: 0;
 }
 
 .ref-table {
@@ -1411,18 +1489,18 @@ button:hover {
 .case-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 10px;
-  margin: 12px 0 16px;
+  gap: 12px;
+  margin: 14px 0 18px;
 }
 
 .case-grid .case {
-  padding: 12px 14px;
+  padding: 14px 16px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 13px;
-  line-height: 1.6;
-  color: var(--muted);
+  line-height: 1.68;
+  color: color-mix(in srgb, var(--text) 82%, var(--muted));
 }
 
 .case-grid .case b {
@@ -1430,7 +1508,7 @@ button:hover {
   color: var(--text);
   font-weight: 600;
   font-size: 13.5px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .related-calc {
@@ -1773,10 +1851,10 @@ button:hover {
   color: var(--text) !important;
 }
 .hub-faq .answer {
-  padding: 4px 20px 20px;
-  font-size: 14px;
-  line-height: 1.75;
-  color: var(--muted);
+  padding: 10px 22px 22px;
+  font-size: 14.5px;
+  line-height: 1.82;
+  color: color-mix(in srgb, var(--text) 82%, var(--muted));
 }
 
 /* smooth-details — hub-faq variant. height + padding 동기 */
