@@ -143,16 +143,21 @@ async function convert() {
         toType: mime,
         quality,
       });
-      // heic2any returns either a single Blob or Blob[] (multi-page HEIC). Take the first.
-      const blob = Array.isArray(out) ? out[0] : out;
-      const url = URL.createObjectURL(blob);
+      // heic2any returns either a single Blob or Blob[] (multi-page HEIC: burst / Live Photo). Convert all pages.
+      const blobs = Array.isArray(out) ? out : [out];
       const baseName = entry.file.name.replace(/\.(heic|heif)$/i, '');
-      const filename = baseName + '.' + ext;
-      resultUrls.push({ url, filename, blob, srcName: entry.file.name });
-      addImgCard(url, filename, blob.size);
-      totalBytes += blob.size;
+      blobs.forEach((blob, pageIdx) => {
+        const url = URL.createObjectURL(blob);
+        const filename = blobs.length > 1
+          ? `${baseName}-${String(pageIdx + 1).padStart(2, '0')}.${ext}`
+          : `${baseName}.${ext}`;
+        resultUrls.push({ url, filename, blob, srcName: entry.file.name });
+        addImgCard(url, filename, blob.size);
+        totalBytes += blob.size;
+      });
       okCount += 1;
       entry.status = 'done';
+      if (blobs.length > 1) entry.errMsg = `${blobs.length} images extracted`;
     } catch (e) {
       entry.status = 'err';
       entry.errMsg = (e && e.message) || 'Unknown error';
@@ -198,7 +203,7 @@ function addImgCard(url, filename, size) {
   const dl = document.createElement('a');
   dl.className = 'img-card-dl';
   dl.href = url;
-  dl.download = filename;
+  dl.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(filename) : filename);
   dl.textContent = '⬇ Download';
   card.appendChild(dl);
 
@@ -211,7 +216,7 @@ function downloadAll() {
     setTimeout(() => {
       const a = document.createElement('a');
       a.href = r.url;
-      a.download = r.filename;
+      a.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(r.filename) : r.filename);
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

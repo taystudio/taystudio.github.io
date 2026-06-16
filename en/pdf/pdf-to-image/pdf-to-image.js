@@ -72,8 +72,10 @@ function parseRange(text, total) {
       if (!Number.isFinite(a) || !Number.isFinite(b) || a < 1 || b < 1 || a > total || b > total) {
         throw new Error(`'${part}' is not a valid range (allowed: 1-${total}).`);
       }
-      const step = a <= b ? 1 : -1;
-      for (let i = a; step > 0 ? i <= b : i >= b; i += step) {
+      if (a > b) {
+        throw new Error(`'${part}' is a reversed range. Enter the smaller page first (e.g. ${b}-${a}).`);
+      }
+      for (let i = a; i <= b; i++) {
         out.push(i - 1);
       }
     } else {

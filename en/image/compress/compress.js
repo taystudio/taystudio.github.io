@@ -140,7 +140,7 @@ function compress() {
     const ext = type === 'image/jpeg' ? 'jpg' : type === 'image/webp' ? 'webp' : 'png';
     const baseName = (currentFile.name || 'image').replace(/\.[^./]+$/, '');
     downloadBtn.href = currentObjectURL;
-    downloadBtn.download = baseName + '-compressed.' + ext;
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(baseName + '-compressed.' + ext) : baseName + '-compressed.' + ext);
 
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });

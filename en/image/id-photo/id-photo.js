@@ -313,7 +313,7 @@ async function applyCrop() {
     resultUrl = URL.createObjectURL(blob);
     const stem = (originalFile.name || 'photo').replace(/\.[^/.]+$/, '');
     downloadBtn.href = resultUrl;
-    downloadBtn.download = `${stem}-${widthMm}x${heightMm}mm.${ext}`;
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(`${stem}-${widthMm}x${heightMm}mm.${ext}`) : `${stem}-${widthMm}x${heightMm}mm.${ext}`);
     resultPreview.src = resultUrl;
     outSize.textContent = `${targetW} × ${targetH} px (${widthMm}×${heightMm}mm)`;
     newBytes.textContent = fmtBytes(blob.size);

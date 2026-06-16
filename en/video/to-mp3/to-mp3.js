@@ -145,7 +145,7 @@ async function run() {
 
     const baseName = (currentFile.name || 'audio').replace(/\.[^./]+$/, '');
     downloadBtn.href = resultUrl;
-    downloadBtn.download = baseName + '.mp3';
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(baseName + '.mp3') : baseName + '.mp3');
 
     progressFill.style.width = '100%';
     progressWrap.setAttribute('aria-valuenow', '100');

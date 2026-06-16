@@ -99,6 +99,13 @@ async function merge() {
     alert('PDF library is still loading. Please try again in a moment.');
     return;
   }
+  // Total size guard at 100MB (safety margin for browser memory limits)
+  const totalSize = files.reduce((sum, entry) => sum + entry.file.size, 0);
+  const MAX_TOTAL = 100 * 1024 * 1024;
+  if (totalSize > MAX_TOTAL) {
+    const mb = Math.round(totalSize / 1024 / 1024);
+    if (!confirm(`Total ${mb}MB — exceeds recommended 100MB limit. May run out of memory or fail. Continue?`)) return;
+  }
   mergeBtn.disabled = true;
   const orig = mergeBtn.textContent;
   mergeBtn.textContent = 'Processing...';

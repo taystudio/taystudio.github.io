@@ -269,7 +269,7 @@ async function run() {
 
     const baseName = (currentFile.name || 'video').replace(/\.[^./]+$/, '');
     downloadBtn.href = resultUrl;
-    downloadBtn.download = baseName + '.gif';
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(baseName + '.gif') : baseName + '.gif');
 
     progressFill.style.width = '100%';
     progressWrap.setAttribute('aria-valuenow', '100');

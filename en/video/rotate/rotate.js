@@ -223,7 +223,7 @@ async function run() {
 
     const baseName = (currentFile.name || 'video').replace(/\.[^./]+$/, '');
     downloadBtn.href = resultUrl;
-    downloadBtn.download = baseName + '-rotated.mp4';
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(baseName + '-rotated.mp4') : baseName + '-rotated.mp4');
 
     progressFill.style.width = '100%';
     progressWrap.setAttribute('aria-valuenow', '100');

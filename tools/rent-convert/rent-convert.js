@@ -51,7 +51,7 @@ document.getElementById("form").addEventListener("submit", (e) => {
   const baseRate = parseFloat(document.getElementById("rate").value || 0) / 100;
   const orig = parseFloat(document.getElementById("origDeposit").value || 0) * 10000;
 
-  if (baseRate <= 0) { alert("기준금리를 입력하세요."); return; }
+  if (!(baseRate > 0)) { alert("기준금리를 입력하세요."); return; }
 
   const formula1 = baseRate + 0.02;
   const formula2 = baseRate * 4.0;

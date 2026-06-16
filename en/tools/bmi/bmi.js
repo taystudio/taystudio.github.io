@@ -31,6 +31,9 @@ document.getElementById("form").addEventListener("submit", (e) => {
   const height = parseFloat(document.getElementById("height").value);
   const weight = parseFloat(document.getElementById("weight").value);
   if (!height || !weight) { alert("Please enter your height and weight."); return; }
+  if (height <= 0 || weight <= 0) { alert("Height and weight must be greater than 0."); return; }
+  if (height < 50 || height > 250) { alert("Please enter a height between 50 and 250 cm."); return; }
+  if (weight < 10 || weight > 500) { alert("Please enter a weight between 10 and 500 kg."); return; }
 
   const m = height / 100;
   const bmi = weight / (m * m);

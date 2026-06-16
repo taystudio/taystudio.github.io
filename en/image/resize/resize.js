@@ -228,7 +228,7 @@ function doResize() {
               : (currentFile.name.match(/\.([^.]+)$/) || [])[1] || 'img';
     const baseName = (currentFile.name || 'image').replace(/\.[^./]+$/, '');
     downloadBtn.href = currentObjectURL;
-    downloadBtn.download = baseName + '-resized.' + ext;
+    downloadBtn.download = (window.TayStudio && window.TayStudio.sanitizeFilename ? window.TayStudio.sanitizeFilename(baseName + '-resized.' + ext) : baseName + '-resized.' + ext);
 
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });

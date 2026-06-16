@@ -155,6 +155,7 @@ async function convert() {
     const orient = orientSel.value;    // 'auto' | 'portrait' | 'landscape'
     const marginPt = parseFloat(marginIn.value) * MM_TO_PT;
 
+    const failedFiles = [];
     for (const entry of files) {
       const file = entry.file;
       let img;
@@ -174,8 +175,14 @@ async function convert() {
         }
       } catch (e) {
         // Some JPEGs are rejected by embedJpg — fall back via PNG path
-        const pngBuf = await fileToPngBytes(file);
-        img = await doc.embedPng(pngBuf);
+        try {
+          const pngBuf = await fileToPngBytes(file);
+          img = await doc.embedPng(pngBuf);
+        } catch (e2) {
+          // Fallback also failed (CMYK / HEIC / corrupt, etc.) → skip this file and continue
+          failedFiles.push(file.name);
+          continue;
+        }
       }
 
       // Determine page size
@@ -210,6 +217,11 @@ async function convert() {
       }
     }
 
+    if (doc.getPageCount() === 0) {
+      alert('No images could be converted. All files were corrupt or in an unsupported format.');
+      return;
+    }
+
     const bytes = await doc.save();
     if (resultUrl) URL.revokeObjectURL(resultUrl);
     const blob = new Blob([bytes], { type: 'application/pdf' });
@@ -218,11 +230,17 @@ async function convert() {
     downloadBtn.href = resultUrl;
     downloadBtn.download = 'images-' + new Date().toISOString().slice(0, 10) + '.pdf';
 
-    convCount.textContent = files.length + ' image(s)';
+    const successCount = files.length - failedFiles.length;
+    convCount.textContent = successCount + ' image(s)' + (failedFiles.length > 0 ? ` (${failedFiles.length} failed)` : '');
     convPages.textContent = doc.getPageCount() + ' page(s)';
     convSize.textContent = fmtBytes(blob.size);
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (failedFiles.length > 0) {
+      const first = failedFiles.slice(0, 3).join(', ');
+      const more = failedFiles.length > 3 ? ` and ${failedFiles.length - 3} more` : '';
+      alert(`Some files could not be converted: ${first}${more}\n(Likely CMYK / HEIC / corrupt files. Only the ${successCount} valid image(s) were included in the PDF.)`);
+    }
   } catch (e) {
     alert('PDF conversion failed: ' + (e && e.message ? e.message : 'Unknown error'));
   } finally {
