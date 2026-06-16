@@ -27,8 +27,8 @@ document.getElementById("form").addEventListener("submit", (e) => {
   const months = parseFloat(document.getElementById("months").value);
   if (!weight || months === undefined) { alert("값을 입력하세요."); return; }
 
-  const dailyMin = weight * 150;
-  const dailyMax = weight * 180;
+  const dailyMin = Math.min(weight * 150, 960);
+  const dailyMax = Math.min(weight * 180, 960);
 
   const guide = 개월별가이드.find(g => months <= g.months) || 개월별가이드[개월별가이드.length - 1];
   const perFeed = (guide.perFeed[0] + guide.perFeed[1]) / 2;

@@ -1,6 +1,28 @@
 {
   "updates": [
     {
+      "date": "2026-06-16",
+      "items_ko": [
+        {
+          "text": "성장 백분위 계산기 정확도 개선 — 미국 CDC·세계보건기구(WHO) 공식 성장도표를 그대로 적용한 정식 백분위로 교체. 키·몸무게·머리둘레·BMI를 병원 도표와 같은 방식으로 계산합니다",
+          "url": "/tools/growth/",
+          "tag": "UPDATE"
+        },
+        {
+          "text": "주요 계산기 2026년 기준 재점검 — 실업급여 상한액·전월세 전환율·자동차세 감면 등을 공식 기준으로 다시 확인하고 정정했습니다",
+          "url": "/tools/",
+          "tag": "UPDATE"
+        }
+      ],
+      "items_en": [
+        {
+          "text": "Key calculators rechecked for 2026 — unemployment cap, jeonse-to-monthly conversion rate, vehicle tax cuts and more re-verified against official sources and corrected where needed",
+          "url": "/en/tools/",
+          "tag": "UPDATE"
+        }
+      ]
+    },
+    {
       "date": "2026-06-12",
       "items_ko": [
         {

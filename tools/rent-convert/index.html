@@ -19,7 +19,7 @@
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="TAYSTUDIO 계산기">
   <meta property="og:title" content="전월세 전환 계산기 2026 | 보증금↔월세 법정 전환율 자동">
-  <meta property="og:description" content="주택임대차보호법 제7조의2 기준 전월세 전환율(기준금리 + 2% / 기준금리 × 4% 중 낮은 것)로 보증금↔월세 즉시 환산.">
+  <meta property="og:description" content="주택임대차보호법 제7조의2 기준 전월세 전환율(기준금리 + 2% / 연 10% 고정 중 낮은 것)로 보증금↔월세 즉시 환산.">
   <meta property="og:image" content="https://taystudios.com/og-image.png">
   <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
   <meta property="og:image:type" content="image/png">
@@ -28,11 +28,11 @@
   <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="전월세 전환 계산기 2026 | 보증금↔월세 법정 전환율 자동">
-  <meta name="twitter:description" content="주택임대차보호법 제7조의2 기준 전월세 전환율(기준금리 + 2% / 기준금리 × 4% 중 낮은 것)로 보증금↔월세 즉시 환산.">
+  <meta name="twitter:description" content="주택임대차보호법 제7조의2 기준 전월세 전환율(기준금리 + 2% / 연 10% 고정 중 낮은 것)로 보증금↔월세 즉시 환산.">
   <meta name="twitter:image" content="https://taystudios.com/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <title>전월세 전환 계산기 2026 | 보증금↔월세 법정 전환율 자동</title>
-  <meta name="description" content="주택임대차보호법 제7조의2 기준 전월세 전환율(기준금리 + 2% / 기준금리 × 4% 중 낮은 것)로 보증금↔월세 즉시 환산.">
+  <meta name="description" content="주택임대차보호법 제7조의2 기준 전월세 전환율(기준금리 + 2% / 연 10% 고정 중 낮은 것)로 보증금↔월세 즉시 환산.">
   <meta name="keywords" content="전월세 전환율, 전월세 전환 계산기, 월세 보증금 환산, 전세 월세 전환, 주택임대차보호법">
   <link rel="canonical" href="https://taystudios.com/tools/rent-convert/">
   <link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/rent-convert/">
@@ -105,7 +105,7 @@
           "name": "기준금리가 오르면 전환율도 올라가나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "네. 주택 전환율 = min(기준금리 + 2%, 기준금리 × 4) — 보통 기준금리 + 2%가 낮으므로 적용. 즉 기준금리 1%p 상승 = 법정 전환율 1%p 상승. 임대인에게 유리, 임차인에게 불리."
+            "text": "네. 주택 전환율 = min(기준금리 + 2%, 연 10% 고정) — 보통 기준금리 + 2%가 낮으므로 적용. 즉 기준금리 1%p 상승 = 법정 전환율 1%p 상승. 임대인에게 유리, 임차인에게 불리."
           }
         },
         {
@@ -145,7 +145,7 @@
   <main class="container">
     <div class="breadcrumb"><a href="../">도구</a> · 부동산 · 전월세 전환 계산기</div>
     <h1>전월세 전환 계산기 <span class="basis-badge">2026년 기준</span></h1>
-    <p class="subtitle">주택임대차보호법 제7조의2 기준 — 기준금리 + 2% 또는 기준금리 × 4% 중 낮은 비율 자동 적용.</p>
+    <p class="subtitle">주택임대차보호법 제7조의2 기준 — 기준금리 + 2% 또는 연 10% 고정 중 낮은 비율 자동 적용.</p>
 
     <form id="form" class="card">
       <div class="field">
@@ -195,7 +195,7 @@
       </div>
       <div class="breakdown">
         <div class="breakdown-row"><span class="label">기준금리 + 2.0%</span><span id="formula1" class="value">0%</span></div>
-        <div class="breakdown-row"><span class="label">기준금리 × 4.0%</span><span id="formula2" class="value">0%</span></div>
+        <div class="breakdown-row"><span class="label" id="formula2Label">연 10% 고정 상한</span><span id="formula2" class="value">0%</span></div>
         <div class="breakdown-row"><span class="label">법정 최대 전환율 (둘 중 낮은 비율)</span><span id="appliedRate" class="value">0%</span></div>
         <div class="breakdown-row"><span class="label">감액(또는 환산) 보증금</span><span id="diffDeposit" class="value">0원</span></div>
         <div class="breakdown-row total"><span class="label" id="resultBottomLabel">월세 환산액</span><span id="resultMain" class="value">0원</span></div>
@@ -210,7 +210,7 @@
       <h2>법정 전환율 산정 공식</h2>
       <div class="formula-list">
         <ol>
-          <li><b>주택</b> (주임법 제7조의2): <code>min(기준금리 + 2.0%, 기준금리 × 4.0)</code></li>
+          <li><b>주택</b> (주임법 제7조의2 + 시행령 제9조): <code>min(기준금리 + 2.0%, 연 10% 고정)</code></li>
           <li><b>상가</b> (상임법 제12조): <code>min(12%, 기준금리 × 4.5)</code></li>
           <li><b>전세 → 월세</b>: 월세 = 감액 보증금 × 전환율 ÷ 12</li>
           <li><b>월세 → 전세</b>: 추가 보증금 = 월세 × 12 ÷ 전환율</li>
@@ -223,19 +223,19 @@
       <h2>기준금리별 주택 법정 전환율</h2>
       <div class="ref-table">
         <table>
-          <thead><tr><th>기준금리</th><th>+ 2.0%</th><th>× 4.0</th><th>법정 상한</th></tr></thead>
+          <thead><tr><th>기준금리</th><th>+ 2.0%</th><th>고정 상한</th><th>법정 상한</th></tr></thead>
           <tbody>
-            <tr><td>1.00%</td><td>3.00%</td><td>4.00%</td><td class="highlight">3.00%</td></tr>
-            <tr><td>1.50%</td><td>3.50%</td><td>6.00%</td><td class="highlight">3.50%</td></tr>
-            <tr><td>2.00%</td><td>4.00%</td><td>8.00%</td><td class="highlight">4.00%</td></tr>
+            <tr><td>1.00%</td><td>3.00%</td><td>10.00%</td><td class="highlight">3.00%</td></tr>
+            <tr><td>1.50%</td><td>3.50%</td><td>10.00%</td><td class="highlight">3.50%</td></tr>
+            <tr><td>2.00%</td><td>4.00%</td><td>10.00%</td><td class="highlight">4.00%</td></tr>
             <tr><td>2.50% (현재)</td><td>4.50%</td><td>10.00%</td><td class="highlight">4.50%</td></tr>
-            <tr><td>3.00%</td><td>5.00%</td><td>12.00%</td><td class="highlight">5.00%</td></tr>
-            <tr><td>3.50%</td><td>5.50%</td><td>14.00%</td><td class="highlight">5.50%</td></tr>
-            <tr><td>4.00%</td><td>6.00%</td><td>16.00%</td><td class="highlight">6.00%</td></tr>
+            <tr><td>3.00%</td><td>5.00%</td><td>10.00%</td><td class="highlight">5.00%</td></tr>
+            <tr><td>3.50%</td><td>5.50%</td><td>10.00%</td><td class="highlight">5.50%</td></tr>
+            <tr><td>4.00%</td><td>6.00%</td><td>10.00%</td><td class="highlight">6.00%</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="small">기준금리 1%p 상승 → 법정 전환율 1%p 상승. 항상 「+2.0%」 식이 「×4.0」 식보다 낮으므로 그쪽이 적용됨.</p>
+      <p class="small">기준금리 1%p 상승 → 법정 전환율 1%p 상승. 항상 「+2.0%」 식이 「연 10% 고정」보다 낮으므로 그쪽이 적용됨.</p>
     </section>
 
     <section class="disclosure-group">
@@ -374,7 +374,7 @@
       <details>
         <summary>기준금리가 오르면 전환율도 올라가나요?</summary>
         <div class="answer">
-          네. 주택 전환율 = <code>min(기준금리 + 2%, 기준금리 × 4)</code> — 보통 기준금리
+          네. 주택 전환율 = <code>min(기준금리 + 2%, 연 10% 고정)</code> — 보통 기준금리
           + 2%가 낮으므로 적용. 즉 <b>기준금리 1%p 상승 = 법정 전환율 1%p 상승</b>.
           임대인에게 유리, 임차인에게 불리.
         </div>
@@ -411,7 +411,7 @@
       <h2>적용된 법령·고시 및 출처</h2>
       <div class="updated">최종 검증: 2026-05-04 / 적용 기준: 한국은행 기준금리 2.50% (2026-04-10 동결)</div>
       <ul>
-        <li><b>주택 전월세 전환율 상한</b> — 주택임대차보호법 제7조의2 + 동법 시행령 제9조<br>· 「대통령령으로 정하는 비율(2.0%)을 한국은행 기준금리에 더한 비율」 또는 「한국은행 기준금리 × 4.0%」 중 낮은 비율<br>· 예: 기준금리 2.5% → min(4.5%, 10%) = <b>4.5% 한도</b></li>
+        <li><b>주택 전월세 전환율 상한</b> — 주택임대차보호법 제7조의2 + 동법 시행령 제9조<br>· 「대통령령으로 정하는 비율(2.0%)을 한국은행 기준금리에 더한 비율」 또는 「연 1할(10%) 고정」 중 낮은 비율<br>· 예: 기준금리 2.5% → min(4.5%, 10%) = <b>4.5% 한도</b></li>
         <li><b>상가 전월세 전환율 상한 12%</b> — 상가건물임대차보호법 제12조 + 시행령 제5조<br>· 「12%」 또는 「한국은행 기준금리 × 4.5배」 중 낮은 비율</li>
         <li><b>한국은행 기준금리 2.50%</b> (2026-04-10 동결) — <a href="https://www.bok.or.kr/portal/singl/baseRate/list.do?dataSeCd=01&menuNo=200643" target="_blank" rel="noopener">한국은행 기준금리 추이</a></li>
         <li><b>국가법령정보센터 — 주택임대차보호법</b> — <a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EC%A3%BC%ED%83%9D%EC%9E%84%EB%8C%80%EC%B0%A8%EB%B3%B4%ED%98%B8%EB%B2%95" target="_blank" rel="noopener">law.go.kr</a></li>

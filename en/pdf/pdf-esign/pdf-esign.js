@@ -7,6 +7,7 @@ const $ = (id) => document.getElementById(id);
 let state = {
   pdfBytes: null,
   pdfDoc: null,
+  pdfName: '',
   currentPage: 1,
   pageCount: 1,
   pageCanvas: null,
@@ -45,7 +46,7 @@ $('sigUseBtn').onclick = () => {
   const data = sigCtx.getImageData(0, 0, sigCanvas.width, sigCanvas.height);
   let hasInk = false;
   for (let i = 3; i < data.data.length; i += 4) if (data.data[i] > 0) { hasInk = true; break; }
-  if (!hasInk) { alert('서명을 먼저 그려주세요.'); return; }
+  if (!hasInk) { alert('Please draw your signature first.'); return; }
   state.sigDataUrl = sigCanvas.toDataURL('image/png');
   showSigOverlay();
 };
@@ -53,7 +54,7 @@ $('sigUseBtn').onclick = () => {
 // ─── 서명 (텍스트) ───
 $('sigTypeUseBtn').onclick = () => {
   const text = $('sigTextInput').value.trim();
-  if (!text) { alert('이름을 입력해주세요.'); return; }
+  if (!text) { alert('Please enter a name.'); return; }
   const font = $('sigFont').value;
   const size = +$('sigTextSize').value;
   const c = document.createElement('canvas');
@@ -74,8 +75,8 @@ $('sigTypeUseBtn').onclick = () => {
 // ─── 서명 (이미지) ───
 $('sigImageInput').onchange = (e) => {
   const f = e.target.files[0]; if (!f) return;
-  if (!f.type.startsWith('image/') && !/\.(png|jpe?g|gif|webp|bmp)$/i.test(f.name)) { alert('이미지 파일을 선택해주세요.'); e.target.value = ''; return; }
-  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(f, 20, '이미지')) { e.target.value = ''; return; }
+  if (!f.type.startsWith('image/') && !/\.(png|jpe?g|gif|webp|bmp)$/i.test(f.name)) { alert('Please select an image file.'); e.target.value = ''; return; }
+  if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(f, 20, 'image')) { e.target.value = ''; return; }
   const reader = new FileReader();
   reader.onload = ev => { state.sigDataUrl = ev.target.result; showSigOverlay(); };
   reader.readAsDataURL(f);
@@ -93,20 +94,21 @@ document.querySelectorAll('.es-tabs button').forEach(b => {
 // ─── PDF 미리보기 ───
 $('pdfInput').onchange = async (e) => {
   const f = e.target.files[0]; if (!f) return;
-  if (f.type !== 'application/pdf' && !f.name.toLowerCase().endsWith('.pdf')) { alert('PDF 파일을 선택해주세요.'); e.target.value = ''; return; }
+  if (f.type !== 'application/pdf' && !f.name.toLowerCase().endsWith('.pdf')) { alert('Please select a PDF file.'); e.target.value = ''; return; }
   if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(f, 100, 'PDF')) { e.target.value = ''; return; }
   try {
     state.pdfBytes = await f.arrayBuffer();
+    state.pdfName = f.name;
     state.pdfDoc = await pdfjsLib.getDocument({ data: state.pdfBytes.slice(0) }).promise;
     state.pageCount = state.pdfDoc.numPages;
     state.currentPage = 1;
     $('emptyState').style.display = 'none';
     $('pdfRender').style.display = '';
-    $('pdfInfo').textContent = `${f.name} · ${state.pageCount} 페이지`;
+    $('pdfInfo').textContent = `${f.name} · ${state.pageCount} pages`;
     $('pageCount').textContent = state.pageCount;
     await renderPage();
   } catch (err) {
-    alert('PDF를 열 수 없습니다. 손상되었거나 암호로 보호된 파일일 수 있습니다.');
+    alert('Could not open the PDF. It may be corrupted or password-protected.');
   }
 };
 
@@ -205,8 +207,33 @@ $('sigOpacity').oninput = positionOverlay;
 function updateDownloadState() {
   const ready = state.pdfBytes && state.sigDataUrl;
   $('downloadBtn').disabled = !ready;
-  $('downloadStatus').textContent = ready ? '클릭하면 서명된 PDF 다운로드' : 'PDF + 서명 둘 다 준비되면 활성화';
+  $('downloadStatus').textContent = ready ? 'Click to download the signed PDF' : 'Enabled once PDF + signature are both ready';
 }
+
+// ─── Start over (reset) ───
+function resetAll() {
+  state = {
+    pdfBytes: null, pdfDoc: null, pdfName: '',
+    currentPage: 1, pageCount: 1, pageCanvas: null,
+    sigDataUrl: null, sigPos: { x: 0.5, y: 0.7 }, sigScale: 40,
+  };
+  sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+  $('sigWrap').classList.remove('has-drawing');
+  $('sigOverlay').style.display = 'none';
+  $('sigOverlayImg').removeAttribute('src');
+  $('pdfInput').value = '';
+  $('sigImageInput').value = '';
+  $('sigScale').value = 40;
+  $('sigOpacity').value = 100;
+  $('pdfRender').style.display = 'none';
+  $('emptyState').style.display = '';
+  $('pdfInfo').textContent = 'Select a PDF → preview + page navigation';
+  $('pageNum').value = 1;
+  $('pageCount').textContent = 1;
+  updateDownloadState();
+}
+const resetBtn = $('resetBtn');
+if (resetBtn) resetBtn.onclick = resetAll;
 
 // ─── 다운로드 (pdf-lib) ───
 $('downloadBtn').onclick = async () => {
@@ -215,7 +242,7 @@ $('downloadBtn').onclick = async () => {
     const { PDFDocument } = window.PDFLib;
     const pdf = await PDFDocument.load(state.pdfBytes.slice(0), { ignoreEncryption: false });
     if (pdf.isEncrypted) {
-      alert('암호화된 PDF는 먼저 비밀번호를 제거하세요. (/pdf/pdf-unlock/)');
+      alert('Please remove the password from the encrypted PDF first. (/en/pdf/pdf-unlock/)');
       return;
     }
     const pngBytes = await fetch(state.sigDataUrl).then(r => r.arrayBuffer());
@@ -237,12 +264,15 @@ $('downloadBtn').onclick = async () => {
     const out = await pdf.save();
     const blob = new Blob([out], { type: 'application/pdf' });
     const url = URL.createObjectURL(blob);
+    const base = (state.pdfName || 'document').replace(/\.pdf$/i, '');
+    const fname = (window.TayStudio && window.TayStudio.sanitizeFilename
+      ? window.TayStudio.sanitizeFilename(base) : base) + '-signed.pdf';
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'signed.pdf';
+    a.download = fname;
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   } catch (err) {
-    alert('서명 삽입 중 오류가 발생했습니다: ' + (err.message || err));
+    alert('An error occurred while inserting the signature: ' + (err.message || err));
   }
 };

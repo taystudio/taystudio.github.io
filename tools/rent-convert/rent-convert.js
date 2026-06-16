@@ -4,7 +4,7 @@
  *
  * 검증된 수치 출처
  * - 주택 전월세 전환율 상한: 주택임대차보호법 제7조의2 + 시행령 제9조
- *   · min(기준금리 + 2.0%, 기준금리 × 4.0%)
+ *   · min(기준금리 + 2.0%, 연 10% 고정)  (시행령 제9조 = 연 1할 고정)
  *   국가법령정보센터: law.go.kr/법령/주택임대차보호법
  * - 상가 전월세 전환율 상한: 상가건물임대차보호법 제12조 + 시행령 제5조
  *   · min(12%, 기준금리 × 4.5배)
@@ -40,8 +40,8 @@ function 전환율(기준금리, kind) {
     // 상가: min(12%, 기준금리 × 4.5)
     return Math.min(0.12, 기준금리 * 4.5);
   }
-  // 주택: min(기준금리 + 2%, 기준금리 × 4)
-  return Math.min(기준금리 + 0.02, 기준금리 * 4.0);
+  // 주택: min(기준금리 + 2%, 연 10% 고정)
+  return Math.min(기준금리 + 0.02, 0.10);
 }
 
 document.getElementById("form").addEventListener("submit", (e) => {
@@ -54,11 +54,12 @@ document.getElementById("form").addEventListener("submit", (e) => {
   if (!(baseRate > 0)) { alert("기준금리를 입력하세요."); return; }
 
   const formula1 = baseRate + 0.02;
-  const formula2 = baseRate * 4.0;
+  const formula2 = (kind === "shop") ? baseRate * 4.5 : 0.10;
   const applied = 전환율(baseRate, kind);
 
   document.getElementById("formula1").textContent = (formula1 * 100).toFixed(2) + "%";
   document.getElementById("formula2").textContent = (formula2 * 100).toFixed(2) + "%";
+  document.getElementById("formula2Label").textContent = (kind === "shop") ? "기준금리 × 4.5" : "연 10% 고정 상한";
   document.getElementById("appliedRate").textContent = (applied * 100).toFixed(2) + "%";
 
   if (dir === "d2m") {

@@ -42,7 +42,7 @@ function ppiTier(ppi) {
 
 // 권장 시야거리 (cm) — 화면 높이 기반
 // 화면 높이(cm) = 대각선 × 2.54 × sin(arctan(h/w))
-// 16:9에선 대략 인치 × 1.245, 21:9에선 인치 × 0.917
+// 16:9에선 대략 인치 × 1.245, 21:9 ≈ 인치 × 1.00
 function recommendedDistance(inches, w, h) {
   const aspectFactor = h / Math.sqrt(w*w + h*h);          // h/diagonal
   const screenHeightCm = inches * 2.54 * aspectFactor;

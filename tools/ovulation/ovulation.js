@@ -45,7 +45,7 @@ document.getElementById("form").addEventListener("submit", (e) => {
       <div style="font-weight:600;color:var(--primary);margin-bottom:8px">${i === 0 ? "이번 주기" : i + 1 + "번째 주기"}</div>
       <div class="breakdown-row"><span class="label">생리 시작일</span><span class="value">${fmtDate(periodStart)}</span></div>
       <div class="breakdown-row"><span class="label">배란일</span><span class="value">${fmtDate(ovulation)}</span></div>
-      <div class="breakdown-row"><span class="label">가임기 (5일)</span><span class="value">${fmtDate(fertileStart)} ~ ${fmtDate(fertileEnd)}</span></div>
+      <div class="breakdown-row"><span class="label">가임기 (약 7일)</span><span class="value">${fmtDate(fertileStart)} ~ ${fmtDate(fertileEnd)}</span></div>
       <div class="breakdown-row"><span class="label">다음 생리 예정</span><span class="value">${fmtDate(nextPeriod)}</span></div>
     `;
     list.appendChild(card);

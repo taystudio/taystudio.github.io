@@ -15,7 +15,7 @@
 function 분류(bmi) {
   if (bmi < 18.5) return { label: "저체중", color: "#3b82f6" };
   if (bmi < 23) return { label: "정상", color: "#10b981" };
-  if (bmi < 25) return { label: "과체중 (위험)", color: "#f59e0b" };
+  if (bmi < 25) return { label: "비만 전단계", color: "#f59e0b" };
   if (bmi < 30) return { label: "1단계 비만", color: "#ef4444" };
   if (bmi < 35) return { label: "2단계 비만", color: "#dc2626" };
   return { label: "3단계 (고도) 비만", color: "#991b1b" };

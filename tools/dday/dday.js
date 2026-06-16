@@ -39,8 +39,8 @@ document.getElementById("form").addEventListener("submit", (e) => {
   document.getElementById("totalDays").textContent = abs.toLocaleString("ko-KR") + "일";
   document.getElementById("totalWeeks").textContent =
     Math.floor(abs / 7) + "주 " + (abs % 7) + "일";
-  document.getElementById("totalMonths").textContent = (abs / 30).toFixed(1) + "개월";
-  document.getElementById("totalYears").textContent = (abs / 365).toFixed(2) + "년";
+  document.getElementById("totalMonths").textContent = (abs / 30.4375).toFixed(1) + "개월";
+  document.getElementById("totalYears").textContent = (abs / 365.25).toFixed(2) + "년";
 });
 
 (function setDefaults() {

@@ -18,8 +18,8 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="TAYSTUDIO 계산기">
-  <meta property="og:title" content="영유아 성장 백분위 계산기 | 키·몸무게·머리둘레 (남아·여아 별, 0~36개월)">
-  <meta property="og:description" content="2017 한국 소아청소년 성장도표 기준. 0~36개월 영유아 키·몸무게·머리둘레 백분위 즉시 추정. 남아·여아 별 계산. 한국 표준 5/25/50/75/95 백분위 분포.">
+  <meta property="og:title" content="성장 백분위 계산기 — 키·몸무게·머리둘레·BMI (0~20세, LMS)">
+  <meta property="og:description" content="WHO·CDC 공식 성장도표를 LMS(Box-Cox) 정식 방식으로 계산. 0~20세 키·몸무게·머리둘레·BMI 백분위 + 성장곡선 차트·추적. 남아·여아 별. 무료, 브라우저 내 처리.">
   <meta property="og:image" content="https://taystudios.com/og-image.png">
   <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
   <meta property="og:image:type" content="image/png">
@@ -27,13 +27,13 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="영유아 성장 백분위 계산기 | 키·몸무게·머리둘레 (남아·여아 별, 0~36개월)">
-  <meta name="twitter:description" content="2017 한국 소아청소년 성장도표 기준. 0~36개월 영유아 키·몸무게·머리둘레 백분위 즉시 추정. 남아·여아 별 계산. 한국 표준 5/25/50/75/95 백분위 분포.">
+  <meta name="twitter:title" content="성장 백분위 계산기 — 키·몸무게·머리둘레·BMI (0~20세, LMS)">
+  <meta name="twitter:description" content="WHO·CDC 성장도표 LMS 정식 계산. 0~20세 키·몸무게·머리둘레·BMI 백분위 + 성장곡선·추적.">
   <meta name="twitter:image" content="https://taystudios.com/og-image.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
-  <title>영유아 성장 백분위 계산기 | 키·몸무게·머리둘레 (남아·여아 별, 0~36개월)</title>
-  <meta name="description" content="2017 한국 소아청소년 성장도표 기준. 0~36개월 영유아 키·몸무게·머리둘레 백분위 즉시 추정. 남아·여아 별 계산. 한국 표준 5/25/50/75/95 백분위 분포.">
-  <meta name="keywords" content="성장 백분위, 영유아 성장, 아기 키 백분위, 몸무게 백분위">
+  <title>성장 백분위 계산기 — 키·몸무게·머리둘레·BMI (0~20세, LMS)</title>
+  <meta name="description" content="WHO·CDC 공식 성장도표를 소아과 표준 LMS(Box-Cox) 방식으로 계산. 0~20세 아기·소아 키·몸무게·머리둘레·BMI 백분위, 성장곡선 차트, 측정 추적. 남아·여아 별. 무료·브라우저 내 처리.">
+  <meta name="keywords" content="성장 백분위, 영유아 성장, 아기 키 백분위, 소아 몸무게 백분위, 머리둘레 백분위, 소아 BMI 백분위, 성장곡선, LMS">
   <link rel="canonical" href="https://taystudios.com/tools/growth/">
   <link rel="alternate" hreflang="ko" href="https://taystudios.com/tools/growth/">
   <link rel="alternate" hreflang="x-default" href="https://taystudios.com/tools/growth/">
@@ -44,289 +44,283 @@
   "@graph": [
     {
       "@type": "WebApplication",
-      "name": "영유아 성장 백분위 계산기 | 키·몸무게 백분위",
-      "description": "2017 한국 소아청소년 성장도표 기준. 0~36개월 영유아 키·몸무게 백분위를 즉시 추정.",
+      "name": "성장 백분위 계산기 (LMS) — 키·몸무게·머리둘레·BMI",
+      "description": "WHO·CDC 공식 성장도표 L/M/S를 소아과 표준 LMS(Box-Cox) 방식으로 계산. 0~20세 백분위 + 성장곡선·추적.",
       "url": "https://taystudios.com/tools/growth/",
-      "applicationCategory": "FinanceApplication",
+      "applicationCategory": "HealthApplication",
       "operatingSystem": "Any",
       "browserRequirements": "Requires JavaScript",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "KRW"
-      },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
       "inLanguage": "ko-KR",
-      "isAccessibleForFree": true
+      "isAccessibleForFree": true,
+      "featureList": ["키·몸무게·머리둘레·BMI 백분위", "LMS(Box-Cox) 정식 z-score", "성장곡선 차트", "측정 추적(localStorage)", "남아·여아 0~20세"],
+      "dateModified": "2026-06-16"
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Tools",
-          "item": "https://taystudios.com/tools/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "임신·육아",
-          "item": "https://taystudios.com/tools/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "영유아 성장 백분위 계산기",
-          "item": "https://taystudios.com/tools/growth/"
-        }
+        { "@type": "ListItem", "position": 1, "name": "도구", "item": "https://taystudios.com/tools/" },
+        { "@type": "ListItem", "position": 2, "name": "성장 백분위 계산기", "item": "https://taystudios.com/tools/growth/" }
       ]
     },
     {
       "@type": "FAQPage",
       "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "백분위가 뭔가요?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "또래 100명 중 본인 위치. 50백분위는 평균(중간), 90백분위는 같은 또래 100명 중 90명보다 큼/무거움. 25 ~ 75백분위가 가장 흔한 정상 범위. 3 미만 또는 97 초과는 의사 상담 권장."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "한국 성장도표와 WHO 차이는?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "2017 한국 소아청소년 성장도표는 0-35개월(만 0~2세)에 WHO Growth Standards를 그대로 채택했고, 3세 이후만 한국 영유아 실측 데이터를 사용합니다 (질병관리청·대한소아과학회 공동). 즉 본 계산기 0-36개월 데이터는 사실상 WHO 표준이며, 5세 이후 도표는 한국 실측 기반이 적합. 출처: 질병관리청 2017 한국 소아청소년 성장도표."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "키·몸무게 백분위가 다르면 문제인가요?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "정상입니다. 한 아이가 키 90백분위·몸무게 60백분위처럼 다를 수 있어요. 두 백분위 차이가 50 이상으로 크게 벌어지거나(예: 키 90 vs 체중 10), 성장 속도가 갑자기 달라지면 의사 상담."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "백분위가 너무 낮으면 어떻게 하나요?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "3 미만이면 저체중·저신장 가능성 — 소아과 상담 필수. 3 ~ 10 사이는 정상 범위 끝자락이지만 경과 관찰. 부모 키도 영향 — 부모 평균보다 작아도 부모 신장 고려 시 정상 범위일 수 있음."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "성장 속도가 더 중요한가요?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "예. 백분위 절댓값보다 시간에 따른 변화가 중요. 같은 백분위 라인에서 꾸준히 성장하면 정상. 같은 라인을 벗어나 급격히 떨어지거나 올라가면(2단계 이상 변동) 검사 필요."
-          }
-        }
+        { "@type": "Question", "name": "백분위가 낮으면 문제가 있나요?", "acceptedAnswer": { "@type": "Answer", "text": "한 번의 낮은 백분위는 그 자체로 이상이 아닙니다. 부모 키가 작으면 아이도 그럴 수 있습니다. 같은 곡선을 꾸준히 따라가는지(추세)가 핵심이며, 곡선을 가로질러 급락하거나 3백분위 미만·97백분위 초과면 소아과 상담을 권합니다." } },
+        { "@type": "Question", "name": "어떤 기준으로 계산하나요?", "acceptedAnswer": { "@type": "Answer", "text": "WHO·CDC 공식 성장도표의 L/M/S 파라미터를 소아과 표준인 LMS(Box-Cox) 방식으로 계산합니다. 0~2세는 WHO 기반 영아 도표, 2~20세는 CDC 2000 도표를 사용합니다." } },
+        { "@type": "Question", "name": "입력 정보가 서버로 전송되나요?", "acceptedAnswer": { "@type": "Answer", "text": "아니요. 계산·차트·추적 저장 모두 브라우저 안에서만 이뤄지며 추적 기록은 이 기기에만 남습니다. 서버 전송·저장 없음." } }
       ]
     }
   ]
 }
-</script>
+  </script>
   <link rel="stylesheet" href="/common/css/style.css">
-<script src="/common/site-chrome.js"></script>
+  <script src="/common/site-chrome.js"></script>
+  <style>
+    .seg-label{display:block;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:7px}
+    .sex-seg{display:inline-flex;gap:8px}
+    .sex{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--border);background:var(--card);color:var(--muted);padding:9px 18px;border-radius:30px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:.15s}
+    .sex svg{width:18px;height:18px;flex:0 0 auto}
+    .sex:hover{border-color:var(--primary);color:var(--text)}
+    .sex.on{border-color:var(--primary);background:linear-gradient(135deg,rgba(37,99,235,.14),rgba(37,99,235,.05));color:var(--primary);box-shadow:0 2px 10px rgba(37,99,235,.16)}
+    .opt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+    @media(max-width:480px){.opt-grid{grid-template-columns:repeat(2,1fr)}}
+    .opt{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 6px;border:1.5px solid var(--border);border-radius:14px;background:var(--card);color:var(--muted);cursor:pointer;transition:.16s;font:inherit}
+    .opt-ic{line-height:0;transition:.16s}.opt-ic svg{width:27px;height:27px}
+    .opt-tx{font-size:13px;font-weight:700}
+    .opt:hover{border-color:var(--primary);color:var(--text);transform:translateY(-1px)}
+    .opt.on{border-color:var(--primary);background:linear-gradient(135deg,rgba(37,99,235,.13),rgba(37,99,235,.04));color:var(--primary);box-shadow:0 4px 16px rgba(37,99,235,.18);transform:translateY(-2px)}
+    .opt.on .opt-ic{transform:scale(1.18)}
+    .gauge{position:relative;margin:18px auto 6px;max-width:360px;height:34px}
+    .gauge-bar{position:absolute;top:10px;left:0;right:0;height:11px;border-radius:7px;background:linear-gradient(90deg,#ef4444 0%,#f59e0b 3%,#10b981 15%,#10b981 85%,#f59e0b 97%,#ef4444 100%);box-shadow:inset 0 1px 2px rgba(0,0,0,.12)}
+    .gauge i{position:absolute;top:5px;left:50%;width:7px;height:21px;border-radius:4px;background:var(--text);box-shadow:0 0 0 3px var(--card),0 2px 6px rgba(0,0,0,.25);transform:translateX(-50%);transition:left .35s cubic-bezier(.3,1.4,.5,1)}
+    .gauge-scale{position:absolute;top:24px;left:0;right:0;display:flex;justify-content:space-between;font-size:10px;color:var(--muted);font-weight:600}
+    .chartwrap{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;margin-top:6px}
+    .chartwrap canvas{width:100%;height:auto;display:block}
+    .track-list{list-style:none;margin:8px 0 0;padding:0;font-size:13.5px}
+    .track-list li{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px dashed var(--border)}
+    .track-list .del{border:none;background:none;color:#dc2626;cursor:pointer;font-size:12px}
+    .save-btn{padding:9px 16px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);font-weight:600;cursor:pointer}
+    .bmi-hint{display:none;font-size:12px;color:var(--muted);margin-top:6px}
+    /* 강조가 필요한 "경고 신호" 1개만 콜아웃 박스로. 나머지 섹션은 기본 prose 유지 */
+    main .tool-article.callout-warn{background:linear-gradient(180deg,rgba(245,158,11,.08),transparent 75%);border:1px solid color-mix(in srgb,#f59e0b 42%,var(--border));border-radius:14px;padding:16px 20px}
+    main .tool-article.callout-warn h2{display:flex;align-items:center;gap:8px;margin-top:4px}
+    main .tool-article.callout-warn h2::before{content:"⚠️";font-size:17px}
+    /* 공식 박스 */
+    .formula-box{text-align:center;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:13px 14px;margin:12px 0;font-family:'SF Mono',Menlo,monospace;font-size:14px;color:var(--text);overflow-x:auto}
+    /* L/M/S 표 첫 칸 글자 강조 */
+    .lms-table td:first-child{white-space:nowrap;font-weight:700}
+    .lms-table .lms-letter{display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:6px;background:var(--primary);color:#fff;font-weight:800;margin-right:7px;font-size:13px}
+    /* 측정 항목·기준 비교표 (줄글 칸은 좌측정렬+줄바꿈) */
+    .gr-tbl td{vertical-align:top;text-align:left;white-space:normal;line-height:1.7}
+    .gr-tbl td:first-child{font-weight:700;white-space:nowrap}
+    .meas-table td:nth-child(2){white-space:nowrap;color:var(--muted);font-size:13px;font-weight:400}
+  </style>
 </head>
 <body>
   <site-header></site-header>
   <main class="container">
     <div class="breadcrumb"><a href="../">도구</a> · 임신·육아 · 성장 백분위</div>
-    <h1>영유아 성장 백분위 계산기 <span class="basis-badge">2017 한국 성장도표</span></h1>
-    <p class="subtitle">0~36개월 키·몸무게 백분위 추정.</p>
+    <h1>성장 백분위 계산기 <span class="basis-badge">WHO·CDC 성장도표 · LMS</span></h1>
+    <p class="subtitle">소아과 표준 LMS(Box-Cox) 방식으로 키·몸무게·머리둘레·BMI 백분위를 계산하고 성장곡선 위에 표시·추적합니다.</p>
 
-    <form id="form" class="card">
-      <div class="field">
-        <label>성별</label>
-        <div class="radio-group">
-          <label><input type="radio" name="gender" value="boy" checked>남아</label>
-          <label><input type="radio" name="gender" value="girl">여아</label>
+    <div class="card">
+      <div style="margin-bottom:16px">
+        <span class="seg-label">성별</span>
+        <span class="sex-seg" id="sexSeg">
+          <button type="button" data-v="M" class="sex on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="14" r="5.5"/><line x1="14" y1="10" x2="20" y2="4"/><polyline points="15 4 20 4 20 9"/></svg>남아</button>
+          <button type="button" data-v="F" class="sex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><line x1="12" y1="14.5" x2="12" y2="21"/><line x1="9" y1="18" x2="15" y2="18"/></svg>여아</button>
+        </span>
+      </div>
+      <div style="margin-bottom:16px">
+        <span class="seg-label">측정 항목</span>
+        <div class="opt-grid" id="measSeg">
+          <button type="button" data-v="height" class="opt on"><span class="opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><polyline points="8 6.5 12 3 16 6.5"/><polyline points="8 17.5 12 21 16 17.5"/></svg></span><span class="opt-tx">키</span></button>
+          <button type="button" data-v="weight" class="opt"><span class="opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M6 21h12"/><path d="M4 7h16"/><path d="M4 7l-2.5 5.5a2.5 2.5 0 0 0 5 0z"/><path d="M20 7l-2.5 5.5a2.5 2.5 0 0 0 5 0z"/></svg></span><span class="opt-tx">몸무게</span></button>
+          <button type="button" data-v="head" class="opt"><span class="opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11" r="6.5"/><path d="M5.5 11 Q12 15.5 18.5 11"/></svg></span><span class="opt-tx">머리둘레</span></button>
+          <button type="button" data-v="bmi" class="opt"><span class="opt-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="20" y2="20"/><rect x="6" y="11" width="3.2" height="9" rx="0.6"/><rect x="10.4" y="7" width="3.2" height="13" rx="0.6"/><rect x="14.8" y="14" width="3.2" height="6" rx="0.6"/></svg></span><span class="opt-tx">BMI</span></button>
         </div>
       </div>
       <div class="row">
-        <div class="field">
-          <label for="months">개월수</label>
-          <input type="number" id="months" placeholder="예: 12" min="0" max="36" step="0.5" required>
-        </div>
-        <div class="field">
-          <label for="height">키 (cm)</label>
-          <input type="number" id="height" placeholder="예: 75" min="0" step="0.1" required>
-        </div>
+        <div class="field"><label for="age">나이 (개월, 0~240)</label><input type="number" id="age" min="0" max="240" value="24" placeholder="예: 24"></div>
+        <div class="field"><label id="valLbl" for="val">키 (cm)</label><input type="number" id="val" step="0.1" value="87" placeholder="예: 87"></div>
       </div>
-      <div class="field">
-        <label for="weight">몸무게 (kg)</label>
-        <input type="number" id="weight" placeholder="예: 9.5" min="0" step="0.1" required>
-      </div>
-      <button type="submit">백분위 계산</button>
-    </form>
+      <div class="bmi-hint" id="bmiHint">※ BMI는 소아도 나이·성별 백분위로 판정합니다. BMI 값 = 몸무게(kg) ÷ 키(m)². <a href="/tools/bmi/">BMI 계산기</a>로 먼저 구할 수 있어요. (CDC BMI 도표는 2세~)</div>
+      <button type="button" id="calc">백분위 계산</button>
+    </div>
 
     <div class="ad-slot">[ AdSense ]</div>
 
     <div id="result" class="result" style="display:none">
-      <div class="row" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div>
-          <div class="result-label" style="text-align:center">키 백분위</div>
-          <div id="heightP" class="result-value" style="text-align:center;font-size:28px">-</div>
-          <div id="heightStatus" class="result-sub" style="text-align:center">-</div>
-        </div>
-        <div>
-          <div class="result-label" style="text-align:center">몸무게 백분위</div>
-          <div id="weightP" class="result-value" style="text-align:center;font-size:28px">-</div>
-          <div id="weightStatus" class="result-sub" style="text-align:center">-</div>
-        </div>
+      <div class="result-headline">
+        <div class="result-label">또래 백분위 (LMS)</div>
+        <div id="pct" class="result-value">-</div>
+        <div id="pctSub" class="result-sub"></div>
+        <div class="gauge"><div class="gauge-bar"></div><i id="gaugeMark"></i><div class="gauge-scale"><span>작음</span><span>또래 평균</span><span>큼</span></div></div>
       </div>
-      <div class="breakdown" style="margin-top:16px">
-        <div class="breakdown-row"><span class="label">또래 평균 키</span><span id="avgH" class="value">-</span></div>
-        <div class="breakdown-row total"><span class="label">또래 평균 몸무게</span><span id="avgW" class="value">-</span></div>
+      <div class="chartwrap"><canvas id="chart" width="700" height="380" aria-label="성장곡선 차트"></canvas></div>
+      <div style="margin-top:12px"><button type="button" id="save" class="save-btn">＋ 이 측정 저장 (추적)</button></div>
+      <div id="trackBox" style="display:none;margin-top:14px">
+        <div style="font-weight:700;font-size:14px;margin-bottom:2px;display:flex;align-items:center;gap:6px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--success,#10b981)"><polyline points="3 17 9 11 13 15 21 6"/><polyline points="16 6 21 6 21 11"/></svg>성장 추적 (이 브라우저에 저장)</div>
+        <ul id="trackList" class="track-list"></ul>
       </div>
     </div>
 
     <div class="disclaimer">
-      ⚠️ 본 계산은 2017 한국 성장도표 50백분위 + 표준편차 근사 기반 추정입니다. 정확한 백분위는 소아과 의무기록(LMS 방식)이 정확. 3~10백분위, 90~97백분위는 정상 범위 끝자락이며 극단(<3 또는 >97)은 의사 상담 권장.
+      ⚠️ 참고용 추정입니다. 극단 백분위(3 미만·97 초과)나 성장곡선 이탈(백분위가 갑자기 떨어짐)은 소아과 상담을 권합니다. 진단·치료 판단은 의료기관 기준을 따르세요.
     </div>
 
     <section class="tool-article">
-      <h2>백분위 해석 가이드</h2>
+      <h2>성장 백분위, 어떻게 읽나</h2>
+      <p>백분위는 <b>같은 성별·나이의 또래 100명 중 몇 번째</b>인지를 뜻합니다(50백분위 = 정확히 중앙값). 한 번의 숫자보다 <b>같은 곡선을 꾸준히 따라가는지(추세)</b>가 더 중요합니다.</p>
       <div class="ref-table">
         <table>
-          <thead><tr><th>백분위</th><th>의미</th><th>판정</th></tr></thead>
+          <thead><tr><th>백분위</th><th>해석</th><th>대응</th></tr></thead>
           <tbody>
-            <tr><td>3 미만</td><td>또래 하위 3% 이내</td><td>저신장·저체중 가능성, 의사 상담</td></tr>
-            <tr><td>3 ~ 10</td><td>정상 범위 끝자락 (작은 편)</td><td>경과 관찰</td></tr>
-            <tr><td>10 ~ 25</td><td>평균보다 약간 작음</td><td>정상</td></tr>
-            <tr><td>25 ~ 75</td><td class="highlight">평균 (가장 흔함)</td><td>정상</td></tr>
-            <tr><td>75 ~ 90</td><td>평균보다 약간 큼</td><td>정상</td></tr>
-            <tr><td>90 ~ 97</td><td>정상 범위 끝자락 (큰 편)</td><td>경과 관찰</td></tr>
-            <tr><td>97 초과</td><td>또래 상위 3% 이내</td><td>비만·과성장 가능성, 의사 상담</td></tr>
+            <tr><td>&lt; 3</td><td>매우 작음/적음</td><td>소아과 상담 권장</td></tr>
+            <tr><td>3 ~ 15</td><td>작은 편 (정상 하단)</td><td>추세 관찰</td></tr>
+            <tr><td class="highlight">15 ~ 85</td><td>또래 평균권</td><td>정상</td></tr>
+            <tr><td>85 ~ 97</td><td>큰 편 (정상 상단)</td><td>추세 관찰</td></tr>
+            <tr><td>&gt; 97</td><td>매우 큼/많음</td><td>소아과 상담 권장</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="small">2017 한국 소아청소년 성장도표 (대한소아청소년과학회 / 질병관리청).</p>
+      <p class="small">3·97백분위는 "정상 범위의 끝자락"이지 그 자체로 이상은 아닙니다. 곡선을 가로질러 급격히 떨어지거나 오르는 변화가 더 중요한 신호입니다.</p>
     </section>
 
-    <section class="disclosure-group">
-      <h2>이 계산기가 백분위를 내는 방식과 한계</h2>
-      <details>
-        <summary>어떤 데이터·공식으로 계산하나</summary>
-        <div class="answer">
-          내부에는 <b>2017 한국 소아청소년 성장도표</b>의 0~36개월 50백분위(중앙값) 키·몸무게가
-          남아·여아 따로 들어 있고, 입력한 개월수가 표 사이값이면 양옆 값을 직선 보간해 그 시점의
-          또래 중앙값을 추정합니다. 그다음 표준편차를 근사(키는 중앙값의 약 3%, 몸무게는 약 12%)해
-          입력값이 평균에서 몇 표준편차 떨어졌는지(z값)를 구하고, 정규분포 근사식으로 백분위로
-          바꿉니다. 그래서 표시되는 '또래 평균'은 도표의 실제 중앙값에 가깝지만, 백분위 숫자 자체는
-          <b>정규분포를 가정한 추정값</b>입니다.
-        </div>
-      </details>
-      <details>
-        <summary>병원 기록과 숫자가 다를 수 있는 이유</summary>
-        <div class="answer">
-          소아과의 공식 성장도표는 분포의 치우침까지 반영하는 <b>LMS 방식</b>으로 백분위를 냅니다.
-          이 계산기는 좌우 대칭인 정규분포로 근사하기 때문에, 한가운데(대략 25~75백분위)에서는
-          꽤 잘 맞지만 양 끝(3 미만·97 초과)으로 갈수록 오차가 커질 수 있어요. 즉 "정상 범위인지"를
-          가늠하는 데는 충분하지만, 정밀한 진단 수치로 쓰기엔 적절치 않습니다. 정확한 값은 진료
-          기록의 성장 곡선을 따르세요.
-        </div>
-      </details>
-      <details>
-        <summary>측정값을 제대로 넣는 팁</summary>
-        <div class="answer">
-          24개월 미만은 눕혀서 잰 <b>신장(누운 키)</b>, 그 이후는 세워서 잰 키를 기준으로 도표가
-          만들어져 있어 측정 자세가 바뀌면 1cm가량 차이가 납니다. 몸무게는 두꺼운 옷·기저귀를 빼고,
-          가능하면 같은 시간대(예: 아침 수유 전)에 재면 들쭉날쭉함이 줍니다. 개월수는 출생일로부터의
-          만 개월로 넣어야 또래 비교가 맞습니다. 한 번의 숫자보다 <b>여러 달에 걸친 변화 추세</b>가
-          훨씬 의미 있습니다.
-        </div>
-      </details>
-      <details>
-        <summary>백분위가 낮거나 높으면 바로 문제인가</summary>
-        <div class="answer">
-          꼭 그렇지는 않습니다. 키 백분위와 몸무게 백분위가 서로 다른 것도 흔하고, 부모의 체형을
-          물려받아 또래보다 작거나 큰 경우도 많습니다. 다만 <b>3 미만 또는 97 초과</b>가 지속되거나,
-          잘 따라가던 백분위 곡선에서 갑자기 크게 벗어날 때는 점검이 필요합니다. 이 도구는 재미·참고용
-          이며 의학적 판단을 대신하지 않으니, 걱정되는 수치는 반드시 <b>소아청소년과 상담</b>으로
-          확인하세요.
-        </div>
-      </details>
-      <p class="small">기준 데이터: 질병관리청·대한소아청소년과학회 <a href="https://knhanes.kdca.go.kr" target="_blank" rel="nofollow noopener">2017 한국 소아청소년 성장도표</a> · 참고 <a href="https://www.who.int/tools/child-growth-standards" target="_blank" rel="nofollow noopener">WHO Child Growth Standards</a>. 정확한 백분위·진단은 의료기관 기준을 따릅니다.</p>
+    <section class="tool-article">
+      <h2>LMS(Box-Cox) 정식 방식 — 왜 정확한가</h2>
+      <p>키·몸무게 백분위는 결국 "같은 나이·성별 또래의 분포에서 내 아이가 어디쯤인가"를 묻는 것입니다. 그런데 아이들의 몸무게·BMI 분포는 <b>좌우 대칭이 아닙니다</b> — 마른 쪽은 한계가 있어 짧고, 살찐 쪽은 위로 길게 늘어진 비대칭(오른쪽 꼬리)입니다. 그래서 흔한 "평균 ± 표준편차" 정규근사로는 <b>특히 3·97 같은 극단 백분위에서 값이 어긋납니다</b>. 하필 임상적으로 가장 중요한 구간이죠.</p>
+      <p>소아과 공식 도표(WHO·CDC·한국 KCDC)가 공통으로 쓰는 방법이 <b>LMS</b>입니다. 분포를 세 곡선으로 기술합니다:</p>
+      <div class="ref-table">
+        <table class="lms-table">
+          <thead><tr><th>파라미터</th><th>의미</th></tr></thead>
+          <tbody>
+            <tr><td><span class="lms-letter">M</span>Median (중앙값)</td><td>그 나이·성별의 50백분위 값.</td></tr>
+            <tr><td><span class="lms-letter">S</span>변동계수</td><td>또래가 중앙값 주변으로 얼마나 퍼져 있는지(상대적 흩어짐).</td></tr>
+            <tr><td><span class="lms-letter">L</span>Lambda (왜도)</td><td>분포가 얼마나 비대칭인지. Box-Cox 거듭제곱으로 비대칭을 펴서(정규화) 보정하는 핵심 파라미터.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>측정값을 이 세 값으로 표준화하면 정규분포의 z-score가 되고, 거기서 정확한 백분위가 나옵니다.</p>
+      <div class="formula-box">z = ((측정값 / M)<sup>L</sup> − 1) / (L · S)<br><span style="font-size:12px;color:var(--muted)">L이 0에 가까우면 ln(측정값 / M) / S</span></div>
+      <p class="small">본 계산기는 WHO·CDC 공식 L/M/S 표를 보간 없이 그대로 적용합니다 — 즉 병원에서 보는 성장도표와 같은 방식입니다.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>측정 항목별로 무엇을 보나</h2>
+      <div class="ref-table">
+        <table class="gr-tbl meas-table">
+          <thead><tr><th>항목</th><th>적용 나이</th><th>무엇을 보나</th></tr></thead>
+          <tbody>
+            <tr><td>키(신장)</td><td>0~240개월</td><td>또래 대비 키. <b>저신장(3백분위 미만)</b> 추적의 기본이고, 부모 키에서 계산한 표적키(중간부모키)와도 비교합니다. 0~23개월은 <b>누운 키(recumbent length)</b>, 24개월+는 <b>선 키(standing height)</b>로 측정 방식이 달라 도표도 나뉩니다(같은 아이도 누운 키가 ~0.7cm 더 큼).</td></tr>
+            <tr><td>몸무게</td><td>0~240개월</td><td>저체중·과체중의 1차 지표지만 <b>키와 함께 봐야 의미</b>가 있습니다. 키 백분위는 그대로인데 몸무게 백분위만 급변하면 영양·질환 신호일 수 있어요.</td></tr>
+            <tr><td>머리둘레</td><td>0~36개월</td><td>영아기 <b>뇌 성장</b>의 간접 지표. 급격히 커지거나(수두증 등) 작은 경우(소두증) 선별용으로 봅니다. 보통 3세 전후까지 의미가 큽니다.</td></tr>
+            <tr><td>BMI</td><td>24~240개월<br>(2~20세)</td><td>소아 비만은 성인의 고정 기준(25·30)이 아니라 <b>나이·성별 BMI 백분위</b>로 판정합니다. 통상 <b>85백분위 이상 과체중, 95백분위 이상 비만</b>(CDC 기준). 2세 미만은 BMI 대신 신장별 체중을 봅니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tool-article">
+      <h2>WHO·CDC·한국(KCDC) 기준은 어떻게 다른가</h2>
+      <p>0~2세 영아는 모유 수유 기준의 <b>WHO 표준</b>을, 그 이후는 나라별 도표를 씁니다.</p>
+      <div class="ref-table">
+        <table class="gr-tbl">
+          <thead><tr><th>기준</th><th>설명</th></tr></thead>
+          <tbody>
+            <tr><td>본 계산기 채택<br>CDC 2000 + WHO(영아)</td><td>상업적으로 자유 이용이 가능한 <b>공식 L/M/S 표</b>를 사용합니다.</td></tr>
+            <tr><td>한국 질병관리청<br>2017 성장도표</td><td>동일한 LMS 방식이며 <b>0~35개월은 WHO 기준</b>을 채택했습니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">즉 영아 구간은 사실상 동일하고, 학동기 이후 한국 실측과는 소폭 차이가 있을 수 있습니다(아래 출처).</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>정확히 측정하는 법</h2>
+      <p>백분위는 측정값이 정확해야 의미가 있습니다. 1cm·0.5kg 차이로도 백분위가 꽤 달라질 수 있어요.</p>
+      <ul style="line-height:1.85">
+        <li><b>키</b> — 24개월 미만은 눕혀서(머리~발뒤꿈치) 두 사람이 재는 게 정확합니다. 24개월부터는 신발 벗고 벽에 등·엉덩이·뒤꿈치를 붙이고 똑바로 서서. 머리카락은 눌러줍니다.</li>
+        <li><b>몸무게</b> — 아침 배변 후, 옷·기저귀를 최소화한 상태가 가장 일관됩니다. 영아는 (보호자+아기) − (보호자)로 빼서 재기도 합니다.</li>
+        <li><b>머리둘레</b> — 눈썹 바로 위와 뒤통수의 가장 튀어나온 부분을 지나도록 줄자를 둘러 가장 큰 둘레를 잽니다.</li>
+        <li><b>측정 시점</b> — 키는 하루 중에도 1cm 안팎 변합니다(아침이 가장 큼). 추적할 땐 <b>같은 시간대·같은 방법</b>으로 재야 추세가 정확합니다.</li>
+      </ul>
+    </section>
+
+    <section class="tool-article callout-warn">
+      <h2>언제 소아과 상담이 필요한가 (성장 경고 신호)</h2>
+      <p>한 번의 측정값보다 <b>추세(곡선을 따라가는지)</b>가 중요합니다. 다음은 상담을 고려할 신호입니다:</p>
+      <ul style="line-height:1.85">
+        <li><b>3백분위 미만 또는 97백분위 초과</b> — 정상 범위의 양 끝. 그 자체가 병은 아니지만 한 번 확인할 가치가 있습니다.</li>
+        <li><b>성장곡선을 가로지르는 변화</b> — 예: 50백분위를 따라가던 아이가 몇 달 새 15백분위로 떨어짐(또는 급상승). 절대 백분위보다 이 "곡선 이탈"이 더 중요한 신호입니다.</li>
+        <li><b>키 성장 속도 급감</b> — 또래보다 연간 키 증가가 뚜렷이 느림(성장호르몬·갑상선·만성질환 등 점검).</li>
+        <li><b>몸무게만 따로 급변</b> — 키 백분위는 그대로인데 몸무게 백분위만 크게 오르내림.</li>
+        <li><b>머리둘레 급증·정체</b>(영아) 또는 <b>BMI 95백분위 이상</b>(소아 비만).</li>
+      </ul>
+      <p class="small">본 계산기는 선별·참고용이며 진단이 아닙니다. 위 신호가 있으면 영유아 검진·소아청소년과 진료로 확인하세요.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>성장에 영향을 주는 것</h2>
+      <p>또래보다 작거나 크다고 바로 문제는 아닙니다. 성장은 여러 요인이 함께 작용합니다:</p>
+      <ul style="line-height:1.85">
+        <li><b>유전(부모 키)</b> — 가장 큰 요인. 부모 키로 추정한 표적키 범위 안이면 백분위가 낮아도 정상일 수 있습니다.</li>
+        <li><b>영양·수면</b> — 균형 잡힌 식사와 충분한 수면(성장호르몬은 깊은 잠에 많이 분비).</li>
+        <li><b>사춘기 타이밍</b> — 여아가 보통 더 일찍 급성장기에 들어가, 초등 고학년에 일시적으로 남아보다 큰 구간이 생겼다가 역전됩니다.</li>
+        <li><b>출생 체중·재태 주수</b> — 미숙아·저체중 출생아는 교정연령으로 봐야 하며 따라잡기 성장을 합니다.</li>
+        <li><b>만성질환·호르몬</b> — 드물게 성장호르몬·갑상선·소화흡수 문제가 영향. 추세 이탈이 단서.</li>
+      </ul>
     </section>
 
     <section class="tool-article">
       <h2>관련 계산기</h2>
       <div class="related-calc">
+        <a href="../bmi/">BMI 계산기<span class="desc">성인 체질량지수</span></a>
+        <a href="../calorie/">칼로리 계산기<span class="desc">BMR·TDEE</span></a>
         <a href="../baby-formula/">분유량 계산기<span class="desc">월령별 권장량</span></a>
-        <a href="../baby-clothes/">아기옷 사이즈 계산기<span class="desc">개월·키 기반</span></a>
         <a href="../pregnancy/">출산예정일 계산기<span class="desc">월경주기 기반</span></a>
-        <a href="../ovulation/">배란일 계산기<span class="desc">가임기 추정</span></a>
-        <a href="../bmi/">BMI 계산기 (성인)<span class="desc">체질량지수</span></a>
-        <a href="../parental-leave/">육아휴직 급여 계산기<span class="desc">통상임금 기반</span></a>
+        <a href="../age/">만 나이 계산기<span class="desc">개월 수 환산</span></a>
       </div>
     </section>
 
     <section class="faq">
       <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
-
-      <details>
-        <summary>백분위가 뭔가요?</summary>
-        <div class="answer">
-          또래 100명 중 본인 위치. <b>50백분위는 평균(중간), 90백분위는 같은 또래 100명
-          중 90명보다 큼/무거움</b>. 25 ~ 75백분위가 가장 흔한 정상 범위. 3 미만 또는
-          97 초과는 의사 상담 권장.
-        </div>
-      </details>
-
-      <details>
-        <summary>한국 성장도표와 WHO 차이는?</summary>
-        <div class="answer">
-          WHO는 0 ~ 24개월 <b>모유수유 기준 국제 표준</b>, 한국 성장도표는 한국 영유아
-          실측 데이터(2017년) 기반. 0 ~ 5세는 WHO 권장, 5세 이후는 한국 데이터가 적합.
-          본 계산기는 2017 한국 성장도표 기준.
-        </div>
-      </details>
-
-      <details>
-        <summary>키·몸무게 백분위가 다르면 문제인가요?</summary>
-        <div class="answer">
-          정상입니다. 한 아이가 키 90백분위·몸무게 60백분위처럼 다를 수 있어요. <b>두
-          백분위 차이가 50 이상으로 크게 벌어지거나</b>(예: 키 90 vs 체중 10), 성장
-          속도가 갑자기 달라지면 의사 상담.
-        </div>
-      </details>
-
-      <details>
-        <summary>백분위가 너무 낮으면 어떻게 하나요?</summary>
-        <div class="answer">
-          <b>3 미만이면 저체중·저신장 가능성 — 소아과 상담 필수</b>. 3 ~ 10 사이는 정상
-          범위 끝자락이지만 경과 관찰. 부모 키도 영향 — 부모 평균보다 작아도 부모 신장
-          고려 시 정상 범위일 수 있음.
-        </div>
-      </details>
-
-      <details>
-        <summary>성장 속도가 더 중요한가요?</summary>
-        <div class="answer">
-          예. <b>백분위 절댓값보다 시간에 따른 변화가 중요</b>. 같은 백분위 라인에서
-          꾸준히 성장하면 정상. 같은 라인을 벗어나 급격히 떨어지거나 올라가면(2단계 이상
-          변동) 검사 필요.
-        </div>
-      </details>
+      <details><summary>백분위가 낮으면 문제가 있나요?</summary><div class="answer">한 번의 낮은 백분위는 그 자체로 이상이 아닙니다. 부모 키가 작으면 아이도 그럴 수 있어요. <b>같은 곡선을 꾸준히 따라가는지(추세)</b>가 핵심이고, 곡선을 가로질러 급락하거나 &lt;3·&gt;97이면 소아과 상담을 권합니다.</div></details>
+      <details><summary>어떤 기준으로 계산하나요?</summary><div class="answer">WHO·CDC 공식 성장도표의 L/M/S를 소아과 표준 <b>LMS(Box-Cox)</b>로 계산합니다. 0~2세는 WHO 기반 영아 도표, 2~20세는 CDC 2000 도표.</div></details>
+      <details><summary>한국 성장도표(KCDC)와 다른가요?</summary><div class="answer">계산 방식(LMS)은 WHO·CDC·한국이 모두 동일합니다. 0~35개월은 한국도 WHO 기준을 채택해 사실상 같고, 학동기 이후엔 한국 실측과 소폭 차이가 있을 수 있습니다.</div></details>
+      <details><summary>백분위가 낮으면 키 작은 어른이 되나요?</summary><div class="answer">꼭 그렇지 않습니다. 최종 키는 유전(부모 키)·사춘기 타이밍에 크게 좌우됩니다. 부모 키로 추정한 표적키 범위 안에서 <b>같은 곡선을 꾸준히 따라가면</b> 백분위가 낮아도 정상 성장입니다. 반대로 백분위가 정상이라도 곡선을 가로질러 떨어지면 확인이 필요합니다.</div></details>
+      <details><summary>소아 비만(BMI) 기준은 어떻게 되나요?</summary><div class="answer">소아·청소년은 성인의 고정 기준(25·30)이 아니라 <b>나이·성별 BMI 백분위</b>로 봅니다. CDC 기준 <b>85백분위 이상 과체중, 95백분위 이상 비만</b>입니다. BMI 도표는 2세부터 적용됩니다(2세 미만은 신장별 체중).</div></details>
+      <details><summary>측정값을 저장하면 어디에 남나요?</summary><div class="answer">"이 측정 저장"을 누르면 이 <b>브라우저(이 기기)의 localStorage에만</b> 쌓이고 성장곡선 위에 추세선으로 그려집니다. 서버 전송·계정 없음. 기기를 바꾸면 따라가지 않으며, 항목별 "삭제"로 지울 수 있습니다.</div></details>
+      <details><summary>입력 정보가 서버로 가나요?</summary><div class="answer">아니요. 계산·차트·추적 모두 브라우저 안에서만 이뤄집니다. 입력한 키·몸무게는 외부로 전송되지 않습니다.</div></details>
     </section>
 
     <section class="sources">
       <h2>출처</h2>
-      <div class="updated">최종 검증: 2026-04-29</div>
+      <div class="updated">최종 검증: 2026-06-16 · CDC 공식 L/M/S 데이터 직접 사용</div>
       <ul>
-        <li><b>2017 한국 소아청소년 성장도표</b> — 대한소아청소년과학회 / 질병관리청 / <a href="https://knhanes.kdca.go.kr" target="_blank" rel="noopener">국민건강영양조사</a></li>
-        <li><b>WHO 표준 성장도표</b> (참고) — <a href="https://www.who.int/childgrowth/standards/" target="_blank" rel="noopener">WHO Child Growth Standards</a></li>
+        <li><b>사용 데이터 — CDC 2000 + WHO(영아) 공식 L/M/S 표</b> (본 계산기가 그대로 사용). 단월령별 L/M/S·백분위. 사용 파일: <code>statage·wtage·bmiagerev</code>(2~20세) + <code>lenageinf·wtageinf·hcageinf</code>(0~36개월).
+          <a href="https://www.cdc.gov/growthcharts/cdc-data-files.htm" target="_blank" rel="nofollow noopener">CDC L/M/S 데이터 파일</a> · 예: <a href="https://www.cdc.gov/growthcharts/data/zscore/statage.csv" target="_blank" rel="nofollow noopener">키(statage.csv)</a></li>
+        <li><b>라이선스 — 미 연방 공공도메인(상업 이용 가능, 출처표시)</b>. 원문: <em>"All material appearing in this report is in the public domain and may be reproduced or copied without permission; citation as to source, however, is appreciated."</em> (17 U.S.C. §105)
+          <a href="https://www.cdc.gov/nchs/data/series/sr_11/sr11_246.pdf" target="_blank" rel="nofollow noopener">CDC 보고서 p.ii</a> · <a href="https://www.cdc.gov/other/agencymaterials.html" target="_blank" rel="nofollow noopener">CDC 이용약관</a></li>
+        <li><b>계산 방법 — LMS(Box-Cox) 원논문</b>. Cole TJ, Green PJ (1992), <i>Statistics in Medicine</i> 11:1305–1319. <em>"the LMS method and penalized likelihood"</em>
+          <a href="https://doi.org/10.1002/sim.4780111005" target="_blank" rel="nofollow noopener">doi.org/10.1002/sim.4780111005</a></li>
+        <li><b>표준기관 채택 (LMS는 국제 표준)</b> —
+          CDC 2000 <em>"LMS refers to the parameters … L (the power in the Box-Cox transformation), M (the median), and S (the generalized coefficient of variation)"</em> ·
+          WHO 5~19세 2007 <em>"The LMS method … fits a Box-Cox normal distribution"</em> (<a href="https://www.scielosp.org/article/bwho/2007.v85n9/660-667/en" target="_blank" rel="nofollow noopener">de Onis 2007</a>) ·
+          WHO 0~5세는 그 일반화인 <b>BCPE</b> <em>"The Box-Cox power exponential (BCPE) method … was used to construct the curves"</em> (<a href="https://pubmed.ncbi.nlm.nih.gov/16817681/" target="_blank" rel="nofollow noopener">PubMed</a>)</li>
+        <li><b>한국 참고 — 질병관리청 2017 한국 소아청소년 성장도표</b> (동일 LMS, 0~35개월 WHO 채택). <em>"Calculation methods … were developed by Cole using Box-Cox transformation … and the LMS technique"</em>
+          <a href="https://www.e-cep.org/journal/view.php?number=20125550718" target="_blank" rel="nofollow noopener">Kim 2018, Korean J Pediatr</a>.
+          (KCDC 데이터 자체는 공공누리 2유형=상업 이용 금지라 본 계산기는 상업 가능한 CDC 표를 사용. 진단·정밀 백분위는 의료기관 기준을 따릅니다.)</li>
       </ul>
     </section>
+
     <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
-      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 38개 계산기 모두 보기</a>
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 계산기 모두 보기</a>
     </nav>
   </main>
+
+  <script src="./growth-data.js" defer></script>
   <script src="./growth.js" defer></script>
   <site-footer></site-footer>
 </body>

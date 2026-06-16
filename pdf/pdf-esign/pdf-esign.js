@@ -7,6 +7,7 @@ const $ = (id) => document.getElementById(id);
 let state = {
   pdfBytes: null,
   pdfDoc: null,
+  pdfName: '',
   currentPage: 1,
   pageCount: 1,
   pageCanvas: null,
@@ -97,6 +98,7 @@ $('pdfInput').onchange = async (e) => {
   if (window.TayStudio && window.TayStudio.checkFileSize && !window.TayStudio.checkFileSize(f, 100, 'PDF')) { e.target.value = ''; return; }
   try {
     state.pdfBytes = await f.arrayBuffer();
+    state.pdfName = f.name;
     state.pdfDoc = await pdfjsLib.getDocument({ data: state.pdfBytes.slice(0) }).promise;
     state.pageCount = state.pdfDoc.numPages;
     state.currentPage = 1;
@@ -208,6 +210,34 @@ function updateDownloadState() {
   $('downloadStatus').textContent = ready ? '클릭하면 서명된 PDF 다운로드' : 'PDF + 서명 둘 다 준비되면 활성화';
 }
 
+// ─── 처음부터 다시 (초기화) ───
+function resetAll() {
+  state = {
+    pdfBytes: null, pdfDoc: null, pdfName: '',
+    currentPage: 1, pageCount: 1, pageCanvas: null,
+    sigDataUrl: null, sigPos: { x: 0.5, y: 0.7 }, sigScale: 40,
+  };
+  // 서명 패드·오버레이
+  sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+  $('sigWrap').classList.remove('has-drawing');
+  $('sigOverlay').style.display = 'none';
+  $('sigOverlayImg').removeAttribute('src');
+  // 입력값
+  $('pdfInput').value = '';
+  $('sigImageInput').value = '';
+  $('sigScale').value = 40;
+  $('sigOpacity').value = 100;
+  // 미리보기 영역
+  $('pdfRender').style.display = 'none';
+  $('emptyState').style.display = '';
+  $('pdfInfo').textContent = 'PDF 선택 → 미리보기 + 페이지 이동';
+  $('pageNum').value = 1;
+  $('pageCount').textContent = 1;
+  updateDownloadState();
+}
+const resetBtn = $('resetBtn');
+if (resetBtn) resetBtn.onclick = resetAll;
+
 // ─── 다운로드 (pdf-lib) ───
 $('downloadBtn').onclick = async () => {
   if (!state.pdfBytes || !state.sigDataUrl) return;
@@ -237,9 +267,12 @@ $('downloadBtn').onclick = async () => {
     const out = await pdf.save();
     const blob = new Blob([out], { type: 'application/pdf' });
     const url = URL.createObjectURL(blob);
+    const base = (state.pdfName || 'document').replace(/\.pdf$/i, '');
+    const fname = (window.TayStudio && window.TayStudio.sanitizeFilename
+      ? window.TayStudio.sanitizeFilename(base) : base) + '-signed.pdf';
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'signed.pdf';
+    a.download = fname;
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   } catch (err) {
