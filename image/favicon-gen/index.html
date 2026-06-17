@@ -223,12 +223,17 @@
 
       <h2>왜 favicon은 크기가 여러 개일까</h2>
       <p>기기·용도마다 요구하는 아이콘 크기가 다릅니다. 한 장만 넣으면 어딘가에서 흐릿하게 나오므로, 본 도구는 표준 크기를 한 번에 만들어 줍니다.</p>
-      <ul>
-        <li><b>16×16 · 32×32 · 48×48</b> — 브라우저 탭·북마크·주소창용. 전통적으로 <code>favicon.ico</code> 한 파일에 여러 크기를 담습니다.</li>
-        <li><b>180×180 (apple-touch-icon)</b> — iOS에서 홈 화면에 추가할 때 쓰는 아이콘.</li>
-        <li><b>192×192 · 512×512</b> — 안드로이드·PWA 설치 아이콘으로, <code>manifest.json</code>(웹 앱 매니페스트)에 등록되어 홈 화면 설치 시 사용됩니다.</li>
-      </ul>
-      <p>최신 브라우저는 32×32 PNG로도 충분히 선명하며, <code>.ico</code>는 구형 호환용입니다. 본 도구는 위 크기를 자동 생성하고 <code>&lt;head&gt;</code>에 붙여넣을 링크 태그와 <code>manifest.json</code> 항목까지 함께 만들어 주므로, 텍스트·이모지·이미지 어느 것으로 시작하든 동일한 세트를 얻습니다.</p>
+      <svg viewBox="0 0 300 84" role="img" aria-label="favicon 크기 비교: 16, 32, 48, 180, 512 픽셀" style="width:100%;max-width:380px;height:auto;display:block;margin:6px auto 4px">
+        <style>.fb{fill:var(--primary);fill-opacity:.15;stroke:var(--primary);stroke-width:1.3}.fl{fill:var(--muted,#6b7280);font:600 10px system-ui,sans-serif;text-anchor:middle}</style>
+        <rect class="fb" x="14" y="48" width="14" height="14" rx="2"/><text class="fl" x="21" y="74">16</text>
+        <rect class="fb" x="48" y="42" width="20" height="20" rx="2"/><text class="fl" x="58" y="74">32</text>
+        <rect class="fb" x="90" y="36" width="26" height="26" rx="2"/><text class="fl" x="103" y="74">48</text>
+        <rect class="fb" x="140" y="24" width="38" height="38" rx="3"/><text class="fl" x="159" y="74">180</text>
+        <rect class="fb" x="200" y="12" width="50" height="50" rx="3"/><text class="fl" x="225" y="74">512</text>
+        <line x1="10" y1="63" x2="262" y2="63" stroke="var(--border,#e5e7eb)" stroke-width="1"/>
+      </svg>
+      <p style="text-align:center;color:var(--muted);font-size:12.5px;margin:0 0 12px">px 단위 — 작을수록 탭·주소창, 클수록 홈 화면·PWA 설치 아이콘 (용도 비교용, 실제 화면 비율 아님)</p>
+      <p>크기별 용도는 위 <b>"어떤 크기가 필요한가"</b> 표에 정리돼 있습니다. 최신 브라우저는 32×32 PNG로도 충분히 선명하며, <code>.ico</code>는 구형 호환용입니다. 본 도구는 이 크기들을 자동 생성하고 <code>&lt;head&gt;</code>에 붙여넣을 링크 태그와 <code>manifest.json</code> 항목까지 함께 만들어 주므로, 텍스트·이모지·이미지 어느 것으로 시작하든 동일한 세트를 얻습니다.</p>
       <p><b>디자인 팁</b> — favicon은 정사각형으로 잘리므로, 가로세로 비율이 다른 로고는 미리 정사각 영역에 맞춰 다듬으면 깔끔합니다. 16px 같은 작은 크기에서도 알아볼 수 있게 여러 글자보다 상징이나 이니셜 한 글자가 선명하고, 배경은 투명(PNG) 또는 단색이 또렷합니다. 복잡한 그림은 작게 줄면 뭉개지기 쉽습니다. 미리보기에서 16·32·180·512 크기를 동시에 확인할 수 있으니, 가장 작은 크기에서 또렷한지 보고 다듬는 것을 권장합니다.</p>
 
       <h2>개인정보·보안</h2>
