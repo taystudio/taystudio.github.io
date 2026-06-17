@@ -55,16 +55,25 @@
   ]
 }
   </script>
+  <style>
+    .privacy-lead { background:color-mix(in srgb,var(--primary) 6%,transparent); border:1px solid var(--border); border-radius:12px; padding:14px 18px; margin:16px 0 4px; font-size:14.5px; line-height:1.75; }
+    main .card h2 { font-size:17px; margin:0 0 10px; padding-top:20px; border-top:1px solid var(--border); }
+    main .card > h2:first-of-type { padding-top:0; border-top:none; }
+    main .card p, main .card ul { font-size:14.5px; line-height:1.8; }
+    main .card ul { padding-left:20px; margin-bottom:18px; }
+  </style>
 </head>
 <body>
   <site-header></site-header>
   <main class="container">
     <div class="breadcrumb"><a href="/">TAYSTUDIO</a> · 개인정보처리방침</div>
     <h1>개인정보처리방침</h1>
-    <p class="subtitle">시행일: 2026-04-30 / 최종 개정: 2026-05-06 (저장공간 계산기 신규)</p>
+    <p class="subtitle">시행일: 2026-04-30 / 최종 개정: 2026-06-17</p>
+
+    <div class="privacy-lead">🔒 <b>핵심 한 줄</b> — 계산기 입력값·텍스트·이미지·PDF·동영상은 전부 <b>사용자 브라우저 안에서만</b> 처리되고, 어떤 파일·입력값도 서버로 전송·저장되지 않습니다. 본 서비스가 <b>직접 수집하는 개인정보는 없습니다.</b></div>
 
     <div class="card">
-      <h2 style="font-size:18px;margin-bottom:8px">1. 수집하는 개인정보</h2>
+      <h2>1. 수집하는 개인정보</h2>
       <p style="margin-bottom:8px">TAYSTUDIO(이하 "본 서비스")는 <b>사용자로부터 어떠한 개인정보도 직접 수집하지 않습니다.</b> 모든 입력값은 사용자의 <b>브라우저 안에서만</b> 처리되며 서버로 전송되거나 저장되지 않습니다.</p>
       <ul style="margin-bottom:16px;padding-left:20px;line-height:1.8">
         <li><b>계산기(/tools/)</b> — 연봉·부동산·생년월일 등 입력값은 브라우저 메모리에서만 사용됩니다.</li>
@@ -74,31 +83,30 @@
         <li><b>동영상 도구(/video/)</b> — 업로드한 영상은 ffmpeg.wasm WebAssembly에서 브라우저 안에서만 처리됩니다.</li>
       </ul>
 
-      <h2 style="font-size:18px;margin-bottom:8px">2. 자동 수집 정보 (제3자 도구)</h2>
+      <h2>2. 자동 수집 정보 (제3자 도구)</h2>
       <p style="margin-bottom:8px">본 서비스는 운영을 위해 다음의 제3자 도구를 사용할 수 있으며, 해당 서비스가 자체적으로 수집하는 정보가 있습니다:</p>
       <ul style="margin-bottom:16px;padding-left:20px;line-height:1.8">
-        <li><b>Google AdSense</b> — 광고 게재. 쿠키와 광고 식별자를 사용해 맞춤 광고를 제공합니다. <a href="https://policies.google.com/technologies/ads" target="_blank" rel="nofollow noopener">Google 광고 정책</a>에서 옵트아웃 가능.</li>
         <li><b>Google Analytics</b> — 트래픽 분석. 익명화된 IP, 페이지 조회, 디바이스 정보를 수집합니다. <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="nofollow noopener">옵트아웃 도구</a> 제공.</li>
         <li><b>쿠팡 파트너스</b> — 어필리에이트 링크 클릭 시 쿠팡으로 이동하며, 쿠팡의 자체 추적 정책이 적용됩니다.</li>
         <li><b>외부 CDN (모델·WebAssembly 다운로드)</b> — OCR(이미지 글자 추출) 도구는 첫 사용 시 <a href="https://www.jsdelivr.com" target="_blank" rel="nofollow noopener">jsdelivr.com</a>에서 Tesseract 학습 데이터를, 배경 제거 도구는 staticimgly.com에서 AI 모델·ONNX Runtime을 다운로드합니다. <b>사용자가 업로드한 이미지·PDF는 어떤 외부 서버로도 전송되지 않으며</b>, CDN으로부터 모델 파일만 받아옵니다. 다운로드된 자원은 브라우저 캐시에 저장되어 이후 오프라인에서도 동작합니다.</li>
       </ul>
 
-      <h2 style="font-size:18px;margin-bottom:8px">3. 쿠키 사용</h2>
+      <h2>3. 쿠키 사용</h2>
       <p style="margin-bottom:16px">본 서비스 자체는 쿠키를 설정하지 않습니다. 다만 위에 명시된 제3자 도구가 쿠키를 사용할 수 있으며, 사용자는 브라우저 설정에서 쿠키를 차단·삭제할 수 있습니다.</p>
 
-      <h2 style="font-size:18px;margin-bottom:8px">4. 개인정보 제3자 제공</h2>
+      <h2>4. 개인정보 제3자 제공</h2>
       <p style="margin-bottom:16px">본 서비스는 사용자로부터 직접 수집하는 개인정보가 없으므로, 제3자에게 제공하는 개인정보 또한 없습니다.</p>
 
-      <h2 style="font-size:18px;margin-bottom:8px">5. 사용자의 권리</h2>
-      <p style="margin-bottom:16px">사용자는 언제든지 브라우저 쿠키 삭제, 광고 ID 재설정, AdSense·Analytics 옵트아웃을 통해 추적을 차단할 수 있습니다.</p>
+      <h2>5. 사용자의 권리</h2>
+      <p style="margin-bottom:16px">사용자는 언제든지 브라우저 쿠키 삭제·광고 ID 재설정, <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="nofollow noopener">Google Analytics 옵트아웃</a>을 통해 추적을 차단할 수 있습니다.</p>
 
-      <h2 style="font-size:18px;margin-bottom:8px">6. 아동 보호</h2>
+      <h2>6. 아동 보호</h2>
       <p style="margin-bottom:16px">본 서비스는 만 14세 미만 아동을 대상으로 하지 않으며, 아동의 개인정보를 수집하지 않습니다.</p>
 
-      <h2 style="font-size:18px;margin-bottom:8px">7. 정책 변경</h2>
+      <h2>7. 정책 변경</h2>
       <p style="margin-bottom:16px">개인정보처리방침이 변경될 경우 본 페이지에 게시하며, 시행일을 명시합니다.</p>
 
-      <h2 style="font-size:18px;margin-bottom:8px">8. 운영 안내</h2>
+      <h2>8. 운영 안내</h2>
       <p>본 사이트는 개인이 운영하는 무료 서비스로, 별도의 고객센터·연락처를 운영하지 않습니다. 입력값을 외부로 전송하거나 저장하지 않으므로 개인정보 관련 처리·열람 요청 대상 자체가 발생하지 않습니다.</p>
     </div>
 

@@ -165,7 +165,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/tools/growth/</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
@@ -516,6 +516,15 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-esign/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/pdf/pdf-esign/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/pdf/pdf-esign/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/pdf/pdf-annotate/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-annotate/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/pdf/pdf-annotate/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/pdf/pdf-annotate/"/>
   </url>
   <url>
     <loc>https://taystudios.com/pdf/pdf-to-image/</loc>
@@ -902,6 +911,15 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-esign/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/pdf/pdf-esign/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/pdf/pdf-esign/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/en/pdf/pdf-annotate/</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/pdf/pdf-annotate/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/pdf/pdf-annotate/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/pdf/pdf-annotate/"/>
   </url>
   <url>
     <loc>https://taystudios.com/en/pdf/pdf-to-image/</loc>

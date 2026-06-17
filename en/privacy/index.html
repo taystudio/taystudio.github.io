@@ -57,16 +57,25 @@
   ]
 }
   </script>
+  <style>
+    .privacy-lead { background:color-mix(in srgb,var(--primary) 6%,transparent); border:1px solid var(--border); border-radius:12px; padding:14px 18px; margin:16px 0 4px; font-size:14.5px; line-height:1.75; }
+    main .card h2 { font-size:17px; margin:0 0 10px; padding-top:20px; border-top:1px solid var(--border); }
+    main .card > h2:first-of-type { padding-top:0; border-top:none; }
+    main .card p, main .card ul { font-size:14.5px; line-height:1.8; }
+    main .card ul { padding-left:20px; margin-bottom:18px; }
+  </style>
 </head>
 <body>
   <site-header></site-header>
   <main class="container">
     <div class="breadcrumb"><a href="/en/">TAYSTUDIO</a> · Privacy Policy</div>
     <h1>Privacy Policy</h1>
-    <p class="subtitle">Effective: 2026-05-10 / Last revised: 2026-05-10 (English version launch)</p>
+    <p class="subtitle">Effective: 2026-05-10 / Last revised: 2026-06-17</p>
+
+    <div class="privacy-lead">🔒 <b>In one line</b> — calculator inputs, text, images, PDFs and videos are all processed <b>only in your browser</b>; no file or input is ever sent to or stored on a server. This service <b>collects no personal data directly.</b></div>
 
     <div class="card">
-      <h2 style="font-size:18px;margin-bottom:8px">1. Personal Data We Collect</h2>
+      <h2>1. Personal Data We Collect</h2>
       <p style="margin-bottom:8px">TAYSTUDIO ("the Service") <b>does not directly collect any personal data from users.</b> All inputs are processed <b>only inside your browser</b> and are never sent to or stored on any server.</p>
       <ul style="margin-bottom:16px;padding-left:20px;line-height:1.8">
         <li><b>Calculators (/en/tools/)</b> — Compound interest, BMI, calorie/TDEE, body fat, ideal weight, savings, loan, D-Day inputs are used only in browser memory.</li>
@@ -76,30 +85,29 @@
         <li><b>Video tools (/en/video/)</b> — Uploaded videos are processed only in your browser via ffmpeg.wasm WebAssembly.</li>
       </ul>
 
-      <h2 style="font-size:18px;margin-bottom:8px">2. Automatically Collected Information (Third-Party Tools)</h2>
+      <h2>2. Automatically Collected Information (Third-Party Tools)</h2>
       <p style="margin-bottom:8px">The Service may use the following third-party tools for operations, and those services may collect their own information:</p>
       <ul style="margin-bottom:16px;padding-left:20px;line-height:1.8">
-        <li><b>Google AdSense</b> — Ad serving. Uses cookies and ad identifiers to serve personalized ads. You can opt out via <a href="https://policies.google.com/technologies/ads" target="_blank" rel="nofollow noopener">Google Ad Policy</a>.</li>
         <li><b>Google Analytics</b> — Traffic analytics. Collects anonymized IP, page views, and device information. <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="nofollow noopener">Opt-out tool</a> available.</li>
         <li><b>External CDN (model · WebAssembly downloads)</b> — The OCR (image text extraction) tool downloads Tesseract training data from <a href="https://www.jsdelivr.com" target="_blank" rel="nofollow noopener">jsdelivr.com</a> on first use; the background remover tool downloads the AI model and ONNX Runtime from staticimgly.com. <b>Images and PDFs you upload are never sent to any external server</b>; only the model files are downloaded from the CDN. Downloaded assets are cached in your browser and work offline thereafter.</li>
       </ul>
 
-      <h2 style="font-size:18px;margin-bottom:8px">3. Cookie Use</h2>
+      <h2>3. Cookie Use</h2>
       <p style="margin-bottom:16px">The Service itself does not set cookies. The third-party tools listed above may use cookies; you can block or delete cookies in your browser settings.</p>
 
-      <h2 style="font-size:18px;margin-bottom:8px">4. Sharing Personal Data with Third Parties</h2>
+      <h2>4. Sharing Personal Data with Third Parties</h2>
       <p style="margin-bottom:16px">Because the Service does not collect personal data directly from users, there is no personal data to share with any third party.</p>
 
-      <h2 style="font-size:18px;margin-bottom:8px">5. Your Rights</h2>
-      <p style="margin-bottom:16px">You can block tracking at any time by clearing browser cookies, resetting your advertising ID, or opting out of AdSense and Analytics. EU/UK residents (GDPR), California residents (CCPA), and others can exercise local rights through the third-party opt-out links above.</p>
+      <h2>5. Your Rights</h2>
+      <p style="margin-bottom:16px">You can block tracking at any time by clearing browser cookies, resetting your advertising ID, or opting out of Google Analytics. EU/UK residents (GDPR), California residents (CCPA), and others can exercise local rights through the third-party opt-out links above.</p>
 
-      <h2 style="font-size:18px;margin-bottom:8px">6. Children's Privacy</h2>
+      <h2>6. Children's Privacy</h2>
       <p style="margin-bottom:16px">The Service is not directed at children under 13 (COPPA) or under 14 (Korean PIPA). We do not knowingly collect personal data from children.</p>
 
-      <h2 style="font-size:18px;margin-bottom:8px">7. Policy Changes</h2>
+      <h2>7. Policy Changes</h2>
       <p style="margin-bottom:16px">If this Privacy Policy is updated, the changes will be posted on this page with the effective date.</p>
 
-      <h2 style="font-size:18px;margin-bottom:8px">8. Operator Notice</h2>
+      <h2>8. Operator Notice</h2>
       <p>This site is a free service operated by an individual based in the Republic of Korea. There is no separate customer support channel or contact desk. Because no inputs are sent or stored externally, there is no personal data to process, access, or delete on request.</p>
     </div>
 
