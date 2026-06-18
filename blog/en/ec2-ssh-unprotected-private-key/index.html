@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400) · Tay Blog</title>
+<title>[AWS] EC2 SSH Connection Error: How to Fix the UNPROTECTED PRIVATE KEY FILE Error (ssh pem key permission setup) · Tay Blog</title>
 <meta name="description" content="When SSH-ing into EC2 you get &#39;WARNING: UNPROTECTED PRIVATE KEY FILE&#39; — the .pem key&#39;s permissions are too open. Fix it instantly with chmod 400.">
 <link rel="canonical" href="https://taystudios.com/blog/en/ec2-ssh-unprotected-private-key/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/ec2-ssh-unprotected-private-key/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/ec2-ssh-unprotected-private-key/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/ec2-ssh-unprotected-private-key/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400) · Tay Blog">
+<meta property="og:title" content="[AWS] EC2 SSH Connection Error: How to Fix the UNPROTECTED PRIVATE KEY FILE Error (ssh pem key permission setup) · Tay Blog">
 <meta property="og:description" content="When SSH-ing into EC2 you get &#39;WARNING: UNPROTECTED PRIVATE KEY FILE&#39; — the .pem key&#39;s permissions are too open. Fix it instantly with chmod 400.">
 <meta property="og:url" content="https://taystudios.com/blog/en/ec2-ssh-unprotected-private-key/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/ec2-ssh-unprotected-private-key/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/ec2-ssh-unprotected-private-key/cover.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)", "description": "When SSH-ing into EC2 you get 'WARNING: UNPROTECTED PRIVATE KEY FILE' — the .pem key's permissions are too open. Fix it instantly with chmod 400.", "datePublished": "2026-02-08T00:00:00+09:00", "dateModified": "2026-02-08T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/ec2-ssh-unprotected-private-key/"}, "image": ["https://taystudios.com/blog/assets/posts/ec2-ssh-unprotected-private-key/cover.png"], "keywords": "AWS, EC2, SSH, troubleshooting, Linux"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)", "item": "https://taystudios.com/blog/en/ec2-ssh-unprotected-private-key/"}]}</script><meta property="article:published_time" content="2026-02-08T00:00:00+09:00"><meta property="article:modified_time" content="2026-02-08T00:00:00+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="EC2"><meta property="article:tag" content="SSH"><meta property="article:tag" content="troubleshooting"><meta property="article:tag" content="Linux">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[AWS] EC2 SSH Connection Error: How to Fix the UNPROTECTED PRIVATE KEY FILE Error (ssh pem key permission setup)", "description": "When SSH-ing into EC2 you get 'WARNING: UNPROTECTED PRIVATE KEY FILE' — the .pem key's permissions are too open. Fix it instantly with chmod 400.", "datePublished": "2026-02-08T00:00:00+09:00", "dateModified": "2026-05-29T09:40:21+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/ec2-ssh-unprotected-private-key/"}, "image": ["https://taystudios.com/blog/assets/posts/ec2-ssh-unprotected-private-key/cover.png"], "keywords": "AWS, EC2, SSH, troubleshooting, Linux"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "[AWS] EC2 SSH Connection Error: How to Fix the UNPROTECTED PRIVATE KEY FILE Error (ssh pem key permission setup)", "item": "https://taystudios.com/blog/en/ec2-ssh-unprotected-private-key/"}]}</script><meta property="article:published_time" content="2026-02-08T00:00:00+09:00"><meta property="article:modified_time" content="2026-05-29T09:40:21+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="EC2"><meta property="article:tag" content="SSH"><meta property="article:tag" content="troubleshooting"><meta property="article:tag" content="Linux">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</span></nav>
-        <h1 class="tb-article-title">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">[AWS] EC2 SSH Connection Error: How to Fix the UNPROTECTED PRIVATE KEY FILE Error (ssh pem key permission setup)</span></nav>
+        <h1 class="tb-article-title">[AWS] EC2 SSH Connection Error: How to Fix the UNPROTECTED PRIVATE KEY FILE Error (ssh pem key permission setup)</h1>
         <div class="tb-article-meta">
           <time>2026.02.08</time>
           <span>·</span><span>#AWS #EC2 #SSH #troubleshooting #Linux</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-the-error">1. The Error</a></li><li class="tb-toc-h2"><a href="#2-the-cause">2. The Cause</a></li><li class="tb-toc-h2"><a href="#3-the-fix-chmod-400">3. The Fix: chmod 400</a></li><li class="tb-toc-h3"><a href="#what-permission-400-means-on-linux">💡 What permission 400 means on Linux</a></li><li class="tb-toc-h2"><a href="#4-verify">4. Verify</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-the-error-situation">1. The error situation</a></li><li class="tb-toc-h2"><a href="#2-the-cause">2. The cause</a></li><li class="tb-toc-h2"><a href="#3-the-fix-chmod-400">3. The fix: chmod 400</a></li><li class="tb-toc-h3"><a href="#the-meaning-of-linux-file-permission-400">💡 The meaning of Linux file permission 400</a></li><li class="tb-toc-h2"><a href="#4-verifying-the-result">4. Verifying the result</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -79,9 +79,11 @@
 .tb-content .callout p { margin:6px 0; line-height:1.85; }
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
+.tb-content pre { overflow-x:auto; }
 </style>
-<h2 id="1-the-error">1. The Error</h2>
-<p>When trying to SSH into an AWS EC2 instance, you sometimes get the following warning and are denied access.</p>
+
+<h2 id="1-the-error-situation">1. The error situation</h2>
+<p>When trying to SSH into an AWS EC2 instance, there are cases where the connection is refused along with the warning message below.</p>
 <pre class="codehilite"><code class="language-text">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -92,66 +94,64 @@ Load key &quot;myKey.pem&quot;: bad permissions
 ubuntu@{my-ip}: Permission denied (publickey).
 </code></pre>
 
-<p>The key part is <code>Permissions for 'myKey.pem' are too open</code>. In other words, the <code>.pem</code> key file's permissions are too open, so the system deemed it a security risk and blocked the connection.</p>
-<p><img alt="AWS EC2 SSH UNPROTECTED PRIVATE KEY FILE warning message" src="assets/posts/ec2-ssh-unprotected-private-key/img1.png" width="1138" height="280" loading="lazy">
-<em>Figure 1. The 'UNPROTECTED PRIVATE KEY FILE' warning when connecting via SSH</em></p>
-<h2 id="2-the-cause">2. The Cause</h2>
-<p>For security, SSH clients on Linux/macOS are designed to use only keys that <strong>no one but the owner can read.</strong></p>
+<p>If you look closely at the key phrase, it's "Permissions for 'myKey.pem' are too open." That is, the .pem key file's permissions are open too widely, so the system judged it a security risk and blocked the connection.</p>
+<p><img alt="The 'UNPROTECTED PRIVATE KEY FILE' warning message that appears on SSH connection" src="assets/posts/ec2-ssh-unprotected-private-key/img1.webp" width="1138" height="280" loading="lazy">
+<em>Figure 1. The 'UNPROTECTED PRIVATE KEY FILE' warning message that appears on SSH connection</em></p>
+<h2 id="2-the-cause">2. The cause</h2>
+<p>SSH clients on Linux or macOS environments are designed, for security, to use only "a key that no one but the owner can read."</p>
 <ul>
-<li><strong>The problematic permission</strong> — <code>0755</code> or <code>0644</code> means other users (group, others) can also read this key.</li>
-<li><strong>The security rule</strong> — if a private key could be exposed to others, SSH doesn't trust it and refuses the connection.</li>
+<li>The problematic permissions: permissions like 0755 or 0644 mean that not only I but also other users (group, others) can read this key.</li>
+<li>The security rule: if there's a possibility the private key is exposed to others, SSH doesn't trust that key and refuses the connection.</li>
 </ul>
-<h2 id="3-the-fix-chmod-400">3. The Fix: chmod 400</h2>
-<p>In the terminal, move to the directory with the key file (<code>.pem</code>) and change its permission to <strong>owner read-only</strong> (400) to fix it instantly.</p>
-<pre class="codehilite"><code class="language-bash"># Change the pem key file permission to 400
+<h2 id="3-the-fix-chmod-400">3. The fix: chmod 400</h2>
+<p>In the terminal, move to the directory where the key file (.pem) is stored, then change the permissions to owner-only read permission (400), and it's resolved instantly.</p>
+<pre class="codehilite"><code class="language-bash"># change the pem key file's permissions to 400
 chmod 400 myKey.pem
 </code></pre>
 
-<blockquote>
-<p>Note: if <code>400</code> doesn't work, you can try <code>600</code>, but the AWS guide usually recommends <code>400</code>.</p>
-</blockquote>
-<h3 id="what-permission-400-means-on-linux">💡 What permission 400 means on Linux</h3>
+<p>Note: if 400 still doesn't work, you can try 600, but the AWS guide usually recommends 400.</p>
+<h3 id="the-meaning-of-linux-file-permission-400">💡 The meaning of Linux file permission 400</h3>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
-<th>Target</th>
-<th style="text-align: center;">Number</th>
-<th>Meaning</th>
+<th>Permission target</th>
+<th>Number</th>
+<th>Detailed meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Owner</td>
-<td style="text-align: center;">4</td>
-<td>Read only (no write/execute)</td>
+<td>4</td>
+<td>Read possible (no modify/execute)</td>
 </tr>
 <tr>
 <td>Group</td>
-<td style="text-align: center;">0</td>
+<td>0</td>
 <td>No permissions</td>
 </tr>
 <tr>
 <td>Others</td>
-<td style="text-align: center;">0</td>
+<td>0</td>
 <td>No permissions</td>
 </tr>
 </tbody>
 </table></div>
-<h2 id="4-verify">4. Verify</h2>
-<p>After changing the permission, try connecting again.</p>
+<h2 id="4-verifying-the-result">4. Verifying the result</h2>
+<p>After changing the permissions, try connecting again.</p>
 <pre class="codehilite"><code class="language-bash">ssh -i &quot;myKey.pem&quot; ubuntu@&lt;Your-EC2-IP&gt;
 </code></pre>
 
-<p>You can now confirm the instance connects normally without the warning.</p>
+<p>Now you can confirm that you connect to the instance normally, without the warning.</p>
 <hr />
 <blockquote>
-<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/31" rel="nofollow noopener">taehyuklee.tistory.com/31</a></p>
+<p>📦 Migrated from the Tistory blog I used to run. Original: <a href="https://taehyuklee.tistory.com/31" rel="nofollow noopener">taehyuklee.tistory.com/31</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/nat-instance-build-2/">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)</a></li><li><a href="en/nat-instance-build-1/">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance from an AMI (Part 1)</a></li></ul></section>
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration &amp; Fixed-Cost Optimization Strategy)</a></li><li><a href="en/nat-instance-build-2/">[AWS Infra] Building &amp; Configuring a NAT Instance to Cut NAT Gateway Costs (Part 2)</a></li><li><a href="en/nat-instance-build-1/">[AWS Infra] Building &amp; Configuring a NAT Instance from an AMI to Cut NAT Gateway Costs (Part 1)</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fec2-ssh-unprotected-private-key%2F&amp;text=%5BAWS%5D%20EC2%20SSH%20Error%20%E2%80%94%20Fixing%20UNPROTECTED%20PRIVATE%20KEY%20FILE%20%28.pem%20chmod%20400%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fec2-ssh-unprotected-private-key%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fec2-ssh-unprotected-private-key%2F&amp;text=%5BAWS%5D%20EC2%20SSH%20Connection%20Error%3A%20How%20to%20Fix%20the%20UNPROTECTED%20PRIVATE%20KEY%20FILE%20Error%20%28ssh%20pem%20key%20permission%20setup%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fec2-ssh-unprotected-private-key%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
 

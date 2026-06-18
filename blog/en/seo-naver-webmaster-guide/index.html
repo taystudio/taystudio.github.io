@@ -81,16 +81,18 @@
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
 <blockquote>
-<p><strong>TL;DR</strong>: For a Korean-targeted site, <strong>Naver SearchAdvisor beats Google Search Console for ROI</strong> (it's an 80% traffic channel). Five minutes for registration + sitemap submission + crawl requests.</p>
+<p>Let me start with the conclusion: if your site targets Korean users, Naver SearchAdvisor gives you better ROI than Google Search Console, because that's where about 80% of the traffic comes from. Registration takes five minutes, and you can get the sitemap submitted and the crawl requests in during that same sitting.</p>
 </blockquote>
-<p>After a month on this domain, GSC showed 2 clicks and 777 impressions — looked like the site was dead. Then I registered Naver SearchAdvisor and saw <strong>26,000 impressions + 230 clicks in 30 days</strong>. 33–115× Google's numbers. For Korean users, this is the main channel.</p>
+<p>About a month into running this domain, I looked back at the numbers. Going by GSC alone, I had 2 clicks and 777 impressions, and honestly I thought the site was dead. Then I registered Naver SearchAdvisor, and suddenly I was seeing 26,000 impressions and 230 clicks over 30 days — somewhere between 33 and 115 times Google's numbers. For a site aimed at Korean users, this is effectively the main channel.</p>
 <h2 id="why-gsc-alone-isnt-enough">Why GSC alone isn't enough</h2>
-<p>Korean market share:
-- <strong>Naver</strong>: 50–60%
-- <strong>Google</strong>: 30–35%
-- <strong>Daum (Kakao)</strong>: 5–10%
-- Bing/others: &lt;5%</p>
-<p>= GSC alone misses <strong>60–70% of Korean traffic</strong>. With a fresh domain in Google sandbox, you see even less.</p>
+<p>Let me lay out the Korean market share first.</p>
+<ul>
+<li><strong>Naver</strong>: 50–60%</li>
+<li><strong>Google</strong>: 30–35%</li>
+<li><strong>Daum (Kakao)</strong>: 5–10%</li>
+<li>Bing/others: &lt;5%</li>
+</ul>
+<p>So watching GSC alone means you're simply not seeing 60–70% of your Korean traffic. And if you're on a fresh domain, the Google sandbox piles on top of that and you see even less.</p>
 <h2 id="step-1-sign-up-for-naver-searchadvisor-1-min">Step 1. Sign up for Naver SearchAdvisor (1 min)</h2>
 <ol>
 <li>Go to <a href="https://searchadvisor.naver.com">searchadvisor.naver.com</a></li>
@@ -98,19 +100,19 @@
 <li>Top menu <strong>Webmaster Tools</strong> → <strong>Site Registration</strong></li>
 </ol>
 <h2 id="step-2-verify-ownership-3-min">Step 2. Verify ownership (3 min)</h2>
-<p>Enter your site URL (e.g., <code>https://taystudios.com</code>). Then <strong>pick a verification method</strong>:</p>
+<p>Enter your site URL (e.g., <code>https://taystudios.com</code>), and you'll land on the step where you pick a verification method.</p>
 <h3 id="option-a-html-meta-tag-simplest-recommended">Option A. HTML meta tag (simplest — recommended)</h3>
-<p>Paste the meta tag Naver gives you into your <code>&lt;head&gt;</code>:</p>
+<p>This is just a matter of dropping the meta tag Naver gives you into your <code>&lt;head&gt;</code>:</p>
 <pre class="codehilite"><code class="language-html">&lt;meta name=&quot;naver-site-verification&quot; content=&quot;abc123def456...&quot; /&gt;
 </code></pre>
 
-<p>For a static site on GitHub Pages, add it to <code>index.html</code> or the shared layout <code>&lt;head&gt;</code> and redeploy. Then click <strong>Verify</strong> in the Naver console.</p>
+<p>On a static site like GitHub Pages, add it to <code>index.html</code> or the shared layout <code>&lt;head&gt;</code>, redeploy, and then click <strong>Verify</strong> in the Naver console. That's all there is to it.</p>
 <h3 id="option-b-html-file-upload">Option B. HTML file upload</h3>
-<p>Upload a named HTML file to the site root, e.g., <code>https://taystudios.com/naverabc123def456.html</code>.</p>
+<p>Here you upload a named HTML file to the site root, e.g., something reachable at <code>https://taystudios.com/naverabc123def456.html</code>.</p>
 <h3 id="option-c-webmaster-tools-api-skip-not-for-regular-operators">Option C. WebMaster Tools API (skip — not for regular operators)</h3>
-<p>→ <strong>HTML meta tag</strong> is the fast, safe path. Recommend Option A.</p>
+<p>Of the three, I find the <strong>HTML meta tag</strong> to be the fastest and safest. Unless you have a specific reason not to, I'd go with Option A.</p>
 <h2 id="step-3-submit-your-sitemaps-1-min-the-most-important">Step 3. Submit your sitemaps (1 min — the most important)</h2>
-<p>After verification, on the left menu:</p>
+<p>Once ownership is verified, head to the left menu:</p>
 <p><strong>Request &gt; Submit Sitemap</strong></p>
 <pre class="codehilite"><code>Sitemap URL input:
 https://taystudios.com/sitemap.xml
@@ -118,17 +120,17 @@ https://taystudios.com/sitemap.xml
 → Submit → Success
 </code></pre>
 
-<p>If you have a separate blog/subsite sitemap, <strong>submit them one at a time</strong>:</p>
+<p>If you keep a separate sitemap for a blog or subsite, you'll want to <strong>submit them one at a time</strong>:</p>
 <pre class="codehilite"><code>https://taystudios.com/sitemap.xml
 https://taystudios.com/blog/sitemap.xml
 </code></pre>
 
-<p>The trap I keep falling into — submitting only one and forgetting the other. Unless it's a sitemap index (<code>sitemap-index.xml</code>), each sitemap must be <strong>submitted directly</strong>.</p>
+<p>This is the trap I keep falling into — I submit one and forget about the other. Unless you're dealing with a sitemap index (<code>sitemap-index.xml</code>), each sitemap has to be submitted directly.</p>
 <h2 id="step-4-request-page-collection-2-min">Step 4. Request page collection (2 min)</h2>
-<p>Without nudging, Naver finds new pages on its own (days to weeks). To <strong>bump priority manually</strong>:</p>
+<p>Left on its own, Naver will find your new pages eventually, but that takes anywhere from days to weeks. You can bump the priority manually, though.</p>
 <p><strong>Request &gt; Page Collection Request</strong></p>
-<p>Paste a URL → submit. <strong>50 URLs per day</strong> quota.</p>
-<p>Suggested — top pages + recently changed ones first:</p>
+<p>Paste a URL and submit. There's a quota of 50 URLs per day.</p>
+<p>In my experience it's worth starting with your top pages and anything you've recently changed:</p>
 <pre class="codehilite"><code>https://taystudios.com/                    # home
 https://taystudios.com/tools/              # tools hub
 https://taystudios.com/tools/salary/       # top tool
@@ -141,31 +143,31 @@ https://taystudios.com/blog/en/recent-post/  # latest posts
 
 <h2 id="step-5-diagnose-monitor">Step 5. Diagnose + monitor</h2>
 <h3 id="verify-robotstxt">Verify &gt; robots.txt</h3>
-<p>Confirms your robots.txt isn't blocking Naver Yeti. Usually fine, occasionally surprises you.</p>
+<p>This automatically checks whether your robots.txt is blocking Naver's Yeti bot. It's usually fine, but every now and then it catches a rule you misconfigured somewhere.</p>
 <h3 id="verify-webpage-diagnostics">Verify &gt; Webpage Diagnostics</h3>
-<p>Per-page SEO score, meta, structure. Start with pages already getting impressions.</p>
+<p>This gives you a per-page SEO score along with meta and structure. I'd start with the pages that are already getting impressions.</p>
 <h3 id="reports-site-diagnostics">Reports &gt; Site Diagnostics</h3>
-<p>Total impressions/clicks/CTR. Data starts accumulating 1–2 weeks after registration.</p>
+<p>Here you get total impressions, clicks, and CTR for the whole site. The data only starts accumulating one to two weeks after you register.</p>
 <h2 id="common-traps">Common traps</h2>
 <h3 id="1-https-vs-http-www-vs-non-www">1. HTTPS vs HTTP / www vs non-www</h3>
-<p><code>https://taystudios.com</code> and <code>https://www.taystudios.com</code> are <strong>separate sites</strong> to Naver. If you serve both, register both and configure a redirect.</p>
+<p>As far as Naver is concerned, <code>https://taystudios.com</code> and <code>https://www.taystudios.com</code> are <strong>two separate sites</strong>. If you serve both, register both and then set up a redirect.</p>
 <h3 id="2-pasting-two-sitemaps-on-one-line">2. Pasting two sitemaps on one line</h3>
 <pre class="codehilite"><code>❌ https://taystudios.com/sitemap.xml, https://taystudios.com/blog/sitemap.xml
 ✅ Submit each separately
 </code></pre>
 
 <h3 id="3-burning-all-50-crawl-requests-at-once">3. Burning all 50 crawl requests at once</h3>
-<p>The 50 is a per-day cap. Spread different pages across days.</p>
+<p>The 50 is a per-day cap. It's better to spread different pages across several days.</p>
 <h3 id="4-expecting-results-right-after-registration">4. Expecting results right after registration</h3>
-<p>Naver's crawl queue takes <strong>1–2 weeks</strong> to process. Zero data the first few days is normal.</p>
+<p>Naver's crawl queue takes one to two weeks to work through. Seeing zero data for the first few days is normal, so there's no need to panic.</p>
 <h2 id="also-register-daum-kakao-510-min">Also register Daum (Kakao) (5–10 min)</h2>
-<p>Same Korean market. After Naver, it's the biggest:</p>
+<p>It's another Korean engine, and since it's the next biggest after Naver, I'd register it too while you're at it.</p>
 <ul>
 <li><a href="https://webmaster.daum.net">webmaster.daum.net</a></li>
 <li>Log in with Kakao</li>
-<li>Register the site + submit the sitemap (process is essentially the same)</li>
+<li>Register the site + submit the sitemap (the process is essentially the same)</li>
 </ul>
-<p>Daum partly uses Google results, but it also runs its own index. Expect +5–10% traffic after registration.</p>
+<p>Daum borrows some of its results from Google, but it also runs its own index. Registering there should get you another 5–10% of traffic or so.</p>
 <h2 id="timeline-after-registration">Timeline after registration</h2>
 <div class="tb-table-wrap"><table>
 <thead>
@@ -197,10 +199,10 @@ https://taystudios.com/blog/en/recent-post/  # latest posts
 </tr>
 </tbody>
 </table></div>
-<p>For my site, impressions spiked from 5/22 → 30 days later: 26,000 impressions/month. Naver seems to have its own probation period, similar in feel to Google sandbox.</p>
+<p>For my own site, impressions spiked from 5/22, and 30 days later I was at 26,000 impressions a month. Naver seems to run its own probation period, much like the Google sandbox in feel.</p>
 <h2 id="one-liner">One-liner</h2>
 <blockquote>
-<p><strong>If your site targets Korea, Naver SearchAdvisor comes before GSC.</strong> Five minutes of work, 80% of the traffic channel.</p>
+<p>If your site targets Korea, I'd put Naver SearchAdvisor ahead of GSC. Five minutes of work gets you 80% of the traffic channel.</p>
 </blockquote>
 <h2 id="related">Related</h2>
 <ul>

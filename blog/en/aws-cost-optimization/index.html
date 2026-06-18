@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization · Tay Blog</title>
+<title>[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration &amp; Fixed-Cost Optimization Strategy) · Tay Blog</title>
 <meta name="description" content="~20% from EC2 architecture (x86 → ARM/Graviton) alone, and up to 55% (about ₩2M/month) off by replacing ALB, NAT, and RDS with Nginx, a NAT instance, and an EC2 DB — real quotes and strategy.">
 <link rel="canonical" href="https://taystudios.com/blog/en/aws-cost-optimization/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/aws-cost-optimization/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/aws-cost-optimization/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/aws-cost-optimization/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization · Tay Blog">
+<meta property="og:title" content="[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration &amp; Fixed-Cost Optimization Strategy) · Tay Blog">
 <meta property="og:description" content="~20% from EC2 architecture (x86 → ARM/Graviton) alone, and up to 55% (about ₩2M/month) off by replacing ALB, NAT, and RDS with Nginx, a NAT instance, and an EC2 DB — real quotes and strategy.">
 <meta property="og:url" content="https://taystudios.com/blog/en/aws-cost-optimization/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/aws-cost-optimization/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/aws-cost-optimization/cover.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration & Fixed-Cost Optimization", "description": "~20% from EC2 architecture (x86 → ARM/Graviton) alone, and up to 55% (about ₩2M/month) off by replacing ALB, NAT, and RDS with Nginx, a NAT instance, and an EC2 DB — real quotes and strategy.", "datePublished": "2026-02-12T00:00:00+09:00", "dateModified": "2026-02-12T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/aws-cost-optimization/"}, "image": ["https://taystudios.com/blog/assets/posts/aws-cost-optimization/cover.png"], "keywords": "AWS, cost-optimization, Graviton, ARM, RDS"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration & Fixed-Cost Optimization", "item": "https://taystudios.com/blog/en/aws-cost-optimization/"}]}</script><meta property="article:published_time" content="2026-02-12T00:00:00+09:00"><meta property="article:modified_time" content="2026-02-12T00:00:00+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="cost-optimization"><meta property="article:tag" content="Graviton"><meta property="article:tag" content="ARM"><meta property="article:tag" content="RDS">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration & Fixed-Cost Optimization Strategy)", "description": "~20% from EC2 architecture (x86 → ARM/Graviton) alone, and up to 55% (about ₩2M/month) off by replacing ALB, NAT, and RDS with Nginx, a NAT instance, and an EC2 DB — real quotes and strategy.", "datePublished": "2026-02-12T00:00:00+09:00", "dateModified": "2026-02-12T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/aws-cost-optimization/"}, "image": ["https://taystudios.com/blog/assets/posts/aws-cost-optimization/cover.png"], "keywords": "AWS, cost-optimization, Graviton, ARM, RDS"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration & Fixed-Cost Optimization Strategy)", "item": "https://taystudios.com/blog/en/aws-cost-optimization/"}]}</script><meta property="article:published_time" content="2026-02-12T00:00:00+09:00"><meta property="article:modified_time" content="2026-02-12T00:00:00+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="cost-optimization"><meta property="article:tag" content="Graviton"><meta property="article:tag" content="ARM"><meta property="article:tag" content="RDS">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</span></nav>
-        <h1 class="tb-article-title">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration &amp; Fixed-Cost Optimization Strategy)</span></nav>
+        <h1 class="tb-article-title">[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration &amp; Fixed-Cost Optimization Strategy)</h1>
         <div class="tb-article-meta">
           <time>2026.02.12</time>
           <span>·</span><span>#AWS #cost-optimization #Graviton #ARM #RDS</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-2026-aws-ec2-instance-price-comparison-seoul-region">1. 2026 AWS EC2 Instance Price Comparison (Seoul Region)</a></li><li class="tb-toc-h3"><a href="#switching-architecture-alone-saves-432month">Switching architecture alone saves $43.2/month</a></li><li class="tb-toc-h2"><a href="#2-choosing-an-instance-family-by-purpose">2. Choosing an Instance Family by Purpose</a></li><li class="tb-toc-h2"><a href="#3-defending-fixed-costs-with-self-managed-builds-instead-of-managed-services">3. Defending Fixed Costs with Self-Managed Builds Instead of Managed Services</a></li><li class="tb-toc-h3"><a href="#31-nginx-reverse-proxy-instead-of-alb-save-1643month">3.1 Nginx Reverse Proxy instead of ALB — save $16.43/month</a></li><li class="tb-toc-h3"><a href="#32-nat-instance-instead-of-nat-gateway-save-3375month">3.2 NAT Instance instead of NAT Gateway — save $33.75/month</a></li><li class="tb-toc-h3"><a href="#33-route53-domain-about-1451-for-a-com">3.3 Route53 domain — about $14.51 for a .com</a></li><li class="tb-toc-h2"><a href="#4-rds-risk-management-self-hosting-the-db">4. RDS Risk Management &amp; Self-Hosting the DB</a></li><li class="tb-toc-h2"><a href="#5-final-cost-comparison-managed-services-vs-self-built-monthly">5. Final Cost Comparison: Managed Services vs Self-Built (Monthly)</a></li><li class="tb-toc-h3"><a href="#conclusion-efficient-cost-reduction">Conclusion: Efficient cost reduction</a></li><li class="tb-toc-h2"><a href="#6-caveats-when-migrating-to-arm">6. Caveats When Migrating to ARM</a></li><li class="tb-toc-h3"><a href="#python-the-dpi-1047-error-when-connecting-to-oracle-db">Python — the 'DPI-1047' error when connecting to Oracle DB</a></li><li class="tb-toc-h2"><a href="#references-aws-official">References (AWS official)</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-2026-aws-ec2-instance-unit-price-comparison-seoul-region-updated-version">1. 2026 AWS EC2 instance unit-price comparison (Seoul region) - updated version</a></li><li class="tb-toc-h3"><a href="#just-switching-the-architecture-saves-432-a-month">Just switching the architecture saves $43.2 a month.</a></li><li class="tb-toc-h2"><a href="#2-instance-family-selection-strategy-by-purpose">2. Instance-family selection strategy by purpose</a></li><li class="tb-toc-h2"><a href="#3-defending-fixed-costs-by-self-building-instead-of-managed-services-saas">3. Defending fixed costs by self-building instead of managed services (SaaS)</a></li><li class="tb-toc-h3"><a href="#31-using-an-nginx-reverse-proxy-instead-of-alb-saves-1643month">3.1 Using an Nginx Reverse Proxy instead of ALB: saves $16.43/month</a></li><li class="tb-toc-h3"><a href="#32-building-a-nat-instance-instead-of-nat-gateway-saves-3375month">3.2 Building a NAT Instance instead of NAT Gateway: saves $33.75/month</a></li><li class="tb-toc-h3"><a href="#33-route53-domain-cost-about-1451-on-a-com-basis">3.3 Route53 Domain cost: about $14.51 on a .com basis</a></li><li class="tb-toc-h2"><a href="#4-rds-risk-management-and-self-installed-db-strategy">4. RDS risk management and self-installed DB strategy</a></li><li class="tb-toc-h2"><a href="#5-final-cost-comparison-managed-services-vs-self-built-monthly">5. Final cost comparison: managed services vs. self-built (Monthly)</a></li><li class="tb-toc-h3"><a href="#conclusion-choosing-efficient-cost-reduction">Conclusion: choosing efficient cost reduction</a></li><li class="tb-toc-h2"><a href="#6-caveats-when-migrating-to-the-arm-architecture-compatibility-issues-and-a-case">6. Caveats when migrating to the ARM architecture: compatibility issues and a case</a></li><li class="tb-toc-h3"><a href="#the-dpi-1047-error-when-integrating-python-with-oracle-db">The 'DPI-1047' error when integrating Python with Oracle DB</a></li><li class="tb-toc-h2"><a href="#references-aws-official">References (AWS official)</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -79,21 +79,24 @@
 .tb-content .callout p { margin:6px 0; line-height:1.85; }
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
+.tb-content pre { overflow-x:auto; }
+.tb-content table { display:block; overflow-x:auto; white-space:nowrap; }
 </style>
-<p>From 2024 through the first half of 2026, while designing and building infrastructure for my division/team, my main focus was <strong>"minimizing unnecessary cloud spend while still drawing a robust architecture."</strong></p>
-<p>This post shares real quote data and know-how for strategically leveraging AWS <strong>Graviton (ARM)</strong> and replacing managed services like ALB, NAT Gateway, and RDS with self-managed builds — cutting operating costs by <strong>up to 55% (about ₩2M/month).</strong></p>
-<h2 id="1-2026-aws-ec2-instance-price-comparison-seoul-region">1. 2026 AWS EC2 Instance Price Comparison (Seoul Region)</h2>
-<p>The table below is on-demand pricing for the Asia Pacific (Seoul) region, Ubuntu 24.04 LTS (HVM). You can see that <strong>the CPU architecture choice alone makes about a 20% cost difference.</strong></p>
+
+<p>From 2024 through the first half of 2026, while directly designing and building the infrastructure within my division and team, what I focused on most was 'drawing a robust architecture while minimizing unnecessary cloud spending.'</p>
+<p>In particular, in this post I want to share in detail the actual quote data and know-how with which I lowered operating costs by up to 55% (about ₩2M/month) versus before — by strategically leveraging the AWS Graviton (ARM) architecture and converting managed services like ALB, NAT Gateway, and RDS into self-built ones. I hope it serves as a practical guide for engineers thinking about infrastructure efficiency.</p>
+<h2 id="1-2026-aws-ec2-instance-unit-price-comparison-seoul-region-updated-version">1. 2026 AWS EC2 instance unit-price comparison (Seoul region) - updated version</h2>
+<p>The table below is an on-demand pricing table based on the Asia Pacific (Seoul) region, Ubuntu 24.04 LTS (HVM). You can confirm how big a cost difference (about 20%) arises from the single choice of CPU architecture.</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
 <th>Instance type</th>
-<th>vCPU</th>
-<th>Arch</th>
+<th>vCPUs</th>
+<th>CPU architecture</th>
 <th>Mem</th>
 <th>Storage</th>
-<th>Network</th>
-<th>per hour</th>
+<th>Network performance</th>
+<th>EC2 (per hour)</th>
 <th>per month (30d)</th>
 <th>per year (12M)</th>
 </tr>
@@ -101,125 +104,136 @@
 <tbody>
 <tr>
 <td>m6g.large</td>
-<td>2</td>
+<td>2vCPU</td>
 <td>Arm</td>
 <td>8 GiB</td>
 <td>EBS Only</td>
-<td>Up to 10 Gbps</td>
+<td>Up to 10 Gigabit</td>
 <td>$0.094</td>
 <td>$67.68</td>
 <td>$812.16</td>
 </tr>
 <tr>
 <td>t4g.xlarge</td>
-<td>4</td>
+<td>4vCPU</td>
 <td>Arm</td>
 <td>16 GiB</td>
 <td>EBS Only</td>
-<td>Up to 5 Gbps</td>
+<td>Up to 5 Gigabit</td>
 <td>$0.1664</td>
 <td>$119.81</td>
 <td>$1,437.70</td>
 </tr>
 <tr>
 <td>t4g.medium</td>
-<td>2</td>
+<td>2vCPU</td>
 <td>Arm</td>
 <td>4 GiB</td>
 <td>EBS Only</td>
-<td>Up to 5 Gbps</td>
+<td>Up to 5 Gigabit</td>
 <td>$0.0416</td>
 <td>$29.95</td>
 <td>$359.42</td>
 </tr>
 <tr>
 <td>t2.micro</td>
-<td>1</td>
+<td>1vCPU</td>
 <td>x86</td>
 <td>1 GiB</td>
 <td>EBS Only</td>
-<td>Low~Moderate</td>
+<td>Low to Moderate</td>
 <td>$0.0144</td>
 <td>$10.37</td>
 <td>$124.42</td>
 </tr>
 <tr>
 <td>r6g.large</td>
-<td>2</td>
+<td>2vCPU</td>
 <td>Arm</td>
 <td>16 GiB</td>
 <td>EBS Only</td>
-<td>Up to 10 Gbps</td>
+<td>Up to 10 Gigabit</td>
 <td>$0.1220</td>
 <td>$87.84</td>
 <td>$1,054.08</td>
 </tr>
 <tr>
 <td>r6g.xlarge</td>
-<td>4</td>
+<td>4vCPU</td>
 <td>Arm</td>
 <td>32 GiB</td>
 <td>EBS Only</td>
-<td>Up to 10 Gbps</td>
+<td>Up to 10 Gigabit</td>
 <td>$0.2440</td>
 <td>$175.68</td>
 <td>$2,108.16</td>
 </tr>
 <tr>
 <td>r5a.xlarge</td>
-<td>4</td>
+<td>4vCPU</td>
 <td>x86</td>
 <td>32 GiB</td>
 <td>EBS Only</td>
-<td>Up to 10 Gbps</td>
+<td>Up to 10 Gigabit</td>
 <td>$0.2720</td>
 <td>$195.84</td>
 <td>$2,350.08</td>
 </tr>
 <tr>
 <td>r6gd.xlarge</td>
-<td>4</td>
+<td>4vCPU</td>
 <td>Arm</td>
 <td>32 GiB</td>
-<td>1×237 NVMe SSD</td>
-<td>Up to 10 Gbps</td>
+<td>1 x 237 NVMe SSD</td>
+<td>Up to 10 Gigabit</td>
 <td>$0.2768</td>
 <td>$199.30</td>
 <td>$2,391.55</td>
 </tr>
 <tr>
 <td>r5.xlarge</td>
-<td>4</td>
+<td>4vCPU</td>
 <td>x86</td>
 <td>32 GiB</td>
 <td>EBS Only</td>
-<td>Up to 10 Gbps</td>
+<td>Up to 10 Gigabit</td>
 <td>$0.3040</td>
 <td>$218.88</td>
 <td>$2,626.56</td>
 </tr>
 <tr>
+<td>r6g.xlarge</td>
+<td>4vCPU</td>
+<td>Arm</td>
+<td>32 GiB</td>
+<td>EBS Only</td>
+<td>Up to 10 Gigabit</td>
+<td>$0.2440</td>
+<td>$175.68</td>
+<td>$2,108.16</td>
+</tr>
+<tr>
 <td>r6g.2xlarge</td>
-<td>8</td>
+<td>8vCPU</td>
 <td>Arm</td>
 <td>64 GiB</td>
 <td>EBS Only</td>
-<td>Up to 10 Gbps</td>
+<td>Up to 10 Gigabit</td>
 <td>$0.4880</td>
 <td>$351.36</td>
 <td>$4,216.32</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="switching-architecture-alone-saves-432month">Switching architecture alone saves $43.2/month</h3>
-<p>Analyzing the table closely, even with identical CPU/Memory/Storage/Network specs, the architecture choice makes about a 20% difference.</p>
+<h3 id="just-switching-the-architecture-saves-432-a-month">Just switching the architecture saves $43.2 a month.</h3>
+<p>Analyzing the unit-price table above closely, you can confirm that even though the CPU, Memory, Storage, and Network specs are completely identical, about a 20% price difference arises depending on the architecture choice.</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
 <th>Item</th>
-<th>r5.xlarge (x86)</th>
-<th>r6g.xlarge (Arm)</th>
-<th>Difference</th>
+<th>r5.xlarge (x86 architecture)</th>
+<th>r6g.xlarge (Arm architecture)</th>
+<th>Difference (Savings)</th>
 </tr>
 </thead>
 <tbody>
@@ -236,165 +250,176 @@
 <td>Same</td>
 </tr>
 <tr>
-<td>Monthly cost (30 days)</td>
+<td>Monthly operating cost (30 days)</td>
 <td>$218.88</td>
-<td>$175.68 | **-$43.2 (~20% off)**</td>
+<td>$175.68 | -$43.2 (about 20% saved)</td>
 <td></td>
 </tr>
 </tbody>
 </table></div>
-<p><img alt="AWS console screen where choosing x86 architecture disables ARM (Graviton) instance types" src="assets/posts/aws-cost-optimization/img1.webp" width="1077" height="552" loading="lazy">
-<em>Figure 1. Setting the architecture to x86 restricts ARM instance selection</em></p>
-<p>The on-demand price table doesn't show the CPU architecture; you see it when launching an instance. For example, if you set the architecture to 64-bit (x86) and try to pick <code>r6gd.xlarge</code>, it's disabled.</p>
-<h2 id="2-choosing-an-instance-family-by-purpose">2. Choosing an Instance Family by Purpose</h2>
-<p>Alongside cost savings, you should match the instance family to its purpose.</p>
+<p><img alt="How ARM instance selection is restricted when the architecture (x86) is set" src="assets/posts/aws-cost-optimization/img1.webp" width="1077" height="552" loading="lazy">
+<em>Figure 1. How ARM instance selection is restricted when the architecture (x86) is set</em></p>
+<p>For reference, even if you look at the on-demand instance pricing table, the CPU architecture isn't shown. That table can be checked when you actually create an instance. For example, if you set the architecture to 64-bit (x86) and try to pick the r6gd.xlarge instance type, you'll see it become disabled.</p>
+<h2 id="2-instance-family-selection-strategy-by-purpose">2. Instance-family selection strategy by purpose</h2>
+<p>Along with cutting costs, you have to use the instance-type family appropriately.</p>
 <ul>
-<li><strong>t family (burstable)</strong> — best for small workloads. Handles intermittent traffic bursts cheaply via CPU credits.</li>
-<li><strong>m family (general purpose)</strong> — when you need a balance of CPU/memory/network. Fixed performance, good for stable WAS operation.</li>
-<li><strong>r family (memory optimized)</strong> — essential for memory-intensive work like DBs, caches (Redis), and large-scale data analysis. The ARM-based <code>r6g</code> is especially cost-effective vs x86.</li>
+<li><strong>t family (burstable)</strong>: optimal for small workloads. It uses CPU credits to cheaply handle intermittent traffic spikes.</li>
+<li><strong>m family (general purpose)</strong>: choose it when you need a balance of CPU, memory, and network performance. It provides fixed performance and is suitable for stable WAS operation.</li>
+<li><strong>r family (memory optimized)</strong>: essential for memory-intensive work such as DB, cache (Redis), and large-scale data analysis. In particular, the ARM-based r6g boasts overwhelming cost-efficiency versus x86.</li>
 </ul>
-<h2 id="3-defending-fixed-costs-with-self-managed-builds-instead-of-managed-services">3. Defending Fixed Costs with Self-Managed Builds Instead of Managed Services</h2>
-<p>If your infra capability is up to it, replacing managed services with self-managed builds can greatly reduce fixed costs.</p>
-<h3 id="31-nginx-reverse-proxy-instead-of-alb-save-1643month">3.1 Nginx Reverse Proxy instead of ALB — save $16.43/month</h3>
-<p>ALB is convenient but incurs fixed cost even with no traffic. Applying Nginx + Certbot (SSL) on the Bastion server for direct routing removes the ALB cost entirely.</p>
-<h3 id="32-nat-instance-instead-of-nat-gateway-save-3375month">3.2 NAT Instance instead of NAT Gateway — save $33.75/month</h3>
-<p>The NAT Gateway that helps the Private Subnet's external communication has an expensive hourly rate. Configuring the Bastion server as a NAT instance saves about $33.75/month including data-processing cost (assuming ~30GB/month).</p>
+<h2 id="3-defending-fixed-costs-by-self-building-instead-of-managed-services-saas">3. Defending fixed costs by self-building instead of managed services (SaaS)</h2>
+<p>If your infrastructure capability backs it up, you can drastically reduce fixed costs by replacing managed services with self-built ones.</p>
+<h3 id="31-using-an-nginx-reverse-proxy-instead-of-alb-saves-1643month">3.1 Using an Nginx Reverse Proxy instead of ALB: saves $16.43/month</h3>
+<p>ALB is convenient, but fixed costs arise even with no traffic. I completely removed the ALB cost by installing Nginx on the Bastion server, applying Certbot (SSL), and configuring routing directly.</p>
+<h3 id="32-building-a-nat-instance-instead-of-nat-gateway-saves-3375month">3.2 Building a NAT Instance instead of NAT Gateway: saves $33.75/month</h3>
+<p>The NAT Gateway that helps the Private Subnet's external communication has expensive hourly charges. If you configure and run the Bastion server as a NAT Instance, you can save about $33.75/month including data-processing costs. (assuming about 30GB of data processed per month)</p>
 <ul>
-<li>NAT Gateway hourly rate: USD 0.045</li>
-<li>Data processing per GB: USD 0.045</li>
+<li>NAT gateway charge (USD/hour): USD 0.045</li>
+<li>Charge per GB of processed data (USD): USD 0.045</li>
 </ul>
-<p>The detailed NAT instance build guide is covered in the two posts below.</p>
-<a class="tb-embed-card" href="en/nat-instance-build-1/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-1/cover.png" alt="[AWS] Cutting NAT Gateway Costs — Building a NAT Instance from an AMI (Part 1)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance from an AMI (Part 1)</div><div class="tb-embed-excerpt">A NAT Gateway costs $32+/month in fixed fees. To save money, I connected a Private Subnet to the internet using an EC2 NAT Instance — Part 1 uses the AWS community AMI (amzn-ami-vpc-nat).</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
-<a class="tb-embed-card" href="en/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)</div><div class="tb-embed-excerpt">The Part 1 community AMI runs an old (EOS) OS and is hard to maintain. In Part 2 we build a NAT instance on the latest Ubuntu by configuring iptables directly (IP forwarding + MASQUERADE), and persist the rules across reboots.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
-<h3 id="33-route53-domain-about-1451-for-a-com">3.3 Route53 domain — about $14.51 for a .com</h3>
-<p>Route53 domain fixed cost is hard to reduce. It's more effective to cut the larger fixed costs of EC2/ALB/NAT Gateway, or to use a cheaper domain registrar.</p>
-<h2 id="4-rds-risk-management-self-hosting-the-db">4. RDS Risk Management &amp; Self-Hosting the DB</h2>
-<p>Oracle RDS (<code>db.m5.4xlarge</code>, etc.) can run $2,800–$6,000/month with the license included. Even for a company that owns the license (BYOL), RDS operating cost is a hefty ~$1,551.67.</p>
+<p>Note: for a detailed NAT-instance build guide, refer to my previous posts (Part 1 / Part 2).</p>
+<p>Building a NAT Instance via an AMI (Part 1)</p>
+<a class="tb-embed-card" href="en/nat-instance-build-1/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-1/cover.png" alt="[AWS Infra] Building &amp; Configuring a NAT Instance from an AMI to Cut NAT Gateway Costs (Part 1)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS Infra] Building &amp; Configuring a NAT Instance from an AMI to Cut NAT Gateway Costs (Part 1)</div><div class="tb-embed-excerpt">A NAT Gateway costs $32+/month in fixed fees. To save money, I connected a Private Subnet to the internet using an EC2 NAT Instance — Part 1 uses the AWS community AMI (amzn-ami-vpc-nat).</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<p>Building the instance by directly manipulating Linux IP Tables (Part 2): the setup is in Part 1, so refer to Part 2 after the Part 1 setup</p>
+<a class="tb-embed-card" href="en/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="[AWS Infra] Building &amp; Configuring a NAT Instance to Cut NAT Gateway Costs (Part 2)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS Infra] Building &amp; Configuring a NAT Instance to Cut NAT Gateway Costs (Part 2)</div><div class="tb-embed-excerpt">The Part 1 community AMI runs an old (EOS) OS and is hard to maintain. In Part 2 we build a NAT instance on the latest Ubuntu by configuring iptables directly (IP forwarding + MASQUERADE), and persist the rules across reboots.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<h3 id="33-route53-domain-cost-about-1451-on-a-com-basis">3.3 Route53 Domain cost: about $14.51 on a .com basis</h3>
+<p>Route53: domain fixed costs are hard to reduce, so you can efficiently choose to cut fixed costs from EC2 — which takes the largest share — or from ALB, NAT Gateway, etc. Or you can go to a cheaper domain site and buy it there.</p>
+<h2 id="4-rds-risk-management-and-self-installed-db-strategy">4. RDS risk management and self-installed DB strategy</h2>
+<p>Oracle RDS (db.m5.4xlarge, etc.) incurs enormous costs reaching $2,800–$6,000/month when licensing is included. Even for a company that already holds the license (BYOL), the RDS operating cost is by no means trivial — it comes to about $1,551.67. To optimize this, I chose the following strategy.</p>
 <ul>
-<li><strong>RDS management fee vs self-built EC2</strong> — if you already have the license, the RDS cost is purely a "management fee," and that fee exceeds the instance cost.</li>
-<li><strong>The Oracle RDS (BYOL) trap</strong> — at 8 vCPU / 32 GiB, even bringing an SE2 license via BYOL, the RDS management cost paid to AWS alone is ~$1,551.67.</li>
-<li><strong>Switching to an ARM-based DB-EC2</strong> — instead of RDS, choose an 8 vCPU ARM / 64 GiB RAM / 512 GB storage EC2. Monthly cost <strong>$382.35</strong> (incl. EBS) → about <strong>75% off</strong> vs RDS management cost, while doubling memory (64 GiB).</li>
+<li><strong>RDS management fee vs. self-built EC2</strong>: if your company already has stockpiled licenses, the cost you pay to RDS is purely a 'management agency fee.' But this cost is large enough to exceed the instance cost.</li>
+<li><strong>The trap of Oracle RDS (BYOL)</strong>: based on an 8vCPU, 32GiB RAM spec, even if you bring your own (BYOL) Standard Edition Two (SE2) license, the RDS management cost alone paid to AWS reaches about $1,551.67.</li>
+<li><strong>Switching to an ARM-based DB-EC2</strong>: to save this cost, instead of RDS I chose an EC2 with an 8vCPU ARM, 64GiB RAM, 512GB Storage spec.</li>
+<li>Monthly operating cost: $382.35 (including EBS storage)</li>
+<li>Result: I immediately saved more than about 75% versus the RDS management fee. I even secured 64GiB — twice the memory of RDS (32GiB) — gaining a performance benefit too.</li>
 </ul>
-<h2 id="5-final-cost-comparison-managed-services-vs-self-built-monthly">5. Final Cost Comparison: Managed Services vs Self-Built (Monthly)</h2>
+<h2 id="5-final-cost-comparison-managed-services-vs-self-built-monthly">5. Final cost comparison: managed services vs. self-built (Monthly)</h2>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
 <th>Item</th>
-<th style="text-align: center;">Qty</th>
-<th>USD/mo</th>
-<th style="text-align: center;">Self-built</th>
-<th style="text-align: center;">Managed-centric</th>
+<th>Qty</th>
+<th>USD / Month</th>
+<th>Self-built optimized</th>
+<th>Managed-service centric</th>
 <th>Note</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>VPC (EIP)</td>
-<td style="text-align: center;">1</td>
+<td>1</td>
 <td>21.9</td>
-<td style="text-align: center;">✔</td>
-<td style="text-align: center;">✔</td>
-<td>Common fixed cost</td>
+<td>✔</td>
+<td>✔</td>
+<td>common fixed cost</td>
 </tr>
 <tr>
 <td>Route53 (Domain)</td>
-<td style="text-align: center;">1</td>
+<td>1</td>
 <td>14.53</td>
-<td style="text-align: center;">✔</td>
-<td style="text-align: center;">✔</td>
-<td>Common fixed cost</td>
+<td>✔</td>
+<td>✔</td>
+<td>common fixed cost</td>
 </tr>
 <tr>
 <td>EC2 (Service) ARM</td>
-<td style="text-align: center;">5</td>
+<td>5</td>
 <td>175.68</td>
-<td style="text-align: center;">✔</td>
-<td style="text-align: center;">-</td>
-<td>4 vCPU ARM 32 GiB</td>
+<td>✔</td>
+<td>-</td>
+<td>4v CPU ARM 32GiB</td>
 </tr>
 <tr>
 <td>EC2 (Service) x86</td>
-<td style="text-align: center;">5</td>
+<td>5</td>
 <td>218.88</td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;">✔</td>
-<td>4 vCPU x86 32 GiB</td>
+<td>-</td>
+<td>✔</td>
+<td>4v CPU ARM 32GiB</td>
 </tr>
 <tr>
 <td>EC2 (Bastion)</td>
-<td style="text-align: center;">1</td>
+<td>1</td>
 <td>66.4</td>
-<td style="text-align: center;">✔</td>
-<td style="text-align: center;">✔</td>
-<td>In managed, Bastion-only (no NAT/Proxy role)</td>
+<td>✔</td>
+<td>✔</td>
+<td>in managed, used only as Bastion (no NAT, Proxy role)</td>
 </tr>
 <tr>
 <td>EC2 (DB)</td>
-<td style="text-align: center;">1</td>
+<td>1</td>
 <td>382.35</td>
-<td style="text-align: center;">✔</td>
-<td style="text-align: center;">-</td>
-<td>ARM 64 GiB</td>
+<td>✔</td>
+<td>-</td>
+<td></td>
 </tr>
 <tr>
 <td>RDS (BYOL) Oracle</td>
-<td style="text-align: center;">1</td>
+<td>1</td>
 <td>1,551.67</td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;">✔</td>
+<td>-</td>
+<td>✔</td>
 <td></td>
 </tr>
 <tr>
 <td>NAT Gateway</td>
-<td style="text-align: center;">1</td>
+<td>1</td>
 <td>33.75</td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;">✔</td>
-<td>Self-built replaces with a NAT instance</td>
+<td>-</td>
+<td>✔</td>
+<td>in self-built, replaced by NAT Instance</td>
 </tr>
 <tr>
 <td>ALB</td>
-<td style="text-align: center;">1</td>
+<td>1</td>
 <td>16.43</td>
-<td style="text-align: center;">-</td>
-<td style="text-align: center;">✔</td>
-<td>Self-built replaces with an Nginx proxy</td>
+<td>-</td>
+<td>✔</td>
+<td>in self-built, replaced by Nginx Proxy</td>
 </tr>
 <tr>
-<td><strong>Total (USD/mo)</strong></td>
-<td style="text-align: center;"></td>
+<td><strong>Total (USD / Month)</strong></td>
 <td></td>
-<td style="text-align: center;"><strong>1,263.58</strong></td>
-<td style="text-align: center;"><strong>2,799.08</strong></td>
-<td>~$1,535 difference (up to ~55% savings)</td>
+<td></td>
+<td><strong>1,263.58</strong></td>
+<td><strong>2,799.08</strong></td>
+<td>Difference = 1,535.5, up to about 55% saved</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="conclusion-efficient-cost-reduction">Conclusion: Efficient cost reduction</h3>
-<p>This doesn't mean abandoning all managed services. But by <strong>selectively</strong> reducing (ARM migration, self-built NAT/Proxy, self-hosted DB) using engineering capability, you can run a far higher-performance architecture within a limited budget. Saving ~$1,535/month (about ₩2M) in fixed costs is meaningful.</p>
-<h2 id="6-caveats-when-migrating-to-arm">6. Caveats When Migrating to ARM</h2>
-<p>As much as cost savings, it's important to avoid <strong>service-downtime risk from the architecture switch.</strong> ARM was once avoided over compatibility issues, but as of 2026 it's stabilized (or in progress) on most major libraries and OSes.</p>
-<h3 id="python-the-dpi-1047-error-when-connecting-to-oracle-db">Python — the 'DPI-1047' error when connecting to Oracle DB</h3>
-<p>The most common issue when moving a Python service to an ARM instance is <strong>driver compatibility.</strong></p>
+<h3 id="conclusion-choosing-efficient-cost-reduction">Conclusion: choosing efficient cost reduction</h3>
+<p>It doesn't mean abandoning all managed services. But if you selectively cut costs using an engineer's capability (ARM migration, self-building NAT/Proxy, self-installing the DB), you can run a much higher-performance architecture within a limited budget.</p>
+<p>The fixed-cost saving of about $1,535/month (about ₩2M KRW) is meaningful enough, and I think this too is an important factor to consider from an engineering standpoint.</p>
+<h2 id="6-caveats-when-migrating-to-the-arm-architecture-compatibility-issues-and-a-case">6. Caveats when migrating to the ARM architecture: compatibility issues and a case</h2>
+<p>Cutting costs is important, but you must absolutely avoid the risk of a service outage due to an architecture migration. Until just a few years ago, the ARM architecture was often avoided due to compatibility issues, but as of 2026 most major libraries and OSes have been stabilized or are in progress.</p>
+<p>I want to share one problem I encountered in a production environment.</p>
+<h3 id="the-dpi-1047-error-when-integrating-python-with-oracle-db">The 'DPI-1047' error when integrating Python with Oracle DB</h3>
+<p>The most common problem when migrating a Python-based service to an ARM instance is driver compatibility.</p>
 <ul>
-<li><strong>Problem</strong> — using <code>cx_Oracle</code> (used on x86) as-is on ARM fails with a <code>DPI-1047</code> error, because that library depends on specific C libraries.</li>
-<li><strong>Solution</strong> — use <strong><code>python-oracledb</code> Thin mode</strong>, which needs no Oracle Instant Client install. It runs as pure Python with no C dependency and works perfectly on ARM. The detailed guide is in the post below.</li>
+<li><strong>The problem situation</strong>: if you use the cx_Oracle library — used in the existing x86 environment — as-is on an ARM environment, the DPI-1047 error occurs and DB connection fails. This is because that library has a specific C library dependency.</li>
+<li><strong>The fix</strong>: you have to use python-oracledb Thin mode, which needs no Oracle Instant Client install. Thin mode works in pure Python with no C library dependency, so it works perfectly on the ARM architecture too.</li>
 </ul>
-<a class="tb-embed-card" href="en/python-oracledb-arm-dpi-1047/"><div class="tb-embed-thumb"><img src="assets/posts/python-oracledb-arm-dpi-1047/cover.webp" alt="Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode" loading="lazy" width="1536" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</div><div class="tb-embed-excerpt">Why a Python–Oracle integration that worked on x86_64 fails with DPI-1047 (can&#39;t find libclntsh.so) on AWS Graviton (ARM), and the fix using python-oracledb Thin mode — pure Python, no Instant Client (SQLAlchemy and native examples).</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<p>If you're currently running a Python service and using cx_Oracle, reduce your trial and error through the detailed fix-guide post below.</p>
+<a class="tb-embed-card" href="en/python-oracledb-arm-dpi-1047/"><div class="tb-embed-thumb"><img src="assets/posts/python-oracledb-arm-dpi-1047/cover.webp" alt="[SQLAlchemy] Fixing the DPI-1047 Python Oracle DB Connection Error on AWS Graviton (ARM) | SQLAlchemy, oracledb" loading="lazy" width="1536" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">[SQLAlchemy] Fixing the DPI-1047 Python Oracle DB Connection Error on AWS Graviton (ARM) | SQLAlchemy, oracledb</div><div class="tb-embed-excerpt">Why a Python–Oracle integration that worked on x86_64 fails with DPI-1047 (can&#39;t find libclntsh.so) on AWS Graviton (ARM), and the fix using python-oracledb Thin mode — pure Python, no Instant Client (SQLAlchemy and native examples).</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
 <h2 id="references-aws-official">References (AWS official)</h2>
 <ol>
-<li><a href="https://aws.amazon.com/ec2/pricing/on-demand/">AWS On-Demand Instance Pricing</a></li>
-<li><a href="https://aws.amazon.com/vpc/pricing/">AWS VPC Pricing</a></li>
+<li>AWS On-Demand Instance Pricing</li>
 </ol>
+<p><a class="post-link-card" href="https://aws.amazon.com/ko/ec2/pricing/on-demand/" target="_blank" rel="nofollow noopener"><img class="lc-thumb" src="https://www.google.com/s2/favicons?domain=aws.amazon.com&sz=128" alt="" loading="lazy"><span class="lc-info"><span class="lc-title">EC2 On-Demand Instance Pricing</span><span class="lc-desc">Pricing is based on the instance hours used for each instance.</span><span class="lc-domain">aws.amazon.com</span></span></a></p>
+<ol start="2">
+<li>AWS VPC Pricing</li>
+</ol>
+<p><a class="post-link-card" href="https://aws.amazon.com/ko/vpc/pricing/" target="_blank" rel="nofollow noopener"><img class="lc-thumb" src="https://www.google.com/s2/favicons?domain=aws.amazon.com&sz=128" alt="" loading="lazy"><span class="lc-info"><span class="lc-title">Amazon VPC Pricing</span><span class="lc-desc">Public IPv4 address and VPC-related pricing.</span><span class="lc-domain">aws.amazon.com</span></span></a></p>
 <hr />
 <blockquote>
-<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/33" rel="nofollow noopener">taehyuklee.tistory.com/33</a></p>
+<p>📦 Migrated from the Tistory blog I used to run. Original: <a href="https://taehyuklee.tistory.com/33" rel="nofollow noopener">taehyuklee.tistory.com/33</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li><li><a href="en/nat-instance-build-2/">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)</a></li><li><a href="en/nat-instance-build-1/">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance from an AMI (Part 1)</a></li></ul></section>
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Connection Error: How to Fix the UNPROTECTED PRIVATE KEY FILE Error (ssh pem key permission setup)</a></li><li><a href="en/nat-instance-build-2/">[AWS Infra] Building &amp; Configuring a NAT Instance to Cut NAT Gateway Costs (Part 2)</a></li><li><a href="en/nat-instance-build-1/">[AWS Infra] Building &amp; Configuring a NAT Instance from an AMI to Cut NAT Gateway Costs (Part 1)</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Faws-cost-optimization%2F&amp;text=%5BAWS%5D%20Cutting%20Infrastructure%20Costs%20by%2055%25%20%E2%80%94%20Graviton%20%28ARM%29%20Migration%20%26%20Fixed-Cost%20Optimization" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Faws-cost-optimization%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Faws-cost-optimization%2F&amp;text=%5BAWS%20Cost%5D%20A%20Guide%20to%20Cutting%20AWS%20Infrastructure%20Costs%20by%2055%25%20%28Graviton%20Migration%20%26%20Fixed-Cost%20Optimization%20Strategy%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Faws-cost-optimization%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
 

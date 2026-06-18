@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>Testing Means — the t-test (One / Two: Student&#39;s·Welch&#39;s / Paired) · Tay Blog</title>
+<title>Testing Means: the t-test [One, Two (Student&#39;s &amp; Welch&#39;s), Paired Samples t-test] · Tay Blog</title>
 <meta name="description" content="Is a difference in two group means a real difference or just variability — the rationale for the t-test, its assumptions (normality, equal variance), and worked calculations for each type.">
 <link rel="canonical" href="https://taystudios.com/blog/en/t-test/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/t-test/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/t-test/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/t-test/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="Testing Means — the t-test (One / Two: Student&#39;s·Welch&#39;s / Paired) · Tay Blog">
+<meta property="og:title" content="Testing Means: the t-test [One, Two (Student&#39;s &amp; Welch&#39;s), Paired Samples t-test] · Tay Blog">
 <meta property="og:description" content="Is a difference in two group means a real difference or just variability — the rationale for the t-test, its assumptions (normality, equal variance), and worked calculations for each type.">
 <meta property="og:url" content="https://taystudios.com/blog/en/t-test/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/t-test/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/t-test/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Testing Means — the t-test (One / Two: Student's·Welch's / Paired)", "description": "Is a difference in two group means a real difference or just variability — the rationale for the t-test, its assumptions (normality, equal variance), and worked calculations for each type.", "datePublished": "2024-11-03T00:00:00+09:00", "dateModified": "2024-11-03T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/t-test/"}, "image": ["https://taystudios.com/blog/assets/posts/t-test/cover.webp"], "keywords": "statistics, t-test, mean-test, homoscedasticity, normality"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "Testing Means — the t-test (One / Two: Student's·Welch's / Paired)", "item": "https://taystudios.com/blog/en/t-test/"}]}</script><meta property="article:published_time" content="2024-11-03T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-03T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="t-test"><meta property="article:tag" content="mean-test"><meta property="article:tag" content="homoscedasticity"><meta property="article:tag" content="normality">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Testing Means: the t-test [One, Two (Student's & Welch's), Paired Samples t-test]", "description": "Is a difference in two group means a real difference or just variability — the rationale for the t-test, its assumptions (normality, equal variance), and worked calculations for each type.", "datePublished": "2024-11-03T00:00:00+09:00", "dateModified": "2024-11-03T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/t-test/"}, "image": ["https://taystudios.com/blog/assets/posts/t-test/cover.webp"], "keywords": "statistics, t-test, mean-test, homoscedasticity, normality"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "Testing Means: the t-test [One, Two (Student's & Welch's), Paired Samples t-test]", "item": "https://taystudios.com/blog/en/t-test/"}]}</script><meta property="article:published_time" content="2024-11-03T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-03T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="t-test"><meta property="article:tag" content="mean-test"><meta property="article:tag" content="homoscedasticity"><meta property="article:tag" content="normality">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Testing Means — the t-test (One / Two: Student&#39;s·Welch&#39;s / Paired)</span></nav>
-        <h1 class="tb-article-title">Testing Means — the t-test (One / Two: Student&#39;s·Welch&#39;s / Paired)</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Testing Means: the t-test [One, Two (Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]</span></nav>
+        <h1 class="tb-article-title">Testing Means: the t-test [One, Two (Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]</h1>
         <div class="tb-article-meta">
           <time>2024.11.03</time>
           <span>·</span><span>#statistics #t-test #mean-test #homoscedasticity #normality</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#table-of-contents">Table of Contents</a></li><li class="tb-toc-h2"><a href="#intro-starting-from-a-question">Intro — Starting from a Question</a></li><li class="tb-toc-h2"><a href="#body">Body</a></li><li class="tb-toc-h3"><a href="#1-what-is-mean-testing">1. What is mean testing?</a></li><li class="tb-toc-h3"><a href="#2-assumptions">2. Assumptions</a></li><li class="tb-toc-h4"><a href="#21-normality-assumption">2.1 Normality assumption</a></li><li class="tb-toc-h4"><a href="#22-equal-variance-homoscedasticity-assumption">2.2 Equal-variance (homoscedasticity) assumption</a></li><li class="tb-toc-h3"><a href="#3-types">3. Types</a></li><li class="tb-toc-h4"><a href="#31-one-sample-t-test">3.1 One-Sample t-test</a></li><li class="tb-toc-h4"><a href="#32-independent-two-sample-t-test">3.2 Independent two-sample t-test</a></li><li class="tb-toc-h4"><a href="#33-paired-sample-t-test">3.3 Paired-Sample t-test</a></li><li class="tb-toc-h2"><a href="#wrap-up">Wrap-up</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#table-of-contents">Table of contents</a></li><li class="tb-toc-h2"><a href="#introduction-an-overview-that-began-from-a-question">Introduction (an overview that began from a question)</a></li><li class="tb-toc-h2"><a href="#main-body-about-testing-means">Main body (about testing means)</a></li><li class="tb-toc-h3"><a href="#1-what-is-testing-means">1. What is testing means?</a></li><li class="tb-toc-h3"><a href="#2-assumptions-of-testing-means">2. Assumptions of testing means</a></li><li class="tb-toc-h3"><a href="#3-types-of-mean-tests">3. Types of mean tests</a></li><li class="tb-toc-h2"><a href="#closing-conclusion">Closing (conclusion)</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -80,220 +80,257 @@
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
-<h2 id="table-of-contents">Table of Contents</h2>
+
+<h2 id="table-of-contents">Table of contents</h2>
 <ol>
-<li>The rationale for testing means (why is it needed? feat. uncertainty/variability)</li>
-<li>The definition and understanding of mean testing</li>
-<li>Assumptions (normality, equal variance)</li>
-<li>Types and worked examples</li>
+<li>The rationale for testing means (why do we need it? feat. uncertainty/variability)</li>
+<li>Definition and understanding of testing means</li>
+<li>Assumptions of testing means (normality, equal variance: Two Samples t-test)</li>
+<li>Types of mean tests and actual worked examples</li>
 </ol>
-<h2 id="intro-starting-from-a-question">Intro — Starting from a Question</h2>
-<p>If we compare two groups' means and the numbers differ, are they really different? <strong>Couldn't the sample means differ merely due to variability (uncertainty)?</strong> You must grasp this question to understand mean testing, and hypothesis testing more broadly.</p>
+<p>If you want the part where this is implemented directly in Python with the SciPy library, I've linked the post below.</p>
+<a class="tb-embed-card" href="en/t-test-python-scipy/"><div class="tb-embed-thumb"><img src="assets/posts/t-test/cover.webp" alt="Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy &amp; Statsmodels]" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy &amp; Statsmodels]</div><div class="tb-embed-excerpt">Turning the t-test theory from the previous post into SciPy code — ttest_1samp, ttest_ind (equal_var toggle), ttest_rel, with axis options. Verifying the hand-computed t and p match SciPy.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<h2 id="introduction-an-overview-that-began-from-a-question">Introduction (an overview that began from a question)</h2>
+<p>When you compare the means of two groups, does a difference in the numbers really mean they're different? Couldn't the sample means differ simply due to variability (uncertainty)?</p>
+<p>Here — couldn't the sample means differ simply due to variability (uncertainty)? — you need to understand what this statement means in order to understand testing means, and further, hypothesis testing.</p>
+<p>Let me explain the above simply.</p>
 <p><img alt="Two independent groups (same mean and variance)" src="assets/posts/t-test/img1-en.svg" width="1000" height="445" loading="lazy">
 <em>Figure 1. Two independent groups (same mean and variance)</em></p>
-<p>Suppose, to compare the effects of drugs #1 and #2, we administered each to a group of the same constitution. In reality, the two drugs' mean effects and variances are equal. But sampling and observing, drug #1's mean came out at ① and #2's at ②. Can we conclude the effects differ just because the sample means differ? <strong>No.</strong> This is a case where the effects are equal but variability made the means come out differently.</p>
-<p><img alt="Significance level 5% — adding a drug #3 example" src="assets/posts/t-test/img2-en.svg" width="1000" height="305" loading="lazy">
-<em>Figure 2. Significance level 5%: adding a drug #3 example</em></p>
-<p>So the heart of mean testing is <strong>judging whether a given mean is an ordinary (95%) result from mere variability, or an extreme (5%) result beyond variability.</strong> Figure 2 adds the X3 distribution. Intuitively, X1 and X2 have the same mean while X3 differs.</p>
-<p>$$\bar{X}_1 \sim (\mu_1,\ \mathrm{std}_1) \qquad \bar{X}_2 \sim (\mu_2,\ \mathrm{std}_2)$$</p>
-<p>$$\Downarrow$$</p>
-<p>$$\bar{X}_1 - \bar{X}_2 \sim (0,\ \mathrm{std}_{\text{combined}})$$</p>
-<p>Since it's hard to lay out all three distributions and judge whether two group means are equal, <strong>comparing means via a test statistic</strong> is what "mean testing" is.</p>
-<blockquote>
-<p>(Aside) "What if a sample from distribution #3 lands within the 95% of #1·#2?" Conversely, "what if #1·#2 are actually equal but a sample happens to be found in the 5%?" — if these questions occurred to you, you're ready to understand <strong>Type I / Type II errors.</strong> (Not this post's topic, so omitted.)</p>
-</blockquote>
-<h2 id="body">Body</h2>
-<h3 id="1-what-is-mean-testing">1. What is mean testing?</h3>
-<p>A technique to judge whether two groups' means are statistically significantly equal or different.</p>
-<h3 id="2-assumptions">2. Assumptions</h3>
-<p>An assumption means the theory holds on top of it. Which technique you use depends on whether they're met.</p>
-<h4 id="21-normality-assumption">2.1 Normality assumption</h4>
-<p>The t-test is performed under the assumption that <strong>the population follows a normal distribution.</strong> This matters especially when the sample is small.</p>
-<p><img alt="As degrees of freedom (df) grow, the t-distribution approaches the Z distribution" src="assets/posts/t-test/img4.webp" width="1096" height="658" loading="lazy">
-<em>Reference — as the sample size (df) grows, the t-distribution approaches the Z distribution (at df=30 it's nearly Z)</em></p>
+<p>Suppose, to compare the effects of drug 1 and drug 2, we administered each to a group made up of people of the same constitution. In reality, the two drugs are known to have the same mean effect and variance. But we draw a sample, administer the drug, and observe the result. As a result, suppose the mean of the group given drug 1 appeared at position ① in the figure, and the mean of the group given drug 2 at position ②.</p>
+<p>In this case, can we conclude that the two drugs' effects differ just because their sample means differ? No. This situation is actually a case where the two drugs' effects are the same, but variability made the two groups' sample means appear different.</p>
+<p><img alt="Significance level 5% : adding a drug-3 example" src="assets/posts/t-test/img2-en.svg" width="1000" height="305" loading="lazy">
+<em>Figure 2. Significance level 5% : adding a drug-3 example</em></p>
+<p>Therefore, the core of a mean test is the process of judging whether a particular mean is a result within the ordinary distribution (95%) that appeared by mere variability, or a result corresponding to extreme probability (5%) beyond variability. For this, the process of computing a test statistic and getting the p-value from its value was already covered in hypothesis testing.</p>
+<p>In Figure 2 I additionally drew X3's known distribution. Interpreting the figure intuitively: X1 and X2's sample means can be seen as the same, and X3's sample mean as different.</p>
+<p>Also, since it's hard to spread out all three groups' distributions like this and judge whether two groups' means are significantly the same or different, the method of comparing means using a test statistic is exactly what we call "testing means."</p>
+<p>Roughly, I tried to convey the feeling of turning two groups into a single test statistic (random variable). (I hope you get an intuitive feel.)</p>
+<div class="callout">
+💡 As an aside: (based on Figure 2) what if, when you draw a sample from distribution 3, it happens to fall within the 95% region of distributions 1 and 2? Conversely, what if groups 1 and 2 are actually the same, but by chance one sample is found in the 5% region? If you have such questions — congratulations, you're ready to understand Type I and Type II errors. But that's not the topic of this post, so I'll move on for now.
+</div>
+
+<p>I previously explained hypothesis testing using a One-Sample t-test (mean test) as an example, so I recommend referring to that content first.</p>
+<a class="tb-embed-card" href="en/hypothesis-testing/"><div class="tb-embed-thumb"><img src="assets/posts/hypothesis-testing/cover.webp" alt="Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence)" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence)</div><div class="tb-embed-excerpt">From the intuition of hypothesis testing to the meaning of the test statistic, plus null/alternative hypotheses, p-value, significance level, and critical value — all connected through a single example.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<h2 id="main-body-about-testing-means">Main body (about testing means)</h2>
+<h3 id="1-what-is-testing-means">1. What is testing means?</h3>
+<p>Testing means is a statistical technique for judging whether the means of two groups are statistically significantly the same or different.</p>
+<h3 id="2-assumptions-of-testing-means">2. Assumptions of testing means</h3>
+<p>An assumption in hypothesis testing means that the theory was established on top of that assumption. Therefore, depending on whether such assumptions are met, the technique used must change.</p>
+<p><strong>2.1 Normality assumption</strong></p>
+<p>The t-test is performed under the assumption that the population follows a normal distribution. This is an especially important assumption when the sample size is small.</p>
+<p>If the sample size is sufficiently large (generally n &gt; 30), then by the central limit theorem the sample mean approaches a normal distribution, so even if the population doesn't perfectly follow normality, the t-test can be used. Please refer to the central limit theorem post.</p>
+<a class="tb-embed-card" href="en/central-limit-theorem/"><div class="tb-embed-thumb"><img src="assets/posts/central-limit-theorem/cover.webp" alt="The Central Limit Theorem (CLT): Definition, Experiments &amp; Uses" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">The Central Limit Theorem (CLT): Definition, Experiments &amp; Uses</div><div class="tb-embed-excerpt">As the sample size grows, the sample mean converges to a normal distribution for any population — verified with five distributions, plus why the CLT matters for estimation and confidence intervals.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<div class="callout">
+<p><strong>Question:</strong> By the central limit theorem (CLT), as the number of samples grows, the sample mean follows a normal distribution — so why use the t-distribution rather than the normal (Z) distribution?</p>
+<p><strong>Answer:</strong> As the degrees of freedom grow, the t-distribution approaches the Z-distribution anyway; and to actually use the Z-distribution you'd need to know the population standard deviation, which we don't know.</p>
+</div>
+
+<p><img alt="As df grows, the t-distribution approaches the Z-distribution" src="assets/posts/t-test/img4.webp" width="1096" height="658" loading="lazy">
+<em>Reference figure: as the sampling size (df) grows, the t-distribution approaches the Z-distribution (at df=30 it's almost like the Z-distribution)</em></p>
+<p><strong>When normality does not hold</strong></p>
+<p>If the number of data points is clearly small or ambiguous and it doesn't follow a normal distribution, we use a nonparametric test.</p>
 <ul>
-<li>If the sample is large enough ($n&gt;30$), the <strong>Central Limit Theorem</strong> makes the sample mean approach normal, so you can use the t-test even if the population isn't perfectly normal.</li>
+<li>Nonparametric test: a method for testing the difference between two groups that doesn't require the normality assumption. Examples include the Mann-Whitney U test (for independent samples) and the Wilcoxon signed-rank test (for paired samples).</li>
 </ul>
-<blockquote>
-<p><strong>Q.</strong> If the CLT makes the sample mean normal, why use the t-distribution instead of the Z distribution?<br />
-<strong>A.</strong> As degrees of freedom grow, t→Z anyway, and using the Z distribution requires knowing the <strong>population standard deviation,</strong> which we don't.</p>
-</blockquote>
-<p>If data are few and not normal, use a <strong>nonparametric test</strong> (Mann-Whitney U, Wilcoxon signed-rank, etc.).</p>
-<h4 id="22-equal-variance-homoscedasticity-assumption">2.2 Equal-variance (homoscedasticity) assumption</h4>
-<p>This applies only to the independent two-sample t-test, since it compares the mean difference of two mutually independent groups. (One-sample compares against a reference value, so no equal-variance check; paired uses two measurements of the same group, so it's unnecessary.)</p>
-<blockquote>
-<p><strong>Q.</strong> What if you run a two-sample t-test knowing the variances differ?<br />
-<strong>A.</strong> e.g., if a new drug's treatment group has very large variance, then even if the mean difference is significant, it means the <strong>effect varies greatly between individual patients</strong> — it may not work for some or even worsen them, lowering reliability and consistency.</p>
-</blockquote>
-<h3 id="3-types">3. Types</h3>
-<h4 id="31-one-sample-t-test">3.1 One-Sample t-test</h4>
+<p>For reference, nonparametric tests like the Mann-Whitney U test or the Wilcoxon signed-rank test are things I've only used, and as of now are still something I'll study going forward.</p>
+<p><strong>2.2 Equal-variance (homoscedasticity) assumption</strong></p>
+<p>This assumption applies only to the independent-samples t-test (Two Sample t-test) among the types of mean tests below. The reason is that, because the independent-samples t-test compares the mean difference between two mutually independent groups, the independence of the two groups is required as a basic assumption of the test.</p>
+<p><strong>A thought based on my understanding</strong></p>
+<p>For the One Sample t-test, since it tests the difference from a particular reference value, equal variance can't be checked; and the Paired Sample t-test compares two measurements of the same group, so checking equal variance isn't necessary.</p>
+<div class="callout">
+<p><strong>Question:</strong> What if you run a Two Sample t-test even after confirming that the two independent groups' variances differ?</p>
+<p><strong>Answer:</strong> Suppose, to compare a new drug's efficacy with an existing drug, we ran an independent-samples t-test with two groups. And suppose the data of the experimental group taking the new drug turned out to have considerably large variance. If, despite this, the t-test concluded that the mean difference between the two groups is significant, this can cause several problems.</p>
+<p>The new drug may show, on average, a blood-pressure-lowering effect, but large variance means the differences in effect among individual patients are large. That is, for some patients the new drug may have no effect at all, or may even raise blood pressure. Such a situation can greatly reduce the new drug's reliability and lowers the accuracy of predicting the effect for each individual patient. In the end, the consistency and reliability of treatment may be lacking, which can seriously affect patient care.</p>
+</div>
+
+<h3 id="3-types-of-mean-tests">3. Types of mean tests</h3>
+<p><strong>3.1 One Sample t-test</strong></p>
 <ul>
-<li><strong>Purpose</strong>: whether one sample's mean differs significantly from a specific reference value</li>
-<li><strong>Example</strong>: whether blood pressure after taking a new drug differs from a reference (120)</li>
+<li>Purpose: to check whether one sample's mean is significantly different from a particular reference value (a known population mean).</li>
+<li>Example: checking whether a new drug has an effect compared to a baseline blood pressure.</li>
 </ul>
+<p>[Table1. Patient number &amp; blood pressure measured after drug administration]</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
 <th>Patient</th>
-<th style="text-align: center;">Blood pressure after dosing (mmHg)</th>
+<th>Blood pressure after dosing (mm Hg)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td style="text-align: center;">118</td>
+<td>Patient 1</td>
+<td>118</td>
 </tr>
 <tr>
-<td>2</td>
-<td style="text-align: center;">121</td>
+<td>Patient 2</td>
+<td>121</td>
 </tr>
 <tr>
-<td>3</td>
-<td style="text-align: center;">119</td>
+<td>Patient 3</td>
+<td>119</td>
 </tr>
 <tr>
-<td>4</td>
-<td style="text-align: center;">117</td>
+<td>Patient 4</td>
+<td>117</td>
 </tr>
 <tr>
-<td>5</td>
-<td style="text-align: center;">120</td>
+<td>Patient 5</td>
+<td>120</td>
 </tr>
 </tbody>
 </table></div>
-<p>$$t = \dfrac{\bar{x} - \mu_0}{s / \sqrt{n}}$$</p>
-<p>The farther the sample mean's difference from the reference mean is from 0, the more different; the closer to 0, the more equal. Dividing by the standard deviation standardizes it. This statistic follows the t-distribution.</p>
-<p>$$t = \dfrac{\bar{x} - \mu_0}{s / \sqrt{n}} = \dfrac{119 - 120}{1.58 / \sqrt{5}} = -1.41$$
-<em>One-Sample t-test t-value result</em></p>
-<p><img alt="One-Sample hypothesis test (t-distribution)" src="assets/posts/t-test/img7.webp" width="1318" height="790" loading="lazy">
-<em>Figure 3. One-Sample t-test hypothesis test (t-distribution)</em></p>
-<p>Compute the p-value on a t-distribution with df 4. Since we judge equal-or-different, it's a <strong>two-sided test</strong> (significance level 0.025 each side). The p-value of the region at or below t-value −1.41 is 0.2313 &gt; 0.025 → cannot reject the null = <strong>no significant difference (accept).</strong></p>
-<h4 id="32-independent-two-sample-t-test">3.2 Independent two-sample t-test</h4>
 <ul>
-<li><strong>Purpose</strong>: whether two independent groups' means differ significantly</li>
-<li><strong>Example</strong>: comparing mean blood pressure of medicated vs unmedicated groups</li>
+<li>Test: test whether this group's mean blood pressure is significantly different from the baseline (120 mm Hg).</li>
 </ul>
+<p><strong>Test statistic and degrees of freedom</strong></p>
+<p>$$
+t = \frac{\bar{X} - \mu_0}{\,s/\sqrt{n}\,}
+$$
+<em>Formula 1. One Sample t-test test statistic</em></p>
+<p>The meaning of the test statistic for a mean test can be explained intuitively. The farther the sample mean's difference from the particular mean I want is from 0, the more the two means differ; the closer to 0, the closer they are. Dividing by the standard deviation has the meaning of standardizing. And this test statistic is known to follow the t-distribution. (Please refer to the earlier hypothesis-testing post.)</p>
+<p>Based on the example above, computing the t statistic — with sample mean 119 and reference value 120 — gives <strong>t-value ≈ -1.41</strong>.</p>
+<p><img alt="One Sample hypothesis test (t-distribution)" src="assets/posts/t-test/img7.webp" width="1318" height="790" loading="lazy">
+<em>Figure 3. One sample t-test hypothesis test (t-distribution)</em></p>
+<p>Since the test statistic for testing means follows the t-distribution, I computed the p-value on a t-distribution with 4 degrees of freedom. Because we judge whether they're the same or different, not a greater/less relationship, a two-sided test must be performed, and each side's significance level is set to 0.025. As a result, the p-value of the region where t-value is below -1.41 came out to 0.2313. Since this p-value is larger than 0.025, the null hypothesis can't be rejected, and we can judge there's no statistically significant difference. (Accept the null hypothesis.)</p>
+<p><strong>3.2 Two Sample t-test</strong></p>
+<ul>
+<li>Purpose: to check whether the means of two mutually independent groups are significantly different.</li>
+<li>Example: comparing the mean blood pressure of a group that took the drug and a group that didn't.</li>
+</ul>
+<p>[Table2. Patient number, group classification &amp; blood pressure measured by dosing status]</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
 <th>Patient</th>
 <th>Group</th>
-<th style="text-align: center;">Blood pressure after dosing</th>
+<th>Blood pressure after dosing (mm Hg)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>Medicated</td>
-<td style="text-align: center;">115</td>
+<td>Patient 1</td>
+<td>Dosed</td>
+<td>115</td>
 </tr>
 <tr>
-<td>2</td>
-<td>Medicated</td>
-<td style="text-align: center;">118</td>
+<td>Patient 2</td>
+<td>Dosed</td>
+<td>118</td>
 </tr>
 <tr>
-<td>3</td>
-<td>Medicated</td>
-<td style="text-align: center;">116</td>
+<td>Patient 3</td>
+<td>Dosed</td>
+<td>116</td>
 </tr>
 <tr>
-<td>4</td>
-<td>Unmedicated</td>
-<td style="text-align: center;">122</td>
+<td>Patient 4</td>
+<td>Not dosed</td>
+<td>122</td>
 </tr>
 <tr>
-<td>5</td>
-<td>Unmedicated</td>
-<td style="text-align: center;">124</td>
+<td>Patient 5</td>
+<td>Not dosed</td>
+<td>124</td>
 </tr>
 </tbody>
 </table></div>
-<p>It splits into equal-variance and unequal-variance cases.</p>
-<p><strong>a) Equal variance met — Student's t-test (Pooled)</strong></p>
-<p>$$t = \dfrac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\dfrac{1}{n_1} + \dfrac{1}{n_2}}}, \qquad s_p = \sqrt{\dfrac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}}$$</p>
-<p>$$t = \dfrac{\bar{X}_1 - \bar{X}_2}{\sqrt{s_p^2\left(\dfrac{1}{n_1} + \dfrac{1}{n_2}\right)}} = \dfrac{116.23 - 123}{\sqrt{2.223\left(\dfrac{1}{3} + \dfrac{1}{2}\right)}} \approx -4.91$$
-<em>Student's t-test t-value result</em></p>
+<ul>
+<li>Test: test whether the mean blood pressure of the dosed and not-dosed groups is significantly different. (The two groups' sample sizes don't have to be equal.)</li>
+</ul>
+<p><strong>Test statistic and degrees of freedom</strong></p>
+<p>For testing means between two groups, it splits into the case where the two groups have equal variance and the case where they don't. (The reason and example were covered in the mean-test assumptions above.)</p>
+<p>*Note — for the example above, considering equal variance or the imbalance in sample sizes, it's appropriate to do Welch's t-test; but for the sake of explaining the concept, I'll compute both Student's t-test (Pooled t-test) and Welch's t-test.</p>
+<p><strong>a) When the two groups' variances are significantly equal (equal variance holds) — Student's t-test (Pooled t-test)</strong></p>
+<p>$$
+t = \frac{\bar{X}_1 - \bar{X}_2}{\,s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}\,}, \qquad s_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}
+$$
+<em>Formula 2. Two Samples t-test test statistic</em></p>
+<p>Based on the example above, computing the t statistic gives <strong>t-value ≈ -4.91</strong>.</p>
 <p><img alt="Student's t-test hypothesis test (t-distribution)" src="assets/posts/t-test/img10.webp" width="1342" height="806" loading="lazy">
 <em>Figure 4. Student's t-test hypothesis test (t-distribution)</em></p>
-<p>The p-value of the region at or below t-value −4.91 is 0.0162 &lt; 0.025 → reject the null, <strong>accept the alternative</strong> (the two group means differ).</p>
-<p><strong>b) Equal variance not met — Welch's t-test</strong></p>
-<p>$$t = \dfrac{\bar{x}_1 - \bar{x}_2}{\sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}}$$</p>
-<p>$$t = \dfrac{\bar{X}_1 - \bar{X}_2}{\sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}} = \dfrac{116.33 - 123}{\sqrt{\dfrac{2.33385}{3} + \dfrac{2}{2}}} \approx \dfrac{-6.67}{1.3334} \approx -5.00$$
-<em>Welch's t-test t-value result</em></p>
-<p><img alt="Welch's t-test hypothesis test" src="assets/posts/t-test/img13.webp" width="1342" height="806" loading="lazy">
+<p>Likewise, the hypothesis test is done on the t-distribution. The p-value of the region where t-value is below -4.91 came out to 0.0162. Since this p-value is smaller than 0.025, the null hypothesis can be rejected, and the alternative hypothesis is accepted. That is, we can judge the two groups' means differ.</p>
+<p><strong>b) When the two groups' variances differ (equal variance does not hold) — Welch's t-test</strong></p>
+<p>$$
+t = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{\dfrac{s_1^2}{n_1}+\dfrac{s_2^2}{n_2}}}
+$$
+<em>Formula 3. Welch's t-test test statistic</em></p>
+<p>Based on the example above, computing the t statistic gives <strong>t-value ≈ -6.47</strong>.</p>
+<p><img alt="Welch's t-test" src="assets/posts/t-test/img13.webp" width="1342" height="806" loading="lazy">
 <em>Figure 5. Welch's t-test</em></p>
-<p>The p-value of the region at or below t-value −6.47 is 0.0137 &lt; 0.025 → reject the null, <strong>accept the alternative.</strong></p>
-<h4 id="33-paired-sample-t-test">3.3 Paired-Sample t-test</h4>
+<p>Welch's t-test is also known to follow the t-distribution, and the hypothesis test is performed on that basis. The p-value of the region where t-value is below -6.47 came out to 0.0137. Since this p-value is smaller than 0.025, the null hypothesis can be rejected, and the alternative hypothesis is accepted. Therefore we can judge the two groups' means differ.</p>
+<p><strong>3.3 Paired Sample t-test</strong></p>
 <ul>
-<li><strong>Purpose</strong>: comparing the mean difference of two paired measurements from the same group</li>
-<li><strong>Example</strong>: blood pressure change before/after dosing (before/after a process, before/after a trial, before/after PT, etc.)</li>
+<li>Purpose: a method for comparing the mean difference of two corresponding measurements in the same group.</li>
+<li>Example: comparing the change in blood pressure before and after drug administration. When you want to see the difference in a subject's mean change before and after a particular event (before/after a process treatment, before/after a clinical trial, before/after PT, etc.).</li>
 </ul>
+<p>[Table3. Patient number &amp; blood pressure before/after drug administration]</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
 <th>Patient</th>
-<th style="text-align: center;">Before</th>
-<th style="text-align: center;">After</th>
+<th>Before dosing (mm Hg)</th>
+<th>After dosing (mm Hg)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td style="text-align: center;">130</td>
-<td style="text-align: center;">120</td>
+<td>Patient 1</td>
+<td>130</td>
+<td>120</td>
 </tr>
 <tr>
-<td>2</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">119</td>
+<td>Patient 2</td>
+<td>128</td>
+<td>119</td>
 </tr>
 <tr>
-<td>3</td>
-<td style="text-align: center;">135</td>
-<td style="text-align: center;">125</td>
+<td>Patient 3</td>
+<td>135</td>
+<td>125</td>
 </tr>
 <tr>
-<td>4</td>
-<td style="text-align: center;">132</td>
-<td style="text-align: center;">123</td>
+<td>Patient 4</td>
+<td>132</td>
+<td>123</td>
 </tr>
 <tr>
-<td>5</td>
-<td style="text-align: center;">129</td>
-<td style="text-align: center;">121</td>
+<td>Patient 5</td>
+<td>129</td>
+<td>121</td>
 </tr>
 </tbody>
 </table></div>
-<p>$$t = \dfrac{\bar{d}}{s_d / \sqrt{n}}$$</p>
-<p>$$\begin{aligned}
-D_i &amp;= [\,130-120,\ 128-119,\ 135-125,\ 132-123,\ 129-121\,] = [\,10,\ 9,\ 10,\ 9,\ 8\,] \\[6pt]
-\bar{D} &amp;= \dfrac{10 + 9 + 10 + 9 + 8}{5} = 9.2 \\[6pt]
-s_D &amp;= \sqrt{\dfrac{(10-9.2)^2 + (9-9.2)^2 + (10-9.2)^2 + (9-9.2)^2 + (8-9.2)^2}{5 - 1}} \approx 0.84 \\[6pt]
-t &amp;= \dfrac{\bar{D}}{s_D / \sqrt{n}} = \dfrac{9.2}{0.84 / \sqrt{5}} \approx 24.5
-\end{aligned}$$
-<em>Paired-Sample t-test t-value process and result</em></p>
-<p>Compute the mean and variance from the paired differences ($D_i$).</p>
+<ul>
+<li>Test: test whether the mean blood-pressure difference before and after dosing is significant.</li>
+</ul>
+<p><strong>Test statistic and degrees of freedom</strong></p>
+<p>$$
+t = \frac{\bar{D}}{\,s_D/\sqrt{n}\,}
+$$
+<em>Formula 4. Paired Samples t-test test statistic</em></p>
+<p>As in the calculation process, you take the difference values of the corresponding samples, average them, and compute the variance. D(i) lists each corresponding sample's difference (before − after). Running the hypothesis test on this gives <strong>t-value ≈ 24.50</strong>.</p>
 <p><img alt="Paired t-test hypothesis test" src="assets/posts/t-test/img16.webp" width="1342" height="806" loading="lazy">
 <em>Figure 6. Paired t-test</em></p>
-<p>The p-value of the region at or above t-value 24.50 is ≈ 0 &lt; 0.025 → reject the null, <strong>accept the alternative</strong> (the before/after means differ).</p>
-<h2 id="wrap-up">Wrap-up</h2>
-<p>Mean testing is a technique to judge whether a difference in two group means is <strong>due to mere variability or a real difference.</strong> We looked at the assumptions (normality, equal variance) and per-type calculations with examples.</p>
-<hr />
+<p>The p-value of the region where t-value is at or above 24.50 is nearly 0. Since this p-value is smaller than 0.025, we can reject the null hypothesis and accept the alternative hypothesis. We can judge the two groups' means differ.</p>
+<h2 id="closing-conclusion">Closing (conclusion)</h2>
+<p>Testing the means of two groups is a test technique for judging whether the difference between two groups' means is due to mere variability (uncertainty) or whether the means are actually different. We looked at the assumptions of the theory accordingly (the theories built on those assumptions), and also looked at how each assumption is computed through actual examples. Next time, I plan to look at how to use the libraries in Python.</p>
 <h2 id="references">References</h2>
 <ol>
-<li>Basic Statistics (Introduction) — Jayu Academy (textbook)</li>
-<li>Introduction to Data Analysis — course material</li>
-<li>Wikipedia — Welch's t-test / Student's t-test</li>
+<li>Basic (introductory) statistics course — Jayu Academy (textbook)</li>
+<li>Introduction to Data Analysis — course materials</li>
+<li>The intuition I understood (from reading many textbooks)</li>
+<li>Wiki — Welch's t-test</li>
+<li>Wiki — Student's t-test</li>
 </ol>
+<hr />
 <blockquote>
-<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/24" rel="nofollow noopener">taehyuklee.tistory.com/24</a></p>
+<p>📦 Migrated from the Tistory blog I used to run. Original: <a href="https://taehyuklee.tistory.com/24" rel="nofollow noopener">taehyuklee.tistory.com/24</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/t-test-python-scipy/">Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student&#39;s·Welch&#39;s), Paired</a></li><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/central-limit-theorem/">The Central Limit Theorem — Definition, Experiments, and Uses</a></li><li><a href="en/confidence-interval/">Confidence Intervals — Meaning, Intuition, and a Common Misconception</a></li></ul></section>
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/t-test-python-scipy/">Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy &amp; Statsmodels]</a></li><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence)</a></li><li><a href="en/central-limit-theorem/">The Central Limit Theorem (CLT): Definition, Experiments &amp; Uses</a></li><li><a href="en/confidence-interval/">Confidence Intervals — Meaning, Intuition, and a Common Misconception</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Ft-test%2F&amp;text=Testing%20Means%20%E2%80%94%20the%20t-test%20%28One%20%2F%20Two%3A%20Student%27s%C2%B7Welch%27s%20%2F%20Paired%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Ft-test%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Ft-test%2F&amp;text=Testing%20Means%3A%20the%20t-test%20%5BOne%2C%20Two%20%28Student%27s%20%26%20Welch%27s%29%2C%20Paired%20Samples%20t-test%5D" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Ft-test%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
 

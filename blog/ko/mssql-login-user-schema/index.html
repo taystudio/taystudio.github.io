@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교) · Tay Blog</title>
+<title>MS SQL Server 로그인 계정, DB 사용자(User), 스키마 매핑 정리 (Oracle과 비교) · Tay Blog</title>
 <meta name="description" content="Oracle 경험자가 MS SQL Server로 넘어올 때 가장 헷갈리는 Login·User·Schema 3단계 구조를 Oracle(User=Schema=Login) 1단계 구조와 비교 정리. sysadmin이 dbo 스키마에 고정되는 문제와 업무용 계정 분리 해결법까지.">
 <link rel="canonical" href="https://taystudios.com/blog/ko/mssql-login-user-schema/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/mssql-login-user-schema/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/mssql-login-user-schema/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/mssql-login-user-schema/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교) · Tay Blog">
+<meta property="og:title" content="MS SQL Server 로그인 계정, DB 사용자(User), 스키마 매핑 정리 (Oracle과 비교) · Tay Blog">
 <meta property="og:description" content="Oracle 경험자가 MS SQL Server로 넘어올 때 가장 헷갈리는 Login·User·Schema 3단계 구조를 Oracle(User=Schema=Login) 1단계 구조와 비교 정리. sysadmin이 dbo 스키마에 고정되는 문제와 업무용 계정 분리 해결법까지.">
 <meta property="og:url" content="https://taystudios.com/blog/ko/mssql-login-user-schema/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교)", "description": "Oracle 경험자가 MS SQL Server로 넘어올 때 가장 헷갈리는 Login·User·Schema 3단계 구조를 Oracle(User=Schema=Login) 1단계 구조와 비교 정리. sysadmin이 dbo 스키마에 고정되는 문제와 업무용 계정 분리 해결법까지.", "datePublished": "2025-10-05T00:00:00+09:00", "dateModified": "2025-10-05T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/mssql-login-user-schema/"}, "image": ["https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.webp"], "keywords": "MS SQL Server, Oracle, 스키마, 계정관리, DBA"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/ko/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교)", "item": "https://taystudios.com/blog/ko/mssql-login-user-schema/"}]}</script><meta property="article:published_time" content="2025-10-05T00:00:00+09:00"><meta property="article:modified_time" content="2025-10-05T00:00:00+09:00"><meta property="article:tag" content="MS SQL Server"><meta property="article:tag" content="Oracle"><meta property="article:tag" content="스키마"><meta property="article:tag" content="계정관리"><meta property="article:tag" content="DBA">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "MS SQL Server 로그인 계정, DB 사용자(User), 스키마 매핑 정리 (Oracle과 비교)", "description": "Oracle 경험자가 MS SQL Server로 넘어올 때 가장 헷갈리는 Login·User·Schema 3단계 구조를 Oracle(User=Schema=Login) 1단계 구조와 비교 정리. sysadmin이 dbo 스키마에 고정되는 문제와 업무용 계정 분리 해결법까지.", "datePublished": "2025-10-05T00:00:00+09:00", "dateModified": "2025-10-05T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/mssql-login-user-schema/"}, "image": ["https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.webp"], "keywords": "MS SQL Server, Oracle, 스키마, 계정관리, DBA"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/ko/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "MS SQL Server 로그인 계정, DB 사용자(User), 스키마 매핑 정리 (Oracle과 비교)", "item": "https://taystudios.com/blog/ko/mssql-login-user-schema/"}]}</script><meta property="article:published_time" content="2025-10-05T00:00:00+09:00"><meta property="article:modified_time" content="2025-10-05T00:00:00+09:00"><meta property="article:tag" content="MS SQL Server"><meta property="article:tag" content="Oracle"><meta property="article:tag" content="스키마"><meta property="article:tag" content="계정관리"><meta property="article:tag" content="DBA">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교)</span></nav>
-        <h1 class="tb-article-title">MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교)</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">MS SQL Server 로그인 계정, DB 사용자(User), 스키마 매핑 정리 (Oracle과 비교)</span></nav>
+        <h1 class="tb-article-title">MS SQL Server 로그인 계정, DB 사용자(User), 스키마 매핑 정리 (Oracle과 비교)</h1>
         <div class="tb-article-meta">
           <time>2025.10.05</time>
           <span>·</span><span>#MS SQL Server #Oracle #스키마 #계정관리 #DBA</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#1">1. 서론</a></li><li class="tb-toc-h2"><a href="#2-oracle-ms-sql-server">2. Oracle과 MS SQL Server의 계정·스키마 개념 차이</a></li><li class="tb-toc-h3"><a href="#oracle-user-schema-login">Oracle — User = Schema = Login</a></li><li class="tb-toc-h3"><a href="#ms-sql-server-login-user-schema-3">MS SQL Server — Login → User → Schema (3단계)</a></li><li class="tb-toc-h2"><a href="#3-default-schema">3. Default Schema의 차이</a></li><li class="tb-toc-h3"><a href="#oracle">Oracle</a></li><li class="tb-toc-h3"><a href="#sql-server">SQL Server</a></li><li class="tb-toc-h2"><a href="#4-oracle-vs-sql-server">4. 권한 관리 비교 (Oracle vs SQL Server)</a></li><li class="tb-toc-h2"><a href="#5">5. 실무에서 겪는 혼동 포인트</a></li><li class="tb-toc-h2"><a href="#6">6. 해결 방법 — 업무용 계정과 스키마 분리</a></li><li class="tb-toc-h2"><a href="#7-oracle">7. 정리 (Oracle 대비)</a></li><li class="tb-toc-h2"><a href="#8">8. 결론</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#1-introduction">1. 서론 (Introduction)</a></li><li class="tb-toc-h2"><a href="#2-oracle-mssql">2. Oracle과 MSSQL의 계정/스키마 개념 차이</a></li><li class="tb-toc-h3"><a href="#oracle">Oracle</a></li><li class="tb-toc-h3"><a href="#ms-sql-server">MS SQL Server</a></li><li class="tb-toc-h2"><a href="#3-default-schema">3. Default Schema의 차이</a></li><li class="tb-toc-h3"><a href="#oracle_1">Oracle</a></li><li class="tb-toc-h3"><a href="#sql-server">SQL Server</a></li><li class="tb-toc-h2"><a href="#4-oracle-vs-sql-server">4. 권한 관리 비교 (Oracle vs SQL Server)</a></li><li class="tb-toc-h2"><a href="#5">5. 실무에서 겪는 혼동 포인트</a></li><li class="tb-toc-h2"><a href="#6">6. 해결 방법: 업무용 계정과 스키마 분리</a></li><li class="tb-toc-h2"><a href="#7-oracle">7. 정리 (Oracle 대비)</a></li><li class="tb-toc-h2"><a href="#8">8. 결론</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -79,95 +79,120 @@
 .tb-content .callout p { margin:6px 0; line-height:1.85; }
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
+.tb-content pre { overflow-x:auto; }
 </style>
-<h2 id="1">1. 서론</h2>
-<p>최근 CI/CD 배포 관리 시스템 구축 프로젝트에서 TA 역할을 수행하며 일부 DBA 업무까지 맡게 되었고, 그 과정에서 MS SQL Server의 계정 관리 구조를 직접 다루게 됐다.</p>
-<p>이전에 Oracle DB를 다뤄본 경험이 있었지만, 두 DBMS는 <strong>계정(User)·스키마(Schema)·권한 관리 개념이 크게 달라</strong> 초반에 상당한 혼란을 겪었다. 이 글에서는 Oracle에서 MS SQL Server로 넘어올 때 흔히 헷갈리는 계정·스키마·권한 구조의 차이를 정리하고, 직접 경험한 <strong>sysadmin 계정의 dbo 스키마 고정 문제</strong>와 구조적 해결 방법까지 함께 공유한다.</p>
-<h2 id="2-oracle-ms-sql-server">2. Oracle과 MS SQL Server의 계정·스키마 개념 차이</h2>
-<p>많은 Oracle 경험자가 SQL Server를 처음 접하면 가장 헷갈려하는 부분이 바로 <strong>로그인 계정과 스키마가 따로 논다</strong>는 점이다.</p>
-<h3 id="oracle-user-schema-login">Oracle — User = Schema = Login</h3>
+
+<h2 id="1-introduction">1. 서론 (Introduction)</h2>
+<p>최근 CI/CD 배포관리 시스템 구축 프로젝트에서 TA 역할을 수행하면서, 일부 DBA 업무까지 맡게 되었습니다. 그 과정에서 MS SQL Server의 계정 관리 구조를 직접 다뤄보게 되었습니다.</p>
+<p>저는 이전에 Oracle DB를 다뤄본 경험이 있었지만, 두 DBMS는 계정(User), 스키마(Schema), 권한 관리 개념이 크게 달라 초반에 상당한 혼란을 겪었습니다.</p>
+<p>이번 글에서는 Oracle에서 MSSQL로 넘어올 때 흔히 헷갈리는 계정·스키마·권한 구조의 차이점을 정리하고, 제가 직접 경험한 sysadmin 계정의 dbo 스키마 고정 문제와 구조적 해결 방법까지 함께 공유하려 합니다.</p>
+<h2 id="2-oracle-mssql">2. Oracle과 MSSQL의 계정/스키마 개념 차이</h2>
+<p>많은 Oracle 경험자들이 SQL Server를 처음 접하면 가장 헷갈려할 부분이 바로 로그인 계정과 스키마가 따로 논다는 점입니다.</p>
+<h3 id="oracle">Oracle</h3>
+<p><strong>User = 스키마 = 로그인 계정</strong></p>
 <ul>
-<li>계정을 생성하면 자동으로 동일한 이름의 스키마가 생긴다.</li>
-<li>즉 <code>SCOTT</code> 계정을 만들면 곧바로 <code>SCOTT</code> 스키마에서 작업한다.</li>
+<li>계정을 생성하면 자동으로 동일한 이름의 스키마가 생깁니다.</li>
+<li>SCOTT 계정을 만들면 곧바로 SCOTT 스키마에서 작업합니다.</li>
 </ul>
 <pre class="codehilite"><code class="language-sql">CREATE USER SCOTT IDENTIFIED BY tiger;
 -- 동시에 SCOTT 스키마 생성
 </code></pre>
 
-<h3 id="ms-sql-server-login-user-schema-3">MS SQL Server — Login → User → Schema (3단계)</h3>
+<h3 id="ms-sql-server">MS SQL Server</h3>
+<p><strong>Login 계정 (서버 레벨 계정)</strong></p>
 <ul>
-<li><strong>Login 계정 (서버 레벨)</strong> — SQL Server 인스턴스 접속용 계정. 서버 전체 관점의 인증 계정으로, ID/PW로 인스턴스에 로그인한다.</li>
-<li><strong>User 계정 (DB 레벨)</strong> — 로그인 이후 특정 데이터베이스에 소속되는 사용자 계정. 하나의 Login은 각 데이터베이스 내의 User와 <strong>1:1로 매핑</strong>되어야 한다. 즉 동일한 Login이라도 DB마다 별도의 User를 가질 수 있다.</li>
-<li><strong>Schema (객체 컨테이너)</strong> — 테이블·뷰·프로시저 등 DB 객체를 논리적으로 구분하는 컨테이너. User와는 별도의 개념이며, 각 User는 사용할 <strong>기본 스키마(Default Schema)</strong>를 지정할 수 있다. 처음 기본값은 <code>dbo</code> 스키마이며, 이를 실제 사용할 스키마로 바꿔줘야 한다.</li>
+<li>SQL Server 인스턴스 접속용 계정입니다.</li>
+<li>서버 전체 관점의 인증 계정으로, ID/PW를 통해 인스턴스에 로그인합니다.</li>
+</ul>
+<p><strong>User 계정 (로그인후, DB 레벨 계정)</strong></p>
+<ul>
+<li>로그인 이후, 특정 데이터베이스에 소속되는 사용자 계정입니다.</li>
+<li>하나의 Login 계정은 각 데이터베이스 내의 User 계정과 1:1로 매핑되어야 합니다.</li>
+<li>즉, 동일한 Login이라도 DB마다 별도의 User를 가질 수 있습니다.</li>
+</ul>
+<p><strong>Schema (객체 컨테이너)</strong></p>
+<ul>
+<li>테이블, 뷰, 프로시저 등 데이터베이스 객체를 논리적으로 구분하는 컨테이너입니다.</li>
+<li>User와는 별도의 개념이며, 각 User는 사용할 기본 스키마(Default Schema) 를 지정할 수 있습니다.</li>
+<li>처음 기본 스키마는 dbo 스키마로 지정되어 있습니다. 이 기본 스키마를 내가 사용할 스키마로 바꿔야 합니다.</li>
+<li>여러 스키마를 관리하면서, 접근 권한을 세분화할 수 있습니다.</li>
 </ul>
 <pre class="codehilite"><code class="language-sql">-- 1) 서버 로그인 계정 생성
 CREATE LOGIN SCOTT WITH PASSWORD = '***';
 
 -- 2) Database 생성
-CREATE DATABASE SCOTT_tiger;
+CREATE DATABASE SCOTT_tiger
 
 -- 3) 스키마 생성
 CREATE SCHEMA vdadmin AUTHORIZATION vdadmin_user;
 
--- 4) 특정 DB에 사용자 생성
---    MS SQL은 항상 특정 DB를 사용한다고 스위치(USE)해줘야 한다.
---    (Oracle은 schema와 계정이 1:1이라 그럴 필요가 없다)
+-- 4) 특정 DB에 사용자 생성 (MS SQL에서는 항상 특정 db를 사용한다고 스위치 해줘야 한다
+--    Oracle은 shcema와 계정이 1:1매핑되어 있기때문에 그럴 필요가 없다)
 USE SCOTT_tiger;
--- SSMS에서는 GO 명령어까지 적어준다 (DBeaver 기준 안 적어도 됨)
+-- SSMS에서는 GO 명령어까지 적어준다 (DBeaver기준 안적어줘도 됨)
 CREATE USER db_user FOR LOGIN SCOTT WITH DEFAULT_SCHEMA = SCOTT_tiger;
--- SCOTT_tiger DB 안에 db_user 계정을 로그인 계정 SCOTT과 매핑해 만들고,
--- 해당 db_user의 디폴트 스키마로 SCOTT_tiger를 지정한다.
+-- mydb 데이터베이스 안에 db_user 계정을 로그인 계정인 SCOTT과 매핑해서 만듭니다.
+-- 그리고 해당 db_user계정의 디폴트 스키마로 SCOTT_tiger를 지정합니다.
 </code></pre>
 
-<p>정리하면, <strong>MS SQL Server는 3단계 구조(Login → User → Schema)</strong>다. 서버 레벨의 Login이 각 DB 내의 User와 매핑되고, 그 User가 DB 내 여러 Schema 중 하나를 기본 스키마로 지정해 사용한다. 반면 <strong>Oracle은 1단계 구조(User = Schema = Login)</strong>로, 로그인 계정이 곧 사용자이자 스키마로 작동하며 별도의 매핑 개념이 없다.</p>
-<blockquote>
-<p>📘 <strong>참고</strong> — MS SQL에서 Default Schema를 지정하더라도 다른 스키마의 객체를 못 쓰는 것은 아니다. <code>schema.table</code> 형식으로 명시하면 다른 스키마의 테이블에도 자유롭게 접근해 쿼리할 수 있다.</p>
-</blockquote>
-<p>다만 외부 시스템 연동이나 애플리케이션 연결 계정을 구성할 때는 Default Schema를 명확히 지정해두는 것이 중요하다. 그렇지 않으면 연결 시 <code>dbo</code> 또는 지정되지 않은 기본 스키마로 자동 매핑되어 의도와 다른 객체를 참조하는 문제가 생길 수 있다. 따라서 <strong>Login → User → Default Schema</strong> 관계를 명확히 매핑하고, 스키마별로 전용 로그인 계정을 만들어 해당 스키마만 쓰도록 관리하는 것이 가장 안전하고 효율적이다. (결국 Oracle의 단일 구조가 훨씬 직관적이긴 하다.)</p>
+<p>즉, MSSQL은 3단계 구조(Login → User → Schema) 로 구성되어 있습니다. 서버 레벨의 Login 계정이 존재하고, 이 로그인은 각 데이터베이스 내의 User(사용자 계정) 와 매핑됩니다. 그 후, 해당 User는 DB 내 여러 Schema(객체 컨테이너) 중 하나를 기본 스키마(Default Schema) 로 지정하여 사용하게 됩니다.</p>
+<p>반면, Oracle은 이와 달리 1단계 구조(User = Schema = Login) 로 되어 있습니다. 즉, Oracle에서는 로그인 계정이 곧 사용자이자 스키마로 작동하며, MSSQL처럼 별도의 매핑 개념이 없습니다.</p>
+<div class="callout">
+<p>📘 <strong>참고</strong></p>
+<p>MSSQL에서 Default Schema를 지정하더라도, 다른 스키마의 객체를 전혀 사용할 수 없는 것은 아닙니다. schema.table 형식으로 명시하면, 다른 스키마의 테이블에도 자유롭게 접근하여 쿼리를 실행할 수 있습니다.</p>
+<p>다만, 외부 시스템 연동이나 애플리케이션 연결 계정을 구성할 때는 Default Schema를 명확히 지정해두는 것이 중요합니다. 그렇지 않으면 연결 시 dbo 스키마 또는 지정되지 않은 기본 스키마로 자동 매핑되어, 의도와 다른 객체를 참조하는 문제가 발생할 수 있습니다.</p>
+</div>
+
+<p>따라서 Login → User → Default Schema 관계를 명확히 매핑하고, 각 스키마별로 전용 로그인 계정을 만들어 해당 스키마만 사용하도록 관리하는 것이 가장 안전하고 관리 효율적입니다. (결국… Oracle의 단일 구조가 훨씬 직관적이긴 합니다..)</p>
 <h2 id="3-default-schema">3. Default Schema의 차이</h2>
-<h3 id="oracle">Oracle</h3>
+<p>앞서 언급했던 Default Schema에 대한 Oracle과 SQL Server의 차이점을 정리하면 다음과 같습니다.</p>
+<h3 id="oracle_1">Oracle</h3>
 <ul>
-<li>계정으로 접속하면 해당 계정의 스키마가 자동으로 Default Schema가 된다.</li>
-<li><code>User = Schema</code> 구조라 별도 설정이 필요 없다. <code>SCOTT</code>으로 로그인하면 자동으로 <code>SCOTT</code> 스키마에 연결된다.</li>
+<li>사용자가 계정으로 접속하면, 해당 계정의 스키마가 자동으로 Default Schema로 설정됩니다.</li>
+<li>즉, User = Schema 구조이기 때문에 별도의 설정이 필요하지 않습니다.</li>
+<li>예를 들어 SCOTT 계정으로 로그인하면 자동으로 SCOTT 스키마에 연결됩니다.</li>
 </ul>
 <h3 id="sql-server">SQL Server</h3>
 <ul>
-<li>User 생성 시 <code>DEFAULT_SCHEMA</code>를 지정하지 않으면 기본값은 <strong>항상 <code>dbo</code></strong>다.</li>
-<li>원하는 스키마를 기본으로 쓰려면 명시적으로 지정해야 한다.</li>
+<li>User를 생성할 때 DEFAULT_SCHEMA를 지정하지 않으면, 기본값은 항상 dbo로 설정됩니다.</li>
+<li>따라서 원하는 스키마를 기본으로 사용하려면 다음과 같이 명시적으로 지정해야 합니다.</li>
 </ul>
 <pre class="codehilite"><code class="language-sql">ALTER USER a_user WITH DEFAULT_SCHEMA = a_schema;
 </code></pre>
 
-<p>이렇게 설정하지 않으면 객체 생성 시 <code>dbo.table_name</code> 형태로 자동 생성되어, 의도와 다르게 <code>dbo</code> 스키마 아래에 객체가 쌓이는 문제가 발생할 수 있다.</p>
+<p>이렇게 설정하지 않으면, 객체 생성 시 dbo.table_name 형태로 자동 생성되어 의도와 다르게 dbo 스키마 아래에 객체가 쌓이는 문제가 발생할 수 있습니다.</p>
 <h2 id="4-oracle-vs-sql-server">4. 권한 관리 비교 (Oracle vs SQL Server)</h2>
-<p>두 DBMS 모두 접근·작업 제어를 위해 권한과 역할(Role)을 제공하지만, 구조와 적용 범위가 다르다.</p>
-<p><strong>Oracle</strong> — 권한이 크게 System 권한과 Object 권한으로 나뉜다.</p>
+<p>Oracle과 SQL Server 모두 데이터베이스 접근과 작업을 제어하기 위해 권한과 역할(Role)을 제공하지만, 구조와 적용 범위에서 차이가 있습니다.</p>
+<p><strong>Oracle</strong>에서는 권한이 크게 System 권한과 Object 권한으로 나뉩니다.</p>
 <ul>
-<li><strong>System 권한</strong> — DB 전체에 영향을 미치는 권한 (예: <code>CREATE SESSION</code>, <code>CREATE TABLE</code>).</li>
-<li><strong>Object 권한</strong> — 특정 테이블·뷰 등 개별 객체에 대한 접근 권한 (<code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>).</li>
-<li>여러 권한을 묶는 <strong>Role</strong>을 제공해 <code>DBA</code>, <code>RESOURCE</code>, <code>CONNECT</code> 같은 사전 정의 역할을 활용하거나 사용자 정의 역할을 만들 수 있다.</li>
+<li>System 권한은 데이터베이스 전체에 영향을 미치는 권한으로, 예를 들어 CREATE SESSION, CREATE TABLE 등이 있습니다.</li>
+<li>Object 권한은 특정 테이블, 뷰 등 개별 객체에 대한 접근 권한으로 SELECT, INSERT, UPDATE, DELETE 등이 있습니다.</li>
+<li>또한 여러 권한을 묶어 관리할 수 있는 Role을 제공하여, DBA, RESOURCE, CONNECT 같은 사전 정의된 역할을 활용하거나 사용자 정의 역할을 만들 수 있습니다.</li>
 </ul>
-<p><strong>SQL Server</strong> — 권한 체계가 더 계층화되어 있다.</p>
+<p>반면 <strong>SQL Server</strong>는 권한 체계가 조금 더 계층화되어 있습니다.</p>
 <ul>
-<li><strong>서버 레벨 권한</strong> — <code>sysadmin</code>, <code>serveradmin</code>, <code>securityadmin</code> 등 서버 전체에 영향.</li>
-<li><strong>DB 레벨 권한</strong> — <code>CONNECT</code>, <code>CONTROL</code>, <code>ALTER</code> 등 데이터베이스 단위.</li>
-<li><strong>스키마/객체 레벨 권한</strong> — 특정 스키마나 객체에 권한 부여.</li>
+<li>먼저 서버 레벨 권한이 있어 sysadmin, serveradmin, securityadmin 등 데이터베이스 서버 전체에 영향을 주는 권한을 관리합니다.</li>
+<li>DB 레벨 권한은 데이터베이스 단위에서 적용되며, CONNECT, CONTROL, ALTER 등이 있습니다.</li>
+<li>스키마/객체 레벨 권한은 특정 스키마나 객체에 대한 권한 부여가 가능하며, 예를 들어 아래와 같이 지정할 수 있습니다.</li>
 </ul>
 <pre class="codehilite"><code class="language-sql">GRANT SELECT, INSERT, UPDATE, DELETE ON SCHEMA::X TO user;
 </code></pre>
 
 <ul>
-<li>SQL Server도 <code>db_datareader</code>, <code>db_datawriter</code>, <code>db_ddladmin</code> 등 기본 제공 Role로 권한을 묶어 관리할 수 있다.</li>
+<li>SQL Server 또한 Role을 제공하며, db_datareader, db_datawriter, db_ddladmin 등 기본 제공 역할을 통해 권한을 묶어 관리할 수 있습니다.</li>
 </ul>
-<p>정리하면, Oracle은 권한을 <strong>시스템 전체 vs 객체 단위</strong>로 구분하고 Role 중심으로 관리하는 반면, SQL Server는 <strong>서버 → DB → 스키마/객체</strong> 수준으로 계층화된 권한 체계를 가지며 역할도 이 계층과 결합되어 있다.</p>
+<p>정리하면, Oracle은 권한을 시스템 전체 vs 객체 단위로 구분하고 역할(Role) 중심으로 관리하는 반면, SQL Server는 서버 → DB → 스키마/객체 수준으로 계층화된 권한 체계를 가지고 있으며, 역할도 계층적 권한 관리와 결합되어 있습니다.</p>
 <h2 id="5">5. 실무에서 겪는 혼동 포인트</h2>
-<p><code>sysadmin</code> 계정으로 MS SQL에 로그인했을 때, 아무리 Default Schema를 변경해도 <strong>항상 <code>dbo</code> 스키마로 들어가는 현상</strong>을 겪었다. 이유는 명확하다. MS SQL에서 <code>sysadmin</code> 계정은 <strong>항상 <code>dbo</code> 스키마에 매핑되도록 설계</strong>되어 있으며, 이는 보안·권한 관리 정책상 고정된 동작이다.</p>
-<p>즉 DBA(<code>sysadmin</code>) 계정은 Default Schema를 자유롭게 바꿀 수 없고 항상 <code>dbo</code>에서 시작한다. 따라서 실무에서는 <code>sysadmin</code>과 별도로 <strong>각 스키마별 로그인 아이디를 만들어 매핑</strong>해 사용하는 것이 일반적이며, 이렇게 하면 Oracle처럼 계정별 스키마를 운영할 수 있다.</p>
-<h2 id="6">6. 해결 방법 — 업무용 계정과 스키마 분리</h2>
-<p>DBA 권한 계정은 운영·관리 전용으로 두고, 특정 스키마를 디폴트로 쓰려면 별도의 로그인 계정을 만들어야 한다.</p>
+<p>이번에 sysadmin 계정으로 MSSQL에 로그인했을 때, 아무리 Default Schema를 변경해도 항상 dbo 스키마로 들어가는 현상을 경험했습니다. 그 이유는 명확합니다. MSSQL에서 sysadmin 계정은 항상 dbo 스키마에 매핑되도록 설계되어 있으며, 이는 보안과 권한 관리 정책상 고정된 동작입니다.</p>
+<p>즉, DBA(=sysadmin) 계정은 Default Schema를 자유롭게 변경할 수 없고, 항상 dbo에서 시작합니다. 따라서 실무에서는 sysadmin 계정과 별도로 각 스키마별 로그인 아이디를 만들어 매핑하여 사용하는 것이 일반적이며, 이렇게 하면 Oracle DB처럼 계정별 스키마를 운영할 수 있습니다.</p>
+<h2 id="6">6. 해결 방법: 업무용 계정과 스키마 분리</h2>
+<p>DBA 권한 계정은 운영·관리 전용으로 두고, 실제로 특정 스키마를 디폴트로 사용하려면 별도의 로그인 계정을 만들어야 합니다.</p>
+<p><strong>(예시)</strong></p>
 <ul>
-<li><strong>서버 관리용 계정</strong> — <code>sysadmin</code> (dbo 스키마 고정)</li>
-<li><strong>업무별 계정</strong> — <code>a_user → a_schema</code>, <code>b_user → b_schema</code>를 기본 스키마로 사용</li>
+<li>서버 관리용 계정: sysadmin (dbo 스키마 고정)</li>
+<li>업무별 계정:</li>
+<li>a_user → a_schema 기본 스키마 사용</li>
+<li>b_user → b_schema 기본 스키마 사용</li>
 </ul>
 <pre class="codehilite"><code class="language-sql">-- A 업무용 계정
 CREATE LOGIN a_user WITH PASSWORD = '***';
@@ -180,10 +205,11 @@ USE mydb;
 CREATE USER b_user FOR LOGIN b_user WITH DEFAULT_SCHEMA = b_schema;
 </code></pre>
 
-<p>이렇게 하면 DBA 계정은 관리 전용으로 두고, 업무별 User 계정을 통해 각 스키마를 디폴트로 사용하게 설계할 수 있다. 전체 개략도는 다음과 같다.</p>
+<p>이렇게 하면 DBA 계정은 관리 전용으로 두고, 업무별 User 계정을 통해 각 스키마를 디폴트로 사용하게끔 설계할 수 있습니다.</p>
+<p><strong>[전체 계략도]</strong></p>
 <pre class="codehilite"><code class="language-text">[Server Level]
    ├── Logins
-   │     ├── sysadmin
+   |     ├── sysadmin
    │     ├── a_user
    │     ├── b_user
    │     ├── c_user
@@ -237,7 +263,7 @@ CREATE USER b_user FOR LOGIN b_user WITH DEFAULT_SCHEMA = b_schema;
 </tr>
 <tr>
 <td>DBA 계정</td>
-<td>SYS / SYSTEM</td>
+<td>SYS/SYSTEM</td>
 <td>sysadmin (dbo 강제 매핑)</td>
 </tr>
 <tr>
@@ -249,20 +275,20 @@ CREATE USER b_user FOR LOGIN b_user WITH DEFAULT_SCHEMA = b_schema;
 </table></div>
 <h2 id="8">8. 결론</h2>
 <ul>
-<li>Oracle은 <strong>계정 = 스키마 = 로그인</strong>.</li>
-<li>MS SQL Server는 <strong>Login·User·Schema가 각각 따로</strong> 존재하며 매핑이 필요하다.</li>
-<li><code>sysadmin</code>(DBA) 계정은 항상 <code>dbo</code> 스키마로 매핑되어 Default Schema를 변경할 수 없다.</li>
-<li>따라서 업무별 Default Schema를 쓰려면 <strong>별도의 Login–User 계정을 생성</strong>해야 한다.</li>
+<li>Oracle에서는 계정 = 스키마 = 로그인</li>
+<li>MSSQL은 Login, User, Schema가 각각 따로 존재하며 매핑 필요</li>
+<li>sysadmin(DBA) 계정은 항상 dbo 스키마로 매핑 → Default Schema 변경 불가</li>
+<li>따라서 업무별 Default Schema를 사용하려면 별도의 Login-User 계정을 생성해야 함</li>
 </ul>
 <hr />
 <blockquote>
-<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/29" rel="nofollow noopener">taehyuklee.tistory.com/29</a></p>
+<p>📦 블로그 이전 글입니다. 원본: <a href="https://taehyuklee.tistory.com/29" rel="nofollow noopener">taehyuklee.tistory.com/29</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li><li><a href="ko/nginx-install-ubuntu-centos/">Nginx 설치 가이드 — Ubuntu / CentOS (특정 버전·설정 구조·방화벽)</a></li></ul></section>
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS 비용] AWS 인프라 비용 55% 절감 가이드 (Graviton 전환 및 고정비 최적화 전략)</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러: UNPROTECTED PRIVATE KEY FILE 에러 해결 방법 (ssh pem 키 권한 설정)</a></li><li><a href="ko/nginx-install-ubuntu-centos/">Nginx 특정 버전 &amp; 최신 설치 가이드: Ubuntu / CentOS 완벽 정리</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fmssql-login-user-schema%2F&amp;text=MS%20SQL%20Server%20%EB%A1%9C%EA%B7%B8%EC%9D%B8%C2%B7User%C2%B7%EC%8A%A4%ED%82%A4%EB%A7%88%20%EB%A7%A4%ED%95%91%20%EC%A0%95%EB%A6%AC%20%28Oracle%EA%B3%BC%20%EB%B9%84%EA%B5%90%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fmssql-login-user-schema%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fmssql-login-user-schema%2F&amp;text=MS%20SQL%20Server%20%EB%A1%9C%EA%B7%B8%EC%9D%B8%20%EA%B3%84%EC%A0%95%2C%20DB%20%EC%82%AC%EC%9A%A9%EC%9E%90%28User%29%2C%20%EC%8A%A4%ED%82%A4%EB%A7%88%20%EB%A7%A4%ED%95%91%20%EC%A0%95%EB%A6%AC%20%28Oracle%EA%B3%BC%20%EB%B9%84%EA%B5%90%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fmssql-login-user-schema%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
 

@@ -80,16 +80,16 @@
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
-<p><code>taystudio.github.io</code> 를 <code>taystudios.com</code> 으로 옮긴 작업 후기. 2026-05-09 에 했고, 6/5 시점에 30일 데이터 다 나왔으니 실측까지 같이 정리함.</p>
+<p>이 글은 제가 <code>taystudio.github.io</code> 를 <code>taystudios.com</code> 으로 옮긴 작업을 정리한 후기입니다. 실제 작업은 2026-05-09 에 했고, 6/5 시점에 30일치 데이터가 다 나와서 어떻게 됐는지 실측까지 함께 적어둡니다.</p>
 <h2 id="_1">왜 옮겼나</h2>
-<p><code>.github.io</code> 도 잘 굴러간다. 한국 SEO 만 보면 차이도 별로 없음. 그런데 4가지가 걸렸음.</p>
+<p>솔직히 <code>.github.io</code> 도 잘 굴러갑니다. 한국 SEO 만 놓고 보면 차이도 거의 없고요. 그런데도 옮긴 건 네 가지가 계속 마음에 걸렸기 때문입니다.</p>
 <ul>
-<li><strong>도메인 권위가 0부터 시작</strong> — <code>.github.io</code> 가 <a href="https://publicsuffix.org/">Public Suffix List</a> 에 등재돼서 브라우저·검색엔진이 <em>서브도메인</em> 으로 취급. <code>taystudio.github.io</code> 와 <code>someone.github.io</code> 가 서로 영향 안 주게끔 격리됨. 좋은 건데 권위가 누적이 안 됨.</li>
-<li><strong>AdSense 영어 RPM</strong> — 영어권에서 <code>.github.io</code> URL 은 개발자 블로그 인상이라 일반인 CTR 이 낮음. 보통 RPM <code>$1~3</code> 정도. <code>.com</code> 으로 가면 <code>$3~8</code> 까지 봤다는 사례 많음.</li>
-<li><strong>언론·매체 백링크</strong> — <code>.github.io</code> 는 인용 자체를 피하는 경향. 진지한 출처로 안 보임.</li>
-<li><strong>브랜드</strong> — URL 에 "github" 박혀있는 거 자체가 brand 가 약함.</li>
+<li><strong>도메인 권위가 0부터 시작합니다.</strong> <code>.github.io</code> 가 <a href="https://publicsuffix.org/">Public Suffix List</a> 에 등재돼 있어서 브라우저와 검색엔진이 이걸 서브도메인으로 취급합니다. 덕분에 <code>taystudio.github.io</code> 와 <code>someone.github.io</code> 가 서로 영향을 안 주게끔 격리되는데, 안전한 건 좋지만 그만큼 권위가 누적되지 않습니다.</li>
+<li><strong>영어권 AdSense RPM</strong> 이 아쉽습니다. 영어 시장에서 <code>.github.io</code> URL 은 아무래도 개발자 블로그라는 인상을 주다 보니 일반 독자의 CTR 이 낮습니다. RPM 이 보통 <code>$1~3</code> 정도에 머무는데, <code>.com</code> 으로 가면 <code>$3~8</code> 까지 봤다는 사례가 많더군요.</li>
+<li><strong>언론·매체 백링크</strong> 측면에서도 불리합니다. 기자나 신뢰도 있는 블로그는 <code>.github.io</code> URL 인용 자체를 꺼리는 경향이 있습니다. 진지한 출처로는 잘 안 보이는 거죠.</li>
+<li>마지막으로 <strong>브랜드</strong> 문제입니다. URL 에 "github" 가 박혀 있는 것만으로도 brand 가 약해 보입니다.</li>
 </ul>
-<p>영어 시장 + AdSense + brand 셋 다 결정적이라 옮기기로 함. 다만 <strong>타이밍이 중요</strong>. URL 백 개 쌓이고 백링크 박히기 시작하면 옮기는 비용 폭증. 우리 사이트는 그때 100개 정도였어서 지금이 적기였음.</p>
+<p>영어 시장과 AdSense, 그리고 brand. 이 셋이 저한테는 모두 결정적이어서 결국 옮기기로 했습니다. 다만 한 가지 강조하고 싶은 건 타이밍입니다. URL 이 수백 개 쌓이고 백링크가 박히기 시작하면 옮기는 비용이 폭증하거든요. 제 사이트는 그때 100개 정도였는데, 경험상 그 정도가 옮기기에 딱 좋은 시점이었습니다.</p>
 <h2 id="4">4단계 요약</h2>
 <pre class="codehilite"><code>① Cloudflare DNS 설정    (A 4개 + CNAME www)
 ② GitHub repo CNAME 파일 (1줄)
@@ -97,14 +97,14 @@
 ④ 검색엔진 재등록         (GSC·Naver·Bing·Daum)
 </code></pre>
 
-<p>다운타임 0초. 양쪽 도메인 다 살아있는 상태로 점진 전환됨.</p>
+<p>전체 과정에서 다운타임은 0초였습니다. 양쪽 도메인이 다 살아있는 상태로 점진적으로 전환됩니다.</p>
 <hr />
 <h2 id="1-cloudflare-dns">1. Cloudflare DNS 설정</h2>
-<p>도메인은 Cloudflare Registrar 에서 샀음 (가비아·후이즈 다 가능). DNS 도 Cloudflare 가 가장 빠르고 무료.</p>
+<p>저는 도메인을 Cloudflare Registrar 에서 샀습니다. 물론 가비아든 후이즈든 어디서 사도 상관없습니다. DNS 도 그대로 Cloudflare 를 쓰는데, 경험상 전파가 가장 빠르고 무료라 따로 옮길 이유가 없었습니다.</p>
 <h3 id="ui">UI — 어디서 뭘 누르나</h3>
 <ol>
-<li><a href="https://dash.cloudflare.com">dash.cloudflare.com</a> 로그인 → 사이트 클릭 → 좌측 메뉴 <strong>DNS → Records</strong>.</li>
-<li><strong><code>Add record</code></strong> 버튼 → 아래 5개 입력:</li>
+<li><a href="https://dash.cloudflare.com">dash.cloudflare.com</a> 에 로그인한 뒤 사이트를 클릭하고, 좌측 메뉴에서 <strong>DNS → Records</strong> 로 들어갑니다.</li>
+<li><strong><code>Add record</code></strong> 버튼을 눌러 아래 5개를 입력합니다.</li>
 </ol>
 <div class="tb-table-wrap"><table>
 <thead>
@@ -148,11 +148,12 @@
 </tr>
 </tbody>
 </table></div>
-<p><code>Name</code> 칸에 <code>@</code> 치면 자동으로 apex (<code>taystudios.com</code>) 로 변환됨. <code>www</code> 는 그냥 <code>www</code> 만 치면 <code>www.taystudios.com</code> 으로 잡힘.</p>
+<p><code>Name</code> 칸에 <code>@</code> 를 치면 자동으로 apex (<code>taystudios.com</code>) 로 변환됩니다. <code>www</code> 는 그냥 <code>www</code> 만 입력하면 <code>www.taystudios.com</code> 으로 잡힙니다.</p>
 <h3 id="_2">함정 두 개</h3>
+<p>여기서 제가 걸렸던, 혹은 자칫 걸리기 쉬운 함정이 두 가지 있습니다.</p>
 <ul>
-<li><strong>A record 4개 다 등록</strong>. GitHub Pages 가 4 IP 로 load balancing 함. 하나만 박으면 그 IP 다운 시 사이트 다운.</li>
-<li><strong>Proxy 처음엔 DNS only (회색 구름)</strong>. 주황 구름 (Proxy ON) 으로 켜면 GitHub Pages 의 Let's Encrypt 인증서가 origin IP 를 못 잡아서 cert 발급 fail. 인증서 발급 끝난 다음에 Proxy 켜기.</li>
+<li><strong>A record 는 4개를 다 등록해야 합니다.</strong> GitHub Pages 가 이 4개 IP 로 load balancing 을 하기 때문에, 하나만 박아두면 그 IP 가 다운될 때 사이트가 같이 죽습니다.</li>
+<li><strong>Proxy 는 처음엔 반드시 DNS only (회색 구름) 로 둬야 합니다.</strong> 주황 구름(Proxy ON)으로 켜버리면 GitHub Pages 의 Let's Encrypt 인증서가 origin IP 를 못 잡아서 cert 발급이 실패합니다. Proxy 는 인증서 발급이 다 끝난 다음에 켜는 게 안전합니다.</li>
 </ul>
 <h3 id="_3">확인</h3>
 <pre class="codehilite"><code class="language-bash">dig taystudios.com +short
@@ -167,32 +168,32 @@ dig www.taystudios.com +short
 # ...
 </code></pre>
 
-<p>전 세계 resolver 캐시까지 전파되는 데 보통 30분 ~ 24시간. 한국에서는 1시간 안에 됐음.</p>
+<p>전 세계 resolver 캐시까지 전파되는 데는 보통 30분에서 24시간 정도 걸립니다. 저의 경우 한국에서는 1시간 안에 됐습니다.</p>
 <hr />
 <h2 id="2-github-repo-cname">2. GitHub repo 의 <code>CNAME</code> 파일</h2>
-<p>이게 GitHub Pages 에 "이 repo 가 어떤 도메인 받을지" 알려주는 핵심 파일.</p>
+<p>이 파일은 GitHub Pages 에 "이 repo 가 어떤 도메인을 받을지" 를 알려주는 핵심 파일입니다.</p>
 <h3 id="_4">파일 만들기</h3>
-<p>repo 루트에 파일명 정확히 <code>CNAME</code> (확장자 X, 전부 대문자). 안에 한 줄:</p>
+<p>repo 루트에 파일명을 정확히 <code>CNAME</code> 으로 만듭니다. 확장자는 없고, 전부 대문자입니다. 그 안에 한 줄만 적으면 됩니다.</p>
 <pre class="codehilite"><code>taystudios.com
 </code></pre>
 
-<p><code>www</code> 없는 apex 도메인. 끝.</p>
+<p><code>www</code> 가 없는 apex 도메인입니다. 이게 전부입니다.</p>
 <h3 id="github-ui">GitHub UI 에서 설정</h3>
 <ol>
-<li>repo 페이지 → 상단 <strong>Settings</strong> 탭.</li>
-<li>좌측 메뉴 <strong>Pages</strong>.</li>
-<li><strong>Custom domain</strong> 입력란에 <code>taystudios.com</code> 치고 <strong>Save</strong>.</li>
-<li>잠시 후 (5~30분) <strong><code>✓ DNS check successful</code></strong> 메시지 뜸.</li>
-<li>그 아래 <strong>Enforce HTTPS</strong> 체크박스가 활성화되면 체크.</li>
+<li>repo 페이지로 가서 상단 <strong>Settings</strong> 탭을 엽니다.</li>
+<li>좌측 메뉴에서 <strong>Pages</strong> 를 선택합니다.</li>
+<li><strong>Custom domain</strong> 입력란에 <code>taystudios.com</code> 을 치고 <strong>Save</strong> 를 누릅니다.</li>
+<li>잠시(5~30분) 기다리면 <strong><code>✓ DNS check successful</code></strong> 메시지가 뜹니다.</li>
+<li>그 아래 <strong>Enforce HTTPS</strong> 체크박스가 활성화되면 체크해 줍니다.</li>
 </ol>
-<p><code>Custom domain</code> 에 입력하면 GitHub 가 자동으로 repo 루트에 CNAME 파일 만들어줌. 위 1번처럼 직접 만들어도 똑같음.</p>
+<p><code>Custom domain</code> 에 입력하면 GitHub 가 알아서 repo 루트에 CNAME 파일을 만들어 줍니다. 위 1번처럼 직접 만들어도 결과는 똑같습니다.</p>
 <h3 id="lets-encrypt">Let's Encrypt 인증서</h3>
-<p>GitHub 가 Let's Encrypt 에서 SSL 자동 발급. 5분 ~ 30분. 발급되면 <code>Enforce HTTPS</code> 체크박스가 회색에서 클릭 가능한 상태로 바뀜.</p>
-<p>90일마다 자동 갱신. 비용 0원. 설정 0개.</p>
-<p>→ 발급 끝난 다음에 Cloudflare 로 돌아가서 Proxy 켜도 됨 (선택).</p>
+<p>GitHub 가 Let's Encrypt 에서 SSL 인증서를 자동으로 발급해 줍니다. 보통 5분에서 30분 정도 걸리고, 발급이 끝나면 회색이던 <code>Enforce HTTPS</code> 체크박스가 클릭 가능한 상태로 바뀝니다.</p>
+<p>90일마다 자동 갱신되고, 비용은 0원이며, 따로 설정할 것도 없습니다.</p>
+<p>→ 인증서 발급이 끝난 다음에 Cloudflare 로 돌아가서 Proxy 를 켜도 됩니다 (선택 사항입니다).</p>
 <hr />
 <h2 id="3">3. 사이트 일괄 치환</h2>
-<p>migration 에서 SEO 적으로 제일 중요한 부분. 옛 도메인 가리키는 URL 이 어디 하나라도 남아있으면 Google 이 옛 도메인을 canonical 로 인식해서 권위 이전이 안 됨.</p>
+<p>migration 에서 SEO 적으로 제일 중요한 부분입니다. 옛 도메인을 가리키는 URL 이 어디 하나라도 남아 있으면 Google 이 옛 도메인을 canonical 로 인식해버려서, 권위 이전이 되지 않습니다.</p>
 <h3 id="_5">바꿔야 할 곳</h3>
 <div class="tb-table-wrap"><table>
 <thead>
@@ -241,62 +242,62 @@ dig www.taystudios.com +short
 </tbody>
 </table></div>
 <h3 id="_6">우리 처리</h3>
-<p>build script (<code>blog/scripts/build.py</code>) 가 <code>site.json</code> 의 <code>siteUrl</code> 하나만 보고 전부 자동 갱신하게 짜여있어서 한 줄 바꾸고 빌드 한 번 돌리니 끝났음.</p>
-<p>build script 안 쓰는 경우 sed 로:</p>
+<p>저는 build script (<code>blog/scripts/build.py</code>) 가 <code>site.json</code> 의 <code>siteUrl</code> 하나만 보고 전부 자동으로 갱신하게 짜둬서, 그 값 한 줄을 바꾸고 빌드를 한 번 돌리니 끝났습니다.</p>
+<p>build script 를 안 쓰는 경우라면 sed 로 처리하면 됩니다.</p>
 <pre class="codehilite"><code class="language-bash"># 옛 도메인 → 새 도메인 일괄 치환
 grep -rl &quot;taystudio.github.io&quot; . | xargs sed -i '' 's|taystudio.github.io|taystudios.com|g'
 </code></pre>
 
-<p>(macOS sed 는 <code>-i ''</code>, Linux 는 <code>-i</code>)</p>
-<p>치환 후 GitHub 에 push 하면 자동 deploy.</p>
+<p>(macOS sed 는 <code>-i ''</code>, Linux 는 <code>-i</code> 입니다.)</p>
+<p>치환을 마친 뒤 GitHub 에 push 하면 자동으로 deploy 됩니다.</p>
 <hr />
 <h2 id="4_1">4. 검색엔진 재등록</h2>
-<p><code>.com</code> 은 Google·Naver·Bing·Daum 입장에서 신규 도메인. 옛 property 에 쌓인 데이터가 자동 이전되지 않으니 새로 등록.</p>
+<p><code>.com</code> 은 Google·Naver·Bing·Daum 입장에서 보면 완전히 신규 도메인입니다. 옛 property 에 쌓인 데이터가 자동으로 이전되지 않으니 새로 등록해야 합니다.</p>
 <h3 id="google-search-console">Google Search Console</h3>
 <ol>
-<li><a href="https://search.google.com/search-console">search.google.com/search-console</a> → 좌상단 <strong>속성 추가</strong>.</li>
-<li><strong>URL 접두어</strong> 선택 → <code>https://taystudios.com</code> 입력.</li>
-<li>소유권 확인 — <strong>HTML 태그</strong> 방법이 제일 쉬움. <code>&lt;meta name="google-site-verification" content="..."&gt;</code> 한 줄 받아서 <code>&lt;head&gt;</code> 에 박고 빌드 → 확인.</li>
-<li>좌측 <strong>Sitemaps</strong> → <code>sitemap.xml</code> 입력 → 제출.</li>
-<li><strong>URL 검사</strong> → 우선 페이지 (홈·인기 글) URL 넣고 <strong>색인 생성 요청</strong>. 일 10개 한도.</li>
+<li><a href="https://search.google.com/search-console">search.google.com/search-console</a> 에 들어가 좌상단 <strong>속성 추가</strong> 를 누릅니다.</li>
+<li><strong>URL 접두어</strong> 를 선택하고 <code>https://taystudios.com</code> 을 입력합니다.</li>
+<li>소유권을 확인합니다. 여러 방법 중 <strong>HTML 태그</strong> 방법이 제일 쉽습니다. <code>&lt;meta name="google-site-verification" content="..."&gt;</code> 한 줄을 받아서 <code>&lt;head&gt;</code> 에 박고 빌드한 뒤 확인을 누르면 됩니다.</li>
+<li>좌측 <strong>Sitemaps</strong> 에서 <code>sitemap.xml</code> 을 입력하고 제출합니다.</li>
+<li><strong>URL 검사</strong> 에서 우선순위가 높은 페이지(홈·인기 글)의 URL 을 넣고 <strong>색인 생성 요청</strong> 을 합니다. 하루 10개 한도입니다.</li>
 </ol>
-<p>→ Bing Webmaster 는 GSC sitemap 자동 import 기능 있음. GSC 만 하면 Bing 도 같이 잡힘.</p>
+<p>→ Bing Webmaster 는 GSC sitemap 을 자동 import 하는 기능이 있어서, GSC 만 해두면 Bing 도 같이 잡힙니다.</p>
 <h3 id="naver-searchadvisor">Naver SearchAdvisor</h3>
 <ol>
-<li><a href="https://searchadvisor.naver.com">searchadvisor.naver.com</a> 로그인 → 우상단 <strong>사이트 관리</strong>.</li>
-<li><strong>사이트 등록</strong> → <code>https://taystudios.com</code> 입력.</li>
-<li>소유권 확인 — HTML 파일 다운로드 받아서 사이트 루트에 업로드. 빌드 → 확인.</li>
-<li>좌측 <strong>요청 → 사이트맵 제출</strong> → <code>sitemap.xml</code>.</li>
-<li><strong>요청 → 웹페이지 수집</strong> → 개별 URL 한 줄씩 (일 50건).</li>
+<li><a href="https://searchadvisor.naver.com">searchadvisor.naver.com</a> 에 로그인한 뒤 우상단 <strong>사이트 관리</strong> 로 들어갑니다.</li>
+<li><strong>사이트 등록</strong> 에 <code>https://taystudios.com</code> 을 입력합니다.</li>
+<li>소유권 확인은 HTML 파일을 다운로드받아 사이트 루트에 업로드하고, 빌드한 뒤 확인하면 됩니다.</li>
+<li>좌측 <strong>요청 → 사이트맵 제출</strong> 에서 <code>sitemap.xml</code> 을 넣습니다.</li>
+<li><strong>요청 → 웹페이지 수집</strong> 에서 개별 URL 을 한 줄씩 넣습니다 (하루 50건).</li>
 </ol>
-<p>→ 한국 트래픽은 Naver 가 80% 받쳐주기 때문에 GSC 보다 Naver 가 더 급함.</p>
+<p>→ 한국 트래픽은 Naver 가 80% 정도를 받쳐주기 때문에, 저로서는 GSC 보다 Naver 가 더 급했습니다.</p>
 <h3 id="bing-webmaster">Bing Webmaster</h3>
 <ol>
-<li><a href="https://www.bing.com/webmasters">bing.com/webmasters</a> → Microsoft 계정 로그인.</li>
-<li><strong>사이트 추가</strong> → GSC 에서 자동 import 권장.</li>
-<li>옛 도메인 property 에서 <strong>사이트 이동</strong> (Site Move) 기능 사용 가능. 명시적 신호 전달.</li>
+<li><a href="https://www.bing.com/webmasters">bing.com/webmasters</a> 에 Microsoft 계정으로 로그인합니다.</li>
+<li><strong>사이트 추가</strong> 에서 GSC 로부터 자동 import 하는 방식을 권장합니다.</li>
+<li>옛 도메인 property 가 있다면 <strong>사이트 이동</strong>(Site Move) 기능을 쓸 수 있습니다. 명시적인 이동 신호를 전달해 줍니다.</li>
 </ol>
 <h3 id="daum">Daum 웹마스터 도구</h3>
-<p>(이름이 SearchAdvisor 아님. UI 상 메뉴는 여전히 "웹마스터 도구". URL 은 <code>webmaster.daum.net</code>)</p>
+<p>(이름이 SearchAdvisor 가 아닙니다. UI 상 메뉴는 여전히 "웹마스터 도구" 이고, URL 은 <code>webmaster.daum.net</code> 입니다.)</p>
 <ol>
-<li><a href="https://webmaster.daum.net">webmaster.daum.net</a> → 카카오 로그인.</li>
-<li><strong>사이트 등록</strong> → <code>https://taystudios.com</code>.</li>
-<li>소유권 확인 — meta 태그 or 인증 토큰을 <code>robots.txt</code> 첫 줄에 추가.</li>
-<li><strong>사이트맵</strong> 메뉴 → <code>sitemap.xml</code> 제출.</li>
-<li><strong>수집 요청</strong> → 개별 URL.</li>
+<li><a href="https://webmaster.daum.net">webmaster.daum.net</a> 에 카카오 계정으로 로그인합니다.</li>
+<li><strong>사이트 등록</strong> 에 <code>https://taystudios.com</code> 을 입력합니다.</li>
+<li>소유권은 meta 태그를 쓰거나, 인증 토큰을 <code>robots.txt</code> 첫 줄에 추가해서 확인합니다.</li>
+<li><strong>사이트맵</strong> 메뉴에서 <code>sitemap.xml</code> 을 제출합니다.</li>
+<li><strong>수집 요청</strong> 에서 개별 URL 을 넣습니다.</li>
 </ol>
 <h3 id="indexnow">IndexNow (덤)</h3>
-<p>Bing·Yandex·Naver·Seznam 동시 ping. key 1번만 발급받아서 <code>robots.txt</code> 에 박아두면 됨.</p>
+<p>Bing·Yandex·Naver·Seznam 에 동시에 ping 을 보내는 방식입니다. key 를 한 번만 발급받아서 <code>robots.txt</code> 에 박아두면 됩니다.</p>
 <pre class="codehilite"><code class="language-bash">curl &quot;https://api.indexnow.org/IndexNow?url=https://taystudios.com/&amp;key=&lt;your-key&gt;&quot;
 </code></pre>
 
 <hr />
 <h2 id="dnscname">DNS·CNAME 이 뭔지</h2>
-<p>migration 하다 보면 이게 다 뭔 소린가 싶어서 정리. 알면 위 4단계가 왜 그렇게 생긴 건지 보임.</p>
+<p>migration 을 하다 보면 이게 다 무슨 소린가 싶어질 때가 있어서, 한 번 정리해 둡니다. 알고 나면 위의 4단계가 왜 그런 모양으로 생겼는지가 보입니다.</p>
 <h3 id="dns">DNS = 전화번호부</h3>
-<p>사람은 이름 (<code>taystudios.com</code>) 기억, 컴퓨터는 IP (<code>185.199.108.153</code>) 만 인식. DNS 가 이름 → IP 통역.</p>
+<p>사람은 이름(<code>taystudios.com</code>)을 기억하지만, 컴퓨터는 IP(<code>185.199.108.153</code>)만 인식합니다. 이 이름과 IP 사이를 통역해 주는 게 DNS 입니다.</p>
 <h3 id="ip-5">브라우저가 IP 찾는 5단계</h3>
-<p>(resolver 캐시가 다 비었을 때)</p>
+<p>(resolver 캐시가 다 비었을 때 기준입니다.)</p>
 <pre class="codehilite"><code>브라우저
   → ISP DNS (KT·SKB 8.8.8.8 등)
   → Root nameserver (&quot;.&quot;)
@@ -305,31 +306,31 @@ grep -rl &quot;taystudio.github.io&quot; . | xargs sed -i '' 's|taystudio.github
   → A record 응답 (185.199.108.153)
 </code></pre>
 
-<p>실제로는 resolver 가 TTL (기본 1시간) 동안 캐시하기 때문에 매번 root 까지 안 감. 도메인 처음 사거나 DNS record 바꾸면 전 세계 resolver 캐시 비어서 5단계 다 돌아야 함 = <strong>DNS 전파 (propagation)</strong>.</p>
+<p>물론 실제로는 resolver 가 TTL(기본 1시간) 동안 결과를 캐시하기 때문에 매번 root 까지 올라가진 않습니다. 다만 도메인을 처음 사거나 DNS record 를 바꾸면 전 세계 resolver 캐시가 비어 있어서 이 5단계를 다 거쳐야 하는데, 이게 바로 <strong>DNS 전파(propagation)</strong> 입니다.</p>
 <h3 id="a-vs-cname">A vs CNAME</h3>
-<p>A record — 도메인 → IP 직접:</p>
+<p>A record 는 도메인을 IP 로 직접 연결합니다.</p>
 <pre class="codehilite"><code>taystudios.com   A   185.199.108.153
 </code></pre>
 
-<p>CNAME — 도메인 → 다른 도메인 (alias):</p>
+<p>CNAME 은 도메인을 다른 도메인(alias)으로 연결합니다.</p>
 <pre class="codehilite"><code>www.taystudios.com   CNAME   taystudio.github.io
 </code></pre>
 
-<p>resolver 가 CNAME 받으면 "그 다른 도메인 A 를 다시 조회" 함. 한 단계 더 거치지만 앞 도메인 IP 바뀌어도 자동 따라가는 게 장점.</p>
+<p>resolver 가 CNAME 을 받으면 "그 다른 도메인의 A 를 다시 조회" 합니다. 한 단계를 더 거치는 셈이지만, 앞 도메인의 IP 가 바뀌어도 자동으로 따라가 준다는 장점이 있습니다.</p>
 <h3 id="apex-zone-root-cname-rfc-1912">apex (zone root) 엔 CNAME 못 씀 — RFC 1912</h3>
-<p><code>taystudios.com</code> 자체 = <strong>CNAME X</strong>. 다른 record (MX·NS) 와 충돌 나서 표준상 금지.
-<code>www.taystudios.com</code>·<code>blog.taystudios.com</code> = <strong>CNAME OK</strong>.</p>
-<p>→ 그래서 apex 는 A 4개, www 는 CNAME 으로 잡는 거. Cloudflare 는 "CNAME flattening" 으로 apex CNAME 가능하지만 GitHub Pages 공식 권장은 A 4개.</p>
+<p><code>taystudios.com</code> 자체에는 <strong>CNAME 을 쓸 수 없습니다.</strong> 다른 record(MX·NS)와 충돌이 나기 때문에 표준상 금지돼 있습니다.
+반면 <code>www.taystudios.com</code>·<code>blog.taystudios.com</code> 같은 건 <strong>CNAME 이 가능합니다.</strong></p>
+<p>→ 그래서 apex 는 A 4개로, www 는 CNAME 으로 잡는 겁니다. Cloudflare 는 "CNAME flattening" 으로 apex CNAME 을 흉내 낼 수 있긴 하지만, GitHub Pages 의 공식 권장은 A 4개입니다.</p>
 <h3 id="host-header">Host header</h3>
-<p>GitHub Pages IP 4개 (185.199.108~111.153) 는 수백만 사이트 공유. 어떻게 내 사이트만 찾아오나?</p>
+<p>GitHub Pages 의 IP 4개(185.199.108~111.153)는 수백만 개의 사이트가 공유합니다. 그런데 어떻게 그 중 내 사이트만 정확히 찾아오는 걸까요?</p>
 <pre class="codehilite"><code>HTTP/1.1 GET /
 Host: taystudios.com   ← 이게 핵심
 </code></pre>
 
-<p>브라우저가 보내는 <code>Host</code> 헤더 + GitHub 내부에서 <code>CNAME 파일 == "taystudios.com"</code> 인 repo 찾아서 매핑. → 그래서 <strong>repo CNAME 파일 1줄이 결정적</strong>.</p>
+<p>브라우저가 보내는 <code>Host</code> 헤더와, GitHub 내부에서 <code>CNAME 파일 == "taystudios.com"</code> 인 repo 를 찾아 매핑하는 과정이 맞물려서 돌아갑니다. 결국 <strong>repo 의 CNAME 파일 한 줄이 결정적인 역할</strong> 을 하는 셈입니다.</p>
 <hr />
 <h2 id="sandbox-30">우리 실측 — sandbox 30일</h2>
-<p>5/9 migration 직후 30일 동안 데이터:</p>
+<p>5/9 migration 직후 30일 동안의 데이터입니다.</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
@@ -361,16 +362,17 @@ Host: taystudios.com   ← 이게 핵심
 </tr>
 </tbody>
 </table></div>
-<p>Google 은 sandbox 진입 명확. 6-12주 expected. Naver 는 sandbox 없어서 즉시 회복. 자세한 회고는 <a href="/blog/ko/seo-google-sandbox-1month/">Google sandbox 한 달 실측</a> 글에 따로 정리.</p>
+<p>Google 은 sandbox 에 진입한 게 명확히 보입니다. 6-12주 정도를 예상하면 됩니다. 반면 Naver 는 sandbox 가 없어서 바로 회복했습니다. 이 부분에 대한 자세한 회고는 <a href="/blog/ko/seo-google-sandbox-1month/">Google sandbox 한 달 실측</a> 글에 따로 정리해 뒀습니다.</p>
 <hr />
 <h2 id="_7">같은 작업 할 사람한테</h2>
+<p>같은 작업을 앞두고 있는 분이라면, 제가 겪어보고 정리한 네 가지만 기억하시면 좋겠습니다.</p>
 <ol>
-<li><strong>URL 적을 때 옮기기</strong>. 백링크 박히기 전이 제일 싸다. 100+ URL 쌓이면 redirect·canonical 작업 비용 폭증.</li>
-<li><strong>다운타임 0</strong> — 양쪽 도메인 동시 작동함. 사용자가 옛 도메인으로 와도 GitHub 가 새 도메인으로 자동 redirect (단, 옛 repo 의 CNAME 파일 비워두기).</li>
-<li><strong>canonical 일관성</strong> — sed 든 build script 든 한 번에 일괄 치환. 하나라도 옛 도메인 남으면 권위 이전 fail.</li>
-<li><strong>Google 만 보고 패닉 X</strong> — sandbox 라 한 달 노출 거의 0 됨. Naver·Bing·Cloudflare 합쳐서 보면 사이트 정상 돌아감이 보임.</li>
+<li><strong>URL 적을 때 옮기세요.</strong> 백링크가 박히기 전이 제일 쌉니다. 100개 넘게 쌓이고 나면 redirect·canonical 작업 비용이 폭증합니다.</li>
+<li><strong>다운타임은 0</strong> 입니다. 양쪽 도메인이 동시에 작동하기 때문에, 사용자가 옛 도메인으로 들어와도 GitHub 가 새 도메인으로 자동 redirect 해 줍니다 (단, 옛 repo 의 CNAME 파일은 비워둬야 합니다).</li>
+<li><strong>canonical 일관성</strong> 이 중요합니다. sed 든 build script 든 한 번에 일괄 치환하세요. 하나라도 옛 도메인이 남으면 권위 이전이 실패합니다.</li>
+<li><strong>Google 만 보고 패닉하지 마세요.</strong> sandbox 라서 한 달 정도는 노출이 거의 0 이 됩니다. Naver·Bing·Cloudflare 까지 합쳐서 봐야 사이트가 정상적으로 돌아가고 있다는 게 보입니다.</li>
 </ol>
-<p>도메인 옮기는 거 자체는 1시간이면 끝. 권위 이전만 1-3개월 기다리면 됨.</p>
+<p>도메인을 옮기는 작업 자체는 1시간이면 끝납니다. 다만 권위가 이전되는 데는 1-3개월을 기다려야 한다는 점만 감안하시면 됩니다.</p>
 <h2 id="_8">관련 글</h2>
 <ul>
 <li><a href="/blog/ko/seo-google-sandbox-1month/">Google sandbox 한 달 실측</a> — migration 후 30일 GSC·Naver·Cloudflare 추적</li>

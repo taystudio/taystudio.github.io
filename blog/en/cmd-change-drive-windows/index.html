@@ -82,13 +82,13 @@
 </style>
 <h2 id="intro">Intro</h2>
 <p>On Windows you sometimes install a program on the D drive instead of C, or need to work on the D drive — for example, if you installed Python on D or need to work with files in a specific folder on D.</p>
-<p><img alt="CMD where cd doesn't move to the D drive" src="assets/posts/cmd-change-drive-windows/img1.png" width="972" height="488" loading="lazy">
+<p><img alt="CMD where cd doesn't move to the D drive" src="assets/posts/cmd-change-drive-windows/img1.webp" width="972" height="488" loading="lazy">
 <em>Figure 1. cd doesn't move to the D drive</em></p>
 <p>When you open CMD it references the C drive by default. Using <code>cd ..</code> (to the parent directory) only goes up to the top of the C drive; it won't switch to another drive.</p>
 <h2 id="body-conclusion">Body &amp; Conclusion</h2>
 <p>Unlike Linux, the Windows filesystem has an <strong>independent root per drive</strong> (e.g., <code>C:</code>, <code>D:</code>). Linux, by contrast, starts all filesystems from a <strong>single root directory (<code>/</code>).</strong></p>
 <p>So to move to the D drive in CMD, type the drive letter with a colon: <strong><code>D:</code></strong>.</p>
-<p><img alt="CMD switching to the D drive after entering D:" src="assets/posts/cmd-change-drive-windows/img2.png" width="976" height="510" loading="lazy">
+<p><img alt="CMD switching to the D drive after entering D:" src="assets/posts/cmd-change-drive-windows/img2.webp" width="976" height="510" loading="lazy">
 <em>Figure 2. Switching to the D drive in CMD</em></p>
 <blockquote>
 <p>In Figure 2, entering <code>D:</code> at the <code>C:\Users\user&gt;</code> prompt changes it to <code>D:\&gt;</code>.</p>

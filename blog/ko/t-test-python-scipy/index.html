@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>t검정 Python 구현 — SciPy로 일표본·독립표본(Student&#39;s·Welch&#39;s)·대응표본 · Tay Blog</title>
+<title>평균치(t) 검정 t test 구현 [One, Two, Paired Samples t-test : Python feat. SciPy &amp; Statsmodels] · Tay Blog</title>
 <meta name="description" content="이전 글의 t검정 이론을 그대로 SciPy 코드로 — ttest_1samp·ttest_ind(equal_var)·ttest_rel 세 함수와 axis 옵션, 손계산과 일치 확인.">
 <link rel="canonical" href="https://taystudios.com/blog/ko/t-test-python-scipy/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/t-test-python-scipy/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/t-test-python-scipy/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/t-test-python-scipy/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="t검정 Python 구현 — SciPy로 일표본·독립표본(Student&#39;s·Welch&#39;s)·대응표본 · Tay Blog">
+<meta property="og:title" content="평균치(t) 검정 t test 구현 [One, Two, Paired Samples t-test : Python feat. SciPy &amp; Statsmodels] · Tay Blog">
 <meta property="og:description" content="이전 글의 t검정 이론을 그대로 SciPy 코드로 — ttest_1samp·ttest_ind(equal_var)·ttest_rel 세 함수와 axis 옵션, 손계산과 일치 확인.">
 <meta property="og:url" content="https://taystudios.com/blog/ko/t-test-python-scipy/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/t-test/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/t-test/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "t검정 Python 구현 — SciPy로 일표본·독립표본(Student's·Welch's)·대응표본", "description": "이전 글의 t검정 이론을 그대로 SciPy 코드로 — ttest_1samp·ttest_ind(equal_var)·ttest_rel 세 함수와 axis 옵션, 손계산과 일치 확인.", "datePublished": "2024-11-05T00:00:00+09:00", "dateModified": "2024-11-05T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/t-test-python-scipy/"}, "image": ["https://taystudios.com/blog/assets/posts/t-test/cover.webp"], "keywords": "통계, t검정, Python, SciPy, statsmodels, 평균검정"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/ko/category/data/"}, {"@type": "ListItem", "position": 3, "name": "t검정 Python 구현 — SciPy로 일표본·독립표본(Student's·Welch's)·대응표본", "item": "https://taystudios.com/blog/ko/t-test-python-scipy/"}]}</script><meta property="article:published_time" content="2024-11-05T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-05T00:00:00+09:00"><meta property="article:tag" content="통계"><meta property="article:tag" content="t검정"><meta property="article:tag" content="Python"><meta property="article:tag" content="SciPy"><meta property="article:tag" content="statsmodels"><meta property="article:tag" content="평균검정">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "평균치(t) 검정 t test 구현 [One, Two, Paired Samples t-test : Python feat. SciPy & Statsmodels]", "description": "이전 글의 t검정 이론을 그대로 SciPy 코드로 — ttest_1samp·ttest_ind(equal_var)·ttest_rel 세 함수와 axis 옵션, 손계산과 일치 확인.", "datePublished": "2024-11-05T00:00:00+09:00", "dateModified": "2024-11-05T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/t-test-python-scipy/"}, "image": ["https://taystudios.com/blog/assets/posts/t-test/cover.webp"], "keywords": "통계, t검정, Python, SciPy, statsmodels, 평균검정"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/ko/category/data/"}, {"@type": "ListItem", "position": 3, "name": "평균치(t) 검정 t test 구현 [One, Two, Paired Samples t-test : Python feat. SciPy & Statsmodels]", "item": "https://taystudios.com/blog/ko/t-test-python-scipy/"}]}</script><meta property="article:published_time" content="2024-11-05T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-05T00:00:00+09:00"><meta property="article:tag" content="통계"><meta property="article:tag" content="t검정"><meta property="article:tag" content="Python"><meta property="article:tag" content="SciPy"><meta property="article:tag" content="statsmodels"><meta property="article:tag" content="평균검정">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">t검정 Python 구현 — SciPy로 일표본·독립표본(Student&#39;s·Welch&#39;s)·대응표본</span></nav>
-        <h1 class="tb-article-title">t검정 Python 구현 — SciPy로 일표본·독립표본(Student&#39;s·Welch&#39;s)·대응표본</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">평균치(t) 검정 t test 구현 [One, Two, Paired Samples t-test : Python feat. SciPy &amp; Statsmodels]</span></nav>
+        <h1 class="tb-article-title">평균치(t) 검정 t test 구현 [One, Two, Paired Samples t-test : Python feat. SciPy &amp; Statsmodels]</h1>
         <div class="tb-article-meta">
           <time>2024.11.05</time>
           <span>·</span><span>#통계 #t검정 #Python #SciPy #statsmodels #평균검정</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#1-python">1. Python 통계 라이브러리</a></li><li class="tb-toc-h3"><a href="#scipy">SciPy</a></li><li class="tb-toc-h3"><a href="#statsmodels">Statsmodels</a></li><li class="tb-toc-h2"><a href="#2-one-sample-t-test-statsttest_1samp">2. One-sample t-test — stats.ttest_1samp</a></li><li class="tb-toc-h3"><a href="#axis-2d">axis 옵션 — 2D 배열일 때</a></li><li class="tb-toc-h2"><a href="#3-two-sample-t-test-statsttest_ind">3. Two-sample t-test — stats.ttest_ind</a></li><li class="tb-toc-h3"><a href="#31-students-t-test-ok">3.1 Student's t-test — 등분산 가정 OK</a></li><li class="tb-toc-h3"><a href="#axis-2d_1">axis — 2D 배열 비교</a></li><li class="tb-toc-h3"><a href="#32-welchs-t-test-x">3.2 Welch's t-test — 등분산 X</a></li><li class="tb-toc-h2"><a href="#4-paired-samples-t-test-statsttest_rel">4. Paired-samples t-test — stats.ttest_rel</a></li><li class="tb-toc-h2"><a href="#_1">결론</a></li><li class="tb-toc-h2"><a href="#_2">참고</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">글의 목차</a></li><li class="tb-toc-h2"><a href="#1-python">1. Python 생태계의 통계 라이브러리</a></li><li class="tb-toc-h2"><a href="#2-scipy-statsmodels">2. SciPy와 Statsmodels 라이브러리의 차이점</a></li><li class="tb-toc-h2"><a href="#3-scipy-t-test">3. SciPy를 이용한 평균치 검정 (t-test)</a></li><li class="tb-toc-h3"><a href="#31-one-sample-t-test-t-test">3.1 One sample t-test (일 표본 t-test)</a></li><li class="tb-toc-h3"><a href="#32-two-samples-t-test-t-test">3.2 Two samples t-test (독립 표본 t-test)</a></li><li class="tb-toc-h4"><a href="#321-students-t-test">3.2.1 Student's t-test</a></li><li class="tb-toc-h4"><a href="#322-welchs-t-test">3.2.2 Welch's t-test</a></li><li class="tb-toc-h3"><a href="#33-paired-samples-t-test-t-test">3.3 Paired Samples t-test (대응 표본 t-test)</a></li><li class="tb-toc-h2"><a href="#_2">결론 맺음말</a></li><li class="tb-toc-h2"><a href="#_3">참고 자료</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -80,30 +80,73 @@
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
-<p>이론은 이전 글로 다뤘으니, 이 글은 <strong>SciPy로 t검정 3종을 코드로 구현</strong>한다. 손으로 계산한 결과와 SciPy 결과가 일치하는지 확인하면서 가면 이해가 굳어진다.</p>
-<a class="tb-embed-card" href="ko/t-test/"><div class="tb-embed-thumb"><img src="assets/posts/t-test/cover.webp" alt="평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired)" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired)</div><div class="tb-embed-excerpt">두 집단 평균이 다른 게 진짜 차이인지 단순 변동성인지 — t검정의 당위성·가정(정규성·등분산성)·종류별 계산 예시.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
-<h2 id="1-python">1. Python 통계 라이브러리</h2>
-<p>Python 생태계의 대표 통계 라이브러리는 <strong>SciPy</strong> 와 <strong>Statsmodels</strong>. (머신러닝 쪽은 <strong>scikit-learn</strong>.)</p>
-<h3 id="scipy">SciPy</h3>
-<ul>
-<li>p-value·기본 통계량을 <strong>빠르게 산출</strong>하는 데 최적화.</li>
-<li>대용량 데이터 처리·빠른 판단이 필요할 때.</li>
-<li>설치: <code>pip install scipy</code></li>
-</ul>
-<h3 id="statsmodels">Statsmodels</h3>
-<ul>
-<li>통계 <strong>모델 진단·평가</strong>에 필요한 다양한 기능 제공.</li>
-<li>각 변수의 검정통계량(t), 모델의 검정통계량(F), 결정계수 등 <strong>상세한 통계량</strong> 제공.</li>
-<li>설치: <code>pip install statsmodels</code></li>
-</ul>
-<p>이 글에선 <strong>SciPy로 t검정 3종</strong>을 구현한다.</p>
-<h2 id="2-one-sample-t-test-statsttest_1samp">2. One-sample t-test — <code>stats.ttest_1samp</code></h2>
-<p><strong>예시</strong> — 약 복용 후 5명의 혈압이 평소 평균(120)과 다른지.</p>
+
+<h2 id="_1">글의 목차</h2>
+<ol>
+<li>Python생태계의 통계 Library</li>
+<li>SciPy, Statsmodels의 차이점</li>
+<li>SciPy에서의 평균치 검정(t-test) 사용법 (feat 이론편의 예시 그대로 구현)
+   - One sample t-test
+   - Two samples t-test (Student's &amp; Welch's t-test)
+   - Paired samples t-test</li>
+</ol>
+<p>이번 포스팅에서는 Python으로 직접 평균치 검정을 수행해볼까 합니다. 만약 평균치 검정 이론에 대한 이해가 필요하시다면, 앞선 포스팅을 보고오시길 바랍니다.</p>
+<a class="tb-embed-card" href="ko/t-test/"><div class="tb-embed-thumb"><img src="assets/posts/t-test/cover.webp" alt="평균치 검정 : t검정 [One, Two(Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">평균치 검정 : t검정 [One, Two(Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]</div><div class="tb-embed-excerpt">두 집단 평균이 다른 게 진짜 차이인지 단순 변동성인지 — t검정의 당위성·가정(정규성·등분산성)·종류별 계산 예시.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<h2 id="1-python">1. Python 생태계의 통계 라이브러리</h2>
+<p>Python 생태계에서 통계 분석을 위한 대표적인 라이브러리로는 SciPy와 statsmodels가 있으며, 머신러닝 분야에서는 scikit-learn이 널리 사용된다. 이번에는 통계 분석 라이브러리로 SciPy를 주로 활용할 계획이지만, statsmodels의 특징도 함께 언급하고 넘어가고자 한다.</p>
+<h2 id="2-scipy-statsmodels">2. SciPy와 Statsmodels 라이브러리의 차이점</h2>
+<pre class="codehilite"><code class="language-bash"># Python Package Manager
+pip install scipy
+pip install statsmodels
+</code></pre>
+
+<p>두 Library 모두 사용해본 결과 다음과 같이 요약할 수 있을 것 같다.</p>
+<p><strong>SciPy</strong> : p-value와 기본 통계량을 빠르게 산출하는 데 최적화되어 있으며, 대용량 데이터를 처리할때나, 빠른 판단이 필요한 경우 간단한 통계 계산을 수행하는 데 많이 사용된다.</p>
+<p>t-test는 결과 값에 있어 큰 차이 없어서, 선형 회귀 분석을 예시로 출력 차이를 보고자 한다.</p>
+<pre class="codehilite"><code class="language-text"># SciPy 출력
+Slope: -1.7
+Intercept: 86.16666666666667
+R-squared: 0.12690281030444972
+P-value: 0.19248793653349897
+</code></pre>
+
+<p><strong>Statsmodels</strong> : 통계 모델의 진단과 평가에 필요한 다양한 기능을 제공한다. 예를 들어 선형 회귀분석 후 각 변수의 검정통계량 (t-값), 모델의 검정통계량 (F-값), 모델 성능 지표 (결정계수 R-squared) 등을 포함한 상세한 통계량을 제공한다. 다양한 지표들을 통해 통계 모델을 해석하고 검증하는 데 활용할 수 있다.</p>
+<p>Statsmodels로 선형회귀로 할 경우는 다음과 같은 출력이 나온다.</p>
+<pre class="codehilite"><code class="language-text"># Statsmodels 기준의 출력
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:                 scores   R-squared:                       0.127
+Model:                            OLS   Adj. R-squared:                  0.060
+Method:                 Least Squares   F-statistic:                     1.890
+Date:                Mon, 04 Nov 2024   Prob (F-statistic):              0.192
+Time:                        00:20:44   Log-Likelihood:                -40.667
+No. Observations:                  15   AIC:                             85.33
+Df Residuals:                      13   BIC:                             86.75
+Df Model:                           1
+Covariance Type:            nonrobust
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         86.1667      1.597     53.969      0.000      82.717      89.616
+group_code    -1.7000      1.237     -1.375      0.192      -4.372       0.972
+==============================================================================
+Omnibus:                        1.370   Durbin-Watson:                   0.739
+Prob(Omnibus):                  0.504   Jarque-Bera (JB):                0.911
+Skew:                          -0.272   Prob(JB):                        0.634
+Kurtosis:                       1.922   Cond. No.                         2.92
+==============================================================================
+</code></pre>
+
+<p>정리하자면, 빠른 판단이 필요하고 p-value 및 검정 통계량(statistics)을 신속하게 산출하고자 한다면 SciPy를 이용하는 것이 적합해 보인다. 반면, 보다 정밀한 검증과 모델 진단이 필요하다면 Statsmodels를 사용하는 것이 좋을 거라 생각한다.</p>
+<h2 id="3-scipy-t-test">3. SciPy를 이용한 평균치 검정 (t-test)</h2>
+<p>예시에 대한 일관성을 가져가기 위해 앞서 포스팅했던 t-test이론 편에서의 예제를 그대로 가져오도록 하겠습니다. 앞에서 손으로 직접 계산한 검정통계량 (t-value)와 p-value가 일치하는지 확인해 보시길 바랍니다.</p>
+<h3 id="31-one-sample-t-test-t-test">3.1 One sample t-test (일 표본 t-test)</h3>
+<p>[Table1. 환자 번호 &amp; 약물 투여 후 측정된 혈압]</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
-<th>환자</th>
-<th>투약 후 혈압 (mmHg)</th>
+<th>환자 리스트</th>
+<th>투약 후 혈압 (mm Hg)</th>
 </tr>
 </thead>
 <tbody>
@@ -129,55 +172,82 @@
 </tr>
 </tbody>
 </table></div>
-<pre class="codehilite"><code class="language-python">from scipy import stats
+<p>이 집단의 평균 혈압이 기준 혈압(120mm Hg)과 유의미하게 다른지 검정한다.</p>
+<pre class="codehilite"><code class="language-python"># scipy.stats에서 ttest_1samp method 사용
+from scipy import stats
 import numpy as np
 
 x1 = np.array([118, 121, 119, 117, 120])
-mu0 = 120.0  # 비교할 모평균
+mu0 = 120.0  # 비교할 평균값
+result = stats.ttest_1samp(x1, popmean=mu0, alternative=alternative, axis=0)
 
-result = stats.ttest_1samp(x1, popmean=mu0, alternative='two-sided', axis=0)
-# TtestResult(statistic=-1.4142135623730951, pvalue=0.23019964108049873, df=4)
+# 결과 Result (t 검정통계량, p-value)
+# TtestResult(statistic=np.float64(-1.414213562373095), pvalue=np.float64(0.23019964108049873), df=np.int64(4))
 </code></pre>
 
-<p><strong>주요 인자</strong></p>
+<p>일표본 t-test의 경우 scipy.stats 안에 존재한다. method명은 ttest_1samp 이다. (공식 문서 기준)</p>
+<p><strong>위치 인자</strong></p>
 <ul>
-<li><code>x1</code>: 검정할 표본 (numpy array 권장)</li>
-<li><code>popmean</code>: 비교할 모평균</li>
-<li><code>alternative</code>: <code>'two-sided'</code>(기본) / <code>'less'</code>(좌측) / <code>'greater'</code>(우측)</li>
-<li><code>axis</code>: <code>0</code>(열, 기본) / <code>1</code>(행) / <code>None</code>(평탄화)</li>
+<li>첫 번째 인자 (x1): 내가 검정할 표본을 넣게 된다. Python List를 넣어도 상관없고, Pandas에서 Slice해서 넣어도 상관 없다. 내부적으로 numpy로 변환하는 듯 해보인다. (공식문서 기준) 되도록이면, numpy로 넣어주도록 하자.</li>
 </ul>
-<h3 id="axis-2d">axis 옵션 — 2D 배열일 때</h3>
-<pre class="codehilite"><code class="language-python">arr = np.array([[1.5, 2.3, 3.7],
+<p><strong>기본인자</strong> (공식문서 순서만 지키면 위치 인자로도 사용 가능)</p>
+<p><code>popmean = {popmean 인자}</code> — 임의로 'mu0'라고 넣었지만, 해당 인자에는 내가 기대하는 평균값을 넣게 된다. 위의 예시에서는 '120'을 넣었다.</p>
+<p><code>alternative = {alternative-인자 : str type}</code></p>
+<ul>
+<li>"two-sided" : 양측 검정 : 귀무가설 : 표본 평균 != ref_avg (기준 평균) (default)</li>
+<li>"less" 단측 검정 (좌측) : 귀무가설 : 표본 평균 &lt; ref_avg (기준 평균)</li>
+<li>"greater" 단측 검정 (우측) : 귀무가설 : 표본 평균 &gt; ref_avg (기준 평균)</li>
+</ul>
+<p><code>axis = {axis - 인자 : int type}</code></p>
+<ul>
+<li>0 : 0으로 세팅하게 되면 열을 기준으로 읽게 된다 (default)</li>
+<li>1 : 1로 세팅하게 되면 행을 기준으로 읽게 된다 (2D Matrix일때 사용)</li>
+<li>None : ravled (평탄화) 2차원을 1차원으로 만들어서 검정에 들어갑니다.</li>
+</ul>
+<pre class="codehilite"><code class="language-python">from scipy import stats
+import numpy as np
+
+# 인자 axis에 따른 결과 예시
+arr = np.array([[1.5, 2.3, 3.7],
                 [4.1, 5.2, 6.8],
                 [7.4, 8.5, 9.1],
                 [10.2, 11.4, 12.9],
                 [13.3, 14.1, 15.6]])
+
 mu0 = 5
 
-# axis=0 — 열 기준 (각 열을 표본으로)
-t_stat, p_val = stats.ttest_1samp(arr, popmean=mu0, axis=0)
-# T-statistic: [1.0946 1.5652 2.1805]
-# P-value:     [0.3352 0.1926 0.0947]
-
-# axis=1 — 행 기준 (각 행을 표본으로)
-t_stat, p_val = stats.ttest_1samp(arr, popmean=mu0, axis=1)
-# T-statistic: [-3.8886  0.4678  6.6965  8.3224 13.8451]
-# P-value:     [ 0.0602  0.6860  0.0216  0.0141  0.0052]
-
-# axis=None — 평탄화 (전체를 한 표본으로)
-t_stat, p_val = stats.ttest_1samp(arr, popmean=mu0, axis=None)
-# T-statistic: 2.9475
-# P-value:     0.0106
+'''
+참고로 위의 예제에서는 result 객체로 그냥 print했지만,
+unpack으로 검정통계량, p-value로 분할하여 return이 가능하다.
+'''
+t_stat, p_value = stats.ttest_1samp(arr, popmean=mu0, axis=0)
+t_stat, p_value = stats.ttest_1samp(arr, popmean=mu0, axis=1)
+t_stat_axis1, p_value_axis1 = stats.ttest_1samp(arr, popmean=mu, axis=None)
 </code></pre>
 
-<h2 id="3-two-sample-t-test-statsttest_ind">3. Two-sample t-test — <code>stats.ttest_ind</code></h2>
-<p><strong>예시</strong> — 복용/미복용 두 집단의 혈압 비교.</p>
+<pre class="codehilite"><code class="language-text"># axis = 0 일때의 결과 (열 기준으로 3개의 값이 나오는 것을 확인 가능)
+T-statistic: [1.09461774 1.56522962 2.1804585 ]
+P-value: [0.33517446 0.19258282 0.09469596]
+
+# axis = 1 일때의 결과 (행 기준으로 5개의 값이 나오는 것을 확인 가능)
+T-statistic: [-3.88856886  0.46776758  6.6964953   8.3223972  13.84510894]
+P-value: [0.06022121 0.68597053 0.02158075 0.01413253 0.00517637]
+
+# axis = None 일때의 결과 (모두 1차원으로 만들어 1개의 값이 나오는 것을 확인 가능)
+T-statistic: 2.947475125290377
+P-value: 0.010598724800782978
+</code></pre>
+
+<p>위의 코드 조각에서 axis옵션에 따른 결과가 어떻게 달라지는지 확인해 보았다.</p>
+<p>그 외에 nan_policy 등과 같이 NaN값을 어떻게 처리할지에 대한 것이 있지만, 이 부분은 통계와는 큰 관계없는 Option이므로 넘어가도록 한다.</p>
+<h3 id="32-two-samples-t-test-t-test">3.2 Two samples t-test (독립 표본 t-test)</h3>
+<p>[Table2. 환자 번호, 집단 분류 &amp; 약물 복용 여부 측정된 혈압]</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
-<th>환자</th>
-<th>집단</th>
-<th>투약 후 혈압</th>
+<th>환자 리스트</th>
+<th>집단 분류</th>
+<th>투약 후 혈압 (mm Hg)</th>
 </tr>
 </thead>
 <tbody>
@@ -208,58 +278,91 @@ t_stat, p_val = stats.ttest_1samp(arr, popmean=mu0, axis=None)
 </tr>
 </tbody>
 </table></div>
-<h3 id="31-students-t-test-ok">3.1 Student's t-test — 등분산 가정 OK</h3>
+<p>약물을 복용한 집단과 미복용 집단의 평균 혈압이 유의미하게 다른지 검정한다. (두 집단의 표본수가 꼭 같을 필요는 없다)</p>
+<h4 id="321-students-t-test">3.2.1 Student's t-test</h4>
 <pre class="codehilite"><code class="language-python">from scipy import stats
 import numpy as np
 
-x1 = np.array([115, 118, 116])  # 복용
-x2 = np.array([122, 124])       # 미복용
+x1 = np.array([115, 118, 116])  # 복용 집단
+x2 = np.array([122, 124])       # 미복용 집단
 
-t_stat, p_val = stats.ttest_ind(x1, x2, equal_var=True, alternative='two-sided')
+t_stat, p_val = stats.ttest_ind(x1, x2, equal_var=True, alternative=alternative)
+
+# Result - Student's t-test 결과 equal_var = True 일때
 # T-statistic: -4.898979485566359
-# P-value:      0.016276603459428517
+# P-value: 0.016276603459428517
 </code></pre>
 
-<p><strong>주요 인자</strong></p>
+<p>독립 표본 t-test의 경우 scipy.stats 안에 존재하며, method명은 ttest_ind이다. (공식 문서)</p>
+<p><strong>위치 인자</strong></p>
 <ul>
-<li><code>x1</code>, <code>x2</code>: 두 표본</li>
-<li><code>equal_var</code>:</li>
-<li><code>True</code>: 등분산성 가정 OK → <strong>Student's t-test</strong></li>
-<li><code>False</code>: 등분산성 가정 X → <strong>Welch's t-test</strong> 자동 전환</li>
-<li><code>alternative</code>·<code>axis</code> 는 <code>ttest_1samp</code> 와 동일</li>
+<li>첫 번째 인자(x1) / 두 번째 인자(x2) : 첫 번째 표본, 두 번째 표본에 해당되며, 검정 통계량의 분자 항 E[X1] - E[X2] 에 대응된다고 생각하면 된다.</li>
 </ul>
-<h3 id="axis-2d_1">axis — 2D 배열 비교</h3>
-<pre class="codehilite"><code class="language-python">data  = np.array([[115, 118, 116],
-                  [122, 124, 123]])
+<p><strong>기본인자</strong> (공식문서 순서만 지키면 위치 인자로도 사용 가능)</p>
+<p><code>eqaul_var = {equal_var-인자 : bool type}</code></p>
+<ul>
+<li>"True" : X1, X2 표본 집단에 대한 등분산성 가정이 충족 된다.</li>
+<li>"False" : X1, X2 표본 집단에 대한 등분산성 가정이 충족 되지 않는다. (자동으로 Welch's t-test로 넘어감)</li>
+</ul>
+<p><code>alternative = {alternative-인자 : str type}</code></p>
+<ul>
+<li>"two-sided" : 양측 검정 : 귀무가설 : 표본1 평균 != 표본2 평균 (해당 인자가 default 로 되어 있다)</li>
+<li>"less" 단측 검정 (좌측) : 귀무가설 : 표본1 평균 &lt; 표본2 평균</li>
+<li>"greater" 단측 검정 (우측) : 귀무가설 : 표본1 평균 &gt; 표본2 평균</li>
+</ul>
+<p><code>axis = {axis - 인자 : int type}</code></p>
+<ul>
+<li>0 : 0으로 세팅하게 되면 열을 기준으로 읽게 된다 (default)</li>
+<li>1 : 1로 세팅하게 되면 행을 기준으로 읽게 된다 (2D Matrix일때 사용)</li>
+<li>None : 2차원을 1차원으로 변환하여 검정에 들어간다. (위에서 했기 때문에 생략한다)</li>
+</ul>
+<pre class="codehilite"><code class="language-python">data = np.array([[115, 118, 116],
+                 [122, 124, 123]])
+
 data1 = np.array([[231, 123, 132],
                   [223, 321, 421]])
 
-# axis=0 — 열 기준
-t_stat, p_val = stats.ttest_ind(data, data1, axis=0, equal_var=True)
-# T-statistic: [-20.4136 -1.0197 -1.0862]
-# P-value:     [  0.0024  0.4151  0.3909]
+# 1. axis=0 (열 기준)
+t_stat_axis0, p_val_axis0 = stats.ttest_ind(data, data1, axis=0, equal_var=True)
 
-# axis=1 — 행 기준
-t_stat, p_val = stats.ttest_ind(data, data1, axis=1, equal_var=True)
-# T-statistic: [-1.3195 -3.4755]
-# P-value:     [ 0.2575  0.0255]
+# 2. axis=1 (행 기준)
+t_stat_axis1, p_val_axis1 = stats.ttest_ind(data, data1, axis=1, equal_var=True)
 </code></pre>
 
-<h3 id="32-welchs-t-test-x">3.2 Welch's t-test — 등분산 X</h3>
-<pre class="codehilite"><code class="language-python">t_stat, p_val = stats.ttest_ind(x1, x2, equal_var=False, alternative='two-sided')
-# T-statistic: -5.0000
-# P-value:      0.02505
+<pre class="codehilite"><code class="language-text"># axis에 따른 결과
+# axis=0
+T-statistic: [-20.41364284  -1.01973393  -1.08618662]
+P-value: [0.00239111 0.41512875 0.39087777]
+
+# axis=1
+T-statistic: [-1.31950545 -3.47552886]
+P-value: [0.25745718 0.02545524]
 </code></pre>
 
-<p>같은 메서드에서 <code>equal_var=False</code> 만 토글하면 Welch's. 등분산성 가정을 만족 못 할 때 쓴다.</p>
-<h2 id="4-paired-samples-t-test-statsttest_rel">4. Paired-samples t-test — <code>stats.ttest_rel</code></h2>
-<p><strong>예시</strong> — 같은 환자의 투약 전/후 혈압. 짝지어진 데이터.</p>
+<h4 id="322-welchs-t-test">3.2.2 Welch's t-test</h4>
+<pre class="codehilite"><code class="language-python">from scipy import stats
+import numpy as np
+
+x1 = np.array([115, 118, 116])  # 복용 집단
+x2 = np.array([122, 124])       # 미복용 집단
+
+t_stat, p_val = stats.ttest_ind(x1, x2, equal_var=False, alternative=alternative)
+
+# Result - Welch's t-test 결과 equal_var = False 일때
+# T-statistic: -5.0000000000000036
+# P-value: 0.025054956171761823
+</code></pre>
+
+<p>Student's t-test랑 method는 같지만, equal_var 옵션을 False로 함으로써 사용할 수 있는 검정 기법이다. (등분산성 가정을 충족하지 못할때)</p>
+<p>나머지 인자들은 Student's t-test 인자랑 똑같으므로, 위를 참고하면 된다.</p>
+<h3 id="33-paired-samples-t-test-t-test">3.3 Paired Samples t-test (대응 표본 t-test)</h3>
+<p>[Table3. 환자 번호 &amp; 약물 투여 전/후 혈압]</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
-<th>환자</th>
-<th>투약 전</th>
-<th>투약 후</th>
+<th>환자 리스트</th>
+<th>투약 전 혈압 (mm Hg)</th>
+<th>투약 후 혈압 (mm Hg)</th>
 </tr>
 </thead>
 <tbody>
@@ -290,46 +393,45 @@ t_stat, p_val = stats.ttest_ind(data, data1, axis=1, equal_var=True)
 </tr>
 </tbody>
 </table></div>
-<pre class="codehilite"><code class="language-python">import numpy as np
-from scipy import stats
+<p>약물 투여 전후의 평균 혈압 차이가 유의미하게 감소했는지 검정한다.</p>
+<p>이론편에서는 유의미하게 같은지를 확인했지만, 이번에는 유의미하게 감소했는지를 검정해보도록 한다.</p>
+<pre class="codehilite"><code class="language-python"># 투약 전 혈압 데이터 (data)
+data = np.array([130, 128, 135, 132, 129])
 
-before = np.array([130, 128, 135, 132, 129])
-after  = np.array([120, 119, 125, 123, 121])
+# 투약 후 혈압 데이터 (data1)
+data1 = np.array([120, 119, 125, 123, 121])
 
-t_stat, p_val = stats.ttest_rel(before, after, alternative='less')
+# 대응 표본 t-검정 수행
+t_stat, p_val = stats.ttest_rel(data, data1, alternative='less')  # 'less'는 감소했는지를 검정
+
+# Result
 # T-statistic: 24.58803425594304
-# P-value:      0.9999918819424217
+# P-value: 0.9999918819424217
 </code></pre>
 
-<blockquote>
-<p><code>alternative='less'</code> 는 "<strong>before &lt; after</strong>" 를 대립가설로 본 것. 위 데이터는 before 가 더 크니 p 가 1에 가깝게 나온다. <strong>약 복용 후 혈압이 낮아졌나</strong> 를 검정하고 싶다면 <code>stats.ttest_rel(after, before, alternative='less')</code> 로 — 이때 p 는 매우 작게 나온다.</p>
-</blockquote>
-<p><strong>주의</strong>: 양쪽 데이터의 <strong>쌍 개수가 일치</strong>해야 한다. 안 맞으면:</p>
-<pre class="codehilite"><code class="language-text">ValueError: unequal length arrays
-</code></pre>
+<p>대응 표본 t-test의 경우 scipy.stats 안에 존재하며, method명은 ttest_rel이다. (공식 문서)</p>
+<p>유의수준을 0.05로 한다고 했을때 이미, 0.9999이므로 귀무가설을 채택한다. 즉, 약효과에 의해 혈압이 유의미하게 감소하였음을 알 수 있다. 나머지 axis, alternative 등의 인자들은 위에서 설명했으므로, 생략하도록 한다.</p>
+<div class="callout">
+⚠️ 단, Paired Samples t-test의 경우는 양쪽 데이터 쌍의 개수가 일치해야 한다. 일치하지 않을 경우 ValueError가 발생한다. (<code>ValueError: unequal length arrays</code>)
+</div>
 
-<h2 id="_1">결론</h2>
-<p>SciPy 의 세 함수면 평균치 t검정 3종 모두 한 줄이다.</p>
-<ul>
-<li>일표본 → <code>stats.ttest_1samp(x, popmean)</code></li>
-<li>독립표본 → <code>stats.ttest_ind(x1, x2, equal_var=True/False)</code> — Student's vs Welch's</li>
-<li>대응표본 → <code>stats.ttest_rel(before, after)</code></li>
-</ul>
-<p><code>alternative</code> (양측·단측) 와 <code>axis</code> (1D/2D) 만 챙기면 끝. 이론 글의 손계산 결과와 비교해보면 t·p 값이 일치한다.</p>
-<h2 id="_2">참고</h2>
-<ul>
-<li><a href="https://scipy.org/">SciPy 공식</a> · <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_1samp.html"><code>ttest_1samp</code></a> · <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html"><code>ttest_ind</code></a> · <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_rel.html"><code>ttest_rel</code></a></li>
-<li><a href="https://www.statsmodels.org/stable/generated/statsmodels.stats.weightstats.ttest_ind.html">Statsmodels 공식</a></li>
-</ul>
+<h2 id="_2">결론 맺음말</h2>
+<p>이번에는 앞서 이론으로 알아보았던, 평균치 검정에 대해서 SciPy Library를 이용해서 구현하는 방법을 알아보았습니다. 앞서 이론 파트에서 직접 손으로 계산했던 t-통계량, p-value과 Python으로 구현한 값과 비교했을때 일치했음을 알 수 있었습니다. 이 부분들을 직접 손으로 계산도 해보고 구현해보길 바랍니다.</p>
+<h2 id="_3">참고 자료</h2>
+<ol>
+<li>Scipy 공식문서</li>
+<li>Statsmodels 공식 문서</li>
+<li>자료분석개론 학교 수업 (전공 수업)</li>
+</ol>
 <hr />
 <blockquote>
-<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/26" rel="nofollow noopener">taehyuklee.tistory.com/26</a></p>
+<p>📦 블로그 이전 글입니다. 원본: <a href="https://taehyuklee.tistory.com/26" rel="nofollow noopener">taehyuklee.tistory.com/26</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/t-test/">평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired)</a></li><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/central-limit-theorem/">중심극한정리(Central Limit Theorem) — 정의·실험·용도</a></li><li><a href="ko/confidence-interval/">신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해</a></li></ul></section>
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/t-test/">평균치 검정 : t검정 [One, Two(Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]</a></li><li><a href="ko/hypothesis-testing/">가설검정 이해: 검정통계량, 귀무가설, 대립가설, p-value, 유의수준 (significance level), 임계값 (critical value) 개념 정리 (본질)</a></li><li><a href="ko/central-limit-theorem/">중심극한 정리 (Central Limit Theorem) : 정의 및 실험 &amp; 용도</a></li><li><a href="ko/confidence-interval/">신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Ft-test-python-scipy%2F&amp;text=t%EA%B2%80%EC%A0%95%20Python%20%EA%B5%AC%ED%98%84%20%E2%80%94%20SciPy%EB%A1%9C%20%EC%9D%BC%ED%91%9C%EB%B3%B8%C2%B7%EB%8F%85%EB%A6%BD%ED%91%9C%EB%B3%B8%28Student%27s%C2%B7Welch%27s%29%C2%B7%EB%8C%80%EC%9D%91%ED%91%9C%EB%B3%B8" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Ft-test-python-scipy%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Ft-test-python-scipy%2F&amp;text=%ED%8F%89%EA%B7%A0%EC%B9%98%28t%29%20%EA%B2%80%EC%A0%95%20t%20test%20%EA%B5%AC%ED%98%84%20%5BOne%2C%20Two%2C%20Paired%20Samples%20t-test%20%3A%20Python%20feat.%20SciPy%20%26%20Statsmodels%5D" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Ft-test-python-scipy%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
 

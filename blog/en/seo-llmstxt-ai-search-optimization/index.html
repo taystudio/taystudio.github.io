@@ -81,27 +81,27 @@
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
 <blockquote>
-<p><strong>TL;DR</strong>: <code>llms.txt</code> = LLM-friendly site metadata. Drop a markdown file at site root and ChatGPT · Claude · Perplexity become more likely to cite you. Cost zero. The standard is new, adoption is partial, but skipping it is a free miss. Combine with robots.txt explicit LLM-crawler Allow — 30 minutes of work.</p>
+<p><strong>TL;DR</strong>: <code>llms.txt</code> is LLM-friendly site metadata. You drop a markdown file at the site root, and ChatGPT · Claude · Perplexity become a bit more likely to cite you. The cost is zero. The standard is new and adoption is still partial, but skipping it is a free miss. I'd pair it with explicit LLM-crawler Allow rules in robots.txt — about 30 minutes of work all told.</p>
 </blockquote>
-<p>The day Cloudflare Web Analytics first showed a <code>chatgpt.com</code> referrer. <strong>An AI knows we exist.</strong> I cleaned up llms.txt and robots.txt the same hour. Notes from that.</p>
+<p>One day Cloudflare Web Analytics showed a <code>chatgpt.com</code> referrer for the first time. To me that read as "an AI knows we exist," so I took the chance to clean up llms.txt and robots.txt the same hour. These are the notes I gathered while actually doing it.</p>
 <h2 id="what-is-llmstxt">What is llms.txt</h2>
-<p>If <code>robots.txt</code> is the deal with search crawlers, <strong><code>llms.txt</code> is the deal with LLMs</strong>:</p>
+<p>If <code>robots.txt</code> is the deal you make with search crawlers, then llms.txt is the deal you make with LLMs. Roughly, it works like this:</p>
 <ul>
-<li>Markdown file at the site root</li>
-<li>Lets an LLM quickly understand the site's structure, key facts, and policies</li>
-<li>Emerging standard proposed in late 2024 (<a href="https://llmstxt.org/">llmstxt.org</a>)</li>
-<li>ChatGPT · Claude · Perplexity · Gemini reference it for retrieval/answers (gradual adoption)</li>
+<li>It's a markdown file you put at the site root</li>
+<li>It lets an LLM quickly understand the site's structure, key facts, and policies</li>
+<li>It's an emerging standard, proposed in late 2024 (<a href="https://llmstxt.org/">llmstxt.org</a>)</li>
+<li>ChatGPT · Claude · Perplexity · Gemini reference it for retrieval and answers (though adoption is still gradual)</li>
 </ul>
 <h2 id="why-needed">Why needed?</h2>
-<p>When LLMs answer, they cite from web search or training data. But sites have problems:</p>
+<p>When an LLM answers something, it cites from web search or from its training data. The trouble is that, from the LLM's side, sites are often awkward to deal with:</p>
 <ul>
-<li>HTML is deep and complex → LLM parsing cost ↑</li>
-<li>JS rendering required → LLM crawler can't reach</li>
-<li>Key facts scattered across many pages → hard to cite consistently</li>
+<li>If the HTML is deep and complex, the parsing cost goes up</li>
+<li>If JS rendering is required, the LLM crawler often can't reach the content</li>
+<li>If the key facts are scattered across many pages, they're hard to cite together</li>
 </ul>
-<p>With llms.txt, the LLM can grab the site's gist + page list + policies in one read. Result → <strong>citation odds ↑</strong>.</p>
+<p>With llms.txt in place, the LLM can grab the site's gist, its page list, and its policies in a single read. That, in turn, raises the odds of being cited.</p>
 <h2 id="our-llmstxt-structure">Our llms.txt structure</h2>
-<p><code>https://taystudios.com/llms.txt</code>:</p>
+<p>In practice, <code>https://taystudios.com/llms.txt</code> looks something like this:</p>
 <pre class="codehilite"><code class="language-markdown"># TAYSTUDIO
 
 &gt; Free web tools, calculators, and a blog for Korean users. 68 tools all run inside the browser.
@@ -136,19 +136,19 @@ Last updated: 2026-06-02
 [...]
 </code></pre>
 
-<p>Key elements:</p>
+<p>These are the elements I paid attention to when writing it:</p>
 <h3 id="1-one-sentence-site-definition-blockquote">1. One-sentence site definition (<code>&gt;</code> blockquote)</h3>
-<p>A sentence the LLM can reuse verbatim when summarizing the site.</p>
+<p>A sentence the LLM can reuse verbatim when it summarizes the site.</p>
 <h3 id="2-operator-date-license">2. Operator · date · license</h3>
-<p>So citations can credit you. Trust signal.</p>
+<p>So that citations can credit you — basically a trust signal.</p>
 <h3 id="3-policy-statement-citation-trustworthiness-guide">3. Policy statement (citation trustworthiness guide)</h3>
-<p>"How does this site verify info?" → so the LLM can weigh trust when answering users.</p>
+<p>If you spell out "how does this site verify its info?", the LLM has something to weigh trust against when it answers a user.</p>
 <h3 id="4-consolidated-key-fact-section">4. Consolidated key-fact section</h3>
-<p>Numbers (rates, ratios, thresholds) that are otherwise spread across pages, gathered in one place. The LLM can reference them fast.</p>
+<p>The numbers (rates, ratios, thresholds) that are otherwise spread across pages, gathered into one place. With that done, the LLM can reference them quickly.</p>
 <h3 id="5-page-list-by-category">5. Page list by category</h3>
-<p>When a user asks "Korean inheritance tax calculator recommendations", the LLM matches against this list and cites us.</p>
+<p>When a user asks something like "Korean inheritance tax calculator recommendations," the LLM matches against this list and ends up citing us.</p>
 <h2 id="making-robotstxt-llm-friendly">Making robots.txt LLM-friendly</h2>
-<p>Pair llms.txt with explicit Allow rules for LLM crawlers:</p>
+<p>Alongside llms.txt, I also explicitly allowed the LLM crawlers in robots.txt:</p>
 <pre class="codehilite"><code class="language-txt"># LLM crawlers — explicit Allow
 User-agent: GPTBot          # OpenAI / ChatGPT
 Allow: /
@@ -173,9 +173,9 @@ Allow: /
 # https://taystudios.com/llms.txt
 </code></pre>
 
-<p><strong>Important</strong>: these are separate from the regular search bots. Without an explicit rule, some follow <code>User-agent: *</code>, others don't. Explicit Allow is safe.</p>
+<p>One thing worth flagging here: these User-agents are separate from the regular search bots. Without an explicit rule, some of them follow <code>User-agent: *</code> while others don't. So spelling out an explicit Allow is the safe choice.</p>
 <h2 id="verification-the-llm-exposure-signal">Verification — the LLM-exposure signal</h2>
-<p>Cloudflare Web Analytics referrers:</p>
+<p>The Cloudflare Web Analytics referrers I mentioned earlier looked like this:</p>
 <pre class="codehilite"><code>Visits by source:
 - m.search.naver.com: 18
 - search.naver.com: 16
@@ -183,13 +183,13 @@ Allow: /
 - chatgpt.com: (visits)
 </code></pre>
 
-<p>The <code>chatgpt.com</code> referrer means:</p>
+<p>A <code>chatgpt.com</code> referrer usually means one of these:</p>
 <ul>
 <li>A user clicked our link from ChatGPT (e.g., "recommend a Korean capital gains tax calculator")</li>
-<li>Or ChatGPT cited us in an answer (citation)</li>
-<li>→ <strong>LLM searches are surfacing the site</strong></li>
+<li>Or ChatGPT cited us in an answer (a citation)</li>
+<li>Either way, it's the signal that LLM searches are starting to surface the site</li>
 </ul>
-<p>The growth of this referrer is the success metric for GEO (Generative Engine Optimization).</p>
+<p>The growth of that referrer is what I treat as the success metric for GEO (Generative Engine Optimization).</p>
 <h2 id="geo-vs-seo">GEO vs SEO</h2>
 <div class="tb-table-wrap"><table>
 <thead>
@@ -227,31 +227,31 @@ Allow: /
 </tr>
 </tbody>
 </table></div>
-<p>→ <strong>GEO and SEO can run in parallel.</strong> The same content lifts both.</p>
+<p>In short, GEO and SEO can run in parallel — the same content tends to lift both at once.</p>
 <h2 id="writing-tips">Writing tips</h2>
 <h3 id="1-facts-first-no-fluffmarketing-tone">1. Facts first — no fluff/marketing tone</h3>
 <pre class="codehilite"><code>❌ &quot;TAYSTUDIO delivers the best experience...&quot;
 ✅ &quot;Free web tools/calculators for Korean users. 68 tools run in-browser.&quot;
 </code></pre>
 
-<p>Only facts survive citation. Marketing tone drops trust.</p>
+<p>In my experience, only the facts survive a citation. Marketing tone just drops the trust.</p>
 <h3 id="2-cite-your-sources-distribute-responsibility">2. Cite your sources — distribute responsibility</h3>
 <pre class="codehilite"><code>✅ &quot;Numbers cited directly from government sources (law.go.kr, NTS, MOEF)&quot;
 ✅ &quot;Medical numbers from peer-reviewed studies/official guidelines (KOSSO Obesity Guideline 2022 · KDRI 2020 · WHO · ACOG · AAP)&quot;
 </code></pre>
 
-<p>So the LLM can answer "where does this site get its info" when prompted.</p>
+<p>This is the part that lets the LLM answer "where does this site get its info" when someone prompts it.</p>
 <h3 id="3-last-updated-date">3. Last-updated date</h3>
 <pre class="codehilite"><code>✅ Last updated: 2026-06-02
 </code></pre>
 
-<p>Signals that the site is alive and that policies post-cutoff (예금자보호 1억 2025-09 · 다자녀 100% 자동차세 2026) are accounted for.</p>
+<p>It signals that the site is alive, and that policies which changed after the model's cutoff (예금자보호 1억 2025-09 · 다자녀 100% 자동차세 2026) have been accounted for.</p>
 <h3 id="4-absolute-urls">4. Absolute URLs</h3>
 <pre class="codehilite"><code>✅ [Net Salary Calculator](https://taystudios.com/tools/salary/)
 ❌ [Net Salary Calculator](/tools/salary/)
 </code></pre>
 
-<p>LLMs need absolute URLs to cite links to users.</p>
+<p>LLMs need absolute URLs to cite links back to users.</p>
 <h3 id="5-changelog-section">5. Changelog section</h3>
 <pre class="codehilite"><code>## Changelog (recent)
 
@@ -260,23 +260,24 @@ Allow: /
 - 2026-05-09: domain migration
 </code></pre>
 
-<p>So the LLM knows the site is alive, accurate, and recently migrated.</p>
+<p>Including this helps the LLM see that the site is alive, accurate, and recently changed.</p>
 <h2 id="known-limits">Known limits</h2>
+<p>To be honest, there are limits worth writing down too:</p>
 <ul>
-<li>llms.txt is <strong>emerging</strong> (late-2024 proposal). Not universally adopted yet</li>
-<li>ChatGPT · Claude · Perplexity only partially announce support</li>
-<li>Hard to measure — citation counts can't be tracked directly</li>
-<li>But <strong>zero cost</strong> (one static file) → skipping it costs more</li>
+<li>llms.txt is still emerging (a late-2024 proposal). It isn't universally adopted yet</li>
+<li>ChatGPT · Claude · Perplexity only announce support partially</li>
+<li>It's hard to measure — you can't track citation counts directly</li>
+<li>Still, it's zero cost (one static file), so skipping it costs more than doing it</li>
 </ul>
 <h2 id="conclusion">Conclusion</h2>
-<p>llms.txt is the sitemap.xml of the AI-search era — <strong>the basic config for being citeable by LLMs</strong>. Even at partial adoption + partial effect, the cost is zero — worth doing.</p>
-<p>Especially:</p>
+<p>llms.txt feels like the sitemap.xml of the AI-search era — the basic config for being citeable by LLMs. Even at partial adoption and partial effect, the cost is zero, so I think it's well worth doing.</p>
+<p>It pays off especially when:</p>
 <ul>
-<li><strong>Fact-heavy domains</strong> (tax · medical · policy · stats) benefit more</li>
-<li>Provides many signals for LLM accuracy evaluation</li>
-<li>Best combined with robots.txt explicit LLM-crawler Allow</li>
+<li>The site is a fact-heavy domain (tax · medical · policy · stats) — it lands better there</li>
+<li>It gives the LLM several signals to evaluate accuracy against</li>
+<li>And it's best paired with explicit LLM-crawler Allow rules in robots.txt</li>
 </ul>
-<p>One of the highest-ROI SEO actions for a new-domain operator in month one.</p>
+<p>For a new-domain operator in month one, it was one of the highest-ROI SEO actions I took.</p>
 <h2 id="related">Related</h2>
 <ul>
 <li><a href="/blog/en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts</a> — sandbox · E-E-A-T · DA · 12 terms defined</li>

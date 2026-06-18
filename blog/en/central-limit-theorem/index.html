@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>The Central Limit Theorem — Definition, Experiments, and Uses · Tay Blog</title>
+<title>The Central Limit Theorem (CLT): Definition, Experiments &amp; Uses · Tay Blog</title>
 <meta name="description" content="As the sample size grows, the sample mean converges to a normal distribution for any population — verified with five distributions, plus why the CLT matters for estimation and confidence intervals.">
 <link rel="canonical" href="https://taystudios.com/blog/en/central-limit-theorem/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/central-limit-theorem/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/central-limit-theorem/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/central-limit-theorem/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="The Central Limit Theorem — Definition, Experiments, and Uses · Tay Blog">
+<meta property="og:title" content="The Central Limit Theorem (CLT): Definition, Experiments &amp; Uses · Tay Blog">
 <meta property="og:description" content="As the sample size grows, the sample mean converges to a normal distribution for any population — verified with five distributions, plus why the CLT matters for estimation and confidence intervals.">
 <meta property="og:url" content="https://taystudios.com/blog/en/central-limit-theorem/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/central-limit-theorem/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/central-limit-theorem/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "The Central Limit Theorem — Definition, Experiments, and Uses", "description": "As the sample size grows, the sample mean converges to a normal distribution for any population — verified with five distributions, plus why the CLT matters for estimation and confidence intervals.", "datePublished": "2024-11-03T00:00:00+09:00", "dateModified": "2024-11-03T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/central-limit-theorem/"}, "image": ["https://taystudios.com/blog/assets/posts/central-limit-theorem/cover.webp"], "keywords": "statistics, central-limit-theorem, CLT, normal-distribution, t-distribution"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "The Central Limit Theorem — Definition, Experiments, and Uses", "item": "https://taystudios.com/blog/en/central-limit-theorem/"}]}</script><meta property="article:published_time" content="2024-11-03T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-03T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="central-limit-theorem"><meta property="article:tag" content="CLT"><meta property="article:tag" content="normal-distribution"><meta property="article:tag" content="t-distribution">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "The Central Limit Theorem (CLT): Definition, Experiments & Uses", "description": "As the sample size grows, the sample mean converges to a normal distribution for any population — verified with five distributions, plus why the CLT matters for estimation and confidence intervals.", "datePublished": "2024-11-03T00:00:00+09:00", "dateModified": "2024-11-03T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/central-limit-theorem/"}, "image": ["https://taystudios.com/blog/assets/posts/central-limit-theorem/cover.webp"], "keywords": "statistics, central-limit-theorem, CLT, normal-distribution, t-distribution"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "The Central Limit Theorem (CLT): Definition, Experiments & Uses", "item": "https://taystudios.com/blog/en/central-limit-theorem/"}]}</script><meta property="article:published_time" content="2024-11-03T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-03T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="central-limit-theorem"><meta property="article:tag" content="CLT"><meta property="article:tag" content="normal-distribution"><meta property="article:tag" content="t-distribution">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">The Central Limit Theorem — Definition, Experiments, and Uses</span></nav>
-        <h1 class="tb-article-title">The Central Limit Theorem — Definition, Experiments, and Uses</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">The Central Limit Theorem (CLT): Definition, Experiments &amp; Uses</span></nav>
+        <h1 class="tb-article-title">The Central Limit Theorem (CLT): Definition, Experiments &amp; Uses</h1>
         <div class="tb-article-meta">
           <time>2024.11.03</time>
           <span>·</span><span>#statistics #central-limit-theorem #CLT #normal-distribution #t-distribution</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#what-is-the-central-limit-theorem">What is the Central Limit Theorem?</a></li><li class="tb-toc-h3"><a href="#the-5-distributions-tested">The 5 distributions tested</a></li><li class="tb-toc-h2"><a href="#clt-experiments">CLT Experiments</a></li><li class="tb-toc-h2"><a href="#so-where-is-the-clt-used">So Where Is the CLT Used?</a></li><li class="tb-toc-h2"><a href="#conclusion">Conclusion</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#table-of-contents">Table of contents</a></li><li class="tb-toc-h2"><a href="#what-is-the-central-limit-theorem">What is the central limit theorem?</a></li><li class="tb-toc-h3"><a href="#the-five-distributions-experimented-on">The five distributions experimented on</a></li><li class="tb-toc-h2"><a href="#central-limit-theorem-experiment">Central Limit Theorem experiment</a></li><li class="tb-toc-h2"><a href="#so-where-and-how-can-the-central-limit-theorem-be-used">So, where and how can the central limit theorem be used?</a></li><li class="tb-toc-h2"><a href="#conclusion">Conclusion</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -80,61 +80,77 @@
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
-<h2 id="what-is-the-central-limit-theorem">What is the Central Limit Theorem?</h2>
-<p>It's the theorem that <strong>if the sample size is large enough, the distribution of the sample mean approaches a normal distribution regardless of the population's distribution.</strong></p>
-<p><img alt="As sample size n grows, the distribution of the sample mean becomes normal" src="assets/posts/central-limit-theorem/img1.webp" width="1600" height="516" loading="lazy">
-<em>Figure 1. Sample mean distribution (as n grows)</em></p>
-<p>Even drawing X from an arbitrary distribution, as the sample size $n$ grows the distribution of the sample mean approaches normal. This distribution of the sample mean is written as:</p>
-<p>$$\bar{X} \sim N\!\left(\mu,\ \dfrac{\sigma^2}{n}\right)$$
-<em>Eq. 1. Distribution of the sample mean</em></p>
+
+<h2 id="table-of-contents">Table of contents</h2>
+<ol>
+<li>What is the central limit theorem?</li>
+<li>An experiment on the central limit theorem (run in Python)</li>
+<li>The meaning of the central limit theorem (its uses)</li>
+</ol>
+<h2 id="what-is-the-central-limit-theorem">What is the central limit theorem?</h2>
+<p>The central limit theorem is the theory that, when the sample size is sufficiently large, no matter what the population's distribution is, the distribution of the sample mean approaches a normal distribution.</p>
+<p><img alt="sample mean distribution (as n grows)" src="assets/posts/central-limit-theorem/img1.webp" width="1600" height="516" loading="lazy">
+<em>Figure 1. sample mean distribution (as n grows)</em></p>
+<p>Figure 1 shows that no matter which (arbitrary) distribution you draw the X data from, as the sample size n grows, the distribution of the sample mean approaches a normal distribution. This sample-mean distribution is expressed as follows.</p>
+<p>$$
+\bar{X} \sim N\!\left(\mu,\; \frac{\sigma^2}{n}\right)
+$$
+<em>Formula 1. The distribution of the sample mean</em></p>
+<p>Let's look at the sampling process in detail.</p>
 <p><img alt="Sampling from the population" src="assets/posts/central-limit-theorem/img3.webp" width="1600" height="1047" loading="lazy">
 <em>Figure 2. Sampling from the population</em></p>
-<p>Let the number of samplings be $M$ and the size drawn at once (number of samples) be $N$. Fixing $M=500$ and increasing $N=1, 30, 300, 3000$, I sampled from five distributions.</p>
-<h3 id="the-5-distributions-tested">The 5 distributions tested</h3>
-<ol>
-<li>Uniform</li>
-<li>Gaussian</li>
+<p>Let the number of times we sample from the population be M, and the size sampled at once (the number of samples) be N.</p>
+<p>Fixing the number of samplings at 500, and increasing the sampling size from N=1 to N=30, 300, and 3000, I sampled from the following five distributions.</p>
+<h3 id="the-five-distributions-experimented-on">The five distributions experimented on</h3>
+<ul>
+<li>Uniform distribution</li>
+<li>Gaussian distribution</li>
 <li>F distribution</li>
-<li>Chi-squared</li>
-<li>Bernoulli</li>
-</ol>
-<h2 id="clt-experiments">CLT Experiments</h2>
-<p><img alt="At M=500, N=1" src="assets/posts/central-limit-theorem/img4.webp" width="1600" height="902" loading="lazy">
+<li>Chi-squared distribution</li>
+<li>Bernoulli distribution</li>
+</ul>
+<h2 id="central-limit-theorem-experiment">Central Limit Theorem experiment</h2>
+<p><img alt="M=500, N=1" src="assets/posts/central-limit-theorem/img4.webp" width="1600" height="902" loading="lazy">
 <em>Figure 3. M=500, N=1</em></p>
-<p>At $N=1$, the uniform, F, and Bernoulli look very different from Gaussian. (Chi-squared is relatively similar, and Gaussian is naturally normal.)</p>
+<p>In Figure 3, at N=1 you can confirm that the uniform, F, and Bernoulli distributions differ greatly from the shape of the Gaussian distribution. On the other hand, the chi-squared distribution turned out to be quite similar to the Gaussian distribution. (Naturally, the Gaussian distribution must follow a normal distribution.)</p>
 <p><img alt="N=30 (M=500)" src="assets/posts/central-limit-theorem/img5.webp" width="1600" height="912" loading="lazy">
 <em>Figure 4. N=30 (M=500)</em></p>
-<p>At $N=30$, the uniform, F, and Bernoulli also gradually shift toward a Gaussian shape.</p>
-<blockquote>
-<p><strong>The meaning of sample size 30</strong> — with a sample size of 30 or more, sampling from any shape of distribution tends to make the sample mean converge to a normal distribution.</p>
-</blockquote>
+<p>In Figure 4, at N=30, you can confirm that the uniform, F, and Bernoulli distributions are gradually changing into a shape progressively similar to the Gaussian distribution.</p>
+<div class="callout">
+📌 <strong>The meaning of sampling size 30 in the central limit theorem</strong><br>
+When the sample size is 30 or more, no matter what shape of distribution you sample from, its sample mean shows a tendency to converge to a normal distribution.
+</div>
+
 <p><img alt="N=300 (M=500)" src="assets/posts/central-limit-theorem/img6.webp" width="1600" height="912" loading="lazy">
 <em>Figure 5. N=300 (M=500)</em></p>
 <p><img alt="N=3000 (M=500)" src="assets/posts/central-limit-theorem/img7.webp" width="1600" height="901" loading="lazy">
 <em>Figure 6. N=3000 (M=500)</em></p>
-<p>As $N$ grows further, it fits the normal distribution ever more precisely.</p>
-<h2 id="so-where-is-the-clt-used">So Where Is the CLT Used?</h2>
-<p><img alt="Uses of the Central Limit Theorem" src="assets/posts/central-limit-theorem/img8.webp" width="1600" height="949" loading="lazy">
-<em>Figure 7. Uses of the Central Limit Theorem</em></p>
-<p>One important goal of statistics is to <strong>estimate the mean, the representative value of a group.</strong> In reality, the distribution shape of the subject of interest is usually unknown, but the <strong>CLT tells us the sample mean approaches a normal distribution as the sample size $N$ grows,</strong> which is a big hope for analysis. Grow $N$ enough and the sample mean follows a normal distribution, enabling parameter estimation and confidence intervals. However, if the population standard deviation $\sigma$ is unknown, we use the <strong>t-distribution</strong> instead of the normal.</p>
+<p>Looking at Figures 5 and 6 above, you can confirm that as the sampling size grows larger, it fits the normal distribution ever more precisely.</p>
+<p>The Python file for the experiment is uploaded on GitHub. (If you need it, just run it.)</p>
+<h2 id="so-where-and-how-can-the-central-limit-theorem-be-used">So, where and how can the central limit theorem be used?</h2>
+<p>(This is probably one of the most curious yet important parts.)</p>
+<p><img alt="The uses of the central limit theorem" src="assets/posts/central-limit-theorem/img8.webp" width="1600" height="949" loading="lazy">
+<em>Figure 7. The uses of the central limit theorem</em></p>
+<p>One of the important goals in statistics is to estimate the mean, the representative value of a particular group. Whether point estimation or interval estimation, understanding and exploring the mean is the core. In this regard, the central limit theorem is very important. In reality, the distribution shape of the target of interest we investigate is unknown in most cases. However, the central limit theorem tells us that as the sample size N grows, the distribution of the sample mean approaches a normal distribution, and this gives us great hope in the analysis process. If we make N large enough, the sample mean follows a normal distribution, and through this, parameter estimation or confidence-interval setting becomes possible. However, if we don't know the population standard deviation σ, we use the t-distribution instead of the normal distribution to perform such estimation.</p>
 <p><img alt="The relationship between the t-distribution and the z (normal) distribution" src="assets/posts/central-limit-theorem/img9.webp" width="1096" height="668" loading="lazy">
 <em>Figure 8. The relationship between the t-distribution and the z (normal) distribution</em></p>
-<p>The t-distribution is based on the sample standard deviation, so it can be drawn from sample information alone. The larger the degrees of freedom (df), the closer it gets to the Z distribution, becoming nearly identical at df=30 (about $N=31$). So for a mean test, if $n&gt;30$ you may use either the t- or normal distribution, and below 30 a nonparametric test is recommended.</p>
+<p>The t-distribution expresses the sample error based on the sample standard deviation, and here the graph can be drawn with the sample information alone. As you can see in Figure 8 above, as the t-distribution's degrees of freedom (df) increase, the distribution gradually approaches the Z-distribution (normal distribution). For example, you can confirm that at df=30 (about N=31) it becomes almost similar to the Z-distribution. For this reason, in a mean test, when n&gt;30, it's fine to use either the t-distribution or the normal distribution. On the other hand, when the sample size is under 30, it's better to use a nonparametric statistical test.</p>
+<p>To summarize: no matter which distribution you sample from, if the sample size is 30 or more and a certain number of samplings is guaranteed, the distribution of the sample mean approaches a normal distribution. Since we can't know the population standard deviation at this point, we can do interval estimation through confidence intervals using the t-distribution.</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>If $N$ is 30 or more, the distribution of the sample mean approaches normal by the CLT, but since we can't know the actual Z distribution, we use the t-distribution. When $N \geq 30$, the t-distribution is also close to normal, so using the t-distribution is fine. In other words, the normality assumption matters when the sample is small, but as it grows the CLT makes the t-distribution sufficient.</p>
-<hr />
+<p>When N is 30 or more, the distribution of the sample mean approaches a normal distribution by the central limit theorem, but since we can't know the actual Z-distribution, we end up using the t-distribution. When N is 30 or more, the t-distribution also approaches the normal distribution, so using the t-distribution causes no big problem. That is, when the sample size is small the normality assumption is important, but as the sample size grows, by the central limit theorem the distribution of the sample mean approaches a normal distribution, so using the t-distribution makes little difference.</p>
 <h2 id="references">References</h2>
 <ol>
-<li>Basic Statistics (Introduction) — Jayu Academy (textbook)</li>
+<li>Basic (introductory) statistics course — Jayu Academy (textbook)</li>
 </ol>
+<hr />
 <blockquote>
-<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/25" rel="nofollow noopener">taehyuklee.tistory.com/25</a></p>
+<p>📦 Migrated from the Tistory blog I used to run. Original: <a href="https://taehyuklee.tistory.com/25" rel="nofollow noopener">taehyuklee.tistory.com/25</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/t-test-python-scipy/">Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student&#39;s·Welch&#39;s), Paired</a></li><li><a href="en/t-test/">Testing Means — the t-test (One / Two: Student&#39;s·Welch&#39;s / Paired)</a></li><li><a href="en/confidence-interval/">Confidence Intervals — Meaning, Intuition, and a Common Misconception</a></li></ul></section>
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence)</a></li><li><a href="en/t-test-python-scipy/">Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy &amp; Statsmodels]</a></li><li><a href="en/t-test/">Testing Means: the t-test [One, Two (Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]</a></li><li><a href="en/confidence-interval/">Confidence Intervals — Meaning, Intuition, and a Common Misconception</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fcentral-limit-theorem%2F&amp;text=The%20Central%20Limit%20Theorem%20%E2%80%94%20Definition%2C%20Experiments%2C%20and%20Uses" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fcentral-limit-theorem%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fcentral-limit-theorem%2F&amp;text=The%20Central%20Limit%20Theorem%20%28CLT%29%3A%20Definition%2C%20Experiments%20%26%20Uses" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fcentral-limit-theorem%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
 

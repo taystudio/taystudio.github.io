@@ -100,7 +100,7 @@
 <h2 id="4-snowflake">방법론 — 4가지 중 Snowflake</h2>
 <p>책은 <strong>UUID, 다중 마스터 복제, 티켓 서버, Twitter Snowflake</strong> 4가지를 제시한다. 각 방법마다 고찰할 점이 많지만, 이 글에서는 메인으로 소개되는 <strong>Twitter Snowflake</strong> 기법을 다룬다.</p>
 <p>Snowflake는 동시성 문제가 생길 만한 요소들을 <strong>ID를 구성하는 요소로 직접 넣어</strong> 동시성 문제를 구조적으로 제거한다.</p>
-<p><img alt="Twitter Snowflake의 64비트 ID 구성 — Sign·TimeStamp·DC ID·Server ID·Serial Num 5구획" src="assets/posts/snowflake-id-generator/img1.png" width="1724" height="278" loading="lazy">
+<p><img alt="Twitter Snowflake의 64비트 ID 구성 — Sign·TimeStamp·DC ID·Server ID·Serial Num 5구획" src="assets/posts/snowflake-id-generator/img1.webp" width="1724" height="278" loading="lazy">
 <em>그림 1. Snowflake ID 구성</em></p>
 <p>Snowflake는 64비트이며 5개 구획으로 나뉜다. 각 구획을 보며 ID 구성만으로 동시성을 어떻게 해결했는지 따라가 보자.</p>
 <ul>
@@ -214,7 +214,7 @@ public class SnowFlakeIdGenerator {
 </ol>
 <p>각 구성요소마다 할 말이 많지만 이 글에서는 테스트 구성만 소개한다. 다음 글에서 위 성능 테스트 결과를 공유할 예정이다.</p>
 <p>위 구성 중 <strong>Nginx 설치·버전 설정</strong>은 아래 글에서 자세히 다룬다.</p>
-<a class="tb-embed-card" href="ko/nginx-install-ubuntu-centos/"><div class="tb-embed-thumb"><img src="assets/posts/nginx-install-ubuntu-centos/cover.webp" alt="Nginx 설치 가이드 — Ubuntu / CentOS (특정 버전·설정 구조·방화벽)" loading="lazy" width="1536" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Nginx 설치 가이드 — Ubuntu / CentOS (특정 버전·설정 구조·방화벽)</div><div class="tb-embed-excerpt">AWS EC2 등 클라우드 서버에 Nginx 설치 — Ubuntu(apt)·CentOS(yum) 버전별 설치, /etc/nginx 설정 구조(sites-available/enabled), UFW·firewalld·AWS 보안그룹 방화벽까지 한 번에.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<a class="tb-embed-card" href="ko/nginx-install-ubuntu-centos/"><div class="tb-embed-thumb"><img src="assets/posts/nginx-install-ubuntu-centos/cover.webp" alt="Nginx 특정 버전 &amp; 최신 설치 가이드: Ubuntu / CentOS 완벽 정리" loading="lazy" width="1536" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Nginx 특정 버전 &amp; 최신 설치 가이드: Ubuntu / CentOS 완벽 정리</div><div class="tb-embed-excerpt">AWS EC2 등 클라우드 서버에 Nginx 설치 — Ubuntu(apt)·CentOS(yum) 버전별 설치, /etc/nginx 설정 구조(sites-available/enabled), UFW·firewalld·AWS 보안그룹 방화벽까지 한 번에.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
 <hr />
 <blockquote>
 <p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/10" rel="nofollow noopener">taehyuklee.tistory.com/10</a></p>

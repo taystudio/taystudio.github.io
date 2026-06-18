@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부) · Tay Blog</title>
+<title>[AWS 인프라] NAT Gateway 비용 절감을 위한 NAT 인스턴스 구축 및 설정 (2부) · Tay Blog</title>
 <meta name="description" content="1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.">
 <link rel="canonical" href="https://taystudios.com/blog/ko/nat-instance-build-2/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/nat-instance-build-2/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/nat-instance-build-2/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/nat-instance-build-2/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부) · Tay Blog">
+<meta property="og:title" content="[AWS 인프라] NAT Gateway 비용 절감을 위한 NAT 인스턴스 구축 및 설정 (2부) · Tay Blog">
 <meta property="og:description" content="1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.">
 <meta property="og:url" content="https://taystudios.com/blog/ko/nat-instance-build-2/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/nat-instance-build-2/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/nat-instance-build-2/cover.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)", "description": "1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.", "datePublished": "2024-12-29T00:00:00+09:00", "dateModified": "2024-12-29T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/nat-instance-build-2/"}, "image": ["https://taystudios.com/blog/assets/posts/nat-instance-build-2/cover.png"], "keywords": "AWS, NAT Instance, iptables, 네트워크, 비용절감"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/ko/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)", "item": "https://taystudios.com/blog/ko/nat-instance-build-2/"}]}</script><meta property="article:published_time" content="2024-12-29T00:00:00+09:00"><meta property="article:modified_time" content="2024-12-29T00:00:00+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="NAT Instance"><meta property="article:tag" content="iptables"><meta property="article:tag" content="네트워크"><meta property="article:tag" content="비용절감">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[AWS 인프라] NAT Gateway 비용 절감을 위한 NAT 인스턴스 구축 및 설정 (2부)", "description": "1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.", "datePublished": "2024-12-29T00:00:00+09:00", "dateModified": "2024-12-29T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/nat-instance-build-2/"}, "image": ["https://taystudios.com/blog/assets/posts/nat-instance-build-2/cover.png"], "keywords": "AWS, NAT Instance, iptables, 네트워크, 비용절감"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/ko/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "[AWS 인프라] NAT Gateway 비용 절감을 위한 NAT 인스턴스 구축 및 설정 (2부)", "item": "https://taystudios.com/blog/ko/nat-instance-build-2/"}]}</script><meta property="article:published_time" content="2024-12-29T00:00:00+09:00"><meta property="article:modified_time" content="2024-12-29T00:00:00+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="NAT Instance"><meta property="article:tag" content="iptables"><meta property="article:tag" content="네트워크"><meta property="article:tag" content="비용절감">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)</span></nav>
-        <h1 class="tb-article-title">[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">[AWS 인프라] NAT Gateway 비용 절감을 위한 NAT 인스턴스 구축 및 설정 (2부)</span></nav>
+        <h1 class="tb-article-title">[AWS 인프라] NAT Gateway 비용 절감을 위한 NAT 인스턴스 구축 및 설정 (2부)</h1>
         <div class="tb-article-meta">
           <time>2024.12.29</time>
           <span>·</span><span>#AWS #NAT Instance #iptables #네트워크 #비용절감</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">글의 개요</a></li><li class="tb-toc-h2"><a href="#nat-instanceec2">NAT Instance(EC2) 구성 방법</a></li><li class="tb-toc-h3"><a href="#1-ec2">1. 기본 EC2 생성</a></li><li class="tb-toc-h3"><a href="#2-ec2-os-iptables-nat">2. EC2 OS에서 iptables 조작 (NAT 설정)</a></li><li class="tb-toc-h4"><a href="#2-1-ip">2-1. IP 포워딩 활성화</a></li><li class="tb-toc-h4"><a href="#2-2-iptables-nat">2-2. iptables NAT 규칙 추가</a></li><li class="tb-toc-h4"><a href="#2-3">2-3. 적용 결과 확인</a></li><li class="tb-toc-h4"><a href="#2-4">2-4. 규칙 저장 (재부팅 후 유지)</a></li><li class="tb-toc-h3"><a href="#3-private-subnet">3. 결과 — Private Subnet 인터넷 연결 확인</a></li><li class="tb-toc-h2"><a href="#_2">맺음말</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#aws-nat">글의 개요: AWS상 NAT 인스턴트 구축 (비용 절감)</a></li><li class="tb-toc-h2"><a href="#nat-instnace-ec2">Nat Instnace (EC2) 구성 방법</a></li><li class="tb-toc-h3"><a href="#1-ec2">1. 기본 EC2 생성</a></li><li class="tb-toc-h3"><a href="#2-ec2-os-iptables-nat-instance">2. EC2 OS iptables조작 (Nat Instance로 설정)</a></li><li class="tb-toc-h3"><a href="#3-private-subnet">3. 결과 (Private subnet 인터넷 연결 확인)</a></li><li class="tb-toc-h2"><a href="#_1">맺음말</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -80,101 +80,106 @@
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
-<h2 id="_1">글의 개요</h2>
+
+<h2 id="aws-nat">글의 개요: AWS상 NAT 인스턴트 구축 (비용 절감)</h2>
 <ol>
-<li>Why NAT Instance (NAT Gateway 대신) — 1부</li>
-<li>AWS 커뮤니티 제공 NAT Instance AMI 이용 — 1부</li>
-<li>iptables로 NAT Instance 직접 구성 — <strong>2부 (이 글)</strong></li>
+<li>Why Nat Instance (Instead of Nat gateway) (1부)</li>
+<li>AWS상에서 제공하는 Nat Instance AMI 이용 하는 방법 (1부)</li>
+<li>Ip-tables를 이용한 Nat Instance 직접 구성 (2부)</li>
 </ol>
-<p>1부에서는 AWS 커뮤니티 AMI로 NAT Instance를 구축했다. 하지만 그 AMI는 서비스 종료된 구형 OS라 유지 관리가 어렵다는 단점이 있다. 그래서 2부에서는 <strong>AWS 최신 OS에서 iptables를 조작해 직접 NAT Instance를 구성</strong>한다.</p>
-<a class="tb-embed-card" href="ko/nat-instance-build-1/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-1/cover.png" alt="[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)</div><div class="tb-embed-excerpt">NAT Gateway는 월 $32+ 고정비가 든다. 비용을 아끼려 EC2(NAT Instance)로 Private Subnet 인터넷을 연결한 방법 — 1부는 AWS 커뮤니티 AMI(amzn-ami-vpc-nat)를 이용한 구성.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
-<p>네트워크 개략도는 1부에서 다뤘으니 상황만 짚는다. 사설망(Private Subnet)이 인터넷과 통신하려면 NAT Gateway가 필요하다(Public IP ↔ Private IP 변환, 즉 공유기 역할). AWS NAT Gateway 대신 비용 절감을 위해 NAT Instance를 직접 구축하며, 2부에서는 <strong>NAT 설정이 안 된 기본 OS가 NAT 역할을 하도록</strong> 설정하는 방법을 다룬다.</p>
-<h2 id="nat-instanceec2">NAT Instance(EC2) 구성 방법</h2>
+<p>1부 포스팅에서는 AWS Community에서 제공되는 Nat Instance AMI를 이용해서 Nat Instance를 구축해보는 작업을 했다. 하지만, 해당 AMI의 서비스가 종료된 OS버전 등의 이슈로 유지 관리하기가 힘들다는 단점이 있다. 따라서 이번 2부 포스팅에서는 AWS에서 직접 제공하는 최신 OS상에서 IP Tabels를 조작해 직접 Nat Instnace를 구성해 볼 것이다.</p>
+<p>필자가 구성한 네트워크 개략도는 이미 1부에서 집고 넘어 갔으므로, 상황만 간단히 설명하고 넘어가보고자 한다.</p>
+<a class="tb-embed-card" href="ko/nat-instance-build-1/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-1/cover.png" alt="[AWS 인프라] NAT Gateway 비용 절감을 위한 AMI로 NAT 인스턴스 구축 및 설정 (1부)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS 인프라] NAT Gateway 비용 절감을 위한 AMI로 NAT 인스턴스 구축 및 설정 (1부)</div><div class="tb-embed-excerpt">NAT Gateway는 월 $32+ 고정비가 든다. 비용을 아끼려 EC2(NAT Instance)로 Private Subnet 인터넷을 연결한 방법 — 1부는 AWS 커뮤니티 AMI(amzn-ami-vpc-nat)를 이용한 구성.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<p>사설망(Private subnet)에 인터넷과 통신이 되게 하기 위해서는 Nat Gateway가 필요하다. (Public IP를 Private IP로 변환해줘야 사설망 내부에서 통신이 가능해지므로 : 공유기 역할) AWS에서 제공되는 서비스중 Nat gateway가 있긴 하지만, 가격 감축을 위해 Nat Instance를 직접 구축하게 되었고, 2부에서는 Nat Instance를 설정하지 않은 기본 운영체제(OS)에서 Nat 역할을 수행하도록 설정하는 방법을 설명하고 있다.</p>
+<h2 id="nat-instnace-ec2">Nat Instnace (EC2) 구성 방법</h2>
 <h3 id="1-ec2">1. 기본 EC2 생성</h3>
-<p><img alt="최신 Ubuntu LTS AMI로 NAT Instance용 EC2 생성" src="assets/posts/nat-instance-build-2/img1.webp" width="1224" height="900" loading="lazy">
-<em>그림 1. NAT Instance EC2 생성</em></p>
-<p>커뮤니티가 아닌 <strong>AWS가 직접 제공하는 LTS AMI</strong>를 사용한다. 나는 Ubuntu를 선호해 Ubuntu 24.04 LTS를 골랐다. NAT Instance는 당연히 Public Subnet에 위치해야 하며, 그 외 라우팅 테이블 예시는 모두 1부에 정리해 두었다.</p>
-<h3 id="2-ec2-os-iptables-nat">2. EC2 OS에서 iptables 조작 (NAT 설정)</h3>
-<blockquote>
-<p><strong>iptables란?</strong> Linux의 강력한 방화벽·패킷 필터링 도구로, 네트워크 트래픽 관리·방화벽·<strong>네트워크 주소 변환(NAT)</strong>을 구현할 수 있다. 이 글에서는 방화벽이 아니라 NAT 기능을 사용한다.</p>
-</blockquote>
-<p>위에서 만든 NAT Instance에 SSH로 접속한 뒤 다음 절차를 밟는다.</p>
-<h4 id="2-1-ip">2-1. IP 포워딩 활성화</h4>
+<p><img alt="NAT Intance ec2 생성" src="assets/posts/nat-instance-build-2/img1.webp" width="1224" height="900" loading="lazy">
+<em>그림1. NAT Intance ec2 생성</em></p>
+<p>커뮤니티가 아닌 AWS에서 직접적으로 대문에 내세우고 있는 AMI(LTS 버전)를 사용한다. 필자는 Ubuntu를 좋아하는 편이라 Ubuntu(24.04LTS)로 선택했다. Nat Instance는 당연히 public subnet에 위치해야하며, 그 외의 routing table 예시는 모두 1부에 포스탱 해 놓았다.</p>
+<h3 id="2-ec2-os-iptables-nat-instance">2. EC2 OS iptables조작 (Nat Instance로 설정)</h3>
+<div class="callout">
+📌 <strong>iptables란?</strong> iptables는 Linux 운영체제에서 사용하는 강력한 방화벽 및 패킷 필터링 도구다. 이를 통해 네트워크 트래픽을 관리하고, 방화벽 역할을 수행하며, 네트워크 주소 변환(NAT)을 구현할 수 있다. 이번 포스팅에서는 방화벽용으로 사용하는 것이 아니라 네트워크 주소 변환 기능을 사용할 것이다.
+</div>
+
+<p>위에서 만든 Nat Instance에 ssh로 접속한다. 그리고 다음과 같은 절차를 밟는다.</p>
+<p><strong>1. IP 포워딩 활성화</strong></p>
 <pre class="codehilite"><code class="language-bash">echo &quot;net.ipv4.ip_forward = 1&quot; | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 </code></pre>
 
-<p>NAT Instance는 트래픽을 자기 자신이 아니라 다른 곳으로 라우팅해야 하므로, 패킷이 들어오고 나가는 경로를 허용해야 한다.</p>
+<p>Linux 서버에서 IP 포워딩을 활성화하는 과정이다. Nat Instance는 네트워크 트래픽을 자기 자신이 아니라 다른 곳으로 라우팅 해야 하므로, 패킷이 들어오고 나가는 경로를 허용해야 한다.</p>
+<p>위의 Command Line을 간단히 분석해보자면, 다음과 같다.</p>
 <ul>
-<li><code>net.ipv4.ip_forward = 1</code> — IP 포워딩 활성화 설정.</li>
-<li><code>/etc/sysctl.conf</code> — 위 설정을 영구 적용.</li>
-<li><code>sudo sysctl -p</code> — 설정을 즉시 적용.</li>
+<li><code>net.ipv4.ip_forward = 1</code>은 Ip 포워딩 기능을 활성화하는 설정이다.</li>
+<li><code>/etc/sysctl.conf</code> : sysctl.conf에 추가한 위의 포워딩 설정을 영구적으로 설정한다.</li>
+<li><code>sudo sysctl -p</code> : 위의 설정을 즉시 적용한다.</li>
 </ul>
-<p><img alt="/etc/sysctl.conf 편집기 — net.ipv4.ip_forward 주석 처리 상태" src="assets/posts/nat-instance-build-2/img2.webp" width="1154" height="764" loading="lazy">
-<em>그림 2. /etc/sysctl.conf 편집기 화면</em></p>
-<p>또는 <code>sysctl.conf</code>를 편집기로 열면 그림 2처럼 <code>net.ipv4.ip_forward=1</code>이 <code>#</code>으로 비활성화돼 있다. 그 주석을 풀고 적용해도 된다.</p>
-<h4 id="2-2-iptables-nat">2-2. iptables NAT 규칙 추가</h4>
-<pre class="codehilite"><code class="language-bash">sudo iptables -t nat -A POSTROUTING -o {본인의 eth} -j MASQUERADE
+<p><img alt="/etc/sysctl.conf 편집기로 본 이미지" src="assets/posts/nat-instance-build-2/img2.webp" width="1154" height="764" loading="lazy">
+<em>그림2. /etc/sysctl.conf 편집기로 본 이미지</em></p>
+<p>또는 sysctl.conf를 편집기로 들어가 보면 net.ipv4.ip_forward=1이 위의 그림 처럼 #으로 비활성화 되어 있는 모습을 볼 수 있을 것이다. 단순히 해당 부분의 주석을 풀고 설정을 적용해 줘도 된다.</p>
+<p><strong>2. iptables NAT 설정</strong></p>
+<pre class="codehilite"><code class="language-bash">sudo iptables -t nat -A POSTROUTING -o {본인의 ethernet} -j MASQUERADE
 </code></pre>
 
-<p>프라이빗 네트워크의 IP를 NAT Instance의 퍼블릭 IP로 변환하는 NAT 규칙이다. 각 옵션은 다음과 같다.</p>
+<p>Nat 기능을 구현하여 프라이빗 네트워크의 IP를 Nat Instance의 퍼블릭 IP로 변환하게 한다. 각 옵션마다의 설명은 다음과 같다.</p>
 <ul>
-<li><code>-t nat</code> — NAT 테이블에 규칙을 추가.</li>
-<li><code>-A POSTROUTING</code> — 패킷이 라우팅된 이후(출발 직전)에 NAT 처리.</li>
-<li><code>-o {eth}</code> — 본인의 인터페이스(예: <code>eth0</code>, <code>ens5</code>)로 나가는 트래픽에 규칙 적용(퍼블릭 네트워크 인터페이스).</li>
-<li><code>-j MASQUERADE</code> — 출발지 IP를 NAT Instance의 퍼블릭 IP로 변환(사설망 → 인터넷).</li>
+<li><code>-t nat</code> : Nat Table에 규칙을 추가합니다.</li>
+<li><code>-A POSTROUTING</code> : 패킷이 라우팅된 이후(출발 직전)에 Nat 처리를 수행합니다. (외부 망에서 사설망으로 들어올때)</li>
+<li><code>-o {본인의 eth}</code> : 본인의 eth(예를 들어 eth0, ens5 등) 인터페이스를 통해 나가는 트래픽에 규칙을 적용한다. (퍼블릭 네트워크 인터페이스를 의미한다)</li>
+<li><code>-j MASQUERADE</code> : 출발지 IP를 Nat Instance의 퍼블릭 IP로 변환한다. (즉, 사설망에서 인터넷으로 나갈때)</li>
 </ul>
-<p>본인의 네트워크 인터페이스 이름은 <code>ip addr</code>로 확인한다(<code>ifconfig</code>도 가능, <code>net-tools</code> 설치 후).</p>
+<p>본인의 네트워크 인터페이스 이름을 확인하는 방법 (ip addr이용) : ifconfig를 이용해도 무방 (netstat apt에서 설치한 이후 가능)</p>
 <pre class="codehilite"><code class="language-bash">ip addr
 </code></pre>
 
-<p><img alt="ip addr 실행 — 네트워크 인터페이스 이름 확인 (ens5)" src="assets/posts/nat-instance-build-2/img3.webp" width="1224" height="444" loading="lazy">
-<em>그림 3. 네트워크 인터페이스 이름 확인 (예: <code>ens5</code>)</em></p>
-<p>위 그림에서는 <code>ens5</code>가 인터페이스 이름이다.</p>
-<h4 id="2-3">2-3. 적용 결과 확인</h4>
+<p><img alt="네트워크 인터페이스 이름 확인 결과" src="assets/posts/nat-instance-build-2/img3.webp" width="1224" height="444" loading="lazy">
+<em>그림3. 네트워크 인터페이스 이름 확인 결과</em></p>
+<p>ip addr / ifconfig를 이용하면 그림3과 같이 네트워크 인터페이스 이름을 알 수 있다. 위의 그림 경우에서는 ens5가 네트워크 이름으로 표기되고 있음을 알 수 있다.</p>
+<p><strong>3. iptables 적용 결과 확인</strong></p>
+<p>위에서 적용했으면, 잘 적용 됐는지를 확인 하는 과정을 거쳐야 한다.</p>
 <pre class="codehilite"><code class="language-bash">sudo iptables -t nat -L -n -v
 </code></pre>
 
-<p>iptables에 적용된 NAT 테이블을 확인하는 명령이다.</p>
+<p>위의 명령어는 iptables에 적용되어 있는 Nat Table들을 확인시켜주는 Command Line이다. 해당 옵션의 설명은 아래와 같다.</p>
 <ul>
-<li><code>-t nat</code> — NAT 테이블 확인.</li>
-<li><code>-L</code> — 모든 체인·규칙 나열.</li>
-<li><code>-n</code> — 호스트 이름 대신 IP 표시.</li>
-<li><code>-v</code> — 상세 정보(패킷 수·바이트 등) 표시.</li>
+<li><code>-t nat</code> : Nat Table을 확인 한다.</li>
+<li><code>-L</code> : 모든 체인과 규칙을 나열 한다.</li>
+<li><code>-n</code> : 호스트 이름 대신 IP 주소를 표시한다.</li>
+<li><code>-v</code> : 상세 정보(패킷 수, 바이트 등)를 추가로 표시 한다.</li>
 </ul>
-<p><img alt="iptables NAT 규칙 추가 전후 비교 — POSTROUTING MASQUERADE" src="assets/posts/nat-instance-build-2/img4.webp" width="1138" height="866" loading="lazy">
-<em>그림 4. iptables 규칙 추가 결과 (위: before / 아래: after)</em></p>
-<p>그림 4처럼 <code>POSTROUTING</code> 체인에 <code>MASQUERADE</code> 규칙이 추가돼 있어야 한다. 확인했다면 재부팅 후에도 설정이 유지되게 저장한다.</p>
-<h4 id="2-4">2-4. 규칙 저장 (재부팅 후 유지)</h4>
+<p><img alt="iptables에 Rule을 추가한 결과 (위의 그림 before 아래 그림 after)" src="assets/posts/nat-instance-build-2/img4.webp" width="1138" height="866" loading="lazy">
+<em>그림4. iptables에 Rule을 추가한 결과 (위의 그림 before 아래 그림 after)</em></p>
+<p>그림4처럼 POSTROUTING 체인에 MASQUERADE 규칙이 추가되어 있어야 한다. 해당 결과를 확인했다면, 이제 재부팅해도 해당 설정이 유지되게 설정해줘야 한다.</p>
+<p><strong>4. iptables 설정 / 규칙 저장 (재부팅시 설정 유지하기 위함)</strong></p>
 <pre class="codehilite"><code class="language-bash">sudo apt-get update
 sudo apt-get install -y iptables-persistent
 </code></pre>
 
-<p><code>iptables-persistent</code>는 iptables 규칙을 저장하고 부팅 시 자동 로드하는 유틸리티다. 설치 중 현재 규칙을 저장할지 물으면 모두 yes.</p>
+<p>최신 버전을 받기 위해 apt-get update를 한 이후 install해주길 바란다. iptables 규칙을 시스템 재부팅 후에도 유지하기 위해 iptables-persistent 패키지를 설치한다. iptables-persistent은 iptables 규칙을 저장하고 부팅 시 자동으로 로드하는 유틸리티라고 생각하면 된다. 설치 과정에서 현재 설정된 iptables 규칙을 저장할지 묻는데, 모두 yes하면 된다.</p>
 <pre class="codehilite"><code class="language-bash">sudo netfilter-persistent save
 </code></pre>
 
-<p>현재 규칙을 <code>/etc/iptables/rules.v4</code> 등에 저장한다. 저장된 규칙은 재부팅해도 유지된다.</p>
+<p>현재 설정된 iptables 규칙을 저장한다. netfilter-persistent은 iptables 및 관련 규칙을 /etc/iptables/rules.v4와 같은 파일에 저정 한다. 저장된 규칙은 시스템이 재부팅되어도 유지된다.</p>
 <pre class="codehilite"><code class="language-bash">sudo systemctl enable netfilter-persistent
 </code></pre>
 
-<p>재부팅 후에도 규칙이 자동 로드되도록 서비스를 활성화한다.</p>
-<p>이렇게 하면 OS 측 NAT Instance 설정이 끝난다. 나머지(Private Subnet 라우팅 테이블 설정, EC2 소스/대상 확인 중지)는 1부와 동일하다.</p>
-<h3 id="3-private-subnet">3. 결과 — Private Subnet 인터넷 연결 확인</h3>
-<p><img alt="NAT Instance 구축 후 Private Subnet EC2에서 apt-get update 성공" src="assets/posts/nat-instance-build-2/img5.webp" width="1558" height="614" loading="lazy">
-<em>그림 5. NAT Instance 구축 결과 — 인터넷 연결 확인</em></p>
-<p>설정을 끝내고 Private Subnet의 EC2에서 <code>sudo apt-get update</code>를 실행하면 인터넷이 연결된 것을 확인할 수 있다.</p>
-<h2 id="_2">맺음말</h2>
-<p>2부에서는 커뮤니티 AMI 대신 <strong>직접 OS에서 NAT Instance를 설정·구성</strong>했다. 나머지 라우팅 테이블·콘솔 설정은 1부와 동일하다. 나는 <strong>Reverse Proxy / NAT Instance / Bastion</strong> 세 역할을 모두 겸하게 해야 했기에, 버전 관리가 되는 최신 OS에 위처럼 직접 설정해 운영하고 있다.</p>
+<p>시스템 재부팅 후에도 iptables 규칙이 자동으로 로드되도록 netfilter-persistent 서비스를 활성화 한다.</p>
+<p>이렇게 하면 OS상에서 Nat-Instance 설정이 마무리 된 것이다. 나머지 설정은 1부에서 다뤘던 것처럼 private routing table 설정 및 AWS EC2에서 소스 대상/확인 설정을 하면 된다. (1부 글에서 2. Private subnet Routing Table 설정 및 Nat Instance Console창에서 설정 부분을 봐주시면 됩니다)</p>
+<h3 id="3-private-subnet">3. 결과 (Private subnet 인터넷 연결 확인)</h3>
+<p><img alt="Nat Instace 구축 결과" src="assets/posts/nat-instance-build-2/img5.webp" width="1558" height="614" loading="lazy">
+<em>그림5. Nat Instace 구축 결과</em></p>
+<p>위의 설정을 끝내고 Private Subnet에 있는 ec2에 들어가서 sudo apt-get udpate를 하면, 위와 같이 인터넷이 연결된 것을 확인할 수 있을 것이다.</p>
+<h2 id="_1">맺음말</h2>
+<p>이번 2부 글에서는 AMI Community에서 제공하고 있는 Nat Instance를 우리가 직접 OS상에서 설정하고 구성해 본 것뿐이다. 나머지 Routing Table 설정, 콘솔창에서 EC2 대상 확인 체크 등 다른 설정들은 모두 1부 글과 동일하다. 필자는 현재 Reverse Proxy / Nat Instance / Bastion 3가지 역할을 모두 할 수 있게 만들어 놓아야 했기 때문에, 버전 관리가 되는 OS에 위와 같이 직접 설정하여 사용하고 있다.</p>
 <hr />
 <blockquote>
-<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/28" rel="nofollow noopener">taehyuklee.tistory.com/28</a></p>
+<p>📦 블로그 이전 글입니다. 원본: <a href="https://taehyuklee.tistory.com/28" rel="nofollow noopener">taehyuklee.tistory.com/28</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/nat-instance-build-1/">[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)</a></li></ul></section>
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/nat-instance-build-1/">[AWS 인프라] NAT Gateway 비용 절감을 위한 AMI로 NAT 인스턴스 구축 및 설정 (1부)</a></li><li><a href="ko/aws-nat-gateway-guide/">[AWS] NAT Gateway 사용법·설정 가이드 — Private Subnet 인터넷 연결과 비용 최적화</a></li><li><a href="ko/aws-cost-optimization/">[AWS 비용] AWS 인프라 비용 55% 절감 가이드 (Graviton 전환 및 고정비 최적화 전략)</a></li><li><a href="ko/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH 접속 에러: UNPROTECTED PRIVATE KEY FILE 에러 해결 방법 (ssh pem 키 권한 설정)</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fnat-instance-build-2%2F&amp;text=%5BAWS%5D%20NAT%20Gateway%20%EB%B9%84%EC%9A%A9%20%EC%A0%88%EA%B0%90%20%E2%80%94%20iptables%EB%A1%9C%20NAT%20%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%20%EC%A7%81%EC%A0%91%20%EA%B5%AC%EC%B6%95%20%282%EB%B6%80%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fnat-instance-build-2%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fnat-instance-build-2%2F&amp;text=%5BAWS%20%EC%9D%B8%ED%94%84%EB%9D%BC%5D%20NAT%20Gateway%20%EB%B9%84%EC%9A%A9%20%EC%A0%88%EA%B0%90%EC%9D%84%20%EC%9C%84%ED%95%9C%20NAT%20%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%20%EA%B5%AC%EC%B6%95%20%EB%B0%8F%20%EC%84%A4%EC%A0%95%20%282%EB%B6%80%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fnat-instance-build-2%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
 

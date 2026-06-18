@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode · Tay Blog</title>
+<title>[SQLAlchemy] Fixing the DPI-1047 Python Oracle DB Connection Error on AWS Graviton (ARM) | SQLAlchemy, oracledb · Tay Blog</title>
 <meta name="description" content="Why a Python–Oracle integration that worked on x86_64 fails with DPI-1047 (can&#39;t find libclntsh.so) on AWS Graviton (ARM), and the fix using python-oracledb Thin mode — pure Python, no Instant Client (SQLAlchemy and native examples).">
 <link rel="canonical" href="https://taystudios.com/blog/en/python-oracledb-arm-dpi-1047/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/python-oracledb-arm-dpi-1047/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/python-oracledb-arm-dpi-1047/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/python-oracledb-arm-dpi-1047/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode · Tay Blog">
+<meta property="og:title" content="[SQLAlchemy] Fixing the DPI-1047 Python Oracle DB Connection Error on AWS Graviton (ARM) | SQLAlchemy, oracledb · Tay Blog">
 <meta property="og:description" content="Why a Python–Oracle integration that worked on x86_64 fails with DPI-1047 (can&#39;t find libclntsh.so) on AWS Graviton (ARM), and the fix using python-oracledb Thin mode — pure Python, no Instant Client (SQLAlchemy and native examples).">
 <meta property="og:url" content="https://taystudios.com/blog/en/python-oracledb-arm-dpi-1047/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/python-oracledb-arm-dpi-1047/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/python-oracledb-arm-dpi-1047/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode", "description": "Why a Python–Oracle integration that worked on x86_64 fails with DPI-1047 (can't find libclntsh.so) on AWS Graviton (ARM), and the fix using python-oracledb Thin mode — pure Python, no Instant Client (SQLAlchemy and native examples).", "datePublished": "2026-02-10T00:00:00+09:00", "dateModified": "2026-02-10T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/python-oracledb-arm-dpi-1047/"}, "image": ["https://taystudios.com/blog/assets/posts/python-oracledb-arm-dpi-1047/cover.webp"], "keywords": "python-oracledb, cx_Oracle, DPI-1047, AWS Graviton, ARM, SQLAlchemy"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Error Docs", "item": "https://taystudios.com/blog/en/category/errors/"}, {"@type": "ListItem", "position": 3, "name": "Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode", "item": "https://taystudios.com/blog/en/python-oracledb-arm-dpi-1047/"}]}</script><meta property="article:published_time" content="2026-02-10T00:00:00+09:00"><meta property="article:modified_time" content="2026-02-10T00:00:00+09:00"><meta property="article:tag" content="python-oracledb"><meta property="article:tag" content="cx_Oracle"><meta property="article:tag" content="DPI-1047"><meta property="article:tag" content="AWS Graviton"><meta property="article:tag" content="ARM"><meta property="article:tag" content="SQLAlchemy">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[SQLAlchemy] Fixing the DPI-1047 Python Oracle DB Connection Error on AWS Graviton (ARM) | SQLAlchemy, oracledb", "description": "Why a Python–Oracle integration that worked on x86_64 fails with DPI-1047 (can't find libclntsh.so) on AWS Graviton (ARM), and the fix using python-oracledb Thin mode — pure Python, no Instant Client (SQLAlchemy and native examples).", "datePublished": "2026-02-10T00:00:00+09:00", "dateModified": "2026-02-10T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/python-oracledb-arm-dpi-1047/"}, "image": ["https://taystudios.com/blog/assets/posts/python-oracledb-arm-dpi-1047/cover.webp"], "keywords": "python-oracledb, cx_Oracle, DPI-1047, AWS Graviton, ARM, SQLAlchemy"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Error Docs", "item": "https://taystudios.com/blog/en/category/errors/"}, {"@type": "ListItem", "position": 3, "name": "[SQLAlchemy] Fixing the DPI-1047 Python Oracle DB Connection Error on AWS Graviton (ARM) | SQLAlchemy, oracledb", "item": "https://taystudios.com/blog/en/python-oracledb-arm-dpi-1047/"}]}</script><meta property="article:published_time" content="2026-02-10T00:00:00+09:00"><meta property="article:modified_time" content="2026-02-10T00:00:00+09:00"><meta property="article:tag" content="python-oracledb"><meta property="article:tag" content="cx_Oracle"><meta property="article:tag" content="DPI-1047"><meta property="article:tag" content="AWS Graviton"><meta property="article:tag" content="ARM"><meta property="article:tag" content="SQLAlchemy">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/errors/">Error Docs</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</span></nav>
-        <h1 class="tb-article-title">Fixing the DPI-1047 Python–Oracle Error on AWS Graviton (ARM) — python-oracledb Thin Mode</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/errors/">Error Docs</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">[SQLAlchemy] Fixing the DPI-1047 Python Oracle DB Connection Error on AWS Graviton (ARM) | SQLAlchemy, oracledb</span></nav>
+        <h1 class="tb-article-title">[SQLAlchemy] Fixing the DPI-1047 Python Oracle DB Connection Error on AWS Graviton (ARM) | SQLAlchemy, oracledb</h1>
         <div class="tb-article-meta">
           <time>2026.02.10</time>
           <span>·</span><span>#python-oracledb #cx_Oracle #DPI-1047 #AWS Graviton #ARM #SQLAlchemy</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-the-issue-when-migrating-aws-ec2-to-arm">1. The Issue When Migrating AWS EC2 to ARM</a></li><li class="tb-toc-h2"><a href="#2-what-is-the-dpi-1047-error">2. What is the DPI-1047 error?</a></li><li class="tb-toc-h2"><a href="#3-cause-why-only-on-arm-servers">3. Cause — Why Only on ARM Servers?</a></li><li class="tb-toc-h2"><a href="#4-the-fix-python-oracledb-thin-mode">4. The Fix — python-oracledb 'Thin' Mode</a></li><li class="tb-toc-h3"><a href="#41-sqlalchemy-url-integration">4.1 SQLAlchemy URL Integration</a></li><li class="tb-toc-h3"><a href="#42-native-driver-integration">4.2 Native Driver Integration</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-the-issue-when-changing-to-aws-ec2-arm-architecture">1. The issue when changing to AWS EC2 ARM architecture</a></li><li class="tb-toc-h2"><a href="#2-what-is-the-dpi-1047-error">2. What is the DPI-1047 error?</a></li><li class="tb-toc-h2"><a href="#3-cause-why-does-it-happen-only-on-arm-servers">3. (Cause) Why does it happen only on ARM servers?</a></li><li class="tb-toc-h2"><a href="#4-the-fix-python-oracledb-thin-mode">4. The fix: python-oracledb 'Thin' mode</a></li><li class="tb-toc-h3"><a href="#41-sqlalchemy-example-and-setup">4.1 SQLAlchemy example and setup</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -79,77 +79,82 @@
 .tb-content .callout p { margin:6px 0; line-height:1.85; }
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
+.tb-content pre { overflow-x:auto; }
 </style>
-<h2 id="1-the-issue-when-migrating-aws-ec2-to-arm">1. The Issue When Migrating AWS EC2 to ARM</h2>
-<p>More companies are switching to cost-effective <strong>AWS Graviton (ARM/aarch64)</strong> instances. But moving Python code that worked on x86_64 as-is, you hit the <strong>DPI-1047 error</strong> when connecting to Oracle DB.</p>
-<p>This post covers the root cause and the fix using the latest driver, <strong>python-oracledb.</strong></p>
+
+<h2 id="1-the-issue-when-changing-to-aws-ec2-arm-architecture">1. The issue when changing to AWS EC2 ARM architecture</h2>
+<p>Recently, more companies are switching to the cost-effective AWS Graviton (ARM/aarch64) instances. But if you move Python code that worked fine on the existing x86_64 environment as-is, you'll run into the DPI-1047 error when integrating with Oracle DB.</p>
+<p>I want to organize the fundamental cause of this error and a complete solution using the latest driver, python-oracledb.</p>
 <h2 id="2-what-is-the-dpi-1047-error">2. What is the DPI-1047 error?</h2>
-<p>This error, raised when connecting via SQLAlchemy or cx_Oracle, means <strong>"the Oracle Client library cannot be located."</strong></p>
+<p>This error, which occurs when connecting via SQLAlchemy or cx_Oracle, means "the Oracle Client library cannot be located."</p>
 <pre class="codehilite"><code class="language-text">sqlalchemy.exc.DatabaseError: (cx_Oracle.DatabaseError) DPI-1047: Cannot locate a 64-bit Oracle Client library:
 &quot;libclntsh.so: cannot open shared object file: No such file or directory&quot;.
 </code></pre>
 
-<h2 id="3-cause-why-only-on-arm-servers">3. Cause — Why Only on ARM Servers?</h2>
-<p>This happens because of a <strong>mismatch between the server CPU architecture and the library.</strong></p>
+<h2 id="3-cause-why-does-it-happen-only-on-arm-servers">3. (Cause) Why does it happen only on ARM servers?</h2>
+<p>This problem occurs because of a mismatch between the server CPU architecture and the library.</p>
 <ul>
-<li><strong>cx_Oracle's dependency</strong> — the older <code>cx_Oracle</code> driver only works if the C-based <strong>Oracle Instant Client</strong> library is installed on the system. (Connecting by installing the client like this is called <strong>Thick mode.</strong>)</li>
-<li><strong>Architecture mismatch</strong> — Oracle long did not officially support (or made it very fiddly to configure) the Instant Client for ARM (aarch64). Trying to load an x86_64-only library on ARM, the system can't recognize it. (Beyond CPU architecture, Oracle DB is also sensitive to environment factors — e.g., RHEL/CentOS is far easier than Ubuntu for installation.)</li>
+<li><strong>cx_Oracle's dependency</strong>: the existing cx_Oracle driver only works if the C-based Oracle Instant Client library is installed on the system. (This way of integrating by installing the Client is called Thick mode.)</li>
+<li><strong>Architecture mismatch</strong>: Oracle long did not officially support the Instant Client library for ARM (aarch64), or the setup was very tricky. In the end, trying to load an x86_64-only library on an ARM environment, the system doesn't recognize it — that's the architecture-mismatch problem.</li>
 </ul>
-<h2 id="4-the-fix-python-oracledb-thin-mode">4. The Fix — python-oracledb 'Thin' Mode</h2>
-<p><img alt="Structure of the DPI-1047 error on AWS Graviton ARM instances and the python-oracledb Thin mode fix" src="assets/posts/python-oracledb-arm-dpi-1047/img1.webp" width="1536" height="1024" loading="lazy">
-<em>Figure 1. DPI-1047 (architecture mismatch) → python-oracledb Thin mode fix</em></p>
-<p>To solve this architecture problem, Oracle released <strong>python-oracledb,</strong> the successor to <code>cx_Oracle</code>. Its <strong>Thin mode</strong> is essential for running a Python server on ARM. (Connecting from within the library without an Instant Client is called <strong>Thin mode.</strong>)</p>
+<p>(Beyond CPU architecture, Oracle DB also depends on various versions when installing — for example, RHEL or CentOS-based is much more convenient than Ubuntu. In my experience, Oracle DB was heavily affected by environmental factors.)</p>
+<h2 id="4-the-fix-python-oracledb-thin-mode">4. The fix: python-oracledb 'Thin' mode</h2>
+<p><img alt="The DPI-1047 error on an AWS Graviton ARM instance and python-oracledb Thin mode" src="assets/posts/python-oracledb-arm-dpi-1047/img1.webp" width="1536" height="1024" loading="lazy">
+<em>Figure 1. The DPI-1047 error on an AWS Graviton ARM instance and python-oracledb Thin mode</em></p>
+<p>To solve this architecture problem, Oracle released python-oracledb, the successor to cx_Oracle. In particular, this driver's Thin mode is an essential element when operating a Python server on an ARM server. (The way of integrating within the library itself, without needing the Instant Client, is called Thin mode.)</p>
 <ul>
-<li><strong>No Instant Client needed</strong> — rewritten as 100% pure Python with no C-library dependency.</li>
-<li><strong>Architecture agnostic</strong> — it doesn't care about the architecture; it works identically on x86 or ARM. (Hence people rarely use <code>cx_Oracle</code> anymore and use <code>oracledb</code> instead.)</li>
-<li><strong>Direct communication</strong> — talks to the DB directly over the Oracle Net Protocol, without going through system libraries.</li>
+<li><strong>No Instant Client needed</strong>: rewritten in 100% pure Python with no C library dependency.</li>
+<li><strong>Architecture Agnostic</strong>: doesn't depend on the architecture. It works the same whether x86 or ARM. (That's why these days ox_Oracle is hardly used and only oracledb is used.)</li>
+<li><strong>Direct communication</strong>: it talks to the DB directly via the Oracle Net Protocol, without going through system libraries.</li>
 </ul>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
 <th>Driver</th>
 <th>Characteristics</th>
-<th>Recommended for</th>
+<th>Recommended environment</th>
 <th>SQLAlchemy URL scheme</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>cx_Oracle</code></td>
-<td>C-library based</td>
+<td>cx_Oracle</td>
+<td>C library-based</td>
 <td>x86_64 (legacy)</td>
-<td><code>oracle+cx_oracle://</code></td>
+<td>oracle+cx_oracle://</td>
 </tr>
 <tr>
-<td><code>oracledb</code></td>
+<td>oracledb</td>
 <td>Thin mode support</td>
-<td>ARM (aarch64), Cloud</td>
-<td><code>oracle+oracledb://</code></td>
+<td>ARM(aarch64), Cloud</td>
+<td>oracle+oracledb://</td>
 </tr>
 </tbody>
 </table></div>
-<p>First, install the library.</p>
+<h3 id="41-sqlalchemy-example-and-setup">4.1 SQLAlchemy example and setup</h3>
+<p><strong>1. Install the library</strong></p>
 <pre class="codehilite"><code class="language-bash">pip install oracledb
 </code></pre>
 
-<h3 id="41-sqlalchemy-url-integration">4.1 SQLAlchemy URL Integration</h3>
-<p>With <code>cx_Oracle</code>, the URL starts with <code>oracle+cx_oracle://</code> as below.</p>
+<p><strong>2. Code implementation examples</strong></p>
+<p><strong>2.1 SQLAlchemy URL integration</strong></p>
+<p>When using cx_Oracle, you can see it starts with oracle+cx_oracle:// as below.</p>
 <pre class="codehilite"><code class="language-python"># [x86_64 only / high chance of error on ARM]
-# It hunts for the system's libclntsh.so file
+# the way that hunts for the system's libclntsh.so file
 SQLALCHEMY_DATABASE_URL = f&quot;oracle+cx_oracle://{user}:{password}@{host}:{port}/?service_name={service_name}&quot;
 </code></pre>
 
-<p>The <code>oracledb</code> way (recommended — SQLAlchemy URL integration):</p>
+<p>The oracledb way (the recommended way when integrating via a SQLAlchemy URL)</p>
 <pre class="codehilite"><code class="language-python">from sqlalchemy import create_engine
 
-# Stripping invisible whitespace when loading from JSON/env vars is a must
+# Removing invisible whitespace when loading from JSON/env vars is a must.
 user = db.get(&quot;user&quot;).strip()
 password = db.get(&quot;password&quot;).strip()
 host = db.get(&quot;host&quot;).strip()
 port = db.get(&quot;port&quot;)
 service_name = db.get(&quot;service_name&quot;).strip()
 
-# Use the python-oracledb Thin mode URL scheme
+# Use the URL scheme for python-oracledb Thin mode
 SQLALCHEMY_DATABASE_URL = f&quot;oracle+oracledb://{user}:{password}@{host}:{port}/?service_name={service_name}&quot;
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
@@ -159,33 +164,36 @@ with engine.connect() as conn:
     print(&quot;Connected to Oracle DB successfully on ARM(aarch64) server!&quot;)
 </code></pre>
 
-<blockquote>
-<p>💡 <strong>Tip</strong> — when loading info from JSON or <code>.env</code>, invisible whitespace or newlines (<code>\n</code>) can cause connection failures — especially when the password ends with a special character like <code>!</code>. That's why I added <code>strip()</code> at the end.</p>
-</blockquote>
-<h3 id="42-native-driver-integration">4.2 Native Driver Integration</h3>
-<p><strong>① cx_Oracle (the traditional Thick mode)</strong> — it depends on a C library, so you must initialize the library path at the code level, and if the architecture doesn't match, the error fires right here.</p>
+<div class="callout">
+💡 <strong>Tip:</strong> When loading info from a JSON or .env file, there were cases where the connection failed if invisible whitespace or a newline (\n) was included — for example, when the password ends with a special character like !. So I added strip() at the end.
+</div>
+
+<p><strong>2.2 Native integration (calling the Driver Library)</strong></p>
+<p><strong>1. The cx_Oracle way (the traditional Thick mode way)</strong></p>
+<p>Because it depends on a C library, it needs a process of initializing the library path at the code level, and if the architecture doesn't match, the error blows up right here. (cx_Oracle way: complex initialization)</p>
 <pre class="codehilite"><code class="language-python">import cx_Oracle
 import os
 
-# Must load the Instant Client
+# you have to load the instantclinet
 lib_dir = &quot;/opt/oracle/instantclient_21_10&quot;
 
 try:
-    # Manual library init (required for Thick mode)
+    # manual library initialization (a required process for Thick mode)
     cx_Oracle.init_oracle_client(lib_dir=lib_dir)
 except Exception as e:
-    print(f&quot;Library load failed (DPI-1047): {e}&quot;)
+    print(f&quot;Library load failed (DPI-1047 raised): {e}&quot;)
 
-# Connection info
+# connection info
 dsn = cx_Oracle.makedsn(&quot;host&quot;, 1521, service_name=&quot;sn&quot;)
 conn = cx_Oracle.connect(user=&quot;user&quot;, password=&quot;password&quot;, dsn=dsn)
 </code></pre>
 
-<p><strong>② python-oracledb (the modern Thin mode — recommended)</strong> — no library path needed at all. It runs as pure Python regardless of architecture.</p>
+<p><strong>2. python-oracledb (the latest Thin mode way) - (the recommended way)</strong></p>
+<p>You don't even need to specify a library path at all. It works with pure Python code regardless of architecture.</p>
 <pre class="codehilite"><code class="language-python">import oracledb
 
 try:
-    # Connect directly with no extra config (Thin mode by default)
+    # connect right away with no separate setup (Thin mode is the default)
     conn = oracledb.connect(
         user=&quot;user&quot;,
         password=&quot;password&quot;,
@@ -198,17 +206,17 @@ except Exception as e:
     print(f&quot;Connection failed: {e}&quot;)
 </code></pre>
 
-<p><code>cx_Oracle</code> has the hassle of calling the Oracle Client library installed on the system, whereas <code>python-oracledb</code> skips that entirely. It needs no separate library init (<code>init_oracle_client</code>) and runs immediately regardless of x86/ARM architecture.</p>
-<p><strong>If you run AWS EC2 on ARM, the <code>python-oracledb</code> driver is essential for Python–Oracle DB integration.</strong></p>
+<p>As you can see, cx_Oracle has the hassle of having to directly call the Oracle Client library installed on the system, but python-oracledb omits that process entirely. When using the oracledb driver, no separate library initialization process (init_oracle_client) is needed at all, and it can run immediately regardless of x86 or ARM architecture.</p>
+<p>When using AWS EC2 with the ARM architecture, the python-oracledb driver is an essential element for Python–Oracle DB integration.</p>
 <hr />
 <blockquote>
-<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/32" rel="nofollow noopener">taehyuklee.tistory.com/32</a></p>
+<p>📦 Migrated from the Tistory blog I used to run. Original: <a href="https://taehyuklee.tistory.com/32" rel="nofollow noopener">taehyuklee.tistory.com/32</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li></ul></section>
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/aws-cost-optimization/">[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration &amp; Fixed-Cost Optimization Strategy)</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fpython-oracledb-arm-dpi-1047%2F&amp;text=Fixing%20the%20DPI-1047%20Python%E2%80%93Oracle%20Error%20on%20AWS%20Graviton%20%28ARM%29%20%E2%80%94%20python-oracledb%20Thin%20Mode" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fpython-oracledb-arm-dpi-1047%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fpython-oracledb-arm-dpi-1047%2F&amp;text=%5BSQLAlchemy%5D%20Fixing%20the%20DPI-1047%20Python%20Oracle%20DB%20Connection%20Error%20on%20AWS%20Graviton%20%28ARM%29%20%7C%20SQLAlchemy%2C%20oracledb" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fpython-oracledb-arm-dpi-1047%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
 

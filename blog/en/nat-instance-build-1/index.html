@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>[AWS] Cutting NAT Gateway Costs — Building a NAT Instance from an AMI (Part 1) · Tay Blog</title>
+<title>[AWS Infra] Building &amp; Configuring a NAT Instance from an AMI to Cut NAT Gateway Costs (Part 1) · Tay Blog</title>
 <meta name="description" content="A NAT Gateway costs $32+/month in fixed fees. To save money, I connected a Private Subnet to the internet using an EC2 NAT Instance — Part 1 uses the AWS community AMI (amzn-ami-vpc-nat).">
 <link rel="canonical" href="https://taystudios.com/blog/en/nat-instance-build-1/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/nat-instance-build-1/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/nat-instance-build-1/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/nat-instance-build-1/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="[AWS] Cutting NAT Gateway Costs — Building a NAT Instance from an AMI (Part 1) · Tay Blog">
+<meta property="og:title" content="[AWS Infra] Building &amp; Configuring a NAT Instance from an AMI to Cut NAT Gateway Costs (Part 1) · Tay Blog">
 <meta property="og:description" content="A NAT Gateway costs $32+/month in fixed fees. To save money, I connected a Private Subnet to the internet using an EC2 NAT Instance — Part 1 uses the AWS community AMI (amzn-ami-vpc-nat).">
 <meta property="og:url" content="https://taystudios.com/blog/en/nat-instance-build-1/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/nat-instance-build-1/cover.png"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/nat-instance-build-1/cover.png">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[AWS] Cutting NAT Gateway Costs — Building a NAT Instance from an AMI (Part 1)", "description": "A NAT Gateway costs $32+/month in fixed fees. To save money, I connected a Private Subnet to the internet using an EC2 NAT Instance — Part 1 uses the AWS community AMI (amzn-ami-vpc-nat).", "datePublished": "2024-12-28T00:00:00+09:00", "dateModified": "2024-12-28T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/nat-instance-build-1/"}, "image": ["https://taystudios.com/blog/assets/posts/nat-instance-build-1/cover.png"], "keywords": "AWS, NAT Instance, VPC, networking, cost-saving"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "[AWS] Cutting NAT Gateway Costs — Building a NAT Instance from an AMI (Part 1)", "item": "https://taystudios.com/blog/en/nat-instance-build-1/"}]}</script><meta property="article:published_time" content="2024-12-28T00:00:00+09:00"><meta property="article:modified_time" content="2024-12-28T00:00:00+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="NAT Instance"><meta property="article:tag" content="VPC"><meta property="article:tag" content="networking"><meta property="article:tag" content="cost-saving">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "[AWS Infra] Building & Configuring a NAT Instance from an AMI to Cut NAT Gateway Costs (Part 1)", "description": "A NAT Gateway costs $32+/month in fixed fees. To save money, I connected a Private Subnet to the internet using an EC2 NAT Instance — Part 1 uses the AWS community AMI (amzn-ami-vpc-nat).", "datePublished": "2024-12-28T00:00:00+09:00", "dateModified": "2024-12-28T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/nat-instance-build-1/"}, "image": ["https://taystudios.com/blog/assets/posts/nat-instance-build-1/cover.png"], "keywords": "AWS, NAT Instance, VPC, networking, cost-saving"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "[AWS Infra] Building & Configuring a NAT Instance from an AMI to Cut NAT Gateway Costs (Part 1)", "item": "https://taystudios.com/blog/en/nat-instance-build-1/"}]}</script><meta property="article:published_time" content="2024-12-28T00:00:00+09:00"><meta property="article:modified_time" content="2024-12-28T00:00:00+09:00"><meta property="article:tag" content="AWS"><meta property="article:tag" content="NAT Instance"><meta property="article:tag" content="VPC"><meta property="article:tag" content="networking"><meta property="article:tag" content="cost-saving">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance from an AMI (Part 1)</span></nav>
-        <h1 class="tb-article-title">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance from an AMI (Part 1)</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">[AWS Infra] Building &amp; Configuring a NAT Instance from an AMI to Cut NAT Gateway Costs (Part 1)</span></nav>
+        <h1 class="tb-article-title">[AWS Infra] Building &amp; Configuring a NAT Instance from an AMI to Cut NAT Gateway Costs (Part 1)</h1>
         <div class="tb-article-meta">
           <time>2024.12.28</time>
           <span>·</span><span>#AWS #NAT Instance #VPC #networking #cost-saving</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#overview-building-a-nat-instance-cost-saving">Overview — Building a NAT Instance (Cost Saving)</a></li><li class="tb-toc-h2"><a href="#nat-gateway-nat-instance">NAT Gateway &amp; NAT Instance?</a></li><li class="tb-toc-h2"><a href="#method-1-using-the-aws-community-ami">Method 1. Using the AWS community AMI</a></li><li class="tb-toc-h3"><a href="#1-create-a-nat-instance-from-the-ami">1) Create a NAT Instance from the AMI</a></li><li class="tb-toc-h3"><a href="#2-private-subnet-routing-nat-instance-console-settings">2) Private Subnet routing &amp; NAT Instance console settings</a></li><li class="tb-toc-h2"><a href="#result-of-building-the-nat-instance">Result of building the NAT Instance</a></li><li class="tb-toc-h2"><a href="#wrap-up">Wrap-up</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#overview-building-a-nat-instance-cost-saving">Overview: Building a NAT Instance (cost saving)</a></li><li class="tb-toc-h2"><a href="#nat-gateway-nat-instance">NAT gateway &amp; NAT Instance?</a></li><li class="tb-toc-h2"><a href="#method-1-using-the-ami-provided-by-aws-from-the-community">Method 1. Using the AMI provided by AWS (from the community)</a></li><li class="tb-toc-h3"><a href="#1-creating-a-nat-instance-using-the-ami">1) Creating a NAT Instance using the AMI</a></li><li class="tb-toc-h3"><a href="#2-configuring-the-private-subnet-routing-table-and-settings-in-the-nat-instance-console">2) Configuring the Private subnet Routing Table and settings in the NAT Instance console</a></li><li class="tb-toc-h2"><a href="#nat-instance-build-result">NAT Instance build result</a></li><li class="tb-toc-h2"><a href="#closing">Closing</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -80,88 +80,89 @@
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
-<h2 id="overview-building-a-nat-instance-cost-saving">Overview — Building a NAT Instance (Cost Saving)</h2>
+
+<h2 id="overview-building-a-nat-instance-cost-saving">Overview: Building a NAT Instance (cost saving)</h2>
 <ol>
-<li>Why a NAT Instance (instead of a NAT Gateway) — Part 1</li>
-<li>Using the AWS-provided NAT Instance AMI — Part 1</li>
-<li>Building a NAT Instance manually with iptables — Part 2</li>
+<li>Why a NAT Instance (instead of a NAT gateway) (Part 1)</li>
+<li>How to use the NAT Instance AMI provided on AWS (Part 1)</li>
+<li>Building a NAT Instance directly with iptables (Part 2)</li>
 </ol>
-<p>In Part 1 we use the NAT Instance AMI provided by the AWS community. To build a NAT Instance manually with iptables, see Part 2.</p>
-<a class="tb-embed-card" href="en/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)</div><div class="tb-embed-excerpt">The Part 1 community AMI runs an old (EOS) OS and is hard to maintain. In Part 2 we build a NAT instance on the latest Ubuntu by configuring iptables directly (IP forwarding + MASQUERADE), and persist the rules across reboots.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
-<h2 id="nat-gateway-nat-instance">NAT Gateway &amp; NAT Instance?</h2>
-<p>While handling network/application architecture on AWS, the network diagram I drew looks like this.</p>
-<p><img alt="Architecture connecting a Private Subnet to the internet via a NAT Instance (EC2) instead of a NAT Gateway" src="assets/posts/nat-instance-build-1/img1.webp" width="1600" height="904" loading="lazy">
-<em>Figure 1. Connecting a Private Subnet to the internet with a NAT Instance (EC2) instead of a NAT Gateway</em></p>
-<p>Normally a Private Subnet needs a NAT Gateway to talk to the internet. But in this setup, instead of placing a separate NAT Gateway in the Public Subnet, I used an <strong>EC2 (NAT Instance)</strong> to connect the Private Subnet to the internet while it also serves as a Reverse Proxy and a Bastion server.</p>
-<p>The pros and cons of a NAT Instance:</p>
+<p>This Part 1 post is about using the NAT Instance AMI provided by the AWS community. If you want to build a NAT Instance directly using iptables, please refer to Part 2. (Part 2 is below.)</p>
+<a class="tb-embed-card" href="en/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="[AWS Infra] Building &amp; Configuring a NAT Instance to Cut NAT Gateway Costs (Part 2)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS Infra] Building &amp; Configuring a NAT Instance to Cut NAT Gateway Costs (Part 2)</div><div class="tb-embed-excerpt">The Part 1 community AMI runs an old (EOS) OS and is hard to maintain. In Part 2 we build a NAT instance on the latest Ubuntu by configuring iptables directly (IP forwarding + MASQUERADE), and persist the rules across reboots.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<h2 id="nat-gateway-nat-instance">NAT gateway &amp; NAT Instance?</h2>
+<p>Recently, I ended up taking charge of the network and application architecture on AWS. It's not exactly as it was at the time, but the network diagram I had in mind is as follows.</p>
+<p><img alt="Connecting a Private subnet to the internet using a NAT Instance (EC2) instead of a NAT gateway" src="assets/posts/nat-instance-build-1/img1.webp" width="1600" height="904" loading="lazy">
+<em>Figure 1. Connecting a Private subnet to the internet using a NAT Instance (EC2) instead of a NAT gateway</em></p>
+<p>Normally, to let a private network (Private subnet) communicate with the internet, you need a NAT Gateway. But in this setup, instead of placing a separate NAT Gateway in the Public subnet, I wanted to connect the Private Subnet's internet through an EC2 (NAT Instance). At the same time, I made it serve as both a Reverse Proxy Server and a Bastion Server.</p>
+<p>If I describe the pros and cons of a NAT Instance, I can put it as follows.</p>
 <p><strong>Pros</strong></p>
-<ul>
-<li>You avoid the NAT Gateway, reducing cost. If you're going to run a Proxy/Bastion server anyway, the idea is to route internet traffic through that server.</li>
-</ul>
+<p>Since you don't directly use a NAT Gateway on AWS, you can cut costs. The idea is that if you're going to have a Proxy Server or Bastion Server anyway, you use that Proxy Server to connect to the internet.</p>
 <p><strong>Cons</strong></p>
 <ul>
-<li>If the Proxy server shuts down or misbehaves, the Private Subnet loses internet. (Architecturally, if the Proxy dies the downstream services can't be served anyway, which I judged acceptable.)</li>
-<li>It doesn't guarantee the high availability, scalability, security, and patch management of an AWS NAT Gateway — you manage the OS version and security yourself. (This is essentially why people use a NAT Gateway.)</li>
+<li>If the Proxy Server shuts down or has a problem, the Private Subnet's internet is cut off. (In the application architecture, if the Proxy Server has a problem, it's right that the services behind it can't be served anyway.)</li>
+<li>It doesn't guarantee high availability, scalability, security, patch management, etc., the way AWS's NAT gateway does. In other words, you have to manage the OS version, security, and so on yourself. (This is essentially the reason to use AWS's NAT gateway.)</li>
 </ul>
-<p>Despite the cons, I built a NAT Instance because the project scale wasn't large and, above all, I had to cut costs. (A NAT Gateway is roughly $32/month base + traffic charges.)</p>
-<p>There are two main ways to create a NAT Instance on AWS.</p>
-<h2 id="method-1-using-the-aws-community-ami">Method 1. Using the AWS community AMI</h2>
-<h3 id="1-create-a-nat-instance-from-the-ami">1) Create a NAT Instance from the AMI</h3>
-<p><img alt="Selecting 'Browse more AMIs' in the EC2 launch screen" src="assets/posts/nat-instance-build-1/img2.webp" width="1438" height="732" loading="lazy">
-<em>Figure 2. Select 'Browse more AMIs' in the EC2 launch screen</em></p>
-<p>In the EC2 launch screen, click <strong>'Browse more AMIs.'</strong></p>
-<p><img alt="Searching amzn-ami-vpc-nat in the Community AMIs tab" src="assets/posts/nat-instance-build-1/img3.webp" width="1600" height="769" loading="lazy">
+<p>Despite the cons above, the reason I wanted to build and use a NAT Instance directly was partly that the project scale wasn't large, and above all because I had to cut costs. (Roughly, the base maintenance cost is about $32 a month + additional fees depending on traffic.)</p>
+<p>Let's look at how you can create a NAT Instance on AWS. It can be summarized into two methods.</p>
+<h2 id="method-1-using-the-ami-provided-by-aws-from-the-community">Method 1. Using the AMI provided by AWS (from the community)</h2>
+<h3 id="1-creating-a-nat-instance-using-the-ami">1) Creating a NAT Instance using the AMI</h3>
+<p><img alt="Selecting 'Browse more AMIs' in the EC2 creation screen" src="assets/posts/nat-instance-build-1/img2.webp" width="1438" height="732" loading="lazy">
+<em>Figure 2. Selecting 'Browse more AMIs' in the EC2 creation screen</em></p>
+<p>In the EC2 creation screen, click "Browse more AMIs."</p>
+<p><img alt="Searching in the Community AMIs tab" src="assets/posts/nat-instance-build-1/img3.webp" width="1600" height="769" loading="lazy">
 <em>Figure 3. Searching in the Community AMIs tab</em></p>
-<p>In the Community AMIs tab, search for <code>amzn-ami-vpc-nat</code>. The registered AMIs differ per region; in the Seoul region several appear. I picked the one with the most recent publish date.</p>
-<p><img alt="Launching an EC2 (NAT Instance) from the selected NAT AMI" src="assets/posts/nat-instance-build-1/img4.webp" width="1600" height="1148" loading="lazy">
-<em>Figure 4. Launching the NAT Instance</em></p>
-<p>When you select the AMI, Figure 4 shows the CPU architecture (here x86_64), storage format, etc. that match the AMI, and you can pick an instance type. An EC2 launched this way is already configured to pass incoming traffic on to another destination (i.e., it acts as a NAT Gateway).</p>
-<blockquote>
-<p>Note: For SSH, the username is shown as <code>ec2-user</code> as in Figure 4.</p>
-</blockquote>
-<p>Place the EC2 in your VPC's <strong>Public Subnet</strong>. The Public Subnet's route table must of course be connected to an Internet Gateway and allow VPC-internal local traffic. I recommend setting security via security groups and NACLs. (Basic AWS concepts are only mentioned, not detailed, here.)</p>
-<p><img alt="Public Subnet route table (connected to the Internet Gateway)" src="assets/posts/nat-instance-build-1/img5.webp" width="1600" height="393" loading="lazy">
-<em>Reference. Public Subnet route table — must connect to the Internet Gateway for external communication</em></p>
-<h3 id="2-private-subnet-routing-nat-instance-console-settings">2) Private Subnet routing &amp; NAT Instance console settings</h3>
-<p>With a NAT Gateway, you'd also connect it in the Private Subnet's route table. A NAT Instance needs the same.</p>
-<p><img alt="Setting the target to the NAT instance in the Private Subnet route table" src="assets/posts/nat-instance-build-1/img6.webp" width="1600" height="394" loading="lazy">
-<em>Figure 5. Private Subnet route table setup</em></p>
-<p>In the Private Subnet route table, set the target to <strong>'Instance'</strong> and select the NAT Instance you created (e.g., <code>nat-instance</code>). This means all internet-bound traffic from the Private Subnet goes through the NAT Instance.</p>
-<p><img alt="Target mapped to an ENI (network card) starting with eni-" src="assets/posts/nat-instance-build-1/img7.webp" width="1600" height="222" loading="lazy">
-<em>Reference. Network card (ENI) mapping</em></p>
-<p>After setup, the target starts with <code>eni-</code>, an <strong>Elastic Network Interface</strong> that maps directly to a network card resource. You can infer that the OS forwards traffic to another destination through Layer 2 (data link) and Layer 3 (network). (The community AMI has this configured.)</p>
-<p>Now change the EC2 instance setting itself. In the EC2 dashboard, click <code>nat-instance</code> → top-right <strong>'Actions' → 'Networking' → 'Change source/destination check.'</strong> (Besides the route table, you must also change the instance setting.)</p>
-<p><img alt="NAT instance Actions &gt; Networking &gt; Change source/destination check menu" src="assets/posts/nat-instance-build-1/img8.webp" width="1600" height="616" loading="lazy">
-<em>Figure 6. Changing NAT Instance networking settings</em></p>
-<p><img alt="Selecting 'Stop' for the source/destination check" src="assets/posts/nat-instance-build-1/img9.webp" width="1600" height="737" loading="lazy">
-<em>Figure 7. Source/destination check — select 'Stop'</em></p>
-<p>As in Figure 7, select <strong>'Stop'</strong> for the source/destination check. AWS drops traffic that doesn't reach the target EC2, so to route traffic through one instance to another you need this setting.</p>
-<blockquote>
-<p>Required — the default security group usually only opens SSH. Configure the security group to at least allow communication.</p>
-</blockquote>
-<p><img alt="Private EC2 security group inbound settings" src="assets/posts/nat-instance-build-1/img10.webp" width="1600" height="452" loading="lazy">
-<em>Reference. Private EC2 security group (allow-all traffic as an example)</em></p>
-<p>Here, for demonstration, I set the Private Subnet EC2's security group to allow all traffic. In practice, configure it per your project policy.</p>
-<p>I also did not set an Elastic IP this time; even without an EIP, as long as the NAT Instance's public IP is enabled, a random IP is attached. By DHCP policy the public IP changes if you stop/start the EC2, but if you keep it running, it's fine without an EIP.</p>
-<h2 id="result-of-building-the-nat-instance">Result of building the NAT Instance</h2>
-<p><img alt="Before connecting the NAT Instance — apt-get update fails" src="assets/posts/nat-instance-build-1/img11.webp" width="1600" height="659" loading="lazy">
+<p>In the Community AMIs tab, search for 'amzn-ami-vpc-nat'. What's registered in the community differs by region. When I set the Seoul region, several AMIs appear as above. Among these, I selected the most recently published AMI by publish date.</p>
+<p><img alt="Creating the NAT Instance" src="assets/posts/nat-instance-build-1/img4.webp" width="1600" height="1148" loading="lazy">
+<em>Figure 4. Creating the NAT Instance</em></p>
+<p>When you select that AMI, as in Figure 4, the CPU architecture (x86_64 above), storage format, etc., matching that AMI are shown, and on top of that type you can select the instance type. When you create the EC2 this way, that instance will be configured to be able to pass incoming external traffic to another destination. In other words, you can think of it as 'configured to be able to act as a NAT gateway.'</p>
+<p>* For reference, the username when SSH-ing in is shown as Username: ec2-user, as in Figure 4 above.</p>
+<p>When creating the EC2, place it in the Public subnet within the VPC you created. Then the public subnet's routing table must of course be connected to the internet gateway, and within the VPC's local you must let everything communicate. Also, if needed, I recommend setting up security with security groups or NACLs. (In this post I can't explain the AWS basics in detail, so I'll just mention them and move on.)</p>
+<p>Just refer to the Public subnet's routing table. (If you don't connect to the internet gateway, AWS won't allow external communication.)</p>
+<p><img alt="public subnet's routing table (just for reference)" src="assets/posts/nat-instance-build-1/img5.webp" width="1600" height="393" loading="lazy">
+<em>Reference figure. public subnet's routing table (just for reference)</em></p>
+<h3 id="2-configuring-the-private-subnet-routing-table-and-settings-in-the-nat-instance-console">2) Configuring the Private subnet Routing Table and settings in the NAT Instance console</h3>
+<p>Then, doing some additional network routing table and instance settings in the AWS console wraps it up. Let me do the final additional settings and confirm that the EC2 in the private subnet connects to the internet.</p>
+<p><strong>Configuring the Private Subnet Routing Table</strong></p>
+<p>Even when using a NAT gateway, you connected it directly to the NAT gateway in the routing table mapped to the Private subnet. You have to do this for the NAT Instance too.</p>
+<p><img alt="Setting the target to the NAT instance in the Private subnet routing table" src="assets/posts/nat-instance-build-1/img6.webp" width="1600" height="394" loading="lazy">
+<em>Figure 5. Configuring the Private subnet's routing table</em></p>
+<p>Private subnet: in the routing table, set the target to 'Instance' and below it select the NAT-instance I created above (in my case I named it nat-instance). You can understand this as meaning that all traffic going out from the private subnet to the internet passes through the NAT-instance.</p>
+<p>* For reference, after you configure it, the target starts with eni- as below; this is the Elastic Network Interface, which you can confirm maps directly to the network card resource. From this you can infer that, at the OS level, it passes traffic to another target through Layer 2 (the data link layer) and Layer 3 (the network layer). (This is set up in the community AMI created above.)</p>
+<p><img alt="network card connection" src="assets/posts/nat-instance-build-1/img7.webp" width="1600" height="222" loading="lazy">
+<em>Reference figure. network card connection</em></p>
+<p><strong>NAT Instance EC2 network setting</strong></p>
+<p>In the EC2 dashboard, click your nat-instance, then click 'Change source/destination check' under 'Networking' in the 'Actions' tab at the top right. (Besides the routing table, you have to change the AWS EC2 instance's own setting.)</p>
+<p><img alt="Changing the nat instance networking setting" src="assets/posts/nat-instance-build-1/img8.webp" width="1600" height="616" loading="lazy">
+<em>Figure 6. Changing the nat instance networking setting</em></p>
+<p><img alt="Source/destination check" src="assets/posts/nat-instance-build-1/img9.webp" width="1600" height="737" loading="lazy">
+<em>Figure 7. Source/destination check</em></p>
+<p>As in Figure 7, in the source/destination check part you have to click the "Stop" radio button. On AWS, it seems to work in a way that drops traffic if it doesn't reach the target EC2 instance. In other words, you can understand it as configuring traffic to be detoured to another instance through a particular instance.</p>
+<div class="callout">
+📌 <strong>Required</strong> — Generally, if you use the default security group, there's a high chance only SSH is open. At minimum you have to configure the security so that it can communicate.
+</div>
+
+<p><img alt="private ec2 security group" src="assets/posts/nat-instance-build-1/img10.webp" width="1600" height="452" loading="lazy">
+<em>Reference figure. private ec2 security group</em></p>
+<p>I arbitrarily set the security group of the EC2 in the private subnet so it can receive all traffic. Configure this part according to your project policy. (In this post I set it as above for demonstration.)</p>
+<p>Also, in this post I didn't set an Elastic IP, but even without an EIP, as long as the NAT Instance's public IP is enabled, an arbitrary IP attaches on its own. By the Dynamic Host Configuration Protocol policy, the public IP will change if you turn the EC2 off and on, but if you're going to keep it running, you don't have to set an EIP.</p>
+<h2 id="nat-instance-build-result">NAT Instance build result</h2>
+<p><img alt="Before connecting the NAT Instance" src="assets/posts/nat-instance-build-1/img11.webp" width="1600" height="659" loading="lazy">
 <em>Figure 8. Before connecting the NAT Instance</em></p>
-<p><img alt="After connecting the NAT Instance — apt-get update works" src="assets/posts/nat-instance-build-1/img12.webp" width="1600" height="653" loading="lazy">
+<p><img alt="After connecting the NAT Instance" src="assets/posts/nat-instance-build-1/img12.webp" width="1600" height="653" loading="lazy">
 <em>Figure 9. After connecting the NAT Instance</em></p>
-<p>Before connecting, <code>sudo apt-get update</code> can't update the Debian-family apt repositories; after connecting, it downloads normally.</p>
-<h2 id="wrap-up">Wrap-up</h2>
-<p>Using the AWS community NAT instance AMI, you can build a NAT instance with little configuration. But this AMI uses an <strong>old OS version</strong> and is <strong>end-of-service (EOS)</strong>. It's hard to find files for manual package downloads and support sites are limited, so maintenance is very difficult and it's hard to use for anything beyond NAT.</p>
-<p>Since I wanted to also use the NAT instance as a Reverse Proxy server, OS version management matters. At minimum it needs certificate packages for HTTPS, which this AMI didn't support. So in <strong>Part 2, I build a NAT instance directly on the latest AWS OS</strong>.</p>
-<a class="tb-embed-card" href="en/nat-instance-build-2/"><div class="tb-embed-thumb"><img src="assets/posts/nat-instance-build-2/cover.png" alt="[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)" loading="lazy" width="3000" height="2000"></div><div class="tb-embed-body"><div class="tb-embed-title">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)</div><div class="tb-embed-excerpt">The Part 1 community AMI runs an old (EOS) OS and is hard to maintain. In Part 2 we build a NAT instance on the latest Ubuntu by configuring iptables directly (IP forwarding + MASQUERADE), and persist the rules across reboots.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<p>Before connecting the NAT Instance, you can see that the apt repository update commonly used by Debian-based systems, via sudo apt-get update, doesn't go through. But after connecting, you can confirm it's received fine.</p>
+<h2 id="closing">Closing</h2>
+<p>If you use the NAT-instance-related AMI provided by the AWS community, you can build a NAT instance with hardly any setup. However, that AMI uses an old OS version and is in an End-of-Service state. Also, when trying to manually download packages, it's very hard to find the needed files, and the supported sites are limited. So maintenance is very difficult, and using it for purposes other than the NAT instance function has many difficulties. (I already tried.)</p>
+<p>Since I want to use the NAT instance as a Reverse Proxy server as well, OS version management is important. At minimum, certificate-related packages need to be provided so it can support HTTPS, but the AMI mentioned earlier turned out not to support this. Therefore, in Part 2, I plan to cover how to build a NAT instance directly based on the latest OS version provided by AWS.</p>
 <hr />
 <blockquote>
-<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/27" rel="nofollow noopener">taehyuklee.tistory.com/27</a></p>
+<p>📦 Migrated from the Tistory blog I used to run. Original: <a href="https://taehyuklee.tistory.com/27" rel="nofollow noopener">taehyuklee.tistory.com/27</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/nat-instance-build-2/">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li></ul></section>
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/nat-instance-build-2/">[AWS Infra] Building &amp; Configuring a NAT Instance to Cut NAT Gateway Costs (Part 2)</a></li><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration &amp; Fixed-Cost Optimization Strategy)</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Connection Error: How to Fix the UNPROTECTED PRIVATE KEY FILE Error (ssh pem key permission setup)</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fnat-instance-build-1%2F&amp;text=%5BAWS%5D%20Cutting%20NAT%20Gateway%20Costs%20%E2%80%94%20Building%20a%20NAT%20Instance%20from%20an%20AMI%20%28Part%201%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fnat-instance-build-1%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fnat-instance-build-1%2F&amp;text=%5BAWS%20Infra%5D%20Building%20%26%20Configuring%20a%20NAT%20Instance%20from%20an%20AMI%20to%20Cut%20NAT%20Gateway%20Costs%20%28Part%201%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fnat-instance-build-1%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
 

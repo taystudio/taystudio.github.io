@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired) · Tay Blog</title>
+<title>평균치 검정 : t검정 [One, Two(Student&#39;s &amp; Welch&#39;s), Paired Samples t-test] · Tay Blog</title>
 <meta name="description" content="두 집단 평균이 다른 게 진짜 차이인지 단순 변동성인지 — t검정의 당위성·가정(정규성·등분산성)·종류별 계산 예시.">
 <link rel="canonical" href="https://taystudios.com/blog/ko/t-test/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/t-test/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/t-test/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/t-test/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired) · Tay Blog">
+<meta property="og:title" content="평균치 검정 : t검정 [One, Two(Student&#39;s &amp; Welch&#39;s), Paired Samples t-test] · Tay Blog">
 <meta property="og:description" content="두 집단 평균이 다른 게 진짜 차이인지 단순 변동성인지 — t검정의 당위성·가정(정규성·등분산성)·종류별 계산 예시.">
 <meta property="og:url" content="https://taystudios.com/blog/ko/t-test/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/t-test/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/t-test/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "평균치 검정 — t검정 (One / Two: Student's·Welch's / Paired)", "description": "두 집단 평균이 다른 게 진짜 차이인지 단순 변동성인지 — t검정의 당위성·가정(정규성·등분산성)·종류별 계산 예시.", "datePublished": "2024-11-03T00:00:00+09:00", "dateModified": "2024-11-03T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/t-test/"}, "image": ["https://taystudios.com/blog/assets/posts/t-test/cover.webp"], "keywords": "통계, t검정, 평균검정, 등분산성, 정규성"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/ko/category/data/"}, {"@type": "ListItem", "position": 3, "name": "평균치 검정 — t검정 (One / Two: Student's·Welch's / Paired)", "item": "https://taystudios.com/blog/ko/t-test/"}]}</script><meta property="article:published_time" content="2024-11-03T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-03T00:00:00+09:00"><meta property="article:tag" content="통계"><meta property="article:tag" content="t검정"><meta property="article:tag" content="평균검정"><meta property="article:tag" content="등분산성"><meta property="article:tag" content="정규성">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "평균치 검정 : t검정 [One, Two(Student's & Welch's), Paired Samples t-test]", "description": "두 집단 평균이 다른 게 진짜 차이인지 단순 변동성인지 — t검정의 당위성·가정(정규성·등분산성)·종류별 계산 예시.", "datePublished": "2024-11-03T00:00:00+09:00", "dateModified": "2024-11-03T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/t-test/"}, "image": ["https://taystudios.com/blog/assets/posts/t-test/cover.webp"], "keywords": "통계, t검정, 평균검정, 등분산성, 정규성"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/ko/category/data/"}, {"@type": "ListItem", "position": 3, "name": "평균치 검정 : t검정 [One, Two(Student's & Welch's), Paired Samples t-test]", "item": "https://taystudios.com/blog/ko/t-test/"}]}</script><meta property="article:published_time" content="2024-11-03T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-03T00:00:00+09:00"><meta property="article:tag" content="통계"><meta property="article:tag" content="t검정"><meta property="article:tag" content="평균검정"><meta property="article:tag" content="등분산성"><meta property="article:tag" content="정규성">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired)</span></nav>
-        <h1 class="tb-article-title">평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired)</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">평균치 검정 : t검정 [One, Two(Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]</span></nav>
+        <h1 class="tb-article-title">평균치 검정 : t검정 [One, Two(Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]</h1>
         <div class="tb-article-meta">
           <time>2024.11.03</time>
           <span>·</span><span>#통계 #t검정 #평균검정 #등분산성 #정규성</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">목차</a></li><li class="tb-toc-h2"><a href="#_2">서론 — 의문에서 출발</a></li><li class="tb-toc-h2"><a href="#_3">본론</a></li><li class="tb-toc-h3"><a href="#1">1. 평균치 검정이란?</a></li><li class="tb-toc-h3"><a href="#2">2. 가정</a></li><li class="tb-toc-h4"><a href="#21">2.1 정규성 가정</a></li><li class="tb-toc-h4"><a href="#22">2.2 등분산성 가정</a></li><li class="tb-toc-h3"><a href="#3">3. 종류</a></li><li class="tb-toc-h4"><a href="#31-t-one-sample">3.1 일표본 t검정 (One Sample)</a></li><li class="tb-toc-h4"><a href="#32-t-two-sample">3.2 독립표본 t검정 (Two Sample)</a></li><li class="tb-toc-h4"><a href="#33-t-paired-sample">3.3 대응표본 t검정 (Paired Sample)</a></li><li class="tb-toc-h2"><a href="#_4">맺음말</a></li><li class="tb-toc-h2"><a href="#_5">참고 문헌</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">글의 목차</a></li><li class="tb-toc-h2"><a href="#_2">서론 (의문으로 부터 시작된 개론)</a></li><li class="tb-toc-h2"><a href="#_3">본론 (평균치 검정에 대해서)</a></li><li class="tb-toc-h3"><a href="#1">1. 평균치 검정이란?</a></li><li class="tb-toc-h3"><a href="#2">2. 평균치 검정의 가정</a></li><li class="tb-toc-h3"><a href="#3">3. 평균치 검정의 종류</a></li><li class="tb-toc-h2"><a href="#_4">맺음말 (결론)</a></li><li class="tb-toc-h2"><a href="#_5">참고 문헌</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -80,220 +80,257 @@
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
-<h2 id="_1">목차</h2>
+
+<h2 id="_1">글의 목차</h2>
 <ol>
 <li>평균치 검정의 당위성 (왜 필요한가? feat 불확실성/변동성)</li>
-<li>평균치 검정의 정의·이해</li>
-<li>가정 (정규성, 등분산성)</li>
-<li>종류 및 계산 예시</li>
+<li>평균치 검정에 대한 정의 및 이해</li>
+<li>평균치 검정에 대한 가정 (정규성, 등분산성:Two Samples t-test)</li>
+<li>평균치 검정의 종류 및 실제 계산 예시</li>
 </ol>
-<h2 id="_2">서론 — 의문에서 출발</h2>
-<p>두 집단의 평균을 비교해 수치가 다르다고 정말 다른 걸까? <strong>단순 변동성(불확실성) 때문에 표본 평균이 다를 수도 있는 것 아닌가?</strong> 이 의문을 이해해야 평균치 검정, 나아가 가설검정을 이해할 수 있다.</p>
-<p><img alt="독립된 두 집단 (평균과 분산은 같다)" src="assets/posts/t-test/img1.png" width="1272" height="566" loading="lazy">
-<em>그림 1. 독립된 두 집단 (평균과 분산은 같다)</em></p>
-<p>1번·2번 약 효과를 비교하려 동일 체질 집단에 각각 투여했다고 하자. 실제로 두 약의 평균 효과·분산은 같다. 그런데 표본을 뽑아 관찰하니 1번 평균은 ①, 2번 평균은 ②에 나왔다. 표본 평균이 다르다고 효과가 다르다 결론지을 수 있을까? <strong>아니다.</strong> 효과는 같은데 변동성 때문에 평균이 다르게 나온 경우다.</p>
-<p><img alt="유의수준 5% — 3번 약물 예시 추가" src="assets/posts/t-test/img2.webp" width="1600" height="486" loading="lazy">
-<em>그림 2. 유의수준 5% : 3번 약물 예시 추가</em></p>
-<p>따라서 <strong>특정 평균이 단순 변동성에 의한 일반적(95%) 결과인지, 변동성을 넘은 극단(5%) 결과인지 판단하는 것</strong>이 평균 검정의 핵심이다. 그림2에 X3 분포를 추가했다. 직관적으로 X1·X2 평균은 같다고, X3 평균은 다르다고 볼 수 있다.</p>
-<p>$$\bar{X}_1 \sim (\mu_1,\ \mathrm{std}_1) \qquad \bar{X}_2 \sim (\mu_2,\ \mathrm{std}_2)$$</p>
-<p>$$\Downarrow$$</p>
-<p>$$\bar{X}_1 - \bar{X}_2 \sim (0,\ \mathrm{std}_{\text{combined}})$$</p>
-<p>세 분포를 다 펼쳐 두 집단 평균이 같은지 판단하긴 어렵기에, <strong>검정통계량으로 평균을 비교</strong>하는 게 '평균치 검정'이다.</p>
-<blockquote>
-<p>(여담) "3번 분포 표본이 1·2번의 95% 안에 들어오면?" 반대로 "1·2번이 실제 같은데 우연히 5%에서 발견되면?" — 이 의문이 들었다면 <strong>1종·2종 오류</strong>를 이해할 준비가 된 것. (이 글 주제는 아니므로 생략)</p>
-</blockquote>
-<h2 id="_3">본론</h2>
+<p>혹시, Python으로 SciPy Library로 직접 구현하는 파트를 원하시면, 아래 글에 연결해 놓았습니다.</p>
+<a class="tb-embed-card" href="ko/t-test-python-scipy/"><div class="tb-embed-thumb"><img src="assets/posts/t-test/cover.webp" alt="평균치(t) 검정 t test 구현 [One, Two, Paired Samples t-test : Python feat. SciPy &amp; Statsmodels]" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">평균치(t) 검정 t test 구현 [One, Two, Paired Samples t-test : Python feat. SciPy &amp; Statsmodels]</div><div class="tb-embed-excerpt">이전 글의 t검정 이론을 그대로 SciPy 코드로 — ttest_1samp·ttest_ind(equal_var)·ttest_rel 세 함수와 axis 옵션, 손계산과 일치 확인.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<h2 id="_2">서론 (의문으로 부터 시작된 개론)</h2>
+<p>어떤 두 집단간의 평균을 비교했을때 과연 수치가 다르다고해서 과연 다른걸까? 단순 변동성(불확실성)때문에 표본의 평균이 다를수 있는거 아닌가?</p>
+<p>여기서, 단순 변동성(불확실성)때문에 표본의 평균이 다를수 있는거 아닌가? 이 말이 무슨 말일까를 이해해야 평균치 검정 더 나아가서 가설검정에 대해 이해할 수 있을 거라 생각한다.</p>
+<p>위의 내용을 쉽게 설명해보도록</p>
+<p><img alt="독립된 두 집단 (평균과 분산은 같다)" src="assets/posts/t-test/img1.webp" width="1272" height="566" loading="lazy">
+<em>그림1. 독립된 두 집단 (평균과 분산은 같다)</em></p>
+<p>1번 약과 2번 약의 효과를 비교하기 위해 동일한 체질의 사람들로 구성된 집단에 각각 약물을 투여했다고 가정해보자. 실제로는 두 약물의 평균 효과와 분산이 동일하다고 알려져 있다. 그러나 우리는 표본을 추출하여 약물을 투여한 후 그 결과를 관찰한다. 그 결과, 1번 약을 투여한 그룹의 평균은 그림에서 ① 위치에, 2번 약을 투여한 그룹의 평균은 ② 위치에 나타났다고 해보자.</p>
+<p>이 경우, 두 약물의 표본 평균이 다르다고 해서 두 약물의 효과가 다르다고 결론지을 수 있을까? 그렇지 않다. 이 상황은 사실 두 약물의 효과가 동일하지만, 변동성에 의해 두 집단의 표본 평균이 다르게 나타난 케이스라고 할 수 있다.</p>
+<p><img alt="유의수준 5% : 3번 약물 예시 추가" src="assets/posts/t-test/img2.webp" width="1600" height="486" loading="lazy">
+<em>그림2. 유의수준 5% : 3번 약물 예시 추가</em></p>
+<p>따라서, 특정 평균이 단순한 변동성에 의해 나타난 일반적인 분포(95%) 내의 결과인지, 아니면 변동성을 넘어선 극단적인 확률(5%)에 해당하는 결과인지를 판단하는 과정이 평균 검정의 핵심이다. 이를 위해 검정통계량을 계산하고, 그 값에 따른 p-value를 구하는 과정은 가설검정에서 이미 다룬 바 있다.</p>
+<p>그림2에 X3의 알려진 분포를 추가로 그려 보았다. 위의 그림에서 직관적으로 이해해보자면, X1과 X2의 표본 평균은 같다고 불 수 있고 X3의 표본 평균은 다르다고 할 수 있다.</p>
+<p>또한, 위와 같이 세 집단의 분포를 모두 펼쳐 놓고 두 집단의 평균이 유의미하게 같은지 다른지를 판단하는 것은 어렵기 때문에, 검정 통계량을 이용해 평균을 비교하는 방법이 바로 '평균치 검정'이라고 할 수 있다.</p>
+<p>대략 두 집단을 하나의 검정 통계량(확률 변수)로 만드는 느낌을 받길 바랍니다. (직관적인 느낌을 받길 바랍니다)</p>
+<div class="callout">
+💡 그리고 여담이지만, (그림2 기준으로) 3번 분포에서 표본을 추출했을때 혹시 1, 2번 분포의 95%구간 안에 들어오면 어떻게 하지? 반대로 1번 집단과 2번 집단이 실제로는 같은데, 우연히 하나의 표본이 5%구간 안에서 발견하면 어떻게 하지?라는 의문을 갖는다면, 축하합니다. 당신은 1종, 2종오류에 대해 이해할 준비가 되어 있는 것이다. 히지만, 이 부분은 이번 포스팅 주제가 아니므로 일단은 넘어간다.
+</div>
+
+<p>이전에 One-Sample t-test(평균 검정)를 예시로 들어 가설검정에 대해 설명한 바 있으니, 해당 내용을 먼저 참고하시기를 권장드립니다.</p>
+<a class="tb-embed-card" href="ko/hypothesis-testing/"><div class="tb-embed-thumb"><img src="assets/posts/hypothesis-testing/cover.webp" alt="가설검정 이해: 검정통계량, 귀무가설, 대립가설, p-value, 유의수준 (significance level), 임계값 (critical value) 개념 정리 (본질)" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">가설검정 이해: 검정통계량, 귀무가설, 대립가설, p-value, 유의수준 (significance level), 임계값 (critical value) 개념 정리 (본질)</div><div class="tb-embed-excerpt">가설검정의 직관부터 검정통계량의 의미, 귀무가설·대립가설·p-value·유의수준·임계값까지 예시 하나로 정리.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<h2 id="_3">본론 (평균치 검정에 대해서)</h2>
 <h3 id="1">1. 평균치 검정이란?</h3>
-<p>두 집단의 평균이 통계적으로 유의미하게 같은지/다른지 판단하는 기법.</p>
-<h3 id="2">2. 가정</h3>
-<p>가정은 그 위에 이론이 성립한다는 의미다. 충족 여부에 따라 쓰는 기법이 달라진다.</p>
-<h4 id="21">2.1 정규성 가정</h4>
-<p>t검정은 <strong>모집단이 정규분포를 따른다</strong>는 가정하에 수행된다. 특히 표본이 작을 때 중요하다.</p>
+<p>평균치 검정은 두 개의 집단의 평균이 통계적으로 유의미하게 같은지 또는 다른지를 판단하는 통계적 기법이다.</p>
+<h3 id="2">2. 평균치 검정의 가정</h3>
+<p>가설 검정에서의 가정은 그 가정 위에 이론이 성립되었다는 의미이다. 따라서 이러한 가정을 충족하느냐의 여부에 따라 사용하는 기법이 달라져야 한다.</p>
+<p><strong>2.1 정규성 가정</strong></p>
+<p>t-검정은 모집단이 정규 분포를 따른다는 가정하에 수행된다. 이는 특히 표본 크기가 작을 때 중요한 가정이다.</p>
+<p>만약 표본 크기가 충분히 크다면(일반적으로 n &gt; 30), 중심극한정리에 의해 표본 평균이 정규 분포에 가까워지기 때문에, 모집단이 정규성을 완벽히 따르지 않더라도 t-검정을 사용할 수 있다. 중심극한 정리 포스팅을 참고하시길 바랍니다.</p>
+<a class="tb-embed-card" href="ko/central-limit-theorem/"><div class="tb-embed-thumb"><img src="assets/posts/central-limit-theorem/cover.webp" alt="중심극한 정리 (Central Limit Theorem) : 정의 및 실험 &amp; 용도" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">중심극한 정리 (Central Limit Theorem) : 정의 및 실험 &amp; 용도</div><div class="tb-embed-excerpt">표본 크기가 커지면 어떤 분포든 표본평균은 정규분포에 수렴 — 5가지 분포 실험으로 확인하고, CLT가 추정·신뢰구간에 왜 중요한지.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<div class="callout">
+<p><strong>의문:</strong> 중심극한정리(CLT)에 의하면 샘플의 수가 많아질수록 표본 평균은 정규분포를 따르게 되는데, 왜 정규분포(Z분포)를 사용하지 않고 t분포를 사용하는거죠?</p>
+<p><strong>대답:</strong> t분포에서 자유도가 커질수록 어차피 Z분포에 가까워지기도 하며, 실제로 Z분포를 쓰기 위해서는 모집단의 표준편차를 알아야하는데 우리는 그 값을 알지 못한다.</p>
+</div>
+
 <p><img alt="자유도(df)가 커질수록 t분포는 Z분포에 가까워진다" src="assets/posts/t-test/img4.webp" width="1096" height="658" loading="lazy">
-<em>참고 — 표본 크기(df)가 커질수록 t분포는 Z분포에 근접 (df=30이면 거의 Z분포)</em></p>
+<em>참고 그림: 샘플링 크기 (df)가 커질수록 t분포는 Z분포에 가까워 진다 (df=30일때 거의 Z분포와 비슷하다)</em></p>
+<p><strong>정규성을 따르지 않을때</strong></p>
+<p>만약 데이터의 수가 확연히 적거나 애매한데, 정규분포를 따르지 않는다고 할때, 비모수 검정을 사용한다.</p>
 <ul>
-<li>표본이 충분히 크면($n&gt;30$) <strong>중심극한정리</strong>로 표본평균이 정규분포에 가까워져, 모집단이 완벽한 정규성을 안 따라도 t검정을 쓸 수 있다.</li>
+<li>비모수 검정: 두 집단 간의 차이를 검정하는 데 있어 정규성 가정이 필요 없는 방법이다. 예를 들어, Mann-Whitney U 검정(독립 표본의 경우)이나 Wilcoxon 부호 순위 검정(대응 표본의 경우) 등이 있다.</li>
 </ul>
-<blockquote>
-<p><strong>Q.</strong> CLT로 표본평균이 정규분포를 따르는데 왜 Z분포 대신 t분포를 쓰나요?<br />
-<strong>A.</strong> 자유도가 커지면 어차피 t→Z이고, Z분포를 쓰려면 <strong>모집단 표준편차</strong>를 알아야 하는데 우리는 모른다.</p>
-</blockquote>
-<p>데이터가 적고 정규성을 안 따르면 <strong>비모수 검정</strong>(Mann-Whitney U, Wilcoxon 부호순위 등)을 쓴다.</p>
-<h4 id="22">2.2 등분산성 가정</h4>
-<p>독립표본 t검정(Two Sample)에만 해당한다. 서로 독립인 두 집단의 평균 차이를 비교하기 때문. (One Sample은 기준값과 비교라 등분산 체크 불가, Paired는 같은 집단의 두 측정값이라 불필요.)</p>
-<blockquote>
-<p><strong>Q.</strong> 분산이 다른 걸 알고도 Two Sample t-test를 하면?<br />
-<strong>A.</strong> 예: 신약 실험군의 분산이 매우 크다면, 평균 차이가 유의미해도 <strong>개별 환자 간 효과 차이가 크다</strong>는 뜻 — 누군가에겐 효과 없거나 악화될 수 있어 신뢰성·일관성이 떨어진다.</p>
-</blockquote>
-<h3 id="3">3. 종류</h3>
-<h4 id="31-t-one-sample">3.1 일표본 t검정 (One Sample)</h4>
+<p>참고로, Mann-Whitney U검정이나 Wilcoxon 부호 순위 검정와 같은 비모수 검정은 저 또한 사용만 해봤지, 현재 시점으로는 앞으로 공부할 거리입니다.</p>
+<p><strong>2.2 등분산성 가정</strong></p>
+<p>해당 가정은 아래 평균치 검정의 종류 중 독립 표본 t-검정 (Two Sample t-test)에만 해당된다. 그 이유는 독립 표본 t-검정이 서로 독립적인 두 집단 간의 평균 차이를 비교하기 때문에, 두 집단의 독립성이 검정의 기본 가정으로 요구되기 때문이다.</p>
+<p><strong>저의 이해를 바탕으로 한 생각</strong></p>
+<p>One Sample t-test의 경우에는 특정 기준값과의 차이를 검정하므로 등분산을 체크할 수 없으며, Paired Sample t-test는 같은 집단의 두 측정값을 비교하는 것이기 때문에 등분산성 체크가 필요하지 않다.</p>
+<div class="callout">
+<p><strong>의문:</strong> 만약, 두 독립집단의 분산이 다른 것을 확인했음에도 불구하고 Two Sample t-test를 진행하면 어떻길래?</p>
+<p><strong>대답:</strong> 예를 들어, 신약의 효능을 기존 약물과 비교하기 위해 두 집단으로 독립 표본 t-검정을 수행했다고 가정해 보자. 그리고 신약을 복용한 실험군의 데이터에서 분산이 상당히 크다는 결과가 나왔다고 해보자. 그럼에도 불구하고 t-검정을 통해 두 집단의 평균 차이가 유의미하다는 결론이 도출되었다면, 이는 여러 문제를 발생시킬 수 있다.</p>
+<p>신약이 평균적으로 혈압 감소 효과를 나타낼 수 있지만, 분산이 크다는 것은 개별 환자들 간의 효과 차이가 크다는 것을 의미한다. 즉, 일부 환자에게는 신약이 전혀 효과가 없거나, 심지어 혈압이 상승하는 경우도 발생할 수 있다. 이러한 상황은 신약의 신뢰성을 크게 저하시킬 수 있으며, 환자 개개인에 대한 효과 예측의 정확성을 떨어뜨리게 된다. 결국 치료의 일관성과 신뢰성이 결여될 수 있어 환자 치료에 있어 심각한 영향을 미칠 수 있게 된다.</p>
+</div>
+
+<h3 id="3">3. 평균치 검정의 종류</h3>
+<p><strong>3.1 일표본 t-검정 (One Sample t-test)</strong></p>
 <ul>
-<li><strong>목적</strong>: 한 표본 평균이 특정 기준값과 유의미하게 다른지</li>
-<li><strong>예시</strong>: 신약 투약 후 혈압이 기준(120)과 다른지</li>
+<li>목적: 한 표본의 평균이 특정 기준값(알려진 모집단의 평균)과 유의미하게 다른지 확인하기 위함.</li>
+<li>예시: 새로운 약물이 기준 혈압과 비교했을 때 효과가 있는지 확인하는 경우</li>
 </ul>
+<p>[Table1. 환자 번호 &amp; 약물 투여 후 측정된 혈압]</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
-<th>환자</th>
-<th style="text-align: center;">투약 후 혈압 (mmHg)</th>
+<th>환자 리스트</th>
+<th>투약 후 혈압 (mm Hg)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td style="text-align: center;">118</td>
+<td>환자1</td>
+<td>118</td>
 </tr>
 <tr>
-<td>2</td>
-<td style="text-align: center;">121</td>
+<td>환자2</td>
+<td>121</td>
 </tr>
 <tr>
-<td>3</td>
-<td style="text-align: center;">119</td>
+<td>환자3</td>
+<td>119</td>
 </tr>
 <tr>
-<td>4</td>
-<td style="text-align: center;">117</td>
+<td>환자4</td>
+<td>117</td>
 </tr>
 <tr>
-<td>5</td>
-<td style="text-align: center;">120</td>
+<td>환자5</td>
+<td>120</td>
 </tr>
 </tbody>
 </table></div>
-<p>$$t = \dfrac{\bar{x} - \mu_0}{s / \sqrt{n}}$$</p>
-<p>표본 평균이 기준 평균과의 차이가 0에서 멀수록 다르고, 0에 가까울수록 같다. 표준편차로 나눠 표준화한다. 이 통계량은 t분포를 따른다.</p>
-<p>$$t = \dfrac{\bar{x} - \mu_0}{s / \sqrt{n}} = \dfrac{119 - 120}{1.58 / \sqrt{5}} = -1.41$$
-<em>One Sample t-test t-value 계산 결과</em></p>
+<ul>
+<li>검정: 이 집단의 평균 혈압이 기준 혈압(120mm Hg)과 유의미하게 다른지 검정한다.</li>
+</ul>
+<p><strong>검정 통계량 및 자유도</strong></p>
+<p>$$
+t = \frac{\bar{X} - \mu_0}{\,s/\sqrt{n}\,}
+$$
+<em>수식1. One Sample t-test 검정 통계량</em></p>
+<p>평균 검정에 대한 검정 통계량의 의미는 직관적으로 설명 가능하다. 표본의 평균이 내가 원하는 특정 평균과의 차이가 0에서 멀어질수록 두 평균은 달라지는 것이고 0이 될수록 가까워지는 의미를 갖고 있다. 표준편차로 나눈 것은 표준화하는 의미가 있다. 그리고 해당 검정 통계량은 t분포를 따른다고 알려져 있다. (앞선 가설검정 글을 참고해시길 바란다)</p>
+<p>위의 예시를 기준으로 t검정통계량을 구해보게 된다면, 표본평균 119, 기준값 120 기준으로 <strong>t-value ≈ -1.41</strong> 이 나온다.</p>
 <p><img alt="One Sample 가설검정 (t분포)" src="assets/posts/t-test/img7.webp" width="1318" height="790" loading="lazy">
-<em>그림 3. One Sample t-test 가설 검정 (t분포)</em></p>
-<p>자유도 4인 t분포에서 p-value를 계산. 같냐 다르냐 판단이라 <strong>양측검정</strong>(각 측 유의수준 0.025). t-value −1.41 이하 영역의 p-value는 0.2313 &gt; 0.025 → 귀무가설 기각 불가 = <strong>유의미한 차이 없음(채택)</strong>.</p>
-<h4 id="32-t-two-sample">3.2 독립표본 t검정 (Two Sample)</h4>
+<em>그림3. One sample t-test 가설 검정 (t분포)</em></p>
+<p>평균치 검정의 검정 통계량은 t분포를 따르므로, 자유도가 4인 t분포에서 p-value를 계산했다. 크고 작냐의 대소관계를 판단하는게 아니라 같냐 다르냐의 차이를 판단하는 것이기에 양측 검정을 수행해야 하며, 각 양측의 유의 수준은 0.025로 설정한다. 결과적으로, t-value가 -1.41 이하인 영역의 p-value는 0.2313으로 나타났다. 이는 p-value가 0.025보다 크므로 귀무가설을 기각할 수 없으며, 통계적으로 유의미한 차이가 없다고 판단할 수 있다. (귀무가설 채택)</p>
+<p><strong>3.2 독립 표본 t-검정 (Two Sample t-test)</strong></p>
 <ul>
-<li><strong>목적</strong>: 독립인 두 집단 평균이 유의미하게 다른지</li>
-<li><strong>예시</strong>: 약물 복용/미복용 집단의 평균 혈압 비교</li>
+<li>목적: 서로 독립적인 두 집단의 평균이 유의미하게 다른지 확인하기 위함.</li>
+<li>예시: 약물을 복용한 집단과 복용하지 않은 집단의 평균 혈압을 비교하는 경우.</li>
 </ul>
+<p>[Table2. 환자 번호, 집단 분류 &amp; 약물 복용 여부 측정된 혈압]</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
-<th>환자</th>
-<th>집단</th>
-<th style="text-align: center;">투약 후 혈압</th>
+<th>환자 리스트</th>
+<th>집단 분류</th>
+<th>투약 후 혈압 (mm Hg)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td>환자1</td>
 <td>복용</td>
-<td style="text-align: center;">115</td>
+<td>115</td>
 </tr>
 <tr>
-<td>2</td>
+<td>환자2</td>
 <td>복용</td>
-<td style="text-align: center;">118</td>
+<td>118</td>
 </tr>
 <tr>
-<td>3</td>
+<td>환자3</td>
 <td>복용</td>
-<td style="text-align: center;">116</td>
+<td>116</td>
 </tr>
 <tr>
-<td>4</td>
+<td>환자4</td>
 <td>미복용</td>
-<td style="text-align: center;">122</td>
+<td>122</td>
 </tr>
 <tr>
-<td>5</td>
+<td>환자5</td>
 <td>미복용</td>
-<td style="text-align: center;">124</td>
+<td>124</td>
 </tr>
 </tbody>
 </table></div>
-<p>두 집단이 등분산일 때와 아닐 때로 나뉜다.</p>
-<p><strong>a) 등분산 만족 — Student's t-test (Pooled)</strong></p>
-<p>$$t = \dfrac{\bar{x}_1 - \bar{x}_2}{s_p \sqrt{\dfrac{1}{n_1} + \dfrac{1}{n_2}}}, \qquad s_p = \sqrt{\dfrac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}}$$</p>
-<p>$$t = \dfrac{\bar{X}_1 - \bar{X}_2}{\sqrt{s_p^2\left(\dfrac{1}{n_1} + \dfrac{1}{n_2}\right)}} = \dfrac{116.23 - 123}{\sqrt{2.223\left(\dfrac{1}{3} + \dfrac{1}{2}\right)}} \approx -4.91$$
-<em>Student's t-test t-value 계산 결과</em></p>
+<ul>
+<li>검정: 약물을 복용한 집단과 미복용 집단의 평균 혈압이 유의미하게 다른지 검정한다. (두 집단의 표본수가 꼭 같을 필요는 없다)</li>
+</ul>
+<p><strong>검정 통계량 및 자유도</strong></p>
+<p>두 집단가의 평균치 검정의 경우, 두 집단이 등분산일 경우와 등분산이 아닐 경우로 나뉘게 된다. (이유와 예시는 위의 평균치 검정 가정 에서 다루었다)</p>
+<p>*참고 - 위의 예시는 등분산성을 고려하거나 표본의 수의 불균형을 봤을때 Welch's t-test를 하는 것이 맞으나, 개념 설명을 위해 Student's t-test (Pooled t-test), Welch's t-test 모두 계산해봅니다.</p>
+<p><strong>a) 두 집단의 분산이 유의미하게 같을때 (등분산성이 만족될 때) — Student's t-test (Pooled t-test)</strong></p>
+<p>$$
+t = \frac{\bar{X}_1 - \bar{X}_2}{\,s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}\,}, \qquad s_p^2 = \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2-2}
+$$
+<em>수식2. Two Samples t-test 검정통계량</em></p>
+<p>위의 예시를 기준으로 t검정통계량을 구해보게 된다면, <strong>t-value ≈ -4.91</strong> 이 나온다.</p>
 <p><img alt="Student's t-test 가설검정 (t분포)" src="assets/posts/t-test/img10.webp" width="1342" height="806" loading="lazy">
-<em>그림 4. Student's t-test 가설 검정 (t분포)</em></p>
-<p>t-value −4.91 이하 영역 p-value 0.0162 &lt; 0.025 → 귀무가설 기각, <strong>대립가설 채택</strong>(두 집단 평균이 다름).</p>
-<p><strong>b) 등분산 불만족 — Welch's t-test</strong></p>
-<p>$$t = \dfrac{\bar{x}_1 - \bar{x}_2}{\sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}}$$</p>
-<p>$$t = \dfrac{\bar{X}_1 - \bar{X}_2}{\sqrt{\dfrac{s_1^2}{n_1} + \dfrac{s_2^2}{n_2}}} = \dfrac{116.33 - 123}{\sqrt{\dfrac{2.33385}{3} + \dfrac{2}{2}}} \approx \dfrac{-6.67}{1.3334} \approx -5.00$$
-<em>Welch's t-test t-value 계산 결과</em></p>
-<p><img alt="Welch's t-test 가설검정" src="assets/posts/t-test/img13.webp" width="1342" height="806" loading="lazy">
-<em>그림 5. Welch's t-test</em></p>
-<p>t-value −6.47 이하 영역 p-value 0.0137 &lt; 0.025 → 귀무가설 기각, <strong>대립가설 채택</strong>.</p>
-<h4 id="33-t-paired-sample">3.3 대응표본 t검정 (Paired Sample)</h4>
+<em>그림4. Student's t-test 가설 검정 (t분포)</em></p>
+<p>마찬가지로, t분포상에서 가설검정을 하게 된다. t-value가 -4.91 이하인 영역의 p-value는 0.0162으로 나타났다. 이는 p-value가 0.025보다 작으므로 귀무가설을 기각할 수 있으며, 대립가설을 채택하게 된다. 즉, 두 집단의 평균이 다르다고 판단할 수 있다.</p>
+<p><strong>b) 두 집단의 분산이 다를때 (등분산성이 만족되지 못할때) — Welch's t-test</strong></p>
+<p>$$
+t = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{\dfrac{s_1^2}{n_1}+\dfrac{s_2^2}{n_2}}}
+$$
+<em>수식3. Welch's t-test 검정통계량</em></p>
+<p>위의 예시를 기준으로 t검정통계량을 구해보게 된다면, <strong>t-value ≈ -6.47</strong> 이 나온다.</p>
+<p><img alt="Welch's t-test" src="assets/posts/t-test/img13.webp" width="1342" height="806" loading="lazy">
+<em>그림5. Welch's t-test</em></p>
+<p>Welch의 t-test 또한 t분포를 따른다고 알려져 있으며, 이를 바탕으로 가설 검정을 수행한다. t-value가 -6.47 이하인 영역의 p-value는 0.0137로 나타났다. 이는 p-value가 0.025보다 작으므로 귀무가설을 기각할 수 있으며, 대립가설을 채택하게 된다. 따라서 두 집단의 평균이 다르다고 판단할 수 있다.</p>
+<p><strong>3.3 대응 표본 t-검정 (Paired Sample t-test)</strong></p>
 <ul>
-<li><strong>목적</strong>: 동일 집단의 대응하는 두 측정값의 평균 차이 비교</li>
-<li><strong>예시</strong>: 약물 투여 전후 혈압 변화 (공정 전후·임상 전후·PT 전후 등)</li>
+<li>목적: 동일한 집단에서 서로 대응하는 두 측정값의 평균 차이를 비교하는 방법이다.</li>
+<li>예시: 약물 투여 전후의 혈압 변화를 비교하는 경우. 특정 사건을 전후로 대상의 평균 변화의 차이를 보고 싶을때 (공정 처리 전후, 임상 시험 전후, PT전후 등)</li>
 </ul>
+<p>[Table3. 환자 번호 &amp; 약물 투여 전/후 혈압]</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
-<th>환자</th>
-<th style="text-align: center;">투약 전</th>
-<th style="text-align: center;">투약 후</th>
+<th>환자 리스트</th>
+<th>투약 전 혈압 (mm Hg)</th>
+<th>투약 후 혈압 (mm Hg)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td style="text-align: center;">130</td>
-<td style="text-align: center;">120</td>
+<td>환자1</td>
+<td>130</td>
+<td>120</td>
 </tr>
 <tr>
-<td>2</td>
-<td style="text-align: center;">128</td>
-<td style="text-align: center;">119</td>
+<td>환자2</td>
+<td>128</td>
+<td>119</td>
 </tr>
 <tr>
-<td>3</td>
-<td style="text-align: center;">135</td>
-<td style="text-align: center;">125</td>
+<td>환자3</td>
+<td>135</td>
+<td>125</td>
 </tr>
 <tr>
-<td>4</td>
-<td style="text-align: center;">132</td>
-<td style="text-align: center;">123</td>
+<td>환자4</td>
+<td>132</td>
+<td>123</td>
 </tr>
 <tr>
-<td>5</td>
-<td style="text-align: center;">129</td>
-<td style="text-align: center;">121</td>
+<td>환자5</td>
+<td>129</td>
+<td>121</td>
 </tr>
 </tbody>
 </table></div>
-<p>$$t = \dfrac{\bar{d}}{s_d / \sqrt{n}}$$</p>
-<p>$$\begin{aligned}
-D_i &amp;= [\,130-120,\ 128-119,\ 135-125,\ 132-123,\ 129-121\,] = [\,10,\ 9,\ 10,\ 9,\ 8\,] \\[6pt]
-\bar{D} &amp;= \dfrac{10 + 9 + 10 + 9 + 8}{5} = 9.2 \\[6pt]
-s_D &amp;= \sqrt{\dfrac{(10-9.2)^2 + (9-9.2)^2 + (10-9.2)^2 + (9-9.2)^2 + (8-9.2)^2}{5 - 1}} \approx 0.84 \\[6pt]
-t &amp;= \dfrac{\bar{D}}{s_D / \sqrt{n}} = \dfrac{9.2}{0.84 / \sqrt{5}} \approx 24.5
-\end{aligned}$$
-<em>Paired Sample t-test t-value 계산 과정 및 결과</em></p>
-<p>대응되는 표본들의 차이값($D_i$)으로 평균·분산을 구한다.</p>
+<ul>
+<li>검정: 약물 투여 전후의 평균 혈압 차이가 유의미하게 비슷한지 검정한다.</li>
+</ul>
+<p><strong>검정 통계량 및 자유도</strong></p>
+<p>$$
+t = \frac{\bar{D}}{\,s_D/\sqrt{n}\,}
+$$
+<em>수식4. Paired Samples t-test 검정통계량</em></p>
+<p>위의 계산 과정처럼 대응되는 표본들의 차이 값들을 가지고 평균을 내고 분산을 구한다. D(i)는 각 대응되는 표본들의 차이를 리스팅한 것이다(투약 전 − 후). 이에 대해 가설 검정을 하면 <strong>t-value ≈ 24.50</strong> 이 나온다.</p>
 <p><img alt="Paired t-test 가설검정" src="assets/posts/t-test/img16.webp" width="1342" height="806" loading="lazy">
-<em>그림 6. Paired t-test</em></p>
-<p>t-value 24.50 이상 영역 p-value ≈ 0 &lt; 0.025 → 귀무가설 기각, <strong>대립가설 채택</strong>(전후 평균이 다름).</p>
-<h2 id="_4">맺음말</h2>
-<p>평균치 검정은 두 집단 평균 차이가 <strong>단순 변동성 때문인지, 실제 차이인지</strong> 판단하는 기법이다. 가정(정규성·등분산성)과 종류별 계산을 예시로 살펴봤다.</p>
-<hr />
+<em>그림6. Paired t-test</em></p>
+<p>t-value가 24.50 이상인 영역의 p-value는 유사 0에 가깝다. 이는 p-value가 0.025보다 작은 수치로 귀무가설을 기각하여 대립가설을 채택할 수 있다. 두 집단의 평균이 다르다고 판단할 수 있다.</p>
+<h2 id="_4">맺음말 (결론)</h2>
+<p>두 집단의 평균치 검정은 두 집단의 평균이 단순 변동성(불확실성)에 의한 차이인지 아니면 실제로 평균이 다른 것인지 판단하기 위한 검정 기법이다. 이에 따른 이론의 가정들을 알아보았으며, (해당 가정 기반으로 만들어진 이론들) 각 가정마다 어떻게 계산되는지 또한 실제 예시를 통해 알아보았다. 다음 시간에는 Python에서 라이브러리를 어떻게 사용하면 되는지 알아보도록 할 예정이다.</p>
 <h2 id="_5">참고 문헌</h2>
 <ol>
-<li>통계학 기본(입문) — 자유아카데미 (전공서적)</li>
-<li>자료분석 개론 — 수업 자료</li>
-<li>Wikipedia — Welch's t-test / Student's t-test</li>
+<li>통계학 기본(입문) 수업 - 자유아카데미 (전공서적)</li>
+<li>자료분석 개론 - 수업 자료</li>
+<li>내가 이해한 직관 (전공서적 다독하면서)</li>
+<li>Wiki - Welch's t-test</li>
+<li>Wiki - Student's t-test</li>
 </ol>
+<hr />
 <blockquote>
-<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/24" rel="nofollow noopener">taehyuklee.tistory.com/24</a></p>
+<p>📦 블로그 이전 글입니다. 원본: <a href="https://taehyuklee.tistory.com/24" rel="nofollow noopener">taehyuklee.tistory.com/24</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/t-test-python-scipy/">t검정 Python 구현 — SciPy로 일표본·독립표본(Student&#39;s·Welch&#39;s)·대응표본</a></li><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/central-limit-theorem/">중심극한정리(Central Limit Theorem) — 정의·실험·용도</a></li><li><a href="ko/confidence-interval/">신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해</a></li></ul></section>
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/t-test-python-scipy/">평균치(t) 검정 t test 구현 [One, Two, Paired Samples t-test : Python feat. SciPy &amp; Statsmodels]</a></li><li><a href="ko/hypothesis-testing/">가설검정 이해: 검정통계량, 귀무가설, 대립가설, p-value, 유의수준 (significance level), 임계값 (critical value) 개념 정리 (본질)</a></li><li><a href="ko/central-limit-theorem/">중심극한 정리 (Central Limit Theorem) : 정의 및 실험 &amp; 용도</a></li><li><a href="ko/confidence-interval/">신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Ft-test%2F&amp;text=%ED%8F%89%EA%B7%A0%EC%B9%98%20%EA%B2%80%EC%A0%95%20%E2%80%94%20t%EA%B2%80%EC%A0%95%20%28One%20%2F%20Two%3A%20Student%27s%C2%B7Welch%27s%20%2F%20Paired%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Ft-test%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Ft-test%2F&amp;text=%ED%8F%89%EA%B7%A0%EC%B9%98%20%EA%B2%80%EC%A0%95%20%3A%20t%EA%B2%80%EC%A0%95%20%5BOne%2C%20Two%28Student%27s%20%26%20Welch%27s%29%2C%20Paired%20Samples%20t-test%5D" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Ft-test%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
 

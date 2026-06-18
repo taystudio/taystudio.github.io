@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall) · Tay Blog</title>
+<title>Nginx Specific-Version &amp; Latest Install Guide: Ubuntu / CentOS, Fully Organized · Tay Blog</title>
 <meta name="description" content="Install Nginx on a cloud server like AWS EC2 — version-specific installs on Ubuntu (apt) and CentOS (yum), the /etc/nginx config structure (sites-available/enabled), and firewalls (UFW, firewalld, AWS security groups) all in one.">
 <link rel="canonical" href="https://taystudios.com/blog/en/nginx-install-ubuntu-centos/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/nginx-install-ubuntu-centos/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/nginx-install-ubuntu-centos/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/nginx-install-ubuntu-centos/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall) · Tay Blog">
+<meta property="og:title" content="Nginx Specific-Version &amp; Latest Install Guide: Ubuntu / CentOS, Fully Organized · Tay Blog">
 <meta property="og:description" content="Install Nginx on a cloud server like AWS EC2 — version-specific installs on Ubuntu (apt) and CentOS (yum), the /etc/nginx config structure (sites-available/enabled), and firewalls (UFW, firewalld, AWS security groups) all in one.">
 <meta property="og:url" content="https://taystudios.com/blog/en/nginx-install-ubuntu-centos/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/nginx-install-ubuntu-centos/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/nginx-install-ubuntu-centos/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall)", "description": "Install Nginx on a cloud server like AWS EC2 — version-specific installs on Ubuntu (apt) and CentOS (yum), the /etc/nginx config structure (sites-available/enabled), and firewalls (UFW, firewalld, AWS security groups) all in one.", "datePublished": "2026-02-08T00:00:00+09:00", "dateModified": "2026-02-08T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/nginx-install-ubuntu-centos/"}, "image": ["https://taystudios.com/blog/assets/posts/nginx-install-ubuntu-centos/cover.webp"], "keywords": "nginx, Ubuntu, CentOS, web-server, AWS"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall)", "item": "https://taystudios.com/blog/en/nginx-install-ubuntu-centos/"}]}</script><meta property="article:published_time" content="2026-02-08T00:00:00+09:00"><meta property="article:modified_time" content="2026-02-08T00:00:00+09:00"><meta property="article:tag" content="nginx"><meta property="article:tag" content="Ubuntu"><meta property="article:tag" content="CentOS"><meta property="article:tag" content="web-server"><meta property="article:tag" content="AWS">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Nginx Specific-Version & Latest Install Guide: Ubuntu / CentOS, Fully Organized", "description": "Install Nginx on a cloud server like AWS EC2 — version-specific installs on Ubuntu (apt) and CentOS (yum), the /etc/nginx config structure (sites-available/enabled), and firewalls (UFW, firewalld, AWS security groups) all in one.", "datePublished": "2026-02-08T00:00:00+09:00", "dateModified": "2026-02-08T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/nginx-install-ubuntu-centos/"}, "image": ["https://taystudios.com/blog/assets/posts/nginx-install-ubuntu-centos/cover.webp"], "keywords": "nginx, Ubuntu, CentOS, web-server, AWS"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "Nginx Specific-Version & Latest Install Guide: Ubuntu / CentOS, Fully Organized", "item": "https://taystudios.com/blog/en/nginx-install-ubuntu-centos/"}]}</script><meta property="article:published_time" content="2026-02-08T00:00:00+09:00"><meta property="article:modified_time" content="2026-02-08T00:00:00+09:00"><meta property="article:tag" content="nginx"><meta property="article:tag" content="Ubuntu"><meta property="article:tag" content="CentOS"><meta property="article:tag" content="web-server"><meta property="article:tag" content="AWS">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall)</span></nav>
-        <h1 class="tb-article-title">Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall)</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Nginx Specific-Version &amp; Latest Install Guide: Ubuntu / CentOS, Fully Organized</span></nav>
+        <h1 class="tb-article-title">Nginx Specific-Version &amp; Latest Install Guide: Ubuntu / CentOS, Fully Organized</h1>
         <div class="tb-article-meta">
           <time>2026.02.08</time>
           <span>·</span><span>#nginx #Ubuntu #CentOS #web-server #AWS</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-what-is-nginx">1. What is Nginx?</a></li><li class="tb-toc-h2"><a href="#2-installing-nginx-on-ubuntu-debian-family">2. Installing Nginx on Ubuntu (Debian family)</a></li><li class="tb-toc-h3"><a href="#21-step-by-step-detail">2.1 Step-by-step detail</a></li><li class="tb-toc-h3"><a href="#22-nginx-configuration-file-structure-and-paths">2.2 Nginx Configuration File Structure and Paths</a></li><li class="tb-toc-h4"><a href="#221-the-central-config-file-nginxconf">2.2.1 The central config file: nginx.conf</a></li><li class="tb-toc-h4"><a href="#222-site-config-sites-available-vs-sites-enabled">2.2.2 Site config: sites-available vs sites-enabled</a></li><li class="tb-toc-h4"><a href="#223-summary-the-config-flow">2.2.3 Summary: the config flow</a></li><li class="tb-toc-h2"><a href="#3-installing-on-centos-redhat-rpm-family">3. Installing on CentOS / RedHat (RPM family)</a></li><li class="tb-toc-h3"><a href="#31-enable-the-epel-repository">3.1 Enable the EPEL repository</a></li><li class="tb-toc-h2"><a href="#4-firewall-setup">4. Firewall Setup</a></li><li class="tb-toc-h3"><a href="#41-linux-os-firewall">4.1 Linux OS firewall</a></li><li class="tb-toc-h3"><a href="#42-aws-security-group-if-using-aws">4.2 AWS security group (if using AWS)</a></li><li class="tb-toc-h2"><a href="#5-verifying-the-install">5. Verifying the Install</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-what-is-nginx">1. What is Nginx?</a></li><li class="tb-toc-h2"><a href="#2-installing-nginx-on-ubuntu-debian-based">2. Installing Nginx on Ubuntu (Debian-based)</a></li><li class="tb-toc-h3"><a href="#21-detailed-explanation-of-the-procedure">2.1 Detailed explanation of the procedure</a></li><li class="tb-toc-h3"><a href="#22-understanding-the-nginx-configuration-file-structure-and-paths">2.2 Understanding the Nginx configuration file structure and paths</a></li><li class="tb-toc-h2"><a href="#3-installing-on-centos-redhat-rpm-based">3. Installing on CentOS / RedHat (RPM-based)</a></li><li class="tb-toc-h3"><a href="#31-enabling-the-epel-repository">3.1 Enabling the EPEL repository</a></li><li class="tb-toc-h2"><a href="#4-firewall-setup">4. Firewall setup</a></li><li class="tb-toc-h3"><a href="#41-1-linux-os-firewall-setup">4.1 ① Linux OS firewall setup</a></li><li class="tb-toc-h3"><a href="#42-2-aws-security-group-setup-when-using-aws">4.2 ② AWS Security Group setup (when using AWS)</a></li><li class="tb-toc-h2"><a href="#5-verifying-the-install-result">5. Verifying the install result</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -79,113 +79,123 @@
 .tb-content .callout p { margin:6px 0; line-height:1.85; }
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
+.tb-content pre { overflow-x:auto; }
 </style>
+
 <h2 id="1-what-is-nginx">1. What is Nginx?</h2>
-<p>Nginx is a lightweight, high-performance <strong>open-source web server</strong> and currently the most widely used worldwide. Beyond a simple web server, it plays a key role in solving complex architectural problems as a <strong>reverse proxy, load balancer, and mail proxy.</strong></p>
-<p>This post covers installation on <strong>Ubuntu (Debian family),</strong> the most common on cloud servers (AWS EC2, etc.), and <strong>CentOS/RedHat (RPM family),</strong> preferred in enterprises.</p>
-<blockquote>
-<p>💡 <strong>Note</strong> — this guide assumes the server is connected to the internet (Public network) so you can use the package manager. On a closed network (Private Subnet), you'd need a manual install via separate binary files.</p>
-</blockquote>
-<h2 id="2-installing-nginx-on-ubuntu-debian-family">2. Installing Nginx on Ubuntu (Debian family)</h2>
-<p>The package manager is <strong>apt.</strong></p>
+<p>Nginx is a lightweight, high-performance open-source web server, currently the most widely used in the world. Beyond a simple web-server role, it performs a core role in solving complex architectural problems such as a reverse proxy, a load balancer, and a mail proxy.</p>
+<p>In this post, I'll organize the install methods for Ubuntu (Debian-based) — the most used in cloud-server (AWS EC2, etc.) environments — and CentOS/RedHat (RPM-based), which is preferred in enterprises.</p>
+<div class="callout">
+<p>💡 <strong>Note</strong></p>
+<p>This guide assumes an environment where the server is connected to the internet (the public network). (using the package manager)</p>
+<p>In a closed-network (Private Subnet) environment, a separate manual install via binary files is needed.</p>
+</div>
+
+<h2 id="2-installing-nginx-on-ubuntu-debian-based">2. Installing Nginx on Ubuntu (Debian-based)</h2>
+<p>Package manager: apt</p>
 <pre class="codehilite"><code class="language-bash">sudo apt update
 sudo apt install nginx
 </code></pre>
 
-<p>In practice you sometimes need a specific version.</p>
-<pre class="codehilite"><code class="language-bash">apt-cache madison nginx                    # list installable nginx versions in the repo
-sudo apt install nginx=1.24.0-2ubuntu7.5   # install a specific version
+<p>* In practice, cases arise where you have to install a specific version.</p>
+<pre class="codehilite"><code class="language-bash">apt-cache madison nginx # query the nginx versions installable from the current repository
+sudo apt install nginx=1.24.0-2ubuntu7.5 # install a specific version of nginx
 </code></pre>
 
 <p>Service management:</p>
 <pre class="codehilite"><code class="language-bash">sudo systemctl start nginx
-sudo systemctl enable nginx   # auto-start on boot
+sudo systemctl enable nginx # auto-run on boot
 </code></pre>
 
-<h3 id="21-step-by-step-detail">2.1 Step-by-step detail</h3>
-<p><img alt="Terminal screen of the apt repository update" src="assets/posts/nginx-install-ubuntu-centos/img1.webp" width="1596" height="912" loading="lazy">
-<em>Figure 1. <code>sudo apt update</code> — updating the apt repository</em></p>
-<p><img alt="Terminal screen installing nginx with apt" src="assets/posts/nginx-install-ubuntu-centos/img2.webp" width="1594" height="912" loading="lazy">
-<em>Figure 2. <code>sudo apt install nginx</code> — installing nginx</em></p>
-<p>First update the apt repository (recommended, especially to pick up the latest version) and install nginx. Figure 1 is the <code>apt update</code> result, Figure 2 the result of installing nginx from the apt repo. If a <code>(Y/n)</code> prompt appears, enter <code>Y</code> to continue.</p>
-<p><img alt="Nginx install complete on Ubuntu" src="assets/posts/nginx-install-ubuntu-centos/img3.webp" width="1588" height="904" loading="lazy">
-<em>Figure 3. nginx install complete via apt</em></p>
-<p>Installing nginx via apt auto-registers it as a Linux service, so you can check/start/stop it with <strong>systemctl</strong> (the manager for Linux services/daemons).</p>
-<p><img alt="Checking nginx running status with systemctl status" src="assets/posts/nginx-install-ubuntu-centos/img4.webp" width="1596" height="910" loading="lazy">
-<em>Figure 4. <code>systemctl status nginx</code> — checking the running status</em></p>
-<p>Check the status with <code>sudo systemctl status nginx</code>. Installing via apt runs it with a default config.</p>
-<h3 id="22-nginx-configuration-file-structure-and-paths">2.2 Nginx Configuration File Structure and Paths</h3>
-<p><img alt="Path and directory structure of the /etc/nginx config files" src="assets/posts/nginx-install-ubuntu-centos/img5.webp" width="1592" height="914" loading="lazy">
-<em>Figure 5. nginx config path (<code>/etc/nginx/</code>)</em></p>
-<p>When installed via the package manager, all config files live under <strong><code>/etc/nginx/</code></strong> by default. Nginx config is structured like a "central control room" that loads "detailed instruction sheets."</p>
-<h4 id="221-the-central-config-file-nginxconf">2.2.1 The central config file: nginx.conf</h4>
-<p>The top-level config file that determines overall server behavior. Inside, it has statements that <code>include</code> config files from other paths.</p>
-<pre class="codehilite"><code class="language-nginx">include /etc/nginx/modules-enabled/*.conf;   # include module configs
-include /etc/nginx/conf.d/*.conf;            # include user-defined configs
-include /etc/nginx/sites-enabled/*;          # include individual site configs
+<h3 id="21-detailed-explanation-of-the-procedure">2.1 Detailed explanation of the procedure</h3>
+<p><img alt="(left) apt package update" src="assets/posts/nginx-install-ubuntu-centos/img1.webp" width="1596" height="912" loading="lazy">
+<img alt="(right) nginx install" src="assets/posts/nginx-install-ubuntu-centos/img2.webp" width="1594" height="912" loading="lazy">
+<em>Figure 1. (left) apt package update / (right) nginx install</em></p>
+<p><strong>2.1.1 Running sudo apt update / sudo apt install nginx</strong></p>
+<p>First, update the apt repository (especially to reflect the latest version, it's good to update the repository).</p>
+<p>The left image in Figure 1 is the result of apt update, and the right image shows installing nginx through the apt repository. A (Y/n) will appear in the middle; enter 'Y' and continue.</p>
+<p><img alt="result of installing nginx via apt" src="assets/posts/nginx-install-ubuntu-centos/img3.webp" width="1588" height="904" loading="lazy">
+<em>Figure 2. result of installing nginx via apt</em></p>
+<p>When you install nginx via apt, it automatically registers it as a linux service, so you can directly check the status or turn it off and on through systemctl (the overall manager of linux services (daemons)).</p>
+<p><img alt="checking the nginx status via systemctl" src="assets/posts/nginx-install-ubuntu-centos/img4.webp" width="1596" height="910" loading="lazy">
+<em>Figure 3. checking the nginx status via systemctl</em></p>
+<p>You can check the nginx status via sudo systemctl status nginx. When you install nginx via apt, it runs with the default config.</p>
+<h3 id="22-understanding-the-nginx-configuration-file-structure-and-paths">2.2 Understanding the Nginx configuration file structure and paths</h3>
+<p><img alt="nginx config file paths" src="assets/posts/nginx-install-ubuntu-centos/img5.webp" width="1592" height="914" loading="lazy">
+<em>Figure 4. nginx config file paths</em></p>
+<p>When you install Nginx with the package manager, all config files are located by default under the /etc/nginx/ path. Nginx's configuration approach is structured so that a 'central control room' loads 'detailed instruction sheets.'</p>
+<p><strong>2.2.1 The central config file: nginx.conf</strong></p>
+<p>This is Nginx's topmost config file. It determines how the whole server operates, and inside it there are statements that include config files at other paths, as below.</p>
+<pre class="codehilite"><code class="language-nginx">include /etc/nginx/modules-enabled/*.conf; # include module configs
+include /etc/nginx/conf.d/*.conf;          # include user-defined configs
+include /etc/nginx/sites-enabled/*;        # include individual site configs
 </code></pre>
 
-<p>The reason to split files is <strong>maintainability.</strong> Rather than cramming everything into one file, you split it per service and load them with <code>include</code>.</p>
-<h4 id="222-site-config-sites-available-vs-sites-enabled">2.2.2 Site config: sites-available vs sites-enabled</h4>
-<p>The two most important directories in Nginx config.</p>
+<p>The reason for managing files separately like this is for maintenance convenience. Instead of cramming all settings into one file, you split files by service, manage them, and then load them with include.</p>
+<p><strong>2.2.2. Site config: sites-available vs sites-enabled</strong></p>
+<p>These are the two most core directories in the Nginx config structure.</p>
 <ul>
-<li><strong>sites-available</strong> — the store (originals) of actual per-service config files (ports, routing, etc.).</li>
-<li><strong>sites-enabled</strong> — only configs linked here are actually read and run by Nginx (enabled configs).</li>
-<li>Usually there's a <code>default</code> file in sites-available containing port (<code>listen</code>), domain (<code>server_name</code>), and routing (<code>location</code>) settings.</li>
+<li>sites-available: where the config files of actual individual services (ports, routing, etc.) are kept. (the config-original repository)</li>
+<li>sites-enabled: Nginx actually reads and runs only the config files linked in this directory. (the activated configs)</li>
 </ul>
-<h4 id="223-summary-the-config-flow">2.2.3 Summary: the config flow</h4>
-<ol>
-<li><strong>nginx.conf</strong> — sets the overall frame and orchestrates the detailed configs.</li>
-<li><strong>Detailed .conf files</strong> — define actual service ports/addresses and run when <code>include</code>d into nginx.conf.</li>
-</ol>
-<h2 id="3-installing-on-centos-redhat-rpm-family">3. Installing on CentOS / RedHat (RPM family)</h2>
-<p>CentOS/RedHat-family (RHEL, Rocky Linux, etc.) use the <strong><code>yum</code> or <code>dnf</code></strong> package manager. The process is very similar to Ubuntu, with one caveat.</p>
-<h3 id="31-enable-the-epel-repository">3.1 Enable the EPEL repository</h3>
-<p>CentOS 7+ base repos often don't include Nginx, so you must first install <strong>EPEL</strong> (Extra Packages for Enterprise Linux), the extra package repo for enterprise Linux.</p>
+<p>Usually a default file exists in sites-available, and inside it are settings like port (Listen), domain (Server Name), routing (Location), etc.</p>
+<p><strong>2.2.3. Summary: the flow of configuration</strong></p>
+<ul>
+<li>nginx.conf: sets the overall framework and oversees the detailed configs.</li>
+<li>the detailed .conf files: define the actual service's port numbers, addresses, etc., and are included by nginx.conf to start up.</li>
+</ul>
+<h2 id="3-installing-on-centos-redhat-rpm-based">3. Installing on CentOS / RedHat (RPM-based)</h2>
+<p>CentOS and RedHat-based (RHEL, Rocky Linux, etc.) use the yum or dnf package manager. The install process is very similar to Ubuntu, but there's one thing to watch out for.</p>
+<h3 id="31-enabling-the-epel-repository">3.1 Enabling the EPEL repository</h3>
+<p>In many cases, CentOS 7 and above's default repository doesn't include Nginx. Therefore you have to first install EPEL (Extra Packages for Enterprise Linux), an additional package repository for enterprise Linux.</p>
+<ul>
+<li>Package manager: yum or dnf</li>
+<li>Caveat: on CentOS 7 and above, you often have to install the epel-release repository first.</li>
+</ul>
 <pre class="codehilite"><code class="language-bash">sudo yum install epel-release -y
 sudo yum install nginx -y
 </code></pre>
 
-<p>Service management is the same as Ubuntu:</p>
+<p>Service management: (same as Ubuntu)</p>
 <pre class="codehilite"><code class="language-bash">sudo systemctl start nginx
 sudo systemctl enable nginx
 </code></pre>
 
-<p>Detailed config and service management after install are the same as the Ubuntu section above, so refer to that.</p>
-<h2 id="4-firewall-setup">4. Firewall Setup</h2>
-<p>If you finished installing Nginx but the browser says "can't connect to this site," it's almost certainly a firewall issue. You must check both the <strong>server's own firewall</strong> and the <strong>AWS security group.</strong></p>
-<h3 id="41-linux-os-firewall">4.1 Linux OS firewall</h3>
-<p>Depending on the OS, open ports 80 (HTTP) and 443 (HTTPS) with the commands below.</p>
-<p><strong>Ubuntu (UFW):</strong></p>
+<p>The detailed configuration and service management after install are the same as the Ubuntu environment explained earlier, so please refer to that content.</p>
+<h2 id="4-firewall-setup">4. Firewall setup</h2>
+<p>If you've finished installing Nginx but the browser shows 'can't connect to the site,' it's most likely a firewall problem. You have to check both the server's own firewall and the AWS Security Group.</p>
+<h3 id="41-1-linux-os-firewall-setup">4.1 ① Linux OS firewall setup</h3>
+<p>Depending on the OS you're using, open ports 80 (HTTP) and 443 (HTTPS) with the commands below.</p>
+<p>Ubuntu (UFW):</p>
 <pre class="codehilite"><code class="language-bash">sudo ufw allow 'Nginx Full'
 </code></pre>
 
-<p><strong>CentOS (firewalld):</strong></p>
+<p>CentOS (Firewalld):</p>
 <pre class="codehilite"><code class="language-bash">sudo firewall-cmd --permanent --zone=public --add-service=http
 sudo firewall-cmd --permanent --zone=public --add-service=https
 sudo firewall-cmd --reload
 </code></pre>
 
-<h3 id="42-aws-security-group-if-using-aws">4.2 AWS security group (if using AWS)</h3>
-<p>In a cloud (AWS) environment, the Linux-internal settings alone aren't enough. Check the <strong>Inbound Rules</strong> in the AWS Console instance settings.</p>
+<h3 id="42-2-aws-security-group-setup-when-using-aws">4.2 ② AWS Security Group setup (when using AWS)</h3>
+<p>If you're using a cloud environment (AWS), the Linux internal settings alone aren't enough. In the AWS Console's instance settings, check the Inbound Rules.</p>
 <ul>
-<li><strong>HTTP (80)</strong> — Source <code>0.0.0.0/0</code> (allow all)</li>
-<li><strong>HTTPS (443)</strong> — Source <code>0.0.0.0/0</code> (allow all)</li>
+<li>HTTP (port 80): Source 0.0.0.0/0 (allow all)</li>
+<li>HTTPS (port 443): Source 0.0.0.0/0 (allow all)</li>
 </ul>
-<h2 id="5-verifying-the-install">5. Verifying the Install</h2>
-<p>Once everything is set, enter the server's <strong>public IP</strong> in a web browser's address bar.</p>
-<p><img alt="Welcome to nginx page successfully loaded in a web browser" src="assets/posts/nginx-install-ubuntu-centos/img6.webp" width="1600" height="931" loading="lazy">
-<em>Figure 6. Nginx reached — Welcome to nginx!</em></p>
-<p>If the <strong>"Welcome to nginx!"</strong> page appears as above, the install and network setup are perfectly complete.</p>
+<h2 id="5-verifying-the-install-result">5. Verifying the install result</h2>
+<p>Once all settings are done, enter the server's public IP address in the web browser's address bar and try to connect.</p>
+<p><img alt="Nginx connection complete" src="assets/posts/nginx-install-ubuntu-centos/img6.webp" width="1600" height="931" loading="lazy">
+<em>Figure 5. Nginx connection complete</em></p>
+<p>If a page with the text "Welcome to nginx!" appears as above, the install and network setup are perfectly complete.</p>
 <hr />
 <blockquote>
-<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/30" rel="nofollow noopener">taehyuklee.tistory.com/30</a></p>
+<p>📦 Migrated from the Tistory blog I used to run. Original: <a href="https://taehyuklee.tistory.com/30" rel="nofollow noopener">taehyuklee.tistory.com/30</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li><li><a href="en/nat-instance-build-2/">[AWS] Cutting NAT Gateway Costs — Building a NAT Instance with iptables (Part 2)</a></li></ul></section>
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration &amp; Fixed-Cost Optimization Strategy)</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Connection Error: How to Fix the UNPROTECTED PRIVATE KEY FILE Error (ssh pem key permission setup)</a></li><li><a href="en/nat-instance-build-2/">[AWS Infra] Building &amp; Configuring a NAT Instance to Cut NAT Gateway Costs (Part 2)</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fnginx-install-ubuntu-centos%2F&amp;text=Nginx%20Install%20Guide%20%E2%80%94%20Ubuntu%20%2F%20CentOS%20%28Specific%20Versions%2C%20Config%20Structure%2C%20Firewall%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fnginx-install-ubuntu-centos%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fnginx-install-ubuntu-centos%2F&amp;text=Nginx%20Specific-Version%20%26%20Latest%20Install%20Guide%3A%20Ubuntu%20%2F%20CentOS%2C%20Fully%20Organized" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fnginx-install-ubuntu-centos%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
 

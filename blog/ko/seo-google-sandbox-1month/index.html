@@ -81,16 +81,18 @@
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
 <blockquote>
-<p><strong>결론 먼저</strong>: Google sandbox 는 실재한다. 신규 도메인 → 색인은 점진적으로 됨 (5/22 부터 spike) 그러나 검색 노출은 spike → dip 패턴 (5/14 정점 → 5/24 거의 0). Naver·Cloudflare 가 받쳐주지 않았으면 패닉했을 상황. 6-12주 자동 종료 expected.</p>
+<p>먼저 결론부터 말씀드리면, 구글 샌드박스는 실재합니다. 신규 도메인의 색인 자체는 점진적으로 진행됐지만(5/22부터 본격적으로 잡히기 시작), 검색 노출은 spike → dip 패턴을 그대로 따라갔습니다(5/14 정점 → 5/24 거의 0). 솔직히 네이버와 Cloudflare 쪽 데이터가 받쳐주지 않았다면 저도 패닉했을 상황이었습니다. 경험상 6-12주 정도면 자동으로 풀릴 것으로 봅니다.</p>
 </blockquote>
 <h2 id="_1">배경</h2>
-<p><code>taystudio.github.io</code> → <code>taystudios.com</code> (2026-05-09 migration). 신규 도메인 취급. 5/9 이후 30일간 GSC·Naver·Cloudflare 3종 데이터 추적 + 무슨 일이 일어났는지.</p>
+<p>저는 5월 9일에 <code>taystudio.github.io</code>에서 <code>taystudios.com</code>으로 도메인을 옮겼습니다(2026-05-09 migration). 구글 입장에서는 사실상 새 도메인으로 취급되는 작업이었고, 그래서 이날 이후 30일 동안 GSC·네이버·Cloudflare 세 곳의 데이터를 직접 추적하면서 도대체 무슨 일이 벌어지는지를 기록해봤습니다.</p>
 <h2 id="google-sandbox">Google Sandbox 가 뭔지</h2>
-<p>Google 이 신규 도메인을 일정 기간 "견습" 상태로 두는 비공식 알고리즘:
-- <strong>6-12주</strong> 색인은 되지만 검색 순위 상승 제한
-- 스팸·MFA(Made For AdSense) 사이트 차단 목적
-- "이 사이트가 6주 후에도 살아있나" 평가
-- Google 공식 부정하지만 SEO 업계에서 widely observed</p>
+<p>구글 샌드박스는 신규 도메인을 일정 기간 "견습" 상태로 묶어두는 비공식 알고리즘을 말합니다. 정리하면 이런 성격입니다.</p>
+<ul>
+<li><strong>6-12주</strong> 동안 색인은 되지만 검색 순위 상승은 제한됩니다</li>
+<li>스팸이나 MFA(Made For AdSense) 사이트를 걸러내려는 목적이 큽니다</li>
+<li>말하자면 "이 사이트가 6주 후에도 살아있을까"를 지켜보는 평가 기간입니다</li>
+<li>구글은 공식적으로는 부정하지만, SEO 업계에서는 꽤 널리 관찰되는 현상입니다</li>
+</ul>
 <h2 id="30">30일 데이터 추적</h2>
 <h3 id="gsc-google-search-console">GSC (Google Search Console)</h3>
 <div class="tb-table-wrap"><table>
@@ -155,38 +157,24 @@
 </tr>
 </tbody>
 </table></div>
-<p>= <strong>5/14 정점 → 5/24 dip → 거의 0</strong>. 사용자 입장에서는 "사이트 망했나?".</p>
+<p>5/14에 정점을 찍고 5/24에 dip, 그 뒤로는 거의 0으로 떨어졌습니다. 운영자 입장에서 보고 있으면 "사이트가 망한 건가" 싶은 그래프입니다.</p>
 <h3 id="bing-webmaster">Bing Webmaster</h3>
-<p>비슷한 패턴:
-- 5/12 까지 데이터 있음 (옛 도메인 잔여)
-- 5/22 부터 sitemap discovered 124 URLs
-- 그러나 검색 노출 0 (Bing 도 신규 도메인 평가 큐 대기)</p>
+<p>빙도 비슷한 패턴을 보였습니다. 5/12까지는 옛 도메인의 잔여 데이터가 남아 있었고, 5/22부터 sitemap이 discovered되어 124개 URL이 잡혔습니다. 다만 검색 노출은 0이었는데, 빙 역시 신규 도메인을 평가 큐에 넣고 기다리게 하는 모양입니다.</p>
 <h3 id="naver-searchadvisor-522">Naver SearchAdvisor (5/22 등록)</h3>
-<p>여기서 <strong>반전</strong>:
-- 5/22 등록 직후 spike 시작
-- 5/27 정점 <strong>7,600 노출</strong>
-- 5/28 이후 일 평균 2,000-3,000 안정
-- 30일 합계: <strong>노출 26,000 + 클릭 230</strong></p>
-<p>= <strong>Google 의 33-115배</strong>. 한국 사용자 대상이라 Naver 매칭이 훨씬 좋음.</p>
+<p>여기서 반전이 있었습니다. 5/22 등록 직후부터 spike가 시작됐고, 5/27에 <strong>7,600 노출</strong>로 정점을 찍은 뒤 5/28 이후로는 일 평균 2,000-3,000 선에서 안정됐습니다. 30일 합계로 보면 <strong>노출 26,000에 클릭 230</strong>이었습니다.</p>
+<p>이건 같은 기간 구글의 <strong>33-115배</strong>에 해당하는 수치입니다. 애초에 한국 사용자를 대상으로 하는 콘텐츠다 보니 네이버 쪽 매칭이 훨씬 잘 맞았던 것 같습니다.</p>
 <h3 id="cloudflare-web-analytics">Cloudflare Web Analytics</h3>
-<p>전체 트래픽 (모든 채널):
-- 일 visits 평균 55명
-- 79% 가 Naver/Daum referrer
-- ChatGPT referrer 일부 (AI 검색 노출 시작)
-- 사이트 자체는 정상 작동</p>
+<p>모든 채널을 합친 전체 트래픽은 Cloudflare로 봤습니다. 일 방문이 평균 55명 정도였고, 그중 79%가 네이버/다음 referrer였습니다. ChatGPT referrer도 일부 잡히기 시작했는데(AI 검색에서 노출이 시작된 신호로 보입니다), 무엇보다 사이트 자체는 멀쩡하게 잘 돌아가고 있었습니다.</p>
 <h2 id="1-google-sandbox">발견 1 — Google sandbox 는 "검색 순위" 만 영향</h2>
-<p>색인 자체는 점진적으로 OK:
-- 5/22 122 페이지 색인됨
-- 5/29 색인 안 된 페이지 7건 (redirect 4·canonical 1·큐 2 = 정상 사유)
-- 6/2 sitemap 124 URL 모두 발견</p>
-<p>= Google 이 사이트 발견·크롤·색인은 정상 진행. <strong>검색 결과 페이지의 순위만 제한</strong>. 같은 키워드에 다른 사이트 (오래된 도메인) 가 우선.</p>
+<p>데이터를 보면서 가장 먼저 확인한 건, 색인 자체는 점진적으로 잘 되고 있었다는 점입니다. 5/22에 122페이지가 색인됐고, 5/29에 색인 안 된 페이지는 7건이었는데 redirect 4·canonical 1·큐 2로 전부 정상적인 사유였습니다. 6/2에는 sitemap의 124개 URL이 모두 발견됐습니다.</p>
+<p>즉 구글이 사이트를 발견하고 크롤하고 색인하는 과정은 정상적으로 진행되고 있었습니다. 제한되는 건 어디까지나 검색 결과 페이지에서의 순위였고, 같은 키워드에서는 오래된 도메인이 우선되더군요.</p>
 <h2 id="2-514-spike">발견 2 — 5/14 spike 의 정체</h2>
-<p>5/14 갑자기 노출 450 → Google 이 신규 도메인에 <strong>테스트 노출</strong> 한 듯. 사이트가 진짜인지 사용자 반응 (CTR·체류시간) 확인.</p>
-<p>그 후 5/17~24 dip = "평가 결과 일단 sandbox 유지". 클릭률 0.3% 가 신규 도메인의 평가 기준 못 미친 것으로 추정.</p>
+<p>5/14에 갑자기 노출이 450까지 튄 건, 구글이 신규 도메인을 상대로 일종의 테스트 노출을 해본 게 아닐까 싶습니다. 사이트가 진짜인지, 사용자 반응(CTR·체류시간)이 어떤지를 확인하는 단계로 보입니다.</p>
+<p>그 뒤 5/17~24의 dip은 결국 "평가 결과 일단 sandbox 유지"로 정리된 셈입니다. 클릭률이 0.3% 정도였는데, 이게 신규 도메인을 풀어줄 만한 기준에는 못 미쳤던 것으로 추정합니다.</p>
 <h2 id="3-naver-sandbox">발견 3 — Naver 는 sandbox 같은 평가 없음</h2>
-<p>5/22 등록 → 즉시 색인 + 노출 시작. <strong>3일만에 일 노출 2,000+ 도달</strong>. Naver 는 sitemap 제출되면 빠르게 처리. 신규 도메인이라도 큰 페널티 X.</p>
+<p>네이버는 5/22에 등록하자마자 곧바로 색인과 노출이 시작됐습니다. <strong>3일 만에 일 노출 2,000+에 도달</strong>했으니, sandbox 같은 견습 기간이 사실상 없다고 봐도 될 정도였습니다. 네이버는 sitemap만 제출되면 빠르게 처리하고, 신규 도메인이라고 해서 큰 페널티를 주지는 않는 것 같습니다.</p>
 <h2 id="4-ai">발견 4 — AI 검색이 새로운 채널</h2>
-<p>Cloudflare 에서 <code>chatgpt.com</code> referrer 출현. LLM (ChatGPT·Claude·Perplexity) 이 우리 사이트 학습·검색에서 인용 시작. <strong>Google sandbox 와 무관한 채널</strong>.</p>
+<p>Cloudflare에서 <code>chatgpt.com</code> referrer가 출현하기 시작했습니다. ChatGPT·Claude·Perplexity 같은 LLM이 우리 사이트를 학습하거나 검색 답변에서 인용하기 시작한 신호로 보입니다. 흥미로운 건 이게 구글 sandbox와는 완전히 무관한 별개의 채널이라는 점입니다.</p>
 <h2 id="google-sandbox_1">추정 — Google sandbox 종료 시점</h2>
 <div class="tb-table-wrap"><table>
 <thead>
@@ -224,43 +212,44 @@
 </tr>
 </tbody>
 </table></div>
-<p>이 timeline 은 일반 SEO 경험치 (Google 공식 X). 콘텐츠 quality·E-E-A-T·백링크에 따라 단축 가능.</p>
+<p>이 timeline은 일반적인 SEO 경험치에 기댄 추정이지 구글 공식 발표는 아닙니다. 콘텐츠 quality·E-E-A-T·백링크에 따라 더 단축될 수도 있습니다.</p>
 <h2 id="sandbox">우리 액션 — sandbox 시기에 한 일</h2>
+<p>sandbox는 어차피 기다려야 하는 구간이라, 저는 그동안 사이트 자체를 다지는 쪽으로 시간을 썼습니다.</p>
 <h3 id="_2">콘텐츠 강화</h3>
 <ul>
-<li>18 도구 stale fix (잘못된 수치 24건)</li>
-<li>차별화 매트릭스 5건 add (inheritance break-even·loan DSR·6+6 부모공동 등)</li>
-<li>Top 5 페이지 title·description CTR 최적화</li>
-<li>블로그 글 시리즈 시작</li>
+<li>18개 도구의 stale 수치를 손봤습니다(잘못된 수치 24건)</li>
+<li>차별화 매트릭스 5건을 추가했습니다(상속 break-even·대출 DSR·6+6 부모공동 등)</li>
+<li>Top 5 페이지의 title·description을 CTR 관점에서 다시 다듬었습니다</li>
+<li>블로그 글 시리즈를 시작했습니다</li>
 </ul>
 <h3 id="_3">검색엔진 분산</h3>
 <ul>
-<li>Naver SearchAdvisor 등록 + sitemap 제출</li>
-<li>Bing Webmaster URL submission (10건)</li>
-<li>Daum Webmaster 예정</li>
-<li>llms.txt + robots.txt LLM crawler Allow (AI 검색 분산)</li>
+<li>네이버 SearchAdvisor에 등록하고 sitemap을 제출했습니다</li>
+<li>빙 Webmaster에 URL을 직접 제출했습니다(10건)</li>
+<li>다음 Webmaster도 등록 예정입니다</li>
+<li>llms.txt와 robots.txt에서 LLM crawler를 Allow 처리해 AI 검색 쪽으로도 분산을 노렸습니다</li>
 </ul>
 <h3 id="1">결과 (1개월 차)</h3>
 <ul>
-<li>Google: sandbox 진행 중 (대기)</li>
+<li>Google: sandbox 진행 중(대기)</li>
 <li>Naver: 일 visits 50+ 안정</li>
 <li>Bing: sitemap discovered, 크롤 대기</li>
 <li>AI 검색: 일부 referrer 출현</li>
 </ul>
 <h2 id="_4">운영자 교훈</h2>
 <h3 id="1-migration-expectation">1. 도메인 migration 전 정확한 expectation</h3>
-<p>신규 도메인 = 검색 0-3개월 노출 안 됨. 비즈니스가 검색 트래픽 의존이면 migration 신중하게.</p>
+<p>신규 도메인으로 옮기면 검색 노출이 0-3개월은 거의 안 나온다고 보는 게 맞습니다. 비즈니스가 검색 트래픽에 의존하고 있다면 migration은 정말 신중하게 결정해야 합니다.</p>
 <h3 id="2-gsc">2. GSC 만 보면 망함</h3>
-<p>데이터 한쪽만 보고 패닉 X. Naver + Cloudflare + Bing 합쳐서 봐야.</p>
+<p>데이터 한쪽만 보고 패닉에 빠지면 안 됩니다. 저도 GSC만 봤으면 멘탈이 흔들렸을 텐데, 네이버·Cloudflare·빙을 합쳐서 봤기 때문에 전체 그림이 보였습니다.</p>
 <h3 id="3-sandbox">3. 콘텐츠 차별화는 sandbox 와 무관</h3>
-<p>매트릭스·시뮬레이션·시각화 같은 차별화 콘텐츠는 long-tail SEO 에 누적. sandbox 종료 후 즉시 노출 ↑.</p>
+<p>매트릭스·시뮬레이션·시각화 같은 차별화 콘텐츠는 long-tail SEO로 차곡차곡 쌓입니다. sandbox와 무관하게 누적되다가, 풀리는 순간 바로 노출로 이어지는 구조라고 봅니다.</p>
 <h3 id="4-ai_1">4. AI 검색 노출 시작은 별개 채널</h3>
-<p>ChatGPT·Claude·Perplexity 가 인용 시작 → 미래 트래픽. llms.txt 적극 활용.</p>
+<p>ChatGPT·Claude·Perplexity가 인용하기 시작했다는 건 미래 트래픽의 단초입니다. llms.txt를 적극적으로 활용해둘 만합니다.</p>
 <h2 id="_5">한 줄 결론</h2>
 <blockquote>
-<p><strong>Google sandbox 는 진짜다. 그러나 한국 사이트면 Naver 가 받쳐준다.</strong> 패닉 X, 시간 + 콘텐츠 + 채널 분산.</p>
+<p>구글 sandbox는 진짜입니다. 다만 한국 사이트라면 네이버가 그 기간을 받쳐줍니다. 패닉하지 말고, 시간 + 콘텐츠 + 채널 분산으로 버티면 됩니다.</p>
 </blockquote>
-<p>7월 말 ~ 8월에 다시 회고 글 작성 예정. sandbox 정말 종료되는지 실측 데이터로.</p>
+<p>7월 말에서 8월쯤 다시 회고 글을 쓸 생각입니다. sandbox가 정말 종료되는지, 그때의 실측 데이터로 확인해보겠습니다.</p>
 <h2 id="_6">관련 글</h2>
 <ul>
 <li><a href="/blog/ko/seo-search-engines-concepts/">12 Core SEO·검색엔진 개념</a> — sandbox 정의·E-E-A-T·DA·CTR</li>

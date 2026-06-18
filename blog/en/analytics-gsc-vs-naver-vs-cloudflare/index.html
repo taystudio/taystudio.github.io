@@ -81,10 +81,10 @@
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
 <blockquote>
-<p><strong>TL;DR</strong>: For a Korean-targeted site, GSC (Google Search Console) shows only <strong>10–20%</strong> of the real traffic. The real channels are <strong>Naver SearchAdvisor + Cloudflare Web Analytics</strong>. GSC is the side dish, not the main course.</p>
+<p><strong>TL;DR</strong>: For a Korean-targeted site, GSC (Google Search Console) shows you only about 10–20% of the real traffic. The main channels are Naver SearchAdvisor and Cloudflare Web Analytics; I'd treat GSC as the side dish, not the main course.</p>
 </blockquote>
 <h2 id="the-trigger-panic-over-gsc">The trigger — panic over GSC</h2>
-<p>One month after migrating a new domain (<code>taystudios.com</code>). Opened GSC:</p>
+<p>This was about a month after I migrated to a new domain (<code>taystudios.com</code>). I opened GSC and saw this:</p>
 <pre class="codehilite"><code>Last 3 months:
 - Total clicks: 2
 - Total impressions: 777
@@ -92,14 +92,14 @@
 - Avg position: 14.8
 </code></pre>
 
-<p>Impressions peaked 5/14, dropped to near zero by 5/24. "<strong>Is the site dead?</strong>"</p>
-<p>Then Cloudflare Web Analytics:</p>
+<p>Impressions peaked on 5/14 and had dropped to nearly zero by 5/24. I'll admit that when I saw that graph, my first thought was "is the site dead?"</p>
+<p>But at the same moment, Cloudflare Web Analytics told a completely different story:</p>
 <pre class="codehilite"><code>Last 24 hours:
 - Page views: 79
 - Visits: 55
 </code></pre>
 
-<p>55 people a day. The data contradicts. And here's the truth — <strong>the two tools measure completely different things</strong>.</p>
+<p>About 55 people were coming in every day. The two tools seemed to contradict each other head-on, and it took me a while of staring at it to realize the obvious: the two tools measure entirely different things in the first place.</p>
 <h2 id="what-each-tool-actually-measures">What each tool actually measures</h2>
 <div class="tb-table-wrap"><table>
 <thead>
@@ -127,7 +127,7 @@
 </tr>
 </tbody>
 </table></div>
-<p>= GSC ↓ + Cloudflare stable = <strong>traffic from non-Google sources is stable</strong>. No contradiction.</p>
+<p>So GSC falling while Cloudflare stays stable simply means that traffic from non-Google sources is holding steady. It wasn't a contradiction at all — the two were just measuring different channels.</p>
 <h2 id="actual-numbers-same-site-one-month">Actual numbers — same site, one month</h2>
 <h3 id="google-search-console-last-30-days">Google Search Console (last 30 days)</h3>
 <pre class="codehilite"><code>Clicks: 2
@@ -136,7 +136,7 @@ CTR: 0.3%
 Avg position: 14.8
 </code></pre>
 
-<p>Top 5 keywords surfacing the site:</p>
+<p>The top 5 keywords surfacing the site looked like this:</p>
 <ul>
 <li>"image watermark" (impressions 2, clicks <strong>1</strong>, position 8.5)</li>
 <li>"net salary 80M KRW" (impressions 4, position 6.8)</li>
@@ -145,12 +145,13 @@ Avg position: 14.8
 <li>"background remover site" (impressions 2, position 48.5)</li>
 </ul>
 <h3 id="naver-searchadvisor-last-30-days">Naver SearchAdvisor (last 30 days)</h3>
+<p>Look at the same month from Naver's side and the scale changes entirely:</p>
 <pre class="codehilite"><code>Total clicks: 230 (= 115× GSC)
 Total impressions: 26,000 (= 33× GSC)
 Avg CTR: 0.9% (= 3× GSC)
 </code></pre>
 
-<p>Impressions spiked from 5/22 → averaged 2,000–3,000/day → peaked at 7,600 on 5/27.</p>
+<p>Impressions spiked from 5/22, settled at an average of 2,000–3,000 a day, and peaked at 7,600 on 5/27.</p>
 <h3 id="cloudflare-web-analytics-24-hours">Cloudflare Web Analytics (24 hours)</h3>
 <pre class="codehilite"><code>Page views: 79
 Visits: 55
@@ -170,16 +171,16 @@ Top page: /tools/baby-formula/ (16 visits)
 <pre class="codehilite"><code>Naver = 33–115× GSC
 </code></pre>
 
-<p>Google's market share in Korea is 30–35%, but our Google traffic is even smaller. Reasons:</p>
+<p>Google's search share in Korea is usually quoted at 30–35%, yet our Google traffic came in even smaller than that. The three reasons I suspect:</p>
 <h3 id="a-google-sandbox-the-612-week-probation-for-new-domains">a. Google sandbox (the 6–12 week probation for new domains)</h3>
-<p>Migration 5/9 → 6/2 = week 3.5. 122 pages indexed but rankings are throttled.</p>
+<p>The migration was on 5/9, so as of 6/2 we were at week 3.5. 122 pages were indexed, but rankings still seemed throttled — in my experience a new domain has to pass through this window once before it loosens up.</p>
 <h3 id="b-ai-overview-kills-clicks">b. AI Overview kills clicks</h3>
-<p>Searching "net salary 50M KRW" gets a direct AI answer from Google → no click. Google's Korean policy AI (Gemini) is stronger than Naver's.</p>
+<p>A search like "net salary 50M KRW" gets answered directly by Google's AI, so the click never reaches our site. Google's grasp of Korean policy data (Gemini) feels stronger than Naver's here.</p>
 <h3 id="c-korean-nlp">c. Korean NLP</h3>
-<p>Queries like "parental leave benefits calculator" — Naver matches our pages more accurately. Google's Korean NLP is weaker than Naver's homegrown model.</p>
-<p>→ <strong>Looking at GSC misses 80% of the channel mix.</strong></p>
+<p>For Korean policy queries like "parental leave benefits calculator," Naver matched our pages more accurately. My impression is that Google's Korean NLP is simply weaker than Naver's homegrown model.</p>
+<p>The upshot: if you only watch GSC, you miss 80% of the channel mix outright.</p>
 <h2 id="finding-2-cloudflares-real-data-is-inside-visits-detail">Finding 2 — Cloudflare's real data is inside "Visits detail"</h2>
-<p>The main screen doesn't have it. Click the <strong>Visits card</strong> → detail view:</p>
+<p>The genuinely useful data in Cloudflare Web Analytics isn't on the main screen. You have to click the Visits card and go into the detail view:</p>
 <pre class="codehilite"><code>Visits by source (Referrers):
 - m.search.naver.com
 - search.naver.com
@@ -197,8 +198,8 @@ Top paths:
 Browsers, OS, Country, Device types
 </code></pre>
 
-<p>This detail shows the real sources. Even with GSC at "0 Google clicks today," Naver mobile + desktop + Daum still bring 50+ visits.</p>
-<p>Especially <code>chatgpt.com</code> referrer = <strong>LLM searches are starting to surface the site</strong>. Neither GSC nor Naver shows this.</p>
+<p>This detail is where the real sources show up. On a day when GSC reads "0 Google clicks," Naver mobile and desktop plus Daum were still bringing in more than 50 visits combined.</p>
+<p>What caught my eye most was the <code>chatgpt.com</code> referrer. That's a signal that LLM search is starting to cite the site — and it's something neither GSC nor Naver will ever show you.</p>
 <h2 id="finding-3-top-page-mismatch">Finding 3 — Top-page mismatch</h2>
 <div class="tb-table-wrap"><table>
 <thead>
@@ -218,9 +219,10 @@ Browsers, OS, Country, Device types
 </tr>
 </tbody>
 </table></div>
-<p><strong>baby-formula doesn't show in GSC at all, yet it's #1 in Cloudflare.</strong> Why? Naver "infant formula amount" matches well. That traffic is invisible to GSC, so baby-formula is invisible from Google's angle.</p>
-<p>→ <strong>To know the real top pages, look at Cloudflare.</strong> GSC data is just the tip of the iceberg.</p>
+<p>The interesting case was the baby-formula page. It doesn't show up in GSC at all, yet it was the #1 visited page in Cloudflare. It turned out Naver's "infant formula amount" queries matched it well, and because that Naver traffic never appears in GSC, baby-formula was entirely invisible from Google's angle.</p>
+<p>So if you want to know which pages are actually popular, you have to look at Cloudflare. The GSC data really is just the tip of the iceberg.</p>
 <h2 id="how-to-use-each-tool">How to use each tool</h2>
+<p>After running all three side by side, here's how I'd describe each one's job.</p>
 <h3 id="gsc-for-google-evaluation-keyword-discovery">GSC — for Google evaluation + keyword discovery</h3>
 <ul>
 <li>Which queries surface the site</li>
@@ -247,7 +249,7 @@ Browsers, OS, Country, Device types
 <li><strong>Privacy-friendly</strong> — no personal tracking</li>
 </ul>
 <h2 id="our-action-priorities">Our action priorities</h2>
-<p>After combining all three:</p>
+<p>Once I combined all three datasets, the order I'd tackle things in came out like this:</p>
 <ol>
 <li><strong>Register Naver Webmaster + submit sitemap</strong> — biggest ROI (79% of traffic)</li>
 <li><strong>Request indexing via GSC URL Inspection on changed pages</strong> — partially route around sandbox</li>
@@ -259,7 +261,7 @@ Browsers, OS, Country, Device types
 <blockquote>
 <p><strong>Korean sites can't be evaluated on GSC alone.</strong> Naver + Cloudflare, side by side.</p>
 </blockquote>
-<p>GSC shows "Google search data". The real traffic for a Korean-targeted site is Korean engines + AI search + Direct — that's the main current. <strong>Judging the site by one dataset misses the picture.</strong> The classic trap for new-domain operators.</p>
+<p>GSC shows you "Google search data," and nothing more. For a Korean-targeted site the real traffic is Korean engines plus AI search plus Direct — that's the main current. Judge the site on a single dataset and you'll miss the picture, and honestly I think that's the most common trap new-domain operators fall into.</p>
 <h2 id="related">Related</h2>
 <ul>
 <li><a href="/blog/en/seo-search-engines-concepts/">12 Core SEO·Search-Engine Concepts</a> — sandbox · E-E-A-T · DA · CTR · AI Overview</li>

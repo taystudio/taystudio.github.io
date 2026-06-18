@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>MS SQL Server Login, User &amp; Schema Mapping (Compared with Oracle) · Tay Blog</title>
+<title>MS SQL Server Login Account, DB User, and Schema Mapping (Compared with Oracle) · Tay Blog</title>
 <meta name="description" content="For Oracle folks moving to MS SQL Server, the confusing 3-level Login·User·Schema structure compared with Oracle&#39;s 1-level (User=Schema=Login) model — including the sysadmin-locked-to-dbo problem and the per-task account separation fix.">
 <link rel="canonical" href="https://taystudios.com/blog/en/mssql-login-user-schema/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/mssql-login-user-schema/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/mssql-login-user-schema/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/mssql-login-user-schema/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="MS SQL Server Login, User &amp; Schema Mapping (Compared with Oracle) · Tay Blog">
+<meta property="og:title" content="MS SQL Server Login Account, DB User, and Schema Mapping (Compared with Oracle) · Tay Blog">
 <meta property="og:description" content="For Oracle folks moving to MS SQL Server, the confusing 3-level Login·User·Schema structure compared with Oracle&#39;s 1-level (User=Schema=Login) model — including the sysadmin-locked-to-dbo problem and the per-task account separation fix.">
 <meta property="og:url" content="https://taystudios.com/blog/en/mssql-login-user-schema/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "MS SQL Server Login, User & Schema Mapping (Compared with Oracle)", "description": "For Oracle folks moving to MS SQL Server, the confusing 3-level Login·User·Schema structure compared with Oracle's 1-level (User=Schema=Login) model — including the sysadmin-locked-to-dbo problem and the per-task account separation fix.", "datePublished": "2025-10-05T00:00:00+09:00", "dateModified": "2025-10-05T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/mssql-login-user-schema/"}, "image": ["https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.webp"], "keywords": "MS SQL Server, Oracle, schema, account-management, DBA"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "MS SQL Server Login, User & Schema Mapping (Compared with Oracle)", "item": "https://taystudios.com/blog/en/mssql-login-user-schema/"}]}</script><meta property="article:published_time" content="2025-10-05T00:00:00+09:00"><meta property="article:modified_time" content="2025-10-05T00:00:00+09:00"><meta property="article:tag" content="MS SQL Server"><meta property="article:tag" content="Oracle"><meta property="article:tag" content="schema"><meta property="article:tag" content="account-management"><meta property="article:tag" content="DBA">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "MS SQL Server Login Account, DB User, and Schema Mapping (Compared with Oracle)", "description": "For Oracle folks moving to MS SQL Server, the confusing 3-level Login·User·Schema structure compared with Oracle's 1-level (User=Schema=Login) model — including the sysadmin-locked-to-dbo problem and the per-task account separation fix.", "datePublished": "2025-10-05T00:00:00+09:00", "dateModified": "2025-10-05T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/mssql-login-user-schema/"}, "image": ["https://taystudios.com/blog/assets/posts/mssql-login-user-schema/cover.webp"], "keywords": "MS SQL Server, Oracle, schema, account-management, DBA"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "MS SQL Server Login Account, DB User, and Schema Mapping (Compared with Oracle)", "item": "https://taystudios.com/blog/en/mssql-login-user-schema/"}]}</script><meta property="article:published_time" content="2025-10-05T00:00:00+09:00"><meta property="article:modified_time" content="2025-10-05T00:00:00+09:00"><meta property="article:tag" content="MS SQL Server"><meta property="article:tag" content="Oracle"><meta property="article:tag" content="schema"><meta property="article:tag" content="account-management"><meta property="article:tag" content="DBA">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">MS SQL Server Login, User &amp; Schema Mapping (Compared with Oracle)</span></nav>
-        <h1 class="tb-article-title">MS SQL Server Login, User &amp; Schema Mapping (Compared with Oracle)</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">MS SQL Server Login Account, DB User, and Schema Mapping (Compared with Oracle)</span></nav>
+        <h1 class="tb-article-title">MS SQL Server Login Account, DB User, and Schema Mapping (Compared with Oracle)</h1>
         <div class="tb-article-meta">
           <time>2025.10.05</time>
           <span>·</span><span>#MS SQL Server #Oracle #schema #account-management #DBA</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-introduction">1. Introduction</a></li><li class="tb-toc-h2"><a href="#2-accountschema-concept-differences-oracle-vs-ms-sql-server">2. Account/Schema Concept Differences: Oracle vs MS SQL Server</a></li><li class="tb-toc-h3"><a href="#oracle-user-schema-login">Oracle — User = Schema = Login</a></li><li class="tb-toc-h3"><a href="#ms-sql-server-login-user-schema-3-levels">MS SQL Server — Login → User → Schema (3 levels)</a></li><li class="tb-toc-h2"><a href="#3-the-default-schema-difference">3. The Default Schema Difference</a></li><li class="tb-toc-h3"><a href="#oracle">Oracle</a></li><li class="tb-toc-h3"><a href="#sql-server">SQL Server</a></li><li class="tb-toc-h2"><a href="#4-permission-management-oracle-vs-sql-server">4. Permission Management: Oracle vs SQL Server</a></li><li class="tb-toc-h2"><a href="#5-a-confusion-point-in-practice">5. A Confusion Point in Practice</a></li><li class="tb-toc-h2"><a href="#6-the-fix-separating-task-accounts-and-schemas">6. The Fix — Separating Task Accounts and Schemas</a></li><li class="tb-toc-h2"><a href="#7-summary-vs-oracle">7. Summary (vs Oracle)</a></li><li class="tb-toc-h2"><a href="#8-conclusion">8. Conclusion</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-introduction">1. Introduction</a></li><li class="tb-toc-h2"><a href="#2-the-difference-in-accountschema-concepts-between-oracle-and-mssql">2. The difference in account/schema concepts between Oracle and MSSQL</a></li><li class="tb-toc-h3"><a href="#oracle">Oracle</a></li><li class="tb-toc-h3"><a href="#ms-sql-server">MS SQL Server</a></li><li class="tb-toc-h2"><a href="#3-the-difference-in-default-schema">3. The difference in Default Schema</a></li><li class="tb-toc-h3"><a href="#oracle_1">Oracle</a></li><li class="tb-toc-h3"><a href="#sql-server">SQL Server</a></li><li class="tb-toc-h2"><a href="#4-permission-management-comparison-oracle-vs-sql-server">4. Permission management comparison (Oracle vs SQL Server)</a></li><li class="tb-toc-h2"><a href="#5-confusion-points-encountered-in-practice">5. Confusion points encountered in practice</a></li><li class="tb-toc-h2"><a href="#6-solution-separating-task-accounts-and-schemas">6. Solution: separating task accounts and schemas</a></li><li class="tb-toc-h2"><a href="#7-summary-vs-oracle">7. Summary (vs Oracle)</a></li><li class="tb-toc-h2"><a href="#8-conclusion">8. Conclusion</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -79,111 +79,137 @@
 .tb-content .callout p { margin:6px 0; line-height:1.85; }
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
+.tb-content pre { overflow-x:auto; }
 </style>
+
 <h2 id="1-introduction">1. Introduction</h2>
-<p>Recently, while serving as TA on a CI/CD deployment-management project, I also took on some DBA work and ended up dealing directly with MS SQL Server's account-management structure.</p>
-<p>I had prior experience with Oracle DB, but the two DBMSes differ greatly in their <strong>account (User), schema, and permission concepts,</strong> which caused real confusion early on. This post organizes the account/schema/permission differences people commonly trip over when moving from Oracle to MS SQL Server, and shares the <strong>sysadmin-locked-to-dbo problem</strong> I hit, along with a structural fix.</p>
-<h2 id="2-accountschema-concept-differences-oracle-vs-ms-sql-server">2. Account/Schema Concept Differences: Oracle vs MS SQL Server</h2>
-<p>The thing Oracle veterans find most confusing when first meeting SQL Server is that <strong>the login account and the schema are decoupled.</strong></p>
-<h3 id="oracle-user-schema-login">Oracle — User = Schema = Login</h3>
+<p>Recently, while serving as a TA on a CI/CD deployment-management system project, I also took on some DBA work. In that process, I got to directly handle MS SQL Server's account management structure.</p>
+<p>I had experience with Oracle DB before, but the two DBMSes differ greatly in their concepts of account (User), schema (Schema), and permission management, so I went through considerable confusion at first.</p>
+<p>In this post, I'll organize the differences in the account·schema·permission structure that are commonly confusing when moving from Oracle to MSSQL, and also share the sysadmin-account's dbo-schema-locking problem I experienced firsthand, along with the structural solution.</p>
+<h2 id="2-the-difference-in-accountschema-concepts-between-oracle-and-mssql">2. The difference in account/schema concepts between Oracle and MSSQL</h2>
+<p>The part many Oracle-experienced people find most confusing when they first encounter SQL Server is exactly that the login account and the schema operate separately.</p>
+<h3 id="oracle">Oracle</h3>
+<p><strong>User = Schema = Login account</strong></p>
 <ul>
-<li>Creating an account automatically creates a schema of the same name.</li>
-<li>So creating the <code>SCOTT</code> account means you work in the <code>SCOTT</code> schema right away.</li>
+<li>When you create an account, a schema with the same name is automatically created.</li>
+<li>If you create the SCOTT account, you immediately work in the SCOTT schema.</li>
 </ul>
 <pre class="codehilite"><code class="language-sql">CREATE USER SCOTT IDENTIFIED BY tiger;
 -- the SCOTT schema is created at the same time
 </code></pre>
 
-<h3 id="ms-sql-server-login-user-schema-3-levels">MS SQL Server — Login → User → Schema (3 levels)</h3>
+<h3 id="ms-sql-server">MS SQL Server</h3>
+<p><strong>Login account (server-level account)</strong></p>
 <ul>
-<li><strong>Login (server level)</strong> — the account used to connect to the SQL Server instance. A server-wide authentication account that logs into the instance with an ID/PW.</li>
-<li><strong>User (DB level)</strong> — a user account belonging to a specific database after login. One Login must be <strong>mapped 1:1</strong> to a User within each database. So the same Login can have separate Users per DB.</li>
-<li><strong>Schema (object container)</strong> — a container that logically groups DB objects like tables, views, and procedures. It's separate from a User; each User can set a <strong>Default Schema</strong> to use. The initial default is the <code>dbo</code> schema, which you should change to the schema you'll actually use.</li>
+<li>An account for connecting to the SQL Server instance.</li>
+<li>A server-wide authentication account that logs in to the instance via ID/PW.</li>
 </ul>
-<pre class="codehilite"><code class="language-sql">-- 1) Create the server login
+<p><strong>User account (DB-level account, after login)</strong></p>
+<ul>
+<li>After login, a user account that belongs to a specific database.</li>
+<li>One Login account must be mapped 1:1 to a User account within each database.</li>
+<li>That is, even the same Login can have a separate User per DB.</li>
+</ul>
+<p><strong>Schema (object container)</strong></p>
+<ul>
+<li>A container that logically separates database objects such as tables, views, and procedures.</li>
+<li>It's a concept separate from the User, and each User can designate a default schema (Default Schema) to use.</li>
+<li>Initially the default schema is set to the dbo schema. You have to change this default schema to the schema you want to use.</li>
+<li>While managing multiple schemas, you can fine-grain the access permissions.</li>
+</ul>
+<pre class="codehilite"><code class="language-sql">-- 1) Create the server login account
 CREATE LOGIN SCOTT WITH PASSWORD = '***';
 
--- 2) Create the database
-CREATE DATABASE SCOTT_tiger;
+-- 2) Create the Database
+CREATE DATABASE SCOTT_tiger
 
 -- 3) Create the schema
 CREATE SCHEMA vdadmin AUTHORIZATION vdadmin_user;
 
--- 4) Create a user in a specific DB
---    In MS SQL you must always switch (USE) to a specific DB.
---    (Oracle doesn't need this since schema and account are 1:1)
+-- 4) Create the user in a specific DB (in MS SQL you always have to switch to using a specific db;
+--    Oracle doesn't need this because schema and account are mapped 1:1)
 USE SCOTT_tiger;
--- In SSMS you'd also add the GO command (not needed in DBeaver)
+-- in SSMS you also write the GO command (with DBeaver you don't have to)
 CREATE USER db_user FOR LOGIN SCOTT WITH DEFAULT_SCHEMA = SCOTT_tiger;
--- Creates db_user inside SCOTT_tiger mapped to the SCOTT login,
--- and sets db_user's default schema to SCOTT_tiger.
+-- creates the db_user account inside the mydb database, mapped to the login account SCOTT.
+-- And designates SCOTT_tiger as that db_user account's default schema.
 </code></pre>
 
-<p>In short, <strong>MS SQL Server is a 3-level structure (Login → User → Schema).</strong> A server-level Login maps to a User in each DB, and that User picks one of the DB's schemas as its Default Schema. By contrast, <strong>Oracle is a 1-level structure (User = Schema = Login)</strong> — the login account acts as the user and the schema, with no separate mapping concept.</p>
-<blockquote>
-<p>📘 <strong>Note</strong> — even with a Default Schema set in MS SQL, you can still use objects in other schemas. Qualify them as <code>schema.table</code> and you can freely query tables in other schemas.</p>
-</blockquote>
-<p>That said, when configuring external integrations or application connection accounts, it's important to set the Default Schema explicitly. Otherwise, the connection auto-maps to <code>dbo</code> or an unspecified default schema, which can reference unintended objects. So mapping the <strong>Login → User → Default Schema</strong> relationship clearly, and creating a dedicated login per schema to use only that schema, is the safest and most efficient approach. (In the end, Oracle's single structure is much more intuitive.)</p>
-<h2 id="3-the-default-schema-difference">3. The Default Schema Difference</h2>
-<h3 id="oracle">Oracle</h3>
+<p>That is, MSSQL is built as a 3-level structure (Login → User → Schema). A server-level Login account exists, and this login is mapped to a User (user account) within each database. After that, that User designates one of the multiple Schemas (object containers) in the DB as its default schema (Default Schema) to use.</p>
+<p>Oracle, by contrast, has a 1-level structure (User = Schema = Login). That is, in Oracle the login account acts as the user and the schema at once, and there's no separate mapping concept like in MSSQL.</p>
+<div class="callout">
+<p>📘 <strong>Note</strong></p>
+<p>Even if you designate a Default Schema in MSSQL, it doesn't mean you can't use other schemas' objects at all. If you specify it in schema.table form, you can freely access tables in other schemas and run queries.</p>
+<p>However, when configuring external-system integration or application connection accounts, it's important to clearly designate the Default Schema. Otherwise, on connection it auto-maps to the dbo schema or an unspecified default schema, which can cause problems referencing objects different from your intent.</p>
+</div>
+
+<p>Therefore, clearly mapping the Login → User → Default Schema relationship, and creating a dedicated login account per schema so each uses only its schema, is the safest and most management-efficient. (In the end… Oracle's single structure is much more intuitive..)</p>
+<h2 id="3-the-difference-in-default-schema">3. The difference in Default Schema</h2>
+<p>Organizing the differences between Oracle and SQL Server regarding the Default Schema mentioned above is as follows.</p>
+<h3 id="oracle_1">Oracle</h3>
 <ul>
-<li>When you connect with an account, that account's schema automatically becomes the Default Schema.</li>
-<li>Since it's <code>User = Schema</code>, no extra setup is needed. Log in as <code>SCOTT</code> and you're connected to the <code>SCOTT</code> schema automatically.</li>
+<li>When a user connects with their account, that account's schema is automatically set as the Default Schema.</li>
+<li>That is, because of the User = Schema structure, no separate setting is needed.</li>
+<li>For example, when you log in with the SCOTT account, you're automatically connected to the SCOTT schema.</li>
 </ul>
 <h3 id="sql-server">SQL Server</h3>
 <ul>
-<li>If you don't specify <code>DEFAULT_SCHEMA</code> when creating a User, the default is <strong>always <code>dbo</code>.</strong></li>
-<li>To use a different schema by default, you must specify it explicitly.</li>
+<li>If you don't designate DEFAULT_SCHEMA when creating a User, the default value is always set to dbo.</li>
+<li>Therefore, to use the schema you want as the default, you must explicitly designate it as follows.</li>
 </ul>
 <pre class="codehilite"><code class="language-sql">ALTER USER a_user WITH DEFAULT_SCHEMA = a_schema;
 </code></pre>
 
-<p>Without this, objects are auto-created as <code>dbo.table_name</code>, piling up under <code>dbo</code> against your intent.</p>
-<h2 id="4-permission-management-oracle-vs-sql-server">4. Permission Management: Oracle vs SQL Server</h2>
-<p>Both DBMSes provide permissions and roles for access/operation control, but the structure and scope differ.</p>
-<p><strong>Oracle</strong> — permissions split broadly into System and Object permissions.</p>
+<p>If you don't set this, when objects are created they're auto-created in the form dbo.table_name, which can cause the problem of objects piling up under the dbo schema against your intent.</p>
+<h2 id="4-permission-management-comparison-oracle-vs-sql-server">4. Permission management comparison (Oracle vs SQL Server)</h2>
+<p>Both Oracle and SQL Server provide permissions and roles (Role) to control database access and operations, but they differ in structure and scope.</p>
+<p>In <strong>Oracle</strong>, permissions are broadly divided into System permissions and Object permissions.</p>
 <ul>
-<li><strong>System permissions</strong> — affect the whole DB (e.g., <code>CREATE SESSION</code>, <code>CREATE TABLE</code>).</li>
-<li><strong>Object permissions</strong> — access to specific objects like tables/views (<code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>).</li>
-<li>It provides <strong>Roles</strong> to bundle permissions — predefined ones like <code>DBA</code>, <code>RESOURCE</code>, <code>CONNECT</code>, or your own custom roles.</li>
+<li>System permissions are permissions that affect the entire database — for example, CREATE SESSION, CREATE TABLE, etc.</li>
+<li>Object permissions are access permissions on individual objects such as specific tables and views — SELECT, INSERT, UPDATE, DELETE, etc.</li>
+<li>It also provides Roles that bundle multiple permissions for management, so you can use predefined roles like DBA, RESOURCE, CONNECT, or create user-defined roles.</li>
 </ul>
-<p><strong>SQL Server</strong> — a more layered permission system.</p>
+<p>By contrast, <strong>SQL Server</strong> has a somewhat more layered permission system.</p>
 <ul>
-<li><strong>Server-level permissions</strong> — <code>sysadmin</code>, <code>serveradmin</code>, <code>securityadmin</code>, etc., affecting the whole server.</li>
-<li><strong>DB-level permissions</strong> — <code>CONNECT</code>, <code>CONTROL</code>, <code>ALTER</code>, etc., per database.</li>
-<li><strong>Schema/object-level permissions</strong> — grants on a specific schema or object.</li>
+<li>First there are server-level permissions, which manage permissions that affect the whole database server, such as sysadmin, serveradmin, securityadmin.</li>
+<li>DB-level permissions apply at the database unit, such as CONNECT, CONTROL, ALTER.</li>
+<li>Schema/object-level permissions allow granting permissions on a specific schema or object — for example, you can designate it as follows.</li>
 </ul>
 <pre class="codehilite"><code class="language-sql">GRANT SELECT, INSERT, UPDATE, DELETE ON SCHEMA::X TO user;
 </code></pre>
 
 <ul>
-<li>SQL Server also provides built-in Roles like <code>db_datareader</code>, <code>db_datawriter</code>, <code>db_ddladmin</code> to bundle permissions.</li>
+<li>SQL Server also provides Roles, and through built-in roles such as db_datareader, db_datawriter, db_ddladmin, you can bundle and manage permissions.</li>
 </ul>
-<p>In short, Oracle splits permissions into <strong>whole-system vs object level</strong> and manages them role-centrically, while SQL Server has a hierarchy of <strong>Server → DB → Schema/Object</strong> with roles bound to that hierarchy.</p>
-<h2 id="5-a-confusion-point-in-practice">5. A Confusion Point in Practice</h2>
-<p>Logging into MS SQL with the <code>sysadmin</code> account, I hit a case where <strong>it always landed on the <code>dbo</code> schema</strong> no matter how I changed the Default Schema. The reason is clear: in MS SQL the <code>sysadmin</code> account is <strong>designed to always map to <code>dbo</code>,</strong> a fixed behavior for security/permission policy.</p>
-<p>So a DBA (<code>sysadmin</code>) account can't freely change its Default Schema and always starts at <code>dbo</code>. In practice, you separately <strong>create per-schema logins and map them</strong> apart from <code>sysadmin</code>, which lets you operate per-account schemas like Oracle.</p>
-<h2 id="6-the-fix-separating-task-accounts-and-schemas">6. The Fix — Separating Task Accounts and Schemas</h2>
-<p>Keep DBA-privileged accounts for ops/management only, and create separate logins to use a specific schema by default.</p>
+<p>In summary, Oracle distinguishes permissions as system-wide vs object-unit and manages them around roles, whereas SQL Server has a permission system layered into server → DB → schema/object levels, and its roles too are combined with hierarchical permission management.</p>
+<h2 id="5-confusion-points-encountered-in-practice">5. Confusion points encountered in practice</h2>
+<p>This time, when I logged in to MSSQL with the sysadmin account, I experienced the phenomenon where, no matter how I changed the Default Schema, I always entered the dbo schema. The reason is clear. In MSSQL, the sysadmin account is designed to always map to the dbo schema, and this is a fixed behavior by security and permission-management policy.</p>
+<p>That is, the DBA (=sysadmin) account cannot freely change its Default Schema and always starts from dbo. Therefore, in practice it's common to create and map a separate login ID per schema, apart from the sysadmin account; doing so lets you operate per-account schemas like in Oracle DB.</p>
+<h2 id="6-solution-separating-task-accounts-and-schemas">6. Solution: separating task accounts and schemas</h2>
+<p>Leave the DBA-privileged account for operations/management only, and to actually use a specific schema as the default, you have to create a separate login account.</p>
+<p><strong>(Example)</strong></p>
 <ul>
-<li><strong>Server admin account</strong> — <code>sysadmin</code> (locked to dbo)</li>
-<li><strong>Per-task accounts</strong> — <code>a_user → a_schema</code>, <code>b_user → b_schema</code> as default schemas</li>
+<li>Server-management account: sysadmin (locked to the dbo schema)</li>
+<li>Per-task accounts:</li>
+<li>a_user → uses a_schema as the default schema</li>
+<li>b_user → uses b_schema as the default schema</li>
 </ul>
-<pre class="codehilite"><code class="language-sql">-- Task account A
+<pre class="codehilite"><code class="language-sql">-- account for task A
 CREATE LOGIN a_user WITH PASSWORD = '***';
 USE mydb;
 CREATE USER a_user FOR LOGIN a_user WITH DEFAULT_SCHEMA = a_schema;
 
--- Task account B
+-- account for task B
 CREATE LOGIN b_user WITH PASSWORD = '***';
 USE mydb;
 CREATE USER b_user FOR LOGIN b_user WITH DEFAULT_SCHEMA = b_schema;
 </code></pre>
 
-<p>This keeps the DBA account for management only while per-task User accounts use their own schema by default. The overall layout:</p>
+<p>This way, you can keep the DBA account for management only and design it so each schema is used as the default through per-task User accounts.</p>
+<p><strong>[Overall diagram]</strong></p>
 <pre class="codehilite"><code class="language-text">[Server Level]
    ├── Logins
-   │     ├── sysadmin
+   |     ├── sysadmin
    │     ├── a_user
    │     ├── b_user
    │     ├── c_user
@@ -191,14 +217,14 @@ CREATE USER b_user FOR LOGIN b_user WITH DEFAULT_SCHEMA = b_schema;
    │
 [Database Level]
    ├── Users
-   │     ├── dbo              ← representative User for sysadmin or db owner
+   │     ├── dbo              ← the representative User of sysadmin or the db owner
    │     ├── a_user
    │     ├── b_user
    │     ├── c_user
    │     └── d_user
    │
    └── Schemas
-         ├── dbo              ← default schema
+         ├── dbo              ← the default schema (Default Schema)
          ├── a_user
          ├── b_user
          ├── c_user
@@ -209,7 +235,7 @@ CREATE USER b_user FOR LOGIN b_user WITH DEFAULT_SCHEMA = b_schema;
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
-<th>Item</th>
+<th>Category</th>
 <th>Oracle</th>
 <th>SQL Server</th>
 </tr>
@@ -223,7 +249,7 @@ CREATE USER b_user FOR LOGIN b_user WITH DEFAULT_SCHEMA = b_schema;
 <tr>
 <td>User within DB</td>
 <td>User = Schema</td>
-<td>User (mapped to a Login)</td>
+<td>User (mapped to Login)</td>
 </tr>
 <tr>
 <td>Schema</td>
@@ -233,15 +259,15 @@ CREATE USER b_user FOR LOGIN b_user WITH DEFAULT_SCHEMA = b_schema;
 <tr>
 <td>Default Schema</td>
 <td>Automatic (User=Schema)</td>
-<td>Must be set explicitly</td>
+<td>Must be designated separately</td>
 </tr>
 <tr>
 <td>DBA account</td>
-<td>SYS / SYSTEM</td>
+<td>SYS/SYSTEM</td>
 <td>sysadmin (force-mapped to dbo)</td>
 </tr>
 <tr>
-<td>Permissions</td>
+<td>Permission management</td>
 <td>System / Object / Role</td>
 <td>Server / DB / Schema / Object / Role</td>
 </tr>
@@ -249,20 +275,20 @@ CREATE USER b_user FOR LOGIN b_user WITH DEFAULT_SCHEMA = b_schema;
 </table></div>
 <h2 id="8-conclusion">8. Conclusion</h2>
 <ul>
-<li>In Oracle, <strong>account = schema = login.</strong></li>
-<li>In MS SQL Server, <strong>Login, User, and Schema each exist separately</strong> and need mapping.</li>
-<li>The <code>sysadmin</code> (DBA) account is always mapped to <code>dbo</code> and can't change its Default Schema.</li>
-<li>So to use per-task Default Schemas, you must <strong>create separate Login–User accounts.</strong></li>
+<li>In Oracle, account = schema = login</li>
+<li>In MSSQL, Login, User, and Schema each exist separately and need mapping</li>
+<li>The sysadmin (DBA) account is always mapped to the dbo schema → its Default Schema can't be changed</li>
+<li>Therefore, to use a per-task Default Schema, you have to create a separate Login-User account</li>
 </ul>
 <hr />
 <blockquote>
-<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/29" rel="nofollow noopener">taehyuklee.tistory.com/29</a></p>
+<p>📦 Migrated from the Tistory blog I used to run. Original: <a href="https://taehyuklee.tistory.com/29" rel="nofollow noopener">taehyuklee.tistory.com/29</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS] Cutting Infrastructure Costs by 55% — Graviton (ARM) Migration &amp; Fixed-Cost Optimization</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Error — Fixing UNPROTECTED PRIVATE KEY FILE (.pem chmod 400)</a></li><li><a href="en/nginx-install-ubuntu-centos/">Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall)</a></li></ul></section>
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="en/aws-cost-optimization/">[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration &amp; Fixed-Cost Optimization Strategy)</a></li><li><a href="en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Connection Error: How to Fix the UNPROTECTED PRIVATE KEY FILE Error (ssh pem key permission setup)</a></li><li><a href="en/nginx-install-ubuntu-centos/">Nginx Specific-Version &amp; Latest Install Guide: Ubuntu / CentOS, Fully Organized</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fmssql-login-user-schema%2F&amp;text=MS%20SQL%20Server%20Login%2C%20User%20%26%20Schema%20Mapping%20%28Compared%20with%20Oracle%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fmssql-login-user-schema%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fmssql-login-user-schema%2F&amp;text=MS%20SQL%20Server%20Login%20Account%2C%20DB%20User%2C%20and%20Schema%20Mapping%20%28Compared%20with%20Oracle%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fmssql-login-user-schema%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
 

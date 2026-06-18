@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value · Tay Blog</title>
+<title>Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence) · Tay Blog</title>
 <meta name="description" content="From the intuition of hypothesis testing to the meaning of the test statistic, plus null/alternative hypotheses, p-value, significance level, and critical value — all connected through a single example.">
 <link rel="canonical" href="https://taystudios.com/blog/en/hypothesis-testing/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/hypothesis-testing/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/hypothesis-testing/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/hypothesis-testing/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value · Tay Blog">
+<meta property="og:title" content="Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence) · Tay Blog">
 <meta property="og:description" content="From the intuition of hypothesis testing to the meaning of the test statistic, plus null/alternative hypotheses, p-value, significance level, and critical value — all connected through a single example.">
 <meta property="og:url" content="https://taystudios.com/blog/en/hypothesis-testing/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/hypothesis-testing/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/hypothesis-testing/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value", "description": "From the intuition of hypothesis testing to the meaning of the test statistic, plus null/alternative hypotheses, p-value, significance level, and critical value — all connected through a single example.", "datePublished": "2026-05-27T00:00:00+09:00", "dateModified": "2026-05-27T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/hypothesis-testing/"}, "image": ["https://taystudios.com/blog/assets/posts/hypothesis-testing/cover.webp"], "keywords": "statistics, hypothesis-testing, p-value, test-statistic"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value", "item": "https://taystudios.com/blog/en/hypothesis-testing/"}]}</script><meta property="article:published_time" content="2026-05-27T00:00:00+09:00"><meta property="article:modified_time" content="2026-05-27T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="hypothesis-testing"><meta property="article:tag" content="p-value"><meta property="article:tag" content="test-statistic">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence)", "description": "From the intuition of hypothesis testing to the meaning of the test statistic, plus null/alternative hypotheses, p-value, significance level, and critical value — all connected through a single example.", "datePublished": "2026-05-27T00:00:00+09:00", "dateModified": "2026-05-27T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/hypothesis-testing/"}, "image": ["https://taystudios.com/blog/assets/posts/hypothesis-testing/cover.webp"], "keywords": "statistics, hypothesis-testing, p-value, test-statistic"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence)", "item": "https://taystudios.com/blog/en/hypothesis-testing/"}]}</script><meta property="article:published_time" content="2026-05-27T00:00:00+09:00"><meta property="article:modified_time" content="2026-05-27T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="hypothesis-testing"><meta property="article:tag" content="p-value"><meta property="article:tag" content="test-statistic">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</span></nav>
-        <h1 class="tb-article-title">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence)</span></nav>
+        <h1 class="tb-article-title">Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence)</h1>
         <div class="tb-article-meta">
           <time>2026.05.27</time>
           <span>·</span><span>#statistics #hypothesis-testing #p-value #test-statistic</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#goals-of-this-post">Goals of this post</a></li><li class="tb-toc-h2"><a href="#what-is-hypothesis-testing">What is hypothesis testing?</a></li><li class="tb-toc-h2"><a href="#body-a-mean-test-example">Body — A Mean-Test Example</a></li><li class="tb-toc-h3"><a href="#the-basic-story">The basic story</a></li><li class="tb-toc-h3"><a href="#q1-if-the-sample-doesnt-match-the-hypothesis-is-the-hypothesis-wrong">(Q1) If the sample doesn't match the hypothesis, is the hypothesis wrong?</a></li><li class="tb-toc-h3"><a href="#q2-so-how-do-we-test-the-hypothesis-with-a-sample-the-test-statistic">(Q2) So how do we test the hypothesis with a sample? — the test statistic</a></li><li class="tb-toc-h3"><a href="#q3-so-where-do-uncertaintyvariability-variance-come-in-the-distribution">(Q3) So where do uncertainty/variability (variance) come in? — the distribution</a></li><li class="tb-toc-h3"><a href="#the-meaning-of-hypothesis-testing">The meaning of hypothesis testing</a></li><li class="tb-toc-h2"><a href="#definitions-of-hypothesis-testing-terms">Definitions of Hypothesis-Testing Terms</a></li><li class="tb-toc-h3"><a href="#1-null-hypothesis-5">1. Null hypothesis ($H_0$)</a></li><li class="tb-toc-h3"><a href="#2-significance-level-6">2. Significance level ($\alpha$)</a></li><li class="tb-toc-h3"><a href="#3-rejection-critical-region">3. Rejection (Critical) Region</a></li><li class="tb-toc-h3"><a href="#4-acceptance-region">4. Acceptance Region</a></li><li class="tb-toc-h3"><a href="#5-critical-value">5. Critical Value</a></li><li class="tb-toc-h3"><a href="#6-p-value">6. p-value</a></li><li class="tb-toc-h3"><a href="#7-alternative-hypothesis-8">7. Alternative hypothesis ($H_1$)</a></li><li class="tb-toc-h2"><a href="#error-types">Error Types</a></li><li class="tb-toc-h2"><a href="#reference-the-actual-students-distribution">Reference — the Actual Student's Distribution</a></li><li class="tb-toc-h2"><a href="#summary">Summary</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#goal-of-this-post">Goal of this post</a></li><li class="tb-toc-h2"><a href="#what-is-hypothesis-testing">What is hypothesis testing?</a></li><li class="tb-toc-h2"><a href="#main-body-story-a-one-sample-t-test-example-for-the-mean">Main body (Story: a one-sample t-test example for the mean)</a></li><li class="tb-toc-h3"><a href="#q1-if-the-sample-data-dont-match-the-hypothesis-is-the-hypothesis-wrong">(Q1) If the sample data don't match the hypothesis, is the hypothesis wrong?</a></li><li class="tb-toc-h3"><a href="#q2-how-will-you-verify-your-claim-with-a-sample-how-will-you-do-the-hypothesis-test">(Q2) How will you verify your claim with a sample? (How will you do the hypothesis test?)</a></li><li class="tb-toc-h3"><a href="#q3-where-is-uncertaintyvariability-variance-used">(Q3) Where is uncertainty/variability (variance) used?</a></li><li class="tb-toc-h2"><a href="#definitions-of-hypothesis-testing-terms">Definitions of hypothesis-testing terms</a></li><li class="tb-toc-h3"><a href="#reference-the-actual-students-distribution">* Reference (the actual Student's distribution)</a></li><li class="tb-toc-h3"><a href="#q4-are-there-cases-of-wrongly-accepting-or-wrongly-rejecting-type-i-error-type-ii-error">(Q4) Are there cases of wrongly accepting or wrongly rejecting? (Type I error, Type II error)</a></li><li class="tb-toc-h2"><a href="#conclusion-summary">Conclusion (summary)</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -80,161 +80,174 @@
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
-<p>While studying statistics, the hypothesis-testing terms (null/alternative hypothesis, test statistic, p-value, significance level, critical value) felt disconnected, so this post <strong>ties them all together through a single example.</strong> I drew the figures myself.</p>
-<h2 id="goals-of-this-post">Goals of this post</h2>
+
+<h2 id="goal-of-this-post">Goal of this post</h2>
 <ol>
-<li>Understand <strong>intuitively</strong> what hypothesis testing is</li>
-<li>Grasp <strong>why the test statistic was introduced</strong> and what it means</li>
-<li>The precise definitions of the null and alternative hypotheses</li>
-<li>The precise concepts of p-value, significance level, and critical value</li>
-<li>How these terms are <strong>mapped and used</strong> in hypothesis testing</li>
+<li>You can intuitively understand what hypothesis testing is.</li>
+<li>You can understand why the test statistic was introduced, and what it is.</li>
+<li>You can know the exact definitions of the null hypothesis and the alternative hypothesis.</li>
+<li>You can understand the exact concepts of p-value, significance level, and critical value.</li>
+<li>Finally, you can see how these terms are mapped and used in hypothesis testing.</li>
 </ol>
 <h2 id="what-is-hypothesis-testing">What is hypothesis testing?</h2>
-<blockquote>
-<p>Make some claim about a population, and <strong>observe a sample to judge whether the claim is right or wrong.</strong></p>
-</blockquote>
-<p>Literally, you "test" a "hypothesis." Let's show it with an intuitive figure.</p>
-<p><img alt="Hypothesis testing concept — draw a sample from the population to judge a hypothesis" src="assets/posts/hypothesis-testing/img1-en.svg" width="1000" height="690" loading="lazy">
-<em>Figure 1. Draw 30 people from a population (mean $\mu$) → judge the "average age is 70" hypothesis with the sample mean $\bar{X}=68$</em></p>
-<h2 id="body-a-mean-test-example">Body — A Mean-Test Example</h2>
-<h3 id="the-basic-story">The basic story</h3>
-<p>Suppose a group's average age is about <strong>70.</strong> Since we can't survey the whole population, we draw a <strong>sample of 30</strong> and compute the sample mean, getting <strong>68.</strong></p>
-<h3 id="q1-if-the-sample-doesnt-match-the-hypothesis-is-the-hypothesis-wrong">(Q1) If the sample doesn't match the hypothesis, is the hypothesis wrong?</h3>
-<p><strong>No.</strong> Because <strong>variability (variance)</strong> exists — repeating the same procedure yields different results — a sample mean of 68 doesn't let us conclude "the population mean is not 70."</p>
-<h3 id="q2-so-how-do-we-test-the-hypothesis-with-a-sample-the-test-statistic">(Q2) So how do we test the hypothesis with a sample? — the test statistic</h3>
-<blockquote>
-<p><strong>Test statistic</strong> — a numeric indicator computed from sample data (like the sample mean) to test a hypothesis about the population.</p>
-</blockquote>
-<p>The test statistic for a mean hypothesis is defined as:</p>
-<p>$$t = \dfrac{\bar{X} - \mu_0}{\,s / \sqrt{n}\,}$$</p>
+<p>In statistics, hypothesis testing is a method of setting up some claim (hypothesis) about a population (the whole group), observing a sample (a subset), and judging whether that claim is right or wrong.</p>
+<h2 id="main-body-story-a-one-sample-t-test-example-for-the-mean">Main body (Story: a one-sample t-test example for the mean)</h2>
+<p>* If you just want the summarized conclusion, you can read only the last section, the conclusion. *</p>
+<p>Let's first show, with an intuitive figure, what the hypothesis testing defined above is.</p>
+<p><img alt="A figure to explain the concept of hypothesis testing" src="assets/posts/hypothesis-testing/img1-en.svg" width="1000" height="690" loading="lazy">
+<em>Figure 1. A figure to explain the concept of hypothesis testing</em></p>
+<p><strong>Figure explanation</strong></p>
+<p>Let me give a concrete story. Suppose I guess that the average age of some group looks to be about 70. But there are too many people in that group to survey them all. To check whether my claim (hypothesis) is true, I drew a sample of 30 people and computed the sample mean, which is the estimator of the population mean. As a result, the sample mean came out to 68.</p>
+<h3 id="q1-if-the-sample-data-dont-match-the-hypothesis-is-the-hypothesis-wrong">(Q1) If the sample data don't match the hypothesis, is the hypothesis wrong?</h3>
+<p>Just because the sample mean came out to 68, can we really say the above hypothesis is wrong? The population mean might actually be 70.</p>
 <ul>
-<li>The <strong>numerator</strong> is the sample mean minus the hypothesized mean → 0 if there's no difference from the hypothesized mean, and farther from 0 as the difference grows.</li>
-<li>That is, it measures the <strong>distance from the hypothesized mean</strong> as a number.</li>
+<li>No. Because there exists uncertainty or variability (as a statistic, variance) that can make the result come out differently even when you run the same procedure, you cannot conclude that the population mean is not 70 just because the sample mean came out to 68.</li>
 </ul>
-<h3 id="q3-so-where-do-uncertaintyvariability-variance-come-in-the-distribution">(Q3) So where do uncertainty/variability (variance) come in? — the distribution</h3>
-<p>The test statistic follows the <strong>t-distribution (Student's distribution).</strong></p>
-<p><img alt="The t-distribution (Student's distribution) curve" src="assets/posts/hypothesis-testing/img3-en.svg" width="1000" height="525" loading="lazy">
-<em>Figure 3. The t-distribution that the test statistic follows</em></p>
-<p>We judge using this distribution's properties.</p>
-<ul>
-<li><strong>Near the center (high probability)</strong> : the difference between sample mean and hypothesized mean is small → <strong>supports</strong> the hypothesis</li>
-<li><strong>At both tails (low probability)</strong> : the difference is large → <strong>contradicts</strong> the hypothesis</li>
-</ul>
-<h3 id="the-meaning-of-hypothesis-testing">The meaning of hypothesis testing</h3>
-<p><img alt="Where each sample's test statistic falls on the distribution" src="assets/posts/hypothesis-testing/img4-en.svg" width="1100" height="560" loading="lazy">
-<em>Figure 4. Accept/reject depending on where each sample's test statistic falls on the distribution</em></p>
-<p>A sample found in the extreme probability region can almost never come from that population, so when such a sample is observed we <strong>reject</strong> the hypothesis. Conversely, when found in the ordinary probability range, we <strong>accept</strong> it.</p>
-<h2 id="definitions-of-hypothesis-testing-terms">Definitions of Hypothesis-Testing Terms</h2>
-<p>One figure contains all the terms. Using it as the reference, let's define them one by one.</p>
-<p><img alt="A combined visualization of hypothesis-testing terms — test statistic, rejection/acceptance regions, critical value, significance level" src="assets/posts/hypothesis-testing/img5-en.svg" width="1000" height="525" loading="lazy">
-<em>Figure 5. A combined visualization of hypothesis-testing terms</em></p>
-<h3 id="1-null-hypothesis-5">1. Null hypothesis ($H_0$)</h3>
-<p>The hypothesis set about the population. e.g., <strong>"The average age is 70."</strong></p>
-<h3 id="2-significance-level-6">2. Significance level ($\alpha$)</h3>
-<blockquote>
-<p>The <strong>probability that serves as the criterion</strong> for accepting or rejecting a hypothesis.</p>
-</blockquote>
-<ul>
-<li>If the test statistic is found in the significance-level region, the hypothesis is rejected.</li>
-<li>It varies by field — natural sciences usually <strong>0.01,</strong> humanities/social sciences <strong>0.05.</strong></li>
-<li>At 0.05, reject in the extreme 5% region at both tails, accept in the central 95% range.</li>
-</ul>
-<h3 id="3-rejection-critical-region">3. Rejection (Critical) Region</h3>
-<p>The probability region (range) where the hypothesis is <strong>rejected.</strong></p>
-<h3 id="4-acceptance-region">4. Acceptance Region</h3>
-<p>The probability region (range) where the hypothesis is <strong>accepted.</strong></p>
-<h3 id="5-critical-value">5. Critical Value</h3>
-<blockquote>
-<p>The <strong>test-statistic ($t$) value at the boundary</strong> of the significance-level region.</p>
-</blockquote>
-<p>We judge accept/reject by whether the sample's test statistic exceeds the critical value.</p>
-<ul>
-<li>If the test statistic is in the <strong>rejection region</strong> → reject</li>
-<li>If the test statistic is in the <strong>acceptance region</strong> → accept</li>
-</ul>
-<h3 id="6-p-value">6. p-value</h3>
-<blockquote>
-<p>Under the assumption that the null hypothesis is true, the probability of observing a statistic <strong>as extreme as or more extreme than</strong> the one actually observed in the sample.</p>
-</blockquote>
-<p><img alt="Rejection when the p-value is smaller than the significance level" src="assets/posts/hypothesis-testing/img6-en.svg" width="1000" height="525" loading="lazy">
-<em>Figure 6. p-value &lt; significance level → rejection region → reject the hypothesis</em></p>
-<p><img alt="Acceptance when the p-value is larger than the significance level" src="assets/posts/hypothesis-testing/img7-en.svg" width="1000" height="525" loading="lazy">
-<em>Figure 7. p-value &gt; significance level → acceptance region → accept the hypothesis</em></p>
-<ul>
-<li><strong>p-value &lt; significance level</strong> → in the rejection region → <strong>reject</strong></li>
-<li><strong>p-value &gt; significance level</strong> → in the acceptance region → <strong>accept</strong></li>
-</ul>
-<h3 id="7-alternative-hypothesis-8">7. Alternative hypothesis ($H_1$)</h3>
-<blockquote>
-<p>The hypothesis accepted by way of rejecting the null hypothesis.</p>
-</blockquote>
-<p><strong>Two-sided</strong> — the mean is not 70:</p>
-<p>$$H_0:\ \mu = 70 \quad\Longleftrightarrow\quad H_1:\ \mu \neq 70$$</p>
-<p><strong>One-sided</strong> — the mean is greater / less than 70:</p>
-<p>$$H_1:\ \mu &gt; 70 \quad\text{or}\quad \mu &lt; 70$$</p>
-<ul>
-<li><strong>Two-sided</strong>: "the mean is <strong>not</strong> 70"</li>
-<li><strong>One-sided</strong>: "the mean is <strong>greater than</strong> 70" or "<strong>less than</strong> 70"</li>
-</ul>
-<p>The form of the alternative hypothesis determines a <strong>two-sided / one-sided test,</strong> and changes how the p-value is computed.</p>
-<h2 id="error-types">Error Types</h2>
-<div class="tb-table-wrap"><table>
-<thead>
-<tr>
-<th>Error</th>
-<th>Situation</th>
-<th style="text-align: center;">Probability</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Type I</strong></td>
-<td>$H_0$ is actually <strong>true but rejected</strong></td>
-<td style="text-align: center;">$\alpha$ (usually 5%)</td>
-</tr>
-<tr>
-<td><strong>Type II</strong></td>
-<td>$H_1$ is actually <strong>true but $H_0$ is accepted</strong></td>
-<td style="text-align: center;">$\beta$</td>
-</tr>
-</tbody>
-</table></div>
-<h2 id="reference-the-actual-students-distribution">Reference — the Actual Student's Distribution</h2>
-<p>The figures above are simplified for intuition; the actual t-distribution (by degrees of freedom) looks like this.</p>
-<figure style="max-width:380px;margin:20px auto;text-align:center">
-  <img src="assets/posts/hypothesis-testing/img10.webp" alt="Actual Student's t-distribution curves by degrees of freedom (source: JMP/SAS docs)" style="max-width:100%" width="802" height="689" loading="lazy">
-  <figcaption style="font-size:13px;color:var(--muted);margin-top:6px">Figure 8. The actual Student's t-distribution by degrees of freedom (source: JMP SAS docs)</figcaption>
-</figure>
+<h3 id="q2-how-will-you-verify-your-claim-with-a-sample-how-will-you-do-the-hypothesis-test">(Q2) How will you verify your claim with a sample? (How will you do the hypothesis test?)</h3>
+<p><strong>The significance of the test statistic</strong></p>
+<p>If the sample mean could be different or could be the same, you might wonder how a hypothesis test can be done with the sample mean. What is introduced here is judgment via the distribution of the test statistic.</p>
+<div class="callout">
+📌 <strong>What is a test statistic?</strong> A numerical indicator (statistic) computed to verify a hypothesis about the population using sample data such as the sample mean.
+</div>
 
-<h2 id="summary">Summary</h2>
-<p><img alt="Summary of the full hypothesis-testing process" src="assets/posts/hypothesis-testing/img11-en.svg" width="1000" height="525" loading="lazy">
-<em>Figure 9. Hypothesis-testing summary</em></p>
-<p><strong>The hypothesis-testing process</strong></p>
-<ol>
-<li>Set a hypothesis (null hypothesis) about the population</li>
-<li>Define a test statistic to evaluate the hypothesis and identify its distribution</li>
-<li>Draw a sample and compute the test statistic</li>
-<li>Accept if it falls in the <strong>ordinary 95% range</strong> of the distribution; reject if it falls in the <strong>extreme 5% region</strong></li>
-</ol>
-<p><strong>Two ways to decide accept/reject</strong></p>
-<ol>
-<li><strong>Test-statistic method</strong> — compare against the critical value</li>
-<li><strong>p-value method</strong> — compare against the significance level</li>
-</ol>
-<p><strong>Caveats</strong></p>
+<p>Let's define a test statistic appropriate for the above hypothesis about the mean.</p>
+<p>$$
+t = \frac{\bar{X} - \mu_0}{\,s/\sqrt{n}\,}
+$$
+<em>Formula 1. The test statistic for a hypothesis about the mean</em></p>
+<p>By putting the term (sample mean minus the hypothesized mean) in the numerator, the closer to no difference from the hypothesized mean the closer to 0, and the larger the difference the farther from 0. In other words, the test statistic used in a mean test is defined as the distance from the hypothesized mean; it numerically measures how different the sample mean is from the hypothesized mean and plays an important role in evaluating whether this difference is statistically significant.</p>
+<p>*What "statistically significant" means is organized once more later.</p>
+<h3 id="q3-where-is-uncertaintyvariability-variance-used">(Q3) Where is uncertainty/variability (variance) used?</h3>
+<p><strong>The distribution of the test statistic and the significance of hypothesis testing</strong></p>
+<p>Above, you said that because uncertainty or variability (as a statistic, variance) exists, we can't hastily conclude even if the sample mean differs from the hypothesized mean. But the test statistic itself is just a number quantifying the distance or degree of similarity between the sample mean and the hypothesized mean — the concept of variance doesn't enter anywhere. How can a hypothesis test be done with the test statistic alone?</p>
+<div class="callout">
+<p>💡 <strong>Answer summary</strong></p>
+<p>Here the core of hypothesis testing is revealed. The test statistic not only quantifies the distance from the hypothesized mean — to evaluate the significance of this distance, we use the distribution of the test statistic to judge a statistically significant difference. (I expect this won't quite land; a concrete example follows below.)</p>
+</div>
+
+<p><strong>Explanation of the summary (important)</strong></p>
+<p>Let me give a concrete example. To evaluate the hypothesis about the mean, we defined a test statistic like Formula (2). Also, mathematicians/statisticians have already proven that this test statistic follows the t-distribution (Student's distribution).</p>
+<p><img alt="The t-distribution (Student's distribution)" src="assets/posts/hypothesis-testing/img3-en.svg" width="1000" height="525" loading="lazy">
+<em>Figure 3. The t-distribution (Student's distribution)</em></p>
+<p>Let me explain again, mapping the statement "the test statistic follows the t-distribution above" onto the figure.</p>
+<p><img alt="The meaning of hypothesis testing" src="assets/posts/hypothesis-testing/img4-en.svg" width="1100" height="560" loading="lazy">
+<em>Figure 4. The meaning of hypothesis testing</em></p>
+<p><strong>Explanation of the meaning of hypothesis testing (explaining Figure 4)</strong></p>
+<p>Suppose I drew 4 samples from the population. (Sample 1 through Sample 4 in the figure above.)</p>
+<p>If we compute the test statistics of those samples, they become t1 ~ t4 in the figure. Because the test statistic t follows the Student's t-distribution, the drawn samples will, with high probability, be located near 0, and with very low probability they may exist at the two ends (area1, area2 in the figure). Therefore Sample 3 and Sample 4 are samples drawn by high probability, while Sample 1 and Sample 2 are samples drawn despite low probability.</p>
+<p><strong>Interpretation point (the point of understanding)</strong></p>
+<p>The test statistic above represents the difference between the hypothesized population mean and the sample mean. We can see that t3 (Sample 3) and t4 (Sample 4) are samples drawn from the ordinary distribution (hypothesized population mean − sample mean ≈ near 0). Through this, Samples 3 and 4 can be interpreted as having a difference between the population mean and sample mean close to 0. On the other hand, t1 (Sample 1) and t2 (Sample 2) are samples drawn through extreme probability, so they have a large value of difference from the hypothesized population mean (hypothesized population mean − sample mean ≈ far from 0), so the distance from the hypothesized population mean grows.</p>
+<p>Summarizing this: t3 and t4 tend to support the hypothesis since their difference from the population mean isn't large, whereas t1 and t2 can be interpreted as samples against the hypothesis since their difference from the population mean is large.</p>
+<p>Samples found by extreme probability (t1, t2) have almost no chance of occurring in that population, so when such samples appear, we can judge that the hypothesis is wrong. We express this as rejecting the hypothesis. Conversely, when found on the ordinary probability distribution (t2, t3), we can judge the hypothesis to be correct. We express this as accepting the hypothesis.</p>
+<h2 id="definitions-of-hypothesis-testing-terms">Definitions of hypothesis-testing terms</h2>
+<p>Now we can finally define the terms — null hypothesis, alternative hypothesis, acceptance region, rejection region, significance level, critical value, p-value — and organize hypothesis testing.</p>
+<p><img alt="Explanation and visualization of hypothesis-testing terms" src="assets/posts/hypothesis-testing/img5-en.svg" width="1000" height="525" loading="lazy">
+<em>Figure 5. Explanation and visualization of hypothesis-testing terms</em></p>
+<p><strong>1. Null hypothesis (H0 : Null Hypothesis)</strong></p>
+<p>The hypothesis we set up about the population (the whole group) (in the example, 'the average age will be 70').</p>
+<p><strong>2. Significance level (α : Significance Level)</strong></p>
+<p>The probability that becomes the criterion for accepting or rejecting some hypothesis. (In the example, the probability region area1 + area2 = the region where the hypothesis is rejected.) = When the sample's test statistic is found in the significance-level probability region, the hypothesis is rejected.</p>
+<p>In probability theory, we don't accept a hypothesis because it's 100% correct or reject it because it's 100% wrong. We accept and reject the hypothesis based on whether the probability of occurrence is high or low. So we must set the probability that becomes the criterion for rejection and acceptance.</p>
+<p>The probability that becomes the criterion for rejecting and accepting a hypothesis differs by field. For example, in the natural sciences a significance level of 0.01 is sometimes used, and in the humanities 0.05 is sometimes used. For example, if we set the significance level to 0.05, then in the figure the blue region (area1 + area2) is 0.05. Then naturally the remaining region is 1 − α = 0.95. (Since the total area above is 1.)</p>
+<p>To summarize: if the sample's test statistic (about the hypothesis) falls within the ordinary 95%, the hypothesis is accepted; if it's found in the extreme 5% probability region, it's judged not ordinary, and the hypothesis is rejected.</p>
+<p><strong>3. Rejection region (Critical Region)</strong></p>
+<p>In the test statistic's distribution, the probability region (range) where the hypothesis is rejected is called the rejection region.</p>
+<p><strong>4. Acceptance region (Acceptance Region)</strong></p>
+<p>In the test statistic's distribution, the probability region (range) where the hypothesis is accepted is called the rejection region.</p>
+<p><strong>5. Critical value (Critical Value)</strong></p>
+<p>The test-statistic (t) value that becomes the boundary of the significance-level region is called the critical value. Afterward, depending on whether the sample I drew exceeds that critical value or not, we can judge whether to accept the hypothesis.</p>
+<p>In the example, let's judge the 4 samples using the test statistics t1 through t4.</p>
 <ul>
-<li>Always consider the possibility of Type I and Type II errors</li>
-<li>Interpretation differs for two-sided vs one-sided tests</li>
+<li>Sample 1: t1 exists in the rejection region. It's outside the critical-value boundary. A case that occurs with 5% probability or less happened — reject.</li>
+<li>Sample 2: t2 exists in the acceptance region. It's inside the critical-value boundary. A case that occurs with 95% probability happened — accept.</li>
+<li>Sample 3: t3 exists in the acceptance region. It's inside the critical-value boundary. A case that occurs with 95% probability happened — accept.</li>
+<li>Sample 4: t4 exists in the rejection region. It's outside the critical-value boundary. A case that occurs with 5% probability or less happened — reject.</li>
 </ul>
+<p><strong>6. p-value (Probability Value)</strong></p>
+<p>The p-value means the probability that, under the premise that the null hypothesis is true, a statistic equal to or more extreme than the one actually observed in the sample is observed.</p>
+<p>(For reference, the reason we say "under the premise that the null hypothesis is true" is that we defined the test statistic under the null hypothesis and do the hypothesis test under its distribution.)</p>
+<p><img alt="Figure explaining p-value (rejection)" src="assets/posts/hypothesis-testing/img6-en.svg" width="1000" height="525" loading="lazy">
+<em>Figure 6. Figure explaining p-value (rejection)</em></p>
+<p>Let me explain p-value based on the actually observed statistics t1 and t2.</p>
+<ul>
+<li>The probability that a statistic equal to or more extreme than the case where t1 occurred is found means region ① (the red region). The size of this region is called the p-value (probability) for Sample 1 (t1).</li>
+<li>The probability that a statistic equal to or more extreme than the case where t2 occurred is found means region ② (the red region). The size of this region is called the p-value (probability) for Sample 2 (t2).</li>
+</ul>
+<p><strong>Accepting/rejecting the hypothesis via p-value</strong></p>
+<p>Judging acceptance/rejection with the p-value is possible by comparing the p-value with the significance level.</p>
+<p>For example, suppose t1's is 0.013 and t2's is 0.018. t1's p-value is smaller than 0.05 (significance level) / 2 = 0.025, so it will exist in the rejection region, so we can reject the hypothesis. t2 can likewise be rejected by the same logic.</p>
+<p><img alt="Figure explaining p-value (acceptance)" src="assets/posts/hypothesis-testing/img7-en.svg" width="1000" height="525" loading="lazy">
+<em>Figure 7. Figure explaining p-value (acceptance)</em></p>
+<p>Likewise, let me explain p-value based on the actually observed statistics t3 and t4.</p>
+<ul>
+<li>The probability that a statistic equal to or more extreme than the case where t3 occurred is found means region ③ (the red region). The size of this region is called the p-value (probability) for Sample 3 (t3).</li>
+<li>The probability that a statistic equal to or more extreme than the case where t4 occurred is found means region ④ (the red region). The size of this region is called the p-value (probability) for Sample 4 (t4).</li>
+</ul>
+<p><strong>Accepting/rejecting the hypothesis via p-value</strong></p>
+<p>For example, suppose t3's is 0.2 and t4's is 0.25. t3's p-value is larger than 0.05 (significance level) / 2 = 0.025, so it will exist in the acceptance region, and we can accept the hypothesis. t4 can likewise be accepted by the same logic.</p>
+<p><strong>7. Alternative hypothesis (H1 : Alternative Hypothesis)</strong></p>
+<p>This hypothesis cannot be tested directly like the null hypothesis; it is a hypothesis accepted by directly rejecting the null hypothesis.</p>
+<p>So far we've focused on whether to accept or reject the null hypothesis. Thinking further, a question arises: if the null hypothesis is rejected, what is the conclusion?</p>
+<p>$$
+H_1 : \mu \neq 70
+$$
+<em>Formula 2. The alternative hypothesis of the example</em></p>
+<p>The example handled above supported the alternative hypothesis (claim) that the mean is not 70, by rejecting the null hypothesis.</p>
+<p>$$
+H_1 : \mu &gt; 70 \qquad \text{or} \qquad H_1 : \mu &lt; 70
+$$
+<em>Formula 3. An alternative hypothesis outside the example</em></p>
+<p>However, the alternative hypothesis can be of the form 'the mean is not 70,' but it can also be set concretely, like 'the mean is greater than 70' or 'the mean is less than 70.' Accordingly, the method of testing and the interpretation of the test statistic change, and depending on whether it's a two-sided test or a one-tailed test, the way the p-value is computed also changes.</p>
+<p>I'll post separately about two-sided and one-tailed tests next time. In this post, I want to emphasize that the alternative hypothesis — which can be disproven by rejecting the null hypothesis — must always be considered together as a pair.</p>
+<h3 id="reference-the-actual-students-distribution">* Reference (the actual Student's distribution)</h3>
+<p><img alt="The t-distribution, Student's distribution (source: JMP SAS docs)" src="assets/posts/hypothesis-testing/img10.webp" width="802" height="689" loading="lazy">
+<em>Figure 8. The t-distribution, Student's distribution (source: JMP SAS docs)</em></p>
+<p>The t-distribution looks like Figure 2, and we can see that the higher the degrees of freedom and the larger the data sample, the more it follows the standard normal distribution. In fact, the t-distribution looks almost the same as the standard normal distribution; the only difference between the two is whether the standardizing factor (the denominator) is the population variance or the sample variance.</p>
+<h3 id="q4-are-there-cases-of-wrongly-accepting-or-wrongly-rejecting-type-i-error-type-ii-error">(Q4) Are there cases of wrongly accepting or wrongly rejecting? (Type I error, Type II error)</h3>
+<p>Above: if the sample's test statistic (about the hypothesis) falls within the ordinary 95%, the hypothesis is accepted; if it's found in the extreme 5% probability region, it's judged not ordinary, and the hypothesis is rejected.</p>
+<p>We can explain the core of hypothesis testing this way, and then it's natural and obvious to wonder: 'Could there be a case where the hypothesis is actually correct, yet the sample happens to fall in the extreme 5% probability region, so the hypothesis is rejected?'</p>
+<p>Yes. There is a probability that the hypothesis is wrongly rejected as above. Such a case is called a Type I Error. A Type I error means the error of rejecting the null hypothesis even though the null hypothesis is actually true. Generally the probability of this error is set as the significance level (α), and in many cases it's set to 5%.</p>
+<p>Conversely, there are also cases of accepting the null hypothesis even though the alternative hypothesis is actually true. This is called a Type II Error, and the probability of this error is denoted β. As a result, in statistical hypothesis testing, we must always keep in mind the possibilities of these Type I and Type II errors.</p>
+<h2 id="conclusion-summary">Conclusion (summary)</h2>
+<p>The main body's explanation was long. Distilling everything I understand into writing wasn't easy. As a conclusion, let me organize hypothesis testing in one go.</p>
+<p><img alt="Hypothesis-testing summary" src="assets/posts/hypothesis-testing/img11-en.svg" width="1000" height="525" loading="lazy">
+<em>Figure 9. Hypothesis-testing summary</em></p>
+<p><strong>What is hypothesis testing?</strong></p>
+<p>Hypothesis testing is the process of setting up a hypothesis about the population, drawing a sample, and observing it to judge whether that hypothesis is correct.</p>
+<p><strong>The significance of the test statistic</strong></p>
+<p>First, we set up a hypothesis, which is called the null hypothesis. Then, to evaluate the null hypothesis, we define a test statistic that can represent it, and draw the distribution of that test statistic.</p>
+<p><strong>The significance of hypothesis testing via the test-statistic distribution</strong></p>
+<p>Then, we compute the test statistic from the sample. If this sample's test statistic falls within the ordinary 95% range inside the distribution, we accept the hypothesis; if it falls in the extreme 5% probability region, we judge it not ordinary and reject the hypothesis.</p>
+<p>Here, the extreme-probability region such as 5% is called the significance level (α, significance level), and its boundary value is called the critical value. Also, there exists a concept called the p-value. This means the probability that a particular sample is observed, or that a more extreme value than it appears.</p>
+<div class="callout">
+<p><strong>[Two indicators for rejecting or accepting the null hypothesis]</strong></p>
+<p>• <strong>Judgment via the test statistic</strong>: if the sample's test statistic is located outside the critical value, reject the null hypothesis.</p>
+<p>• <strong>Judgment via the p-value</strong>: if the p-value is smaller than the significance level (α), reject the null hypothesis.</p>
+</div>
+
+<p><strong>What is the alternative hypothesis?</strong></p>
+<p>The hypothesis that is disproven and accepted when the null hypothesis is rejected is called the alternative hypothesis. (The interpretation of the test statistic changes depending on the alternative hypothesis: two-sided test, one-tailed test.)</p>
+<p><strong>Type I error and Type II error</strong></p>
+<p>There will be cases where the null hypothesis is actually true, yet the sample happens to fall in the extreme 5% probability region so the null hypothesis is rejected — such an error is called a Type I error. Conversely, the case of accepting the null hypothesis even though the alternative hypothesis is true is called a Type II error.</p>
+<p>Thus, hypothesis testing is the process of evaluating the validity of the null hypothesis based on sample data, and through it we reach a conclusion about a particular hypothesis regarding the population.</p>
+<h2 id="references">References</h2>
+<ol>
+<li>JMP official docs (t-distribution, etc.)</li>
+<li>MiniTab official docs</li>
+<li>Wikipedia (definition reference)</li>
+<li>Introduction to Statistics — Jayu Academy (textbook)</li>
+<li>School course materials — Introduction to Data Analysis (major course)</li>
+<li>My own thoughts and notes (feat. GPT)</li>
+</ol>
 <hr />
 <blockquote>
-<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/15" rel="nofollow noopener">taehyuklee.tistory.com/15</a></p>
+<p>📦 Migrated from the Tistory blog I used to run. Original: <a href="https://taehyuklee.tistory.com/15" rel="nofollow noopener">taehyuklee.tistory.com/15</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/confidence-interval/">Confidence Intervals — Meaning, Intuition, and a Common Misconception</a></li><li><a href="en/t-test-python-scipy/">Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student&#39;s·Welch&#39;s), Paired</a></li><li><a href="en/central-limit-theorem/">The Central Limit Theorem — Definition, Experiments, and Uses</a></li><li><a href="en/t-test/">Testing Means — the t-test (One / Two: Student&#39;s·Welch&#39;s / Paired)</a></li></ul></section>
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/confidence-interval/">Confidence Intervals — Meaning, Intuition, and a Common Misconception</a></li><li><a href="en/t-test-python-scipy/">Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy &amp; Statsmodels]</a></li><li><a href="en/central-limit-theorem/">The Central Limit Theorem (CLT): Definition, Experiments &amp; Uses</a></li><li><a href="en/t-test/">Testing Means: the t-test [One, Two (Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fhypothesis-testing%2F&amp;text=Understanding%20Hypothesis%20Testing%20%E2%80%94%20Test%20Statistic%2C%20Null%2FAlternative%2C%20p-value%2C%20Significance%20Level%2C%20Critical%20Value" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fhypothesis-testing%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fhypothesis-testing%2F&amp;text=Understanding%20Hypothesis%20Testing%3A%20Test%20Statistic%2C%20Null%20Hypothesis%2C%20Alternative%20Hypothesis%2C%20p-value%2C%20Significance%20Level%2C%20Critical%20Value%20%E2%80%94%20Concepts%20%28the%20essence%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fhypothesis-testing%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
 

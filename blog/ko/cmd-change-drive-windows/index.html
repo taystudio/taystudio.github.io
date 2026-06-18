@@ -82,13 +82,13 @@
 </style>
 <h2 id="_1">서론</h2>
 <p>Windows에서는 C 드라이브가 아닌 D 드라이브에 프로그램을 설치하거나 D 드라이브에서 작업해야 할 때가 있다. 예를 들어 Python을 D 드라이브에 설치했거나, D 드라이브의 특정 폴더에서 파일 작업을 해야 하는 경우다.</p>
-<p><img alt="CMD에서 cd로는 D드라이브로 넘어가지 않는 화면" src="assets/posts/cmd-change-drive-windows/img1.png" width="972" height="488" loading="lazy">
+<p><img alt="CMD에서 cd로는 D드라이브로 넘어가지 않는 화면" src="assets/posts/cmd-change-drive-windows/img1.webp" width="972" height="488" loading="lazy">
 <em>그림 1. cd로는 D드라이브로 넘어가지 않음</em></p>
 <p>CMD 창을 열면 기본적으로 C 드라이브를 참조한다. 이 상태에서 <code>cd ..</code>(상위 디렉터리로)를 써도 C 드라이브의 최상위까지만 이동할 뿐, 다른 드라이브로 바뀌지는 않는다.</p>
 <h2 id="_2">본론 &amp; 결론</h2>
 <p>Windows 파일시스템은 Linux와 달리 <strong>드라이브마다 독립적인 루트</strong>(예: <code>C:</code>, <code>D:</code>)를 갖는다. 반면 Linux는 <strong>하나의 루트 디렉터리(<code>/</code>)</strong>에서 모든 파일시스템이 시작된다.</p>
 <p>따라서 CMD에서 D 드라이브로 이동하고 싶다면 드라이브 문자에 콜론을 붙여 <strong><code>D:</code></strong>를 입력하면 된다.</p>
-<p><img alt="CMD에서 D: 입력으로 D드라이브로 이동한 화면" src="assets/posts/cmd-change-drive-windows/img2.png" width="976" height="510" loading="lazy">
+<p><img alt="CMD에서 D: 입력으로 D드라이브로 이동한 화면" src="assets/posts/cmd-change-drive-windows/img2.webp" width="976" height="510" loading="lazy">
 <em>그림 2. CMD D드라이브 이동</em></p>
 <blockquote>
 <p>그림 2에서 <code>C:\Users\user&gt;</code> 프롬프트에 <code>D:</code>를 입력하자 <code>D:\&gt;</code>로 바뀐 것을 확인할 수 있다.</p>

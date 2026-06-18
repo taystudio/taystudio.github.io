@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>Uncertainty, Variability &amp; Variance — Understanding the Nature of Probability · Tay Blog</title>
+<title>Uncertainty, Variability, and Variance (feat. the Nature of Probability) · Tay Blog</title>
 <meta name="description" content="Connecting the nature of probability through three concepts — uncertainty, variability, and variance — including the intuition for why variance is defined as &#39;distance from the mean.&#39;">
 <link rel="canonical" href="https://taystudios.com/blog/en/uncertainty-variance/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/uncertainty-variance/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/uncertainty-variance/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/uncertainty-variance/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="Uncertainty, Variability &amp; Variance — Understanding the Nature of Probability · Tay Blog">
+<meta property="og:title" content="Uncertainty, Variability, and Variance (feat. the Nature of Probability) · Tay Blog">
 <meta property="og:description" content="Connecting the nature of probability through three concepts — uncertainty, variability, and variance — including the intuition for why variance is defined as &#39;distance from the mean.&#39;">
 <meta property="og:url" content="https://taystudios.com/blog/en/uncertainty-variance/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/uncertainty-variance/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/uncertainty-variance/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Uncertainty, Variability & Variance — Understanding the Nature of Probability", "description": "Connecting the nature of probability through three concepts — uncertainty, variability, and variance — including the intuition for why variance is defined as 'distance from the mean.'", "datePublished": "2024-09-30T00:00:00+09:00", "dateModified": "2024-09-30T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/uncertainty-variance/"}, "image": ["https://taystudios.com/blog/assets/posts/uncertainty-variance/cover.webp"], "keywords": "statistics, variance, uncertainty, variability, probability"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "Uncertainty, Variability & Variance — Understanding the Nature of Probability", "item": "https://taystudios.com/blog/en/uncertainty-variance/"}]}</script><meta property="article:published_time" content="2024-09-30T00:00:00+09:00"><meta property="article:modified_time" content="2024-09-30T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="variance"><meta property="article:tag" content="uncertainty"><meta property="article:tag" content="variability"><meta property="article:tag" content="probability">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Uncertainty, Variability, and Variance (feat. the Nature of Probability)", "description": "Connecting the nature of probability through three concepts — uncertainty, variability, and variance — including the intuition for why variance is defined as 'distance from the mean.'", "datePublished": "2024-09-30T00:00:00+09:00", "dateModified": "2024-09-30T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/uncertainty-variance/"}, "image": ["https://taystudios.com/blog/assets/posts/uncertainty-variance/cover.webp"], "keywords": "statistics, variance, uncertainty, variability, probability"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "Uncertainty, Variability, and Variance (feat. the Nature of Probability)", "item": "https://taystudios.com/blog/en/uncertainty-variance/"}]}</script><meta property="article:published_time" content="2024-09-30T00:00:00+09:00"><meta property="article:modified_time" content="2024-09-30T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="variance"><meta property="article:tag" content="uncertainty"><meta property="article:tag" content="variability"><meta property="article:tag" content="probability">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Uncertainty, Variability &amp; Variance — Understanding the Nature of Probability</span></nav>
-        <h1 class="tb-article-title">Uncertainty, Variability &amp; Variance — Understanding the Nature of Probability</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Uncertainty, Variability, and Variance (feat. the Nature of Probability)</span></nav>
+        <h1 class="tb-article-title">Uncertainty, Variability, and Variance (feat. the Nature of Probability)</h1>
         <div class="tb-article-meta">
           <time>2024.09.30</time>
           <span>·</span><span>#statistics #variance #uncertainty #variability #probability</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-what-is-uncertainty">1. What is uncertainty?</a></li><li class="tb-toc-h2"><a href="#2-what-is-variability">2. What is variability?</a></li><li class="tb-toc-h2"><a href="#3-what-is-variance">3. What is variance?</a></li><li class="tb-toc-h3"><a href="#why-is-variance-defined-with-this-formula">Why is variance defined with this formula?</a></li><li class="tb-toc-h2"><a href="#summary">Summary</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#uncertainty-variability-and-variance">Uncertainty, Variability, and Variance</a></li><li class="tb-toc-h2"><a href="#1-what-is-uncertainty">1. What is uncertainty?</a></li><li class="tb-toc-h2"><a href="#2-what-is-variability">2. What is variability?</a></li><li class="tb-toc-h2"><a href="#3-what-is-variance">3. What is variance?</a></li><li class="tb-toc-h2"><a href="#summary">Summary</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -80,45 +80,56 @@
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
-<p>The goal of this post is to explain the <strong>nature of probability</strong> through the concepts of uncertainty, variability, and variance. It organizes ideas I thought hard about in a university statistics course.</p>
+
+<h2 id="uncertainty-variability-and-variance">Uncertainty, Variability, and Variance</h2>
+<p>The goal of this post is to explain the nature of probability through the concepts of uncertainty, variability, and variance. I thought deeply about these concepts when taking university statistics, and I've written this by distilling the thoughts I organized back then.</p>
 <h2 id="1-what-is-uncertainty">1. What is uncertainty?</h2>
-<p>It's the fundamental cause that makes the same action keep producing <strong>different results</strong> because of <strong>variables we can't control.</strong> (You could call it the root cause that lets probability exist at all.)</p>
-<p><strong>For example,</strong> if you throw a paper airplane 10 times with the exact same force and direction, will it land at the same spot all 10 times? No. Uncontrollable variables like wind enter in, so the result keeps changing.</p>
+<p>It is the main cause that — due to some variable we can't control — keeps producing a different result even when I perform the exact same action.</p>
+<p>(You could see it as the fundamental cause that allows probability to exist.)</p>
+<p>For example, say I threw a paper airplane 10 times with the same force in the same direction. Will the paper airplane land at exactly the same spot all 10 times? No. Variables we can't control, like wind, enter in, and the result will keep differing.</p>
 <h2 id="2-what-is-variability">2. What is variability?</h2>
-<p>This is where <strong>variability</strong> comes in. It's the property that the result can differ each time you perform the action, and it applies to each data point of a sample ($X_1, X_2, \dots$).</p>
-<p><img alt="A figure to explain variability — random sampling of data points" src="assets/posts/uncertainty-variance/img1.png" width="1020" height="643" loading="lazy">
-<em>Figure 1. A figure to explain variability</em></p>
-<p>When sampling each data point, since every point is randomly sampled from the population (uncertainty), $X_1$ could be 3, or 5, or 10, or even an extreme 100000. We call this property <strong>variability.</strong></p>
+<p>Here we can explain the concept of variability. It refers to the property of being able to differ each time I perform the action, and it generally applies to each data point of a sample (each point such as X1, X2).</p>
+<p><img alt="A figure illustrating variability" src="assets/posts/uncertainty-variance/img1.webp" width="1020" height="643" loading="lazy">
+<em>Figure 1. A figure illustrating variability</em></p>
+<p>Let me explain with the figure above. When sampling each data point, since all points are randomly sampled from the population (uncertainty), X1 could be 3, could be 5, could be 10, or even — in the extreme — 100000. That is, the property above is called variability.</p>
 <h2 id="3-what-is-variance">3. What is variance?</h2>
-<p>To express uncertainty and variability <strong>mathematically,</strong> you compute how far each data point lies from the expected value (mean) that represents the group, and average it. That is <strong>variance,</strong> and it becomes the notion of "average distance."</p>
-<h3 id="why-is-variance-defined-with-this-formula">Why is variance defined with this formula?</h3>
-<p>$$s^2 = \dfrac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2 \qquad\qquad \sigma^2 = \dfrac{1}{N}\sum_{i=1}^{N}(x_i - \mu)^2$$
-<em>Sample variance ($s^2$) · population variance ($\sigma^2$)</em></p>
-<p><img alt="Why variance is the statistic that represents uncertainty — comparing the explanatory power of the mean" src="assets/posts/uncertainty-variance/img3.png" width="964" height="458" loading="lazy">
+<p>When we ask how the uncertainty or variability above can be expressed mathematically, one method is to compute and average how far each data point lies from the expected value — the value that represents the group. This is the concept of variance, and it becomes the concept of average distance.</p>
+<p><strong>Why was variance defined by the following formula?</strong></p>
+<p>$$
+s^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(X_i - \bar{X}\right)^2
+\qquad
+\sigma^2 = \frac{1}{N}\sum_{i=1}^{N}\left(X_i - \mu\right)^2
+$$
+<em>Formula 1. Sample variance, population variance</em></p>
+<p><img alt="Why variance is the statistic that represents uncertainty" src="assets/posts/uncertainty-variance/img3.webp" width="964" height="458" loading="lazy">
 <em>Figure 2. Why variance is the statistic that represents uncertainty</em></p>
-<p>The mean is the value representing the group. But the farther each data point is from the mean, the less the mean explains — i.e., uncertainty grows.</p>
-<p>In Figure 2, (a) has the mean near $X_1$–$X_5$, so the mean explains most of it; in (b) the data are far from the mean, so the mean alone struggles to explain. (a) has <strong>low uncertainty,</strong> so using the mean as a representative value is fine; (b) has <strong>high uncertainty,</strong> so it's a stretch to use it as a representative value.</p>
-<p>In other words, uncertainty can be quantified as <strong>how much it deviates from the mean = the distance from the mean.</strong> The higher the variance, the greater the deviation in the same action, and the higher the chance of getting an odd data point far from the mean.</p>
+<p>Think of the mean as the value that represents the group — the value that can explain all the values. However, the farther each data point lies from the mean, the more the mean's explanatory power decreases. That is, you could say uncertainty increases.</p>
+<p>Looking at Figure 2 above: in figure (a), the mean lies near X1 through X5, so the mean can explain most of the values; but in case (b), the distances from the mean are large, so it looks hard to explain each data point with the mean itself.</p>
+<p>In other words, in case (a), even using the mean as the sample's representative is fine, since each data point's uncertainty (the degree it deviates from the mean) is low. Conversely, in case (b), some data may be near the mean and fine, but many data points have high uncertainty (the degree they deviate from the mean), so using the mean as a representative value may be a stretch.</p>
+<p>We can see that uncertainty can be quantified by expressing it as the degree of deviation from the mean = the distance from the mean. The higher the variance, the higher the degree of deviation when you perform the same action — so you never know what stray data point, far off from the mean, might pop out.</p>
 <h2 id="summary">Summary</h2>
-<ul>
-<li><strong>Uncertainty</strong> — variables/causes we can't control</li>
-<li><strong>Variability</strong> — the property that results differ each time due to uncertainty</li>
-<li><strong>Variance</strong> — the statistic that mathematically quantifies uncertainty/variability</li>
-</ul>
-<hr />
+<p>The above can be summarized as follows.</p>
+<div class="callout">
+<p><strong>Uncertainty</strong> — a variable / cause we can't control</p>
+<p><strong>Variability</strong> — the property that the result differs each time you perform the action, due to uncontrollable variables (i.e., due to uncertainty)</p>
+<p><strong>Variance</strong> — the statistic that mathematically quantifies uncertainty / variability</p>
+</div>
+
 <h2 id="references">References</h2>
 <ol>
 <li>Introduction to Statistics — Jayu Academy (textbook)</li>
-<li>Course material — Introduction to Data Analysis</li>
+<li>School course materials — Introduction to Data Analysis</li>
+<li>My own organized thoughts and notes</li>
 </ol>
+<hr />
 <blockquote>
-<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/13" rel="nofollow noopener">taehyuklee.tistory.com/13</a></p>
+<p>📦 Migrated from the Tistory blog I used to run. Original: <a href="https://taehyuklee.tistory.com/13" rel="nofollow noopener">taehyuklee.tistory.com/13</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/degrees-of-freedom/">What Are Degrees of Freedom — Why We Divide by n-1 to Estimate Variance</a></li><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/t-test-python-scipy/">Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student&#39;s·Welch&#39;s), Paired</a></li><li><a href="en/central-limit-theorem/">The Central Limit Theorem — Definition, Experiments, and Uses</a></li></ul></section>
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/degrees-of-freedom/">What Are Degrees of Freedom (DOF) &amp; Population-Variance Estimation and Degrees of Freedom (n-1)</a></li><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence)</a></li><li><a href="en/t-test-python-scipy/">Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy &amp; Statsmodels]</a></li><li><a href="en/central-limit-theorem/">The Central Limit Theorem (CLT): Definition, Experiments &amp; Uses</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Funcertainty-variance%2F&amp;text=Uncertainty%2C%20Variability%20%26%20Variance%20%E2%80%94%20Understanding%20the%20Nature%20of%20Probability" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Funcertainty-variance%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Funcertainty-variance%2F&amp;text=Uncertainty%2C%20Variability%2C%20and%20Variance%20%28feat.%20the%20Nature%20of%20Probability%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Funcertainty-variance%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
 

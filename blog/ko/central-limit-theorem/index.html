@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>중심극한정리(Central Limit Theorem) — 정의·실험·용도 · Tay Blog</title>
+<title>중심극한 정리 (Central Limit Theorem) : 정의 및 실험 &amp; 용도 · Tay Blog</title>
 <meta name="description" content="표본 크기가 커지면 어떤 분포든 표본평균은 정규분포에 수렴 — 5가지 분포 실험으로 확인하고, CLT가 추정·신뢰구간에 왜 중요한지.">
 <link rel="canonical" href="https://taystudios.com/blog/ko/central-limit-theorem/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/central-limit-theorem/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/central-limit-theorem/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/central-limit-theorem/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="중심극한정리(Central Limit Theorem) — 정의·실험·용도 · Tay Blog">
+<meta property="og:title" content="중심극한 정리 (Central Limit Theorem) : 정의 및 실험 &amp; 용도 · Tay Blog">
 <meta property="og:description" content="표본 크기가 커지면 어떤 분포든 표본평균은 정규분포에 수렴 — 5가지 분포 실험으로 확인하고, CLT가 추정·신뢰구간에 왜 중요한지.">
 <meta property="og:url" content="https://taystudios.com/blog/ko/central-limit-theorem/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/central-limit-theorem/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/central-limit-theorem/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "중심극한정리(Central Limit Theorem) — 정의·실험·용도", "description": "표본 크기가 커지면 어떤 분포든 표본평균은 정규분포에 수렴 — 5가지 분포 실험으로 확인하고, CLT가 추정·신뢰구간에 왜 중요한지.", "datePublished": "2024-11-03T00:00:00+09:00", "dateModified": "2024-11-03T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/central-limit-theorem/"}, "image": ["https://taystudios.com/blog/assets/posts/central-limit-theorem/cover.webp"], "keywords": "통계, 중심극한정리, CLT, 정규분포, t분포"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/ko/category/data/"}, {"@type": "ListItem", "position": 3, "name": "중심극한정리(Central Limit Theorem) — 정의·실험·용도", "item": "https://taystudios.com/blog/ko/central-limit-theorem/"}]}</script><meta property="article:published_time" content="2024-11-03T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-03T00:00:00+09:00"><meta property="article:tag" content="통계"><meta property="article:tag" content="중심극한정리"><meta property="article:tag" content="CLT"><meta property="article:tag" content="정규분포"><meta property="article:tag" content="t분포">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "중심극한 정리 (Central Limit Theorem) : 정의 및 실험 & 용도", "description": "표본 크기가 커지면 어떤 분포든 표본평균은 정규분포에 수렴 — 5가지 분포 실험으로 확인하고, CLT가 추정·신뢰구간에 왜 중요한지.", "datePublished": "2024-11-03T00:00:00+09:00", "dateModified": "2024-11-03T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/central-limit-theorem/"}, "image": ["https://taystudios.com/blog/assets/posts/central-limit-theorem/cover.webp"], "keywords": "통계, 중심극한정리, CLT, 정규분포, t분포"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/ko/category/data/"}, {"@type": "ListItem", "position": 3, "name": "중심극한 정리 (Central Limit Theorem) : 정의 및 실험 & 용도", "item": "https://taystudios.com/blog/ko/central-limit-theorem/"}]}</script><meta property="article:published_time" content="2024-11-03T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-03T00:00:00+09:00"><meta property="article:tag" content="통계"><meta property="article:tag" content="중심극한정리"><meta property="article:tag" content="CLT"><meta property="article:tag" content="정규분포"><meta property="article:tag" content="t분포">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">중심극한정리(Central Limit Theorem) — 정의·실험·용도</span></nav>
-        <h1 class="tb-article-title">중심극한정리(Central Limit Theorem) — 정의·실험·용도</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">중심극한 정리 (Central Limit Theorem) : 정의 및 실험 &amp; 용도</span></nav>
+        <h1 class="tb-article-title">중심극한 정리 (Central Limit Theorem) : 정의 및 실험 &amp; 용도</h1>
         <div class="tb-article-meta">
           <time>2024.11.03</time>
           <span>·</span><span>#통계 #중심극한정리 #CLT #정규분포 #t분포</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">중심극한정리란?</a></li><li class="tb-toc-h3"><a href="#5">실험한 분포 5가지</a></li><li class="tb-toc-h2"><a href="#clt">CLT 실험</a></li><li class="tb-toc-h2"><a href="#clt_1">그래서 CLT는 어디에 쓰이나?</a></li><li class="tb-toc-h2"><a href="#_2">결론</a></li><li class="tb-toc-h2"><a href="#_3">참고 문헌</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">글의 목차</a></li><li class="tb-toc-h2"><a href="#_2">중심 극한 정리란?</a></li><li class="tb-toc-h3"><a href="#5">실험한 분포 5가지</a></li><li class="tb-toc-h2"><a href="#central-limit-theorem">Central Limit Theorem 실험 진행</a></li><li class="tb-toc-h2"><a href="#_3">그래서, 중심값 극한 정리가 어디에 어떻게 사용될 수 있는 것인가?</a></li><li class="tb-toc-h2"><a href="#_4">결론 (맺음말)</a></li><li class="tb-toc-h2"><a href="#_5">참고 문헌</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -80,61 +80,77 @@
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
-<h2 id="_1">중심극한정리란?</h2>
-<p><strong>표본 크기가 충분히 크면, 모집단 분포가 무엇이든 표본 평균의 분포는 정규분포에 근접</strong>한다는 이론이다.</p>
-<p><img alt="표본 크기 n이 커질수록 표본 평균의 분포가 정규분포로" src="assets/posts/central-limit-theorem/img1.webp" width="1600" height="516" loading="lazy">
-<em>그림 1. sample mean distribution (n이 커질수록)</em></p>
-<p>임의의 분포에서 X를 추출해도 표본 크기 $n$이 커질수록 표본 평균의 분포는 정규분포에 가까워진다. 이 표본 평균의 분포는 다음과 같이 표현된다.</p>
-<p>$$\bar{X} \sim N\!\left(\mu,\ \dfrac{\sigma^2}{n}\right)$$
-<em>수식 1. 표본 평균의 분포</em></p>
+
+<h2 id="_1">글의 목차</h2>
+<ol>
+<li>중심 극한 정리란 무엇인가?</li>
+<li>중심 극한 정리에 대한 실험 (Python으로 실행)</li>
+<li>중심 극한 정리의 의미 (사용 용도)</li>
+</ol>
+<h2 id="_2">중심 극한 정리란?</h2>
+<p>중심극한정리는 표본의 크기가 충분히 클 경우, 모집단의 분포가 무엇이든 간에 표본 평균의 분포가 정규분포에 근접하게 된다는 이론이다.</p>
+<p><img alt="sample mean distribution (n이 커질수록)" src="assets/posts/central-limit-theorem/img1.webp" width="1600" height="516" loading="lazy">
+<em>그림1. sample mean distribution (n이 커질수록)</em></p>
+<p>그림 1은 어떤(임의의) 분포에서 X 데이터를 추출하더라도 표본의 크기 n이 커질수록 표본 평균의 분포는 정규분포에 가까워진다는 것을 보여주고 있다. 이 표본 평균의 분포는 아래와 같이 표현된다.</p>
+<p>$$
+\bar{X} \sim N\!\left(\mu,\; \frac{\sigma^2}{n}\right)
+$$
+<em>수식1. 표본 평균의 분포</em></p>
+<p>샘플링 과정부터 세세하게 보도록 하자.</p>
 <p><img alt="모집단으로부터 샘플링" src="assets/posts/central-limit-theorem/img3.webp" width="1600" height="1047" loading="lazy">
-<em>그림 2. 모집단으로부터 샘플링</em></p>
-<p>샘플링 횟수를 $M$, 한 번에 뽑는 크기(표본 개수)를 $N$이라 하자. $M=500$으로 고정하고 $N=1, 30, 300, 3000$으로 늘려가며 5가지 분포에서 샘플링했다.</p>
+<em>그림2. 모집단으로부터 샘플링</em></p>
+<p>모집단으로부터 샘플링한 횟수를 M이라 하고, 한 번에 샘플링한 크기(표본 개수)를 N이라고 해보자.</p>
+<p>샘플링 횟수를 500으로 고정하고, 샘플링 크기를 N=1 부터 N=30, 300, 3000까지 늘려가며 다음의 5가지 분포에서 샘플링을 진행 했다.</p>
 <h3 id="5">실험한 분포 5가지</h3>
-<ol>
-<li>균일(Uniform)</li>
-<li>가우시안(Gaussian)</li>
+<ul>
+<li>균일(Uniform) 분포</li>
+<li>가우시안(Gaussian) 분포</li>
 <li>F 분포</li>
-<li>카이제곱(chi-squared)</li>
-<li>베르누이(Bernoulli)</li>
-</ol>
-<h2 id="clt">CLT 실험</h2>
-<p><img alt="M=500, N=1 일 때" src="assets/posts/central-limit-theorem/img4.webp" width="1600" height="902" loading="lazy">
-<em>그림 3. M=500, N=1</em></p>
-<p>$N=1$일 때 균일·F·베르누이는 가우시안과 크게 다르다. (카이제곱은 비교적 유사, 가우시안은 당연히 정규.)</p>
+<li>카이제곱(chi-squared) 분포</li>
+<li>베르누이(Bernoulli) 분포</li>
+</ul>
+<h2 id="central-limit-theorem">Central Limit Theorem 실험 진행</h2>
+<p><img alt="M이 500일때 N이 1일때" src="assets/posts/central-limit-theorem/img4.webp" width="1600" height="902" loading="lazy">
+<em>그림3. M이 500일때 N이 1일때</em></p>
+<p>그림 3에서 N=1일 때 균일 분포, F 분포, 베르누이 분포는 가우시안 분포의 형태와 크게 다름을 확인할 수 있었다. 반면, 카이제곱 분포는 가우시안 분포와 상당히 유사하다는 것을 알 수 있었다. (당연히 가우시안 분포는 정규분포를 따라야 한다.)</p>
 <p><img alt="N=30 (M=500)" src="assets/posts/central-limit-theorem/img5.webp" width="1600" height="912" loading="lazy">
-<em>그림 4. N=30 (M=500)</em></p>
-<p>$N=30$이 되자 균일·F·베르누이도 서서히 가우시안 형태로 변한다.</p>
-<blockquote>
-<p><strong>표본 크기 30의 의미</strong> — 표본 크기 30 이상이면 어떤 모양의 분포에서 샘플링해도 표본 평균은 정규분포로 수렴하는 경향을 보인다.</p>
-</blockquote>
+<em>그림4. N=30 (M=500)</em></p>
+<p>그림 4에서 N=30일 때 균일 분포, F 분포, 베르누이 분포는 가우시안 분포 또한 서서히 가우시안 분포와 점차 비슷한 형태로 변하고 있음을 확인할 수 있다.</p>
+<div class="callout">
+📌 <strong>중심 극한 정리에서 샘플링 크기 30의 의미</strong><br>
+표본의 크기가 30 이상일 때, 어떤 모양의 분포에서 샘플링하더라도 그 표본 평균은 정규분포에 수렴하는 경향을 보인다.
+</div>
+
 <p><img alt="N=300 (M=500)" src="assets/posts/central-limit-theorem/img6.webp" width="1600" height="912" loading="lazy">
-<em>그림 5. N=300 (M=500)</em></p>
+<em>그림5. N=300 (M=500)</em></p>
 <p><img alt="N=3000 (M=500)" src="assets/posts/central-limit-theorem/img7.webp" width="1600" height="901" loading="lazy">
-<em>그림 6. N=3000 (M=500)</em></p>
-<p>$N$이 더 커질수록 정규분포에 더 정교하게 맞아간다.</p>
-<h2 id="clt_1">그래서 CLT는 어디에 쓰이나?</h2>
-<p><img alt="중심극한정리의 용도" src="assets/posts/central-limit-theorem/img8.webp" width="1600" height="949" loading="lazy">
-<em>그림 7. 중심극한정리의 용도</em></p>
-<p>통계학의 중요한 목표 하나는 <strong>집단의 대표값인 평균을 추정</strong>하는 것이다. 실제로 관심 대상의 분포 형태는 모르는 경우가 대부분인데, <strong>CLT는 표본 크기 $N$이 커질수록 표본 평균이 정규분포에 가까워진다</strong>는 사실을 알려줘 분석에 큰 희망을 준다. $N$을 충분히 키우면 표본 평균이 정규분포를 따르고, 이를 통해 모수 추정·신뢰구간 설정이 가능하다. 단, 모집단 표준편차 $\sigma$를 모르면 정규분포 대신 <strong>t분포</strong>를 쓴다.</p>
+<em>그림6. N=3000 (M=500)</em></p>
+<p>위의 그림 5와 그림 6을 살펴보면, 샘플링 크기가 더 커짐에 따라 더욱 정규분포에 정교하게 맞아가고 있음을 확인 할 수 있었다.</p>
+<p>실험관련 py파일은 GitHub에 올려 놓았습니다. (필요하시면 그냥 돌려보시면 됩니다)</p>
+<h2 id="_3">그래서, 중심값 극한 정리가 어디에 어떻게 사용될 수 있는 것인가?</h2>
+<p>(가장 궁금하면서도 중요한 부분중에 하나 일 것이다)</p>
+<p><img alt="중심값 극한 정리의 용도" src="assets/posts/central-limit-theorem/img8.webp" width="1600" height="949" loading="lazy">
+<em>그림7. 중심값 극한 정리의 용도</em></p>
+<p>통계학에서 중요한 목표 중 하나는 특정 집단의 대표값인 평균을 추정하는 것이다. 이는 점추정이든 구간 추정이든, 평균에 대한 이해와 탐구가 핵심이다. 이러한 점에서 중심극한정리는 매우 중요하다. 실제로 우리가 조사하는 관심 대상의 분포 형태는 알 수 없는 경우가 대부분이다. 그러나 중심극한정리는 표본 크기 N이 커질수록 표본 평균의 분포가 정규분포에 가까워진다는 사실을 알려주며, 이는 분석 과정에서 큰 희망을 우리에게 준다. N을 충분히 키운다면 표본 평균이 정규분포를 따르게 되고, 이를 통해 모수 추정 또는 신뢰 구간 설정이 가능해진다. 다만, 모집단의 표준편차 σ를 모를 경우, 우리는 정규분포 대신 t분포를 사용하여 이러한 추정을 수행하게 된다.</p>
 <p><img alt="t분포와 z(정규)분포 사이의 관계" src="assets/posts/central-limit-theorem/img9.webp" width="1096" height="668" loading="lazy">
-<em>그림 8. t분포와 z(정규)분포 사이의 관계</em></p>
-<p>t분포는 표본 표준편차 기반이라 표본 정보만으로 그릴 수 있다. 자유도(df)가 커질수록 Z분포에 가까워져, df=30(약 $N=31$)이면 거의 같아진다. 그래서 평균 검정에서 $n&gt;30$이면 t분포·정규분포 어느 쪽을 써도 무방하고, 30 미만이면 비모수 검정이 권장된다.</p>
-<h2 id="_2">결론</h2>
-<p>$N$이 30 이상이면 표본 평균의 분포는 CLT에 의해 정규분포에 가까워지지만, 실제 Z분포를 알 수 없어 t분포를 쓴다. $N \geq 30$이면 t분포도 정규분포에 가까우므로 t분포를 써도 문제없다. 즉 표본이 작을 땐 정규성 가정이 중요하지만, 커질수록 CLT 덕에 t분포로도 충분하다.</p>
-<hr />
-<h2 id="_3">참고 문헌</h2>
+<em>그림8. t분포와 z(정규)분포 사이의 관계</em></p>
+<p>t-분포는 표본 표준편차를 기반으로 표본 오차를 표현하며, 이때 표본의 정보만으로 그래프를 그릴 수 있다. 위 그림 8에서 볼 수 있듯이, t-분포의 자유도(df)가 증가함에 따라 분포는 점차 Z-분포(정규분포)에 가까워진다. 예를 들어, df=30(약 N=31)일 때 Z-분포와 거의 유사해지는 것을 확인할 수 있다. 이런 이유로, 평균 검정에서 n&gt;30인 경우에는 t-분포나 정규분포를 사용해도 무방하다. 반면, 표본 크기가 30 미만인 경우 비모수 통계 검정을 사용하는 것이 좋다.</p>
+<p>정리하자면, 어떤 분포에서 샘플링하더라도 표본 크기가 30 이상이고 일정한 샘플링 횟수가 보장된다면, 표본 평균의 분포는 정규분포에 가까워진다. 이때 모집단의 표준편차를 알 수 없기 때문에, t-분포를 이용해 신뢰 구간을 통해 구간 추정을 할 수 있다.</p>
+<h2 id="_4">결론 (맺음말)</h2>
+<p>N이 30 이상일 때, 표본 평균의 분포는 중심값 극한 정리에 의해 정규분포에 가까워지지만, 실제 Z분포를 알 수 없기 때문에 t-분포를 이용하게 되다. N이 30 이상일 경우 t-분포도 정규분포에 가까워지므로, t-분포를 사용해도 큰 문제가 없다. 즉, 표본 크기가 작을 때는 정규성 가정이 중요하지만, 표본 크기가 커질수록 중심극한정리에 따라 표본 평균의 분포는 정규분포에 가까워지므로 t-분포를 이용해도 큰 차이가 없게 된다.</p>
+<h2 id="_5">참고 문헌</h2>
 <ol>
-<li>통계학 기본(입문) — 자유아카데미 (전공서적)</li>
+<li>통계학 기본(입문) 수업 - 자유아카데미 (전공서적)</li>
 </ol>
+<hr />
 <blockquote>
-<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/25" rel="nofollow noopener">taehyuklee.tistory.com/25</a></p>
+<p>📦 블로그 이전 글입니다. 원본: <a href="https://taehyuklee.tistory.com/25" rel="nofollow noopener">taehyuklee.tistory.com/25</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/t-test-python-scipy/">t검정 Python 구현 — SciPy로 일표본·독립표본(Student&#39;s·Welch&#39;s)·대응표본</a></li><li><a href="ko/t-test/">평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired)</a></li><li><a href="ko/confidence-interval/">신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해</a></li></ul></section>
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/hypothesis-testing/">가설검정 이해: 검정통계량, 귀무가설, 대립가설, p-value, 유의수준 (significance level), 임계값 (critical value) 개념 정리 (본질)</a></li><li><a href="ko/t-test-python-scipy/">평균치(t) 검정 t test 구현 [One, Two, Paired Samples t-test : Python feat. SciPy &amp; Statsmodels]</a></li><li><a href="ko/t-test/">평균치 검정 : t검정 [One, Two(Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]</a></li><li><a href="ko/confidence-interval/">신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fcentral-limit-theorem%2F&amp;text=%EC%A4%91%EC%8B%AC%EA%B7%B9%ED%95%9C%EC%A0%95%EB%A6%AC%28Central%20Limit%20Theorem%29%20%E2%80%94%20%EC%A0%95%EC%9D%98%C2%B7%EC%8B%A4%ED%97%98%C2%B7%EC%9A%A9%EB%8F%84" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fcentral-limit-theorem%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fcentral-limit-theorem%2F&amp;text=%EC%A4%91%EC%8B%AC%EA%B7%B9%ED%95%9C%20%EC%A0%95%EB%A6%AC%20%28Central%20Limit%20Theorem%29%20%3A%20%EC%A0%95%EC%9D%98%20%EB%B0%8F%20%EC%8B%A4%ED%97%98%20%26%20%EC%9A%A9%EB%8F%84" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fcentral-limit-theorem%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
 

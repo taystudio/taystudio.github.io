@@ -100,7 +100,7 @@
 <h2 id="approach-snowflake-among-four-options">Approach — Snowflake, among four options</h2>
 <p>The book presents four options: <strong>UUID, multi-master replication, ticket server, and Twitter Snowflake.</strong> Each has plenty to discuss, but this post covers the headline <strong>Twitter Snowflake</strong> technique.</p>
 <p>Snowflake structurally eliminates concurrency issues by <strong>embedding the elements that could cause them directly into the ID.</strong></p>
-<p><img alt="Twitter Snowflake's 64-bit ID layout — Sign·TimeStamp·DC ID·Server ID·Serial Num, 5 segments" src="assets/posts/snowflake-id-generator/img1.png" width="1724" height="278" loading="lazy">
+<p><img alt="Twitter Snowflake's 64-bit ID layout — Sign·TimeStamp·DC ID·Server ID·Serial Num, 5 segments" src="assets/posts/snowflake-id-generator/img1.webp" width="1724" height="278" loading="lazy">
 <em>Figure 1. Snowflake ID layout</em></p>
 <p>Snowflake is 64 bits, split into 5 segments. Let's go through each segment and follow how concurrency is solved through ID structure alone.</p>
 <ul>
@@ -214,7 +214,7 @@ decimal : -7422819801849786367
 </ol>
 <p>There's a lot to say about each component, but this post only introduces the test setup. I'll share the performance test results in a follow-up post.</p>
 <p>Of the above, <strong>installing and version-pinning Nginx</strong> is covered in detail in the post below.</p>
-<a class="tb-embed-card" href="en/nginx-install-ubuntu-centos/"><div class="tb-embed-thumb"><img src="assets/posts/nginx-install-ubuntu-centos/cover.webp" alt="Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall)" loading="lazy" width="1536" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Nginx Install Guide — Ubuntu / CentOS (Specific Versions, Config Structure, Firewall)</div><div class="tb-embed-excerpt">Install Nginx on a cloud server like AWS EC2 — version-specific installs on Ubuntu (apt) and CentOS (yum), the /etc/nginx config structure (sites-available/enabled), and firewalls (UFW, firewalld, AWS security groups) all in one.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<a class="tb-embed-card" href="en/nginx-install-ubuntu-centos/"><div class="tb-embed-thumb"><img src="assets/posts/nginx-install-ubuntu-centos/cover.webp" alt="Nginx Specific-Version &amp; Latest Install Guide: Ubuntu / CentOS, Fully Organized" loading="lazy" width="1536" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Nginx Specific-Version &amp; Latest Install Guide: Ubuntu / CentOS, Fully Organized</div><div class="tb-embed-excerpt">Install Nginx on a cloud server like AWS EC2 — version-specific installs on Ubuntu (apt) and CentOS (yum), the /etc/nginx config structure (sites-available/enabled), and firewalls (UFW, firewalld, AWS security groups) all in one.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
 <hr />
 <blockquote>
 <p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/10" rel="nofollow noopener">taehyuklee.tistory.com/10</a></p>

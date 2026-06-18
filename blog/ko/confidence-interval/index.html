@@ -100,20 +100,20 @@
 </ol>
 <h3 id="21">2.1) 오차 범위를 어떻게 설정할까?</h3>
 <p>추정하려는 모수(모평균 $\mu$)에서 출발하자. 모평균의 분포를 정규분포로 가정(정규성 검정 통과)하고 그려본다.</p>
-<p><img alt="x축을 표본평균으로 하는 모분포" src="assets/posts/confidence-interval/img1.png" width="868" height="417" loading="lazy">
+<p><img alt="x축을 표본평균으로 하는 모분포" src="assets/posts/confidence-interval/img1.webp" width="868" height="417" loading="lazy">
 <em>그림 1. x축을 표본평균으로 하는 모분포</em></p>
 <p>추정 목표는 $\mu$(모평균)다. 핵심 아이디어:</p>
 <blockquote>
 <p>이 분포에서 발견될 수 있는 <strong>95%의 값들이 모평균을 포함</strong>하도록 하자. 즉 그림1의 Interval 1 안에서 표본평균이 발견되면 된다.</p>
 </blockquote>
-<p><img alt="모집단을 포함하는 표본으로부터의 범위" src="assets/posts/confidence-interval/img2.png" width="1125" height="508" loading="lazy">
+<p><img alt="모집단을 포함하는 표본으로부터의 범위" src="assets/posts/confidence-interval/img2.webp" width="1125" height="508" loading="lazy">
 <em>그림 2. 모집단을 포함하고 있는 표본으로부터의 범위</em></p>
 <blockquote>
 <p><strong>표기법</strong> — $\bar{X}_n$ 은 $n$번째 표본평균(예: $\bar{X}_1$, $\bar{X}_2$), $d_{\bar{X}_n}$(줄여서 $d_n$)은 평균에서 경계까지의 거리(예: $d_{\bar{X}_1} = d_1$).</p>
 </blockquote>
 <h3 id="22">2.2) 모집단을 포함하는 범위 설정</h3>
 <p>그림 1에서 모평균으로부터 거리 $2d$(95% 발견 확률)의 경계값을 잡고, 왼쪽을 $\bar{X}_1$, 오른쪽을 $\bar{X}_2$로 둔다. 모평균을 포함하려면 <strong>$d = d_1 = d_2$</strong> 여야 한다. 그러면 $\bar{X}_1$·$\bar{X}_2$ 사이 어떤 값이어도 모평균이 포함된다.</p>
-<p><img alt="경계 내외에서 발견된 표본의 의미" src="assets/posts/confidence-interval/img4.png" width="1154" height="501" loading="lazy">
+<p><img alt="경계 내외에서 발견된 표본의 의미" src="assets/posts/confidence-interval/img4.webp" width="1154" height="501" loading="lazy">
 <em>그림 3. 경계 내외에서 발견된 표본의 의미</em></p>
 <p>그림 3에서 경계 내(95% 이내)에서 발견된 $\bar{X}_3$은 모평균을 포함하지만, 5% 구간에서 발견된 $\bar{X}_4$는 모평균을 포함하지 않는다. (z분포 기준이며, 표본으로 하면 t분포로 구간추정한다.)</p>
 <h3 id="_4">용어 정의</h3>
@@ -159,7 +159,7 @@
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/t-test-python-scipy/">t검정 Python 구현 — SciPy로 일표본·독립표본(Student&#39;s·Welch&#39;s)·대응표본</a></li><li><a href="ko/central-limit-theorem/">중심극한정리(Central Limit Theorem) — 정의·실험·용도</a></li><li><a href="ko/t-test/">평균치 검정 — t검정 (One / Two: Student&#39;s·Welch&#39;s / Paired)</a></li></ul></section>
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/hypothesis-testing/">가설검정 이해: 검정통계량, 귀무가설, 대립가설, p-value, 유의수준 (significance level), 임계값 (critical value) 개념 정리 (본질)</a></li><li><a href="ko/t-test-python-scipy/">평균치(t) 검정 t test 구현 [One, Two, Paired Samples t-test : Python feat. SciPy &amp; Statsmodels]</a></li><li><a href="ko/central-limit-theorem/">중심극한 정리 (Central Limit Theorem) : 정의 및 실험 &amp; 용도</a></li><li><a href="ko/t-test/">평균치 검정 : t검정 [One, Two(Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]</a></li></ul></section>
 
       <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fconfidence-interval%2F&amp;text=%EC%8B%A0%EB%A2%B0%EA%B5%AC%EA%B0%84%28Confidence%20Interval%29%20%E2%80%94%20%EC%9D%98%EB%AF%B8%C2%B7%EC%A7%81%EA%B4%80%2C%20%EA%B7%B8%EB%A6%AC%EA%B3%A0%20%ED%9D%94%ED%95%9C%20%EC%98%A4%ED%95%B4" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Fconfidence-interval%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
 

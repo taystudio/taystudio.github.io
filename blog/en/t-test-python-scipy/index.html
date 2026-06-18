@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student&#39;s·Welch&#39;s), Paired · Tay Blog</title>
+<title>Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy &amp; Statsmodels] · Tay Blog</title>
 <meta name="description" content="Turning the t-test theory from the previous post into SciPy code — ttest_1samp, ttest_ind (equal_var toggle), ttest_rel, with axis options. Verifying the hand-computed t and p match SciPy.">
 <link rel="canonical" href="https://taystudios.com/blog/en/t-test-python-scipy/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/t-test-python-scipy/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/t-test-python-scipy/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/t-test-python-scipy/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student&#39;s·Welch&#39;s), Paired · Tay Blog">
+<meta property="og:title" content="Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy &amp; Statsmodels] · Tay Blog">
 <meta property="og:description" content="Turning the t-test theory from the previous post into SciPy code — ttest_1samp, ttest_ind (equal_var toggle), ttest_rel, with axis options. Verifying the hand-computed t and p match SciPy.">
 <meta property="og:url" content="https://taystudios.com/blog/en/t-test-python-scipy/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/t-test/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/t-test/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student's·Welch's), Paired", "description": "Turning the t-test theory from the previous post into SciPy code — ttest_1samp, ttest_ind (equal_var toggle), ttest_rel, with axis options. Verifying the hand-computed t and p match SciPy.", "datePublished": "2024-11-05T00:00:00+09:00", "dateModified": "2024-11-05T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/t-test-python-scipy/"}, "image": ["https://taystudios.com/blog/assets/posts/t-test/cover.webp"], "keywords": "statistics, t-test, Python, SciPy, statsmodels, mean-test"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student's·Welch's), Paired", "item": "https://taystudios.com/blog/en/t-test-python-scipy/"}]}</script><meta property="article:published_time" content="2024-11-05T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-05T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="t-test"><meta property="article:tag" content="Python"><meta property="article:tag" content="SciPy"><meta property="article:tag" content="statsmodels"><meta property="article:tag" content="mean-test">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy & Statsmodels]", "description": "Turning the t-test theory from the previous post into SciPy code — ttest_1samp, ttest_ind (equal_var toggle), ttest_rel, with axis options. Verifying the hand-computed t and p match SciPy.", "datePublished": "2024-11-05T00:00:00+09:00", "dateModified": "2024-11-05T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/t-test-python-scipy/"}, "image": ["https://taystudios.com/blog/assets/posts/t-test/cover.webp"], "keywords": "statistics, t-test, Python, SciPy, statsmodels, mean-test"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy & Statsmodels]", "item": "https://taystudios.com/blog/en/t-test-python-scipy/"}]}</script><meta property="article:published_time" content="2024-11-05T00:00:00+09:00"><meta property="article:modified_time" content="2024-11-05T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="t-test"><meta property="article:tag" content="Python"><meta property="article:tag" content="SciPy"><meta property="article:tag" content="statsmodels"><meta property="article:tag" content="mean-test">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student&#39;s·Welch&#39;s), Paired</span></nav>
-        <h1 class="tb-article-title">Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student&#39;s·Welch&#39;s), Paired</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy &amp; Statsmodels]</span></nav>
+        <h1 class="tb-article-title">Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy &amp; Statsmodels]</h1>
         <div class="tb-article-meta">
           <time>2024.11.05</time>
           <span>·</span><span>#statistics #t-test #Python #SciPy #statsmodels #mean-test</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#1-python-statistics-libraries">1. Python statistics libraries</a></li><li class="tb-toc-h3"><a href="#scipy">SciPy</a></li><li class="tb-toc-h3"><a href="#statsmodels">Statsmodels</a></li><li class="tb-toc-h2"><a href="#2-one-sample-t-test-statsttest_1samp">2. One-sample t-test — stats.ttest_1samp</a></li><li class="tb-toc-h3"><a href="#axis-option-on-a-2d-array">axis option on a 2D array</a></li><li class="tb-toc-h2"><a href="#3-two-sample-t-test-statsttest_ind">3. Two-sample t-test — stats.ttest_ind</a></li><li class="tb-toc-h3"><a href="#31-students-t-test-equal-variance-assumption-ok">3.1 Student's t-test — equal-variance assumption OK</a></li><li class="tb-toc-h3"><a href="#axis-on-2d-arrays">axis on 2D arrays</a></li><li class="tb-toc-h3"><a href="#32-welchs-t-test-unequal-variances">3.2 Welch's t-test — unequal variances</a></li><li class="tb-toc-h2"><a href="#4-paired-samples-t-test-statsttest_rel">4. Paired-samples t-test — stats.ttest_rel</a></li><li class="tb-toc-h2"><a href="#wrap-up">Wrap-up</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#table-of-contents">Table of contents</a></li><li class="tb-toc-h2"><a href="#1-statistics-libraries-in-the-python-ecosystem">1. Statistics libraries in the Python ecosystem</a></li><li class="tb-toc-h2"><a href="#2-the-difference-between-scipy-and-statsmodels">2. The difference between SciPy and Statsmodels</a></li><li class="tb-toc-h2"><a href="#3-mean-tests-t-test-using-scipy">3. Mean tests (t-test) using SciPy</a></li><li class="tb-toc-h3"><a href="#31-one-sample-t-test">3.1 One sample t-test</a></li><li class="tb-toc-h3"><a href="#32-two-samples-t-test">3.2 Two samples t-test</a></li><li class="tb-toc-h4"><a href="#321-students-t-test">3.2.1 Student's t-test</a></li><li class="tb-toc-h4"><a href="#322-welchs-t-test">3.2.2 Welch's t-test</a></li><li class="tb-toc-h3"><a href="#33-paired-samples-t-test">3.3 Paired Samples t-test</a></li><li class="tb-toc-h2"><a href="#conclusion">Conclusion</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -80,256 +80,358 @@
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
-<p>The theory is in the previous post — this one turns it into <strong>SciPy code for all three t-tests</strong>. Checking that the hand-computed t and p match SciPy's output makes the concepts stick.</p>
-<a class="tb-embed-card" href="en/t-test/"><div class="tb-embed-thumb"><img src="assets/posts/t-test/cover.webp" alt="Testing Means — the t-test (One / Two: Student&#39;s·Welch&#39;s / Paired)" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Testing Means — the t-test (One / Two: Student&#39;s·Welch&#39;s / Paired)</div><div class="tb-embed-excerpt">Is a difference in two group means a real difference or just variability — the rationale for the t-test, its assumptions (normality, equal variance), and worked calculations for each type.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
-<h2 id="1-python-statistics-libraries">1. Python statistics libraries</h2>
-<p>The two main statistics libraries in the Python ecosystem are <strong>SciPy</strong> and <strong>Statsmodels</strong>. (For machine learning, it's <strong>scikit-learn</strong>.)</p>
-<h3 id="scipy">SciPy</h3>
-<ul>
-<li>Optimized for <strong>quickly producing p-values and basic statistics</strong>.</li>
-<li>Good for large datasets or fast decisions.</li>
-<li>Install: <code>pip install scipy</code></li>
-</ul>
-<h3 id="statsmodels">Statsmodels</h3>
-<ul>
-<li>Provides extensive features for <strong>statistical model diagnosis and evaluation</strong>.</li>
-<li>Detailed statistics for each variable (t-statistic), the model (F-statistic), R², and more.</li>
-<li>Install: <code>pip install statsmodels</code></li>
-</ul>
-<p>This post implements all three t-tests with <strong>SciPy</strong>.</p>
-<h2 id="2-one-sample-t-test-statsttest_1samp">2. One-sample t-test — <code>stats.ttest_1samp</code></h2>
-<p><strong>Example</strong> — Does the blood pressure of 5 patients after taking a drug differ from the usual mean (120)?</p>
+
+<h2 id="table-of-contents">Table of contents</h2>
+<ol>
+<li>Statistics libraries in the Python ecosystem</li>
+<li>The difference between SciPy and Statsmodels</li>
+<li>How to do mean tests (t-test) in SciPy (feat. implementing the theory-post examples as-is)
+   - One sample t-test
+   - Two samples t-test (Student's &amp; Welch's t-test)
+   - Paired samples t-test</li>
+</ol>
+<p>In this post I'll perform mean tests directly in Python. If you need to understand the theory of mean tests, please read the previous post first.</p>
+<a class="tb-embed-card" href="en/t-test/"><div class="tb-embed-thumb"><img src="assets/posts/t-test/cover.webp" alt="Testing Means: the t-test [One, Two (Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Testing Means: the t-test [One, Two (Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]</div><div class="tb-embed-excerpt">Is a difference in two group means a real difference or just variability — the rationale for the t-test, its assumptions (normality, equal variance), and worked calculations for each type.</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<h2 id="1-statistics-libraries-in-the-python-ecosystem">1. Statistics libraries in the Python ecosystem</h2>
+<p>In the Python ecosystem, the representative libraries for statistical analysis are SciPy and statsmodels, and in machine learning scikit-learn is widely used. This time I plan to mainly use SciPy as the statistics library, but I'll mention the characteristics of statsmodels as well.</p>
+<h2 id="2-the-difference-between-scipy-and-statsmodels">2. The difference between SciPy and Statsmodels</h2>
+<pre class="codehilite"><code class="language-bash"># Python Package Manager
+pip install scipy
+pip install statsmodels
+</code></pre>
+
+<p>Having used both libraries, I can summarize as follows.</p>
+<p><strong>SciPy</strong> : optimized for quickly producing p-values and basic statistics; it's often used for simple statistical computations when processing large data or when a fast judgment is needed.</p>
+<p>Since the t-test results don't differ much, I'll show the output difference using linear regression as an example.</p>
+<pre class="codehilite"><code class="language-text"># SciPy output
+Slope: -1.7
+Intercept: 86.16666666666667
+R-squared: 0.12690281030444972
+P-value: 0.19248793653349897
+</code></pre>
+
+<p><strong>Statsmodels</strong> : provides various features needed for diagnosing and evaluating statistical models. For example, after a linear regression it provides detailed statistics including each variable's test statistic (t-value), the model's test statistic (F-value), and model performance metrics (the coefficient of determination, R-squared). Through these various indicators, it can be used to interpret and validate statistical models.</p>
+<p>Running a linear regression with Statsmodels gives the following output.</p>
+<pre class="codehilite"><code class="language-text"># Statsmodels output
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:                 scores   R-squared:                       0.127
+Model:                            OLS   Adj. R-squared:                  0.060
+Method:                 Least Squares   F-statistic:                     1.890
+Date:                Mon, 04 Nov 2024   Prob (F-statistic):              0.192
+Time:                        00:20:44   Log-Likelihood:                -40.667
+No. Observations:                  15   AIC:                             85.33
+Df Residuals:                      13   BIC:                             86.75
+Df Model:                           1
+Covariance Type:            nonrobust
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const         86.1667      1.597     53.969      0.000      82.717      89.616
+group_code    -1.7000      1.237     -1.375      0.192      -4.372       0.972
+==============================================================================
+Omnibus:                        1.370   Durbin-Watson:                   0.739
+Prob(Omnibus):                  0.504   Jarque-Bera (JB):                0.911
+Skew:                          -0.272   Prob(JB):                        0.634
+Kurtosis:                       1.922   Cond. No.                         2.92
+==============================================================================
+</code></pre>
+
+<p>To summarize: if you need a fast judgment and want to quickly produce p-values and test statistics, using SciPy seems suitable. On the other hand, if you need more precise validation and model diagnostics, I think using Statsmodels is the way to go.</p>
+<h2 id="3-mean-tests-t-test-using-scipy">3. Mean tests (t-test) using SciPy</h2>
+<p>To keep consistency in the examples, I'll bring over the examples from the t-test theory post exactly. Please check whether the test statistic (t-value) and p-value I computed by hand earlier match.</p>
+<h3 id="31-one-sample-t-test">3.1 One sample t-test</h3>
+<p>[Table1. Patient number &amp; blood pressure measured after drug administration]</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
 <th>Patient</th>
-<th>Blood pressure after dose (mmHg)</th>
+<th>Blood pressure after dosing (mm Hg)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>P1</td>
+<td>Patient 1</td>
 <td>118</td>
 </tr>
 <tr>
-<td>P2</td>
+<td>Patient 2</td>
 <td>121</td>
 </tr>
 <tr>
-<td>P3</td>
+<td>Patient 3</td>
 <td>119</td>
 </tr>
 <tr>
-<td>P4</td>
+<td>Patient 4</td>
 <td>117</td>
 </tr>
 <tr>
-<td>P5</td>
+<td>Patient 5</td>
 <td>120</td>
 </tr>
 </tbody>
 </table></div>
-<pre class="codehilite"><code class="language-python">from scipy import stats
+<p>Test whether this group's mean blood pressure is significantly different from the baseline (120 mm Hg).</p>
+<pre class="codehilite"><code class="language-python"># Use the ttest_1samp method in scipy.stats
+from scipy import stats
 import numpy as np
 
 x1 = np.array([118, 121, 119, 117, 120])
-mu0 = 120.0  # population mean to compare against
+mu0 = 120.0  # the mean value to compare against
+result = stats.ttest_1samp(x1, popmean=mu0, alternative=alternative, axis=0)
 
-result = stats.ttest_1samp(x1, popmean=mu0, alternative='two-sided', axis=0)
-# TtestResult(statistic=-1.4142135623730951, pvalue=0.23019964108049873, df=4)
+# Result (t test statistic, p-value)
+# TtestResult(statistic=np.float64(-1.414213562373095), pvalue=np.float64(0.23019964108049873), df=np.int64(4))
 </code></pre>
 
-<p><strong>Key arguments</strong></p>
+<p>For the one-sample t-test, it's in scipy.stats. The method name is ttest_1samp. (per the official docs)</p>
+<p><strong>Positional argument</strong></p>
 <ul>
-<li><code>x1</code>: the sample to test (numpy array recommended)</li>
-<li><code>popmean</code>: the population mean to compare against</li>
-<li><code>alternative</code>: <code>'two-sided'</code> (default) / <code>'less'</code> / <code>'greater'</code></li>
-<li><code>axis</code>: <code>0</code> (columns, default) / <code>1</code> (rows) / <code>None</code> (flatten)</li>
+<li>First argument (x1): you put the sample you want to test here. A Python list is fine, and slicing from Pandas is fine too. Internally it seems to convert to numpy. (per the official docs) Preferably, pass numpy.</li>
 </ul>
-<h3 id="axis-option-on-a-2d-array">axis option on a 2D array</h3>
-<pre class="codehilite"><code class="language-python">arr = np.array([[1.5, 2.3, 3.7],
+<p><strong>Keyword arguments</strong> (can also be used positionally if you follow the official-docs order)</p>
+<p><code>popmean = {popmean arg}</code> — I arbitrarily named it 'mu0', but here you put the mean value you expect. In the example above I put '120'.</p>
+<p><code>alternative = {alternative arg : str type}</code></p>
+<ul>
+<li>"two-sided" : two-sided test : null hypothesis : sample mean != ref_avg (reference mean) (default)</li>
+<li>"less" : one-tailed (left) : null hypothesis : sample mean &lt; ref_avg (reference mean)</li>
+<li>"greater" : one-tailed (right) : null hypothesis : sample mean &gt; ref_avg (reference mean)</li>
+</ul>
+<p><code>axis = {axis arg : int type}</code></p>
+<ul>
+<li>0 : if set to 0, it reads by columns (default)</li>
+<li>1 : if set to 1, it reads by rows (used for a 2D matrix)</li>
+<li>None : raveled (flattened) — flattens 2D into 1D before the test.</li>
+</ul>
+<pre class="codehilite"><code class="language-python">from scipy import stats
+import numpy as np
+
+# Example of results depending on the axis argument
+arr = np.array([[1.5, 2.3, 3.7],
                 [4.1, 5.2, 6.8],
                 [7.4, 8.5, 9.1],
                 [10.2, 11.4, 12.9],
                 [13.3, 14.1, 15.6]])
+
 mu0 = 5
 
-# axis=0 — column-wise (each column as a sample)
-t_stat, p_val = stats.ttest_1samp(arr, popmean=mu0, axis=0)
-# T-statistic: [1.0946 1.5652 2.1805]
-# P-value:     [0.3352 0.1926 0.0947]
-
-# axis=1 — row-wise (each row as a sample)
-t_stat, p_val = stats.ttest_1samp(arr, popmean=mu0, axis=1)
-# T-statistic: [-3.8886  0.4678  6.6965  8.3224 13.8451]
-# P-value:     [ 0.0602  0.6860  0.0216  0.0141  0.0052]
-
-# axis=None — flatten (whole array as one sample)
-t_stat, p_val = stats.ttest_1samp(arr, popmean=mu0, axis=None)
-# T-statistic: 2.9475
-# P-value:     0.0106
+'''
+For reference, the example above just printed the result object,
+but you can unpack and return it split into the test statistic and p-value.
+'''
+t_stat, p_value = stats.ttest_1samp(arr, popmean=mu0, axis=0)
+t_stat, p_value = stats.ttest_1samp(arr, popmean=mu0, axis=1)
+t_stat_axis1, p_value_axis1 = stats.ttest_1samp(arr, popmean=mu, axis=None)
 </code></pre>
 
-<h2 id="3-two-sample-t-test-statsttest_ind">3. Two-sample t-test — <code>stats.ttest_ind</code></h2>
-<p><strong>Example</strong> — Compare blood pressure between drug and no-drug groups.</p>
+<pre class="codehilite"><code class="language-text"># result when axis = 0 (you can confirm 3 values come out, by column)
+T-statistic: [1.09461774 1.56522962 2.1804585 ]
+P-value: [0.33517446 0.19258282 0.09469596]
+
+# result when axis = 1 (you can confirm 5 values come out, by row)
+T-statistic: [-3.88856886  0.46776758  6.6964953   8.3223972  13.84510894]
+P-value: [0.06022121 0.68597053 0.02158075 0.01413253 0.00517637]
+
+# result when axis = None (everything is made 1D, so one value comes out)
+T-statistic: 2.947475125290377
+P-value: 0.010598724800782978
+</code></pre>
+
+<p>I checked how the result changes depending on the axis option in the code snippet above.</p>
+<p>Besides that, there's nan_policy and the like for how to handle NaN values, but this part isn't really related to statistics, so I'll skip it.</p>
+<h3 id="32-two-samples-t-test">3.2 Two samples t-test</h3>
+<p>[Table2. Patient number, group classification &amp; blood pressure measured by dosing status]</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
 <th>Patient</th>
 <th>Group</th>
-<th>BP after dose</th>
+<th>Blood pressure after dosing (mm Hg)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>P1</td>
-<td>drug</td>
+<td>Patient 1</td>
+<td>Dosed</td>
 <td>115</td>
 </tr>
 <tr>
-<td>P2</td>
-<td>drug</td>
+<td>Patient 2</td>
+<td>Dosed</td>
 <td>118</td>
 </tr>
 <tr>
-<td>P3</td>
-<td>drug</td>
+<td>Patient 3</td>
+<td>Dosed</td>
 <td>116</td>
 </tr>
 <tr>
-<td>P4</td>
-<td>no drug</td>
+<td>Patient 4</td>
+<td>Not dosed</td>
 <td>122</td>
 </tr>
 <tr>
-<td>P5</td>
-<td>no drug</td>
+<td>Patient 5</td>
+<td>Not dosed</td>
 <td>124</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="31-students-t-test-equal-variance-assumption-ok">3.1 Student's t-test — equal-variance assumption OK</h3>
+<p>Test whether the mean blood pressure of the dosed group and the not-dosed group is significantly different. (The two groups' sample sizes don't have to be equal.)</p>
+<h4 id="321-students-t-test">3.2.1 Student's t-test</h4>
 <pre class="codehilite"><code class="language-python">from scipy import stats
 import numpy as np
 
-x1 = np.array([115, 118, 116])  # drug
-x2 = np.array([122, 124])       # no drug
+x1 = np.array([115, 118, 116])  # dosed group
+x2 = np.array([122, 124])       # not-dosed group
 
-t_stat, p_val = stats.ttest_ind(x1, x2, equal_var=True, alternative='two-sided')
+t_stat, p_val = stats.ttest_ind(x1, x2, equal_var=True, alternative=alternative)
+
+# Result - Student's t-test, when equal_var = True
 # T-statistic: -4.898979485566359
-# P-value:      0.016276603459428517
+# P-value: 0.016276603459428517
 </code></pre>
 
-<p><strong>Key arguments</strong></p>
+<p>For the independent-samples t-test, it's in scipy.stats; the method name is ttest_ind. (official docs)</p>
+<p><strong>Positional arguments</strong></p>
 <ul>
-<li><code>x1</code>, <code>x2</code>: the two samples</li>
-<li><code>equal_var</code>:</li>
-<li><code>True</code>: equal-variance assumption holds → <strong>Student's t-test</strong></li>
-<li><code>False</code>: equal-variance assumption fails → automatically switches to <strong>Welch's t-test</strong></li>
-<li><code>alternative</code> and <code>axis</code> are the same as <code>ttest_1samp</code></li>
+<li>First argument (x1) / second argument (x2) : these correspond to the first sample and the second sample, and you can think of them as corresponding to the numerator term of the test statistic, E[X1] - E[X2].</li>
 </ul>
-<h3 id="axis-on-2d-arrays">axis on 2D arrays</h3>
-<pre class="codehilite"><code class="language-python">data  = np.array([[115, 118, 116],
-                  [122, 124, 123]])
+<p><strong>Keyword arguments</strong> (can also be used positionally if you follow the official-docs order)</p>
+<p><code>eqaul_var = {equal_var arg : bool type}</code></p>
+<ul>
+<li>"True" : the equal-variance assumption for the X1, X2 sample groups is satisfied.</li>
+<li>"False" : the equal-variance assumption for the X1, X2 sample groups is not satisfied. (automatically goes to Welch's t-test)</li>
+</ul>
+<p><code>alternative = {alternative arg : str type}</code></p>
+<ul>
+<li>"two-sided" : two-sided test : null hypothesis : sample 1 mean != sample 2 mean (this arg is the default)</li>
+<li>"less" : one-tailed (left) : null hypothesis : sample 1 mean &lt; sample 2 mean</li>
+<li>"greater" : one-tailed (right) : null hypothesis : sample 1 mean &gt; sample 2 mean</li>
+</ul>
+<p><code>axis = {axis arg : int type}</code></p>
+<ul>
+<li>0 : if set to 0, it reads by columns (default)</li>
+<li>1 : if set to 1, it reads by rows (used for a 2D matrix)</li>
+<li>None : converts 2D to 1D before the test. (omitted since done above)</li>
+</ul>
+<pre class="codehilite"><code class="language-python">data = np.array([[115, 118, 116],
+                 [122, 124, 123]])
+
 data1 = np.array([[231, 123, 132],
                   [223, 321, 421]])
 
-# axis=0 — column-wise
-t_stat, p_val = stats.ttest_ind(data, data1, axis=0, equal_var=True)
-# T-statistic: [-20.4136 -1.0197 -1.0862]
-# P-value:     [  0.0024  0.4151  0.3909]
+# 1. axis=0 (by column)
+t_stat_axis0, p_val_axis0 = stats.ttest_ind(data, data1, axis=0, equal_var=True)
 
-# axis=1 — row-wise
-t_stat, p_val = stats.ttest_ind(data, data1, axis=1, equal_var=True)
-# T-statistic: [-1.3195 -3.4755]
-# P-value:     [ 0.2575  0.0255]
+# 2. axis=1 (by row)
+t_stat_axis1, p_val_axis1 = stats.ttest_ind(data, data1, axis=1, equal_var=True)
 </code></pre>
 
-<h3 id="32-welchs-t-test-unequal-variances">3.2 Welch's t-test — unequal variances</h3>
-<pre class="codehilite"><code class="language-python">t_stat, p_val = stats.ttest_ind(x1, x2, equal_var=False, alternative='two-sided')
-# T-statistic: -5.0000
-# P-value:      0.02505
+<pre class="codehilite"><code class="language-text"># results by axis
+# axis=0
+T-statistic: [-20.41364284  -1.01973393  -1.08618662]
+P-value: [0.00239111 0.41512875 0.39087777]
+
+# axis=1
+T-statistic: [-1.31950545 -3.47552886]
+P-value: [0.25745718 0.02545524]
 </code></pre>
 
-<p>Same method, just toggle <code>equal_var=False</code> for Welch's. Use this when the equal-variance assumption doesn't hold.</p>
-<h2 id="4-paired-samples-t-test-statsttest_rel">4. Paired-samples t-test — <code>stats.ttest_rel</code></h2>
-<p><strong>Example</strong> — Same patients, blood pressure before vs. after. Paired data.</p>
+<h4 id="322-welchs-t-test">3.2.2 Welch's t-test</h4>
+<pre class="codehilite"><code class="language-python">from scipy import stats
+import numpy as np
+
+x1 = np.array([115, 118, 116])  # dosed group
+x2 = np.array([122, 124])       # not-dosed group
+
+t_stat, p_val = stats.ttest_ind(x1, x2, equal_var=False, alternative=alternative)
+
+# Result - Welch's t-test, when equal_var = False
+# T-statistic: -5.0000000000000036
+# P-value: 0.025054956171761823
+</code></pre>
+
+<p>The method is the same as Student's t-test, but by setting the equal_var option to False you can use this test technique. (when the equal-variance assumption isn't satisfied)</p>
+<p>The remaining arguments are the same as Student's t-test, so refer to the above.</p>
+<h3 id="33-paired-samples-t-test">3.3 Paired Samples t-test</h3>
+<p>[Table3. Patient number &amp; blood pressure before/after drug administration]</p>
 <div class="tb-table-wrap"><table>
 <thead>
 <tr>
 <th>Patient</th>
-<th>Before</th>
-<th>After</th>
+<th>Before dosing (mm Hg)</th>
+<th>After dosing (mm Hg)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>P1</td>
+<td>Patient 1</td>
 <td>130</td>
 <td>120</td>
 </tr>
 <tr>
-<td>P2</td>
+<td>Patient 2</td>
 <td>128</td>
 <td>119</td>
 </tr>
 <tr>
-<td>P3</td>
+<td>Patient 3</td>
 <td>135</td>
 <td>125</td>
 </tr>
 <tr>
-<td>P4</td>
+<td>Patient 4</td>
 <td>132</td>
 <td>123</td>
 </tr>
 <tr>
-<td>P5</td>
+<td>Patient 5</td>
 <td>129</td>
 <td>121</td>
 </tr>
 </tbody>
 </table></div>
-<pre class="codehilite"><code class="language-python">import numpy as np
-from scipy import stats
+<p>Test whether the mean blood-pressure difference before and after dosing significantly decreased.</p>
+<p>In the theory post we checked whether they're significantly the same, but this time let's test whether it significantly decreased.</p>
+<pre class="codehilite"><code class="language-python"># blood-pressure data before dosing (data)
+data = np.array([130, 128, 135, 132, 129])
 
-before = np.array([130, 128, 135, 132, 129])
-after  = np.array([120, 119, 125, 123, 121])
+# blood-pressure data after dosing (data1)
+data1 = np.array([120, 119, 125, 123, 121])
 
-t_stat, p_val = stats.ttest_rel(before, after, alternative='less')
+# perform the paired-samples t-test
+t_stat, p_val = stats.ttest_rel(data, data1, alternative='less')  # 'less' tests whether it decreased
+
+# Result
 # T-statistic: 24.58803425594304
-# P-value:      0.9999918819424217
+# P-value: 0.9999918819424217
 </code></pre>
 
-<blockquote>
-<p><code>alternative='less'</code> here sets "<strong>before &lt; after</strong>" as the alternative hypothesis. Since <code>before</code> is actually larger, p is near 1. If you want to test "is BP lower after the dose," call it the other way: <code>stats.ttest_rel(after, before, alternative='less')</code> — then p comes out tiny.</p>
-</blockquote>
-<p><strong>Caveat</strong>: the two arrays must have <strong>the same length</strong>. If not:</p>
-<pre class="codehilite"><code class="language-text">ValueError: unequal length arrays
-</code></pre>
+<p>For the paired-samples t-test, it's in scipy.stats; the method name is ttest_rel. (official docs)</p>
+<p>Taking the significance level as 0.05, since it's already 0.9999, we accept the null hypothesis. That is, we can see that the blood pressure significantly decreased due to the drug effect. The remaining arguments like axis and alternative were explained above, so I'll skip them.</p>
+<div class="callout">
+⚠️ However, for the Paired Samples t-test, the number of pairs on both sides must match. If they don't match, a ValueError occurs. (<code>ValueError: unequal length arrays</code>)
+</div>
 
-<h2 id="wrap-up">Wrap-up</h2>
-<p>With SciPy's three functions, each t-test is a one-liner:</p>
-<ul>
-<li>One-sample → <code>stats.ttest_1samp(x, popmean)</code></li>
-<li>Two-sample → <code>stats.ttest_ind(x1, x2, equal_var=True/False)</code> — Student's vs. Welch's</li>
-<li>Paired → <code>stats.ttest_rel(before, after)</code></li>
-</ul>
-<p>Just keep <code>alternative</code> (two-sided / one-sided) and <code>axis</code> (1D/2D) in mind. Compare the output against the hand calculation from the theory post — t and p match.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>This time I looked at how to implement the mean tests we explored earlier in theory, using the SciPy library. Comparing the t-statistics and p-values I computed by hand in the theory part with the values implemented in Python, I could see that they matched. I hope you'll both compute these by hand and implement them yourself.</p>
 <h2 id="references">References</h2>
-<ul>
-<li><a href="https://scipy.org/">SciPy</a> · <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_1samp.html"><code>ttest_1samp</code></a> · <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html"><code>ttest_ind</code></a> · <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_rel.html"><code>ttest_rel</code></a></li>
-<li><a href="https://www.statsmodels.org/stable/generated/statsmodels.stats.weightstats.ttest_ind.html">Statsmodels</a></li>
-</ul>
+<ol>
+<li>SciPy official docs</li>
+<li>Statsmodels official docs</li>
+<li>Introduction to Data Analysis — school course (major course)</li>
+</ol>
 <hr />
 <blockquote>
-<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/26" rel="nofollow noopener">taehyuklee.tistory.com/26</a></p>
+<p>📦 Migrated from the Tistory blog I used to run. Original: <a href="https://taehyuklee.tistory.com/26" rel="nofollow noopener">taehyuklee.tistory.com/26</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/t-test/">Testing Means — the t-test (One / Two: Student&#39;s·Welch&#39;s / Paired)</a></li><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/central-limit-theorem/">The Central Limit Theorem — Definition, Experiments, and Uses</a></li><li><a href="en/confidence-interval/">Confidence Intervals — Meaning, Intuition, and a Common Misconception</a></li></ul></section>
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/t-test/">Testing Means: the t-test [One, Two (Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]</a></li><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence)</a></li><li><a href="en/central-limit-theorem/">The Central Limit Theorem (CLT): Definition, Experiments &amp; Uses</a></li><li><a href="en/confidence-interval/">Confidence Intervals — Meaning, Intuition, and a Common Misconception</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Ft-test-python-scipy%2F&amp;text=Implementing%20t-Tests%20in%20Python%20with%20SciPy%20%E2%80%94%20One-Sample%2C%20Two-Sample%20%28Student%27s%C2%B7Welch%27s%29%2C%20Paired" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Ft-test-python-scipy%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Ft-test-python-scipy%2F&amp;text=Implementing%20the%20t-test%20%28t%20test%29%20%5BOne%2C%20Two%2C%20Paired%20Samples%20t-test%3A%20Python%20feat.%20SciPy%20%26%20Statsmodels%5D" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Ft-test-python-scipy%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
 

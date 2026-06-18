@@ -100,20 +100,20 @@
 </ol>
 <h3 id="21-how-do-we-set-the-error-range">2.1) How do we set the error range?</h3>
 <p>Start from the parameter to estimate (the population mean $\mu$). Assume the distribution of the population mean is normal (passing a normality test) and draw it.</p>
-<p><img alt="Population distribution with the sample mean on the x-axis" src="assets/posts/confidence-interval/img1.png" width="868" height="417" loading="lazy">
+<p><img alt="Population distribution with the sample mean on the x-axis" src="assets/posts/confidence-interval/img1.webp" width="868" height="417" loading="lazy">
 <em>Figure 1. Population distribution with the sample mean on the x-axis</em></p>
 <p>The estimation target is $\mu$ (the population mean). The key idea:</p>
 <blockquote>
 <p>Let the <strong>95% of values that could be found in this distribution include the population mean.</strong> That is, the sample mean just needs to be found within Interval 1 in Figure 1.</p>
 </blockquote>
-<p><img alt="A range from a sample that contains the population" src="assets/posts/confidence-interval/img2.png" width="1125" height="508" loading="lazy">
+<p><img alt="A range from a sample that contains the population" src="assets/posts/confidence-interval/img2.webp" width="1125" height="508" loading="lazy">
 <em>Figure 2. A range from a sample that contains the population</em></p>
 <blockquote>
 <p><strong>Notation</strong> — $\bar{X}_n$ is the $n$-th sample mean (e.g., $\bar{X}_1$, $\bar{X}_2$), and $d_{\bar{X}_n}$ (written $d_n$) is its distance from the mean out to the boundary (e.g., $d_{\bar{X}_1} = d_1$).</p>
 </blockquote>
 <h3 id="22-setting-a-range-that-contains-the-population">2.2) Setting a range that contains the population</h3>
 <p>In Figure 1, take the boundary at distance $2d$ (95% probability of discovery) from the population mean, with the left as $\bar{X}_1$ and the right as $\bar{X}_2$. To contain the population mean, we need <strong>$d = d_1 = d_2$.</strong> Then any value between $\bar{X}_1$ and $\bar{X}_2$ contains the population mean.</p>
-<p><img alt="The meaning of samples found inside vs outside the boundary" src="assets/posts/confidence-interval/img4.png" width="1154" height="501" loading="lazy">
+<p><img alt="The meaning of samples found inside vs outside the boundary" src="assets/posts/confidence-interval/img4.webp" width="1154" height="501" loading="lazy">
 <em>Figure 3. The meaning of samples found inside vs outside the boundary</em></p>
 <p>In Figure 3, $\bar{X}_3$ found inside the boundary (within 95%) contains the population mean, but $\bar{X}_4$ found in the 5% region does not. (This is on a z-distribution basis; with a sample, you do interval estimation with the t-distribution.)</p>
 <h3 id="definitions">Definitions</h3>
@@ -159,7 +159,7 @@
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/t-test-python-scipy/">Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student&#39;s·Welch&#39;s), Paired</a></li><li><a href="en/central-limit-theorem/">The Central Limit Theorem — Definition, Experiments, and Uses</a></li><li><a href="en/t-test/">Testing Means — the t-test (One / Two: Student&#39;s·Welch&#39;s / Paired)</a></li></ul></section>
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence)</a></li><li><a href="en/t-test-python-scipy/">Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy &amp; Statsmodels]</a></li><li><a href="en/central-limit-theorem/">The Central Limit Theorem (CLT): Definition, Experiments &amp; Uses</a></li><li><a href="en/t-test/">Testing Means: the t-test [One, Two (Student&#39;s &amp; Welch&#39;s), Paired Samples t-test]</a></li></ul></section>
 
       <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fconfidence-interval%2F&amp;text=Confidence%20Intervals%20%E2%80%94%20Meaning%2C%20Intuition%2C%20and%20a%20Common%20Misconception" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fconfidence-interval%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
 

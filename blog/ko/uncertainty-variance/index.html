@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>불확실성·변동성·분산 — 확률의 본질로 이해하기 · Tay Blog</title>
+<title>불확실성, 변동성, 분산 (feat 확률의 본질) · Tay Blog</title>
 <meta name="description" content="확률의 본질을 불확실성·변동성·분산 세 개념으로 연결해 정리. 분산이 왜 &#39;평균으로부터의 거리&#39;로 정의되는지 직관까지.">
 <link rel="canonical" href="https://taystudios.com/blog/ko/uncertainty-variance/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/uncertainty-variance/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/uncertainty-variance/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/uncertainty-variance/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="불확실성·변동성·분산 — 확률의 본질로 이해하기 · Tay Blog">
+<meta property="og:title" content="불확실성, 변동성, 분산 (feat 확률의 본질) · Tay Blog">
 <meta property="og:description" content="확률의 본질을 불확실성·변동성·분산 세 개념으로 연결해 정리. 분산이 왜 &#39;평균으로부터의 거리&#39;로 정의되는지 직관까지.">
 <meta property="og:url" content="https://taystudios.com/blog/ko/uncertainty-variance/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/uncertainty-variance/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/uncertainty-variance/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "불확실성·변동성·분산 — 확률의 본질로 이해하기", "description": "확률의 본질을 불확실성·변동성·분산 세 개념으로 연결해 정리. 분산이 왜 '평균으로부터의 거리'로 정의되는지 직관까지.", "datePublished": "2024-09-30T00:00:00+09:00", "dateModified": "2024-09-30T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/uncertainty-variance/"}, "image": ["https://taystudios.com/blog/assets/posts/uncertainty-variance/cover.webp"], "keywords": "통계, 분산, 불확실성, 변동성, 확률"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/ko/category/data/"}, {"@type": "ListItem", "position": 3, "name": "불확실성·변동성·분산 — 확률의 본질로 이해하기", "item": "https://taystudios.com/blog/ko/uncertainty-variance/"}]}</script><meta property="article:published_time" content="2024-09-30T00:00:00+09:00"><meta property="article:modified_time" content="2024-09-30T00:00:00+09:00"><meta property="article:tag" content="통계"><meta property="article:tag" content="분산"><meta property="article:tag" content="불확실성"><meta property="article:tag" content="변동성"><meta property="article:tag" content="확률">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "불확실성, 변동성, 분산 (feat 확률의 본질)", "description": "확률의 본질을 불확실성·변동성·분산 세 개념으로 연결해 정리. 분산이 왜 '평균으로부터의 거리'로 정의되는지 직관까지.", "datePublished": "2024-09-30T00:00:00+09:00", "dateModified": "2024-09-30T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/uncertainty-variance/"}, "image": ["https://taystudios.com/blog/assets/posts/uncertainty-variance/cover.webp"], "keywords": "통계, 분산, 불확실성, 변동성, 확률"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/ko/category/data/"}, {"@type": "ListItem", "position": 3, "name": "불확실성, 변동성, 분산 (feat 확률의 본질)", "item": "https://taystudios.com/blog/ko/uncertainty-variance/"}]}</script><meta property="article:published_time" content="2024-09-30T00:00:00+09:00"><meta property="article:modified_time" content="2024-09-30T00:00:00+09:00"><meta property="article:tag" content="통계"><meta property="article:tag" content="분산"><meta property="article:tag" content="불확실성"><meta property="article:tag" content="변동성"><meta property="article:tag" content="확률">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">불확실성·변동성·분산 — 확률의 본질로 이해하기</span></nav>
-        <h1 class="tb-article-title">불확실성·변동성·분산 — 확률의 본질로 이해하기</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="ko/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">불확실성, 변동성, 분산 (feat 확률의 본질)</span></nav>
+        <h1 class="tb-article-title">불확실성, 변동성, 분산 (feat 확률의 본질)</h1>
         <div class="tb-article-meta">
           <time>2024.09.30</time>
           <span>·</span><span>#통계 #분산 #불확실성 #변동성 #확률</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#1">1. 불확실성이란?</a></li><li class="tb-toc-h2"><a href="#2">2. 변동성이란?</a></li><li class="tb-toc-h2"><a href="#3">3. 분산이란?</a></li><li class="tb-toc-h3"><a href="#_1">분산을 왜 이런 수식으로 정의했을까?</a></li><li class="tb-toc-h2"><a href="#_2">요약</a></li><li class="tb-toc-h2"><a href="#_3">참고 자료</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#_1">불확실성, 변동성 그리고 분산</a></li><li class="tb-toc-h2"><a href="#1">1. 불확실성이란?</a></li><li class="tb-toc-h2"><a href="#2">2. 변동성이란?</a></li><li class="tb-toc-h2"><a href="#3">3. 분산이란?</a></li><li class="tb-toc-h2"><a href="#_2">요약</a></li><li class="tb-toc-h2"><a href="#_3">참고 자료</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -80,45 +80,56 @@
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
-<p>이 글의 목표는 <strong>확률의 본질</strong>을 불확실성·변동성·분산 개념으로 설명하는 것이다. 대학 통계학 수업에서 깊게 고민했던 내용을 정리했다.</p>
+
+<h2 id="_1">불확실성, 변동성 그리고 분산</h2>
+<p>이 글을 목표는 확률의 본질에 대해서 불확실성, 변동석, 분산의 개념으로 설명하려고 한다. 위 개념에 대해서, 대학교 통계학 수업을 들었을때 깊은 고민을 많이 했으며, 그 당시 정리된 생각을 녹여내어 글을 작성했다.</p>
 <h2 id="1">1. 불확실성이란?</h2>
-<p>같은 수행을 하더라도 <strong>통제할 수 없는 변인</strong> 때문에 계속 <strong>다른 결과</strong>가 나오게 하는 근본 원인이다. (확률이 존재할 수 있게 하는 근본 원인이라 볼 수 있다.)</p>
-<p><strong>예를 들어</strong>, 종이비행기를 똑같은 힘·방향으로 10번 날린다고 그 비행기가 10번 모두 같은 지점에 떨어질까? 아니다. 바람처럼 통제할 수 없는 변수가 들어가 결과는 계속 달라진다.</p>
+<p>내가 똑같은 수행을 하더라도 통제할 수 없는 어떠한 변인 때문에 계속 다른 결과가 나오게 하는 주요 원인이다.</p>
+<p>(확률이 존재할 수 있게 하는 근본적인 원인이라 볼 수 있다)</p>
+<p>예를 들어, 내가 종이 비행기를 똑같은 힘으로 똑같은 방향으로 10번 수행했다. 과연 그 종이 비행기는 10번 모두 똑같은 지점에 떨어질까? 아니다. 거기에는 바람과 같은 우리가 통제할 수 없는 변수들이 들어가 계속해서 결과는 달라질 것이다.</p>
 <h2 id="2">2. 변동성이란?</h2>
-<p>여기서 <strong>변동성</strong> 개념이 나온다. 수행할 때마다 결과가 달라질 수 있는 성질로, 표본의 각 데이터 포인트($X_1, X_2, \dots$)마다 적용된다.</p>
-<p><img alt="변동성을 설명하기 위한 그림 — 데이터 포인트의 랜덤 샘플링" src="assets/posts/uncertainty-variance/img1.png" width="1020" height="643" loading="lazy">
-<em>그림 1. 변동성을 설명하기 위한 그림</em></p>
-<p>각 데이터 포인트를 샘플링할 때, 모든 포인트는 모집단에서 랜덤 샘플링되므로(불확실성) $X_1$이 3이 될 수도, 5가, 10이, 심지어 극단적으로 100000이 될 수도 있다. 이 성질을 <strong>변동성</strong>이라 부른다.</p>
+<p>여기서 변동성이란 개념을 설명할 수 있다. 내가 수행할때마다 달라질 수 있는 성질을 의미하며, 대개 표본의 각 데이터 포인트 (X1, X2 등 각 포인트)마다 적용될 수 있다.</p>
+<p><img alt="변동성을 설명하기 위한 그림" src="assets/posts/uncertainty-variance/img1.webp" width="1020" height="643" loading="lazy">
+<em>그림1. 변동성을 설명하기 위한 그림</em></p>
+<p>위의 그림으로 설명해보자. 각 데이터 포인트들을 샘플링 할때, 모든 포인트들은 모집단에서 랜덤 샘플링되기 때문에 (불확실성) X1이 3이 될수도, 5가 될수도, 10이 될수도 심지어 극단적으로 100000이 될 수도 있다. 즉, 위의 성질을 변동성이라 부른다.</p>
 <h2 id="3">3. 분산이란?</h2>
-<p>불확실성·변동성을 <strong>수학적으로 표현</strong>하려면, 집단을 대표하는 값인 기댓값(평균)을 기준으로 각 데이터가 떨어진 정도를 계산해 평균내면 된다. 이것이 <strong>분산</strong>이고, '평균 거리'의 개념이 된다.</p>
-<h3 id="_1">분산을 왜 이런 수식으로 정의했을까?</h3>
-<p>$$s^2 = \dfrac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2 \qquad\qquad \sigma^2 = \dfrac{1}{N}\sum_{i=1}^{N}(x_i - \mu)^2$$
-<em>표본 분산($s^2$) · 모분산($\sigma^2$)</em></p>
-<p><img alt="분산이 불확실성을 대표하는 통계량인 이유 — 평균의 설명력 비교" src="assets/posts/uncertainty-variance/img3.png" width="964" height="458" loading="lazy">
-<em>그림 2. 분산이 불확실성을 대표하는 통계량인 이유</em></p>
-<p>평균은 집단을 대표하는 값이다. 하지만 각 데이터가 평균에서 멀리 떨어질수록 평균의 설명력은 줄고, 즉 불확실성이 늘어난다.</p>
-<p>그림 2의 (a)는 평균이 $X_1$~$X_5$ 근처에 있어 평균으로 대부분을 설명할 수 있지만, (b)는 데이터가 평균에서 멀어 평균만으로 설명하기 어렵다. (a)는 <strong>불확실성이 낮아</strong> 평균을 대표값으로 써도 무리가 없고, (b)는 <strong>불확실성이 높아</strong> 대표값으로 쓰기 무리가 있다.</p>
-<p>즉 불확실성을 <strong>평균으로부터 튀는 정도 = 평균으로부터의 거리</strong>로 표현해 정량화할 수 있다. 분산이 높을수록 같은 수행에서 튀는 정도가 커, 평균과 동떨어진 엉뚱한 데이터가 나올 가능성이 높다.</p>
+<p>위의 불확실성 또는 변동성을 어떻게 수학적으로 표현 할 수 있는가를 따졌을때, 해당 집단을 대표하는 값인 기댓값을 기준으로 각 데이터가 떨어져 있는 정도를 계산해서 평균내는 방법이 있다. 이것이 분산의 개념이고 평균 거리의 개념이 된다.</p>
+<p><strong>분산을 왜 다음과 같은 수식으로 정의했을까?</strong></p>
+<p>$$
+s^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(X_i - \bar{X}\right)^2
+\qquad
+\sigma^2 = \frac{1}{N}\sum_{i=1}^{N}\left(X_i - \mu\right)^2
+$$
+<em>수식1. 표본 분산, 모분산</em></p>
+<p><img alt="분산이 불확실성을 대표하는 통계량인 이유" src="assets/posts/uncertainty-variance/img3.webp" width="964" height="458" loading="lazy">
+<em>그림2. 분산이 불확실성을 대표하는 통계량인 이유</em></p>
+<p>평균은 해당 집단을 대표하는 값, 즉 모든 값을 설명할 수 있는 값이라고 생각하면 된다. 하지만, 각 데이터들이 평균으로부터 멀리 떨어져 있을수록 평균의 설명력은 줄어든다. 즉 불확실성이 늘어 난다고 라고 할 수 있을 것이다.</p>
+<p>위의 그림2에서 보면 (a)그림에서는 평균값이 X1부터 X5 근처에 있기때문에 평균으로 대부분의 값들을 설명할수 있지만, (b)의 경우에는 평균으로부터 떨어져 있는 거리가 멀어 평균자체로 각 데이털들을 설명하기에는 힘들어 보인다.</p>
+<p>즉, (a)의 경우에는 표본의 대표로 평균을 사용해도 각 데이터의 불확실성이 낮아(평균으로 부터 튀는 정도) 무리가 없다. 반대로, (b)의 경우 어떤 데이터는 평균 근처에 있어서 괜찮을수도 있지만, 많은 데이터들이 불확실성이 높아(평균으로 부터 튀는 정도)가 높아 평균을 대표값으로 사용하기에는 무리가 있을수 있다.</p>
+<p>불확실성을 평균으로부터 튀는 정도 = 평균으로부터의 거리 로 표현함으로써 정량화 할 수 있음을 알 수 있다. 분산이 높을수록 같은 수행을 했을때 튀는정도가 높아 평균과 동떨어진 어떤 엉뚱한 데이터가 튀어나올지 모른다.</p>
 <h2 id="_2">요약</h2>
-<ul>
-<li><strong>불확실성</strong> — 우리가 통제할 수 없는 변인/원인</li>
-<li><strong>변동성</strong> — 불확실성에 의해 수행할 때마다 결과가 달라지는 성질</li>
-<li><strong>분산</strong> — 불확실성/변동성을 수학적으로 수치화한 통계량</li>
-</ul>
-<hr />
+<p>위의 글을 다음과 같이 요약할 수 있다.</p>
+<div class="callout">
+<p><strong>불확실성</strong> — 우리가 통제할 수 없는 변인 / 원인</p>
+<p><strong>변동성</strong> — 우리가 통제할 수 없는 변인으로 인해(불확실성에 의해) 수행할때마다 결과가 달라지는 성질</p>
+<p><strong>분산</strong> — 불확실성/변동성을 수학적으로 수치화한 통계량</p>
+</div>
+
 <h2 id="_3">참고 자료</h2>
 <ol>
-<li>통계학 입문 — 자유아카데미 (전공서적)</li>
-<li>학교 수업 자료 — 자료분석개론</li>
+<li>통계학 입문 - 자유아카데미 (전공서적)</li>
+<li>학교 수업 자료 - 자료분석개론</li>
+<li>나의 정리된 생각 및 글 정리</li>
 </ol>
+<hr />
 <blockquote>
-<p>📦 이 글은 제가 운영하던 티스토리 블로그에서 옮겨온(migration) 글입니다. 원문: <a href="https://taehyuklee.tistory.com/13" rel="nofollow noopener">taehyuklee.tistory.com/13</a></p>
+<p>📦 블로그 이전 글입니다. 원본: <a href="https://taehyuklee.tistory.com/13" rel="nofollow noopener">taehyuklee.tistory.com/13</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/degrees-of-freedom/">자유도(Degree of Freedom)란 — 모분산 추정에서 n-1로 나누는 이유</a></li><li><a href="ko/hypothesis-testing/">가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리</a></li><li><a href="ko/t-test-python-scipy/">t검정 Python 구현 — SciPy로 일표본·독립표본(Student&#39;s·Welch&#39;s)·대응표본</a></li><li><a href="ko/central-limit-theorem/">중심극한정리(Central Limit Theorem) — 정의·실험·용도</a></li></ul></section>
+      <section class="tb-related"><h2>관련 글</h2><ul><li><a href="ko/degrees-of-freedom/">자유도(Degree Of Freedom)란 &amp; 모분산 추정과 자유도 (n-1)</a></li><li><a href="ko/hypothesis-testing/">가설검정 이해: 검정통계량, 귀무가설, 대립가설, p-value, 유의수준 (significance level), 임계값 (critical value) 개념 정리 (본질)</a></li><li><a href="ko/t-test-python-scipy/">평균치(t) 검정 t test 구현 [One, Two, Paired Samples t-test : Python feat. SciPy &amp; Statsmodels]</a></li><li><a href="ko/central-limit-theorem/">중심극한 정리 (Central Limit Theorem) : 정의 및 실험 &amp; 용도</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Funcertainty-variance%2F&amp;text=%EB%B6%88%ED%99%95%EC%8B%A4%EC%84%B1%C2%B7%EB%B3%80%EB%8F%99%EC%84%B1%C2%B7%EB%B6%84%EC%82%B0%20%E2%80%94%20%ED%99%95%EB%A5%A0%EC%9D%98%20%EB%B3%B8%EC%A7%88%EB%A1%9C%20%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Funcertainty-variance%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
+      <div class="tb-share"><span class="tb-share-label">이 글 공유</span><button type="button" class="tb-share-btn" data-share-copy>🔗 링크 복사</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Funcertainty-variance%2F&amp;text=%EB%B6%88%ED%99%95%EC%8B%A4%EC%84%B1%2C%20%EB%B3%80%EB%8F%99%EC%84%B1%2C%20%EB%B6%84%EC%82%B0%20%28feat%20%ED%99%95%EB%A5%A0%EC%9D%98%20%EB%B3%B8%EC%A7%88%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fko%2Funcertainty-variance%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ 더보기</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">댓글</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="ko" crossorigin="anonymous" async></script></section>
 

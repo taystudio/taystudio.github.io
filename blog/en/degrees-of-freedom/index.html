@@ -7,12 +7,12 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>What Are Degrees of Freedom — Why We Divide by n-1 to Estimate Variance · Tay Blog</title>
+<title>What Are Degrees of Freedom (DOF) &amp; Population-Variance Estimation and Degrees of Freedom (n-1) · Tay Blog</title>
 <meta name="description" content="Why does the sample variance divide by n-1 instead of n? Two views — correcting underestimation (bias) and degrees of freedom — to get at the essence of variance.">
 <link rel="canonical" href="https://taystudios.com/blog/en/degrees-of-freedom/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/degrees-of-freedom/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/degrees-of-freedom/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/degrees-of-freedom/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="What Are Degrees of Freedom — Why We Divide by n-1 to Estimate Variance · Tay Blog">
+<meta property="og:title" content="What Are Degrees of Freedom (DOF) &amp; Population-Variance Estimation and Degrees of Freedom (n-1) · Tay Blog">
 <meta property="og:description" content="Why does the sample variance divide by n-1 instead of n? Two views — correcting underestimation (bias) and degrees of freedom — to get at the essence of variance.">
 <meta property="og:url" content="https://taystudios.com/blog/en/degrees-of-freedom/">
 <meta property="og:type" content="article">
@@ -21,7 +21,7 @@
 <meta property="og:locale:alternate" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/degrees-of-freedom/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/degrees-of-freedom/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "What Are Degrees of Freedom — Why We Divide by n-1 to Estimate Variance", "description": "Why does the sample variance divide by n-1 instead of n? Two views — correcting underestimation (bias) and degrees of freedom — to get at the essence of variance.", "datePublished": "2024-09-30T00:00:00+09:00", "dateModified": "2024-09-30T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/degrees-of-freedom/"}, "image": ["https://taystudios.com/blog/assets/posts/degrees-of-freedom/cover.webp"], "keywords": "statistics, degrees-of-freedom, variance, population-variance, estimation"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "What Are Degrees of Freedom — Why We Divide by n-1 to Estimate Variance", "item": "https://taystudios.com/blog/en/degrees-of-freedom/"}]}</script><meta property="article:published_time" content="2024-09-30T00:00:00+09:00"><meta property="article:modified_time" content="2024-09-30T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="degrees-of-freedom"><meta property="article:tag" content="variance"><meta property="article:tag" content="population-variance"><meta property="article:tag" content="estimation">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "What Are Degrees of Freedom (DOF) & Population-Variance Estimation and Degrees of Freedom (n-1)", "description": "Why does the sample variance divide by n-1 instead of n? Two views — correcting underestimation (bias) and degrees of freedom — to get at the essence of variance.", "datePublished": "2024-09-30T00:00:00+09:00", "dateModified": "2024-09-30T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/degrees-of-freedom/"}, "image": ["https://taystudios.com/blog/assets/posts/degrees-of-freedom/cover.webp"], "keywords": "statistics, degrees-of-freedom, variance, population-variance, estimation"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/en/category/data/"}, {"@type": "ListItem", "position": 3, "name": "What Are Degrees of Freedom (DOF) & Population-Variance Estimation and Degrees of Freedom (n-1)", "item": "https://taystudios.com/blog/en/degrees-of-freedom/"}]}</script><meta property="article:published_time" content="2024-09-30T00:00:00+09:00"><meta property="article:modified_time" content="2024-09-30T00:00:00+09:00"><meta property="article:tag" content="statistics"><meta property="article:tag" content="degrees-of-freedom"><meta property="article:tag" content="variance"><meta property="article:tag" content="population-variance"><meta property="article:tag" content="estimation">
 <link rel="stylesheet" href="assets/style.css?v=1781131640">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -51,15 +51,15 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">What Are Degrees of Freedom — Why We Divide by n-1 to Estimate Variance</span></nav>
-        <h1 class="tb-article-title">What Are Degrees of Freedom — Why We Divide by n-1 to Estimate Variance</h1>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="en/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="en/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">What Are Degrees of Freedom (DOF) &amp; Population-Variance Estimation and Degrees of Freedom (n-1)</span></nav>
+        <h1 class="tb-article-title">What Are Degrees of Freedom (DOF) &amp; Population-Variance Estimation and Degrees of Freedom (n-1)</h1>
         <div class="tb-article-meta">
           <time>2024.09.30</time>
           <span>·</span><span>#statistics #degrees-of-freedom #variance #population-variance #estimation</span>
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#body">Body</a></li><li class="tb-toc-h2"><a href="#1-why-divide-by-n-1">1. Why divide by n-1?</a></li><li class="tb-toc-h2"><a href="#2-whats-wrong-with-dividing-by-n">2. What's wrong with dividing by n?</a></li><li class="tb-toc-h2"><a href="#3-why-does-underestimation-happen">3. Why does underestimation happen?</a></li><li class="tb-toc-h2"><a href="#4-is-it-mathematically-proven">4. Is it mathematically proven?</a></li><li class="tb-toc-h2"><a href="#5-what-are-degrees-of-freedom">5. What are degrees of freedom?</a></li><li class="tb-toc-h2"><a href="#6-what-do-degrees-of-freedom-mean-in-variance-the-essence">6. What do degrees of freedom mean in variance? (the essence)</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#a-side-note">A side note</a></li><li class="tb-toc-h2"><a href="#goal-of-this-post">Goal of this post</a></li><li class="tb-toc-h2"><a href="#main-body">Main body</a></li><li class="tb-toc-h2"><a href="#1-why-divide-by-n-1">1. Why divide by n-1</a></li><li class="tb-toc-h2"><a href="#2-whats-the-problem-if-we-divide-by-n">2. What's the problem if we divide by n?</a></li><li class="tb-toc-h2"><a href="#3-why-does-underestimation-biased-estimation-happen">3. Why does underestimation (biased estimation) happen?</a></li><li class="tb-toc-h2"><a href="#4-has-it-been-proven-mathematically">4. Has it been proven mathematically?</a></li><li class="tb-toc-h2"><a href="#5-they-call-n-1-the-degrees-of-freedom-what-is-the-concept-of-degrees-of-freedom">5. They call n-1 the degrees of freedom — what is the concept of degrees of freedom?</a></li><li class="tb-toc-h3"><a href="#aside-degrees-of-freedom-in-mechanical-engineering">(Aside) Degrees of freedom in mechanical engineering?</a></li><li class="tb-toc-h2"><a href="#6-when-computing-variance-what-on-earth-does-degrees-of-freedom-mean-why-do-we-divide-by-the-degrees-of-freedom-essence">6. When computing variance, what on earth does degrees of freedom mean? Why do we divide by the degrees of freedom? (essence)</a></li><li class="tb-toc-h2"><a href="#3-since-the-population-also-has-degrees-of-freedom-up-to-n-1-shouldnt-variance-be-divided-by-n-1-not-n">3. Since the population also has degrees of freedom up to N-1, shouldn't variance be divided by N-1, not N?</a></li><li class="tb-toc-h2"><a href="#references">References</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -80,91 +80,130 @@
 .tb-content .callout p:first-child { margin-top:0; }
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
-<p>Let's organize <strong>population-variance estimation</strong> and <strong>degrees of freedom</strong> in parametric statistics. What you'll understand after reading:</p>
-<blockquote>
+
+<h2 id="a-side-note">A side note</h2>
+<p>This is a post where, while recently building a data-analysis platform, I look back on and organize the data analysis I did as an undergraduate intern in 2019–2020 and during grad school. It's also a post organizing the concept of degrees of freedom, which I hadn't understood well before.</p>
+<h2 id="goal-of-this-post">Goal of this post</h2>
+<p>In this post I want to talk about population-variance estimation and degrees of freedom in parametric statistics.</p>
+<p>After reading this, the points you should understand can be organized as follows:</p>
 <ol>
 <li>The concept of degrees of freedom</li>
-<li><strong>Why the population-variance estimator divides by n-1</strong>
-   - <strong>Underestimation view</strong>: to correct bias
-   - <strong>Degrees-of-freedom view</strong>: the essential meaning of variance</li>
+<li>Why we divide by n-1 in the population-variance estimator from a sample
+   - Explanation from the underestimation perspective: why we divide by n-1, from the population distribution
+   - Explanation from the degrees-of-freedom perspective (understanding the essential meaning of variance): why the variance estimator from a sample divides by the degrees of freedom, and the essence behind it</li>
 </ol>
-</blockquote>
-<h2 id="body">Body</h2>
-<p>$$s^2 = \dfrac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2$$
-<em>Eq. 1. Sample variance estimate</em></p>
-<p>$$\sigma^2 = \dfrac{1}{N}\sum_{i=1}^{N}(x_i - \mu)^2$$
-<em>Eq. 2. Population variance</em></p>
-<p>Variance/standard deviation is intuitively interpreted as follows.</p>
+<h2 id="main-body">Main body</h2>
+<p>Formula 1 and Formula 2 below represent, respectively, the variance (population-variance estimate) and the population variance.</p>
+<p>$$
+s^2 = \frac{1}{n-1}\sum_{i=1}^{n}\left(X_i - \bar{X}\right)^2
+$$
+<em>Formula 1. Sample variance estimate</em></p>
+<p>$$
+\sigma^2 = \frac{1}{N}\sum_{i=1}^{N}\left(X_i - \mu\right)^2
+$$
+<em>Formula 2. Population variance</em></p>
+<p>The concept around variance or standard deviation can be interpreted intuitively as follows.</p>
 <ul>
-<li><strong>0) To express the degree of uncertainty</strong> — quantifying how the same trial yields different results due to uncertainty</li>
-<li><strong>1) The average distance of each data point from the mean</strong> — expressing how far the data lie from the mean, as distance</li>
-<li><strong>2) Precision/explanatory power regarding the sample mean</strong></li>
+<li><strong>0)</strong> To express the degree of uncertainty — to quantify the fact that, each time you run the same trial, a different result appears due to uncertainty.</li>
+<li><strong>1)</strong> The average distance each data point lies from the mean — to express uncertainty, it expresses, as a distance, how far the data lie from the mean that represents the group.</li>
+<li><strong>2)</strong> It can be called the precision or explanatory power regarding the sample mean. (implication)</li>
 </ul>
+<p>From here, I'll continue the story by raising the questions I had on my own.</p>
+<h2 id="1-why-divide-by-n-1">1. Why divide by n-1</h2>
+<p>Deviation or variance is physically a distance concept, yet the variance estimate of the standard deviation divides not by the number of samples (n) but by the number of samples minus one (n-1). Why on earth do we divide by n-1?</p>
 <blockquote>
-<p>Before the intuition that variance is an "average of distances," remember it's a <strong>basic statistic for quantifying uncertainty.</strong> For detailed background, see the related post "Uncertainty, Variability &amp; Variance."</p>
+<p><strong>Answer 1)</strong> If you simply wanted to express how far the data inside the sample lie from the mean, dividing by n would be right. But that formula is an estimator that tries to estimate the population from the sample. In other words, the sample's own statistic isn't what matters — what matters is how well it estimates the population parameter.</p>
 </blockquote>
-<h2 id="1-why-divide-by-n-1">1. Why divide by n-1?</h2>
-<p>Deviation/variance is physically a <strong>distance</strong> concept, yet the sample-variance estimate divides by $n-1$, not $n$. Why?</p>
-<p><strong>Answer)</strong> If you only wanted the distance of the sample's own data from its mean, dividing by $n$ would be right. But this formula is an estimator that <strong>estimates the population from a sample.</strong> What matters is <strong>how well it estimates the parameter,</strong> not the sample's own statistic.</p>
-<h2 id="2-whats-wrong-with-dividing-by-n">2. What's wrong with dividing by n?</h2>
-<p><strong>Answer)</strong> It produces a <strong>biased estimate</strong> — specifically an <strong>underestimate.</strong> That is, it estimates smaller than the true population variance.</p>
-<h2 id="3-why-does-underestimation-happen">3. Why does underestimation happen?</h2>
-<p><img alt="Sampling from a population — denser intervals are reflected more" src="assets/posts/degrees-of-freedom/img3-en.svg" width="1080" height="700" loading="lazy">
-<em>Figure 1. Sampling from a population</em></p>
-<p>Since the high-density "Interval 1" region in the population is sampled more often, the <strong>sampled distribution reflects the dense region more</strong> and becomes <strong>denser</strong> than the population. As a result, computing variance by dividing the sample directly by $n$ leads to <strong>underestimation.</strong> So we divide by $n-1$ to correct it.</p>
-<p>As $n$ grows infinitely, the sample approaches the population and $n-1$ ≈ $n$, so the difference is negligible; but when $n$ is small, the effect of $-1$ is larger. In other words, the correction matters for small samples.</p>
-<h2 id="4-is-it-mathematically-proven">4. Is it mathematically proven?</h2>
-<p>$$\begin{aligned}
-&amp;E\big[(X_1-\bar{X})^2 + (X_2-\bar{X})^2 + (X_3-\bar{X})^2 + \cdots + (X_n-\bar{X})^2\big] \\[4pt]
-&amp;= E\big[X_1^2 + X_2^2 + X_3^2 + \cdots + X_n^2 - 2(X_1 + X_2 + X_3 + \cdots + X_n)\bar{X} + n\bar{X}^2\big] \\[4pt]
-&amp;= E[X_1^2] + E[X_2^2] + E[X_3^2] + \cdots + E[X_n^2] - 2n\bar{X} + n\bar{X} \\[4pt]
-&amp;= E[X_1^2] + E[X_2^2] + E[X_3^2] + \cdots + E[X_n^2] - n\bar{X} \\[4pt]
-&amp;= n(\mu^2 + \sigma^2) - n\!\left(\mu^2 + \dfrac{\sigma^2}{n}\right) = n\sigma^2 - \sigma^2 = \sigma^2(n-1) \\[6pt]
-&amp;\Rightarrow\ \sigma^2(n-1) = E\big[(X_1-\bar{X})^2 + (X_2-\bar{X})^2 + (X_3-\bar{X})^2 + \cdots + (X_n-\bar{X})^2\big] \\[6pt]
-&amp;\Rightarrow\ \sigma^2 = E\!\left[\dfrac{(X_1-\bar{X})^2 + (X_2-\bar{X})^2 + (X_3-\bar{X})^2 + \cdots + (X_n-\bar{X})^2}{n-1}\right]
-\end{aligned}$$
-<em>Figure 2. Deriving that the population-variance estimator's denominator is $n-1$ (final eqn)</em></p>
-<p>Helper equations (1)·(2):</p>
-<p>$$\bar{X} = \dfrac{X_1 + X_2 + \cdots + X_n}{n} \;\Rightarrow\; n\bar{X} = X_1 + X_2 + \cdots + X_n \quad (1)$$</p>
-<p>$$\mathrm{VAR}(X) = \sigma^2 = E[(X-\mu)^2] = E(X^2) - 2\mu E(X) + \mu^2 = E(X^2) - \mu^2 \;\Rightarrow\; E(X^2) = \mu^2 + \sigma^2 \quad (2)$$</p>
-<p>So the $n-1$ correction is proven not just intuitively but mathematically.</p>
-<h2 id="5-what-are-degrees-of-freedom">5. What are degrees of freedom?</h2>
+<h2 id="2-whats-the-problem-if-we-divide-by-n">2. What's the problem if we divide by n?</h2>
+<p>If we divided the variance estimator of the standard deviation by n instead of n-1, what happens?</p>
 <blockquote>
-<p>"The number of data points that can actually <strong>vary independently</strong> when computing some estimate."</p>
+<p><strong>Answer 2)</strong> The answer is simple — biased estimation occurs; precisely, here it underestimates. That is, it estimates smaller than the original population variance.</p>
 </blockquote>
-<p>Suppose we draw 5 samples from a population and the <strong>sample mean is 20.</strong></p>
-<ul>
-<li>$X_1$–$X_4$ : sampled <strong>freely (independently)</strong> from the population.</li>
-<li>$X_5$ : <strong>automatically fixed</strong> by the others because of the <strong>constraint</strong> that the sample mean is 20.</li>
-</ul>
-<p>E.g., if $X_1=25, X_2=10, X_3=15, X_4=40$, then to hit a mean of 20, $X_5=10$ is fixed. So the last one cannot be determined freely.</p>
-<p><strong>Generalization</strong>: of $n$ values, $n-1$ are drawn freely and the last is determined by the mean constraint. The number that can vary independently, $n-1$, is the <strong>degrees of freedom.</strong></p>
+<h2 id="3-why-does-underestimation-biased-estimation-happen">3. Why does underestimation (biased estimation) happen?</h2>
+<p>Why does dividing by the sample count as-is cause underestimation (biased estimation)?</p>
+<p><img alt="Sampling from the population — denser intervals are reflected more" src="assets/posts/degrees-of-freedom/img3-en.svg" width="1080" height="700" loading="lazy">
+<em>Figure 1. Sampling from the population</em></p>
 <blockquote>
-<p>(Aside) In mechanical engineering too, motion along the x/y/z axes is DOF=3, and constraining the x-axis makes it DOF=2. The essence of degrees of freedom is <strong>the number of elements that can change.</strong></p>
+<p><strong>Answer 3)</strong> * This answer includes, to some degree, my own opinion and thinking.</p>
+<p>Figure 1 above shows the sample distribution obtained by sampling from the population. Here, the interval marked "Interval 1" in the population would have a high probability of being sampled. In that case, the sampled distribution reflects the denser intervals within the population more. That is, compared to the population's overall distribution, the sampled distribution can be denser. As a result, the distribution of the sample mean will be denser than the population's distribution, and this hints that computing variance by simply dividing by the number of samples leads to underestimation (biased estimation).</p>
 </blockquote>
-<h2 id="6-what-do-degrees-of-freedom-mean-in-variance-the-essence">6. What do degrees of freedom mean in variance? (the essence)</h2>
-<p><strong>Answer)</strong> If the sample mean is taken as already fixed, only $n-1$ points have variability. Only $n-1$ can be randomly drawn from the population, and <strong>the remaining one is fixed</strong> and doesn't follow the population distribution.</p>
-<p><img alt="n-1 points with variability" src="assets/posts/degrees-of-freedom/img5.png" width="1008" height="669" loading="lazy">
-<em>Figure 4. The n-1 points with variability</em></p>
-<p>So dividing the sum of $(\text{data} - \text{sample mean})^2$ — which expresses the variability of all the data — <strong>by the number of data points with variability, $n-1$</strong> — yields the representative value, the variance. This is the essential way to see variance from an <strong>uncertainty perspective,</strong> prior to the "average distance" view.</p>
+<p>Therefore, when estimating the population variance using the sample variance, a correction is needed. For this, instead of simply dividing by the sample size n, we divide by n−1 to correct the variance.</p>
+<p><strong>What it means to divide by n-1</strong></p>
+<p>In fact, the larger n grows, the closer the sample gets to the population, so there's no need to divide by n−1 — dividing by n (almost N) is enough. As n grows, n−1 approaches n, so the effect of the 1 nearly disappears; but when n is small, the difference of subtracting 1 from n is relatively larger, so its influence is bigger. In other words, n-1 seems appropriate. However, here another question, like #4 below, can arise.</p>
+<h2 id="4-has-it-been-proven-mathematically">4. Has it been proven mathematically?</h2>
+<p>I get that underestimation happens so we correct with n-1, but I still don't understand why we have to divide by n-1 specifically. Has this part been proven?</p>
 <blockquote>
-<p>The population already <strong>computes</strong> (not estimates) its parameter as an exact value, so there's no probability. The sample, by contrast, still has probability, so degrees of freedom exist.</p>
+<p><strong>Answer 4)</strong> The mathematical proof for this is as follows.</p>
 </blockquote>
-<hr />
+<p>$$
+E\!\left[\sum_{i=1}^{n}\left(X_i-\bar{X}\right)^2\right] = (n-1)\,\sigma^2
+\;\;\Longrightarrow\;\;
+E\!\left[\frac{1}{n-1}\sum_{i=1}^{n}\left(X_i-\bar{X}\right)^2\right] = \sigma^2
+$$
+<em>Figure 2. Proving the correction is n-1 — the point where the expectation equals the population variance σ² (an unbiased estimator) is n-1.</em></p>
+<p>It's proven as in the formula above. As pondered in the 3rd question, you can confirm it's not only an intuitive understanding but also mathematically proven.</p>
+<h2 id="5-they-call-n-1-the-degrees-of-freedom-what-is-the-concept-of-degrees-of-freedom">5. They call n-1 the degrees of freedom — what is the concept of degrees of freedom?</h2>
+<p>You've probably often seen dividing by n-1 called degrees of freedom. But let's first learn what degrees of freedom is.</p>
+<div class="callout">
+📌 <strong>What are degrees of freedom in statistics?</strong> It's explained as the number of data points that can actually vary independently when we compute some estimate.
+</div>
+
+<p>Let's think about what the above means.</p>
+<p>As in Figure 3 above, suppose we drew 5 samples from the population. And suppose the sample mean is 20.</p>
+<p><strong>What number should X1 be drawn as?</strong></p>
+<p>It can be drawn randomly from the population distribution. It's not fixed to a particular value and exists independently as a random variable. Put differently, random sampling from the population distribution is possible. (Any number is fine.)</p>
+<p><strong>What number should X2 be drawn as?</strong></p>
+<p>X2, like X1, is freely sampled according to the population distribution.</p>
+<p>Likewise, X3 and X4 are also drawn independently from the population. These data can vary freely.</p>
+<p><strong>But what number should X5 be drawn as?</strong></p>
+<p>The last data point, X5, is not randomly sampled from the population; it is automatically fixed according to the values of X1 through X4. This is because of the constraint that the sample mean is 20. Therefore the last data point, X5, cannot be determined freely and is automatically fixed by the remaining values.</p>
+<p>For example, if X1 = 25, X2 = 10, X3 = 15, X4 = 40 came out, then for the sample mean to be 20, X5 is fixed at 10. Thus the last data can no longer be determined randomly and becomes a fixed value.</p>
+<p><strong>Generalization</strong></p>
+<p>When you draw n data points, n-1 of them are drawn freely and randomly, but the last, n-th, data point is determined by the constraint of the sample mean — by the remaining n-1 values. Here, the number of data points that can vary independently is n-1, and this is called the degrees of freedom.</p>
+<h3 id="aside-degrees-of-freedom-in-mechanical-engineering">(Aside) Degrees of freedom in mechanical engineering?</h3>
+<p>Degrees of freedom isn't a concept used only in statistics. Generally, when describing motion in kinematics — for example, if something can move along the 3 axes x, y, z — we say the DOF (Degree Of Freedom) is 3. If translation along x is restricted, then it can move only along y and z, so the DOF is 2. Likewise, the essential concept of degrees of freedom means the number of elements that can change.</p>
+<h2 id="6-when-computing-variance-what-on-earth-does-degrees-of-freedom-mean-why-do-we-divide-by-the-degrees-of-freedom-essence">6. When computing variance, what on earth does degrees of freedom mean? Why do we divide by the degrees of freedom? (essence)</h2>
+<p>Then, from the degrees-of-freedom perspective, what relationship does it have with the population-variance estimator?</p>
+<blockquote>
+<p><strong>Answer 5)</strong> Above, we explained that the justification for dividing by n-1 when estimating from a sample is to correct underestimation (biased estimation). This time, I want to explain variance from the degrees-of-freedom perspective.</p>
+</blockquote>
+<p><strong>The flow of questions (Story)</strong></p>
+<p><strong>1. Here we can ask a fundamental question. Why must the sample mean be fixed?</strong> As you sample, the sample mean could be 25 rather than 20, so the reason for fixing it can be hard to understand.</p>
+<p>In parametric statistics, since we estimate the parameter based on the data I sampled, we always go by the sample data. If you sample more data, you just include the new samples, compute the sample mean, and re-estimate the sample variance.</p>
+<p>It's true the sample mean can differ each time you sample, but understand it as a situation where we estimate the parameter with sampling already finished. That's why the sample mean is fixed.</p>
+<p><strong>2. You said sampling is already finished and the sample mean is fixed, yet in variance estimation the n-1 data points have variability — isn't that contradictory?</strong></p>
+<p>Let's recall that the statistic called variance, before it expresses how far the data lie from the mean, is a basic statistic that came about to quantify uncertainty.</p>
+<blockquote>
+<p>Before reading the main point, I recommend reading the post on uncertainty below.</p>
+</blockquote>
+<a class="tb-embed-card" href="en/uncertainty-variance/"><div class="tb-embed-thumb"><img src="assets/posts/uncertainty-variance/cover.webp" alt="Uncertainty, Variability, and Variance (feat. the Nature of Probability)" loading="lazy" width="1024" height="1024"></div><div class="tb-embed-body"><div class="tb-embed-title">Uncertainty, Variability, and Variance (feat. the Nature of Probability)</div><div class="tb-embed-excerpt">Connecting the nature of probability through three concepts — uncertainty, variability, and variance — including the intuition for why variance is defined as &#39;distance from the mean.&#39;</div><div class="tb-embed-src">taystudios.com/blog</div></div></a>
+<div class="callout">
+<p>⚠️ <strong>A point of confusion</strong></p>
+<p>If you focus on the "distance from the mean" concept, you get trapped in the question "obviously I computed distances for n points, so I should divide by n?" — and can't get out. Let me say it again: the intuition that variance is the average of distances is a resulting story; uncertainty is the prior concept. It's because, in trying to assess uncertainty, we ended up computing the difference between the mean and each data point, and as a result the concept of how far each data lies from the mean came about.</p>
+</div>
+
+<p><strong>A point to think about</strong></p>
+<p><img alt="n-1 points of variability" src="assets/posts/degrees-of-freedom/img5.webp" width="1008" height="669" loading="lazy">
+<em>Figure 4. n-1 points of variability</em></p>
+<p>Please think based on the figure above. If you consider the sample mean already fixed, then what has variability here is only n-1 points. Put another way, only n-1 can be randomly drawn from the population, and the remaining one is fixed by those n-1, so it doesn't follow the population distribution. At the point the n-1 are determined, probability does not exist. That's why, when you divide the squared (data − sample mean) — which expresses the variability over all the data — by the n-1 data points that carry variability, the representative value called variance arises. This is the way to approach variance more essentially, before the average-distance view.</p>
+<h2 id="3-since-the-population-also-has-degrees-of-freedom-up-to-n-1-shouldnt-variance-be-divided-by-n-1-not-n">3. Since the population also has degrees of freedom up to N-1, shouldn't variance be divided by N-1, not N?</h2>
+<p>In the population, since we compute the parameter based on already-exact values, probability does not exist (it's computation, not estimation). But in a sample, probability still exists, so degrees of freedom exist.</p>
 <h2 id="references">References</h2>
 <ol>
-<li>12 Math — <a href="https://www.youtube.com/watch?v=TckEM-6tdrc">YouTube</a></li>
+<li>12 Math — YouTube — <a href="https://www.youtube.com/watch?v=TckEM-6tdrc&amp;t=799s">https://www.youtube.com/watch?v=TckEM-6tdrc</a></li>
 <li>Introduction to Statistics — Jayu Academy (textbook)</li>
-<li>Course material — Introduction to Data Analysis</li>
+<li>School course materials — Introduction to Data Analysis</li>
+<li>My own thoughts and notes (feat. GPT)</li>
 </ol>
+<hr />
 <blockquote>
-<p>📦 Migrated from my own Korean blog (my own writing). Original: <a href="https://taehyuklee.tistory.com/14" rel="nofollow noopener">taehyuklee.tistory.com/14</a></p>
+<p>📦 Migrated from the Tistory blog I used to run. Original: <a href="https://taehyuklee.tistory.com/14" rel="nofollow noopener">taehyuklee.tistory.com/14</a></p>
 </blockquote>
       </div>
 
-      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/uncertainty-variance/">Uncertainty, Variability &amp; Variance — Understanding the Nature of Probability</a></li><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing — Test Statistic, Null/Alternative, p-value, Significance Level, Critical Value</a></li><li><a href="en/t-test-python-scipy/">Implementing t-Tests in Python with SciPy — One-Sample, Two-Sample (Student&#39;s·Welch&#39;s), Paired</a></li><li><a href="en/central-limit-theorem/">The Central Limit Theorem — Definition, Experiments, and Uses</a></li></ul></section>
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="en/uncertainty-variance/">Uncertainty, Variability, and Variance (feat. the Nature of Probability)</a></li><li><a href="en/hypothesis-testing/">Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence)</a></li><li><a href="en/t-test-python-scipy/">Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy &amp; Statsmodels]</a></li><li><a href="en/central-limit-theorem/">The Central Limit Theorem (CLT): Definition, Experiments &amp; Uses</a></li></ul></section>
 
-      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fdegrees-of-freedom%2F&amp;text=What%20Are%20Degrees%20of%20Freedom%20%E2%80%94%20Why%20We%20Divide%20by%20n-1%20to%20Estimate%20Variance" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fdegrees-of-freedom%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fdegrees-of-freedom%2F&amp;text=What%20Are%20Degrees%20of%20Freedom%20%28DOF%29%20%26%20Population-Variance%20Estimation%20and%20Degrees%20of%20Freedom%20%28n-1%29" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fdegrees-of-freedom%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
 
       <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
 

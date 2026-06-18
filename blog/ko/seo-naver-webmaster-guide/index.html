@@ -81,16 +81,18 @@
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
 <blockquote>
-<p><strong>결론 먼저</strong>: 한국 사이트면 Google Search Console 보다 <strong>Naver SearchAdvisor 등록이 ROI 큼</strong> (트래픽 80% 채널). 5분만에 등록 + sitemap 제출 + 페이지 수집 요청까지 끝.</p>
+<p>결론부터 말씀드리면, 한국 사용자를 대상으로 하는 사이트라면 구글 서치 콘솔보다 네이버 서치어드바이저 등록의 ROI가 더 큽니다. 트래픽의 80%가 여기서 나오거든요. 5분이면 등록하고 사이트맵 제출에 페이지 수집 요청까지 다 끝납니다.</p>
 </blockquote>
-<p>내 사이트 운영 한 달 회고 — GSC 만 보면 클릭 2건, 노출 777회로 사이트가 죽은 줄 알았는데 <strong>Naver SearchAdvisor 등록하니 한 달 노출 26,000회 + 클릭 230건</strong> 보임. Google 의 33-115배. 한국 사용자 대상 사이트는 이게 본채널.</p>
+<p>사이트를 운영한 지 한 달쯤 됐을 때 회고를 해봤습니다. GSC만 들여다보면 클릭 2건에 노출 777회라, 솔직히 사이트가 죽은 줄 알았어요. 그런데 네이버 서치어드바이저를 등록하고 나니 한 달 노출 26,000회에 클릭 230건이 잡히더군요. 구글 수치의 33배에서 115배입니다. 한국 사용자를 대상으로 하는 사이트라면 사실상 여기가 본채널인 셈입니다.</p>
 <h2 id="gsc">왜 GSC 만으로 부족한가</h2>
-<p>한국 검색 시장 점유율:
-- <strong>Naver</strong>: 50~60%
-- <strong>Google</strong>: 30~35%
-- <strong>Daum (Kakao)</strong>: 5~10%
-- Bing/기타: &lt;5%</p>
-<p>= GSC 만 보면 <strong>한국 트래픽의 60-70% 미관측</strong>. 신규 도메인이면 Google sandbox 영향으로 더 적게 보임.</p>
+<p>한국 검색 시장 점유율을 먼저 보겠습니다.</p>
+<ul>
+<li><strong>Naver</strong>: 50~60%</li>
+<li><strong>Google</strong>: 30~35%</li>
+<li><strong>Daum (Kakao)</strong>: 5~10%</li>
+<li>Bing/기타: &lt;5%</li>
+</ul>
+<p>그러니까 GSC만 보고 있으면 한국 트래픽의 60~70%를 아예 관측하지 못하는 셈입니다. 신규 도메인이라면 구글 sandbox 영향까지 겹쳐서 더 적게 보이고요.</p>
 <h2 id="step-1-naver-searchadvisor-1">Step 1. Naver SearchAdvisor 가입 (1분)</h2>
 <ol>
 <li><a href="https://searchadvisor.naver.com">searchadvisor.naver.com</a> 접속</li>
@@ -98,19 +100,19 @@
 <li>상단 <strong>웹마스터 도구</strong> → <strong>사이트 등록</strong></li>
 </ol>
 <h2 id="step-2-3">Step 2. 사이트 소유권 확인 (3분)</h2>
-<p>사이트 URL (예: <code>https://taystudios.com</code>) 입력. 그 다음 <strong>소유 확인 방법 선택</strong>:</p>
+<p>사이트 URL(예: <code>https://taystudios.com</code>)을 입력하면, 다음으로 소유 확인 방법을 고르는 단계가 나옵니다.</p>
 <h3 id="a-html">옵션 A. HTML 메타 태그 (가장 간단·추천)</h3>
-<p>Naver 가 제공하는 메타 태그를 사이트 <code>&lt;head&gt;</code> 에 박기:</p>
+<p>네이버가 제공하는 메타 태그를 사이트 <code>&lt;head&gt;</code> 에 박는 방식입니다.</p>
 <pre class="codehilite"><code class="language-html">&lt;meta name=&quot;naver-site-verification&quot; content=&quot;abc123def456...&quot; /&gt;
 </code></pre>
 
-<p>GitHub Pages 같은 정적 사이트면 <code>index.html</code> 또는 공통 layout 의 <code>&lt;head&gt;</code> 영역에 추가 + 배포. 그 후 Naver 페이지에서 <strong>소유 확인</strong> 클릭.</p>
+<p>GitHub Pages 같은 정적 사이트라면 <code>index.html</code> 또는 공통 layout 의 <code>&lt;head&gt;</code> 영역에 추가한 뒤 배포하면 됩니다. 그러고 나서 네이버 페이지에서 <strong>소유 확인</strong> 을 클릭하면 끝입니다.</p>
 <h3 id="b-html">옵션 B. HTML 파일 업로드</h3>
-<p>특정 이름의 HTML 파일을 사이트 root 에 업로드. 예: <code>naverabc123def456.html</code> 라는 파일을 <code>https://taystudios.com/naverabc123def456.html</code> 로 접근 가능하게.</p>
+<p>특정 이름의 HTML 파일을 사이트 root 에 올려두는 방식입니다. 예를 들어 <code>naverabc123def456.html</code> 라는 파일을 <code>https://taystudios.com/naverabc123def456.html</code> 로 접근할 수 있게 해두면 됩니다.</p>
 <h3 id="c-webmaster-tools-api">옵션 C. WebMaster Tools API (생략 — 일반 운영자에게 비추)</h3>
-<p>→ <strong>HTML 메타 태그</strong> 가 가장 안전 + 빠름. 옵션 A 권장.</p>
+<p>저는 셋 중에서 <strong>HTML 메타 태그</strong> 가 가장 안전하고 빠르다고 봅니다. 특별한 이유가 없다면 옵션 A를 권합니다.</p>
 <h2 id="step-3-sitemap-1">Step 3. sitemap 제출 (1분 — 가장 중요)</h2>
-<p>소유 확인 완료 후 좌측 메뉴:</p>
+<p>소유 확인이 끝나면 좌측 메뉴에서 다음 경로로 들어갑니다.</p>
 <p><strong>요청 &gt; 사이트맵 제출</strong></p>
 <pre class="codehilite"><code>사이트맵 URL 입력란에:
 https://taystudios.com/sitemap.xml
@@ -118,17 +120,17 @@ https://taystudios.com/sitemap.xml
 → 확인 → 성공
 </code></pre>
 
-<p>블로그·서브사이트가 별도 sitemap 있으면 <strong>하나씩 따로 제출</strong>:</p>
+<p>블로그나 서브사이트에 별도의 sitemap 이 있다면 <strong>하나씩 따로 제출</strong> 해야 합니다.</p>
 <pre class="codehilite"><code>https://taystudios.com/sitemap.xml
 https://taystudios.com/blog/sitemap.xml
 </code></pre>
 
-<p>내가 자주 빠진 함정 — sitemap 한 개만 제출하고 다른 거 잊음. 사이트맵 인덱스 (<code>sitemap-index.xml</code>) 가 아니면 <strong>각 sitemap 직접 제출</strong> 필요.</p>
+<p>제가 자주 빠지던 함정이 바로 여기입니다. sitemap 하나만 제출하고 나머지를 깜빡하는 거죠. 사이트맵 인덱스(<code>sitemap-index.xml</code>)가 아닌 이상, 각 sitemap 을 직접 제출해줘야 합니다.</p>
 <h2 id="step-4-2">Step 4. 페이지 수집 요청 (2분)</h2>
-<p>Naver 가 자체 크롤로 발견할 때까지 며칠~몇 주. <strong>수동으로 우선순위 ↑</strong> 가능:</p>
+<p>네이버가 자체 크롤로 페이지를 발견할 때까지는 며칠에서 몇 주가 걸립니다. 다만 수동으로 우선순위를 올려줄 수는 있습니다.</p>
 <p><strong>요청 &gt; 웹페이지 수집 요청</strong></p>
-<p>URL 입력 → 제출. 1일 50건 한도.</p>
-<p>권장 — Top 페이지 + 변경된 페이지부터:</p>
+<p>URL 을 입력하고 제출하면 됩니다. 하루 50건 한도가 있습니다.</p>
+<p>경험상 Top 페이지와 변경된 페이지부터 넣는 걸 권합니다.</p>
 <pre class="codehilite"><code>https://taystudios.com/                    # 홈
 https://taystudios.com/tools/              # 도구 hub
 https://taystudios.com/tools/salary/       # Top 도구
@@ -141,31 +143,31 @@ https://taystudios.com/blog/ko/recent-post/  # 최신 글들
 
 <h2 id="step-5">Step 5. 진단 + 모니터링</h2>
 <h3 id="robotstxt">검증 &gt; robots.txt</h3>
-<p>내 사이트의 robots.txt 가 Naver Yeti 봇을 막지 않는지 자동 확인. 보통 OK 인데 가끔 잘못 박은 경우 발견.</p>
+<p>내 사이트의 robots.txt 가 네이버 Yeti 봇을 막고 있지는 않은지 자동으로 확인해줍니다. 대개는 문제가 없는데, 가끔 잘못 박아둔 경우가 여기서 걸리기도 합니다.</p>
 <h3 id="_1">검증 &gt; 웹페이지 진단</h3>
-<p>페이지 별로 SEO 점수·메타·구조 진단. 노출 받는 페이지 우선 확인.</p>
+<p>페이지별로 SEO 점수와 메타, 구조를 진단해줍니다. 노출을 받고 있는 페이지부터 우선 확인하는 게 좋습니다.</p>
 <h3 id="_2">보고서 &gt; 사이트 진단</h3>
-<p>전체 사이트의 검색 노출·클릭·CTR. 등록 후 1-2주 후 데이터 누적 시작.</p>
+<p>전체 사이트의 검색 노출·클릭·CTR 을 볼 수 있습니다. 등록 후 1~2주 정도 지나야 데이터가 쌓이기 시작합니다.</p>
 <h2 id="_3">자주 빠지는 함정</h2>
 <h3 id="1-https-vs-http-www-vs-non-www">1. HTTPS vs HTTP / www vs non-www</h3>
-<p><code>https://taystudios.com</code> 과 <code>https://www.taystudios.com</code> 은 <strong>다른 사이트</strong>로 등록. 둘 다 사용하면 둘 다 등록 후 redirect 설정 권장.</p>
+<p><code>https://taystudios.com</code> 과 <code>https://www.taystudios.com</code> 은 네이버 입장에서 <strong>서로 다른 사이트</strong> 로 취급됩니다. 둘 다 쓰고 있다면 둘 다 등록한 뒤 redirect 설정을 해두는 걸 권합니다.</p>
 <h3 id="2-sitemap">2. sitemap 두 개를 한 줄에 입력</h3>
 <pre class="codehilite"><code>❌ https://taystudios.com/sitemap.xml, https://taystudios.com/blog/sitemap.xml
 ✅ 각각 별도 제출
 </code></pre>
 
 <h3 id="3-50">3. 페이지 수집 요청을 한 번에 50건 다 사용</h3>
-<p>50건 한도가 하루. 매일 다른 페이지로 분산 권장.</p>
+<p>50건은 하루 한도입니다. 매일 다른 페이지로 나눠서 넣는 게 좋습니다.</p>
 <h3 id="4">4. 등록 직후 결과 기대</h3>
-<p>Naver 색인 큐 진입 후 처리까지 <strong>1-2주</strong>. 처음 며칠은 데이터 0 정상.</p>
+<p>네이버 색인 큐에 들어간 뒤 처리까지 보통 1~2주가 걸립니다. 처음 며칠 동안 데이터가 0인 건 정상이니 너무 조급해하지 않아도 됩니다.</p>
 <h2 id="daum-kakao-5-10">Daum (Kakao) 도 등록 권장 (5-10분)</h2>
-<p>같은 한국 검색엔진. Naver 다음으로 트래픽 크니까:</p>
+<p>같은 한국 검색엔진이고, 네이버 다음으로 트래픽이 크기 때문에 함께 등록해두는 걸 권합니다.</p>
 <ul>
 <li><a href="https://webmaster.daum.net">webmaster.daum.net</a> 접속</li>
 <li>Kakao 계정 로그인</li>
-<li>사이트 등록 + sitemap 제출 (절차 거의 동일)</li>
+<li>사이트 등록 + sitemap 제출 (절차는 거의 동일합니다)</li>
 </ul>
-<p>Daum 은 일부 Google 검색 결과 사용하지만 자체 색인도 함. 등록 시 +5-10% 트래픽 expected.</p>
+<p>Daum 은 일부 구글 검색 결과를 가져다 쓰긴 하지만 자체 색인도 함께 돌립니다. 등록해두면 트래픽이 5~10% 정도 더 붙을 것으로 기대할 수 있습니다.</p>
 <h2 id="_4">등록 후 일정</h2>
 <div class="tb-table-wrap"><table>
 <thead>
@@ -197,10 +199,10 @@ https://taystudios.com/blog/ko/recent-post/  # 최신 글들
 </tr>
 </tbody>
 </table></div>
-<p>내 사이트는 등록 후 <strong>5/22 부터 노출 spike</strong> → 30일 후 한 달 26,000 노출. Google sandbox 와 비슷한 평가 기간 있는 듯.</p>
+<p>제 사이트의 경우 등록 후 5/22 부터 노출이 spike 를 치더니, 30일 뒤에는 한 달 26,000 노출까지 올라왔습니다. 구글 sandbox 와 비슷하게 네이버에도 일종의 평가 기간이 있는 듯합니다.</p>
 <h2 id="_5">한 줄 결론</h2>
 <blockquote>
-<p><strong>한국 사이트면 Naver SearchAdvisor 등록은 GSC 보다 우선</strong>. 5분 작업으로 트래픽 80% 채널 잡기.</p>
+<p>한국 사이트라면 네이버 서치어드바이저 등록을 GSC 보다 먼저 하시길 권합니다. 5분이면 트래픽의 80% 채널을 잡을 수 있습니다.</p>
 </blockquote>
 <h2 id="_6">관련 글</h2>
 <ul>

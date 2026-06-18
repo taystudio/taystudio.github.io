@@ -59,7 +59,7 @@
         </div>
       </header>
 
-      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#llmstxt">llms.txt 가 뭐냐</a></li><li class="tb-toc-h2"><a href="#_1">왜 필요?</a></li><li class="tb-toc-h2"><a href="#llmstxt_1">우리 사이트 llms.txt 구조</a></li><li class="tb-toc-h3"><a href="#1">1. 한 문장 사이트 정의 (&gt; 인용 형식)</a></li><li class="tb-toc-h3"><a href="#2">2. 운영자·날짜·라이선스</a></li><li class="tb-toc-h3"><a href="#3">3. 정책 명시 (인용 신뢰성 가이드)</a></li><li class="tb-toc-h3"><a href="#4-fact">4. 핵심 fact 통합 섹션</a></li><li class="tb-toc-h3"><a href="#5-list">5. 카테고리별 페이지 list</a></li><li class="tb-toc-h2"><a href="#robotstxt-llm">robots.txt 의 LLM 친화 설정</a></li><li class="tb-toc-h2"><a href="#llm">검증 — 실제 LLM 노출 시작 신호</a></li><li class="tb-toc-h2"><a href="#geo-vs-seo">GEO vs SEO — 차이</a></li><li class="tb-toc-h2"><a href="#llmstxt_2">llms.txt 작성 팁</a></li><li class="tb-toc-h3"><a href="#1-fact-marketing-x">1. fact 우선 — 추측·marketing 톤 X</a></li><li class="tb-toc-h3"><a href="#2_1">2. 출처 명시 — 책임 분산</a></li><li class="tb-toc-h3"><a href="#3_1">3. 최종 업데이트 날짜 명시</a></li><li class="tb-toc-h3"><a href="#4-url">4. URL 절대 경로</a></li><li class="tb-toc-h3"><a href="#5">5. 변경 이력 섹션</a></li><li class="tb-toc-h2"><a href="#_2">알려진 한계</a></li><li class="tb-toc-h2"><a href="#_3">결론</a></li><li class="tb-toc-h2"><a href="#_4">관련 글</a></li><li class="tb-toc-h2"><a href="#_5">출처</a></li></ul></nav>
+      <nav class="tb-toc" aria-label="목차"><div class="tb-toc-title">목차</div><ul><li class="tb-toc-h2"><a href="#llmstxt">llms.txt 가 뭐냐</a></li><li class="tb-toc-h2"><a href="#_1">왜 필요?</a></li><li class="tb-toc-h2"><a href="#llmstxt_1">우리 사이트 llms.txt 구조</a></li><li class="tb-toc-h3"><a href="#1">1. 한 문장 사이트 정의 (&gt; 인용 형식)</a></li><li class="tb-toc-h3"><a href="#2">2. 운영자·날짜·라이선스</a></li><li class="tb-toc-h3"><a href="#3">3. 정책 명시 (인용 신뢰성 가이드)</a></li><li class="tb-toc-h3"><a href="#4-fact">4. 핵심 fact 통합 섹션</a></li><li class="tb-toc-h3"><a href="#5">5. 카테고리별 페이지 목록</a></li><li class="tb-toc-h2"><a href="#robotstxt-llm">robots.txt 의 LLM 친화 설정</a></li><li class="tb-toc-h2"><a href="#llm">검증 — 실제 LLM 노출 시작 신호</a></li><li class="tb-toc-h2"><a href="#geo-vs-seo">GEO vs SEO — 차이</a></li><li class="tb-toc-h2"><a href="#llmstxt_2">llms.txt 작성 팁</a></li><li class="tb-toc-h3"><a href="#1-fact-marketing-x">1. fact 우선 — 추측·marketing 톤 X</a></li><li class="tb-toc-h3"><a href="#2_1">2. 출처 명시 — 책임 분산</a></li><li class="tb-toc-h3"><a href="#3_1">3. 최종 업데이트 날짜 명시</a></li><li class="tb-toc-h3"><a href="#4-url">4. URL 절대 경로</a></li><li class="tb-toc-h3"><a href="#5_1">5. 변경 이력 섹션</a></li><li class="tb-toc-h2"><a href="#_2">알려진 한계</a></li><li class="tb-toc-h2"><a href="#_3">결론</a></li><li class="tb-toc-h2"><a href="#_4">관련 글</a></li><li class="tb-toc-h2"><a href="#_5">출처</a></li></ul></nav>
 
       <div class="tb-prose" data-table-style="classic">
 <style>
@@ -81,27 +81,27 @@
 .tb-content .callout p:last-child { margin-bottom:0; }
 </style>
 <blockquote>
-<p><strong>결론 먼저</strong>: <code>llms.txt</code> = LLM 친화 사이트 메타. 사이트 root 에 markdown 한 장 박아두면 ChatGPT·Claude·Perplexity 가 답변 시 우리 사이트 인용 가능성 ↑. 비용 0, 신생 표준이라 채택률 부분적이지만 미적용 손해. robots.txt LLM crawler 명시 Allow 와 같이 묶어서 30분 작업.</p>
+<p><strong>결론 먼저</strong>: <code>llms.txt</code> 는 LLM 친화적인 사이트 메타데이터입니다. 사이트 root 에 markdown 한 장을 올려두면 ChatGPT·Claude·Perplexity 가 답변할 때 우리 사이트를 인용할 가능성이 조금 더 올라갑니다. 비용은 0 이고, 아직 신생 표준이라 채택률이 부분적이긴 합니다만 안 해서 손해 볼 일은 없습니다. robots.txt 의 LLM crawler 명시 Allow 와 묶어서 작업하면 30분 정도 걸립니다.</p>
 </blockquote>
-<p>Cloudflare Web Analytics 에서 <code>chatgpt.com</code> referrer 가 처음 보인 날. <strong>AI 가 우리 사이트 알기 시작</strong>한 신호라 llms.txt 와 robots.txt 점검. 그동안 알게 된 내용 정리.</p>
+<p>Cloudflare Web Analytics 에서 <code>chatgpt.com</code> referrer 가 처음 보인 날이 있었습니다. AI 가 우리 사이트를 알기 시작했다는 신호 같아서, 그 김에 llms.txt 와 robots.txt 를 다시 손봤습니다. 그동안 직접 적용하면서 알게 된 내용을 정리해 둡니다.</p>
 <h2 id="llmstxt">llms.txt 가 뭐냐</h2>
-<p><code>robots.txt</code> 가 검색 크롤러와의 약속이라면 <code>llms.txt</code> 는 <strong>LLM 과의 약속</strong>:</p>
+<p><code>robots.txt</code> 가 검색 크롤러와의 약속이라면, <code>llms.txt</code> 는 LLM 과의 약속이라고 보면 됩니다. 대략 이런 성격입니다.</p>
 <ul>
-<li>사이트 root 에 markdown 형식으로 작성</li>
-<li>LLM 이 사이트 구조·핵심 fact·정책 빠르게 이해할 수 있게 정리</li>
-<li>2024년 후반 제안된 신생 표준 (<a href="https://llmstxt.org/">llmstxt.org</a>)</li>
-<li>ChatGPT·Claude·Perplexity·Gemini 가 검색·답변용으로 참조 (점진 채택)</li>
+<li>사이트 root 에 markdown 형식으로 작성합니다</li>
+<li>LLM 이 사이트 구조와 핵심 fact, 정책을 빠르게 이해할 수 있게 정리해 둔 파일입니다</li>
+<li>2024년 후반에 제안된 신생 표준입니다 (<a href="https://llmstxt.org/">llmstxt.org</a>)</li>
+<li>ChatGPT·Claude·Perplexity·Gemini 가 검색·답변용으로 참조합니다 (다만 채택은 점진적입니다)</li>
 </ul>
 <h2 id="_1">왜 필요?</h2>
-<p>LLM 이 답할 때 web search 또는 학습 데이터에서 정보 인용. 그런데 사이트가:</p>
+<p>LLM 이 무언가를 답할 때는 web search 결과나 학습 데이터에서 정보를 인용합니다. 그런데 막상 사이트 쪽을 보면 LLM 입장에서 다루기 곤란한 경우가 많습니다.</p>
 <ul>
-<li>HTML 깊고 복잡 → LLM 파싱 비용 ↑</li>
-<li>JS 렌더링 필요 → LLM crawler 접근 어려움</li>
-<li>핵심 fact 가 여러 페이지에 분산 → 통합 인용 어려움</li>
+<li>HTML 이 깊고 복잡하면 LLM 이 파싱하는 비용이 올라갑니다</li>
+<li>JS 렌더링이 필요하면 LLM crawler 가 접근하기 어렵습니다</li>
+<li>핵심 fact 가 여러 페이지에 흩어져 있으면 한 번에 인용하기 어렵습니다</li>
 </ul>
-<p>llms.txt 가 있으면 LLM 이 한 번에 사이트 핵심 + 페이지 list + 정책 파악 가능. 결과 → <strong>인용 가능성 ↑</strong>.</p>
+<p>llms.txt 가 있으면 LLM 이 한 번에 사이트의 핵심과 페이지 목록, 정책을 파악할 수 있습니다. 그만큼 인용될 가능성이 올라가는 셈입니다.</p>
 <h2 id="llmstxt_1">우리 사이트 llms.txt 구조</h2>
-<p><code>https://taystudios.com/llms.txt</code>:</p>
+<p>실제로 <code>https://taystudios.com/llms.txt</code> 는 이런 식으로 만들어 두었습니다.</p>
 <pre class="codehilite"><code class="language-markdown"># TAYSTUDIO
 
 &gt; 한국 사용자를 위한 무료 웹 도구·계산기·블로그. 68개 도구가 브라우저 안에서 실행.
@@ -136,19 +136,19 @@
 [...]
 </code></pre>
 
-<p>핵심 요소:</p>
+<p>제가 넣을 때 신경 쓴 요소는 다음과 같습니다.</p>
 <h3 id="1">1. 한 문장 사이트 정의 (<code>&gt;</code> 인용 형식)</h3>
-<p>LLM 이 사이트 한 줄로 요약할 때 직접 쓸 수 있는 문장.</p>
+<p>LLM 이 사이트를 한 줄로 요약할 때 그대로 가져다 쓸 수 있는 문장입니다.</p>
 <h3 id="2">2. 운영자·날짜·라이선스</h3>
-<p>인용 시 출처 표기 가능. 신뢰도 신호.</p>
+<p>인용할 때 출처를 표기할 수 있게 해 주는, 일종의 신뢰도 신호입니다.</p>
 <h3 id="3">3. 정책 명시 (인용 신뢰성 가이드)</h3>
-<p>"이 사이트가 어떻게 정보 검증하는지" → LLM 이 사용자에게 답할 때 신뢰도 평가 근거.</p>
+<p>"이 사이트가 정보를 어떻게 검증하는지" 를 적어 두면, LLM 이 사용자에게 답할 때 신뢰도를 평가하는 근거로 삼을 수 있습니다.</p>
 <h3 id="4-fact">4. 핵심 fact 통합 섹션</h3>
-<p>페이지 분산된 수치 (세율·요율·기준) 를 한 번에 정리. LLM 이 빠르게 reference 가능.</p>
-<h3 id="5-list">5. 카테고리별 페이지 list</h3>
-<p>사용자가 "한국 양도세 계산기 추천" 물으면 LLM 이 이 list 에서 매칭 후 우리 사이트 인용.</p>
+<p>여러 페이지에 흩어져 있는 수치(세율·요율·기준)를 한곳에 모아 둡니다. 이렇게 해 두면 LLM 이 빠르게 reference 할 수 있습니다.</p>
+<h3 id="5">5. 카테고리별 페이지 목록</h3>
+<p>사용자가 "한국 양도세 계산기 추천" 같은 걸 물었을 때, LLM 이 이 목록에서 매칭한 뒤 우리 사이트를 인용하게 됩니다.</p>
 <h2 id="robotstxt-llm">robots.txt 의 LLM 친화 설정</h2>
-<p>llms.txt 와 같이 robots.txt 에서 LLM 크롤러 <strong>명시적 Allow</strong>:</p>
+<p>llms.txt 와 같이, robots.txt 에서도 LLM 크롤러를 명시적으로 Allow 해 줬습니다.</p>
 <pre class="codehilite"><code class="language-txt"># LLM crawler — 명시적 Allow
 User-agent: GPTBot          # OpenAI / ChatGPT
 Allow: /
@@ -173,9 +173,9 @@ Allow: /
 # https://taystudios.com/llms.txt
 </code></pre>
 
-<p><strong>중요</strong>: 이 User-agent 들은 일반 검색 봇과 별개. 명시 안 하면 일부는 <code>User-agent: *</code> 따르지만 일부는 그렇지 않음. 명시적 Allow 가 안전.</p>
+<p>여기서 한 가지 짚어 둘 점이 있습니다. 이 User-agent 들은 일반 검색 봇과는 별개입니다. 명시하지 않으면 일부는 <code>User-agent: *</code> 규칙을 따르지만, 일부는 그렇지 않습니다. 그래서 명시적으로 Allow 해 두는 편이 안전합니다.</p>
 <h2 id="llm">검증 — 실제 LLM 노출 시작 신호</h2>
-<p>Cloudflare Web Analytics referrer:</p>
+<p>앞서 말한 Cloudflare Web Analytics 의 referrer 는 이런 모습이었습니다.</p>
 <pre class="codehilite"><code>Visits by source:
 - m.search.naver.com: 18
 - search.naver.com: 16
@@ -183,13 +183,13 @@ Allow: /
 - chatgpt.com: (visits)
 </code></pre>
 
-<p><code>chatgpt.com</code> referrer 의미:</p>
+<p><code>chatgpt.com</code> referrer 가 잡힌다는 건 보통 이런 의미입니다.</p>
 <ul>
-<li>사용자가 ChatGPT 에서 우리 사이트 링크 받음 (예: "한국 양도세 계산기 추천")</li>
-<li>또는 ChatGPT 가 답변에 우리 사이트 인용 (citation)</li>
-<li>→ <strong>LLM 검색에서 우리 사이트 노출 시작</strong></li>
+<li>사용자가 ChatGPT 에서 우리 사이트 링크를 받아 들어왔거나 (예: "한국 양도세 계산기 추천")</li>
+<li>ChatGPT 가 답변에 우리 사이트를 인용(citation)했다는 뜻입니다</li>
+<li>어느 쪽이든 LLM 검색에서 우리 사이트가 노출되기 시작했다는 신호입니다</li>
 </ul>
-<p>이 referrer 가 늘어나는 게 GEO (Generative Engine Optimization) 의 성공 지표.</p>
+<p>이 referrer 가 늘어나는 게 곧 GEO (Generative Engine Optimization) 의 성공 지표라고 보고 있습니다.</p>
 <h2 id="geo-vs-seo">GEO vs SEO — 차이</h2>
 <div class="tb-table-wrap"><table>
 <thead>
@@ -227,32 +227,32 @@ Allow: /
 </tr>
 </tbody>
 </table></div>
-<p>→ <strong>GEO 와 SEO 는 동시 수행 가능</strong>. 같은 콘텐츠가 양쪽 노출 가능.</p>
+<p>정리하면 GEO 와 SEO 는 동시에 가져갈 수 있습니다. 같은 콘텐츠가 양쪽 모두에 노출될 수 있기 때문입니다.</p>
 <h2 id="llmstxt_2">llms.txt 작성 팁</h2>
 <h3 id="1-fact-marketing-x">1. fact 우선 — 추측·marketing 톤 X</h3>
 <pre class="codehilite"><code>❌ &quot;TAYSTUDIO 는 사용자에게 최고의 경험을 제공하는 도구...&quot;
 ✅ &quot;한국 사용자를 위한 무료 웹 도구·계산기. 68개 도구가 브라우저 안에서 실행.&quot;
 </code></pre>
 
-<p>LLM 이 인용할 때 fact 만 살아남음. marketing 톤은 신뢰도 ↓.</p>
+<p>경험상 LLM 이 인용할 때는 fact 만 살아남습니다. marketing 톤은 오히려 신뢰도를 떨어뜨립니다.</p>
 <h3 id="2_1">2. 출처 명시 — 책임 분산</h3>
 <pre class="codehilite"><code>✅ &quot;정부 공식 출처 직접 인용 (law.go.kr·국세청·기재부)&quot;
 ✅ &quot;의학 수치는 학술 논문·공식 학회 (대한비만학회 비만 진료지침 2022·KDRI 2020·WHO·ACOG·AAP)&quot;
 </code></pre>
 
-<p>LLM 이 "이 사이트는 어떤 출처에서 정보를 가져오나" 알 수 있게.</p>
+<p>LLM 이 "이 사이트는 어떤 출처에서 정보를 가져오나" 를 알 수 있게 해 두는 부분입니다.</p>
 <h3 id="3_1">3. 최종 업데이트 날짜 명시</h3>
 <pre class="codehilite"><code>✅ 최종 업데이트: 2026-06-02
 </code></pre>
 
-<p>LLM 학습 cut-off 이후 변경된 정책 (2025-09 예금자보호 1억·2026 자동차 다자녀 100%) 을 알리는 신호.</p>
+<p>LLM 의 학습 cut-off 이후에 바뀐 정책(2025-09 예금자보호 1억·2026 자동차 다자녀 100% 같은 것들)을 알려 주는 신호 역할을 합니다.</p>
 <h3 id="4-url">4. URL 절대 경로</h3>
 <pre class="codehilite"><code>✅ [연봉 실수령액 계산기](https://taystudios.com/tools/salary/)
 ❌ [연봉 실수령액 계산기](/tools/salary/)
 </code></pre>
 
-<p>LLM 이 사용자에게 링크 인용할 때 절대 URL 필요.</p>
-<h3 id="5">5. 변경 이력 섹션</h3>
+<p>LLM 이 사용자에게 링크를 인용해 줄 때는 절대 URL 이 필요합니다.</p>
+<h3 id="5_1">5. 변경 이력 섹션</h3>
 <pre class="codehilite"><code>## 변경 이력 (최근)
 
 - 2026-06-02: 18 도구 stale fix + 차별화 매트릭스 5건 add
@@ -260,23 +260,24 @@ Allow: /
 - 2026-05-09: 도메인 migration
 </code></pre>
 
-<p>LLM 이 사이트의 살아있음·정확성·최신 변경 파악.</p>
+<p>이걸 넣어 두면 LLM 이 사이트가 살아 있고, 최근 어떤 변경이 있었는지를 파악하는 데 도움이 됩니다.</p>
 <h2 id="_2">알려진 한계</h2>
+<p>솔직하게 한계도 적어 둡니다.</p>
 <ul>
-<li>llms.txt 는 <strong>신생 표준</strong> (2024 후반 제안). 모든 LLM 이 채택 X</li>
-<li>ChatGPT·Claude·Perplexity 공식 지원 발표 부분적</li>
-<li>효과 측정 어려움 — LLM 답변 인용 횟수 직접 측정 불가</li>
-<li>그러나 <strong>비용 0</strong> (정적 파일 1개) 라 미적용 손해</li>
+<li>llms.txt 는 아직 신생 표준입니다 (2024 후반 제안). 모든 LLM 이 채택하고 있는 건 아닙니다</li>
+<li>ChatGPT·Claude·Perplexity 의 공식 지원 발표도 부분적인 수준입니다</li>
+<li>효과 측정이 어렵습니다 — LLM 답변에서 인용된 횟수를 직접 셀 수가 없습니다</li>
+<li>그래도 비용이 0 (정적 파일 한 개) 이라, 안 해서 손해 볼 일은 없다고 봅니다</li>
 </ul>
 <h2 id="_3">결론</h2>
-<p>llms.txt 는 SEO 시대의 sitemap.xml 처럼 <strong>AI 검색 시대의 기본 설정</strong>. 채택률 100% 아니어도 비용 0 + 부분 효과만으로 충분히 가치.</p>
-<p>특히:</p>
+<p>llms.txt 는 SEO 시대의 sitemap.xml 같은, AI 검색 시대의 기본 설정에 가깝습니다. 채택률이 100% 가 아니어도, 비용 0 에 부분적인 효과만으로도 충분히 할 만한 가치가 있다고 생각합니다.</p>
+<p>특히 이런 경우에 효과가 더 큽니다.</p>
 <ul>
-<li>사이트가 <strong>fact-heavy 도메인</strong> (세금·의료·정책·통계) 이면 더 효과적</li>
-<li>LLM 이 정확성 평가할 신호 다수 제공</li>
-<li>robots.txt LLM crawler 명시 Allow 와 같이 묶어서 적용</li>
+<li>사이트가 세금·의료·정책·통계 같은 fact-heavy 도메인이면 더 잘 먹힙니다</li>
+<li>LLM 이 정확성을 평가할 신호를 여러 개 제공하게 됩니다</li>
+<li>robots.txt 의 LLM crawler 명시 Allow 와 묶어서 적용하면 좋습니다</li>
 </ul>
-<p>신규 도메인 운영 한 달 차에 가장 가성비 좋은 SEO 액션 중 하나.</p>
+<p>신규 도메인을 운영한 지 한 달 차에, 가성비로 따지면 가장 좋은 SEO 액션 중 하나였습니다.</p>
 <h2 id="_4">관련 글</h2>
 <ul>
 <li><a href="/blog/ko/seo-search-engines-concepts/">SEO·검색엔진 핵심 개념 12</a> — Google sandbox·E-E-A-T·DA 등 12개 정의</li>

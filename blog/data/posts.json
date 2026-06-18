@@ -25,7 +25,7 @@
   },
   {
     "slug": "aws-cost-optimization",
-    "title": "[AWS] 인프라 비용 55% 절감 가이드 — Graviton(ARM) 전환과 고정비 최적화",
+    "title": "[AWS 비용] AWS 인프라 비용 55% 절감 가이드 (Graviton 전환 및 고정비 최적화 전략)",
     "date": "2026-02-12",
     "excerpt": "EC2 아키텍처(x86→ARM/Graviton) 전환만으로 ~20%, ALB·NAT·RDS를 Nginx·NAT 인스턴스·EC2 DB로 직접 구축해 월 운영비를 최대 55%(약 200만 원) 낮춘 실제 견적과 전략.",
     "category": [
@@ -63,7 +63,7 @@
   },
   {
     "slug": "aws-summit-2024",
-    "title": "AWS Summit Seoul 2024 — 한 백엔드 개발자의 현장 메모 (AI 서빙·CMP·미들웨어)",
+    "title": "[Summit] AWS summit 후기",
     "date": "2024-06-13",
     "excerpt": "2024년 5월 17일 AWS Summit Seoul 참석. 부스 돌면서 본 세 갈래 트렌드 — 생성형 AI 서빙 (챗봇·이메일·맞춤형 비서·이미지 생성), 멀티클라우드 CMP, API Gateway·미들웨어. '결국 아이디어는 다 비슷, UI·UX·성능에서 갈린다'는 잔상.",
     "category": [
@@ -241,7 +241,7 @@
   },
   {
     "slug": "central-limit-theorem",
-    "title": "중심극한정리(Central Limit Theorem) — 정의·실험·용도",
+    "title": "중심극한 정리 (Central Limit Theorem) : 정의 및 실험 & 용도",
     "date": "2024-11-03",
     "excerpt": "표본 크기가 커지면 어떤 분포든 표본평균은 정규분포에 수렴 — 5가지 분포 실험으로 확인하고, CLT가 추정·신뢰구간에 왜 중요한지.",
     "category": [
@@ -316,7 +316,7 @@
   },
   {
     "slug": "degrees-of-freedom",
-    "title": "자유도(Degree of Freedom)란 — 모분산 추정에서 n-1로 나누는 이유",
+    "title": "자유도(Degree Of Freedom)란 & 모분산 추정과 자유도 (n-1)",
     "date": "2024-09-30",
     "excerpt": "표본분산은 왜 n이 아니라 n-1로 나눌까? 과소추정 보정과 자유도 두 관점으로 분산의 본질을 정리.",
     "category": [
@@ -334,7 +334,7 @@
   },
   {
     "slug": "ec2-ssh-unprotected-private-key",
-    "title": "[AWS] EC2 SSH 접속 에러 — UNPROTECTED PRIVATE KEY FILE 해결 (.pem 권한 chmod 400)",
+    "title": "[AWS] EC2 SSH 접속 에러: UNPROTECTED PRIVATE KEY FILE 에러 해결 방법 (ssh pem 키 권한 설정)",
     "date": "2026-02-08",
     "excerpt": "EC2에 SSH 접속 시 'WARNING: UNPROTECTED PRIVATE KEY FILE' — .pem 키 권한이 너무 열려서 막힌 것. chmod 400으로 즉시 해결한다.",
     "category": [
@@ -368,7 +368,7 @@
       "Pycharm",
       "Python"
     ],
-    "image": "assets/posts/fastapi-getting-started/cover.png",
+    "image": "assets/posts/fastapi-getting-started/cover.webp",
     "lang": "ko"
   },
   {
@@ -397,7 +397,7 @@
   },
   {
     "slug": "hypothesis-testing",
-    "title": "가설검정 이해 — 검정통계량·귀무가설·대립가설·p-value·유의수준·임계값 정리",
+    "title": "가설검정 이해: 검정통계량, 귀무가설, 대립가설, p-value, 유의수준 (significance level), 임계값 (critical value) 개념 정리 (본질)",
     "date": "2026-05-27",
     "excerpt": "가설검정의 직관부터 검정통계량의 의미, 귀무가설·대립가설·p-value·유의수준·임계값까지 예시 하나로 정리.",
     "category": [
@@ -414,7 +414,7 @@
   },
   {
     "slug": "kaist-grad-mech-written-set1",
-    "title": "KAIST 기계공학과 대학원 필기시험 후기 (1) — 첫 번째 세트 5문제 복기 (2019)",
+    "title": "[입시] 카이스트 대학원 필기시험 (기계공학과) - 후기(1)",
     "date": "2024-05-17",
     "excerpt": "2019년 8월 KAIST 기계공학과 대학원 필기시험 — 첫 번째 세트 5문제 복기. 수학·고체역학·동역학·열역학·유체역학 각 1문제씩 (2시간). ODE·Von-mises stress·Work&Energy·Energy equation·정수력학.",
     "category": [
@@ -440,7 +440,7 @@
   },
   {
     "slug": "kaist-grad-mech-written-set2",
-    "title": "KAIST 기계공학과 대학원 필기시험 후기 (2) — 두 번째 세트 5문제 복기 (2019)",
+    "title": "[입시] 카이스트 대학원 필기시험 (기계공학과) - 후기(2)",
     "date": "2024-05-17",
     "excerpt": "2019년 8월 KAIST 기계공학과 대학원 필기시험 — 두 번째 세트 5문제 복기. Eigen value·Strength design·강체 Work&Energy·열역학 max work·Navier-Stokes Couette flow.",
     "category": [
@@ -468,7 +468,7 @@
   },
   {
     "slug": "ksme-pm25-cnn-prediction",
-    "title": "KSME 학회 후기 — 신경회로망 PM2.5 예측 (대한기계학회 유체경진대회 금상, 2019)",
+    "title": "학회 후기(과거 기록) : KSME (대한기계학회) - 유체경진대회 금상 수상",
     "date": "2024-10-09",
     "excerpt": "2019년 학부 졸업논문 — 신경회로망(ANN) 으로 미세먼지(PM2.5) 농도를 6·12·24시간 후 예측. 기상·대기질 데이터 94,225건, AIC·VIF 변수 선택, Window Learning 기법. 그리고 2년 뒤 대학원에서 발견한 time lag 함정까지.",
     "category": [
@@ -495,7 +495,7 @@
   },
   {
     "slug": "mssql-login-user-schema",
-    "title": "MS SQL Server 로그인·User·스키마 매핑 정리 (Oracle과 비교)",
+    "title": "MS SQL Server 로그인 계정, DB 사용자(User), 스키마 매핑 정리 (Oracle과 비교)",
     "date": "2025-10-05",
     "excerpt": "Oracle 경험자가 MS SQL Server로 넘어올 때 가장 헷갈리는 Login·User·Schema 3단계 구조를 Oracle(User=Schema=Login) 1단계 구조와 비교 정리. sysadmin이 dbo 스키마에 고정되는 문제와 업무용 계정 분리 해결법까지.",
     "category": [
@@ -514,7 +514,7 @@
   },
   {
     "slug": "nat-instance-build-1",
-    "title": "[AWS] NAT Gateway 비용 절감 — AMI로 NAT 인스턴스 구축 (1부)",
+    "title": "[AWS 인프라] NAT Gateway 비용 절감을 위한 AMI로 NAT 인스턴스 구축 및 설정 (1부)",
     "date": "2024-12-28",
     "excerpt": "NAT Gateway는 월 $32+ 고정비가 든다. 비용을 아끼려 EC2(NAT Instance)로 Private Subnet 인터넷을 연결한 방법 — 1부는 AWS 커뮤니티 AMI(amzn-ami-vpc-nat)를 이용한 구성.",
     "category": [
@@ -533,7 +533,7 @@
   },
   {
     "slug": "nat-instance-build-2",
-    "title": "[AWS] NAT Gateway 비용 절감 — iptables로 NAT 인스턴스 직접 구축 (2부)",
+    "title": "[AWS 인프라] NAT Gateway 비용 절감을 위한 NAT 인스턴스 구축 및 설정 (2부)",
     "date": "2024-12-29",
     "excerpt": "1부의 커뮤니티 AMI는 OS가 구형(EOS)이라 유지가 어렵다. 2부에서는 최신 Ubuntu에 직접 iptables(IP 포워딩 + MASQUERADE)를 설정해 NAT 인스턴스를 구축하고, 재부팅에도 규칙이 유지되게 한다.",
     "category": [
@@ -552,7 +552,7 @@
   },
   {
     "slug": "nginx-install-ubuntu-centos",
-    "title": "Nginx 설치 가이드 — Ubuntu / CentOS (특정 버전·설정 구조·방화벽)",
+    "title": "Nginx 특정 버전 & 최신 설치 가이드: Ubuntu / CentOS 완벽 정리",
     "date": "2026-02-08",
     "excerpt": "AWS EC2 등 클라우드 서버에 Nginx 설치 — Ubuntu(apt)·CentOS(yum) 버전별 설치, /etc/nginx 설정 구조(sites-available/enabled), UFW·firewalld·AWS 보안그룹 방화벽까지 한 번에.",
     "category": [
@@ -571,7 +571,7 @@
   },
   {
     "slug": "python-oracledb-arm-dpi-1047",
-    "title": "AWS Graviton(ARM)에서 Python Oracle 연결 오류 DPI-1047 해결 — python-oracledb Thin 모드",
+    "title": "[SQLAlchemy] AWS Graviton(ARM)에서 Python Oracle DB 연결 오류 DPI-1047 해결 | SQLAlchemy, oracledb",
     "date": "2026-02-10",
     "excerpt": "x86_64에서 잘 되던 Python–Oracle 연동이 AWS Graviton(ARM)에서 DPI-1047(libclntsh.so 못 찾음) 에러로 실패하는 원인과, Instant Client 없이 순수 Python으로 동작하는 python-oracledb Thin 모드 해결법(SQLAlchemy·native 예제).",
     "category": [
@@ -726,7 +726,7 @@
   },
   {
     "slug": "t-test-python-scipy",
-    "title": "t검정 Python 구현 — SciPy로 일표본·독립표본(Student's·Welch's)·대응표본",
+    "title": "평균치(t) 검정 t test 구현 [One, Two, Paired Samples t-test : Python feat. SciPy & Statsmodels]",
     "date": "2024-11-05",
     "excerpt": "이전 글의 t검정 이론을 그대로 SciPy 코드로 — ttest_1samp·ttest_ind(equal_var)·ttest_rel 세 함수와 axis 옵션, 손계산과 일치 확인.",
     "category": [
@@ -745,7 +745,7 @@
   },
   {
     "slug": "t-test",
-    "title": "평균치 검정 — t검정 (One / Two: Student's·Welch's / Paired)",
+    "title": "평균치 검정 : t검정 [One, Two(Student's & Welch's), Paired Samples t-test]",
     "date": "2024-11-03",
     "excerpt": "두 집단 평균이 다른 게 진짜 차이인지 단순 변동성인지 — t검정의 당위성·가정(정규성·등분산성)·종류별 계산 예시.",
     "category": [
@@ -763,7 +763,7 @@
   },
   {
     "slug": "uncertainty-variance",
-    "title": "불확실성·변동성·분산 — 확률의 본질로 이해하기",
+    "title": "불확실성, 변동성, 분산 (feat 확률의 본질)",
     "date": "2024-09-30",
     "excerpt": "확률의 본질을 불확실성·변동성·분산 세 개념으로 연결해 정리. 분산이 왜 '평균으로부터의 거리'로 정의되는지 직관까지.",
     "category": [
