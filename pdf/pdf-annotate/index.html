@@ -127,8 +127,21 @@
   <style>
     main.container { max-width:1180px; }
     .pa-note { background:#fff7ed; border:1px solid #fdba74; color:#9a3412; border-radius:10px; padding:10px 14px; font-size:13px; margin:14px 0; }
-    .pa-layout { display:grid; grid-template-columns:240px 1fr; gap:18px; margin-top:16px; }
-    @media (max-width:880px){ .pa-layout{ grid-template-columns:1fr; } }
+    .pa-layout { display:grid; grid-template-columns:240px 1fr; gap:18px; margin-top:16px; grid-template-areas:"file preview" "tools preview" "save preview"; }
+    .pa-area-file{ grid-area:file; min-width:0; } .pa-toolcard{ grid-area:tools; min-width:0; } .pa-area-save{ grid-area:save; min-width:0; } .pa-preview{ grid-area:preview; min-width:0; }
+    @media (max-width:880px){
+      /* 모바일: 도구를 뷰어 바로 위 작은 아이콘 바로 (아이콘 전용, 따라다니지 않음) */
+      .pa-layout{ grid-template-columns:1fr; grid-template-areas:"file" "tools" "preview" "save"; }
+      .pa-toolcard{ margin-bottom:8px; padding:7px 9px; }
+      .pa-toolcard h2{ display:none; }
+      .pa-toolcard .pa-tools{ display:flex; grid-template-columns:none; gap:5px; overflow-x:auto; padding-bottom:3px; -webkit-overflow-scrolling:touch; }
+      .pa-toolcard .pa-tool{ flex:0 0 auto; width:40px; height:40px; min-width:40px; padding:0; gap:0; font-size:0; justify-content:center; }
+      .pa-toolcard .pa-tool i{ font-size:17px; }
+      .pa-toolcard .pa-row{ margin-top:6px; font-size:11px; gap:6px; white-space:nowrap; }
+      .pa-toolcard .pa-sw{ width:19px; height:19px; }
+      .pa-toolcard #fontRow, .pa-toolcard #sizeRow, .pa-toolcard #thickRow{ font-size:11px; }
+      .pa-toolcard .pa-hint{ display:none; }
+    }
     .pa-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; margin-bottom:12px; }
     .pa-card h2 { font-size:12px; margin:0 0 10px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
     .pa-card input[type=file]{ width:100%; padding:8px; border:1px dashed var(--border); border-radius:8px; font-size:13px; background:var(--bg); color:var(--text); cursor:pointer; }
@@ -181,14 +194,13 @@
     <div class="pa-note">⚠️ 이미 박혀 있는 글자를 직접 고치는 게 아니라 <b>위에 덧입히는</b> 방식입니다. 기존 내용을 바꾸려면 <b>가림(흰색)</b>으로 덮고 그 위에 텍스트를 얹으세요.</div>
 
     <div class="pa-layout">
-      <div>
-        <div class="pa-card">
+        <div class="pa-card pa-area-file">
           <h2>1. PDF 파일</h2>
           <input type="file" id="pdfInput" accept="application/pdf">
           <div class="pa-hint" id="pdfInfo">PDF를 선택하세요</div>
         </div>
 
-        <div class="pa-card">
+        <div class="pa-card pa-toolcard">
           <h2>2. 도구</h2>
           <div class="pa-tools">
             <div class="pa-tool active" data-tool="select"><i class="fa-solid fa-arrow-pointer"></i>선택·이동</div>
@@ -208,7 +220,7 @@
           <div class="pa-hint">💡 텍스트 박스 <b>클릭</b> → 글자 크기·색·글꼴 변경(즉시) / 내용 재입력. ✛ 이동 · × 삭제.<br>🗑️ <b>영역 선택</b>(네모)·<b>올가미</b>(자유)로 감싼 뒤 <b>Delete 키</b>로 삭제 (Esc 해제). <b>지우개</b>는 드래그로 지나간 부분만 지움(선은 부분 지우기, 글자·도형은 통째로).</div>
         </div>
 
-        <div class="pa-card">
+        <div class="pa-card pa-area-save">
           <h2>3. 저장</h2>
           <button class="pa-btn" id="undoBtn"><i class="fa-solid fa-rotate-left"></i> 실행취소</button>
           <button class="pa-btn" id="clearBtn"><i class="fa-solid fa-trash"></i> 이 페이지 주석 지우기</button>
@@ -216,7 +228,6 @@
           <button class="pa-btn" id="resetBtn"><i class="fa-solid fa-arrows-rotate"></i> 처음부터 다시</button>
           <div class="pa-status" id="status"></div>
         </div>
-      </div>
 
       <div class="pa-preview">
         <div class="pa-empty" id="emptyState">

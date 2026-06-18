@@ -128,8 +128,21 @@
   <style>
     main.container { max-width:1180px; }
     .pa-note { background:#fff7ed; border:1px solid #fdba74; color:#9a3412; border-radius:10px; padding:10px 14px; font-size:13px; margin:14px 0; }
-    .pa-layout { display:grid; grid-template-columns:240px 1fr; gap:18px; margin-top:16px; }
-    @media (max-width:880px){ .pa-layout{ grid-template-columns:1fr; } }
+    .pa-layout { display:grid; grid-template-columns:240px 1fr; gap:18px; margin-top:16px; grid-template-areas:"file preview" "tools preview" "save preview"; }
+    .pa-area-file{ grid-area:file; min-width:0; } .pa-toolcard{ grid-area:tools; min-width:0; } .pa-area-save{ grid-area:save; min-width:0; } .pa-preview{ grid-area:preview; min-width:0; }
+    @media (max-width:880px){
+      /* mobile: tools as a small icon bar right above the viewer (icon-only, not sticky) */
+      .pa-layout{ grid-template-columns:1fr; grid-template-areas:"file" "tools" "preview" "save"; }
+      .pa-toolcard{ margin-bottom:8px; padding:7px 9px; }
+      .pa-toolcard h2{ display:none; }
+      .pa-toolcard .pa-tools{ display:flex; grid-template-columns:none; gap:5px; overflow-x:auto; padding-bottom:3px; -webkit-overflow-scrolling:touch; }
+      .pa-toolcard .pa-tool{ flex:0 0 auto; width:40px; height:40px; min-width:40px; padding:0; gap:0; font-size:0; justify-content:center; }
+      .pa-toolcard .pa-tool i{ font-size:17px; }
+      .pa-toolcard .pa-row{ margin-top:6px; font-size:11px; gap:6px; white-space:nowrap; }
+      .pa-toolcard .pa-sw{ width:19px; height:19px; }
+      .pa-toolcard #fontRow, .pa-toolcard #sizeRow, .pa-toolcard #thickRow{ font-size:11px; }
+      .pa-toolcard .pa-hint{ display:none; }
+    }
     .pa-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; margin-bottom:12px; }
     .pa-card h2 { font-size:12px; margin:0 0 10px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
     .pa-card input[type=file]{ width:100%; padding:8px; border:1px dashed var(--border); border-radius:8px; font-size:13px; background:var(--bg); color:var(--text); cursor:pointer; }
@@ -182,14 +195,13 @@
     <div class="pa-note">⚠️ This <b>overlays</b> on top of the PDF rather than editing existing text in place. To change existing content, cover it with <b>white-out</b> and add new text on top.</div>
 
     <div class="pa-layout">
-      <div>
-        <div class="pa-card">
+        <div class="pa-card pa-area-file">
           <h2>1. PDF file</h2>
           <input type="file" id="pdfInput" accept="application/pdf">
           <div class="pa-hint" id="pdfInfo">Select a PDF</div>
         </div>
 
-        <div class="pa-card">
+        <div class="pa-card pa-toolcard">
           <h2>2. Tools</h2>
           <div class="pa-tools">
             <div class="pa-tool active" data-tool="select"><i class="fa-solid fa-arrow-pointer"></i>Select / Move</div>
@@ -209,7 +221,7 @@
           <div class="pa-hint">💡 Click a text box → change size, color or font (live) / retype. ✛ move · × delete.<br>🗑️ <b>Select area</b> (box) or <b>Lasso</b> (free) then press <b>Delete</b> (Esc to clear). <b>Eraser</b> rubs out just the part you drag over (strokes erase partially; text/shapes whole).</div>
         </div>
 
-        <div class="pa-card">
+        <div class="pa-card pa-area-save">
           <h2>3. Save</h2>
           <button class="pa-btn" id="undoBtn"><i class="fa-solid fa-rotate-left"></i> Undo</button>
           <button class="pa-btn" id="clearBtn"><i class="fa-solid fa-trash"></i> Clear annotations on this page</button>
@@ -217,7 +229,6 @@
           <button class="pa-btn" id="resetBtn"><i class="fa-solid fa-arrows-rotate"></i> Start over</button>
           <div class="pa-status" id="status"></div>
         </div>
-      </div>
 
       <div class="pa-preview">
         <div class="pa-empty" id="emptyState">
