@@ -234,6 +234,17 @@
     </section>
 
     <section class="tool-article">
+      <h2>Why the same emoji looks different across devices</h2>
+      <p>If a copied emoji looks different on iPhone, Android and PC, that's not a bug. <b>Unicode only standardizes which emoji it is (the code point); the actual picture is drawn by each OS/app's emoji font</b> — Apple Color Emoji, Google Noto Emoji, Samsung One UI and Microsoft each design the same 😀 differently.</p>
+      <ul>
+        <li><b>Why combined (ZWJ) emoji split apart</b> — 👨‍👩‍👧‍👦 (family), 🧑‍🚀 (role) and 🏳️‍🌈 (flag) are several emoji joined with <code>U+200D</code> (zero-width joiner). Older devices that don't support the sequence show the pieces separately (👨👩👧👦).</li>
+        <li><b>Skin tones &amp; variants</b> — skin-tone modifiers (🏻🏼🏽🏾🏿) are variation codes that fall back to the default form where unsupported.</li>
+        <li><b>When it shows as a box (□)</b> — a brand-new emoji missing from that device's emoji font renders as tofu, especially on old OS versions.</li>
+      </ul>
+      <p class="small">So preview where you'll paste for important posts. Basic emoji and symbols are widely compatible; combined and newest emoji vary the most.</p>
+    </section>
+
+    <section class="tool-article">
       <h2>Related tools</h2>
       <div class="related-calc">
         <a href="../">All text tools<span class="desc">Counter, ASCII banner &amp; more</span></a>

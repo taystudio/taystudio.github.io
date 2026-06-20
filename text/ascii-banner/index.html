@@ -178,6 +178,18 @@
     </section>
 
     <section class="tool-article">
+      <h2>왜 폰트마다 너비·높이가 다른가 — FIGfont 구조</h2>
+      <p>같은 글자라도 폰트에 따라 크기·정렬이 다른 데는 이유가 있습니다. FIGfont(<code>.flf</code>)는 글자 하나를 <b>고정 높이의 여러 줄(sub-character rows)</b> 격자로 정의해요. 이 도구에 든 폰트의 실제 높이를 보면 — <b>Standard·Slant 6줄, ANSI Shadow 7줄, Big·Doom 8줄, Small 5줄</b>. 그래서 폰트를 바꾸면 전체 높이가 통째로 달라집니다.</p>
+      <p>가로 폭은 <b>레이아웃 규칙</b>이 정합니다. figlet 기본값은 <b>smushing</b>(인접 글자의 경계 칸을 규칙대로 겹쳐 압축)이라 글자들이 딱 붙어 좁아져요. 폰트마다 smushing 규칙(hardblank·겹침 허용 비트)이 달라서, 같은 단어도 ANSI Shadow는 넓고 Small은 좁게 나옵니다.</p>
+      <ul>
+        <li><b>고정폭(monospace)이 필수인 이유</b> — 각 글자가 N줄 격자라 줄마다 칸 수가 정확히 맞아야 위아래가 정렬됩니다. 가변폭 글꼴은 칸 폭이 글자마다 달라 격자가 어긋나 깨집니다.</li>
+        <li><b>긴 텍스트가 잘리는 이유</b> — figlet은 자동 줄바꿈을 안 하므로 (글자 수 × 글자폭)이 화면을 넘으면 가로로 길어지거나 잘립니다. 짧은 이름·이니셜이 안전합니다.</li>
+        <li><b>이모지 채움이 밀리는 이유</b> — 이모지는 한 글자가 보통 2칸 폭이라, smushing으로 압축된 격자에서 칸이 밀려 정렬이 흐트러질 수 있습니다(굵은 폰트일수록 여유 있음).</li>
+      </ul>
+      <p class="small">이 도구는 figlet 기본 <code>textSync</code>(smushing) 동작을 그대로 씁니다 — 터미널 <code>figlet</code> 명령과 같은 결과가 나옵니다.</p>
+    </section>
+
+    <section class="tool-article">
       <h2>어디에 붙여넣나</h2>
       <div class="ref-table">
         <table>

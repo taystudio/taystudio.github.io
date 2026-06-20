@@ -178,6 +178,18 @@
     </section>
 
     <section class="tool-article">
+      <h2>Why width &amp; height differ per font — FIGfont internals</h2>
+      <p>There's a reason the same text changes size and alignment when you switch fonts. A FIGfont (<code>.flf</code>) defines each letter as a grid of a <b>fixed number of sub-character rows</b>. The fonts in this tool actually measure — <b>Standard &amp; Slant 6 rows, ANSI Shadow 7, Big &amp; Doom 8, Small 5</b> — so changing font changes the whole height at once.</p>
+      <p>Width is decided by the <b>layout rule</b>. figlet's default is <b>smushing</b> (overlapping the boundary cells of adjacent letters by rule), which packs letters tight. Each font carries its own smushing rules (hardblank, overlap bits), so the same word comes out wide in ANSI Shadow and narrow in Small.</p>
+      <ul>
+        <li><b>Why monospace is required</b> — each letter is an N-row grid, so every row must have the exact same cell count to line up vertically. A proportional font gives each cell a different width and the grid drifts apart.</li>
+        <li><b>Why long text clips</b> — figlet does no auto-wrap, so once (letters × letter-width) exceeds the width it runs long or clips. Short names and initials are safest.</li>
+        <li><b>Why emoji fill drifts</b> — an emoji is usually 2 cells wide, so in a smushed grid the columns get pushed and alignment can break (bold fonts have more slack).</li>
+      </ul>
+      <p class="small">This tool uses figlet's default <code>textSync</code> (smushing) behavior — the same result as the terminal <code>figlet</code> command.</p>
+    </section>
+
+    <section class="tool-article">
       <h2>Where to paste it</h2>
       <div class="ref-table">
         <table>

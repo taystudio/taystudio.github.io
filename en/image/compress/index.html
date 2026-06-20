@@ -286,6 +286,12 @@
     </section>
 
     <section class="tool-article">
+      <h2>Compressing also strips location (EXIF) data</h2>
+      <p>This tool redraws the photo onto a canvas and exports with <code>toBlob</code>, and in that step the <b>EXIF metadata baked into the original (GPS coordinates, capture time, camera model) does not carry over to the result.</b> Canvas re-encodes pixels only and doesn't copy metadata — so compression also removes location and device info as a side effect.</p>
+      <p class="small">That keeps your home location from leaking when you post photos to social media or marketplaces. To strip only the metadata while keeping full quality, use <a href="../exif-remove/">EXIF removal</a>.</p>
+    </section>
+
+    <section class="tool-article">
       <h2>Related tools</h2>
       <div class="related-calc">
         <a href="../resize/">Image Resize<span class="desc">px / % size change + format convert</span></a>
