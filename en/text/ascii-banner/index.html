@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudios.com · source = github.com/taystudio/taystudios.com · 무단 복제·재배포 금지 -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="TAYSTUDIO Text">
+  <meta property="og:title" content="ASCII Art Generator | Text to Console Banner (figlet)">
+  <meta property="og:description" content="Turn text into big console-style letters (ASCII art) for README headers, terminal banners, CLI splash screens, Discord and code comments. 8 figlet fonts, fill-character option, library and fonts self-hosted — no external calls.">
+  <meta property="og:url" content="https://taystudios.com/en/text/ascii-banner/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — free everyday tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ASCII Art Generator | Text to Console Banner (figlet)">
+  <meta name="twitter:description" content="Text → ASCII art big letters. For README, terminal banners and Discord. 8 figlet fonts, fill character, self-hosted.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — free everyday tools">
+  <title>ASCII Art Generator | Text to Console Banner (figlet)</title>
+  <meta name="description" content="Free ASCII art generator: turn text into big console-style letters for README headers, terminal banners, CLI splash screens, Discord and code comments. 8 figlet fonts (Standard, Big, Slant, ANSI Shadow and more), fill glyphs with █ ★ 🔥. figlet library and fonts self-hosted — runs in your browser, no external calls.">
+  <meta name="keywords" content="ascii art generator, figlet, text to ascii, console banner, README header, terminal logo, ascii text">
+  <link rel="canonical" href="https://taystudios.com/en/text/ascii-banner/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/text/ascii-banner/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/text/ascii-banner/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/text/ascii-banner/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "ASCII Art Generator",
+      "description": "Turn text into figlet-based ASCII art big letters for README, terminal banners, CLI and Discord.",
+      "url": "https://taystudios.com/en/text/ascii-banner/",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "inLanguage": "en",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+        { "@type": "ListItem", "position": 2, "name": "Text", "item": "https://taystudios.com/en/text/" },
+        { "@type": "ListItem", "position": 3, "name": "ASCII Art Banner", "item": "https://taystudios.com/en/text/ascii-banner/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does it work with non-Latin text (Korean, Japanese, Chinese)?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. figlet fonts (FIGfonts) only define letter shapes for ASCII letters, digits and symbols, so non-Latin characters are not converted and pass through unchanged. Use it for English logos, initials and project names." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is this used for?",
+          "acceptedAnswer": { "@type": "Answer", "text": "GitHub README titles, terminal and CLI splash banners, code comment dividers, Discord and Slack messages, and retro console decoration. Copy the result into a README or code block to get a big-letter logo." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the 'fill character' do?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It replaces the stroke glyphs that make up each letter with another character. Leave it empty for the original font; enter █, ★ or 🔥 to fill the letters and get a block or emoji look. The effect is strongest on bold block fonts like ANSI Shadow and Banner3." }
+        },
+        {
+          "@type": "Question",
+          "name": "The letters look broken or misaligned.",
+          "acceptedAnswer": { "@type": "Answer", "text": "ASCII art only lines up in a monospace font. In a proportional font the columns drift and it looks broken. Wrap it in a code block (``` ```) in your README, and view it in a monospace font like Consolas or JetBrains Mono so it aligns correctly." }
+        },
+        {
+          "@type": "Question",
+          "name": "How many fonts are there, and does it use a server?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Eight fonts: Standard, Big, Slant, ANSI Shadow, Doom, Ghost, Small and Banner3. The figlet library and font files are self-hosted on the site, so conversion runs entirely in your browser with no external server calls." }
+        },
+        {
+          "@type": "Question",
+          "name": "Where does my text go?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Nowhere. The text-to-ASCII conversion runs in your browser and your input is never sent to a server." }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "How to make an ASCII art banner",
+      "description": "Convert text into a figlet ASCII banner.",
+      "totalTime": "PT30S",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Type text", "text": "Enter the text (letters and digits) for your logo." },
+        { "@type": "HowToStep", "position": 2, "name": "Pick a font", "text": "Choose one of 8 fonts such as Standard, Big or ANSI Shadow." },
+        { "@type": "HowToStep", "position": 3, "name": "Fill character (optional)", "text": "Replace the strokes with █, ★ or 🔥 for a block or emoji look." },
+        { "@type": "HowToStep", "position": 4, "name": "Copy", "text": "Copy the result into your README, terminal or code comment." }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <script src="vendor/figlet.js"></script>
+  <style>
+    #asciiTool .ab-row{display:flex;gap:14px;flex-wrap:wrap}
+    #asciiTool .ab-row .field{flex:1;min-width:150px;margin-bottom:0}
+    #asciiTool select, #asciiTool input[type=text]{width:100%;padding:11px 13px;font-size:16px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--text);box-sizing:border-box}
+    #asciiTool select:focus, #asciiTool input[type=text]:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
+    #asciiTool .ab-bar{display:flex;gap:10px;align-items:center;margin:14px 0 10px}
+    #asciiTool .ab-bar button{width:auto;padding:9px 16px;font-size:14px;font-weight:600;background:var(--primary);color:#fff;border:0;border-radius:8px;cursor:pointer}
+    #asciiTool .ab-bar button:disabled{opacity:.5;cursor:default}
+    #asciiTool .ab-status{font-size:12px;color:var(--muted)}
+    #asciiTool .ab-out{background:#0b0e14;border:1px solid #1d232e;border-radius:10px;padding:16px;overflow:auto}
+    #asciiTool .ab-out pre{margin:0;color:#7ee787;font-family:"SF Mono",Menlo,Consolas,"D2Coding",monospace;font-size:13px;line-height:1.05;white-space:pre}
+    .ab-toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:#1d1d1f;color:#fff;padding:11px 20px;border-radius:999px;font-size:14px;opacity:0;transition:.2s;pointer-events:none;z-index:60}
+    .ab-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Text</a> · ASCII Art Banner</div>
+    <h1>ASCII Art Generator</h1>
+    <p class="subtitle">Turn text into big console-style letters (ASCII art). For README, terminal banners, Discord and code comments. <b>Latin text only.</b></p>
+
+    <div class="card">
+      <div id="asciiTool">
+        <div class="field">
+          <label for="abTxt">Text (letters &amp; digits)</label>
+          <input type="text" id="abTxt" value="taystudios" maxlength="20" placeholder="e.g. HELLO">
+        </div>
+        <div class="ab-row">
+          <div class="field"><label for="abFont">Font</label><select id="abFont" disabled></select></div>
+          <div class="field" style="flex:none;min-width:230px"><label for="abFill">Fill character (optional — great for block fonts)</label><input type="text" id="abFill" maxlength="2" placeholder="e.g. █ ★ 🔥 (empty = original)"></div>
+        </div>
+        <div class="ab-bar">
+          <button type="button" id="abCopy" disabled>Copy text</button>
+          <span class="ab-status" id="abStatus">Loading fonts…</span>
+        </div>
+        <div class="ab-out"><pre id="abOut">Loading…</pre></div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense ad ]</div>
+
+    <section class="tool-article">
+      <h2>What is ASCII art (figlet)?</h2>
+      <p>An ASCII art banner draws each letter out of many rows of characters to make <b>big letters that show up in a console</b>. It was popularized by <b>figlet</b> (Frank, Ian, Glenn's Letters) on Unix in 1991, which is where fonts like Standard, Slant, Big and Shadow come from. This tool renders 8 figlet fonts in your browser.</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Font</th><th>Feel</th><th>Good for</th></tr></thead>
+          <tbody>
+            <tr><td>Standard</td><td>Balanced default</td><td>General README titles</td></tr>
+            <tr><td>Big / Banner3</td><td>Large, bold</td><td>Headline logos, pair with fill char</td></tr>
+            <tr><td>Slant</td><td>Italic slant</td><td>Logos with motion</td></tr>
+            <tr><td>ANSI Shadow</td><td>3D shadow</td><td>CLI splash banners</td></tr>
+            <tr><td>Doom / Ghost</td><td>Bold decorative</td><td>Retro / game vibe</td></tr>
+            <tr><td>Small</td><td>Compact</td><td>Narrow width, code comments</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">⚠️ figlet fonts only draw Latin letters, digits and symbols. Korean, Japanese and Chinese are not converted and pass through unchanged.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>Where to paste it</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>Place</th><th>How</th></tr></thead>
+          <tbody>
+            <tr><td>GitHub README</td><td>Wrap in a code block (``` ```) — monospace keeps it aligned</td></tr>
+            <tr><td>Terminal / CLI banner</td><td>Splash text printed when the program starts</td></tr>
+            <tr><td>Code comments</td><td>Big section-divider title comment</td></tr>
+            <tr><td>Discord / Slack</td><td>Wrap in a code block (```) and send</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">If it looks misaligned, the viewer is using a proportional font. View it in a monospace font or a code block for correct alignment.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>Related tools</h2>
+      <div class="related-calc">
+        <a href="../">All text tools<span class="desc">Counter, special characters &amp; more</span></a>
+        <a href="../counter/">Character counter<span class="desc">SNS &amp; cover-letter limits</span></a>
+        <a href="/en/">Home<span class="desc">All TAYSTUDIO tools</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>Features &amp; how it works</h2>
+      <details>
+        <summary>When to use it</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>Open-source README</b>Make a big ASCII logo of the project name for the top of the README. Wrap it in a code block to keep alignment.</div>
+            <div class="case"><b>CLI splash banner</b>The banner printed when a command-line tool starts. ANSI Shadow and Big are popular.</div>
+            <div class="case"><b>Code comment divider</b>Separate long sources into sections with big-letter comment headers.</div>
+            <div class="case"><b>Discord / Slack</b>Wrap in a code block (```) for big-letter messages and server banners.</div>
+            <div class="case"><b>Emoji block logo</b>Set the fill character to 🔥, ★ or █ for an eye-catching block / emoji logo.</div>
+            <div class="case"><b>Retro console</b>Use decorative fonts like Doom or Ghost for a retro terminal look.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Fill character — swap the strokes</summary>
+        <div class="body">
+          <p>Enter one character into 'fill character' and figlet's letter strokes are all replaced with it. Empty means the original font. For example, filling the Banner3 font with <code>🔥</code> gives a flame block logo. The effect is strongest on <b>bold block fonts (ANSI Shadow, Banner3, Big)</b> rather than thin ones.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Self-hosted figlet library &amp; fonts</summary>
+        <div class="body">
+          <p>This tool self-hosts figlet.js and 8 FIGfont (.flf) files on the site. It does not go through any external CDN, so conversion happens entirely in your browser and is unaffected by CDN outages or blocking. Fonts are loaded once per page and reused.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Common mistakes</summary>
+        <div class="body">
+          <ul>
+            <li><b>Non-Latin input</b> — figlet fonts have no shapes for Korean/CJK, so they don't convert. Latin letters and digits only.</li>
+            <li><b>Breaks in proportional fonts</b> — columns drift in a normal font. View in a code block / monospace.</li>
+            <li><b>Very long text</b> — many letters get wide and may wrap or clip. Use short names or initials.</li>
+            <li><b>Emoji fill + narrow font</b> — emoji are wide and may push columns in some fonts. Check with a bold font.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">Frequently asked questions</h2>
+      <details>
+        <summary>Does it work with non-Latin text (Korean, Japanese, Chinese)?</summary>
+        <div class="answer">No. figlet fonts (FIGfonts) only define letter shapes for ASCII letters, digits and symbols, so non-Latin characters are not converted and pass through unchanged. Use it for English logos, initials and project names.</div>
+      </details>
+      <details>
+        <summary>What is this used for?</summary>
+        <div class="answer">GitHub README titles, terminal and CLI splash banners, code comment dividers, Discord and Slack messages, and retro console decoration. Copy the result into a README or code block to get a big-letter logo.</div>
+      </details>
+      <details>
+        <summary>What does the 'fill character' do?</summary>
+        <div class="answer">It replaces the stroke glyphs that make up each letter with another character. Leave it empty for the original font; enter <code>█, ★ or 🔥</code> to fill the letters and get a block or emoji look. The effect is strongest on bold block fonts like ANSI Shadow and Banner3.</div>
+      </details>
+      <details>
+        <summary>The letters look broken or misaligned.</summary>
+        <div class="answer">ASCII art only lines up in a monospace font. In a proportional font the columns drift and it looks broken. Wrap it in a code block (``` ```) in your README and view it in a monospace font like Consolas or JetBrains Mono so it aligns correctly.</div>
+      </details>
+      <details>
+        <summary>How many fonts are there, and does it use a server?</summary>
+        <div class="answer">Eight fonts: Standard, Big, Slant, ANSI Shadow, Doom, Ghost, Small and Banner3. The figlet library and font files are self-hosted on the site, so conversion runs entirely in your browser with no external server calls.</div>
+      </details>
+      <details>
+        <summary>Where does my text go?</summary>
+        <div class="answer">Nowhere. The text-to-ASCII conversion runs in your browser and your input is never sent to a server.</div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>Sources &amp; basis</h2>
+      <div class="updated">Last verified: 2026-06-20 / figlet library and FIGfont fonts self-hosted</div>
+      <ul>
+        <li><b>figlet.js</b> — text-to-ASCII conversion library / <a href="https://github.com/patorjk/figlet.js" target="_blank" rel="nofollow noopener">github.com/patorjk/figlet.js</a></li>
+        <li><b>FIGfont spec &amp; fonts</b> — figlet standard fonts (Standard, Big, Slant, ANSI Shadow and more) / <a href="http://www.figlet.org/" target="_blank" rel="nofollow noopener">figlet.org</a></li>
+        <li><b>figlet history</b> — Frank, Ian, Glenn's Letters (1991) / Unix banner command</li>
+      </ul>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ See all text tools</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <div class="ab-toast" id="abToast">Copied</div>
+
+  <script>
+  const FONTS=['Standard','Big','Slant','ANSI Shadow','Doom','Ghost','Small','Banner3'];
+  const sel=document.getElementById('abFont'), txt=document.getElementById('abTxt'), fill=document.getElementById('abFill'),
+        out=document.getElementById('abOut'), statusEl=document.getElementById('abStatus'), copyBtn=document.getElementById('abCopy');
+  let tg;
+  function toast(m){const t=document.getElementById('abToast');t.textContent=m;t.classList.add('show');clearTimeout(tg);tg=setTimeout(()=>t.classList.remove('show'),1200);}
+  function applyFill(s){const f=fill.value;return f? s.replace(/[^\s]/g,f): s;}
+  function render(){
+    try{
+      const data=figlet.textSync(txt.value||' ',{font:sel.value});
+      out.textContent=applyFill(data.replace(/\s+$/,''));
+      statusEl.textContent='Font: '+sel.value;
+    }catch(e){ statusEl.textContent='This font failed to render — try another'; }
+  }
+  (function init(){
+    if(typeof figlet==='undefined'){ statusEl.textContent='figlet library failed to load'; out.textContent='Could not load vendor/figlet.js'; return; }
+    const loaded=[];
+    Promise.all(FONTS.map(f=>
+      fetch('vendor/fonts/'+encodeURIComponent(f)+'.flf')
+        .then(r=>r.ok?r.text():Promise.reject())
+        .then(t=>{ figlet.parseFont(f,t); loaded.push(f); })
+        .catch(()=>{})
+    )).then(()=>{
+      if(!loaded.length){ statusEl.textContent='Failed to load fonts'; out.textContent='Could not load fonts from vendor/fonts/'; return; }
+      sel.innerHTML=FONTS.filter(f=>loaded.includes(f)).map((f,i)=>`<option ${i===0?'selected':''}>${f}</option>`).join('');
+      sel.disabled=false; copyBtn.disabled=false;
+      txt.addEventListener('input',render);
+      sel.addEventListener('change',render);
+      fill.addEventListener('input',render);
+      copyBtn.addEventListener('click',()=>{navigator.clipboard?.writeText(out.textContent).catch(()=>{});toast('Copied — paste into your console / README');});
+      render();
+    });
+  })();
+  </script>
+</body>
+</html>

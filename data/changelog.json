@@ -1,6 +1,33 @@
 {
   "updates": [
     {
+      "date": "2026-06-20",
+      "items_ko": [
+        {
+          "text": "특수문자·이모지·구분선 모음 추가 — '축하·강아지·ㅋㅋ·dog'처럼 느낌 가는 단어로 이모지를 찾고, 감성 구분선·카오모지·인스타 심볼을 골라 바로 복사. 여러 기호를 모아 나만의 구분선도 만들 수 있어요",
+          "url": "/text/symbols/",
+          "tag": "NEW"
+        },
+        {
+          "text": "아스키 아트 배너 생성기 추가 — 영문 텍스트를 콘솔에 뜨는 큰 글씨(ASCII 로고)로. README·터미널 배너·디스코드용, 글꼴 8종",
+          "url": "/text/ascii-banner/",
+          "tag": "NEW"
+        }
+      ],
+      "items_en": [
+        {
+          "text": "New: special characters, emoji & divider picker — search emoji by feel ('party', 'dog', 'lol'), grab aesthetic dividers, kaomoji and Instagram bio symbols, and build your own divider from a basket",
+          "url": "/en/text/symbols/",
+          "tag": "NEW"
+        },
+        {
+          "text": "New: ASCII art banner generator — turn text into big console-style letters (ASCII logos) for README headers, terminal banners and Discord, with 8 figlet fonts",
+          "url": "/en/text/ascii-banner/",
+          "tag": "NEW"
+        }
+      ]
+    },
+    {
       "date": "2026-06-16",
       "items_ko": [
         {

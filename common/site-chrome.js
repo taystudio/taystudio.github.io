@@ -408,9 +408,11 @@ const TRANSLATED_PATHS = new Set([
   // Video (5선 전부)
   '/video/',
   '/video/compress/', '/video/trim/', '/video/rotate/', '/video/to-gif/', '/video/to-mp3/',
-  // Text (1선만 universal — counter)
+  // Text (counter·symbols·ascii-banner — en 미러 있음)
   '/text/',
-  '/text/counter/'
+  '/text/counter/',
+  '/text/symbols/',
+  '/text/ascii-banner/'
 ]);
 
 // 브라우저 언어가 페이지 언어와 mismatch + 사용자가 명시 dismiss·선택 안 했으면 lang banner 노출.

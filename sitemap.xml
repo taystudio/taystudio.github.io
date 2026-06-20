@@ -329,6 +329,24 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://taystudios.com/text/symbols/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/text/symbols/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/text/symbols/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/text/symbols/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/text/ascii-banner/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/text/ascii-banner/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/text/ascii-banner/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/text/ascii-banner/"/>
+  </url>
+  <url>
     <loc>https://taystudios.com/image/</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -722,6 +740,24 @@
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/text/counter/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/text/counter/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/text/counter/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/en/text/symbols/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/text/symbols/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/text/symbols/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/text/symbols/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/en/text/ascii-banner/</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/text/ascii-banner/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/text/ascii-banner/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/text/ascii-banner/"/>
   </url>
   <url>
     <loc>https://taystudios.com/en/image/</loc>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudios.com · source = github.com/taystudio/taystudios.com · 무단 복제·재배포 금지 -->
+  <meta name="generator" content="TAYSTUDIO 2026">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="TAYSTUDIO Text">
+  <meta property="og:title" content="아스키 아트 배너 생성기 | 콘솔 텍스트 로고 (figlet)">
+  <meta property="og:description" content="텍스트를 콘솔에 뜨는 큰 글씨(ASCII art)로 변환. README 헤더·터미널 배너·CLI 스플래시·디스코드·코드 주석용. figlet 폰트 8종, 채울 문자 바꾸기, 라이브러리·폰트 self-host로 외부 호출 없음.">
+  <meta property="og:url" content="https://taystudios.com/text/ascii-banner/">
+  <meta property="og:image" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:secure_url" content="https://taystudios.com/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="아스키 아트 배너 생성기 | 콘솔 텍스트 로고 (figlet)">
+  <meta name="twitter:description" content="텍스트 → ASCII art 큰 글씨. README·터미널 배너·디스코드용. figlet 폰트 8종, 채울 문자, self-host.">
+  <meta name="twitter:image" content="https://taystudios.com/og-image.png">
+  <meta name="twitter:image:alt" content="TAYSTUDIO — 자주 쓰는 무료 도구 모음">
+  <title>아스키 아트 배너 생성기 | 콘솔 텍스트 로고 (figlet)</title>
+  <meta name="description" content="텍스트를 ASCII art 큰 글씨로 만드는 아스키 배너 생성기. README 헤더·터미널 배너·CLI 스플래시·디스코드·코드 주석용. figlet 폰트 8종(Standard·Big·Slant·ANSI Shadow 등), 글자 획을 █·★·🔥로 채우기. figlet 라이브러리·폰트 self-host — 외부 호출 없이 브라우저에서 처리.">
+  <meta name="keywords" content="아스키 아트, ASCII art generator, figlet, 콘솔 배너, README 헤더, 텍스트 배너, 터미널 로고">
+  <link rel="canonical" href="https://taystudios.com/text/ascii-banner/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/text/ascii-banner/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/text/ascii-banner/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/text/ascii-banner/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "아스키 아트 배너 생성기",
+      "description": "텍스트를 figlet 폰트 기반 ASCII art 큰 글씨로 변환하는 도구. README·터미널 배너·CLI·디스코드용.",
+      "url": "https://taystudios.com/text/ascii-banner/",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+      "inLanguage": "ko-KR",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Text", "item": "https://taystudios.com/text/" },
+        { "@type": "ListItem", "position": 3, "name": "아스키 아트 배너", "item": "https://taystudios.com/text/ascii-banner/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "한글도 아스키 아트 배너로 만들 수 있나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "안 됩니다. figlet 폰트(FIGfont)는 ASCII 영문 대소문자·숫자·기호에만 글자 모양이 정의되어 있어, 한글·한자·일본어를 넣으면 변환되지 않고 그대로 출력됩니다. 영문 로고·이니셜·프로젝트 이름에 사용하세요." }
+        },
+        {
+          "@type": "Question",
+          "name": "어디에 쓰는 도구인가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "GitHub README 상단 제목, 터미널·CLI 프로그램 시작 배너, 코드 주석 구분선, 디스코드·슬랙 메시지, 레트로 콘솔 꾸미기 등에 씁니다. 결과를 복사해 README나 코드 블록에 붙여넣으면 큰 글씨 로고가 됩니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "'채울 문자'는 무엇인가요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "ASCII 글자를 이루는 획 문자를 다른 문자로 바꾸는 옵션입니다. 비워 두면 폰트 원본 그대로, █·★·🔥 등을 넣으면 글자 획이 그 문자로 채워져 블록·이모지 느낌의 배너가 됩니다. 굵은 블록 폰트(ANSI Shadow·Banner3)에서 효과가 큽니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "글자가 깨지거나 정렬이 안 맞아요.",
+          "acceptedAnswer": { "@type": "Answer", "text": "ASCII art는 고정폭(monospace) 글꼴에서만 정렬이 유지됩니다. 가변폭 글꼴로 보면 칸이 어긋나 깨져 보입니다. README는 코드 블록(``` ```)으로 감싸고, 붙여넣는 편집기·터미널의 글꼴을 D2Coding·Consolas 같은 고정폭으로 두면 정확히 정렬됩니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "폰트는 몇 종류이고 외부 서버를 쓰나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Standard·Big·Slant·ANSI Shadow·Doom·Ghost·Small·Banner3 8종을 제공합니다. figlet 라이브러리와 폰트 파일을 모두 사이트에 self-host 하므로, 변환은 외부 서버 호출 없이 브라우저 안에서만 처리됩니다." }
+        },
+        {
+          "@type": "Question",
+          "name": "입력한 텍스트가 어디로 가나요?",
+          "acceptedAnswer": { "@type": "Answer", "text": "전송되지 않습니다. 텍스트→ASCII 변환은 브라우저에서 실행되며 입력 내용은 서버로 보내지 않습니다." }
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "아스키 아트 배너 만드는 방법",
+      "description": "텍스트를 figlet ASCII 배너로 변환합니다.",
+      "totalTime": "PT30S",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "텍스트 입력", "text": "영문·숫자로 로고에 넣을 문구를 입력합니다." },
+        { "@type": "HowToStep", "position": 2, "name": "폰트 선택", "text": "Standard·Big·ANSI Shadow 등 8종 중 원하는 글꼴을 고릅니다." },
+        { "@type": "HowToStep", "position": 3, "name": "채울 문자(선택)", "text": "글자 획을 █·★·🔥 등으로 바꿔 블록·이모지 느낌을 줍니다." },
+        { "@type": "HowToStep", "position": 4, "name": "복사", "text": "결과를 복사해 README·터미널·코드 주석에 붙여넣습니다." }
+      ]
+    }
+  ]
+}
+</script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <script src="vendor/figlet.js"></script>
+  <style>
+    #asciiTool .ab-row{display:flex;gap:14px;flex-wrap:wrap}
+    #asciiTool .ab-row .field{flex:1;min-width:150px;margin-bottom:0}
+    #asciiTool select, #asciiTool input[type=text]{width:100%;padding:11px 13px;font-size:16px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--text);box-sizing:border-box}
+    #asciiTool select:focus, #asciiTool input[type=text]:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
+    #asciiTool .ab-bar{display:flex;gap:10px;align-items:center;margin:14px 0 10px}
+    #asciiTool .ab-bar button{width:auto;padding:9px 16px;font-size:14px;font-weight:600;background:var(--primary);color:#fff;border:0;border-radius:8px;cursor:pointer}
+    #asciiTool .ab-bar button:disabled{opacity:.5;cursor:default}
+    #asciiTool .ab-status{font-size:12px;color:var(--muted)}
+    #asciiTool .ab-out{background:#0b0e14;border:1px solid #1d232e;border-radius:10px;padding:16px;overflow:auto}
+    #asciiTool .ab-out pre{margin:0;color:#7ee787;font-family:"SF Mono",Menlo,Consolas,"D2Coding",monospace;font-size:13px;line-height:1.05;white-space:pre}
+    .ab-toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:#1d1d1f;color:#fff;padding:11px 20px;border-radius:999px;font-size:14px;opacity:0;transition:.2s;pointer-events:none;z-index:60}
+    .ab-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  </style>
+<script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · <a href="../">텍스트</a> · 아스키 아트 배너</div>
+    <h1>아스키 아트 배너 생성기</h1>
+    <p class="subtitle">텍스트를 콘솔에 뜨는 큰 글씨(ASCII art)로. README·터미널 배너·디스코드·코드 주석용. <b>영문 로고용</b>.</p>
+
+    <div class="card">
+      <div id="asciiTool">
+        <div class="field">
+          <label for="abTxt">텍스트 (영문·숫자)</label>
+          <input type="text" id="abTxt" value="taystudios" maxlength="20" placeholder="예: HELLO">
+        </div>
+        <div class="ab-row">
+          <div class="field"><label for="abFont">폰트</label><select id="abFont" disabled></select></div>
+          <div class="field" style="flex:none;min-width:210px"><label for="abFill">채울 문자 (선택 — 블록 폰트에 추천)</label><input type="text" id="abFill" maxlength="2" placeholder="예: █ ★ 🔥 (비우면 원본)"></div>
+        </div>
+        <div class="ab-bar">
+          <button type="button" id="abCopy" disabled>텍스트 복사</button>
+          <span class="ab-status" id="abStatus">폰트 불러오는 중…</span>
+        </div>
+        <div class="ab-out"><pre id="abOut">로딩 중…</pre></div>
+      </div>
+    </div>
+
+    <div class="ad-slot">[ AdSense 광고 자리 ]</div>
+
+    <section class="tool-article">
+      <h2>아스키 아트(figlet)란</h2>
+      <p>아스키 아트 배너는 한 글자를 여러 줄의 기호로 그려 <b>콘솔에 뜨는 큰 글씨</b>로 만드는 표현입니다. 1991년 Unix용 <b>figlet</b>(Frank, Ian, Glenn's Letters)에서 대중화됐고, Standard·Slant·Big·Shadow 같은 글꼴이 여기서 나왔습니다. 이 도구는 figlet 폰트 8종을 브라우저에서 렌더링합니다.</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>폰트</th><th>느낌</th><th>추천 용도</th></tr></thead>
+          <tbody>
+            <tr><td>Standard</td><td>기본 균형형</td><td>범용 README 제목</td></tr>
+            <tr><td>Big / Banner3</td><td>크고 두꺼움</td><td>강조 로고, 채울 문자와 조합</td></tr>
+            <tr><td>Slant</td><td>기울임</td><td>속도감 있는 로고</td></tr>
+            <tr><td>ANSI Shadow</td><td>입체 그림자</td><td>CLI 스플래시 배너</td></tr>
+            <tr><td>Doom / Ghost</td><td>굵은 장식체</td><td>레트로·게임 느낌</td></tr>
+            <tr><td>Small</td><td>작고 컴팩트</td><td>좁은 폭·코드 주석</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">⚠️ figlet 폰트는 영문·숫자·기호만 그립니다. 한글·한자는 변환되지 않고 그대로 출력됩니다(영문 로고용).</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>어디에 붙여넣나</h2>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>위치</th><th>방법</th></tr></thead>
+          <tbody>
+            <tr><td>GitHub README</td><td>코드 블록(``` ```)으로 감싸 붙여넣기 — 고정폭이라 정렬 유지</td></tr>
+            <tr><td>터미널·CLI 배너</td><td>프로그램 시작 시 출력하는 splash 텍스트</td></tr>
+            <tr><td>코드 주석</td><td>섹션 구분용 큰 제목 주석</td></tr>
+            <tr><td>디스코드·슬랙</td><td>코드 블록(```)으로 감싸 전송</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">정렬이 어긋나면 보는 쪽 글꼴이 가변폭이기 때문입니다. 고정폭(monospace) 글꼴·코드 블록에서 봐야 정확합니다.</p>
+    </section>
+
+    <section class="tool-article">
+      <h2>관련 도구</h2>
+      <div class="related-calc">
+        <a href="../">텍스트 도구 모음<span class="desc">글자수·한↔영 변환 등</span></a>
+        <a href="../symbols/">특수문자·이모지 모음<span class="desc">구분선·이모지 검색·복사</span></a>
+        <a href="../sns-format/">SNS 글 정리<span class="desc">줄바꿈·해시태그·특수 글씨체</span></a>
+        <a href="../counter/">글자수 카운터<span class="desc">SNS·자소서 한도 11종</span></a>
+        <a href="../kbd-convert/">한↔영 키보드 변환<span class="desc">잘못 친 한영키 복구</span></a>
+        <a href="/tools/">38개 계산기 모두 보기<span class="desc">세금·금융·생활</span></a>
+      </div>
+    </section>
+
+    <section class="disclosure-group">
+      <h2>기능·처리 방식 상세</h2>
+      <details>
+        <summary>언제 쓰나</summary>
+        <div class="body">
+          <div class="case-grid">
+            <div class="case"><b>오픈소스 README</b>프로젝트 이름을 큰 ASCII 로고로 만들어 README 최상단에 배치. 코드 블록으로 감싸 정렬 유지.</div>
+            <div class="case"><b>CLI 시작 배너</b>커맨드라인 도구 실행 시 뜨는 splash 배너. ANSI Shadow·Big이 인기.</div>
+            <div class="case"><b>코드 주석 구분</b>긴 소스의 섹션을 큰 글씨 주석으로 구분해 가독성 향상.</div>
+            <div class="case"><b>디스코드·슬랙</b>코드 블록(```)으로 감싸 큰 글씨 메시지·서버 배너로 활용.</div>
+            <div class="case"><b>이모지 블록 로고</b>채울 문자에 🔥·★·█를 넣어 블록·이모지 느낌의 눈에 띄는 로고 제작.</div>
+            <div class="case"><b>레트로 콘솔 꾸미기</b>Doom·Ghost 같은 장식 폰트로 복고풍 터미널 분위기 연출.</div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>채울 문자 — 획을 다른 기호로</summary>
+        <div class="body">
+          <p>'채울 문자'에 한 글자를 넣으면, figlet이 그린 글자 획을 모두 그 문자로 치환합니다. 비우면 폰트 원본 그대로입니다. 예를 들어 Banner3 폰트에 <code>🔥</code>를 채우면 불꽃 블록 로고가 됩니다. 가는 폰트(Standard·Small)보다 <b>굵은 블록 폰트(ANSI Shadow·Banner3·Big)</b>에서 효과가 큽니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>figlet 라이브러리·폰트 self-host</summary>
+        <div class="body">
+          <p>이 도구는 figlet.js와 FIGfont 폰트 파일(.flf) 8개를 <b>사이트에 직접 보관(self-host)</b>합니다. 외부 CDN을 거치지 않아 변환이 브라우저 안에서만 일어나고, CDN 장애·차단의 영향을 받지 않습니다. 폰트는 페이지에서 한 번 불러온 뒤 재사용됩니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>흔한 실수·주의점</summary>
+        <div class="body">
+          <ul>
+            <li><b>한글 입력</b> — figlet 폰트엔 한글 글자 모양이 없어 변환되지 않습니다. 영문·숫자만.</li>
+            <li><b>가변폭에서 깨짐</b> — 일반 글꼴로 보면 칸이 어긋납니다. 코드 블록·고정폭에서 봐야 정렬 유지.</li>
+            <li><b>너무 긴 텍스트</b> — 글자가 많으면 가로로 길어져 줄바꿈·잘림이 생깁니다. 짧은 이름·이니셜 권장.</li>
+            <li><b>이모지 채움 + 좁은 칸</b> — 이모지는 폭이 넓어 일부 폰트에서 칸이 밀릴 수 있습니다. 굵은 폰트에서 확인.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="faq">
+      <h2 style="margin-bottom:12px;font-size:18px">자주 묻는 질문</h2>
+      <details>
+        <summary>한글도 아스키 아트 배너로 만들 수 있나요?</summary>
+        <div class="answer">안 됩니다. figlet 폰트(FIGfont)는 ASCII 영문 대소문자·숫자·기호에만 글자 모양이 정의되어 있어, 한글·한자·일본어를 넣으면 변환되지 않고 그대로 출력됩니다. 영문 로고·이니셜·프로젝트 이름에 사용하세요.</div>
+      </details>
+      <details>
+        <summary>어디에 쓰는 도구인가요?</summary>
+        <div class="answer">GitHub README 상단 제목, 터미널·CLI 프로그램 시작 배너, 코드 주석 구분선, 디스코드·슬랙 메시지, 레트로 콘솔 꾸미기 등에 씁니다. 결과를 복사해 README나 코드 블록에 붙여넣으면 큰 글씨 로고가 됩니다.</div>
+      </details>
+      <details>
+        <summary>'채울 문자'는 무엇인가요?</summary>
+        <div class="answer">ASCII 글자를 이루는 획 문자를 다른 문자로 바꾸는 옵션입니다. 비워 두면 폰트 원본 그대로, <code>█·★·🔥</code> 등을 넣으면 글자 획이 그 문자로 채워져 블록·이모지 느낌의 배너가 됩니다. 굵은 블록 폰트(ANSI Shadow·Banner3)에서 효과가 큽니다.</div>
+      </details>
+      <details>
+        <summary>글자가 깨지거나 정렬이 안 맞아요.</summary>
+        <div class="answer">ASCII art는 고정폭(monospace) 글꼴에서만 정렬이 유지됩니다. 가변폭 글꼴로 보면 칸이 어긋나 깨져 보입니다. README는 코드 블록(``` ```)으로 감싸고, 붙여넣는 편집기·터미널의 글꼴을 D2Coding·Consolas 같은 고정폭으로 두면 정확히 정렬됩니다.</div>
+      </details>
+      <details>
+        <summary>폰트는 몇 종류이고 외부 서버를 쓰나요?</summary>
+        <div class="answer">Standard·Big·Slant·ANSI Shadow·Doom·Ghost·Small·Banner3 8종을 제공합니다. figlet 라이브러리와 폰트 파일을 모두 사이트에 self-host 하므로, 변환은 외부 서버 호출 없이 브라우저 안에서만 처리됩니다.</div>
+      </details>
+      <details>
+        <summary>입력한 텍스트가 어디로 가나요?</summary>
+        <div class="answer">전송되지 않습니다. 텍스트→ASCII 변환은 브라우저에서 실행되며 입력 내용은 서버로 보내지 않습니다.</div>
+      </details>
+    </section>
+
+    <section class="sources">
+      <h2>출처·기반</h2>
+      <div class="updated">최종 검증: 2026-06-20 / figlet 라이브러리·FIGfont 폰트 self-host</div>
+      <ul>
+        <li><b>figlet.js</b> — 텍스트→ASCII 변환 라이브러리 / <a href="https://github.com/patorjk/figlet.js" target="_blank" rel="nofollow noopener">github.com/patorjk/figlet.js</a></li>
+        <li><b>FIGfont 사양·폰트</b> — figlet 표준 글꼴(Standard·Big·Slant·ANSI Shadow 등) / <a href="http://www.figlet.org/" target="_blank" rel="nofollow noopener">figlet.org</a></li>
+        <li><b>figlet 역사</b> — Frank, Ian, Glenn's Letters (1991) / Unix 배너 명령</li>
+      </ul>
+    </section>
+
+    <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 텍스트 도구 모두 보기</a>
+    </nav>
+  </main>
+
+  <site-footer></site-footer>
+  <div class="ab-toast" id="abToast">복사됨</div>
+
+  <script>
+  // figlet 라이브러리·폰트 모두 self-host (vendor/). 외부 호출 없음.
+  const FONTS=['Standard','Big','Slant','ANSI Shadow','Doom','Ghost','Small','Banner3'];
+  const sel=document.getElementById('abFont'), txt=document.getElementById('abTxt'), fill=document.getElementById('abFill'),
+        out=document.getElementById('abOut'), statusEl=document.getElementById('abStatus'), copyBtn=document.getElementById('abCopy');
+  let tg;
+  function toast(m){const t=document.getElementById('abToast');t.textContent=m;t.classList.add('show');clearTimeout(tg);tg=setTimeout(()=>t.classList.remove('show'),1200);}
+  function applyFill(s){const f=fill.value;return f? s.replace(/[^\s]/g,f): s;}
+  function render(){
+    try{
+      const data=figlet.textSync(txt.value||' ',{font:sel.value});
+      out.textContent=applyFill(data.replace(/\s+$/,''));
+      statusEl.textContent='폰트: '+sel.value;
+    }catch(e){ statusEl.textContent='이 폰트 렌더 실패 — 다른 폰트로'; }
+  }
+  (function init(){
+    if(typeof figlet==='undefined'){ statusEl.textContent='figlet 라이브러리 로드 실패'; out.textContent='vendor/figlet.js 를 불러오지 못했습니다.'; return; }
+    const loaded=[];
+    Promise.all(FONTS.map(f=>
+      fetch('vendor/fonts/'+encodeURIComponent(f)+'.flf')
+        .then(r=>r.ok?r.text():Promise.reject())
+        .then(t=>{ figlet.parseFont(f,t); loaded.push(f); })
+        .catch(()=>{})
+    )).then(()=>{
+      if(!loaded.length){ statusEl.textContent='폰트 로드 실패'; out.textContent='vendor/fonts/ 폰트를 불러오지 못했습니다.'; return; }
+      sel.innerHTML=FONTS.filter(f=>loaded.includes(f)).map((f,i)=>`<option ${i===0?'selected':''}>${f}</option>`).join('');
+      sel.disabled=false; copyBtn.disabled=false;
+      txt.addEventListener('input',render);
+      sel.addEventListener('change',render);
+      fill.addEventListener('input',render);
+      copyBtn.addEventListener('click',()=>{navigator.clipboard?.writeText(out.textContent).catch(()=>{});toast('복사됨 — 콘솔·README에 붙여넣기');});
+      render();
+    });
+  })();
+  </script>
+</body>
+</html>
