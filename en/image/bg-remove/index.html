@@ -16,7 +16,8 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/en/manifest.webmanifest">
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
-  <link rel="preconnect" href="https://staticimgly.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://storage.googleapis.com">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="ko_KR">
@@ -36,7 +37,7 @@
   <meta name="twitter:image" content="https://taystudios.com/og-image-en.png">
   <meta name="twitter:image:alt" content="TAYSTUDIO — Free privacy-first browser tools">
   <title>Background Remover | AI Photo Cutout, Transparent PNG, Free</title>
-  <meta name="description" content="Remove a photo's background with AI → transparent PNG. People, pets, products. Runs in your browser via ONNX Runtime Web. Images never uploaded, free.">
+  <meta name="description" content="Remove a photo's background with AI → transparent PNG. People photos via MediaPipe; white-background logos via color-based removal. Runs entirely in your browser. Images never uploaded, free.">
   <meta name="keywords" content="background remover, photo cutout, remove background, transparent PNG, AI background removal free, online image cutout">
   <link rel="canonical" href="https://taystudios.com/en/image/bg-remove/">
   <link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/bg-remove/">
@@ -49,7 +50,7 @@
     {
       "@type": "WebApplication",
       "name": "Background Remover | AI Photo Cutout",
-      "description": "Remove backgrounds with AI (@imgly/background-removal, ONNX Runtime Web) → transparent PNG. Runs in your browser.",
+      "description": "Remove people backgrounds with the MediaPipe Selfie Segmenter (Apache-2.0) + remove white-background logos with color-based (chroma key) removal → transparent PNG. Runs in your browser.",
       "url": "https://taystudios.com/en/image/bg-remove/",
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
@@ -58,10 +59,10 @@
       "inLanguage": "en-US",
       "isAccessibleForFree": true,
       "featureList": [
-        "AI auto-removal of backgrounds (@imgly/background-removal)",
+        "AI background removal for people photos (MediaPipe Selfie Segmenter, Apache-2.0)",
         "Transparent PNG output",
         "No upload — AI inference in your browser",
-        "WebGPU acceleration on supported browsers"
+        "White-background logos/graphics removed instantly with color-based (chroma key) removal"
       ],
       "dateModified": "2026-05-09",
       "softwareVersion": "2026.05"
@@ -82,7 +83,7 @@
           "name": "Are my images uploaded to a server?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Images stay on your device. AI inference runs entirely in the browser via ONNX Runtime Web (WASM). The model file and WASM runtime are downloaded from staticimgly.com on first use, then cached in the browser's IndexedDB / HTTP cache (offline thereafter). The site operator cannot see your images."
+            "text": "Images stay on your device. AI inference runs entirely in the browser via MediaPipe (WebAssembly). The model + runtime (~0.24MB) are downloaded from the Google MediaPipe CDN on first use, then cached in the browser (offline thereafter). The site operator cannot see your images."
           }
         },
         {
@@ -90,7 +91,7 @@
           "name": "Why is the first run slow?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "On first use, the AI model (small ~43MB) and ONNX runtime WASM files are downloaded. After that, they're cached and subsequent runs start instantly. Avoid the first run on cellular data — use Wi-Fi once to warm the cache."
+            "text": "On first use, the MediaPipe model (~0.24MB) and WebAssembly runtime are downloaded. The model is tiny so even the first run is fast, and subsequent runs start instantly from cache."
           }
         },
         {
@@ -106,7 +107,7 @@
           "name": "What if the result is unsatisfactory?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "① Use photos with strong subject/background contrast (white background works great) ② if the subject is small, crop closer first ③ heavy shadows or reflections may leave residue ④ for fine hair detail, the medium model would help, but its 80MB download isn't currently offered ⑤ width under 1500px is fastest."
+            "text": "① Use photos with strong subject/background contrast (white background works great) ② if the subject is small, crop closer first ③ heavy shadows or reflections may leave residue ④ non-person subjects (pets, objects) can be weak with MediaPipe Selfie — a general model is under consideration ⑤ width under 1500px is fastest."
           }
         },
         {
@@ -191,15 +192,15 @@
   <main class="container">
     <div class="breadcrumb"><a href="/en/">Home</a> · <a href="../">Image</a> · Background Remover</div>
     <h1>Background Remover</h1>
-    <p class="subtitle">AI auto-removes the background → transparent PNG. People, pets, products — all in your browser.</p>
+    <p class="subtitle">Auto-removes the background → transparent PNG. People photos use AI (MediaPipe); white-background logos use color-based removal.</p>
 
     <div class="privacy-box">
       <span class="icon" aria-hidden="true">🔒</span>
-      <div><b>Images never leave your device.</b> AI inference runs in the browser via ONNX Runtime Web (WASM). The model and runtime are downloaded once from <code>staticimgly.com</code>, then cached in IndexedDB.</div>
+      <div><b>Images never leave your device.</b> People background removal (<b>MediaPipe Selfie Segmenter</b>) runs in the browser via WebAssembly. The model + runtime (~0.24MB) are downloaded once from the Google MediaPipe CDN, then cached. White-background logos/graphics are processed instantly with color-based removal — no model.</div>
     </div>
 
     <div class="ai-disclaimer">
-      <span class="label">⚠️ First-run notice</span> — On first use, the AI model (~43MB) + WASM runtime download. <b>Wi-Fi recommended.</b> Cached afterwards for fast starts. Quality varies by photo — fine details like hair / fur have small-model limits.
+      <span class="label">⚠️ Note</span> — Photo (people) mode downloads the <b>MediaPipe Selfie Segmenter</b> (~0.24MB) once and caches it. It's <b>most accurate when a person is the main subject</b>; fine details like hair have limits. For white-background logos/graphics, <b>logo mode (color-based)</b> is cleaner.
     </div>
 
     <div class="card">
@@ -225,7 +226,7 @@
             <input type="radio" name="mode" value="photo">
             <span>
               <span class="mode-label">📷 Photo / People (AI)</span>
-              <span class="mode-desc">People, pets, objects with natural backgrounds. Preserves hair detail. ML inference 3–10s.</span>
+              <span class="mode-desc">Separates the background of people/selfie photos (MediaPipe Selfie Segmenter). Most accurate when a person is the main subject. Inference 1–3s.</span>
             </span>
           </label>
           <label class="mode-radio" data-mode="logo">
@@ -239,11 +240,10 @@
         <div id="autoDetectResult" style="display:none;margin-top:8px;padding:8px 12px;background:rgba(37,99,235,0.06);border:1px solid rgba(37,99,235,0.2);border-radius:6px;font-size:12.5px;color:var(--muted)"></div>
 
         <div class="photo-options" id="photoOptions">
-          <div class="photo-options-title">AI model quality (photo mode)</div>
-          <div class="quality-radios" id="qualityRadios">
-            <label class="active" data-quality="isnet_quint8"><input type="radio" name="quality" value="isnet_quint8" checked> Fast (44MB · 8-bit)</label>
-            <label data-quality="isnet_fp16"><input type="radio" name="quality" value="isnet_fp16"> Balanced (88MB · FP16)</label>
-            <label data-quality="isnet"><input type="radio" name="quality" value="isnet"> Accurate (176MB · FP32)</label>
+          <div class="photo-options-title">AI engine — MediaPipe Selfie Segmenter (Apache-2.0)</div>
+          <div style="font-size:12.5px;color:var(--muted);line-height:1.55">A single lightweight model (~0.24MB) separates the person from the background. No quality selection needed — it runs fast and the model is fetched only once.</div>
+          <div class="quality-radios" id="qualityRadios" hidden>
+            <label class="active" data-quality="isnet_quint8"><input type="radio" name="quality" value="isnet_quint8" checked></label>
           </div>
         </div>
 
@@ -333,23 +333,22 @@
       <h2>How background removal runs inside your browser — on-device AI inference</h2>
       <p>
         Most online cutout sites upload your photo to a server, process it on their GPU, and send the
-        result back. This tool works differently. The <b>AI model (ISNet)</b> that finds the background
-        runs <b>directly inside your browser</b> via <code>onnxruntime-web</code>. Your photo never leaves
+        result back. This tool works differently. The <b>AI model (MediaPipe Selfie Segmenter)</b> that finds the
+        person/background runs <b>directly inside your browser</b> via WebAssembly. Your photo never leaves
         your device — privacy here is a structural property, not just a promise.
       </p>
       <h3>1. First load: download the model once</h3>
       <p>
-        The first time you use photo mode, the model file (your choice of Fast 44MB / Balanced 88MB /
-        Accurate 176MB) and the WebAssembly runtime are downloaded once from the
-        <code>staticimgly.com</code> CDN. This downloads <b>the program (model weights), not your photo</b>.
+        The first time you use photo mode, the model file (~0.24MB) and the WebAssembly runtime are downloaded
+        once from the Google MediaPipe CDN. This downloads <b>the program (model weights), not your photo</b>.
         The assets are stored in the browser's IndexedDB / HTTP cache, so from the second run onward in the
         same browser it starts instantly with no extra download.
       </p>
       <h3>2. Inference: the model decides foreground vs background per pixel</h3>
       <p>
         The model takes your photo and computes, <b>for every single pixel, the probability that it belongs
-        to the foreground (subject)</b>, producing an alpha mask. This runs on your device's CPU/GPU through
-        WASM (with WebGPU acceleration where available). So speed depends on <b>your own hardware and the
+        to the foreground (subject)</b>, producing an alpha mask. This runs on your device through
+        WebAssembly. So speed depends on <b>your own hardware and the
         image resolution</b>, not on a server.
       </p>
       <h3>Easy images vs hard images — and why</h3>
@@ -366,9 +365,9 @@
           the foreground probability hovers near 0.5 and the mask gets rough.</li>
       </ul>
       <p>
-        Picking a larger (more accurate) model improves these details, but increases download size and
-        processing time. For simple images like a plain white background, <b>logo mode (color-based removal)</b>
-        can be faster and cleaner than the AI.
+        The MediaPipe Selfie model is tuned for people, so it's cleanest when a person is the main subject.
+        For non-person subjects (pets, objects) or finer matting, a general model (a future option) may fit better.
+        For simple images like a plain white background, <b>logo mode (color-based removal)</b> is faster and cleaner.
       </p>
     </section>
 
@@ -386,33 +385,33 @@
 
     <section class="disclosure-group">
       <details>
-        <summary>About @imgly/background-removal</summary>
+        <summary>Which engine removes the background?</summary>
         <div class="answer">
-          <a href="https://github.com/imgly/background-removal-js" rel="nofollow noopener" target="_blank">@imgly/background-removal</a> by IMG.LY (AGPL-3.0 / Commercial). Used here as GPL-compatible free use; the model and WASM are downloaded from <code>staticimgly.com</code> CDN and cached in your browser.
+          Photo / people mode uses the <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/image_segmenter" rel="nofollow noopener" target="_blank">MediaPipe Selfie Segmenter</a> by Google (<b>Apache-2.0</b>). Both the code and the model weights are Apache-2.0, so it's free to use on commercial / ad-supported sites. Logo / graphic mode uses canvas color-based (chroma key) removal with no model.
         </div>
       </details>
       <details>
-        <summary>Why download model files from staticimgly.com?</summary>
+        <summary>Why download model files from the Google CDN?</summary>
         <div class="answer">
-          The AI model (43MB+) and ONNX Runtime WebAssembly assets are too heavy to commit directly into the repo. Same pattern as OCR (Tesseract): vendor only the small library (82KB) and fetch model + WASM on first use, cached in IndexedDB / HTTP cache afterwards. <b>Your images are never sent anywhere.</b>
+          Committing the model + WebAssembly runtime directly into the repo would make git clone / deploy heavy. Same pattern as OCR (Tesseract): the model (~0.24MB) and runtime are fetched from the Google MediaPipe CDN on first use and cached afterwards. <b>Your images are never sent anywhere.</b>
         </div>
       </details>
       <details>
-        <summary>WebAssembly + SharedArrayBuffer requirements</summary>
+        <summary>WebAssembly requirements</summary>
         <div class="answer">
-          AI inference uses WASM and (when available) SharedArrayBuffer. Modern Chrome / Firefox / Edge / Safari (15+) all support these. Without SharedArrayBuffer it falls back to single-thread, which is slower.
+          AI inference uses WebAssembly. Modern Chrome / Firefox / Edge / Safari (15+) all support it, and it runs single-thread without SharedArrayBuffer.
         </div>
       </details>
       <details>
         <summary>Tips for large photos</summary>
         <div class="answer">
-          AI inference time / memory scales with input size squared. <b>1500–2000px wide is the sweet spot.</b> 4000px+ may take 30+ seconds or OOM even on desktop Chrome. Use the resize tool to shrink first.
+          Inference time / memory scales with input size. <b>1500–2000px wide is the sweet spot.</b> Use the resize tool to shrink 4000px+ photos first.
         </div>
       </details>
       <details>
-        <summary>I want better accuracy</summary>
+        <summary>Does it work on pets / objects? / Switching engines</summary>
         <div class="answer">
-          Currently the small model (~43MB). Medium (~80MB) and large (~180MB) aren't offered yet due to download cost. Toggle for opt-in is under consideration based on user feedback. Reach out via GitHub issue or email if you need higher accuracy.
+          MediaPipe Selfie is <b>people-focused</b>, so it's most accurate when a person is the main subject. For pets, objects or finer matting, a general model is under consideration. The engine is isolated behind a code adapter, so swapping it is easy.
         </div>
       </details>
     </section>
@@ -423,8 +422,8 @@
       <details>
         <summary>Are my images uploaded to a server?</summary>
         <div class="answer">
-          <b>Images stay on your device.</b> AI inference runs entirely in the browser via <b>ONNX Runtime Web (WASM)</b>.
-          The model file and WASM runtime are downloaded from <code>staticimgly.com</code> on first use, then cached in the browser's IndexedDB / HTTP cache (offline thereafter).
+          <b>Images stay on your device.</b> AI inference runs entirely in the browser via <b>MediaPipe (WebAssembly)</b>.
+          The model + runtime (~0.24MB) are downloaded from the Google MediaPipe CDN on first use, then cached in the browser (offline thereafter).
           The site operator cannot see your images.
         </div>
       </details>
@@ -432,9 +431,8 @@
       <details>
         <summary>Why is the first run slow?</summary>
         <div class="answer">
-          On first use, the <b>AI model (small ~43MB) + ONNX runtime WASM</b> download.
-          After that, they're cached and subsequent runs start instantly.
-          Avoid the first run on cellular data — use Wi-Fi once to warm the cache.
+          On first use, the <b>MediaPipe model (~0.24MB) + WebAssembly runtime</b> download.
+          The model is tiny so even the first run is fast, and subsequent runs start instantly from cache.
         </div>
       </details>
 
@@ -450,7 +448,7 @@
         <summary>What if the result is unsatisfactory?</summary>
         <div class="answer">
           ① Use photos with strong subject/background contrast (white background works great) ② if the subject is small, crop closer first ③ heavy shadows or reflections may leave residue
-          ④ for fine hair detail, the medium model would help, but its 80MB download isn't currently offered
+          ④ non-person subjects (pets, objects) can be weak with MediaPipe Selfie — a general model is under consideration
           ⑤ width under 1500px is fastest.
         </div>
       </details>
@@ -475,13 +473,12 @@
 
     <section class="sources">
       <h2>References · sources</h2>
-      <div class="updated">Last reviewed: 2026-05-22 / @imgly/background-removal v1.7.0 · model = isnet_quint8 (small, ~43MB int8 quantized)</div>
+      <div class="updated">Last reviewed: 2026-06-24 / engine = MediaPipe Selfie Segmenter (Apache-2.0). Legacy option = @imgly/background-removal (AGPL/Commercial, switchable in code)</div>
       <ul>
-        <li><b>@imgly/background-removal</b> — <a href="https://github.com/imgly/background-removal-js" rel="nofollow noopener" target="_blank">GitHub</a> (AGPL-3.0 / Commercial dual license). This site complies with the free-use terms.</li>
-        <li><b>ONNX Runtime Web</b> — <a href="https://onnxruntime.ai/docs/tutorials/web/" rel="nofollow noopener" target="_blank">onnxruntime.ai/docs/web</a> · <a href="https://github.com/microsoft/onnxruntime" rel="nofollow noopener" target="_blank">Microsoft GitHub</a> (MIT, WebAssembly + WebGPU backends)</li>
-        <li><b>ISNet (model backbone)</b> — Xuebin Qin et al., <a href="https://arxiv.org/abs/2205.04313" rel="nofollow noopener" target="_blank">"Highly Accurate Dichotomous Image Segmentation" (ECCV 2022)</a> · <a href="https://github.com/xuebinqin/DIS" rel="nofollow noopener" target="_blank">reference impl</a></li>
+        <li><b>MediaPipe Image Segmenter (Selfie)</b> — <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/image_segmenter" rel="nofollow noopener" target="_blank">Google MediaPipe</a> (<b>Apache-2.0</b> · code + model weights). People background separation.</li>
+        <li><b>Model + runtime hosting</b> — <code>cdn.jsdelivr.net/npm/@mediapipe/tasks-vision</code> + <code>storage.googleapis.com/mediapipe-models/…/selfie_segmenter.tflite</code> (~0.24MB).</li>
+        <li><b>Legacy engine (optional)</b> — <a href="https://github.com/imgly/background-removal-js" rel="nofollow noopener" target="_blank">@imgly/background-removal</a> (AGPL-3.0 / Commercial). One-line switch in code when a general model is needed.</li>
         <li><b>WebAssembly</b> — <a href="https://webassembly.org/" rel="nofollow noopener" target="_blank">webassembly.org</a> (W3C standard)</li>
-        <li><b>Model + WASM hosting</b> — <code>staticimgly.com/@imgly/background-removal-data/1.7.0/dist/</code> (IMG.LY official CDN). onnxruntime-web module is loaded from <code>esm.sh</code>.</li>
       </ul>
       <div class="note">⚠️ AI results vary by photo and aren't guaranteed. For commercial or official material, review and touch up the result by hand. Use only on photos you own or have permission to process.</div>
     </section>
@@ -492,6 +489,6 @@
   </main>
 
   <site-footer></site-footer>
-  <script type="module" src="./bg-remove.js?v=2026-06-01c"></script>
+  <script type="module" src="./bg-remove.js?v=2026-06-24-engine"></script>
 </body>
 </html>

@@ -9,7 +9,90 @@
  * 최종 검증: 2026-06-01 (chroma key 모드 추가)
  */
 
-import { removeBackground } from '/image/vendor/imgly-bg-remove.mjs?v=2026-05-22b';
+/* ===================== 배경 제거 AI 엔진 어댑터 =====================
+ * 사진·인물 모드의 AI 누끼 엔진을 교체 가능하게 추상화.
+ * 전환은 아래 ACTIVE_AI_ENGINE 한 줄만 바꾸면 됨.
+ *
+ *   'mediapipe' — MediaPipe Selfie Segmenter (Apache-2.0, 인물 전용). 기본.
+ *   'imgly'     — @imgly/background-removal (AGPL-3.0/Commercial, 범용). 레거시.
+ *
+ * 두 엔진 모두 lazy 로드 — 선택된 엔진의 코드·모델만 내려받음.
+ * (로고·그래픽은 별도 chroma key 경로라 이 어댑터와 무관)
+ * ================================================================= */
+const ACTIVE_AI_ENGINE = 'mediapipe';
+
+// --- MediaPipe Selfie Segmenter (Apache-2.0 코드+가중치, 인물 전용) ---
+let _mpSegmenter = null;
+async function mpLoadSegmenter(progress) {
+  if (_mpSegmenter) return _mpSegmenter;
+  progress && progress('fetch:mediapipe', 10, 100);
+  const VER = '0.10.18';
+  const { ImageSegmenter, FilesetResolver } = await import(`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${VER}`);
+  const vision = await FilesetResolver.forVisionTasks(`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${VER}/wasm`);
+  _mpSegmenter = await ImageSegmenter.createFromOptions(vision, {
+    baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_segmenter/float16/latest/selfie_segmenter.tflite' },
+    runningMode: 'IMAGE',
+    outputCategoryMask: false,
+    outputConfidenceMasks: true,
+  });
+  progress && progress('fetch:mediapipe', 100, 100);
+  return _mpSegmenter;
+}
+
+const AI_ENGINES = {
+  mediapipe: {
+    label: 'MediaPipe Selfie (Apache-2.0)',
+    async remove(file, { progress } = {}) {
+      const seg = await mpLoadSegmenter(progress);
+      progress && progress('compute:mediapipe', 30, 100);
+      const bitmap = await createImageBitmap(file);
+      const w = bitmap.width, h = bitmap.height;
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(bitmap, 0, 0);
+      const imgData = ctx.getImageData(0, 0, w, h);
+      const res = seg.segment(canvas);
+      const mask = res && res.confidenceMasks && res.confidenceMasks[0];
+      if (!mask) { bitmap.close && bitmap.close(); throw new Error('MediaPipe 마스크 생성 실패'); }
+      const mf = mask.getAsFloat32Array();        // 픽셀별 전경(인물) 확률 0~1
+      const mw = mask.width, mh = mask.height;
+      const data = imgData.data;
+      for (let y = 0; y < h; y++) {
+        const my = Math.min(mh - 1, (y * mh / h) | 0);
+        for (let x = 0; x < w; x++) {
+          const mx = Math.min(mw - 1, (x * mw / w) | 0);
+          let p = mf[my * mw + mx];
+          if (p < 0) p = 0; else if (p > 1) p = 1;
+          data[((y * w + x) << 2) + 3] = (p * 255) | 0;
+        }
+      }
+      ctx.putImageData(imgData, 0, 0);
+      mask.close && mask.close();
+      res.close && res.close();
+      bitmap.close && bitmap.close();
+      progress && progress('compute:mediapipe', 100, 100);
+      return await new Promise(r => canvas.toBlob(r, 'image/png'));
+    }
+  },
+  imgly: {
+    label: '@imgly/background-removal (AGPL)',
+    async remove(file, { quality, progress } = {}) {
+      const { removeBackground } = await import('/image/vendor/imgly-bg-remove.mjs?v=2026-05-22b');
+      return await removeBackground(file, {
+        model: quality || 'isnet_fp16',
+        output: { format: 'image/png', quality: 0.9 },
+        publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
+        progress
+      });
+    }
+  }
+};
+
+async function aiRemoveBackground(file, opts) {
+  const engine = AI_ENGINES[ACTIVE_AI_ENGINE] || AI_ENGINES.mediapipe;
+  return engine.remove(file, opts || {});
+}
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -530,12 +613,7 @@ async function run() {
     } else {
       // 사진 모드 — 사용자 명시 사진은 사용자 선택 품질 그대로, 자동 모드는 균형(fp16) default
       const quality = (mode === 'auto') ? 'isnet_fp16' : getQuality();
-      blob = await removeBackground(currentFile, {
-        model: quality,
-        output: { format: 'image/png', quality: 0.9 },
-        publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
-        progress: setProgress
-      });
+      blob = await aiRemoveBackground(currentFile, { quality, progress: setProgress });
 
       // 흰 배경 케이스 — ML + chroma key OR 합성으로 회색 텍스트 복원
       // 자동 감지된 배경색이 흰색 계열이면 적용 (다른 색 배경 사진은 chroma 영향 미미)

@@ -15,7 +15,8 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">  <link rel="manifest" href="/manifest.webmanifest">
   <link rel="preconnect" href="https://pagead2.googlesyndication.com">
-  <link rel="preconnect" href="https://staticimgly.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://storage.googleapis.com">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="TAYSTUDIO Image">
@@ -47,7 +48,7 @@
     {
       "@type": "WebApplication",
       "name": "배경 제거 (누끼) | AI 사진 배경 제거",
-      "description": "AI(@imgly/background-removal, ONNX Runtime Web)로 사진 배경 자동 제거 → 투명 PNG. 브라우저 안에서 처리.",
+      "description": "MediaPipe Selfie Segmenter(Apache-2.0)로 인물 사진 배경 자동 제거 + 흰 배경 로고는 색상 기반(chroma key) 제거 → 투명 PNG. 브라우저 안에서 처리.",
       "url": "https://taystudios.com/image/bg-remove/",
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
@@ -56,10 +57,10 @@
       "inLanguage": "ko-KR",
       "isAccessibleForFree": true,
       "featureList": [
-        "AI 모델로 사진 배경 자동 제거 (@imgly/background-removal)",
+        "인물 사진 배경 자동 제거 (MediaPipe Selfie Segmenter, Apache-2.0)",
         "투명 PNG 출력 — 누끼 따기",
         "원본·결과 외부 전송 없음 — 브라우저 안에서 AI 추론",
-        "WebGPU 가속 (지원 브라우저)"
+        "흰 배경 로고·그래픽은 색상 기반(chroma key)으로 즉시 제거"
       ],
       "dateModified": "2026-05-05",
       "softwareVersion": "2026.05"
@@ -80,7 +81,7 @@
           "name": "이미지가 외부 서버로 전송되나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "이미지는 전송되지 않습니다. AI 추론은 브라우저 안의 ONNX Runtime Web(WASM)에서 100% 로컬 수행됩니다. 단 모델 파일과 WASM 런타임은 첫 사용 시 staticimgly.com CDN에서 다운로드되며 브라우저 IndexedDB·HTTP 캐시에 저장됩니다(이후 offline 가능). 사이트 운영자도 이미지 내용을 볼 수 없습니다."
+            "text": "이미지는 전송되지 않습니다. AI 추론은 브라우저 안의 MediaPipe(WebAssembly)에서 100% 로컬 수행됩니다. 단 모델·런타임(약 0.24MB)은 첫 사용 시 Google MediaPipe CDN에서 다운로드되며 브라우저 캐시에 저장됩니다(이후 offline 가능). 사이트 운영자도 이미지 내용을 볼 수 없습니다."
           }
         },
         {
@@ -88,7 +89,7 @@
           "name": "처음 실행할 때 왜 오래 걸리나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "첫 실행 시 AI 모델(small 약 43MB) + ONNX 런타임 WASM 파일을 다운로드합니다. 이후 같은 브라우저에서는 캐시되어 즉시 시작됩니다. 모바일 데이터로는 첫 사용을 피하고 Wi-Fi 환경에서 한 번 실행해두는 것을 권장."
+            "text": "첫 실행 시 MediaPipe 모델(약 0.24MB) + WebAssembly 런타임을 다운로드합니다. 모델이 매우 가벼워 첫 실행도 빠르며, 이후 같은 브라우저에서는 캐시되어 즉시 시작됩니다."
           }
         },
         {
@@ -104,7 +105,7 @@
           "name": "결과가 만족스럽지 않을 때",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "① 배경과 피사체 대비가 강한 사진 사용(흰 배경 추천) ② 피사체가 너무 작으면 미리 잘라서 가까이 ③ 그림자·반사가 심하면 결과에 잔재 가능 ④ 머리카락 등 미세 디테일 안 살면 medium 모델 옵션이 답이지만 80MB 다운로드 → 향후 옵션 추가 검토 ⑤ 가급적 가로 1500px 이하의 사진이 처리 빠름."
+            "text": "① 배경과 피사체 대비가 강한 사진 사용(흰 배경 추천) ② 피사체가 너무 작으면 미리 잘라서 가까이 ③ 그림자·반사가 심하면 결과에 잔재 가능 ④ 인물이 아닌 피사체(동물·사물)는 MediaPipe Selfie로 약할 수 있음 — 범용 모델 추가 검토 중 ⑤ 가급적 가로 1500px 이하의 사진이 처리 빠름."
           }
         },
         {
@@ -190,15 +191,15 @@
   <main class="container">
     <div class="breadcrumb"><a href="/">홈</a> · <a href="../">이미지</a> · 배경 제거</div>
     <h1>배경 제거 (누끼)</h1>
-    <p class="subtitle">AI로 사진 배경 자동 제거 → 투명 PNG. 인물·반려동물·물건 모두.</p>
+    <p class="subtitle">사진 배경 자동 제거 → 투명 PNG. 인물 사진은 AI(MediaPipe), 흰 배경 로고는 색상 기반으로.</p>
 
     <div class="privacy-box">
       <span class="icon" aria-hidden="true">🔒</span>
-      <div><b>이미지가 외부 서버로 전송되지 않습니다.</b> AI 추론은 브라우저 내 ONNX Runtime Web(WASM)에서 수행. 모델·런타임은 첫 사용 시 <code>staticimgly.com</code>에서 다운로드 후 IndexedDB 캐시.</div>
+      <div><b>이미지가 외부 서버로 전송되지 않습니다.</b> 인물 배경 분리 AI(<b>MediaPipe Selfie Segmenter</b>)는 브라우저 안 WebAssembly에서 수행. 모델·런타임(약 0.24MB)은 첫 사용 시 Google MediaPipe CDN에서 한 번 다운로드 후 캐시. 흰 배경 로고·그래픽은 모델 없이 색상 기반으로 즉시 처리.</div>
     </div>
 
     <div class="ai-disclaimer">
-      <span class="label">⚠️ 첫 실행 안내</span> — 첫 사용 시 AI 모델(약 43MB) + WASM 런타임 다운로드. <b>Wi-Fi 환경 권장.</b> 이후 캐시되어 빠르게 시작. 결과는 사진 종류·품질에 따라 다름 — 머리카락·털 같은 미세 디테일은 한계 있음.
+      <span class="label">⚠️ 안내</span> — 사진(인물) 모드는 <b>MediaPipe Selfie Segmenter</b>(약 0.24MB)를 첫 사용 시 한 번 받아 캐시합니다. <b>사람이 주 피사체일 때 가장 정확</b>하며, 머리카락 등 미세 디테일은 한계가 있습니다. 흰 배경 로고·그래픽은 <b>로고 모드(색상 기반)</b>가 더 깔끔합니다.
     </div>
 
     <div class="card">
@@ -224,7 +225,7 @@
             <input type="radio" name="mode" value="photo">
             <span>
               <span class="mode-label">📷 사진·인물 (AI)</span>
-              <span class="mode-desc">인물·반려동물·물건 등 자연스러운 배경. 머리카락 디테일 보존. ML 모델 추론 3~10초.</span>
+              <span class="mode-desc">인물·셀카 사진의 배경 분리(MediaPipe Selfie Segmenter). 사람이 주 피사체일 때 정확. 추론 1~3초.</span>
             </span>
           </label>
           <label class="mode-radio" data-mode="logo">
@@ -238,11 +239,10 @@
         <div id="autoDetectResult" style="display:none;margin-top:8px;padding:8px 12px;background:rgba(37,99,235,0.06);border:1px solid rgba(37,99,235,0.2);border-radius:6px;font-size:12.5px;color:var(--muted)"></div>
 
         <div class="photo-options" id="photoOptions">
-          <div class="photo-options-title">AI 모델 품질 (사진 모드)</div>
-          <div class="quality-radios" id="qualityRadios">
-            <label class="active" data-quality="isnet_quint8"><input type="radio" name="quality" value="isnet_quint8" checked> 빠름 (44MB · 8-bit)</label>
-            <label data-quality="isnet_fp16"><input type="radio" name="quality" value="isnet_fp16"> 균형 (88MB · FP16)</label>
-            <label data-quality="isnet"><input type="radio" name="quality" value="isnet"> 정확 (176MB · FP32)</label>
+          <div class="photo-options-title">AI 엔진 — MediaPipe Selfie Segmenter (Apache-2.0)</div>
+          <div style="font-size:12.5px;color:var(--muted);line-height:1.55">단일 경량 모델(약 0.24MB)로 인물 배경을 분리합니다. 별도 품질 선택 없이 빠르게 동작하며, 첫 사용 시 한 번만 모델을 받습니다.</div>
+          <div class="quality-radios" id="qualityRadios" hidden>
+            <label class="active" data-quality="isnet_quint8"><input type="radio" name="quality" value="isnet_quint8" checked></label>
           </div>
         </div>
 
@@ -332,21 +332,21 @@
       <h2>배경 제거가 브라우저 안에서 어떻게 되나 — AI 모델 온디바이스 추론</h2>
       <p>
         일반적인 온라인 누끼 사이트는 사진을 서버로 올려 그쪽 GPU에서 처리한 뒤 결과를 돌려줍니다.
-        이 도구는 다릅니다. 배경을 찾아내는 <b>AI 모델(ISNet)</b>이 <code>onnxruntime-web</code>을 통해
+        이 도구는 다릅니다. 인물 배경을 찾아내는 <b>AI 모델(MediaPipe Selfie Segmenter)</b>이 WebAssembly를 통해
         <b>여러분의 브라우저 안에서 직접 실행</b>됩니다. 사진은 어디로도 떠나지 않습니다 — 프라이버시가
         약속이 아니라 구조적으로 보장되는 셈입니다.
       </p>
       <h3>① 첫 로드: 모델 한 번 내려받기</h3>
       <p>
-        처음 사진 모드를 쓰면 모델 파일(빠름 44MB · 균형 88MB · 정확 176MB 중 선택)과 WebAssembly 런타임을
-        <code>staticimgly.com</code> CDN에서 한 번 다운로드합니다. 이건 <b>프로그램(모델 가중치)을 받는 것이지
+        처음 사진 모드를 쓰면 모델 파일(약 0.24MB)과 WebAssembly 런타임을
+        Google MediaPipe CDN에서 한 번 다운로드합니다. 이건 <b>프로그램(모델 가중치)을 받는 것이지
         여러분의 사진을 올리는 게 아닙니다.</b> 받은 자산은 브라우저 IndexedDB·HTTP 캐시에 저장돼,
         같은 브라우저에서 두 번째부터는 추가 다운로드 없이 바로 시작합니다.
       </p>
       <h3>② 추론: 모델이 픽셀마다 전경/배경을 판단</h3>
       <p>
         모델은 사진을 받아 <b>픽셀 하나하나가 전경(피사체)에 속할 확률</b>을 계산해 알파 마스크를 만듭니다.
-        이 계산이 WASM(가능하면 WebGPU 가속)으로 여러분 기기의 CPU/GPU에서 돌아갑니다. 그래서 처리 속도는
+        이 계산이 WebAssembly로 여러분 기기에서 돌아갑니다. 그래서 처리 속도는
         서버가 아니라 <b>본인 기기 성능과 사진 해상도</b>에 좌우됩니다.
       </p>
       <h3>잘 되는 이미지 vs 어려운 이미지 — 왜 그런가</h3>
@@ -361,8 +361,9 @@
           ④ 복잡하고 어수선한 배경. 여기서는 전경 확률이 0.5 부근으로 애매해져 마스크가 거칠어집니다.</li>
       </ul>
       <p>
-        더 큰(정확) 모델을 고르면 이런 디테일이 개선되지만, 그만큼 다운로드 용량과 처리 시간이 늘어납니다.
-        흰 배경처럼 단순한 사진이라면 AI 대신 <b>로고 모드(색상 기반 제거)</b>가 더 빠르고 깔끔할 수 있습니다.
+        MediaPipe Selfie 모델은 인물에 특화돼 있어 사람이 주 피사체일 때 가장 깔끔합니다. 동물·사물 등 일반 피사체나
+        더 정밀한 매팅이 필요하면 범용 모델(추후 옵션)이 더 적합할 수 있습니다.
+        흰 배경처럼 단순한 이미지라면 AI 대신 <b>로고 모드(색상 기반 제거)</b>가 더 빠르고 깔끔합니다.
       </p>
     </section>
 
@@ -380,33 +381,33 @@
 
     <section class="disclosure-group">
       <details>
-        <summary>@imgly/background-removal 라이브러리</summary>
+        <summary>어떤 엔진으로 배경을 제거하나요?</summary>
         <div class="answer">
-          <a href="https://github.com/imgly/background-removal-js" rel="nofollow noopener" target="_blank">@imgly/background-removal</a> (IMG.LY, AGPL-3.0/Commercial). 본 도구는 GPL 호환 무료 사용 케이스이며, 모델·WASM은 <code>staticimgly.com</code> CDN에서 다운로드 후 브라우저에 캐시됩니다.
+          사진·인물 모드는 <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/image_segmenter" rel="nofollow noopener" target="_blank">MediaPipe Selfie Segmenter</a>(Google, <b>Apache-2.0</b>)를 사용합니다. 코드·모델 가중치 모두 Apache-2.0라 상업·광고 사이트에서도 자유롭게 쓸 수 있습니다. 로고·그래픽 모드는 모델 없이 canvas 색상 기반(chroma key)으로 처리합니다.
         </div>
       </details>
       <details>
-        <summary>왜 staticimgly.com에서 모델을 받나요?</summary>
+        <summary>왜 Google CDN에서 모델을 받나요?</summary>
         <div class="answer">
-          AI 모델(43MB+) + ONNX Runtime WebAssembly 자산을 repo에 직접 commit하면 git clone·deploy가 너무 무거워집니다. 그래서 OCR(Tesseract)과 동일한 패턴으로, 라이브러리만 vendoring(82KB) 하고 모델·WASM은 첫 사용 시 CDN에서 받아 IndexedDB·HTTP 캐시에 저장합니다. <b>사용자 이미지는 어떤 외부로도 전송되지 않습니다.</b>
+          모델·WebAssembly 런타임을 repo에 직접 commit하면 git clone·deploy가 무거워집니다. 그래서 OCR(Tesseract)과 동일한 패턴으로, 모델(약 0.24MB)·런타임은 첫 사용 시 Google MediaPipe CDN에서 받아 캐시합니다. <b>사용자 이미지는 어떤 외부로도 전송되지 않습니다.</b>
         </div>
       </details>
       <details>
-        <summary>WebAssembly·SharedArrayBuffer 요구사항</summary>
+        <summary>WebAssembly 요구사항</summary>
         <div class="answer">
-          AI 추론에 WASM과 (가능하면) SharedArrayBuffer가 필요합니다. 현대 Chrome·Firefox·Edge·Safari(15+)는 모두 지원. SharedArrayBuffer가 없으면 single-thread로 fallback되어 느려질 수 있습니다.
+          AI 추론에 WebAssembly가 필요합니다. 현대 Chrome·Firefox·Edge·Safari(15+)는 모두 지원하며, 멀티스레드(SharedArrayBuffer) 없이 single-thread로 동작합니다.
         </div>
       </details>
       <details>
         <summary>큰 사진 처리 팁</summary>
         <div class="answer">
-          AI 추론은 입력 해상도 제곱에 비례해 시간·메모리 소모. <b>가로 1500~2000px가 sweet spot.</b> 4000px+ 사진은 데스크톱 Chrome에서도 30초+ 걸리거나 OOM. 본 사이트의 이미지 리사이즈 도구로 미리 줄이고 처리하세요.
+          추론은 입력 해상도에 비례해 시간·메모리를 씁니다. <b>가로 1500~2000px가 sweet spot.</b> 4000px+ 사진은 본 사이트의 이미지 리사이즈 도구로 미리 줄이고 처리하세요.
         </div>
       </details>
       <details>
-        <summary>모델 정확도 더 높이고 싶다면</summary>
+        <summary>동물·사물도 되나요? / 엔진 교체</summary>
         <div class="answer">
-          현재 small 모델(~43MB). medium(~80MB)·large(~180MB) 모델은 다운로드 부담 커서 우선 제공 안 함. 사용자 피드백·트래픽 봐서 옵션 토글 추가 검토. 추가 옵션 필요하시면 GitHub Issue·이메일.
+          MediaPipe Selfie는 <b>인물 특화</b>라 사람이 주 피사체일 때 가장 정확합니다. 동물·사물·정밀 매팅이 필요하면 범용 모델 추가를 검토 중입니다. 엔진은 코드 상 어댑터로 분리돼 있어 교체가 쉽습니다.
         </div>
       </details>
     </section>
@@ -417,8 +418,8 @@
       <details>
         <summary>이미지가 외부 서버로 전송되나요?</summary>
         <div class="answer">
-          <b>이미지는 전송되지 않습니다.</b> AI 추론은 브라우저 안의 <b>ONNX Runtime Web(WASM)</b>에서 100% 로컬 수행됩니다.
-          단 모델 파일과 WASM 런타임은 첫 사용 시 <code>staticimgly.com</code> CDN에서 다운로드되며 브라우저 IndexedDB·HTTP 캐시에 저장됩니다(이후 offline 가능).
+          <b>이미지는 전송되지 않습니다.</b> AI 추론은 브라우저 안의 <b>MediaPipe(WebAssembly)</b>에서 100% 로컬 수행됩니다.
+          단 모델·런타임(약 0.24MB)은 첫 사용 시 Google MediaPipe CDN에서 다운로드되며 브라우저 캐시에 저장됩니다(이후 offline 가능).
           사이트 운영자도 이미지 내용을 볼 수 없습니다.
         </div>
       </details>
@@ -426,9 +427,8 @@
       <details>
         <summary>처음 실행할 때 왜 오래 걸리나요?</summary>
         <div class="answer">
-          첫 실행 시 <b>AI 모델(small 약 43MB) + ONNX 런타임 WASM 파일</b>을 다운로드합니다.
-          이후 같은 브라우저에서는 캐시되어 즉시 시작됩니다.
-          모바일 데이터로는 첫 사용을 피하고 Wi-Fi 환경에서 한 번 실행해두는 것을 권장.
+          첫 실행 시 <b>MediaPipe 모델(약 0.24MB) + WebAssembly 런타임</b>을 다운로드합니다.
+          모델이 매우 가벼워 첫 실행도 빠르며, 이후 같은 브라우저에서는 캐시되어 즉시 시작됩니다.
         </div>
       </details>
 
@@ -444,7 +444,7 @@
         <summary>결과가 만족스럽지 않을 때</summary>
         <div class="answer">
           ① 배경과 피사체 대비가 강한 사진 사용(흰 배경 추천) ② 피사체가 너무 작으면 미리 잘라서 가까이 ③ 그림자·반사가 심하면 결과에 잔재 가능
-          ④ 머리카락 등 미세 디테일 안 살면 medium 모델 옵션이 답이지만 80MB 다운로드 → 향후 옵션 추가 검토
+          ④ 인물이 아닌 피사체(동물·사물)는 MediaPipe Selfie로 약할 수 있음 — 범용 모델 추가 검토 중
           ⑤ 가급적 가로 1500px 이하의 사진이 처리 빠름.
         </div>
       </details>
@@ -469,15 +469,14 @@
 
     <section class="sources">
       <h2>참고·출처</h2>
-      <div class="updated">최종 검증: 2026-05-22 / @imgly/background-removal v1.7.0 · model = isnet_quint8 (small, ~43MB int8 quantized)</div>
+      <div class="updated">최종 검증: 2026-06-24 / 엔진 = MediaPipe Selfie Segmenter (Apache-2.0). 레거시 옵션 = @imgly/background-removal (AGPL/Commercial, 코드 어댑터로 전환 가능)</div>
       <ul>
-        <li><b>@imgly/background-removal</b> — <a href="https://github.com/imgly/background-removal-js" rel="nofollow noopener" target="_blank">GitHub</a> (AGPL-3.0/Commercial 듀얼 라이선스). 본 도구는 무료 사용 조건 준수.</li>
-        <li><b>ONNX Runtime Web</b> — <a href="https://onnxruntime.ai/docs/tutorials/web/" rel="nofollow noopener" target="_blank">onnxruntime.ai/docs/web</a> · <a href="https://github.com/microsoft/onnxruntime" rel="nofollow noopener" target="_blank">Microsoft GitHub</a> (MIT, WebAssembly + WebGPU 백엔드)</li>
-        <li><b>ISNet (모델 backbone)</b> — Xuebin Qin et al., <a href="https://arxiv.org/abs/2205.04313" rel="nofollow noopener" target="_blank">"Highly Accurate Dichotomous Image Segmentation" (ECCV 2022)</a> · <a href="https://github.com/xuebinqin/DIS" rel="nofollow noopener" target="_blank">참고 구현</a></li>
+        <li><b>MediaPipe Image Segmenter (Selfie)</b> — <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/image_segmenter" rel="nofollow noopener" target="_blank">Google MediaPipe</a> (<b>Apache-2.0</b> · 코드 + 모델 가중치). 인물 배경 분리.</li>
+        <li><b>모델·런타임 호스팅</b> — <code>cdn.jsdelivr.net/npm/@mediapipe/tasks-vision</code> + <code>storage.googleapis.com/mediapipe-models/…/selfie_segmenter.tflite</code> (약 0.24MB).</li>
+        <li><b>레거시 엔진(옵션)</b> — <a href="https://github.com/imgly/background-removal-js" rel="nofollow noopener" target="_blank">@imgly/background-removal</a> (AGPL-3.0/Commercial). 범용 모델이 필요할 때 코드 상 한 줄로 전환.</li>
         <li><b>WebAssembly</b> — <a href="https://webassembly.org/" rel="nofollow noopener" target="_blank">webassembly.org</a> (W3C 표준)</li>
-        <li><b>모델·WASM 자산 호스팅</b> — <code>staticimgly.com/@imgly/background-removal-data/1.7.0/dist/</code> (IMG.LY 공식 CDN). onnxruntime-web 모듈은 <code>esm.sh</code>.</li>
       </ul>
-      <div class="note">⚠️ AI 결과는 사진별로 다르며 본 도구의 책임 범위가 아닙니다. 상업·공식 자료에 사용 시 결과를 사람이 검토·보정해 사용하세요. 본인 소유 사진 또는 사용 권한이 있는 사진에만 사용 권장.</div>
+      <div class="note">⚠️ AI 결과는 사진별로 다르며 본 도구의 책임 범위가 아닙니다. 상업·공식 자료에 사용 시 결과를 사람이 검토·보정해 사용하세요. 본인 소유 또는 사용 권한이 있는 이미지에만 사용 권장.</div>
     </section>
 
     <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
@@ -486,6 +485,6 @@
   </main>
 
   <site-footer></site-footer>
-  <script type="module" src="./bg-remove.js?v=2026-06-01c"></script>
+  <script type="module" src="./bg-remove.js?v=2026-06-24-engine"></script>
 </body>
 </html>

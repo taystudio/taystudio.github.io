@@ -9,7 +9,90 @@
  * Last verified: 2026-06-01 (chroma key mode added)
  */
 
-import { removeBackground } from '/image/vendor/imgly-bg-remove.mjs?v=2026-05-22b';
+/* ===================== Background-removal AI engine adapter =====================
+ * Abstracts the AI cutout engine for Photo/People mode so it can be swapped.
+ * Switch by changing the single ACTIVE_AI_ENGINE line below.
+ *
+ *   'mediapipe' — MediaPipe Selfie Segmenter (Apache-2.0, people-focused). Default.
+ *   'imgly'     — @imgly/background-removal (AGPL-3.0/Commercial, general). Legacy.
+ *
+ * Both engines load lazily — only the selected engine's code/model is downloaded.
+ * (Logo/Graphic uses a separate chroma-key path, unrelated to this adapter.)
+ * ================================================================================ */
+const ACTIVE_AI_ENGINE = 'mediapipe';
+
+// --- MediaPipe Selfie Segmenter (Apache-2.0 code + weights, people-focused) ---
+let _mpSegmenter = null;
+async function mpLoadSegmenter(progress) {
+  if (_mpSegmenter) return _mpSegmenter;
+  progress && progress('fetch:mediapipe', 10, 100);
+  const VER = '0.10.18';
+  const { ImageSegmenter, FilesetResolver } = await import(`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${VER}`);
+  const vision = await FilesetResolver.forVisionTasks(`https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${VER}/wasm`);
+  _mpSegmenter = await ImageSegmenter.createFromOptions(vision, {
+    baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_segmenter/float16/latest/selfie_segmenter.tflite' },
+    runningMode: 'IMAGE',
+    outputCategoryMask: false,
+    outputConfidenceMasks: true,
+  });
+  progress && progress('fetch:mediapipe', 100, 100);
+  return _mpSegmenter;
+}
+
+const AI_ENGINES = {
+  mediapipe: {
+    label: 'MediaPipe Selfie (Apache-2.0)',
+    async remove(file, { progress } = {}) {
+      const seg = await mpLoadSegmenter(progress);
+      progress && progress('compute:mediapipe', 30, 100);
+      const bitmap = await createImageBitmap(file);
+      const w = bitmap.width, h = bitmap.height;
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(bitmap, 0, 0);
+      const imgData = ctx.getImageData(0, 0, w, h);
+      const res = seg.segment(canvas);
+      const mask = res && res.confidenceMasks && res.confidenceMasks[0];
+      if (!mask) { bitmap.close && bitmap.close(); throw new Error('MediaPipe mask generation failed'); }
+      const mf = mask.getAsFloat32Array();        // per-pixel foreground (person) probability 0~1
+      const mw = mask.width, mh = mask.height;
+      const data = imgData.data;
+      for (let y = 0; y < h; y++) {
+        const my = Math.min(mh - 1, (y * mh / h) | 0);
+        for (let x = 0; x < w; x++) {
+          const mx = Math.min(mw - 1, (x * mw / w) | 0);
+          let p = mf[my * mw + mx];
+          if (p < 0) p = 0; else if (p > 1) p = 1;
+          data[((y * w + x) << 2) + 3] = (p * 255) | 0;
+        }
+      }
+      ctx.putImageData(imgData, 0, 0);
+      mask.close && mask.close();
+      res.close && res.close();
+      bitmap.close && bitmap.close();
+      progress && progress('compute:mediapipe', 100, 100);
+      return await new Promise(r => canvas.toBlob(r, 'image/png'));
+    }
+  },
+  imgly: {
+    label: '@imgly/background-removal (AGPL)',
+    async remove(file, { quality, progress } = {}) {
+      const { removeBackground } = await import('/image/vendor/imgly-bg-remove.mjs?v=2026-05-22b');
+      return await removeBackground(file, {
+        model: quality || 'isnet_fp16',
+        output: { format: 'image/png', quality: 0.9 },
+        publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
+        progress
+      });
+    }
+  }
+};
+
+async function aiRemoveBackground(file, opts) {
+  const engine = AI_ENGINES[ACTIVE_AI_ENGINE] || AI_ENGINES.mediapipe;
+  return engine.remove(file, opts || {});
+}
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
@@ -530,12 +613,7 @@ async function run() {
     } else {
       // Photo mode — explicit photo uses the user's chosen quality; auto mode defaults to balanced (fp16)
       const quality = (mode === 'auto') ? 'isnet_fp16' : getQuality();
-      blob = await removeBackground(currentFile, {
-        model: quality,
-        output: { format: 'image/png', quality: 0.9 },
-        publicPath: 'https://staticimgly.com/@imgly/background-removal-data/1.7.0/dist/',
-        progress: setProgress
-      });
+      blob = await aiRemoveBackground(currentFile, { quality, progress: setProgress });
 
       // White-background case — restore gray text via ML + chroma key OR composite
       // applied when the auto-detected background color is whitish (chroma has negligible effect on other-color backgrounds)

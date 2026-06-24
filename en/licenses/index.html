@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudios.com · 무단 복제·재배포 금지 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <title>Open-Source Licenses · Credits | TAYSTUDIO</title>
+  <meta name="description" content="License notices for the open-source libraries, data and fonts TAYSTUDIO is built with — pdf-lib, PDF.js, Tesseract, ffmpeg.wasm, figlet, emojibase and more. We respect each copyright holder and license.">
+  <link rel="canonical" href="https://taystudios.com/en/licenses/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/licenses/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/licenses/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/licenses/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebPage", "name": "Open-Source Licenses · Credits", "url": "https://taystudios.com/en/licenses/", "inLanguage": "en" },
+    { "@type": "BreadcrumbList", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/en/" },
+      { "@type": "ListItem", "position": 2, "name": "Open-Source Licenses", "item": "https://taystudios.com/en/licenses/" } ] }
+  ]
+}
+  </script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .lic-intro{font-size:14.5px;line-height:1.75;color:var(--text);margin-bottom:8px}
+    .lic-note{font-size:13px;line-height:1.7;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin:14px 0 26px}
+    .lic-note b{color:var(--text)}
+    table.lic{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 12px}
+    table.lic th,table.lic td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+    table.lic th{font-size:12px;color:var(--muted);font-weight:700;border-bottom:2px solid var(--border)}
+    table.lic td a{color:var(--primary);text-decoration:none}
+    table.lic .lib{font-weight:700;white-space:nowrap}
+    table.lic .lc{white-space:nowrap;font-size:12.5px}
+    .lc-permissive{color:#1f7a4d;font-weight:700}
+    .lc-copyleft{color:#b4730a;font-weight:700}
+    .lc-strong{color:#c0392b;font-weight:700}
+    h2.sec{font-size:18px;margin:34px 0 6px;font-weight:800}
+    .sec-desc{font-size:12.5px;color:var(--muted);margin:0 0 12px}
+    .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;margin:10px 0 22px}
+    .legend span b{font-weight:700}
+  </style>
+  <script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/en/">Home</a> · Open-Source Licenses</div>
+    <h1>Open-Source Licenses · Credits</h1>
+    <p class="subtitle">TAYSTUDIO is built with the open source below. We respect each copyright holder and license.</p>
+
+    <p class="lic-intro">Every tool on this site runs <b>inside your browser</b>, and to do that it uses the following open-source libraries, data and fonts. The full text of each license is available at the linked source.</p>
+    <div class="legend">
+      <span class="lc-permissive">● Permissive</span><span style="color:var(--muted)">MIT · Apache · BSD — free to use</span>
+      <span class="lc-copyleft">● Copyleft</span><span style="color:var(--muted)">LGPL · GPL — source notice</span>
+    </div>
+
+    <h2 class="sec">Tool libraries</h2>
+    <table class="lic">
+      <tr><th>Library</th><th>Used for</th><th>License</th><th>Source</th></tr>
+      <tr><td class="lib">pdf-lib</td><td>PDF create / edit / stamp</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/Hopding/pdf-lib" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">pdf-lib-plus-encrypt</td><td>PDF encryption</td><td class="lc lc-permissive">MIT</td><td><a href="https://www.npmjs.com/package/pdf-lib-plus-encrypt" target="_blank" rel="nofollow noopener">npm</a></td></tr>
+      <tr><td class="lib">PDF.js</td><td>PDF render / verify</td><td class="lc lc-permissive">Apache-2.0</td><td><a href="https://github.com/mozilla/pdf.js" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">fontkit</td><td>PDF font embedding</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/foliojs/fontkit" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">qpdf (qpdf.wasm)</td><td>PDF password removal</td><td class="lc lc-permissive">Apache-2.0</td><td><a href="https://github.com/qpdf/qpdf" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">Tesseract.js</td><td>Image text recognition (OCR)</td><td class="lc lc-permissive">Apache-2.0</td><td><a href="https://github.com/naptha/tesseract.js" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">jsQR</td><td>QR code scanning</td><td class="lc lc-permissive">Apache-2.0</td><td><a href="https://github.com/cozmo/jsQR" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">qrcode-generator</td><td>QR code generation</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/kazuhikoarase/qrcode-generator" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">heic2any</td><td>HEIC→JPG conversion</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/alexcorvi/heic2any" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">piexifjs</td><td>EXIF read / remove</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/hMatoba/piexifjs" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">JSZip</td><td>Bundle multiple files into ZIP</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/Stuk/jszip" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">figlet.js</td><td>ASCII art banner</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/patorjk/figlet.js" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">MediaPipe (tasks-vision)</td><td>Background removal (people)</td><td class="lc lc-permissive">Apache-2.0</td><td><a href="https://ai.google.dev/edge/mediapipe/solutions/vision/image_segmenter" target="_blank" rel="nofollow noopener">Google</a></td></tr>
+      <tr><td class="lib">ONNX Runtime Web</td><td>AI model runtime</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/microsoft/onnxruntime" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">FFmpeg (ffmpeg.wasm)</td><td>Video compress / convert</td><td class="lc lc-copyleft">wrapper MIT · core LGPL-2.1</td><td><a href="https://github.com/ffmpegwasm/ffmpeg.wasm" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">gifsicle-wasm-browser</td><td>GIF compression</td><td class="lc lc-copyleft">GPL-2.0</td><td><a href="https://github.com/renzhezhilu/gifsicle-wasm-browser" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">@imgly/background-removal</td><td>Background removal <b>— legacy / optional engine</b></td><td class="lc lc-strong">AGPL-3.0 / Commercial</td><td><a href="https://github.com/imgly/background-removal-js" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+    </table>
+    <div class="lic-note">📌 <b>FFmpeg &amp; gifsicle notice</b>: both are LGPL/GPL licensed and are loaded <b>unmodified</b> in the browser. Their source is available at the links above. (LGPL/GPL do not restrict commercial or ad-supported use — they only require source availability.)<br>
+    📌 <b>Background-removal engine</b>: the default photo engine is now <b>MediaPipe Selfie Segmenter (Apache-2.0)</b>. <code>@imgly/background-removal</code> (AGPL-3.0/Commercial) remains a legacy/optional engine that can be switched on in code; it is not the default.</div>
+
+    <h2 class="sec">Data · Fonts</h2>
+    <table class="lic">
+      <tr><th>Asset</th><th>Used for</th><th>License</th><th>Source</th></tr>
+      <tr><td class="lib">emojibase</td><td>Emoji search data (keywords)</td><td class="lc lc-permissive">MIT · data Unicode (CLDR)</td><td><a href="https://github.com/milesj/emojibase" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">emojilib</td><td>English emoji keywords</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/muan/emojilib" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">FIGlet fonts (×8)</td><td>ASCII banner typefaces (Standard·Big·Slant·ANSI Shadow·Doom·Ghost·Small·Banner3)</td><td class="lc lc-permissive">FIGfont (freely distributable)</td><td><a href="http://www.figlet.org/" target="_blank" rel="nofollow noopener">figlet.org</a></td></tr>
+      <tr><td class="lib">System fonts</td><td>Body typeface</td><td class="lc">OS default (not redistributed)</td><td>—</td></tr>
+    </table>
+
+    <h2 class="sec">Blog</h2>
+    <table class="lic">
+      <tr><th>Library</th><th>Used for</th><th>License</th><th>Source</th></tr>
+      <tr><td class="lib">KaTeX</td><td>Math rendering</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/KaTeX/KaTeX" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">Prism</td><td>Code highlighting</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/PrismJS/prism" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">Font Awesome Free</td><td>Icons</td><td class="lc lc-permissive">code MIT · icons CC-BY-4.0 · font OFL-1.1</td><td><a href="https://fontawesome.com/license/free" target="_blank" rel="nofollow noopener">License</a></td></tr>
+      <tr><td class="lib">giscus</td><td>Comments</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/giscus/giscus" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+    </table>
+
+    <p class="lic-intro" style="margin-top:24px;color:var(--muted);font-size:12.5px">Trademarks and copyrights of each library belong to their respective owners. If you spot a missing or incorrect entry, please <a href="/en/about/">contact us</a> and we'll fix it. Last reviewed: 2026-06-24.</p>
+  </main>
+  <site-footer></site-footer>
+</body>
+</html>

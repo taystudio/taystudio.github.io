@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- TAYSTUDIO 정품 = https://taystudios.com · 무단 복제·재배포 금지 -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="color-scheme" content="light dark">
+  <meta name="google-adsense-account" content="ca-pub-3553250610781349">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+  <title>오픈소스 라이선스 · 크레딧 | TAYSTUDIO</title>
+  <meta name="description" content="TAYSTUDIO가 사용하는 오픈소스 라이브러리·데이터·폰트의 라이선스 고지. pdf-lib·PDF.js·Tesseract·ffmpeg.wasm·figlet·emojibase 등 각 저작권자와 라이선스를 존중하며 표기합니다.">
+  <link rel="canonical" href="https://taystudios.com/licenses/">
+  <link rel="alternate" hreflang="ko" href="https://taystudios.com/licenses/">
+  <link rel="alternate" hreflang="en" href="https://taystudios.com/en/licenses/">
+  <link rel="alternate" hreflang="x-default" href="https://taystudios.com/licenses/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebPage", "name": "오픈소스 라이선스 · 크레딧", "url": "https://taystudios.com/licenses/", "inLanguage": "ko-KR" },
+    { "@type": "BreadcrumbList", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "TAYSTUDIO", "item": "https://taystudios.com/" },
+      { "@type": "ListItem", "position": 2, "name": "오픈소스 라이선스", "item": "https://taystudios.com/licenses/" } ] }
+  ]
+}
+  </script>
+  <link rel="stylesheet" href="/common/css/style.css">
+  <style>
+    .lic-intro{font-size:14.5px;line-height:1.75;color:var(--text);margin-bottom:8px}
+    .lic-note{font-size:13px;line-height:1.7;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:13px 15px;margin:14px 0 26px}
+    .lic-note b{color:var(--text)}
+    table.lic{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 12px}
+    table.lic th,table.lic td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+    table.lic th{font-size:12px;color:var(--muted);font-weight:700;border-bottom:2px solid var(--border)}
+    table.lic td a{color:var(--primary);text-decoration:none}
+    table.lic .lib{font-weight:700;white-space:nowrap}
+    table.lic .lc{white-space:nowrap;font-size:12.5px}
+    .lc-permissive{color:#1f7a4d;font-weight:700}
+    .lc-copyleft{color:#b4730a;font-weight:700}
+    .lc-strong{color:#c0392b;font-weight:700}
+    h2.sec{font-size:18px;margin:34px 0 6px;font-weight:800}
+    .sec-desc{font-size:12.5px;color:var(--muted);margin:0 0 12px}
+    .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;margin:10px 0 22px}
+    .legend span b{font-weight:700}
+  </style>
+  <script src="/common/site-chrome.js"></script>
+</head>
+<body>
+  <site-header></site-header>
+  <main class="container">
+    <div class="breadcrumb"><a href="/">홈</a> · 오픈소스 라이선스</div>
+    <h1>오픈소스 라이선스 · 크레딧</h1>
+    <p class="subtitle">TAYSTUDIO는 아래 오픈소스로 만들어졌습니다. 각 저작권자와 라이선스를 존중하며 고지합니다.</p>
+
+    <p class="lic-intro">이 사이트의 모든 도구는 <b>사용자 브라우저 안에서</b> 동작하며, 그 처리를 위해 다음 오픈소스 라이브러리·데이터·폰트를 사용합니다. 각 항목의 라이선스 전문은 링크에서 확인하실 수 있습니다.</p>
+    <div class="legend">
+      <span class="lc-permissive">● Permissive</span><span style="color:var(--muted)">MIT·Apache·BSD — 자유 사용</span>
+      <span class="lc-copyleft">● Copyleft</span><span style="color:var(--muted)">LGPL·GPL — 소스 고지</span>
+    </div>
+
+    <h2 class="sec">도구 라이브러리</h2>
+    <table class="lic">
+      <tr><th>라이브러리</th><th>용도</th><th>라이선스</th><th>출처</th></tr>
+      <tr><td class="lib">pdf-lib</td><td>PDF 생성·편집·도장</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/Hopding/pdf-lib" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">pdf-lib-plus-encrypt</td><td>PDF 암호화</td><td class="lc lc-permissive">MIT</td><td><a href="https://www.npmjs.com/package/pdf-lib-plus-encrypt" target="_blank" rel="nofollow noopener">npm</a></td></tr>
+      <tr><td class="lib">PDF.js</td><td>PDF 렌더·검증</td><td class="lc lc-permissive">Apache-2.0</td><td><a href="https://github.com/mozilla/pdf.js" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">fontkit</td><td>PDF 폰트 임베드</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/foliojs/fontkit" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">qpdf (qpdf.wasm)</td><td>PDF 암호 해제</td><td class="lc lc-permissive">Apache-2.0</td><td><a href="https://github.com/qpdf/qpdf" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">Tesseract.js</td><td>이미지 글자 인식(OCR)</td><td class="lc lc-permissive">Apache-2.0</td><td><a href="https://github.com/naptha/tesseract.js" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">jsQR</td><td>QR 코드 인식</td><td class="lc lc-permissive">Apache-2.0</td><td><a href="https://github.com/cozmo/jsQR" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">qrcode-generator</td><td>QR 코드 생성</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/kazuhikoarase/qrcode-generator" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">heic2any</td><td>HEIC→JPG 변환</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/alexcorvi/heic2any" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">piexifjs</td><td>EXIF 읽기·제거</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/hMatoba/piexifjs" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">JSZip</td><td>다중 파일 ZIP 묶기</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/Stuk/jszip" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">figlet.js</td><td>아스키 아트 배너</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/patorjk/figlet.js" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">MediaPipe (tasks-vision)</td><td>배경 제거(인물)</td><td class="lc lc-permissive">Apache-2.0</td><td><a href="https://ai.google.dev/edge/mediapipe/solutions/vision/image_segmenter" target="_blank" rel="nofollow noopener">Google</a></td></tr>
+      <tr><td class="lib">ONNX Runtime Web</td><td>AI 모델 실행 런타임</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/microsoft/onnxruntime" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">FFmpeg (ffmpeg.wasm)</td><td>동영상 압축·변환</td><td class="lc lc-copyleft">래퍼 MIT · 코어 LGPL-2.1</td><td><a href="https://github.com/ffmpegwasm/ffmpeg.wasm" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">gifsicle-wasm-browser</td><td>GIF 압축</td><td class="lc lc-copyleft">GPL-2.0</td><td><a href="https://github.com/renzhezhilu/gifsicle-wasm-browser" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">@imgly/background-removal</td><td>배경 제거(누끼) <b>— 레거시/옵션 엔진</b></td><td class="lc lc-strong">AGPL-3.0 / Commercial</td><td><a href="https://github.com/imgly/background-removal-js" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+    </table>
+    <div class="lic-note">📌 <b>FFmpeg·gifsicle 고지</b>: 두 라이브러리는 LGPL/GPL 라이선스이며, <b>수정 없이</b> 원본 그대로 브라우저에서 불러와 사용합니다. 해당 소스는 위 출처 링크에서 제공됩니다. (LGPL/GPL은 상업·광고 이용을 제한하지 않으며, 소스 제공 의무만 가집니다.)<br>
+    📌 <b>배경 제거 엔진</b>: 기본 엔진은 이제 <b>MediaPipe Selfie Segmenter(Apache-2.0)</b>입니다. <code>@imgly/background-removal</code>(AGPL-3.0/상업)은 코드에서 켤 수 있는 레거시/옵션 엔진으로만 남아 있으며 기본값이 아닙니다.</div>
+
+    <h2 class="sec">데이터 · 폰트</h2>
+    <table class="lic">
+      <tr><th>자산</th><th>용도</th><th>라이선스</th><th>출처</th></tr>
+      <tr><td class="lib">emojibase</td><td>이모지 검색 데이터(키워드)</td><td class="lc lc-permissive">MIT · 데이터 Unicode(CLDR)</td><td><a href="https://github.com/milesj/emojibase" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">emojilib</td><td>이모지 영문 키워드</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/muan/emojilib" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">FIGlet 폰트 8종</td><td>아스키 배너 글꼴(Standard·Big·Slant·ANSI Shadow·Doom·Ghost·Small·Banner3)</td><td class="lc lc-permissive">FIGfont(자유 배포)</td><td><a href="http://www.figlet.org/" target="_blank" rel="nofollow noopener">figlet.org</a></td></tr>
+      <tr><td class="lib">시스템 폰트</td><td>본문 글꼴</td><td class="lc">OS 기본(별도 배포 없음)</td><td>—</td></tr>
+    </table>
+
+    <h2 class="sec">블로그</h2>
+    <table class="lic">
+      <tr><th>라이브러리</th><th>용도</th><th>라이선스</th><th>출처</th></tr>
+      <tr><td class="lib">KaTeX</td><td>수식 렌더링</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/KaTeX/KaTeX" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">Prism</td><td>코드 하이라이트</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/PrismJS/prism" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+      <tr><td class="lib">Font Awesome Free</td><td>아이콘</td><td class="lc lc-permissive">코드 MIT · 아이콘 CC-BY-4.0 · 폰트 OFL-1.1</td><td><a href="https://fontawesome.com/license/free" target="_blank" rel="nofollow noopener">라이선스</a></td></tr>
+      <tr><td class="lib">giscus</td><td>댓글</td><td class="lc lc-permissive">MIT</td><td><a href="https://github.com/giscus/giscus" target="_blank" rel="nofollow noopener">GitHub</a></td></tr>
+    </table>
+
+    <p class="lic-intro" style="margin-top:24px;color:var(--muted);font-size:12.5px">각 라이브러리의 상표·저작권은 해당 저작권자에게 있습니다. 누락·오기 발견 시 <a href="/about/">문의</a> 주시면 정정하겠습니다. 최종 정리: 2026-06-24.</p>
+  </main>
+  <site-footer></site-footer>
+</body>
+</html>
