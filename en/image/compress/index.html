@@ -132,7 +132,7 @@
           "name": "Can I compress multiple images at once?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Currently this tool processes one image at a time. Batch support is on the roadmap. For now, fix the format and quality, then quickly process images one by one with the same settings."
+            "text": "Yes. Select multiple files and they're all processed with the same quality/format settings, then bundled into a single ZIP — or download each compressed image individually from the result list. Select just one and you get a single file with a preview. Everything runs in your browser."
           }
         },
         {
@@ -199,8 +199,8 @@
       <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload image file">
         <div class="drop-icon" aria-hidden="true">📁</div>
         <div class="drop-title" id="dropTitle">Drag an image here, or click to choose</div>
-        <div class="drop-hint">JPG · PNG · WebP · GIF · BMP — one image at a time</div>
-        <input type="file" id="fileInput" accept="image/*">
+        <div class="drop-hint">JPG · PNG · WebP · GIF · BMP — multiple at once (2+ → ZIP)</div>
+        <input type="file" id="fileInput" accept="image/*" multiple>
       </label>
 
       <div class="field" style="margin-top:16px">
@@ -244,6 +244,25 @@
         <a id="downloadBtn" class="download-btn" download>⬇ Download</a>
       </div>
     </div>
+
+    <div id="resultMulti" class="result" hidden aria-live="polite" aria-atomic="true">
+      <div class="image-meta"><span id="multiSummary"></span></div>
+      <div id="multiList" class="mc-list"></div>
+      <div class="image-actions">
+        <a id="downloadAllBtn" class="download-btn" download>⬇ Download all (ZIP)</a>
+      </div>
+    </div>
+    <style>
+      .mc-list{margin:4px 0 6px;max-height:320px;overflow:auto;border:1px solid var(--border);border-radius:10px}
+      .mc-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:9px 13px;font-size:13.5px;border-bottom:1px solid var(--border)}
+      .mc-row:last-child{border-bottom:0}
+      .mc-row .mc-nm{color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:42%}
+      .mc-row .mc-sz{color:var(--muted);white-space:nowrap;margin-left:auto}
+      .mc-row .mc-sz b{color:var(--primary)}
+      .mc-row .mc-dl{flex:none;text-decoration:none;color:var(--primary);font-weight:700;font-size:13px;padding:3px 9px;border:1px solid var(--border);border-radius:7px;line-height:1}
+      .mc-row .mc-dl:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+      .mc-row.mc-err{color:#dc2626}
+    </style>
 
     <section class="tool-article">
       <h2>File size by format & quality</h2>
@@ -365,7 +384,7 @@
       <details>
         <summary>Can I compress multiple images at once?</summary>
         <div class="answer">
-          Currently this tool processes one image at a time. Batch support is on the roadmap. For now, fix the format and quality, then quickly process images one by one with the same settings.
+          Yes. Select multiple files and they're all processed with the same quality/format settings, then bundled into a single ZIP — or download each compressed image individually from the result list. Select just one and you get a single file with a preview. Everything runs in your browser.
         </div>
       </details>
 
@@ -394,6 +413,7 @@
   </main>
 
   <site-footer></site-footer>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG" crossorigin="anonymous" defer></script>
   <script src="./compress.js" defer></script>
 </body>
 </html>

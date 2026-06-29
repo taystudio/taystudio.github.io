@@ -130,7 +130,7 @@
           "name": "여러 장을 한 번에 압축할 수 있나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "현재는 한 번에 1장씩 처리합니다. 여러 장은 다음 batch에서 검토 예정입니다. 대량 압축이 필요하면 화질·포맷을 결정한 후 같은 설정으로 한 장씩 빠르게 반복 처리하시면 됩니다."
+            "text": "네, 여러 장을 한 번에 압축할 수 있습니다. 파일을 여러 개 선택하면 같은 화질·포맷 설정으로 모두 처리한 뒤, ZIP 하나로 묶어 받거나 결과 목록에서 이미지를 개별로 받을 수 있습니다. 한 장만 선택하면 미리보기와 함께 단일 파일로 받습니다. 모든 처리는 브라우저 안에서만 일어납니다."
           }
         },
         {
@@ -197,8 +197,8 @@
       <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="이미지 파일 업로드 (클릭 또는 Enter/Space)">
         <div class="drop-icon" aria-hidden="true">📁</div>
         <div class="drop-title" id="dropTitle">이미지를 드래그하거나 클릭해서 선택</div>
-        <div class="drop-hint">JPG · PNG · WebP · GIF · BMP — 1장씩 처리</div>
-        <input type="file" id="fileInput" accept="image/*">
+        <div class="drop-hint">JPG · PNG · WebP · GIF · BMP — 여러 장 한 번에 (2장+는 ZIP)</div>
+        <input type="file" id="fileInput" accept="image/*" multiple>
       </label>
 
       <div class="field" style="margin-top:16px">
@@ -242,6 +242,25 @@
         <a id="downloadBtn" class="download-btn" download>⬇ 다운로드</a>
       </div>
     </div>
+
+    <div id="resultMulti" class="result" hidden aria-live="polite" aria-atomic="true">
+      <div class="image-meta"><span id="multiSummary"></span></div>
+      <div id="multiList" class="mc-list"></div>
+      <div class="image-actions">
+        <a id="downloadAllBtn" class="download-btn" download>⬇ 전체 ZIP 다운로드</a>
+      </div>
+    </div>
+    <style>
+      .mc-list{margin:4px 0 6px;max-height:320px;overflow:auto;border:1px solid var(--border);border-radius:10px}
+      .mc-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:9px 13px;font-size:13.5px;border-bottom:1px solid var(--border)}
+      .mc-row:last-child{border-bottom:0}
+      .mc-row .mc-nm{color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:42%}
+      .mc-row .mc-sz{color:var(--muted);white-space:nowrap;margin-left:auto}
+      .mc-row .mc-sz b{color:var(--primary)}
+      .mc-row .mc-dl{flex:none;text-decoration:none;color:var(--primary);font-weight:700;font-size:13px;padding:3px 9px;border:1px solid var(--border);border-radius:7px;line-height:1}
+      .mc-row .mc-dl:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+      .mc-row.mc-err{color:#dc2626}
+    </style>
 
     <section class="tool-article">
       <h2>화질·포맷별 용량 가이드</h2>
@@ -363,7 +382,7 @@
       <details>
         <summary>여러 장을 한 번에 압축할 수 있나요?</summary>
         <div class="answer">
-          현재는 한 번에 1장씩 처리합니다. 여러 장은 다음 batch에서 검토 예정입니다. 대량 압축이 필요하면 화질·포맷을 결정한 후 같은 설정으로 한 장씩 빠르게 반복 처리하시면 됩니다.
+          네, 여러 장을 한 번에 압축할 수 있습니다. 파일을 여러 개 선택하면 같은 화질·포맷 설정으로 모두 처리한 뒤, <b>ZIP 하나로 묶어</b> 받거나 결과 목록의 <b>⬇ 버튼으로 이미지를 개별</b>로 받을 수 있습니다(파일명 각각 <code>원본명-compressed</code>). 한 장만 선택하면 미리보기와 함께 단일 파일로 받습니다. 장수가 많거나 고해상도면 시간이 더 걸릴 수 있으니, 매우 큰 사진이 많으면 먼저 리사이즈를 권장합니다.
         </div>
       </details>
 
@@ -392,6 +411,7 @@
   </main>
 
   <site-footer></site-footer>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG" crossorigin="anonymous" defer></script>
   <script src="./compress.js" defer></script>
 </body>
 </html>

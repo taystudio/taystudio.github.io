@@ -1,6 +1,33 @@
 {
   "updates": [
     {
+      "date": "2026-06-29",
+      "items_ko": [
+        {
+          "text": "사진으로 움짤(GIF) 만들기 추가 — 사진 여러 장을 올려 순서·속도만 정하면 움직이는 GIF로. 여백/꽉채움/늘림 맞춤과 실시간 미리보기, 부메랑(왕복)까지. 인스타·카톡·블로그용",
+          "url": "/image/photo-to-gif/",
+          "tag": "NEW"
+        },
+        {
+          "text": "이미지 압축 — 이제 여러 장을 한 번에. 같은 설정으로 한꺼번에 압축하고 ZIP으로 받거나 사진별로 따로 받을 수 있어요",
+          "url": "/image/compress/",
+          "tag": "UPDATE"
+        }
+      ],
+      "items_en": [
+        {
+          "text": "New: Photos to GIF maker — drop several photos, set order and speed, and get an animated GIF. Letterbox/crop/stretch fit, live preview, and boomerang. For Instagram, messengers, blogs",
+          "url": "/en/image/photo-to-gif/",
+          "tag": "NEW"
+        },
+        {
+          "text": "Image compressor now handles multiple images at once — compress them all with the same settings and download as a ZIP, or save each one individually",
+          "url": "/en/image/compress/",
+          "tag": "UPDATE"
+        }
+      ]
+    },
+    {
       "date": "2026-06-20",
       "items_ko": [
         {

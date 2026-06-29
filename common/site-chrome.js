@@ -400,7 +400,7 @@ const TRANSLATED_PATHS = new Set([
   '/image/compress/', '/image/resize/', '/image/heic-to-jpg/', '/image/crop/',
   '/image/id-photo/', '/image/qr-gen/', '/image/qr-scan/', '/image/ocr/', '/image/bg-remove/',
   '/image/format-convert/', '/image/watermark/', '/image/merge/', '/image/mosaic/',
-  '/image/exif-remove/', '/image/color-picker/', '/image/gif-compress/', '/image/favicon-gen/',
+  '/image/exif-remove/', '/image/color-picker/', '/image/gif-compress/', '/image/favicon-gen/', '/image/photo-to-gif/',
   // PDF (8선 전부)
   '/pdf/',
   '/pdf/pdf-merge/', '/pdf/pdf-split/', '/pdf/pdf-edit/', '/pdf/pdf-to-image/', '/pdf/img-to-pdf/',

@@ -1048,6 +1048,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/exif-remove/"/>
   </url>
   <url>
+    <loc>https://taystudios.com/image/photo-to-gif/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/photo-to-gif/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/photo-to-gif/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/photo-to-gif/"/>
+  </url>
+  <url>
+    <loc>https://taystudios.com/en/image/photo-to-gif/</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/image/photo-to-gif/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/en/image/photo-to-gif/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/image/photo-to-gif/"/>
+  </url>
+  <url>
     <loc>https://taystudios.com/image/gif-compress/</loc>
     <lastmod>2026-06-05</lastmod>
     <changefreq>monthly</changefreq>
