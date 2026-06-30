@@ -2,182 +2,182 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://taystudios.com/blog/ko/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/web-dev/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/web-dev/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/web-dev/fastapi/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/fastapi/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/fastapi/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/fastapi/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/web-dev/fastapi/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/fastapi/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/fastapi/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/fastapi/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/web-dev/os-settings/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/os-settings/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/os-settings/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/os-settings/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/web-dev/os-settings/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/web-dev/os-settings/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/web-dev/os-settings/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/web-dev/os-settings/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/cloud/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/cloud/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/cloud/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/cloud/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/cloud/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/cloud/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/cloud/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/cloud/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/cloud/aws/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/cloud/aws/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/cloud/aws/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/cloud/aws/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/cloud/aws/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/cloud/aws/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/cloud/aws/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/cloud/aws/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/reviews/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/reviews/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/reviews/career/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/career/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/career/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/career/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/reviews/career/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/career/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/career/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/career/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/reviews/grad-school/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/grad-school/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/grad-school/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/grad-school/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/reviews/grad-school/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/grad-school/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/grad-school/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/grad-school/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/reviews/conferences/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/conferences/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/conferences/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/conferences/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/reviews/conferences/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/reviews/conferences/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/reviews/conferences/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/reviews/conferences/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/data/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/data/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/data/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/data/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/data/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/data/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/data/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/data/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/growth/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/growth/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/growth/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/growth/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/growth/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/growth/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/growth/seo/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/growth/seo/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/growth/seo/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/growth/seo/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/growth/seo/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/growth/seo/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/growth/seo/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/growth/seo/"/>
@@ -480,10 +480,10 @@
   </url>
   <url>
     <loc>https://taystudios.com/blog/about/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/privacy/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-30</lastmod>
   </url>
 </urlset>
