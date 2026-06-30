@@ -117,6 +117,8 @@
   <style>
     #symTool button{width:auto}
     #symTool .sym-qbar{display:flex;gap:8px;margin-bottom:4px}
+    #symTool .sym-qbar #q{flex:1;min-width:0}
+    #symTool .sym-qbar .sym-combo{flex:none}
     #symTool .sym-qbar input{flex:1;padding:12px 15px;font-size:16px;border:1px solid var(--border);border-radius:11px;background:var(--card);color:var(--text)}
     #symTool .sym-qbar input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
     #symTool .sym-combo{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--primary);background:var(--card);color:var(--primary);border-radius:11px;padding:0 14px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
@@ -124,7 +126,7 @@
     #symTool .sym-combo svg{width:15px;height:15px;flex:none}
     #symTool .sym-basket{display:none;align-items:center;gap:8px;margin:8px 0 2px;background:var(--card);border:1px solid var(--primary);border-radius:11px;padding:8px 10px}
     #symTool .sym-basket.show{display:flex}
-    #symTool .sym-basket input{flex:1;min-width:60px;border:0;font-size:16px;padding:6px 4px;outline:none;background:transparent;color:var(--text)}
+    #symTool .sym-basket input{flex:1;min-width:0;border:0;font-size:16px;padding:6px 4px;outline:none;background:transparent;color:var(--text)}
     #symTool .sym-basket button{border:0;border-radius:8px;padding:8px 11px;font-size:13px;font-weight:600;cursor:pointer}
     #symTool .sym-basket .cp{background:var(--primary);color:#fff}
     #symTool .sym-basket .cl{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
