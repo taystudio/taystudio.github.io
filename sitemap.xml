@@ -170,6 +170,12 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://taystudios.com/tools/baby-names/</loc>
+    <lastmod>2026-07-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://taystudios.com/tools/heart-rate/</loc>
     <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>

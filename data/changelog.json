@@ -1,195 +1,206 @@
 {
-  "updates": [
+ "updates": [
+  {
+   "date": "2026-07-02",
+   "items_ko": [
     {
-      "date": "2026-06-29",
-      "items_ko": [
-        {
-          "text": "사진으로 움짤(GIF) 만들기 추가 — 사진 여러 장을 올려 순서·속도만 정하면 움직이는 GIF로. 여백/꽉채움/늘림 맞춤과 실시간 미리보기, 부메랑(왕복)까지. 인스타·카톡·블로그용",
-          "url": "/image/photo-to-gif/",
-          "tag": "NEW"
-        },
-        {
-          "text": "이미지 압축 — 이제 여러 장을 한 번에. 같은 설정으로 한꺼번에 압축하고 ZIP으로 받거나 사진별로 따로 받을 수 있어요",
-          "url": "/image/compress/",
-          "tag": "UPDATE"
-        }
-      ],
-      "items_en": [
-        {
-          "text": "New: Photos to GIF maker — drop several photos, set order and speed, and get an animated GIF. Letterbox/crop/stretch fit, live preview, and boomerang. For Instagram, messengers, blogs",
-          "url": "/en/image/photo-to-gif/",
-          "tag": "NEW"
-        },
-        {
-          "text": "Image compressor now handles multiple images at once — compress them all with the same settings and download as a ZIP, or save each one individually",
-          "url": "/en/image/compress/",
-          "tag": "UPDATE"
-        }
-      ]
-    },
-    {
-      "date": "2026-06-20",
-      "items_ko": [
-        {
-          "text": "특수문자·이모지·구분선 모음 추가 — '축하·강아지·ㅋㅋ·dog'처럼 느낌 가는 단어로 이모지를 찾고, 감성 구분선·카오모지·인스타 심볼을 골라 바로 복사. 여러 기호를 모아 나만의 구분선도 만들 수 있어요",
-          "url": "/text/symbols/",
-          "tag": "NEW"
-        },
-        {
-          "text": "아스키 아트 배너 생성기 추가 — 영문 텍스트를 콘솔에 뜨는 큰 글씨(ASCII 로고)로. README·터미널 배너·디스코드용, 글꼴 8종",
-          "url": "/text/ascii-banner/",
-          "tag": "NEW"
-        }
-      ],
-      "items_en": [
-        {
-          "text": "New: special characters, emoji & divider picker — search emoji by feel ('party', 'dog', 'lol'), grab aesthetic dividers, kaomoji and Instagram bio symbols, and build your own divider from a basket",
-          "url": "/en/text/symbols/",
-          "tag": "NEW"
-        },
-        {
-          "text": "New: ASCII art banner generator — turn text into big console-style letters (ASCII logos) for README headers, terminal banners and Discord, with 8 figlet fonts",
-          "url": "/en/text/ascii-banner/",
-          "tag": "NEW"
-        }
-      ]
-    },
-    {
-      "date": "2026-06-16",
-      "items_ko": [
-        {
-          "text": "성장 백분위 계산기 정확도 개선 — 미국 CDC·세계보건기구(WHO) 공식 성장도표를 그대로 적용한 정식 백분위로 교체. 키·몸무게·머리둘레·BMI를 병원 도표와 같은 방식으로 계산합니다",
-          "url": "/tools/growth/",
-          "tag": "UPDATE"
-        },
-        {
-          "text": "주요 계산기 2026년 기준 재점검 — 실업급여 상한액·전월세 전환율·자동차세 감면 등을 공식 기준으로 다시 확인하고 정정했습니다",
-          "url": "/tools/",
-          "tag": "UPDATE"
-        }
-      ],
-      "items_en": [
-        {
-          "text": "Key calculators rechecked for 2026 — unemployment cap, jeonse-to-monthly conversion rate, vehicle tax cuts and more re-verified against official sources and corrected where needed",
-          "url": "/en/tools/",
-          "tag": "UPDATE"
-        }
-      ]
-    },
-    {
-      "date": "2026-06-12",
-      "items_ko": [
-        {
-          "text": "PDF 비밀번호 해제 도구 개선 — 비밀번호 걸린 PDF의 암호를 확실하게 풀어줍니다. 글자·이미지·링크 모두 그대로 보존",
-          "url": "/pdf/pdf-unlock/",
-          "tag": "UPDATE"
-        }
-      ],
-      "items_en": [
-        {
-          "text": "PDF password remover improved — reliably unlocks password-protected PDFs while keeping text, images, and links fully intact",
-          "url": "/en/pdf/pdf-unlock/",
-          "tag": "UPDATE"
-        }
-      ]
-    },
-    {
-      "date": "2026-06-11",
-      "items_ko": [
-        {
-          "text": "Favicon 생성기 추가 — 텍스트·이모지·이미지로 favicon·PWA 아이콘 다중 해상도 한 번에 + HTML 코드 자동 생성",
-          "url": "/image/favicon-gen/",
-          "tag": "NEW"
-        },
-        {
-          "text": "PDF 전자서명 도구 추가 — 자필 서명·텍스트·이미지로 PDF에 서명, 드래그로 위치·크기 조정. 계약서·서약서·민원에",
-          "url": "/pdf/pdf-esign/",
-          "tag": "NEW"
-        }
-      ],
-      "items_en": [
-        {
-          "text": "Favicon generator added — make favicon & PWA icons in all sizes from text/emoji/image + auto HTML code",
-          "url": "/en/image/favicon-gen/",
-          "tag": "NEW"
-        },
-        {
-          "text": "PDF e-sign tool added — sign PDFs with handwriting, text, or image; drag to position and resize. For contracts, agreements, forms",
-          "url": "/en/pdf/pdf-esign/",
-          "tag": "NEW"
-        }
-      ]
-    },
-    {
-      "date": "2026-06-10",
-      "items_ko": [
-        {
-          "text": "색깔 고르기 도구 추가 — 사진에서 주요 색 8개 자동으로 뽑아내고, 디자인용 색 코드 (Hex·RGB) 자동 변환",
-          "url": "/image/color-picker/",
-          "tag": "NEW"
-        },
-        {
-          "text": "PDF 워터마크 더 정확해짐 — 미리보기에서 본 위치 그대로 PDF 에 박힘 (벡터·이미지 모드 선택 가능)",
-          "url": "/pdf/pdf-stamp/",
-          "tag": "UPDATE"
-        }
-      ],
-      "items_en": [
-        {
-          "text": "Color picker added — auto-extracts 8 main colors from any photo + converts color codes (Hex·RGB) for designers",
-          "url": "/en/image/color-picker/",
-          "tag": "NEW"
-        },
-        {
-          "text": "PDF watermark is now more precise — appears exactly where you see it in preview (Vector / Image mode)",
-          "url": "/en/pdf/pdf-stamp/",
-          "tag": "UPDATE"
-        }
-      ]
-    },
-    {
-      "date": "2026-06-07",
-      "items_ko": [
-        {
-          "text": "블로그 글 검색 가능 — 키워드 치면 바로 찾아짐",
-          "url": "/blog/ko/",
-          "tag": "NEW"
-        },
-        {
-          "text": "블로그 카테고리 메뉴 정리 + 페이지 오류 화면 깔끔하게 수정",
-          "url": "/blog/ko/",
-          "tag": "UPDATE"
-        }
-      ],
-      "items_en": [
-        {
-          "text": "Blog search added — type keyword to find posts instantly",
-          "url": "/en/blog/",
-          "tag": "NEW"
-        },
-        {
-          "text": "Blog category menu cleaned up + 404 error page redesigned",
-          "url": "/en/blog/",
-          "tag": "UPDATE"
-        }
-      ]
-    },
-    {
-      "date": "2026-06-05",
-      "items_ko": [
-        {
-          "text": "GIF (움짤) 용량 줄이기 도구 추가 — 카톡·이메일 첨부 한도 맞춤. 움직이는 GIF 그대로 유지",
-          "url": "/image/gif-compress/",
-          "tag": "NEW"
-        }
-      ],
-      "items_en": [
-        {
-          "text": "GIF compressor added — fit messenger/email size limits while keeping animation intact",
-          "url": "/en/image/gif-compress/",
-          "tag": "NEW"
-        }
-      ]
+     "text": "아기 이름 순위 추가 — 요즘 신생아 인기 이름 TOP 20을 남아·여아, 2024·2025년별로. 생각해둔 이름을 검색하면 순위도 알려줘요. 대법원 출생신고 통계 기반",
+     "url": "/tools/baby-names/",
+     "tag": "NEW"
     }
-  ]
+   ],
+   "items_en": []
+  },
+  {
+   "date": "2026-06-29",
+   "items_ko": [
+    {
+     "text": "사진으로 움짤(GIF) 만들기 추가 — 사진 여러 장을 올려 순서·속도만 정하면 움직이는 GIF로. 여백/꽉채움/늘림 맞춤과 실시간 미리보기, 부메랑(왕복)까지. 인스타·카톡·블로그용",
+     "url": "/image/photo-to-gif/",
+     "tag": "NEW"
+    },
+    {
+     "text": "이미지 압축 — 이제 여러 장을 한 번에. 같은 설정으로 한꺼번에 압축하고 ZIP으로 받거나 사진별로 따로 받을 수 있어요",
+     "url": "/image/compress/",
+     "tag": "UPDATE"
+    }
+   ],
+   "items_en": [
+    {
+     "text": "New: Photos to GIF maker — drop several photos, set order and speed, and get an animated GIF. Letterbox/crop/stretch fit, live preview, and boomerang. For Instagram, messengers, blogs",
+     "url": "/en/image/photo-to-gif/",
+     "tag": "NEW"
+    },
+    {
+     "text": "Image compressor now handles multiple images at once — compress them all with the same settings and download as a ZIP, or save each one individually",
+     "url": "/en/image/compress/",
+     "tag": "UPDATE"
+    }
+   ]
+  },
+  {
+   "date": "2026-06-20",
+   "items_ko": [
+    {
+     "text": "특수문자·이모지·구분선 모음 추가 — '축하·강아지·ㅋㅋ·dog'처럼 느낌 가는 단어로 이모지를 찾고, 감성 구분선·카오모지·인스타 심볼을 골라 바로 복사. 여러 기호를 모아 나만의 구분선도 만들 수 있어요",
+     "url": "/text/symbols/",
+     "tag": "NEW"
+    },
+    {
+     "text": "아스키 아트 배너 생성기 추가 — 영문 텍스트를 콘솔에 뜨는 큰 글씨(ASCII 로고)로. README·터미널 배너·디스코드용, 글꼴 8종",
+     "url": "/text/ascii-banner/",
+     "tag": "NEW"
+    }
+   ],
+   "items_en": [
+    {
+     "text": "New: special characters, emoji & divider picker — search emoji by feel ('party', 'dog', 'lol'), grab aesthetic dividers, kaomoji and Instagram bio symbols, and build your own divider from a basket",
+     "url": "/en/text/symbols/",
+     "tag": "NEW"
+    },
+    {
+     "text": "New: ASCII art banner generator — turn text into big console-style letters (ASCII logos) for README headers, terminal banners and Discord, with 8 figlet fonts",
+     "url": "/en/text/ascii-banner/",
+     "tag": "NEW"
+    }
+   ]
+  },
+  {
+   "date": "2026-06-16",
+   "items_ko": [
+    {
+     "text": "성장 백분위 계산기 정확도 개선 — 미국 CDC·세계보건기구(WHO) 공식 성장도표를 그대로 적용한 정식 백분위로 교체. 키·몸무게·머리둘레·BMI를 병원 도표와 같은 방식으로 계산합니다",
+     "url": "/tools/growth/",
+     "tag": "UPDATE"
+    },
+    {
+     "text": "주요 계산기 2026년 기준 재점검 — 실업급여 상한액·전월세 전환율·자동차세 감면 등을 공식 기준으로 다시 확인하고 정정했습니다",
+     "url": "/tools/",
+     "tag": "UPDATE"
+    }
+   ],
+   "items_en": [
+    {
+     "text": "Key calculators rechecked for 2026 — unemployment cap, jeonse-to-monthly conversion rate, vehicle tax cuts and more re-verified against official sources and corrected where needed",
+     "url": "/en/tools/",
+     "tag": "UPDATE"
+    }
+   ]
+  },
+  {
+   "date": "2026-06-12",
+   "items_ko": [
+    {
+     "text": "PDF 비밀번호 해제 도구 개선 — 비밀번호 걸린 PDF의 암호를 확실하게 풀어줍니다. 글자·이미지·링크 모두 그대로 보존",
+     "url": "/pdf/pdf-unlock/",
+     "tag": "UPDATE"
+    }
+   ],
+   "items_en": [
+    {
+     "text": "PDF password remover improved — reliably unlocks password-protected PDFs while keeping text, images, and links fully intact",
+     "url": "/en/pdf/pdf-unlock/",
+     "tag": "UPDATE"
+    }
+   ]
+  },
+  {
+   "date": "2026-06-11",
+   "items_ko": [
+    {
+     "text": "Favicon 생성기 추가 — 텍스트·이모지·이미지로 favicon·PWA 아이콘 다중 해상도 한 번에 + HTML 코드 자동 생성",
+     "url": "/image/favicon-gen/",
+     "tag": "NEW"
+    },
+    {
+     "text": "PDF 전자서명 도구 추가 — 자필 서명·텍스트·이미지로 PDF에 서명, 드래그로 위치·크기 조정. 계약서·서약서·민원에",
+     "url": "/pdf/pdf-esign/",
+     "tag": "NEW"
+    }
+   ],
+   "items_en": [
+    {
+     "text": "Favicon generator added — make favicon & PWA icons in all sizes from text/emoji/image + auto HTML code",
+     "url": "/en/image/favicon-gen/",
+     "tag": "NEW"
+    },
+    {
+     "text": "PDF e-sign tool added — sign PDFs with handwriting, text, or image; drag to position and resize. For contracts, agreements, forms",
+     "url": "/en/pdf/pdf-esign/",
+     "tag": "NEW"
+    }
+   ]
+  },
+  {
+   "date": "2026-06-10",
+   "items_ko": [
+    {
+     "text": "색깔 고르기 도구 추가 — 사진에서 주요 색 8개 자동으로 뽑아내고, 디자인용 색 코드 (Hex·RGB) 자동 변환",
+     "url": "/image/color-picker/",
+     "tag": "NEW"
+    },
+    {
+     "text": "PDF 워터마크 더 정확해짐 — 미리보기에서 본 위치 그대로 PDF 에 박힘 (벡터·이미지 모드 선택 가능)",
+     "url": "/pdf/pdf-stamp/",
+     "tag": "UPDATE"
+    }
+   ],
+   "items_en": [
+    {
+     "text": "Color picker added — auto-extracts 8 main colors from any photo + converts color codes (Hex·RGB) for designers",
+     "url": "/en/image/color-picker/",
+     "tag": "NEW"
+    },
+    {
+     "text": "PDF watermark is now more precise — appears exactly where you see it in preview (Vector / Image mode)",
+     "url": "/en/pdf/pdf-stamp/",
+     "tag": "UPDATE"
+    }
+   ]
+  },
+  {
+   "date": "2026-06-07",
+   "items_ko": [
+    {
+     "text": "블로그 글 검색 가능 — 키워드 치면 바로 찾아짐",
+     "url": "/blog/ko/",
+     "tag": "NEW"
+    },
+    {
+     "text": "블로그 카테고리 메뉴 정리 + 페이지 오류 화면 깔끔하게 수정",
+     "url": "/blog/ko/",
+     "tag": "UPDATE"
+    }
+   ],
+   "items_en": [
+    {
+     "text": "Blog search added — type keyword to find posts instantly",
+     "url": "/en/blog/",
+     "tag": "NEW"
+    },
+    {
+     "text": "Blog category menu cleaned up + 404 error page redesigned",
+     "url": "/en/blog/",
+     "tag": "UPDATE"
+    }
+   ]
+  },
+  {
+   "date": "2026-06-05",
+   "items_ko": [
+    {
+     "text": "GIF (움짤) 용량 줄이기 도구 추가 — 카톡·이메일 첨부 한도 맞춤. 움직이는 GIF 그대로 유지",
+     "url": "/image/gif-compress/",
+     "tag": "NEW"
+    }
+   ],
+   "items_en": [
+    {
+     "text": "GIF compressor added — fit messenger/email size limits while keeping animation intact",
+     "url": "/en/image/gif-compress/",
+     "tag": "NEW"
+    }
+   ]
+  }
+ ]
 }
