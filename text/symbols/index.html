@@ -198,6 +198,24 @@
       </div>
     </div>
 
+    <div class="card" id="nickCard">
+      <h3 style="margin:0 0 4px;font-size:16px;font-weight:800">✨ 이름·닉네임 꾸미기</h3>
+      <p style="margin:0 0 10px;font-size:13.5px;color:var(--muted)">이름을 넣으면 특수문자로 감싼 여러 버전을 만들어드려요. 탭하면 복사됩니다.</p>
+      <input id="nkInput" placeholder="이름·닉네임 입력 (예: 하늘 / luna)" maxlength="24" style="width:100%;padding:11px 13px;font-size:16px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text)" aria-label="이름 꾸미기 입력">
+      <div id="nkWrap" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:12px"></div>
+      <div id="nkFontSec" style="display:none;margin-top:12px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px">🔤 예쁜 글씨체 (영문·숫자만 변환)</div>
+        <div id="nkFont" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px"></div>
+      </div>
+    </div>
+
+    <div class="card" id="presetCard">
+      <h3 style="margin:0 0 4px;font-size:16px;font-weight:800">💫 인기 꾸밈 세트</h3>
+      <p style="margin:0 0 10px;font-size:13.5px;color:var(--muted)">자주 쓰는 구분선·조합을 탭 한 번에 복사. 인스타 bio·카톡·프로필용.</p>
+      <div id="presetTabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px"></div>
+      <div id="presetGrid" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+    </div>
+
     <div class="ad-slot">[ AdSense 광고 자리 ]</div>
 
     <section class="tool-article">
@@ -365,6 +383,70 @@
   <site-footer></site-footer>
   <div class="sym-toast" id="toast">복사됨</div>
 
+  <script>
+  /* 이름 꾸미기 + 프리셋 (자체 완결, symbols.js와 독립 · #toast 재사용) */
+  (function(){
+    const $=id=>document.getElementById(id);
+    const toastEl=$('toast'); let tg;
+    function toast(m){ if(!toastEl)return; toastEl.textContent=m; toastEl.classList.add('show'); clearTimeout(tg); tg=setTimeout(()=>toastEl.classList.remove('show'),1200); }
+    function copy(s){ (navigator.clipboard&&navigator.clipboard.writeText(s).catch(()=>{})); toast('복사됨: '+s); }
+    const chipCss='cursor:pointer;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 11px;font-size:15px;text-align:center;word-break:break-all;color:var(--text)';
+    function chip(t){ const b=document.createElement('button'); b.type='button'; b.textContent=t; b.style.cssText=chipCss; b.onclick=()=>copy(t); return b; }
+
+    // 이름 꾸미기 — 감싸기
+    const WRAPS=[n=>`『${n}』`,n=>`「${n}」`,n=>`【${n}】`,n=>`≪${n}≫`,n=>`〔${n}〕`,
+      n=>`✧･ﾟ ${n} ﾟ･✧`,n=>`˗ˏˋ ${n} ˎˊ˗`,n=>`꒰ ${n} ꒱`,n=>`⟡ ${n} ⟡`,n=>`★彡 ${n} 彡★`,
+      n=>`♡ ${n} ♡`,n=>`⋆｡˚ ${n} ˚｡⋆`,n=>`✿ ${n} ✿`,n=>`˚₊· ${n} ·₊˚`,n=>`❀ ${n} ❀`,
+      n=>`⊹ ${n} ⊹`,n=>`ᯓ★ ${n}`,n=>`♧ ${n} ♧`,n=>`⌇ ${n} ⌇`,n=>`彡 ${n}`];
+    // 예쁜 글씨체 (영문·숫자 유니코드 변환)
+    function mapA(s,U,L,D){return [...s].map(ch=>{const c=ch.codePointAt(0);
+      if(c>=65&&c<=90)return String.fromCodePoint(U+c-65);
+      if(c>=97&&c<=122)return String.fromCodePoint(L+c-97);
+      if(D&&c>=48&&c<=57)return String.fromCodePoint(D+c-48);return ch;}).join('');}
+    function circled(s){return [...s].map(ch=>{const c=ch.codePointAt(0);
+      if(c>=65&&c<=90)return String.fromCodePoint(0x24B6+c-65);
+      if(c>=97&&c<=122)return String.fromCodePoint(0x24D0+c-97);
+      if(c===48)return '⓪'; if(c>=49&&c<=57)return String.fromCodePoint(0x2460+c-49);return ch;}).join('');}
+    function smallcaps(s){const M={a:'ᴀ',b:'ʙ',c:'ᴄ',d:'ᴅ',e:'ᴇ',f:'ꜰ',g:'ɢ',h:'ʜ',i:'ɪ',j:'ᴊ',k:'ᴋ',l:'ʟ',m:'ᴍ',n:'ɴ',o:'ᴏ',p:'ᴘ',q:'ǫ',r:'ʀ',s:'ꜱ',t:'ᴛ',u:'ᴜ',v:'ᴠ',w:'ᴡ',x:'x',y:'ʏ',z:'ᴢ'};return [...s].map(ch=>{const l=ch.toLowerCase();return (/[a-z]/.test(l)&&M[l])?M[l]:ch;}).join('');}
+    function fraktur(s){const UH={C:'ℭ',H:'ℌ',I:'ℑ',R:'ℜ',Z:'ℨ'};return [...s].map(ch=>{const c=ch.codePointAt(0);
+      if(c>=65&&c<=90)return UH[ch]||String.fromCodePoint(0x1D504+c-65);
+      if(c>=97&&c<=122)return String.fromCodePoint(0x1D51E+c-97);return ch;}).join('');}
+    function dstruck(s){const UH={C:'ℂ',H:'ℍ',N:'ℕ',P:'ℙ',Q:'ℚ',R:'ℝ',Z:'ℤ'};return [...s].map(ch=>{const c=ch.codePointAt(0);
+      if(c>=65&&c<=90)return UH[ch]||String.fromCodePoint(0x1D538+c-65);
+      if(c>=97&&c<=122)return String.fromCodePoint(0x1D552+c-97);
+      if(c>=48&&c<=57)return String.fromCodePoint(0x1D7D8+c-48);return ch;}).join('');}
+    function squared(s){return [...s].map(ch=>{const u=ch.toUpperCase(),c=u.codePointAt(0);
+      if(c>=65&&c<=90)return String.fromCodePoint(0x1F130+c-65);return ch;}).join('');}
+    const strike=s=>[...s].map(c=>c+'̶').join(''), under=s=>[...s].map(c=>c+'̲').join('');
+    const FONTS=[['볼드',n=>mapA(n,0x1D5D4,0x1D5EE,0x1D7EC)],['이탤릭',n=>mapA(n,0x1D608,0x1D622,0)],
+      ['필기체',n=>mapA(n,0x1D4D0,0x1D4EA,0)],['모노',n=>mapA(n,0x1D670,0x1D68A,0x1D7F6)],
+      ['전각',n=>mapA(n,0xFF21,0xFF41,0xFF10)],['동그라미',circled],['작은대문자',smallcaps],
+      ['고딕',fraktur],['아웃라인',dstruck],['네모',squared],['취소선',strike],['밑줄',under]];
+    function renderNick(){
+      const raw=$('nkInput').value.trim(), wrap=$('nkWrap'), fsec=$('nkFontSec'), fgrid=$('nkFont');
+      wrap.innerHTML=''; fgrid.innerHTML='';
+      if(!raw){ wrap.innerHTML='<div style="color:var(--muted);font-size:13.5px;grid-column:1/-1">이름을 입력하면 꾸밈 버전이 나와요 ✨</div>'; fsec.style.display='none'; return; }
+      WRAPS.forEach(f=>wrap.appendChild(chip(f(raw))));
+      if(/[A-Za-z0-9]/.test(raw)){ fsec.style.display='block'; FONTS.forEach(([,f])=>fgrid.appendChild(chip(f(raw)))); }
+      else fsec.style.display='none';
+    }
+    $('nkInput').addEventListener('input',renderNick); renderNick();
+
+    // 인기 프리셋
+    const PRE={'구분선':['˗ˏˋ ★ ˎˊ˗','⋆｡˚ ☁︎ ˚｡⋆','┈┈┈┈┈┈','━━━━━','· · · · ·','꒷꒦꒷꒦꒷','⊹ ࣪ ˖','｡ﾟ•┈୨♡୧┈•ﾟ｡','▬▬ι═══════ﺤ','·͙*̩̩͙˚̩̥̩̥*̩̩̥͙'],
+      '반짝임':['⋆˚｡⋆','⋆｡°✩','✧˖°','⋆⭒˚｡⋆','˚ ✧ ｡˚','｡⋆༄','⭑⋆˙','.ᐟ✩','⋆.˚','✩°｡⋆'],
+      '하트·별':['✧･ﾟ: *✧','˚₊· ͟͟͞͞➳❥','｡°✩','♡⃛','⋆⑅˚₊','☆彡','❥','ʚ♡ɞ','·˚ ༘','ᡣ𐭩','♡̷̷','୨୧'],
+      '이름틀':['『』','「」','【】','≪≫','꒰꒱','〔〕','⟦⟧','⌜⌟','〖〗','๑ ๑','⟢ ⟣'],
+      '감성조합':['˚₊‧꒰ა ♡ ໒꒱‧₊˚','⊹˚. ♡','‧₊˚ ⋅ ☁︎','◜◝ ♡ ◜◝','๑ ˘ ³˘','⋆˚꒰ᐢ. .ᐢ꒱˚⋆','₊˚ʚ ᗢ₊˚✧ ゚']};
+    const tabs=$('presetTabs'), grid=$('presetGrid'), keys=Object.keys(PRE); let cur=keys[0];
+    function renderPre(){ grid.innerHTML=''; PRE[cur].forEach(s=>grid.appendChild(chip(s)));
+      [...tabs.children].forEach(b=>{const on=b.dataset.k===cur; b.style.background=on?'var(--primary)':'var(--card)'; b.style.color=on?'#fff':'var(--text)';}); }
+    keys.forEach(k=>{const b=document.createElement('button'); b.type='button'; b.textContent=k; b.dataset.k=k;
+      b.style.cssText='cursor:pointer;border:1px solid var(--border);border-radius:999px;padding:6px 13px;font-size:13px;font-weight:700';
+      b.onclick=()=>{cur=k;renderPre();}; tabs.appendChild(b);});
+    renderPre();
+  })();
+  </script>
   <script src="./symbols.js" defer></script>
 </body>
 </html>
