@@ -307,7 +307,11 @@ a:hover { color: var(--accent); }
   font-size: 11px;
   color: var(--muted);
 }
+.tb-post-meta time { white-space: nowrap; flex-shrink: 0; }
+.tb-post-meta > span:not(.tb-post-tags) { flex-shrink: 0; }
 .tb-post-tags {
+  flex: 1;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

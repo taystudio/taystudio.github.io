@@ -801,5 +801,33 @@
     ],
     "image": "assets/posts/web-performance-measure-curl-sips/cover.svg",
     "lang": "ko"
+  },
+  {
+    "slug": "yonsei-grad-mech-interview",
+    "title": "[입시] 연세대 대학원 면접 후기 (기계공학과) - 구술시험 질문과 일정",
+    "date": "2026-07-07 10:20:15",
+    "excerpt": "연세대 기계공학과 대학원 진학 후기입니다. 지원 일정부터 학업 및 연구계획서, 실제 구술시험 전공 질문(유체역학, 열역학, 제어)까지 직접 겪은 대로 정리했습니다.",
+    "category": [
+      "reviews",
+      "grad-school"
+    ],
+    "tags": [
+      "연세대",
+      "연세대학교",
+      "대학원",
+      "기계공학",
+      "기계공학과",
+      "대학원 면접",
+      "구술시험",
+      "대학원 입시",
+      "연구계획서",
+      "유체역학",
+      "열역학",
+      "Turbulence Lab",
+      "강화학습",
+      "2020"
+    ],
+    "image": "assets/posts/yonsei-grad-mech-interview/cover.webp",
+    "lang": "ko"
   }
 ]

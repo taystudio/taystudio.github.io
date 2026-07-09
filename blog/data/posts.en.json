@@ -796,5 +796,32 @@
     ],
     "image": "assets/posts/web-performance-measure-curl-sips/cover.svg",
     "lang": "en"
+  },
+  {
+    "slug": "yonsei-grad-mech-interview",
+    "title": "[Admissions] Yonsei Grad School Interview (Mechanical Engineering) - Oral Exam Questions & Timeline",
+    "date": "2026-07-07 10:20:15",
+    "excerpt": "A first-hand review of the Yonsei Mechanical Engineering grad school interview: the application timeline, research plan, and the real oral-exam questions asked.",
+    "category": [
+      "reviews",
+      "grad-school"
+    ],
+    "tags": [
+      "Yonsei",
+      "Yonsei University",
+      "grad school",
+      "mechanical engineering",
+      "graduate interview",
+      "oral exam",
+      "admissions",
+      "research plan",
+      "fluid mechanics",
+      "thermodynamics",
+      "Turbulence Lab",
+      "reinforcement learning",
+      "2020"
+    ],
+    "image": "assets/posts/yonsei-grad-mech-interview/cover.webp",
+    "lang": "en"
   }
 ]
