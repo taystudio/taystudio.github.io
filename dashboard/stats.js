@@ -4,8 +4,9 @@
   var $ = function (id) { return document.getElementById(id); };
   var fmt = function (n) { return (n || 0).toLocaleString('ko-KR'); };
   var TKEY = 'tay_stats_token';
+  var DOW = ['일', '월', '화', '수', '목', '금', '토'];
 
-  var state = { days: 30, metric: 'views', path: null, token: null, demo: false };
+  var state = { days: 30, metric: 'views', path: null, token: null, demo: false, cal: null };
   var CHAN_COL = { '검색': '#2563eb', 'SNS': '#f59e0b', '직접': '#94a3b8', '기타': '#64748b' };
   var DEV_COL = { 'mobile': '#2563eb', 'desktop': '#10b981', 'tablet': '#f59e0b', 'unknown': '#94a3b8' };
   var SRC_LABEL = {
@@ -18,18 +19,26 @@
   };
   function srcLabel(h) { return SRC_LABEL[h] || h; }
 
+  var CTY_NAME = {
+    KR: '대한민국', US: '미국', JP: '일본', CN: '중국', TW: '대만', HK: '홍콩', VN: '베트남', TH: '태국',
+    ID: '인도네시아', PH: '필리핀', IN: '인도', SG: '싱가포르', MY: '말레이시아', DE: '독일', GB: '영국',
+    FR: '프랑스', CA: '캐나다', AU: '호주', RU: '러시아', BR: '브라질', NL: '네덜란드', CH: '스위스',
+    SE: '스웨덴', ES: '스페인', IT: '이탈리아', AE: '아랍에미리트', NZ: '뉴질랜드'
+  };
+  function ctyName(c) { if (!c || c === 'XX') return '알 수 없음'; return CTY_NAME[c] || c; }
+  function ctyFlag(c) {
+    if (!c || c.length !== 2 || c === 'XX') return '🏳️';
+    return String.fromCodePoint(0x1F1E6 + (c.charCodeAt(0) - 65), 0x1F1E6 + (c.charCodeAt(1) - 65));
+  }
+
   /* ── init ── */
   var qs = new URLSearchParams(location.search);
   if (qs.get('demo') === '1') state.demo = true;
   state.token = qs.get('token') || localStorage.getItem(TKEY) || null;
-
-  if (state.demo) { start(); }
-  else if (state.token) { start(); }
-  else { $('gate').style.display = 'block'; }
+  if (state.demo || state.token) start(); else $('gate').style.display = 'block';
 
   $('tokenGo').onclick = function () {
-    var t = $('tokenInput').value.trim();
-    if (!t) return;
+    var t = $('tokenInput').value.trim(); if (!t) return;
     localStorage.setItem(TKEY, t); state.token = t; start();
   };
   $('tokenInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('tokenGo').click(); });
@@ -39,58 +48,80 @@
     $('gate').style.display = 'none';
     $('app').style.display = 'block';
     document.body.classList.toggle('demo', state.demo);
-    bindControls();
-    load();
+    bindControls(); load();
   }
-
   function bindControls() {
     $('rangeSeg').querySelectorAll('button').forEach(function (b) {
-      b.onclick = function () {
-        state.days = b.dataset.days === 'all' ? 'all' : +b.dataset.days;
-        seg('rangeSeg', b); load();
-      };
+      b.onclick = function () { state.days = b.dataset.days === 'all' ? 'all' : +b.dataset.days; seg('rangeSeg', b); load(); };
     });
     $('metricSeg').querySelectorAll('button').forEach(function (b) {
       b.onclick = function () { state.metric = b.dataset.metric; seg('metricSeg', b); draw(); };
     });
     $('backBtn').onclick = function () { state.path = null; document.body.classList.remove('drilled'); load(); };
+    $('calPrev').onclick = function () { shiftMonth(-1); };
+    $('calNext').onclick = function () { shiftMonth(1); };
   }
   function seg(id, on) { $(id).querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === on); }); }
 
   /* ── load ── */
-  var cur = null;
+  var cur = null, byDay = {};
   function load() {
-    if (state.demo) { cur = mock(state); render(); return; }
+    if (state.demo) { cur = mock(state); afterLoad(); return; }
     var u = '/_stats/query?token=' + encodeURIComponent(state.token) + '&days=' + state.days + (state.path ? '&path=' + encodeURIComponent(state.path) : '');
     fetch(u, { cache: 'no-store' })
       .then(function (r) { if (r.status === 401) throw new Error('토큰이 틀렸습니다'); return r.json(); })
-      .then(function (d) { if (d.error) throw new Error(d.error); cur = d; render(); })
+      .then(function (d) { if (d.error) throw new Error(d.error); cur = d; afterLoad(); })
       .catch(function (e) {
         $('app').innerHTML = '<div class="card"><b>불러오기 실패</b><p class="muted">' + (e.message || e) +
-          '</p><p class="muted">Worker가 아직 배포 안 됐으면 <a class="demolink" href="?demo=1">목데이터로 미리보기</a>.</p>' +
+          '</p><p class="muted">Worker 배포 전이면 <a class="demolink" href="?demo=1">목데이터로 미리보기</a>.</p>' +
           '<p><a class="demolink" href="#" onclick="localStorage.removeItem(\'' + TKEY + '\');location.search=\'\';return false">토큰 다시 입력</a></p></div>';
       });
+  }
+  function afterLoad() {
+    byDay = {};
+    (cur.daily || []).forEach(function (r) { byDay[r.day] = { v: r.v, u: r.u }; });
+    var t = ((cur.range && cur.range.today) || '').split('-');
+    state.cal = t.length === 3 ? { y: +t[0], m: +t[1] } : { y: 2026, m: 1 };
+    render();
   }
 
   /* ── render ── */
   function render() {
-    var d = cur;
+    var d = cur, r = d.range || {};
     var rangeTxt = state.days === 'all' ? '전체 기간' : '최근 ' + state.days + '일';
-    $('asof').textContent = (state.demo ? '목데이터 · ' : '') + rangeTxt + ' · 기준 ' + (d.range && d.range.today || '');
+    var h = (state.demo ? '<b>목데이터</b><span class="dot"></span>' : '');
+    h += '오늘 <b>' + fmtDate(r.today) + '</b>';
+    if (r.firstDay) h += '<span class="dot"></span>집계 시작 <b>' + fmtDate(r.firstDay) + '</b><span class="dot"></span><b>' + daysSince(r.firstDay, r.today) + '일째</b>';
+    h += '<span class="dot"></span>' + rangeTxt;
+    $('asof').innerHTML = h;
+
     if (state.path) { document.body.classList.add('drilled'); $('curPath').textContent = state.path; }
-    // KPI
-    var k = d.kpi, cells = [
-      ['오늘 조회수', k.todayViews], ['어제 조회수', k.ydayViews], ['누적 조회수', k.totalViews],
-      ['오늘 방문자', k.todayVisitors], ['어제 방문자', k.ydayVisitors], ['누적 방문자', k.totalVisitors]
+    else document.body.classList.remove('drilled');
+
+    // KPI + delta
+    var k = d.kpi;
+    var cells = [
+      { l: '오늘 조회수', n: k.todayViews, u: '회', dl: k.todayViews - k.ydayViews },
+      { l: '어제 조회수', n: k.ydayViews, u: '회' },
+      { l: '누적 조회수', n: k.totalViews, u: '회' },
+      { l: '오늘 방문자', n: k.todayVisitors, u: '명', dl: k.todayVisitors - k.ydayVisitors },
+      { l: '어제 방문자', n: k.ydayVisitors, u: '명' },
+      { l: '누적 방문자', n: k.totalVisitors, u: '명' }
     ];
     $('kpi').innerHTML = cells.map(function (c) {
-      return '<div class="cell"><div class="lab">' + c[0] + '</div><div class="num">' + fmt(c[1]) + '</div></div>';
+      return '<div class="cell"><div class="lab">' + c.l + '</div><div class="num">' + fmt(c.n) +
+        '<span class="unit">' + c.u + '</span>' + delta(c.dl) + '</div></div>';
     }).join('');
+
     draw();
-    bars('channels', d.channels, 'channel', CHAN_COL);
-    bars('devices', d.devices, 'device', DEV_COL);
-    renderSources('sources', d.sources);
-    // pages
+    calendar();
+
+    var base = (d.channels || []).reduce(function (s, x) { return s + x.v; }, 0) || 1;  // 전체 조회 = %기준
+    bars('channels', d.channels, 'channel', CHAN_COL, base);
+    bars('devices', d.devices, 'device', DEV_COL, base);
+    renderSources('sources', d.sources, base);
+    renderCountries('countries', d.countries, base);
+
     var pc = $('pagesCard'); pc.style.display = state.path ? 'none' : '';
     if (!state.path) {
       $('pages').innerHTML = (d.topPages || []).map(function (p, i) {
@@ -103,34 +134,84 @@
     }
   }
 
-  function bars(id, items, key, colmap) {
+  function delta(x) {
+    if (x === undefined || x === null) return '';
+    if (x > 0) return '<span class="delta up">▲' + fmt(x) + '</span>';
+    if (x < 0) return '<span class="delta down">▼' + fmt(-x) + '</span>';
+    return '<span class="delta flat">–</span>';
+  }
+
+  function bars(id, items, key, colmap, base) {
     items = items || [];
-    var total = items.reduce(function (s, x) { return s + x.v; }, 0) || 1;
     $(id).innerHTML = items.map(function (x) {
-      var pct = Math.round(x.v / total * 100);
+      var pct = Math.round(x.v / base * 100);
       var col = (colmap && colmap[x[key]]) || '#2563eb';
       var name = x[key] === 'mobile' ? '모바일' : x[key] === 'desktop' ? 'PC' : x[key] === 'tablet' ? '태블릿' : x[key];
       return '<div class="bar-row"><span class="name">' + esc(name) + '</span>' +
-        '<span class="bar-track"><span class="bar-fill" style="width:' + pct + '%;background:' + col + '"></span></span>' +
-        '<span class="val">' + fmt(x.v) + ' · ' + pct + '%</span></div>';
+        '<span class="bar-track"><span class="bar-fill" style="width:' + Math.max(2, pct) + '%;background:' + col + '"></span></span>' +
+        '<span class="val"><b>' + fmt(x.v) + '</b>회 · ' + pct + '%</span></div>';
+    }).join('') || '<p class="muted">데이터 없음</p>';
+  }
+  function renderSources(id, items, base) {
+    items = items || [];
+    $(id).innerHTML = items.map(function (x) {
+      var pct = Math.round(x.v / base * 100);
+      var col = CHAN_COL[x.channel] || '#2563eb';
+      return '<div class="bar-row wide"><span class="name" title="' + esc(x.ref_host) + '">' + esc(srcLabel(x.ref_host)) + '</span>' +
+        '<span class="bar-track"><span class="bar-fill" style="width:' + Math.max(2, pct) + '%;background:' + col + '"></span></span>' +
+        '<span class="val"><b>' + fmt(x.v) + '</b>회 · ' + pct + '%</span></div>';
+    }).join('') || '<p class="muted">외부 유입 없음 (직접 방문만)</p>';
+  }
+  function renderCountries(id, items, base) {
+    items = items || [];
+    $(id).innerHTML = items.map(function (x) {
+      var pct = Math.round(x.v / base * 100);
+      var col = x.country === 'KR' ? '#2563eb' : '#64748b';
+      return '<div class="bar-row wide"><span class="name">' + ctyFlag(x.country) + ' ' + esc(ctyName(x.country)) + '</span>' +
+        '<span class="bar-track"><span class="bar-fill" style="width:' + Math.max(2, pct) + '%;background:' + col + '"></span></span>' +
+        '<span class="val"><b>' + fmt(x.v) + '</b>회 · ' + pct + '%</span></div>';
     }).join('') || '<p class="muted">데이터 없음</p>';
   }
 
-  function renderSources(id, items) {
-    items = items || [];
-    var total = items.reduce(function (s, x) { return s + x.v; }, 0) || 1;
-    $(id).innerHTML = items.map(function (x) {
-      var pct = Math.round(x.v / total * 100);
-      var col = CHAN_COL[x.channel] || '#2563eb';
-      return '<div class="bar-row wide"><span class="name" title="' + esc(x.ref_host) + '">' + esc(srcLabel(x.ref_host)) + '</span>' +
-        '<span class="bar-track"><span class="bar-fill" style="width:' + pct + '%;background:' + col + '"></span></span>' +
-        '<span class="val">' + fmt(x.v) + ' · ' + pct + '%</span></div>';
-    }).join('') || '<p class="muted">직접 유입만 있어요 (외부 출처 없음)</p>';
+  /* ── 캘린더 (드릴다운 시 그 페이지의 날짜별 조회) ── */
+  function shiftMonth(dir) {
+    if (!state.cal) return;
+    var m = state.cal.m + dir, y = state.cal.y;
+    if (m < 1) { m = 12; y--; } else if (m > 12) { m = 1; y++; }
+    state.cal = { y: y, m: m }; calendar();
   }
+  function calendar() {
+    if (!state.cal) return;
+    var y = state.cal.y, m = state.cal.m;
+    $('calMon').textContent = y + '. ' + m;
+    var today = (cur.range && cur.range.today) || '';
+    var days = new Date(y, m, 0).getDate();
+    var lead = new Date(y, m - 1, 1).getDay();
+    var maxV = 1;
+    for (var dd = 1; dd <= days; dd++) { var s = key(y, m, dd); if (byDay[s] && byDay[s].v > maxV) maxV = byDay[s].v; }
+    var html = DOW.map(function (w) { return '<div class="cal-dow">' + w + '</div>'; }).join('');
+    for (var i = 0; i < lead; i++) html += '<div class="cal-cell empty"></div>';
+    for (var day = 1; day <= days; day++) {
+      var ds = key(y, m, day), data = byDay[ds];
+      var cls = 'cal-cell', style = '', inner = '';
+      if (ds === today) cls += ' today';
+      if (ds > today) cls += ' future';
+      if (data && data.v > 0) {
+        var a = 0.15 + 0.75 * (data.v / maxV);
+        cls += ' has'; style = 'background:rgba(37,99,235,' + a.toFixed(2) + ');';
+        inner = '<span class="cv">' + fmt(data.v) + '</span>';
+      }
+      var tip = ds + (data ? ' · 조회 ' + fmt(data.v) + ' · 방문자 ' + fmt(data.u) : ' · 데이터 없음');
+      html += '<div class="' + cls + '" style="' + style + '" title="' + tip + '"><span class="dnum">' + day + '</span>' + inner + '</div>';
+    }
+    $('cal').innerHTML = html;
+  }
+  function key(y, m, d) { return y + '-' + p2(m) + '-' + p2(d); }
+  function p2(n) { return (n < 10 ? '0' : '') + n; }
 
-  /* ── 라인차트 (canvas, growth.js drawChart 패턴) ── */
+  /* ── 라인차트 ── */
   function draw() {
-    var d = cur, daily = d.daily || [];
+    var daily = cur.daily || [];
     var cv = $('chart'), dpr = window.devicePixelRatio || 1;
     var cssW = cv.clientWidth || 900, cssH = 300;
     cv.width = cssW * dpr; cv.height = cssH * dpr;
@@ -138,43 +219,28 @@
     c.clearRect(0, 0, cssW, cssH);
     var cs = getComputedStyle(document.body);
     var muted = cs.getPropertyValue('--faint') || '#999';
-    var colV = cs.getPropertyValue('--views') || '#f28b82';
-    var colU = cs.getPropertyValue('--visitors') || '#c9ced6';
+    var colV = (cs.getPropertyValue('--views') || '#f28b82').trim();
+    var colU = (cs.getPropertyValue('--visitors') || '#c9ced6').trim();
     var padL = 34, padR = 12, padT = 12, padB = 22;
     if (!daily.length) { c.fillStyle = muted; c.font = '13px sans-serif'; c.fillText('데이터 없음', padL, cssH / 2); return; }
-    var maxV = Math.max(1, Math.max.apply(null, daily.map(function (x) { return Math.max(x.v, x.u); })));
-    maxV = niceMax(maxV);
+    var maxV = niceMax(Math.max(1, Math.max.apply(null, daily.map(function (x) { return Math.max(x.v, x.u); }))));
     var n = daily.length;
     var X = function (i) { return padL + (n === 1 ? 0.5 : i / (n - 1)) * (cssW - padL - padR); };
     var Y = function (v) { return cssH - padB - (v / maxV) * (cssH - padT - padB); };
-    // gridlines + y labels
-    c.strokeStyle = 'rgba(128,128,128,.14)'; c.fillStyle = muted; c.font = '10px sans-serif'; c.lineWidth = 1;
-    for (var g = 0; g <= 4; g++) {
-      var v = maxV * g / 4, y = Y(v);
-      c.beginPath(); c.moveTo(padL, y); c.lineTo(cssW - padR, y); c.stroke();
-      c.fillText(fmt(Math.round(v)), 2, y - 2);
-    }
-    // x labels (sparse)
+    c.strokeStyle = 'rgba(128,128,128,.13)'; c.fillStyle = muted; c.font = '10px sans-serif'; c.lineWidth = 1;
+    for (var g = 0; g <= 4; g++) { var v = maxV * g / 4, y = Y(v); c.beginPath(); c.moveTo(padL, y); c.lineTo(cssW - padR, y); c.stroke(); c.fillText(fmt(Math.round(v)), 2, y - 2); }
     var step = Math.ceil(n / 7);
-    for (var i = 0; i < n; i += step) {
-      c.fillText(daily[i].day.slice(5), X(i) - 10, cssH - 6);
-    }
-    var prim = state.metric === 'visitors' ? 'u' : 'v';
-    var primCol = state.metric === 'visitors' ? colU : colV;
-    var secKey = prim === 'v' ? 'u' : 'v';
-    var secCol = prim === 'v' ? colU : colV;
-    // filled area (primary)
+    for (var i = 0; i < n; i += step) c.fillText(daily[i].day.slice(5), X(i) - 10, cssH - 6);
+    var prim = state.metric === 'visitors' ? 'u' : 'v', primCol = state.metric === 'visitors' ? colU : colV;
+    var secKey = prim === 'v' ? 'u' : 'v', secCol = prim === 'v' ? colU : colV;
     c.beginPath();
     daily.forEach(function (x, i) { var px = X(i), py = Y(x[prim]); i ? c.lineTo(px, py) : c.moveTo(px, py); });
     c.lineTo(X(n - 1), Y(0)); c.lineTo(X(0), Y(0)); c.closePath();
-    c.fillStyle = hexA(primCol.trim(), .16); c.fill();
-    // primary line
-    line(c, daily, X, Y, prim, primCol.trim(), 2.2);
-    // secondary line
-    line(c, daily, X, Y, secKey, secCol.trim(), 1.4);
-    // last dot
+    c.fillStyle = hexA(primCol, .16); c.fill();
+    line(c, daily, X, Y, prim, primCol, 2.2);
+    line(c, daily, X, Y, secKey, secCol, 1.4);
     var li = n - 1;
-    c.beginPath(); c.arc(X(li), Y(daily[li][prim]), 3.5, 0, 7); c.fillStyle = primCol.trim(); c.fill();
+    c.beginPath(); c.arc(X(li), Y(daily[li][prim]), 3.5, 0, 7); c.fillStyle = primCol; c.fill();
   }
   function line(c, data, X, Y, key, col, w) {
     c.beginPath(); c.lineWidth = w; c.strokeStyle = col;
@@ -184,44 +250,41 @@
   function niceMax(v) { var p = Math.pow(10, Math.floor(Math.log10(v))); return Math.ceil(v / p) * p; }
   function hexA(h, a) { h = h.replace('#', ''); if (h.length === 3) h = h.split('').map(function (x) { return x + x; }).join(''); var n = parseInt(h, 16); return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (m) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]; }); }
+  function fmtDate(s) { if (!s) return '-'; var p = s.split('-'); var dt = new Date(+p[0], +p[1] - 1, +p[2]); return (+p[1]) + '월 ' + (+p[2]) + '일 (' + DOW[dt.getDay()] + ')'; }
+  function daysSince(a, b) { if (!a || !b) return 1; return Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000) + 1; }
   window.addEventListener('resize', function () { if (cur) draw(); });
+  window.__redrawChart = function () { if (cur) { draw(); calendar(); } };  // 테마 전환 시 재렌더
 
   /* ── 목데이터 ── */
   function mock(st) {
-    var days = st.days === 'all' ? 62 : st.days, arr = [], base = new Date();  // demo: 전체 ≈ 도메인 개설 후
-    var scale = st.path ? 0.15 : 1;   // 페이지 상세면 작게
+    var days = st.days === 'all' ? 62 : st.days, arr = [], base = new Date();
+    var scale = st.path ? 0.15 : 1;
     for (var i = days - 1; i >= 0; i--) {
-      var dt = new Date(base.getTime() - i * 86400000);
-      var dow = dt.getDay();
-      var wk = (dow === 0 || dow === 6) ? 0.6 : 1;                 // 주말 dip
+      var dt = new Date(base.getTime() - i * 86400000), dow = dt.getDay();
+      var wk = (dow === 0 || dow === 6) ? 0.6 : 1;
       var v = Math.round((28 + Math.sin(i / 3) * 12 + Math.random() * 18) * wk * scale) + 2;
       arr.push({ day: kst(dt), v: v, u: Math.max(1, Math.round(v * 0.72)) });
     }
     var rangeV = arr.reduce(function (s, x) { return s + x.v; }, 0);
     var t = arr[arr.length - 1], y = arr[arr.length - 2] || t;
-    var totalMul = st.path ? 40 : 300;
+    var mul = st.path ? 40 : 300;
     return {
-      range: { days: st.days === 'all' ? 'all' : days, today: kst(base) },
+      range: { days: st.days === 'all' ? 'all' : days, today: kst(base), firstDay: arr[0].day },
       path: st.path,
-      kpi: {
-        todayViews: t.v, todayVisitors: t.u, ydayViews: y.v, ydayVisitors: y.u,
-        totalViews: rangeV + totalMul * 12, totalVisitors: Math.round((rangeV + totalMul * 12) * 0.7)
-      },
+      kpi: { todayViews: t.v, todayVisitors: t.u, ydayViews: y.v, ydayVisitors: y.u, totalViews: rangeV + mul * 12, totalVisitors: Math.round((rangeV + mul * 12) * 0.7) },
       daily: arr,
-      channels: split(rangeV, [['검색', .68], ['기타', .2], ['직접', .08], ['SNS', .04]]),
-      devices: split(rangeV, [['mobile', .56], ['desktop', .41], ['tablet', .03]]),
-      sources: [
-        ['google.com', '검색', .34], ['m.search.naver.com', '검색', .24], ['search.naver.com', '검색', .11],
-        ['daum.net', '검색', .05], ['bing.com', '검색', .02],
-        ['instagram.com', 'SNS', .04], ['youtube.com', 'SNS', .02], ['t.co', 'SNS', .01], ['tistory.com', '기타', .02]
-      ].map(function (s) { return { ref_host: s[0], channel: s[1], v: Math.max(1, Math.round(rangeV * s[2])) }; }),
-      topPages: st.path ? [] : [
-        ['/tools/salary/', .22], ['/tools/', .14], ['/blog/ko/yonsei-grad-mech-interview/', .11],
-        ['/image/compress/', .1], ['/pdf/merge/', .08], ['/tools/year-end/', .07],
-        ['/', .06], ['/tools/bmi/', .05], ['/text/symbols/', .05], ['/baby/', .04]
-      ].map(function (p) { var vv = Math.round(rangeV * p[1]); return { path: p[0], v: vv, u: Math.round(vv * 0.72) }; })
+      channels: split(rangeV, [['검색', .68], ['기타', .2], ['직접', .08], ['SNS', .04]], 'channel'),
+      devices: split(rangeV, [['mobile', .56], ['desktop', .41], ['tablet', .03]], 'device'),
+      countries: [['KR', .94], ['US', .03], ['JP', .012], ['CN', .008], ['XX', .01]]
+        .map(function (c) { return { country: c[0], v: Math.max(1, Math.round(rangeV * c[1])) }; }),
+      sources: [['google.com', '검색', .34], ['m.search.naver.com', '검색', .24], ['search.naver.com', '검색', .11],
+        ['daum.net', '검색', .05], ['bing.com', '검색', .02], ['instagram.com', 'SNS', .04], ['youtube.com', 'SNS', .02], ['t.co', 'SNS', .01], ['tistory.com', '기타', .02]]
+        .map(function (s) { return { ref_host: s[0], channel: s[1], v: Math.max(1, Math.round(rangeV * s[2])) }; }),
+      topPages: st.path ? [] : [['/tools/salary/', .22], ['/tools/', .14], ['/blog/ko/yonsei-grad-mech-interview/', .11],
+        ['/image/compress/', .1], ['/pdf/merge/', .08], ['/tools/year-end/', .07], ['/', .06], ['/tools/bmi/', .05], ['/text/symbols/', .05], ['/baby/', .04]]
+        .map(function (p) { var vv = Math.round(rangeV * p[1]); return { path: p[0], v: vv, u: Math.round(vv * 0.72) }; })
     };
   }
-  function split(total, parts) { return parts.map(function (p) { return { channel: p[0], device: p[0], v: Math.round(total * p[1]) }; }); }
+  function split(total, parts, k) { return parts.map(function (p) { var o = { v: Math.round(total * p[1]) }; o[k] = p[0]; return o; }); }
   function kst(d) { return new Date(d.getTime() + 9 * 3600000).toISOString().slice(0, 10); }
 })();
