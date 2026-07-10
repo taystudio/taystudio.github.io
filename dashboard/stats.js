@@ -200,14 +200,35 @@
     }).join('');
   }
 
+  function uaLabel(ua) {
+    if (!ua) return '알수없음';
+    var pats = [
+      [/googlebot|google-inspectiontool|storebot/i, 'Googlebot'], [/google-extended/i, 'Google-Extended'],
+      [/bingbot|bingpreview/i, 'Bingbot'], [/yeti/i, '네이버 Yeti'], [/daum/i, '다음'],
+      [/gptbot/i, 'GPTBot'], [/claudebot|anthropic/i, 'ClaudeBot'], [/perplexity/i, 'Perplexity'],
+      [/ahrefs/i, 'AhrefsBot'], [/semrush/i, 'SemrushBot'], [/mj12/i, 'MJ12bot'], [/dotbot/i, 'DotBot'],
+      [/dataforseo/i, 'DataForSeo'], [/bytespider/i, 'Bytespider'], [/petalbot/i, 'PetalBot'],
+      [/censys|shodan|zgrab|masscan/i, '스캐너'], [/facebookexternal|meta-external/i, 'Meta'],
+      [/slackbot|telegram|whatsapp|discord|embedly/i, '링크 미리보기'], [/curl|wget|python-|axios|go-http|okhttp|scrapy|node-fetch|httpclient|java\//i, '스크립트/HTTP'],
+      [/headless|lighthouse/i, 'Headless'], [/bot|crawl|spider|slurp/i, '기타 봇'],
+      [/edg\//i, 'Edge'], [/samsungbrowser/i, '삼성브라우저'], [/whale/i, '웨일'],
+      [/chrome/i, 'Chrome'], [/firefox/i, 'Firefox'], [/safari/i, 'Safari']
+    ];
+    for (var i = 0; i < pats.length; i++) if (pats[i][0].test(ua)) return pats[i][1];
+    return ua.slice(0, 24);
+  }
   function renderMisses(items) {
     items = items || [];
     if (!items.length) { $('misses').innerHTML = '<p class="muted">404 유입 없음 — 깨진 링크가 없다는 뜻이라 좋은 신호예요 👍</p>'; return; }
-    $('misses').innerHTML = '<table><thead><tr><th>없는 경로</th><th>어디서</th><th class="n">횟수</th></tr></thead><tbody>' +
+    $('misses').innerHTML = '<table><thead><tr><th>없는 경로</th><th>누가</th><th class="n">횟수</th></tr></thead><tbody>' +
       items.map(function (m) {
-        var ref = m.ref_host ? esc(srcLabel(m.ref_host)) : '직접·알수없음';
-        return '<tr style="cursor:default"><td class="path" style="color:var(--danger)">' + esc(m.path) + '</td>' +
-          '<td class="miss-ref">' + ref + '</td><td class="n">' + fmt(m.v) + '</td></tr>';
+        var who = uaLabel(m.ua);
+        var net = m.asorg ? '<span class="miss-ref"> · ' + esc(m.asorg) + '</span>' : '';
+        var ref = m.ref_host ? ' · ' + esc(srcLabel(m.ref_host)) : '';
+        var tip = esc((m.ua || '(UA 없음)') + (m.asorg ? '  ·  ' + m.asorg : '') + (m.ref_host ? '  ·  ref:' + m.ref_host : ''));
+        return '<tr style="cursor:default" title="' + tip + '"><td class="path" style="color:var(--danger)">' + esc(m.path) + '</td>' +
+          '<td><b>' + esc(who) + '</b>' + net + '<span class="miss-ref">' + ref + '</span></td>' +
+          '<td class="n">' + fmt(m.v) + '</td></tr>';
       }).join('') + '</tbody></table>';
   }
 
@@ -476,9 +497,9 @@
       path: st.path,
       wow: { cur: { views: w1, visitors: Math.round(w1 * 0.72) }, prev: { views: w2, visitors: Math.round(w2 * 0.72) } },
       misses: st.path ? [] : [
-        { path: '/tools/salaray/', ref_host: 'search.naver.com', v: 7, ts: '' },
-        { path: '/image/comress/', ref_host: '', v: 3, ts: '' },
-        { path: '/blog/ko/old-post/', ref_host: 'google.com', v: 2, ts: '' }
+        { path: '/blog/ko/POST/ko/tags/', ref_host: '', v: 4, ts: '', ua: 'Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)', asorg: 'Hetzner Online GmbH' },
+        { path: '/tools/salaray/', ref_host: 'search.naver.com', v: 3, ts: '', ua: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) AppleWebKit/605.1.15 Mobile Safari', asorg: 'SK Broadband' },
+        { path: '/image/comress/', ref_host: '', v: 2, ts: '', ua: 'curl/8.4.0', asorg: 'Amazon.com' }
       ],
       kpi: { todayViews: t.v, todayVisitors: t.u, ydayViews: y.v, ydayVisitors: y.u, totalViews: rangeV + mul * 12, totalVisitors: Math.round((rangeV + mul * 12) * 0.7) },
       daily: arr,
