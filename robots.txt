@@ -2,7 +2,7 @@
 
 User-agent: *
 Allow: /
-Disallow: /dash-tay9k3m/
+Disallow: /dashboard/
 Disallow: /*.md$
 Disallow: /mockup-*
 Disallow: /husband-care/
@@ -11,42 +11,42 @@ Disallow: /husband-care-deploy/
 # LLM crawler — 명시적 Allow (학습·검색 모두 허용, 운영자 dashboard만 차단)
 User-agent: GPTBot
 Allow: /
-Disallow: /dash-tay9k3m/
+Disallow: /dashboard/
 Disallow: /mockup-*
 Disallow: /husband-care/
 Disallow: /husband-care-deploy/
 
 User-agent: ClaudeBot
 Allow: /
-Disallow: /dash-tay9k3m/
+Disallow: /dashboard/
 Disallow: /mockup-*
 Disallow: /husband-care/
 Disallow: /husband-care-deploy/
 
 User-agent: PerplexityBot
 Allow: /
-Disallow: /dash-tay9k3m/
+Disallow: /dashboard/
 Disallow: /mockup-*
 Disallow: /husband-care/
 Disallow: /husband-care-deploy/
 
 User-agent: Google-Extended
 Allow: /
-Disallow: /dash-tay9k3m/
+Disallow: /dashboard/
 Disallow: /mockup-*
 Disallow: /husband-care/
 Disallow: /husband-care-deploy/
 
 User-agent: CCBot
 Allow: /
-Disallow: /dash-tay9k3m/
+Disallow: /dashboard/
 Disallow: /mockup-*
 Disallow: /husband-care/
 Disallow: /husband-care-deploy/
 
 User-agent: Applebot-Extended
 Allow: /
-Disallow: /dash-tay9k3m/
+Disallow: /dashboard/
 Disallow: /mockup-*
 Disallow: /husband-care/
 Disallow: /husband-care-deploy/
