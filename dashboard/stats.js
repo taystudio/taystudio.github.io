@@ -6,7 +6,7 @@
   var TKEY = 'tay_stats_token';
   var DOW = ['일', '월', '화', '수', '목', '금', '토'];
 
-  var state = { days: 30, metric: 'views', path: null, token: null, demo: false, cal: null };
+  var state = { days: 30, metric: 'views', path: null, token: null, demo: false, cal: null, who: 'human' };
   var CHAN_COL = { '검색': '#2563eb', 'SNS': '#f59e0b', '직접': '#94a3b8', '기타': '#64748b' };
   var DEV_COL = { 'mobile': '#2563eb', 'desktop': '#10b981', 'tablet': '#f59e0b', 'unknown': '#94a3b8' };
   var SRC_LABEL = {
@@ -75,6 +75,9 @@
     $('rangeSeg').querySelectorAll('button').forEach(function (b) {
       b.onclick = function () { state.days = b.dataset.days === 'all' ? 'all' : +b.dataset.days; seg('rangeSeg', b); load(); };
     });
+    $('whoSeg').querySelectorAll('button').forEach(function (b) {
+      b.onclick = function () { state.who = b.dataset.who; seg('whoSeg', b); load(); };
+    });
     $('metricSeg').querySelectorAll('button').forEach(function (b) {
       b.onclick = function () { state.metric = b.dataset.metric; seg('metricSeg', b); draw(); };
     });
@@ -88,7 +91,7 @@
   var cur = null, byDay = {};
   function load() {
     if (state.demo) { cur = mock(state); afterLoad(); return; }
-    var u = '/_stats/query?token=' + encodeURIComponent(state.token) + '&days=' + state.days + (state.path ? '&path=' + encodeURIComponent(state.path) : '');
+    var u = '/_stats/query?token=' + encodeURIComponent(state.token) + '&days=' + state.days + '&who=' + state.who + (state.path ? '&path=' + encodeURIComponent(state.path) : '');
     fetch(u, { cache: 'no-store' })
       .then(function (r) {
         if (r.status === 401) throw new Error('토큰이 틀렸습니다');
@@ -128,6 +131,9 @@
     h += '오늘 <b>' + fmtDate(r.today) + '</b>';
     if (r.firstDay) h += '<span class="dot"></span>집계 시작 <b>' + fmtDate(r.firstDay) + '</b><span class="dot"></span><b>' + daysSince(r.firstDay, r.today) + '일째</b>';
     h += '<span class="dot"></span>' + rangeTxt;
+    var whoTxt = state.who === 'bot' ? '<b style="color:var(--accent)">봇만</b>' : state.who === 'all' ? '<b>사람+봇 전체</b>' : '<b style="color:var(--success)">사람만</b>';
+    h += '<span class="dot"></span>' + whoTxt;
+    if (state.who === 'human' && d.botViews > 0) h += '<span class="dot"></span>봇 ' + fmt(d.botViews) + '회 제외됨';
     $('asof').innerHTML = h;
 
     if (state.path) { document.body.classList.add('drilled'); $('curPath').textContent = state.path; }
@@ -321,7 +327,8 @@
   /* ── 목데이터 ── */
   function mock(st) {
     var days = st.days === 'all' ? 62 : st.days, arr = [], base = new Date();
-    var scale = st.path ? 0.15 : 1;
+    var scale = (st.path ? 0.15 : 1) * (st.who === 'bot' ? 0.9 : st.who === 'all' ? 1.9 : 1);
+    var isBot = st.who === 'bot';
     for (var i = days - 1; i >= 0; i--) {
       var dt = new Date(base.getTime() - i * 86400000), dow = dt.getDay();
       var wk = (dow === 0 || dow === 6) ? 0.6 : 1;
@@ -335,6 +342,7 @@
     var w2 = arr.slice(-14, -7).reduce(function (s, x) { return s + x.v; }, 0) || Math.round(w1 * 0.85);
     return {
       range: { days: st.days === 'all' ? 'all' : days, today: kst(base), firstDay: arr[0].day },
+      who: st.who, botViews: st.who === 'human' ? Math.round(rangeV * 0.9) : 0,
       path: st.path,
       wow: { cur: { views: w1, visitors: Math.round(w1 * 0.72) }, prev: { views: w2, visitors: Math.round(w2 * 0.72) } },
       misses: st.path ? [] : [
@@ -346,7 +354,9 @@
       daily: arr,
       channels: split(rangeV, [['검색', .68], ['기타', .2], ['직접', .08], ['SNS', .04]], 'channel'),
       devices: split(rangeV, [['mobile', .56], ['desktop', .41], ['tablet', .03]], 'device'),
-      countries: [['KR', .94], ['US', .03], ['JP', .012], ['CN', .008], ['XX', .01]]
+      countries: (isBot
+        ? [['US', .42], ['DE', .12], ['FR', .1], ['BR', .08], ['SG', .07], ['NL', .06], ['CN', .05], ['XX', .1]]
+        : [['KR', .94], ['US', .03], ['JP', .012], ['CN', .008], ['XX', .01]])
         .map(function (c) { return { country: c[0], v: Math.max(1, Math.round(rangeV * c[1])) }; }),
       sources: [['google.com', '검색', .34], ['m.search.naver.com', '검색', .24], ['search.naver.com', '검색', .11],
         ['daum.net', '검색', .05], ['bing.com', '검색', .02], ['instagram.com', 'SNS', .04], ['youtube.com', 'SNS', .02], ['t.co', 'SNS', .01], ['tistory.com', '기타', .02]]
