@@ -344,22 +344,23 @@
     chartBars = [];
     var series = aggSeries();
     var cv = $('chart'), dpr = window.devicePixelRatio || 1;
-    var cssW = cv.clientWidth || 900, cssH = 300;
+    var cssW = cv.clientWidth || 900, cssH = 230;
     cv.width = cssW * dpr; cv.height = cssH * dpr;
     var c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0);
     c.clearRect(0, 0, cssW, cssH);
     var cs = getComputedStyle(document.body);
     var muted = cs.getPropertyValue('--faint') || '#999';
+    var textc = (cs.getPropertyValue('--muted') || '#888').trim();
     var col = (state.metric === 'visitors' ? (cs.getPropertyValue('--visitors') || '#c9ced6') : (cs.getPropertyValue('--views') || '#f28b82')).trim();
-    var padL = 34, padR = 12, padT = 12, padB = 22;
+    var padL = 32, padR = 12, padT = 12, padB = 30;
     if (!series.length) { c.fillStyle = muted; c.font = '13px sans-serif'; c.fillText('데이터 없음', padL, cssH / 2); return; }
     var mk = state.metric === 'visitors' ? 'u' : 'v';
     var maxV = niceMax(Math.max(1, Math.max.apply(null, series.map(function (x) { return x[mk]; }))));
     var n = series.length, plotW = cssW - padL - padR, plotH = cssH - padT - padB;
-    var slot = plotW / n, barW = Math.max(3, Math.min(26, slot * 0.62));
+    var slot = plotW / n, barW = Math.max(3, Math.min(24, slot * 0.55));
     var Y = function (v) { return cssH - padB - (v / maxV) * plotH; };
     // gridlines + y라벨
-    c.strokeStyle = 'rgba(128,128,128,.13)'; c.fillStyle = muted; c.font = '10px sans-serif'; c.lineWidth = 1;
+    c.strokeStyle = 'rgba(128,128,128,.13)'; c.fillStyle = muted; c.font = '10.5px sans-serif'; c.lineWidth = 1; c.textAlign = 'left';
     for (var g = 0; g <= 4; g++) { var gv = maxV * g / 4, gy = Y(gv); c.beginPath(); c.moveTo(padL, gy); c.lineTo(cssW - padR, gy); c.stroke(); c.fillText(fmt(Math.round(gv)), 2, gy - 2); }
     var today = (cur.range && cur.range.today) || '';
     var step = Math.max(1, Math.ceil(n / 8)), prev = 0, r = Math.min(3, barW / 2);
@@ -371,8 +372,11 @@
       roundRectTop(c, cx - barW / 2, y, barW, h, r);
       chartBars.push({ x0: padL + slot * i, x1: padL + slot * (i + 1), cx: cx, top: y, val: val, tip: tipLabel(d.day, state.gran), delta: val - prev });
       prev = val;
-      if (i % step === 0) { c.fillStyle = muted; c.fillText(axisLabel(d.day, state.gran), cx - 10, cssH - 6); }
     }
+    // x축 날짜 라벨 (크게, 가운데 정렬)
+    c.fillStyle = textc; c.font = '12.5px sans-serif'; c.textAlign = 'center';
+    for (var j = 0; j < n; j++) { if (j % step === 0) c.fillText(axisLabel(series[j].day, state.gran), padL + slot * j + slot / 2, cssH - 9); }
+    c.textAlign = 'left';
   }
   function roundRectTop(c, x, y, w, h, r) {
     if (h <= 0) return; r = Math.min(r, h);
