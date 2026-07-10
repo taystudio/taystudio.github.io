@@ -1132,4 +1132,21 @@ if (document.readyState === 'loading') {
       // SW 등록 실패해도 페이지 동작에는 영향 없음
     }
   });
+
+  /* ── 확인된 사람 비콘 ── (JS 실행+실제 렌더한 브라우저만 기록 → 봇 대부분 자동 제외.
+     GoatCounter식 클라이언트 신호. 봇/데이터센터·내방문(tay_nolog)·대시보드는 worker 가 재차 필터.) */
+  try {
+    if (location.pathname.indexOf('/dashboard') !== 0 && document.cookie.indexOf('tay_nolog=1') === -1) {
+      const _beacon = () => {
+        if (document.visibilityState !== 'visible') return;   // 백그라운드/prerender 제외
+        try {
+          navigator.sendBeacon('/_stats/beacon?p=' + encodeURIComponent(location.pathname) +
+            '&r=' + encodeURIComponent(document.referrer || ''));
+        } catch (_) {}
+      };
+      // 렌더 후 1.2초 뒤 1회 — 즉시 이탈하는 크롤러/스캐너 제외
+      if (document.readyState === 'complete') setTimeout(_beacon, 1200);
+      else window.addEventListener('load', () => setTimeout(_beacon, 1200));
+    }
+  } catch (_) {}
 })();

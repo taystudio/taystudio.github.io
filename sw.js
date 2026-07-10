@@ -11,7 +11,7 @@
  * 이전 = `/tools/sw.js` (scope `./tools/`)만 동작. 사이트 4 카테고리 확장 후 root scope로 통합.
  */
 
-const CACHE_VERSION = 'taystudio-v23';  // v23: /dashboard/ SW 캐시 제외(옛 대시보드 캐시 문제 해결). v22: nav Studios 드롭다운+플랫 SVG 아이콘. v21: /blog/ SW 캐시 제외
+const CACHE_VERSION = 'taystudio-v24';  // v24: site-chrome.js "확인된 사람" 비콘 반영. v23: /dashboard/ SW 캐시 제외. v22: nav Studios 드롭다운+플랫 SVG. v21: /blog/ SW 캐시 제외
 
 // install 시 즉시 캐시 — 루트 + 5 카테고리 hub + about + 공용 자산. 도구별 페이지·vendor는 navigate 시 자연 캐싱
 const STATIC_ASSETS = [

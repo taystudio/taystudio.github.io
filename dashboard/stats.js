@@ -47,7 +47,19 @@
     $('gate').style.display = 'none';
     $('app').style.display = 'block';
     document.body.classList.toggle('demo', state.demo);
-    bindControls(); load(); startRealtime();
+    bindControls(); initSelfExclude(); load(); startRealtime();
+  }
+
+  /* ── 내 방문 제외 (GoatCounter skipgc 등가 — 쿠키 기반, worker가 읽어 로깅 스킵) ── */
+  function initSelfExclude() {
+    var chk = $('noLogChk'); if (!chk) return;
+    function has() { return document.cookie.indexOf('tay_nolog=1') > -1; }
+    function paint() { chk.checked = has(); $('noLogState').textContent = has() ? '· 제외 중 ✓' : ''; }
+    chk.onchange = function () {
+      document.cookie = 'tay_nolog=1; path=/; SameSite=Lax; max-age=' + (chk.checked ? 31536000 : 0);
+      paint();
+    };
+    paint();
   }
 
   /* ── 실시간 (지금 보는 중) — 20초마다 갱신 ── */
@@ -162,6 +174,7 @@
     }).join('');
 
     renderWow(d.wow);
+    renderConfirmed(d.confirmed, k);
     draw();
     calendar();
 
@@ -230,6 +243,24 @@
           '<td><b>' + esc(who) + '</b>' + net + '<span class="miss-ref">' + ref + '</span></td>' +
           '<td class="n">' + fmt(m.v) + '</td></tr>';
       }).join('') + '</tbody></table>';
+  }
+
+  function renderConfirmed(c, k) {
+    var el = $('confbar'); if (!el) return;
+    if (!c) { el.style.display = 'none'; return; }
+    el.style.display = 'flex';
+    // 사람(휴리스틱) 대비 얼마나 걸러졌나 — 오늘 방문자 기준
+    var human = (k && k.todayVisitors) || 0, conf = c.todayVisitors || 0;
+    var note = human > conf ? '휴리스틱 사람 ' + fmt(human) + '명 중 봇 의심 ' + fmt(Math.max(0, human - conf)) + '명 빠짐' : 'JS 렌더한 실브라우저';
+    el.innerHTML =
+      '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>' +
+      '<span class="lab">확인된 사람</span>' +
+      '<span class="seg-vals">' +
+        '<span>오늘 <b>' + fmt(c.todayVisitors) + '</b><span class="u">명</span></span>' +
+        '<span>어제 <b>' + fmt(c.ydayVisitors) + '</b><span class="u">명</span></span>' +
+        '<span>기간 <b>' + fmt(c.rangeVisitors) + '</b><span class="u">명 · ' + fmt(c.rangeViews) + '뷰</span></span>' +
+      '</span>' +
+      '<span class="note">JS 실행한 실브라우저만 · ' + esc(note) + '</span>';
   }
 
   function delta(x) {
@@ -496,6 +527,7 @@
         .map(function (b) { return { name: b[0], v: Math.max(1, Math.round(rangeV * b[1])), u: Math.max(1, Math.round(rangeV * b[1] * 0.6)) }; }) : [],
       path: st.path,
       wow: { cur: { views: w1, visitors: Math.round(w1 * 0.72) }, prev: { views: w2, visitors: Math.round(w2 * 0.72) } },
+      confirmed: { todayViews: Math.round(t.v * 0.45), todayVisitors: Math.round(t.u * 0.4), ydayViews: Math.round(y.v * 0.45), ydayVisitors: Math.round(y.u * 0.4), rangeViews: Math.round(rangeV * 0.45), rangeVisitors: Math.round(rangeV * 0.3) },
       misses: st.path ? [] : [
         { path: '/blog/ko/POST/ko/tags/', ref_host: '', v: 4, ts: '', ua: 'Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)', asorg: 'Hetzner Online GmbH' },
         { path: '/tools/salaray/', ref_host: 'search.naver.com', v: 3, ts: '', ua: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) AppleWebKit/605.1.15 Mobile Safari', asorg: 'SK Broadband' },
