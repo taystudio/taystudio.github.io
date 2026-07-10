@@ -48,7 +48,28 @@
     $('gate').style.display = 'none';
     $('app').style.display = 'block';
     document.body.classList.toggle('demo', state.demo);
-    bindControls(); load();
+    bindControls(); load(); startRealtime();
+  }
+
+  /* ── 실시간 (지금 보는 중) — 20초마다 갱신 ── */
+  var rtTimer = null;
+  function startRealtime() {
+    pollRealtime();
+    if (rtTimer) clearInterval(rtTimer);
+    rtTimer = setInterval(pollRealtime, 20000);
+  }
+  function pollRealtime() {
+    if (state.demo) { setRt(2 + Math.floor(Math.abs(Math.sin(Date.now() / 6e4)) * 6), [{ path: '/tools/salary/' }, { path: '/image/compress/' }]); return; }
+    fetch('/_stats/realtime?token=' + encodeURIComponent(state.token), { cache: 'no-store' })
+      .then(function (r) { return (r.ok && (r.headers.get('content-type') || '').indexOf('json') > -1) ? r.json() : null; })
+      .then(function (d) { if (d && !d.error) setRt(d.online, d.recent); })
+      .catch(function () {});
+  }
+  function setRt(n, recent) {
+    var el = $('rt'); if (!el) return;
+    $('rtN').textContent = fmt(n || 0);
+    el.classList.add('show');
+    el.title = (recent && recent.length) ? '최근 5분: ' + recent.map(function (r) { return r.path; }).slice(0, 8).join(', ') : '최근 5분 활동';
   }
   function bindControls() {
     $('rangeSeg').querySelectorAll('button').forEach(function (b) {
@@ -69,11 +90,25 @@
     if (state.demo) { cur = mock(state); afterLoad(); return; }
     var u = '/_stats/query?token=' + encodeURIComponent(state.token) + '&days=' + state.days + (state.path ? '&path=' + encodeURIComponent(state.path) : '');
     fetch(u, { cache: 'no-store' })
-      .then(function (r) { if (r.status === 401) throw new Error('토큰이 틀렸습니다'); return r.json(); })
+      .then(function (r) {
+        if (r.status === 401) throw new Error('토큰이 틀렸습니다');
+        var ct = r.headers.get('content-type') || '';
+        if (ct.indexOf('application/json') === -1) {
+          // JSON 이 아님 = Worker 가 이 요청을 못 받음 (로컬 서버·미배포 등)
+          throw new Error('__NOTJSON__');
+        }
+        return r.json();
+      })
       .then(function (d) { if (d.error) throw new Error(d.error); cur = d; afterLoad(); })
       .catch(function (e) {
-        $('app').innerHTML = '<div class="card"><b>불러오기 실패</b><p class="muted">' + (e.message || e) +
-          '</p><p class="muted">Worker 배포 전이면 <a class="demolink" href="?demo=1">목데이터로 미리보기</a>.</p>' +
+        var isLocal = /^localhost$|^127\.|^0\.0\.0\.0$/.test(location.hostname);
+        var msg = e.message === '__NOTJSON__'
+          ? (isLocal
+              ? '로컬(localhost)에는 Worker 가 없어요. 실데이터는 <b>taystudios.com/dashboard/</b> 에서만 나옵니다. 로컬에선 아래 미리보기로 확인하세요.'
+              : 'Worker 응답이 JSON 이 아닙니다. wrangler deploy 가 됐는지, /dashboard 가 Worker route(taystudios.com/*) 안에 있는지 확인하세요.')
+          : (e.message || e);
+        $('app').innerHTML = '<div class="card"><b>불러오기 실패</b><p class="muted">' + msg +
+          '</p><p class="muted"><a class="demolink" href="?demo=1">목데이터로 미리보기 →</a></p>' +
           '<p><a class="demolink" href="#" onclick="localStorage.removeItem(\'' + TKEY + '\');location.search=\'\';return false">토큰 다시 입력</a></p></div>';
       });
   }
@@ -113,6 +148,7 @@
         '<span class="unit">' + c.u + '</span>' + delta(c.dl) + '</div></div>';
     }).join('');
 
+    renderWow(d.wow);
     draw();
     calendar();
 
@@ -123,6 +159,7 @@
     renderCountries('countries', d.countries, base);
 
     var pc = $('pagesCard'); pc.style.display = state.path ? 'none' : '';
+    $('missCard').style.display = state.path ? 'none' : '';
     if (!state.path) {
       $('pages').innerHTML = (d.topPages || []).map(function (p, i) {
         return '<tr data-path="' + esc(p.path) + '"><td class="rank">' + (i + 1) + '</td>' +
@@ -131,7 +168,33 @@
       $('pages').querySelectorAll('tr[data-path]').forEach(function (tr) {
         tr.onclick = function () { state.path = tr.dataset.path; load(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
       });
+      renderMisses(d.misses);
     }
+  }
+
+  function renderWow(w) {
+    if (!w) { $('wow').innerHTML = '<p class="muted">데이터 없음</p>'; return; }
+    var rows = [['조회수', w.cur.views, w.prev.views], ['방문자', w.cur.visitors, w.prev.visitors]];
+    $('wow').innerHTML = rows.map(function (r) {
+      var cur = r[1], prev = r[2], pct = prev > 0 ? Math.round((cur - prev) / prev * 100) : (cur > 0 ? 100 : 0);
+      var cls = pct > 0 ? 'up' : pct < 0 ? 'down' : 'flat';
+      var arrow = pct > 0 ? '▲' : pct < 0 ? '▼' : '–';
+      var dtxt = prev === 0 && cur === 0 ? '–' : (arrow + ' ' + Math.abs(pct) + '%');
+      return '<div class="wow-row"><span class="wlab">' + r[0] + '</span>' +
+        '<span><span class="wv">' + fmt(cur) + '</span><span class="wp">지난주 ' + fmt(prev) + '</span></span>' +
+        '<span class="wd ' + cls + '">' + dtxt + '</span></div>';
+    }).join('');
+  }
+
+  function renderMisses(items) {
+    items = items || [];
+    if (!items.length) { $('misses').innerHTML = '<p class="muted">404 유입 없음 — 깨진 링크가 없다는 뜻이라 좋은 신호예요 👍</p>'; return; }
+    $('misses').innerHTML = '<table><thead><tr><th>없는 경로</th><th>어디서</th><th class="n">횟수</th></tr></thead><tbody>' +
+      items.map(function (m) {
+        var ref = m.ref_host ? esc(srcLabel(m.ref_host)) : '직접·알수없음';
+        return '<tr style="cursor:default"><td class="path" style="color:var(--danger)">' + esc(m.path) + '</td>' +
+          '<td class="miss-ref">' + ref + '</td><td class="n">' + fmt(m.v) + '</td></tr>';
+      }).join('') + '</tbody></table>';
   }
 
   function delta(x) {
@@ -268,9 +331,17 @@
     var rangeV = arr.reduce(function (s, x) { return s + x.v; }, 0);
     var t = arr[arr.length - 1], y = arr[arr.length - 2] || t;
     var mul = st.path ? 40 : 300;
+    var w1 = arr.slice(-7).reduce(function (s, x) { return s + x.v; }, 0);
+    var w2 = arr.slice(-14, -7).reduce(function (s, x) { return s + x.v; }, 0) || Math.round(w1 * 0.85);
     return {
       range: { days: st.days === 'all' ? 'all' : days, today: kst(base), firstDay: arr[0].day },
       path: st.path,
+      wow: { cur: { views: w1, visitors: Math.round(w1 * 0.72) }, prev: { views: w2, visitors: Math.round(w2 * 0.72) } },
+      misses: st.path ? [] : [
+        { path: '/tools/salaray/', ref_host: 'search.naver.com', v: 7, ts: '' },
+        { path: '/image/comress/', ref_host: '', v: 3, ts: '' },
+        { path: '/blog/ko/old-post/', ref_host: 'google.com', v: 2, ts: '' }
+      ],
       kpi: { todayViews: t.v, todayVisitors: t.u, ydayViews: y.v, ydayVisitors: y.u, totalViews: rangeV + mul * 12, totalVisitors: Math.round((rangeV + mul * 12) * 0.7) },
       daily: arr,
       channels: split(rangeV, [['검색', .68], ['기타', .2], ['직접', .08], ['SNS', .04]], 'channel'),
