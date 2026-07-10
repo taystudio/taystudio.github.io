@@ -163,6 +163,7 @@
     bars('devices', d.devices, 'device', DEV_COL, base);
     renderSources('sources', d.sources, base);
     renderCountries('countries', d.countries, base);
+    renderBotKinds(d.botKinds, base);
 
     var pc = $('pagesCard'); pc.style.display = state.path ? 'none' : '';
     $('missCard').style.display = state.path ? 'none' : '';
@@ -230,6 +231,22 @@
         '<span class="bar-track"><span class="bar-fill" style="width:' + Math.max(2, pct) + '%;background:' + col + '"></span></span>' +
         '<span class="val"><b>' + fmt(x.v) + '</b>회 · ' + pct + '%</span></div>';
     }).join('') || '<p class="muted">외부 유입 없음 (직접 방문만)</p>';
+  }
+  function renderBotKinds(items, base) {
+    var card = $('botKindsCard');
+    if (state.who !== 'bot') { card.style.display = 'none'; return; }
+    card.style.display = '';
+    items = items || [];
+    $('botKinds').innerHTML = items.map(function (x) {
+      var pct = Math.round(x.v / base * 100);
+      var name = x.name || '기타 봇';
+      var col = /google/i.test(name) ? '#4285f4' : /gpt|openai/i.test(name) ? '#10a37f'
+        : /claude|anthropic/i.test(name) ? '#d97757' : /bing/i.test(name) ? '#0a8484'
+        : /데이터센터/.test(name) ? '#94a3b8' : /스캐너/.test(name) ? '#ef4444' : '#f59e0b';
+      return '<div class="bar-row wide"><span class="name" title="' + esc(name) + '">' + esc(name) + '</span>' +
+        '<span class="bar-track"><span class="bar-fill" style="width:' + Math.max(2, pct) + '%;background:' + col + '"></span></span>' +
+        '<span class="val"><b>' + fmt(x.v) + '</b>회 · ' + pct + '%</span></div>';
+    }).join('') || '<p class="muted">봇 데이터 없음</p>';
   }
   function renderCountries(id, items, base) {
     items = items || [];
@@ -343,6 +360,8 @@
     return {
       range: { days: st.days === 'all' ? 'all' : days, today: kst(base), firstDay: arr[0].day },
       who: st.who, botViews: st.who === 'human' ? Math.round(rangeV * 0.9) : 0,
+      botKinds: isBot ? [['데이터센터: Amazon AWS', .34], ['GPTBot (OpenAI)', .16], ['Googlebot', .13], ['ClaudeBot (Anthropic)', .09], ['Bingbot', .07], ['데이터센터: OVH SAS', .06], ['AhrefsBot', .05], ['스캐너', .04], ['PerplexityBot', .03], ['기타 봇', .03]]
+        .map(function (b) { return { name: b[0], v: Math.max(1, Math.round(rangeV * b[1])), u: Math.max(1, Math.round(rangeV * b[1] * 0.6)) }; }) : [],
       path: st.path,
       wow: { cur: { views: w1, visitors: Math.round(w1 * 0.72) }, prev: { views: w2, visitors: Math.round(w2 * 0.72) } },
       misses: st.path ? [] : [
