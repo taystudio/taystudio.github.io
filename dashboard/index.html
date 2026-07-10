@@ -56,6 +56,18 @@
   .asof{color:var(--faint);font-size:12.5px;margin:6px 0 22px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .asof .dot{width:3px;height:3px;border-radius:50%;background:var(--faint)}
   .asof b{color:var(--muted);font-weight:600}
+  .selfex{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);margin:-14px 0 20px;cursor:pointer;user-select:none}
+  .selfex input{cursor:pointer;margin:0}
+  .selfex .dim{color:var(--faint)}
+  .selfex b{color:var(--success);font-weight:700;margin-left:2px}
+  .confbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:rgba(16,185,129,.08);
+    border:1px solid rgba(16,185,129,.28);border-radius:14px;padding:12px 18px;margin-bottom:16px;font-size:13px}
+  .confbar .ic{width:20px;height:20px;flex:none;color:var(--success)}
+  .confbar b{font-size:20px;font-weight:800;letter-spacing:-.02em;color:var(--text)}
+  .confbar .lab{font-weight:700;color:var(--success)}
+  .confbar .seg-vals{display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}
+  .confbar .u{font-size:12px;color:var(--faint);font-weight:600}
+  .confbar .note{color:var(--faint);font-size:11.5px;margin-left:auto}
   .controls{display:flex;gap:8px;flex-wrap:wrap}
   .seg{display:inline-flex;border:1px solid var(--border);border-radius:9px;overflow:hidden;background:var(--card)}
   .seg button{border:0;background:transparent;color:var(--muted);font-size:12.5px;font-weight:600;
@@ -222,6 +234,7 @@
         </div>
       </div>
       <p class="asof" id="asof"></p>
+      <label class="selfex"><input type="checkbox" id="noLogChk"> 내 방문은 집계에서 제외 <span class="dim">(이 기기 · 쿠키)</span><b id="noLogState"></b></label>
 
       <div class="drill" id="drill">
         <button class="back" id="backBtn">◀ 전체</button>
@@ -229,6 +242,8 @@
       </div>
 
       <div class="kpi" id="kpi"></div>
+
+      <div class="confbar" id="confbar"></div>
 
       <div class="card">
         <div class="sec-title">주간 비교</div>
