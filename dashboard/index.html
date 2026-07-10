@@ -94,6 +94,19 @@
   .wd.up{color:var(--success)} .wd.down{color:var(--danger)} .wd.flat{color:var(--faint)}
   /* 404 */
   .miss-ref{color:var(--faint);font-size:11.5px}
+  /* 국가 → 페이지 펼침 */
+  .cty-row{cursor:pointer;border-radius:8px;padding:2px 6px;margin-left:-6px;margin-right:-6px;transition:background .12s}
+  .cty-row:hover{background:var(--track)}
+  .cty-row.open{background:var(--track)}
+  .cty-detail{margin:2px 4px 12px 10px;padding:9px 12px;border-left:2px solid var(--primary);
+    background:var(--track);border-radius:0 10px 10px 0}
+  .cty-detail-h{font-size:11.5px;font-weight:700;color:var(--muted);margin-bottom:8px}
+  .cty-pg{display:grid;grid-template-columns:1fr 70px 78px;align-items:center;gap:9px;padding:3px 0;font-size:12.5px}
+  .cty-pg .pg-path{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--primary)}
+  .cty-pg .pg-bar{height:6px;border-radius:4px;background:var(--border);overflow:hidden}
+  .cty-pg .pg-bar span{display:block;height:100%;background:var(--primary);border-radius:4px}
+  .cty-pg .pg-n{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+  .cty-pg .pg-n b{color:var(--text);font-weight:700}
   /* chart */
   .chart-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
   .chart-title{font-size:14px;font-weight:700}
@@ -114,13 +127,16 @@
   .cal-nav .mon{font-size:14px;font-weight:700;min-width:96px;text-align:center}
   .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
   .cal-dow{font-size:11px;color:var(--faint);text-align:center;font-weight:600;padding-bottom:2px}
-  .cal-cell{aspect-ratio:1/.86;border-radius:9px;border:1px solid var(--border);background:var(--track);
-    padding:6px 7px;display:flex;flex-direction:column;justify-content:space-between;min-height:44px;position:relative}
+  .cal-cell{aspect-ratio:1/.9;border-radius:9px;border:1px solid var(--border);background:var(--track);
+    padding:5px 7px 6px;display:flex;flex-direction:column;justify-content:space-between;min-height:50px;position:relative}
   .cal-cell.empty{border:0;background:transparent}
   .cal-cell.future{opacity:.4}
   .cal-cell .dnum{font-size:11px;color:var(--muted);font-weight:600}
   .cal-cell.today{outline:2px solid var(--primary);outline-offset:-2px}
-  .cal-cell .cv{font-size:12.5px;font-weight:800;letter-spacing:-.02em}
+  .cal-cell .nums{display:flex;flex-direction:column;align-items:flex-end;line-height:1.15}
+  .cal-cell .cv{font-size:13px;font-weight:800;letter-spacing:-.02em}
+  .cal-cell .cu{font-size:10px;font-weight:600;opacity:.82}
+  .cal-cell .cv i,.cal-cell .cu i{font-style:normal;font-weight:600;font-size:8.5px;opacity:.7;margin-left:1px}
   .cal-cell.has{color:#fff;border-color:transparent}
   .cal-cell.has .dnum{color:rgba(255,255,255,.85)}
   .cal-legend{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--faint);justify-content:flex-end;margin-top:10px}
@@ -246,7 +262,7 @@
           </div>
         </div>
         <div class="cal-grid" id="cal"></div>
-        <div class="cal-legend">적음 <i style="background:rgba(37,99,235,.15)"></i><i style="background:rgba(37,99,235,.4)"></i><i style="background:rgba(37,99,235,.7)"></i><i style="background:var(--primary)"></i> 많음 · 칸 = 조회수</div>
+        <div class="cal-legend">적음 <i style="background:rgba(37,99,235,.15)"></i><i style="background:rgba(37,99,235,.4)"></i><i style="background:rgba(37,99,235,.7)"></i><i style="background:var(--primary)"></i> 많음 · 색 = 조회수 · 칸: 위 조회수 / 아래 방문자</div>
       </div>
 
       <div class="cols">

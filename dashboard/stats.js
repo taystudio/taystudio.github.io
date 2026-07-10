@@ -266,10 +266,51 @@
     $('countries').innerHTML = rows.map(function (x) {
       var val = x[key] || 0, pct = Math.round(val / base * 100);
       var col = x.country === 'KR' ? '#2563eb' : '#64748b';
-      return '<div class="bar-row wide"><span class="name">' + ctyFlag(x.country) + ' ' + esc(ctyName(x.country)) + '</span>' +
+      return '<div class="bar-row wide cty-row" data-cc="' + esc(x.country) + '" title="클릭 → 이 국가가 본 페이지"><span class="name">' + ctyFlag(x.country) + ' ' + esc(ctyName(x.country)) + '</span>' +
         '<span class="bar-track"><span class="bar-fill" style="width:' + Math.max(2, pct) + '%;background:' + col + '"></span></span>' +
         '<span class="val"><b>' + fmt(val) + '</b>' + unit + ' · ' + pct + '%</span></div>';
     }).join('') || '<p class="muted">데이터 없음</p>';
+    $('countries').querySelectorAll('.cty-row').forEach(function (row) {
+      row.onclick = function () { toggleCountryPages(row, row.dataset.cc); };
+    });
+  }
+  function toggleCountryPages(row, cc) {
+    var nx = row.nextElementSibling;
+    if (nx && nx.className === 'cty-detail') { nx.parentNode.removeChild(nx); row.classList.remove('open'); return; }
+    var box = $('countries');
+    box.querySelectorAll('.cty-detail').forEach(function (e) { e.parentNode.removeChild(e); });
+    box.querySelectorAll('.cty-row.open').forEach(function (e) { e.classList.remove('open'); });
+    row.classList.add('open');
+    var det = document.createElement('div');
+    det.className = 'cty-detail';
+    det.innerHTML = '<span class="muted">불러오는 중…</span>';
+    row.parentNode.insertBefore(det, row.nextSibling);
+    loadCountryPages(cc).then(function (pages) {
+      if (!pages || !pages.length) { det.innerHTML = '<span class="muted">이 국가의 페이지 데이터 없음</span>'; return; }
+      var vis = state.cmetric === 'visitors', ky = vis ? 'u' : 'v', unit = vis ? '명' : '회';
+      var tot = pages.reduce(function (s, p) { return s + (p[ky] || 0); }, 0) || 1;
+      det.innerHTML = '<div class="cty-detail-h">' + ctyFlag(cc) + ' ' + esc(ctyName(cc)) + ' 가 본 페이지 (' + (vis ? '방문자' : '조회수') + ')</div>' +
+        pages.slice(0, 12).map(function (p) {
+          var v = p[ky] || 0, pc = Math.round(v / tot * 100);
+          return '<div class="cty-pg"><span class="pg-path">' + esc(p.path) + '</span>' +
+            '<span class="pg-bar"><span style="width:' + Math.max(3, pc) + '%"></span></span>' +
+            '<span class="pg-n"><b>' + fmt(v) + '</b>' + unit + '</span></div>';
+        }).join('');
+    });
+  }
+  function loadCountryPages(cc) {
+    if (state.demo) return Promise.resolve(mockCountryPages(cc));
+    var u = '/_stats/country?token=' + encodeURIComponent(state.token) + '&days=' + state.days + '&who=' + state.who + '&country=' + encodeURIComponent(cc);
+    return fetch(u, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : { pages: [] }; })
+      .then(function (d) { return d.pages || []; }).catch(function () { return []; });
+  }
+  function mockCountryPages(cc) {
+    var m = cc === 'KR'
+      ? [['/tools/salary/', 24], ['/tools/', 13], ['/image/compress/', 9], ['/pdf/merge/', 7], ['/blog/ko/yonsei-grad-mech-interview/', 5], ['/tools/bmi/', 3]]
+      : cc === 'US'
+        ? [['/en/', 4], ['/image/compress/', 3], ['/en/tools/', 2], ['/pdf/merge/', 1]]
+        : [['/', 1], ['/image/compress/', 1]];
+    return m.map(function (p) { return { path: p[0], v: p[1], u: Math.max(1, Math.round(p[1] * 0.7)) }; });
   }
 
   /* ── 캘린더 (드릴다운 시 그 페이지의 날짜별 조회) ── */
@@ -298,7 +339,7 @@
       if (data && data.v > 0) {
         var a = 0.15 + 0.75 * (data.v / maxV);
         cls += ' has'; style = 'background:rgba(37,99,235,' + a.toFixed(2) + ');';
-        inner = '<span class="cv">' + fmt(data.v) + '</span>';
+        inner = '<span class="nums"><span class="cv">' + fmt(data.v) + '<i>회</i></span><span class="cu">' + fmt(data.u) + '<i>명</i></span></span>';
       }
       var tip = ds + (data ? ' · 조회 ' + fmt(data.v) + ' · 방문자 ' + fmt(data.u) : ' · 데이터 없음');
       html += '<div class="' + cls + '" style="' + style + '" title="' + tip + '"><span class="dnum">' + day + '</span>' + inner + '</div>';
