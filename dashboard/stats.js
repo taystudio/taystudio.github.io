@@ -6,7 +6,7 @@
   var TKEY = 'tay_stats_token';
   var DOW = ['일', '월', '화', '수', '목', '금', '토'];
 
-  var state = { days: 30, metric: 'views', path: null, token: null, demo: false, cal: null, who: 'human' };
+  var state = { days: 30, metric: 'views', cmetric: 'views', path: null, token: null, demo: false, cal: null, who: 'human' };
   var CHAN_COL = { '검색': '#2563eb', 'SNS': '#f59e0b', '직접': '#94a3b8', '기타': '#64748b' };
   var DEV_COL = { 'mobile': '#2563eb', 'desktop': '#10b981', 'tablet': '#f59e0b', 'unknown': '#94a3b8' };
   var SRC_LABEL = {
@@ -31,11 +31,10 @@
     return String.fromCodePoint(0x1F1E6 + (c.charCodeAt(0) - 65), 0x1F1E6 + (c.charCodeAt(1) - 65));
   }
 
-  /* ── init ── */
+  /* ── init ── (※ 시작 트리거는 IIFE 맨 끝 — var 초기화가 먼저 실행되도록) */
   var qs = new URLSearchParams(location.search);
   if (qs.get('demo') === '1') state.demo = true;
   state.token = qs.get('token') || localStorage.getItem(TKEY) || null;
-  if (state.demo || state.token) start(); else $('gate').style.display = 'block';
 
   $('tokenGo').onclick = function () {
     var t = $('tokenInput').value.trim(); if (!t) return;
@@ -81,11 +80,15 @@
     $('metricSeg').querySelectorAll('button').forEach(function (b) {
       b.onclick = function () { state.metric = b.dataset.metric; seg('metricSeg', b); draw(); };
     });
+    $('ctyMetricSeg').querySelectorAll('button').forEach(function (b) {
+      b.onclick = function () { state.cmetric = b.dataset.cm; seg('ctyMetricSeg', b); reRenderCountries(); };
+    });
     $('backBtn').onclick = function () { state.path = null; document.body.classList.remove('drilled'); load(); };
     $('calPrev').onclick = function () { shiftMonth(-1); };
     $('calNext').onclick = function () { shiftMonth(1); };
   }
   function seg(id, on) { $(id).querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === on); }); }
+  function reRenderCountries() { if (cur) renderCountries(cur.countries); }   // 국가 조회수/방문자 토글 재렌더
 
   /* ── load ── */
   var cur = null, byDay = {};
@@ -162,7 +165,7 @@
     bars('channels', d.channels, 'channel', CHAN_COL, base);
     bars('devices', d.devices, 'device', DEV_COL, base);
     renderSources('sources', d.sources, base);
-    renderCountries('countries', d.countries, base);
+    renderCountries(d.countries);
     renderBotKinds(d.botKinds, base);
 
     var pc = $('pagesCard'); pc.style.display = state.path ? 'none' : '';
@@ -248,14 +251,20 @@
         '<span class="val"><b>' + fmt(x.v) + '</b>회 · ' + pct + '%</span></div>';
     }).join('') || '<p class="muted">봇 데이터 없음</p>';
   }
-  function renderCountries(id, items, base) {
+  function renderCountries(items) {
     items = items || [];
-    $(id).innerHTML = items.map(function (x) {
-      var pct = Math.round(x.v / base * 100);
+    var vis = state.cmetric === 'visitors';
+    var key = vis ? 'u' : 'v', unit = vis ? '명' : '회';
+    var base = items.reduce(function (s, x) { return s + (x[key] || 0); }, 0) || 1;
+    var note = $('ctyNote'); if (note) note.textContent = '방문자 IP 기반 (Cloudflare) · % 는 전체 ' + (vis ? '방문자' : '조회') + ' 대비';
+    // 방문자 기준이면 방문자수로 재정렬
+    var rows = vis ? items.slice().sort(function (a, b) { return (b.u || 0) - (a.u || 0); }) : items;
+    $('countries').innerHTML = rows.map(function (x) {
+      var val = x[key] || 0, pct = Math.round(val / base * 100);
       var col = x.country === 'KR' ? '#2563eb' : '#64748b';
       return '<div class="bar-row wide"><span class="name">' + ctyFlag(x.country) + ' ' + esc(ctyName(x.country)) + '</span>' +
         '<span class="bar-track"><span class="bar-fill" style="width:' + Math.max(2, pct) + '%;background:' + col + '"></span></span>' +
-        '<span class="val"><b>' + fmt(x.v) + '</b>회 · ' + pct + '%</span></div>';
+        '<span class="val"><b>' + fmt(val) + '</b>' + unit + ' · ' + pct + '%</span></div>';
     }).join('') || '<p class="muted">데이터 없음</p>';
   }
 
@@ -376,7 +385,7 @@
       countries: (isBot
         ? [['US', .42], ['DE', .12], ['FR', .1], ['BR', .08], ['SG', .07], ['NL', .06], ['CN', .05], ['XX', .1]]
         : [['KR', .94], ['US', .03], ['JP', .012], ['CN', .008], ['XX', .01]])
-        .map(function (c) { return { country: c[0], v: Math.max(1, Math.round(rangeV * c[1])) }; }),
+        .map(function (c) { var vv = Math.max(1, Math.round(rangeV * c[1])); return { country: c[0], v: vv, u: Math.max(1, Math.round(vv * 0.68)) }; }),
       sources: [['google.com', '검색', .34], ['m.search.naver.com', '검색', .24], ['search.naver.com', '검색', .11],
         ['daum.net', '검색', .05], ['bing.com', '검색', .02], ['instagram.com', 'SNS', .04], ['youtube.com', 'SNS', .02], ['t.co', 'SNS', .01], ['tistory.com', '기타', .02]]
         .map(function (s) { return { ref_host: s[0], channel: s[1], v: Math.max(1, Math.round(rangeV * s[2])) }; }),
@@ -387,4 +396,7 @@
   }
   function split(total, parts, k) { return parts.map(function (p) { var o = { v: Math.round(total * p[1]) }; o[k] = p[0]; return o; }); }
   function kst(d) { return new Date(d.getTime() + 9 * 3600000).toISOString().slice(0, 10); }
+
+  /* ── 시작 트리거 (모든 var 초기화 이후 실행 — cur 리셋 버그 방지) ── */
+  if (state.demo || state.token) start(); else $('gate').style.display = 'block';
 })();

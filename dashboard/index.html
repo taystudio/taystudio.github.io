@@ -258,8 +258,13 @@
       </div>
 
       <div class="card">
-        <div class="sec-title">국가</div>
-        <div class="sec-note">방문자 IP 기반 국가 (Cloudflare) · % 는 전체 조회 대비</div>
+        <div class="chart-head">
+          <span class="chart-title">국가</span>
+          <div class="seg" id="ctyMetricSeg">
+            <button data-cm="views" class="on">조회수</button><button data-cm="visitors">방문자</button>
+          </div>
+        </div>
+        <div class="sec-note" id="ctyNote">방문자 IP 기반 (Cloudflare) · % 는 전체 조회 대비</div>
         <div id="countries"></div>
       </div>
 
