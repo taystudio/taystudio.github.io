@@ -95,11 +95,16 @@
   /* 404 */
   .miss-ref{color:var(--faint);font-size:11.5px}
   /* chart */
-  .chart-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .chart-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
   .chart-title{font-size:14px;font-weight:700}
-  .chartwrap{width:100%}.chartwrap canvas{width:100%;height:auto;display:block}
-  .legend{display:flex;gap:16px;font-size:12px;color:var(--muted);margin-top:8px;justify-content:flex-end}
-  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .chart-segs{display:flex;gap:8px;flex-wrap:wrap}
+  .chartwrap{width:100%;position:relative}.chartwrap canvas{width:100%;height:auto;display:block}
+  .chart-tip{position:absolute;pointer-events:none;background:var(--card);border:1px solid var(--border);
+    border-radius:9px;box-shadow:var(--shadow);padding:7px 11px;font-size:12px;white-space:nowrap;z-index:5;line-height:1.5}
+  .chart-tip .tl{color:var(--muted);font-size:11px}
+  .chart-tip .tv{font-size:16px;font-weight:800;letter-spacing:-.02em}
+  .chart-tip .td{font-weight:700;font-size:12px;margin-left:6px}
+  .chart-tip .td.up{color:var(--success)} .chart-tip .td.down{color:var(--danger)} .chart-tip .td.flat{color:var(--faint)}
   /* calendar */
   .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
   .cal-nav{display:inline-flex;align-items:center;gap:6px}
@@ -217,13 +222,17 @@
 
       <div class="card">
         <div class="chart-head">
-          <span class="chart-title">일별 추이</span>
-          <div class="seg" id="metricSeg">
-            <button data-metric="views" class="on">조회수</button><button data-metric="visitors">방문자</button>
+          <span class="chart-title">추이</span>
+          <div class="chart-segs">
+            <div class="seg" id="metricSeg">
+              <button data-metric="views" class="on">조회수</button><button data-metric="visitors">방문자</button>
+            </div>
+            <div class="seg" id="granSeg">
+              <button data-gran="day" class="on">일간</button><button data-gran="week">주간</button><button data-gran="month">월간</button>
+            </div>
           </div>
         </div>
-        <div class="chartwrap"><canvas id="chart" width="920" height="300" aria-label="일별 추이"></canvas></div>
-        <div class="legend"><span><i style="background:var(--views)"></i>조회수</span><span><i style="background:var(--visitors)"></i>방문자</span></div>
+        <div class="chartwrap"><canvas id="chart" width="920" height="300" aria-label="추이"></canvas><div class="chart-tip" id="chartTip" hidden></div></div>
       </div>
 
       <!-- 캘린더 -->

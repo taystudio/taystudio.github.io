@@ -6,7 +6,7 @@
   var TKEY = 'tay_stats_token';
   var DOW = ['일', '월', '화', '수', '목', '금', '토'];
 
-  var state = { days: 30, metric: 'views', cmetric: 'views', path: null, token: null, demo: false, cal: null, who: 'human' };
+  var state = { days: 30, metric: 'views', cmetric: 'views', gran: 'day', path: null, token: null, demo: false, cal: null, who: 'human' };
   var CHAN_COL = { '검색': '#2563eb', 'SNS': '#f59e0b', '직접': '#94a3b8', '기타': '#64748b' };
   var DEV_COL = { 'mobile': '#2563eb', 'desktop': '#10b981', 'tablet': '#f59e0b', 'unknown': '#94a3b8' };
   var SRC_LABEL = {
@@ -80,6 +80,10 @@
     $('metricSeg').querySelectorAll('button').forEach(function (b) {
       b.onclick = function () { state.metric = b.dataset.metric; seg('metricSeg', b); draw(); };
     });
+    $('granSeg').querySelectorAll('button').forEach(function (b) {
+      b.onclick = function () { state.gran = b.dataset.gran; seg('granSeg', b); draw(); };
+    });
+    bindChartHover();
     $('ctyMetricSeg').querySelectorAll('button').forEach(function (b) {
       b.onclick = function () { state.cmetric = b.dataset.cm; seg('ctyMetricSeg', b); reRenderCountries(); };
     });
@@ -304,9 +308,41 @@
   function key(y, m, d) { return y + '-' + p2(m) + '-' + p2(d); }
   function p2(n) { return (n < 10 ? '0' : '') + n; }
 
-  /* ── 라인차트 ── */
-  function draw() {
+  /* ── 막대차트 (일간/주간/월간, 오늘 강조, hover 툴팁) ── */
+  var chartBars = [];   // hover 히트테스트용 (CSS px)
+  function bucketKey(day, gran) {
+    if (gran === 'month') return day.slice(0, 7);                 // YYYY-MM
+    if (gran === 'week') {                                        // 그 주 월요일 날짜
+      var p = day.split('-'), dt = new Date(+p[0], +p[1] - 1, +p[2]);
+      dt.setDate(dt.getDate() - ((dt.getDay() + 6) % 7));
+      return dt.getFullYear() + '-' + p2(dt.getMonth() + 1) + '-' + p2(dt.getDate());
+    }
+    return day;
+  }
+  function aggSeries() {
     var daily = cur.daily || [];
+    if (state.gran === 'day') return daily.map(function (d) { return { day: d.day, v: d.v, u: d.u }; });
+    var m = {}, order = [];
+    daily.forEach(function (d) {
+      var k = bucketKey(d.day, state.gran);
+      if (!m[k]) { m[k] = { day: k, v: 0, u: 0 }; order.push(k); }
+      m[k].v += d.v; m[k].u += d.u;
+    });
+    return order.map(function (k) { return m[k]; });
+  }
+  function axisLabel(day, gran) { var p = day.split('-'); return gran === 'month' ? (+p[1]) + '월' : (+p[1]) + '/' + (+p[2]); }
+  function tipLabel(day, gran) {
+    var p = day.split('-');
+    if (gran === 'month') return p[0] + '년 ' + (+p[1]) + '월';
+    var dt = new Date(+p[0], +p[1] - 1, +p[2]);
+    if (gran === 'week') return (+p[1]) + '월 ' + (+p[2]) + '일 주간';
+    return (+p[1]) + '월 ' + (+p[2]) + '일 (' + DOW[dt.getDay()] + ')';
+  }
+  function granName() { return state.gran === 'week' ? '주간' : state.gran === 'month' ? '월간' : '일간'; }
+
+  function draw() {
+    chartBars = [];
+    var series = aggSeries();
     var cv = $('chart'), dpr = window.devicePixelRatio || 1;
     var cssW = cv.clientWidth || 900, cssH = 300;
     cv.width = cssW * dpr; cv.height = cssH * dpr;
@@ -314,33 +350,54 @@
     c.clearRect(0, 0, cssW, cssH);
     var cs = getComputedStyle(document.body);
     var muted = cs.getPropertyValue('--faint') || '#999';
-    var colV = (cs.getPropertyValue('--views') || '#f28b82').trim();
-    var colU = (cs.getPropertyValue('--visitors') || '#c9ced6').trim();
+    var col = (state.metric === 'visitors' ? (cs.getPropertyValue('--visitors') || '#c9ced6') : (cs.getPropertyValue('--views') || '#f28b82')).trim();
     var padL = 34, padR = 12, padT = 12, padB = 22;
-    if (!daily.length) { c.fillStyle = muted; c.font = '13px sans-serif'; c.fillText('데이터 없음', padL, cssH / 2); return; }
-    var maxV = niceMax(Math.max(1, Math.max.apply(null, daily.map(function (x) { return Math.max(x.v, x.u); }))));
-    var n = daily.length;
-    var X = function (i) { return padL + (n === 1 ? 0.5 : i / (n - 1)) * (cssW - padL - padR); };
-    var Y = function (v) { return cssH - padB - (v / maxV) * (cssH - padT - padB); };
+    if (!series.length) { c.fillStyle = muted; c.font = '13px sans-serif'; c.fillText('데이터 없음', padL, cssH / 2); return; }
+    var mk = state.metric === 'visitors' ? 'u' : 'v';
+    var maxV = niceMax(Math.max(1, Math.max.apply(null, series.map(function (x) { return x[mk]; }))));
+    var n = series.length, plotW = cssW - padL - padR, plotH = cssH - padT - padB;
+    var slot = plotW / n, barW = Math.max(3, Math.min(26, slot * 0.62));
+    var Y = function (v) { return cssH - padB - (v / maxV) * plotH; };
+    // gridlines + y라벨
     c.strokeStyle = 'rgba(128,128,128,.13)'; c.fillStyle = muted; c.font = '10px sans-serif'; c.lineWidth = 1;
-    for (var g = 0; g <= 4; g++) { var v = maxV * g / 4, y = Y(v); c.beginPath(); c.moveTo(padL, y); c.lineTo(cssW - padR, y); c.stroke(); c.fillText(fmt(Math.round(v)), 2, y - 2); }
-    var step = Math.ceil(n / 7);
-    for (var i = 0; i < n; i += step) c.fillText(daily[i].day.slice(5), X(i) - 10, cssH - 6);
-    var prim = state.metric === 'visitors' ? 'u' : 'v', primCol = state.metric === 'visitors' ? colU : colV;
-    var secKey = prim === 'v' ? 'u' : 'v', secCol = prim === 'v' ? colU : colV;
-    c.beginPath();
-    daily.forEach(function (x, i) { var px = X(i), py = Y(x[prim]); i ? c.lineTo(px, py) : c.moveTo(px, py); });
-    c.lineTo(X(n - 1), Y(0)); c.lineTo(X(0), Y(0)); c.closePath();
-    c.fillStyle = hexA(primCol, .16); c.fill();
-    line(c, daily, X, Y, prim, primCol, 2.2);
-    line(c, daily, X, Y, secKey, secCol, 1.4);
-    var li = n - 1;
-    c.beginPath(); c.arc(X(li), Y(daily[li][prim]), 3.5, 0, 7); c.fillStyle = primCol; c.fill();
+    for (var g = 0; g <= 4; g++) { var gv = maxV * g / 4, gy = Y(gv); c.beginPath(); c.moveTo(padL, gy); c.lineTo(cssW - padR, gy); c.stroke(); c.fillText(fmt(Math.round(gv)), 2, gy - 2); }
+    var today = (cur.range && cur.range.today) || '';
+    var step = Math.max(1, Math.ceil(n / 8)), prev = 0, r = Math.min(3, barW / 2);
+    for (var i = 0; i < n; i++) {
+      var d = series[i], val = d[mk], cx = padL + slot * i + slot / 2;
+      var h = Math.max(val > 0 ? 2 : 0, (val / maxV) * plotH), y = cssH - padB - h;
+      var isToday = state.gran === 'day' && d.day === today;
+      c.fillStyle = isToday ? '#ef4444' : col;
+      roundRectTop(c, cx - barW / 2, y, barW, h, r);
+      chartBars.push({ x0: padL + slot * i, x1: padL + slot * (i + 1), cx: cx, top: y, val: val, tip: tipLabel(d.day, state.gran), delta: val - prev });
+      prev = val;
+      if (i % step === 0) { c.fillStyle = muted; c.fillText(axisLabel(d.day, state.gran), cx - 10, cssH - 6); }
+    }
   }
-  function line(c, data, X, Y, key, col, w) {
-    c.beginPath(); c.lineWidth = w; c.strokeStyle = col;
-    data.forEach(function (x, i) { var px = X(i), py = Y(x[key]); i ? c.lineTo(px, py) : c.moveTo(px, py); });
-    c.stroke();
+  function roundRectTop(c, x, y, w, h, r) {
+    if (h <= 0) return; r = Math.min(r, h);
+    c.beginPath();
+    c.moveTo(x, y + h); c.lineTo(x, y + r); c.quadraticCurveTo(x, y, x + r, y);
+    c.lineTo(x + w - r, y); c.quadraticCurveTo(x + w, y, x + w, y + r); c.lineTo(x + w, y + h);
+    c.closePath(); c.fill();
+  }
+  function bindChartHover() {
+    var cv = $('chart'), tip = $('chartTip');
+    if (!cv || cv.__hoverBound) return; cv.__hoverBound = true;
+    cv.addEventListener('mousemove', function (e) {
+      var rect = cv.getBoundingClientRect(), mx = e.clientX - rect.left, bar = null;
+      for (var i = 0; i < chartBars.length; i++) { if (mx >= chartBars[i].x0 && mx < chartBars[i].x1) { bar = chartBars[i]; break; } }
+      if (!bar) { tip.hidden = true; return; }
+      var unit = state.metric === 'visitors' ? '명' : '회', mn = state.metric === 'visitors' ? '방문자' : '조회수';
+      var dl = bar.delta, dc = dl > 0 ? 'up' : dl < 0 ? 'down' : 'flat', ar = dl > 0 ? '▲' : dl < 0 ? '▼' : '';
+      tip.innerHTML = '<div class="tl">' + bar.tip + ' · ' + granName() + ' ' + mn + '</div>' +
+        '<div><span class="tv">' + fmt(bar.val) + '</span>' + unit + ' <span class="td ' + dc + '">' + (dl === 0 ? '–' : ar + fmt(Math.abs(dl))) + '</span></div>';
+      tip.hidden = false;
+      var tw = tip.offsetWidth;
+      tip.style.left = Math.max(2, Math.min(cv.clientWidth - tw - 2, bar.cx - tw / 2)) + 'px';
+      tip.style.top = Math.max(0, bar.top - tip.offsetHeight - 6) + 'px';
+    });
+    cv.addEventListener('mouseleave', function () { tip.hidden = true; });
   }
   function niceMax(v) { var p = Math.pow(10, Math.floor(Math.log10(v))); return Math.ceil(v / p) * p; }
   function hexA(h, a) { h = h.replace('#', ''); if (h.length === 3) h = h.split('').map(function (x) { return x + x; }).join(''); var n = parseInt(h, 16); return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; }
