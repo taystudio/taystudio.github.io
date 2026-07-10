@@ -11,7 +11,7 @@
  * 이전 = `/tools/sw.js` (scope `./tools/`)만 동작. 사이트 4 카테고리 확장 후 root scope로 통합.
  */
 
-const CACHE_VERSION = 'taystudio-v22';  // v22: nav Studios 드롭다운(Tools·Blog 대칭)+플랫 SVG 아이콘 — site-chrome.js·common/css/style.css 갱신 반영 (v21: /blog/ SW 캐시 제외)
+const CACHE_VERSION = 'taystudio-v23';  // v23: /dashboard/ SW 캐시 제외(옛 대시보드 캐시 문제 해결). v22: nav Studios 드롭다운+플랫 SVG 아이콘. v21: /blog/ SW 캐시 제외
 
 // install 시 즉시 캐시 — 루트 + 5 카테고리 hub + about + 공용 자산. 도구별 페이지·vendor는 navigate 시 자연 캐싱
 const STATIC_ASSETS = [
@@ -68,6 +68,9 @@ self.addEventListener('fetch', (event) => {
   if (url.pathname.indexOf('/blog/') === 0) return;
   // /_admin/ 은 blog dev-server API (health·save·build) — SW 가 절대 가로채면 안 됨 (캐시되면 게시 깨짐)
   if (url.pathname.indexOf('/_admin/') === 0) return;
+  // /dashboard/ 운영 대시보드는 SW 가 가로채지 않음 — worker 가 no-store 로 항상 최신 제공하므로
+  // SW(JS=stale-while-revalidate)에 묶이면 옛 버전이 뜬다. HTTP 헤더가 직접 캐시 관리하게 통과.
+  if (url.pathname.indexOf('/dashboard') === 0) return;
 
   // HTML: network-first
   if (req.mode === 'navigate' || req.headers.get('accept')?.includes('text/html')) {
