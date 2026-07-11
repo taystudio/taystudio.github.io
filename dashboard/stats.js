@@ -354,14 +354,26 @@
     loadCountryPages(cc).then(function (pages) {
       if (!pages || !pages.length) { det.innerHTML = '<span class="muted">이 국가의 페이지 데이터 없음</span>'; return; }
       var vis = state.cmetric === 'visitors', ky = vis ? 'u' : 'v', unit = vis ? '명' : '회';
-      var tot = pages.reduce(function (s, p) { return s + (p[ky] || 0); }, 0) || 1;
-      det.innerHTML = '<div class="cty-detail-h">' + ctyFlag(cc) + ' ' + esc(ctyName(cc)) + ' 가 본 페이지 (' + (vis ? '방문자' : '조회수') + ')</div>' +
-        pages.slice(0, 12).map(function (p) {
+      // 드릴은 상위 페이지만 옴(worker LIMIT). 국가 전체 합(카드 값)을 기준으로 "그 외"를 채워 정합.
+      var ctyObj = (cur.countries || []).filter(function (x) { return x.country === cc; })[0] || {};
+      var shown = pages.slice(0, 12);
+      var shownSum = shown.reduce(function (s, p) { return s + (p[ky] || 0); }, 0);
+      var tot = (ctyObj[ky] || 0) || pages.reduce(function (s, p) { return s + (p[ky] || 0); }, 0) || 1;
+      var rest = Math.max(0, tot - shownSum);
+      var html = '<div class="cty-detail-h">' + ctyFlag(cc) + ' ' + esc(ctyName(cc)) + ' 가 본 페이지 (' + (vis ? '방문자' : '조회수') + ') · 총 ' + fmt(tot) + unit + '</div>' +
+        shown.map(function (p) {
           var v = p[ky] || 0, pc = Math.round(v / tot * 100);
           return '<div class="cty-pg"><span class="pg-path">' + esc(p.path) + '</span>' +
             '<span class="pg-bar"><span style="width:' + Math.max(3, pc) + '%"></span></span>' +
             '<span class="pg-n"><b>' + fmt(v) + '</b>' + unit + '</span></div>';
         }).join('');
+      if (rest > 0) {
+        var rpc = Math.round(rest / tot * 100);
+        html += '<div class="cty-pg cty-pg-rest"><span class="pg-path muted">그 외 페이지</span>' +
+          '<span class="pg-bar"><span style="width:' + Math.max(3, rpc) + '%"></span></span>' +
+          '<span class="pg-n"><b>' + fmt(rest) + '</b>' + unit + '</span></div>';
+      }
+      det.innerHTML = html;
     });
   }
   function loadCountryPages(cc) {

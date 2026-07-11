@@ -413,6 +413,37 @@
     "lang": "ko"
   },
   {
+    "slug": "kaist-grad-mech-interview",
+    "title": "[입시] KAIST 대학원 면접 후기 (기계공학과) - 전공 구술시험 질문과 최종 탈락",
+    "date": "2026-07-11 16:31:32",
+    "excerpt": "2019년 KAIST 기계공학과 대학원 면접(구술시험) 후기입니다. 열-유체방과 동-고체방에서 실제로 받은 전공 질문, 그리고 최종 탈락하기까지의 과정을 그대로 정리했습니다.",
+    "category": [
+      "reviews",
+      "grad-school"
+    ],
+    "tags": [
+      "KAIST",
+      "카이스트",
+      "대학원",
+      "기계공학",
+      "기계공학과",
+      "대학원 면접",
+      "구술시험",
+      "전공시험",
+      "유체역학",
+      "열역학",
+      "고체역학",
+      "벤투리",
+      "이상기체",
+      "단면2차모멘트",
+      "Euler-Bernoulli",
+      "대학원 입시",
+      "2019"
+    ],
+    "image": "assets/posts/kaist-grad-mech-interview/cover.jpg",
+    "lang": "ko"
+  },
+  {
     "slug": "kaist-grad-mech-written-set1",
     "title": "[입시] 카이스트 대학원 필기시험 (기계공학과) - 후기(1)",
     "date": "2024-05-17",
