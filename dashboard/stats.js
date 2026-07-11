@@ -54,9 +54,15 @@
   function initSelfExclude() {
     var chk = $('noLogChk'); if (!chk) return;
     function has() { return document.cookie.indexOf('tay_nolog=1') > -1; }
-    function paint() { chk.checked = has(); $('noLogState').textContent = has() ? '· 제외 중 ✓' : ''; }
+    function setCookie(on) { document.cookie = 'tay_nolog=1; path=/; SameSite=Lax; max-age=' + (on ? 31536000 : 0); }
+    // 기본값 = 제외 ON (대시보드 여는 사람 = 운영자). 단 명시적으로 끈 적 있으면 존중.
+    var optedIn = false;
+    try { optedIn = localStorage.getItem('tay_nolog_off') === '1'; } catch (e) {}
+    if (!has() && !optedIn) setCookie(true);
+    function paint() { chk.checked = has(); $('noLogState').textContent = has() ? '· 제외 중 ✓ (기본)' : '· 집계에 포함됨'; }
     chk.onchange = function () {
-      document.cookie = 'tay_nolog=1; path=/; SameSite=Lax; max-age=' + (chk.checked ? 31536000 : 0);
+      setCookie(chk.checked);
+      try { if (chk.checked) localStorage.removeItem('tay_nolog_off'); else localStorage.setItem('tay_nolog_off', '1'); } catch (e) {}
       paint();
     };
     paint();
