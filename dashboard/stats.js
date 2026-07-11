@@ -160,17 +160,25 @@
     h += '오늘 <b>' + fmtDate(r.today) + '</b>';
     if (r.firstDay) h += '<span class="dot"></span>집계 시작 <b>' + fmtDate(r.firstDay) + '</b><span class="dot"></span><b>' + daysSince(r.firstDay, r.today) + '일째</b>';
     h += '<span class="dot"></span>' + rangeTxt;
-    var whoTxt = state.who === 'bot' ? '<b style="color:var(--accent)">봇만</b>' : state.who === 'all' ? '<b>사람+봇 전체</b>' : '<b style="color:var(--success)">사람만</b>';
+    var whoTxt = state.who === 'bot' ? '<b style="color:var(--accent)">봇만</b>' : state.who === 'all' ? '<b>사람+봇 전체</b>' : state.who === 'confirmed' ? '<b style="color:var(--success)">확인된 사람만</b>' : '<b style="color:var(--success)">사람만</b>';
     h += '<span class="dot"></span>' + whoTxt;
     if (state.who === 'human' && d.botViews > 0) h += '<span class="dot"></span>봇 ' + fmt(d.botViews) + '회 제외됨';
+    if (state.who === 'confirmed') h += '<span class="dot"></span><span style="color:var(--faint)">그래프·상단 지표만 확인된 사람 · 아래 채널·국가 분해는 휴리스틱 사람 기준</span>';
     $('asof').innerHTML = h;
 
     if (state.path) { document.body.classList.add('drilled'); $('curPath').textContent = state.path; }
     else document.body.classList.remove('drilled');
 
-    // KPI + delta
-    var k = d.kpi;
-    var cells = [
+    // KPI + delta (확인된 사람 뷰면 비콘 수치로, '누적' 대신 '기간')
+    var k = d.kpi, cf = d.confirmed || {};
+    var cells = state.who === 'confirmed' ? [
+      { l: '오늘 조회수', n: cf.todayViews, u: '회', dl: (cf.todayViews || 0) - (cf.ydayViews || 0) },
+      { l: '어제 조회수', n: cf.ydayViews, u: '회' },
+      { l: '기간 조회수', n: cf.rangeViews, u: '회' },
+      { l: '오늘 방문자', n: cf.todayVisitors, u: '명', dl: (cf.todayVisitors || 0) - (cf.ydayVisitors || 0) },
+      { l: '어제 방문자', n: cf.ydayVisitors, u: '명' },
+      { l: '기간 방문자', n: cf.rangeVisitors, u: '명' }
+    ] : [
       { l: '오늘 조회수', n: k.todayViews, u: '회', dl: k.todayViews - k.ydayViews },
       { l: '어제 조회수', n: k.ydayViews, u: '회' },
       { l: '누적 조회수', n: k.totalViews, u: '회' },
@@ -439,7 +447,7 @@
     return day;
   }
   function aggSeries() {
-    var daily = cur.daily || [];
+    var daily = (state.who === 'confirmed' ? cur.confirmedDaily : cur.daily) || [];
     if (state.gran === 'day') return daily.map(function (d) { return { day: d.day, v: d.v, u: d.u }; });
     var m = {}, order = [];
     daily.forEach(function (d) {
@@ -582,6 +590,7 @@
       path: st.path,
       wow: { cur: { views: w1, visitors: Math.round(w1 * 0.72) }, prev: { views: w2, visitors: Math.round(w2 * 0.72) } },
       confirmed: { todayViews: Math.round(t.v * 0.45), todayVisitors: Math.round(t.u * 0.4), ydayViews: Math.round(y.v * 0.45), ydayVisitors: Math.round(y.u * 0.4), rangeViews: Math.round(rangeV * 0.45), rangeVisitors: Math.round(rangeV * 0.3) },
+      confirmedDaily: arr.map(function (x) { return { day: x.day, v: Math.max(0, Math.round(x.v * 0.45)), u: Math.max(0, Math.round(x.u * 0.4)) }; }),
       misses: st.path ? [] : [
         { path: '/blog/ko/POST/ko/tags/', ref_host: '', v: 4, ts: '', ua: 'Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)', asorg: 'Hetzner Online GmbH' },
         { path: '/tools/salaray/', ref_host: 'search.naver.com', v: 3, ts: '', ua: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0) AppleWebKit/605.1.15 Mobile Safari', asorg: 'SK Broadband' },

@@ -231,7 +231,7 @@
         <h1>TAYSTUDIO 통계 <span class="demo-badge">DEMO</span><span class="rt" id="rt" title=""><span class="rt-dot"></span>지금 <b id="rtN">0</b>명</span></h1>
         <div class="controls">
           <div class="seg" id="whoSeg">
-            <button data-who="human" class="on">사람</button><button data-who="bot">봇</button><button data-who="all">전체</button>
+            <button data-who="human" class="on" title="추정 사람(상한선) — 명백한 봇(데이터센터 IP·봇 UA·CF검증봇)만 제외. 거주지IP 프록시·브라우저 UA 위장 봇은 못 걸러서 일부 섞임">사람</button><button data-who="confirmed" title="확인된 사람(하한선) — JS 실행+렌더+체류(1.2초)까지 통과한 실브라우저만(비콘). 순수 사람에 가장 가까움. 단 애드블록 사용자는 빠짐">확인된 사람</button><button data-who="bot" title="봇으로 판정된 요청만 (데이터센터·봇 UA·검증봇)">봇</button><button data-who="all" title="봇 포함 모든 요청 (원시 전체)">전체</button>
           </div>
           <div class="seg" id="rangeSeg">
             <button data-days="7">7일</button><button data-days="30" class="on">30일</button><button data-days="90">90일</button><button data-days="all">전체</button>
