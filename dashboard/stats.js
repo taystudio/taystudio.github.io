@@ -6,7 +6,7 @@
   var TKEY = 'tay_stats_token';
   var DOW = ['일', '월', '화', '수', '목', '금', '토'];
 
-  var state = { days: 30, metric: 'views', cmetric: 'views', gran: 'day', chartType: 'bar', path: null, token: null, demo: false, cal: null, who: 'human' };
+  var state = { days: 30, metric: 'views', cmetric: 'views', gran: 'day', chartType: 'bar', path: null, section: '', token: null, demo: false, cal: null, who: 'human' };
   var CHAN_COL = { '검색': '#2563eb', 'SNS': '#f59e0b', '직접': '#94a3b8', '기타': '#64748b' };
   var DEV_COL = { 'mobile': '#2563eb', 'desktop': '#10b981', 'tablet': '#f59e0b', 'unknown': '#94a3b8' };
   var SRC_LABEL = {
@@ -95,6 +95,10 @@
     $('whoSeg').querySelectorAll('button').forEach(function (b) {
       b.onclick = function () { state.who = b.dataset.who; seg('whoSeg', b); load(); };
     });
+    var ssg = $('sectionSeg');
+    if (ssg) ssg.querySelectorAll('button').forEach(function (b) {
+      b.onclick = function () { state.section = b.dataset.section; state.path = null; seg('sectionSeg', b); load(); };
+    });
     $('metricSeg').querySelectorAll('button').forEach(function (b) {
       b.onclick = function () { state.metric = b.dataset.metric; seg('metricSeg', b); draw(); };
     });
@@ -120,7 +124,7 @@
   var cur = null, byDay = {};
   function load() {
     if (state.demo) { cur = mock(state); afterLoad(); return; }
-    var u = '/_stats/query?token=' + encodeURIComponent(state.token) + '&days=' + state.days + '&who=' + state.who + (state.path ? '&path=' + encodeURIComponent(state.path) : '');
+    var u = '/_stats/query?token=' + encodeURIComponent(state.token) + '&days=' + state.days + '&who=' + state.who + (state.path ? '&path=' + encodeURIComponent(state.path) : '') + (state.section ? '&section=' + state.section : '');
     fetch(u, { cache: 'no-store' })
       .then(function (r) {
         if (r.status === 401) throw new Error('토큰이 틀렸습니다');
@@ -386,7 +390,7 @@
   }
   function loadCountryPages(cc) {
     if (state.demo) return Promise.resolve(mockCountryPages(cc));
-    var u = '/_stats/country?token=' + encodeURIComponent(state.token) + '&days=' + state.days + '&who=' + state.who + '&country=' + encodeURIComponent(cc);
+    var u = '/_stats/country?token=' + encodeURIComponent(state.token) + '&days=' + state.days + '&who=' + state.who + '&country=' + encodeURIComponent(cc) + (state.section ? '&section=' + state.section : '');
     return fetch(u, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : { pages: [] }; })
       .then(function (d) { return d.pages || []; }).catch(function () { return []; });
   }
@@ -569,7 +573,7 @@
   /* ── 목데이터 ── */
   function mock(st) {
     var days = st.days === 'all' ? 62 : st.days, arr = [], base = new Date();
-    var scale = (st.path ? 0.15 : 1) * (st.who === 'bot' ? 0.9 : st.who === 'all' ? 1.9 : 1);
+    var scale = (st.path ? 0.15 : 1) * (st.who === 'bot' ? 0.9 : st.who === 'all' ? 1.9 : 1) * (st.section === 'blog' ? 0.18 : st.section === 'tools' ? 0.82 : 1);
     var isBot = st.who === 'bot';
     for (var i = days - 1; i >= 0; i--) {
       var dt = new Date(base.getTime() - i * 86400000), dow = dt.getDay();
@@ -579,7 +583,7 @@
     }
     var rangeV = arr.reduce(function (s, x) { return s + x.v; }, 0);
     var t = arr[arr.length - 1], y = arr[arr.length - 2] || t;
-    var mul = st.path ? 40 : 300;
+    var mul = st.path ? 40 : (st.section === 'blog' ? 48 : st.section === 'tools' ? 250 : 300);
     var w1 = arr.slice(-7).reduce(function (s, x) { return s + x.v; }, 0);
     var w2 = arr.slice(-14, -7).reduce(function (s, x) { return s + x.v; }, 0) || Math.round(w1 * 0.85);
     return {
@@ -607,8 +611,12 @@
       sources: [['google.com', '검색', .34], ['m.search.naver.com', '검색', .24], ['search.naver.com', '검색', .11],
         ['daum.net', '검색', .05], ['bing.com', '검색', .02], ['instagram.com', 'SNS', .04], ['youtube.com', 'SNS', .02], ['t.co', 'SNS', .01], ['tistory.com', '기타', .02]]
         .map(function (s) { return { ref_host: s[0], channel: s[1], v: Math.max(1, Math.round(rangeV * s[2])) }; }),
-      topPages: st.path ? [] : [['/tools/salary/', .22], ['/tools/', .14], ['/blog/ko/yonsei-grad-mech-interview/', .11],
-        ['/image/compress/', .1], ['/pdf/merge/', .08], ['/tools/year-end/', .07], ['/', .06], ['/tools/bmi/', .05], ['/text/symbols/', .05], ['/baby/', .04]]
+      topPages: st.path ? [] : (st.section === 'blog'
+        ? [['/blog/ko/yonsei-grad-mech-interview/', .28], ['/blog/ko/kaist-grad-mech-interview/', .21], ['/blog/', .16], ['/blog/ko/aws-cost-optimization/', .13], ['/blog/ko/seo-google-sandbox-1month/', .12], ['/blog/en/kaist-grad-mech-interview/', .1]]
+        : st.section === 'tools'
+        ? [['/tools/salary/', .26], ['/tools/', .17], ['/image/compress/', .13], ['/pdf/merge/', .11], ['/tools/year-end/', .09], ['/', .08], ['/tools/bmi/', .06], ['/text/symbols/', .05]]
+        : [['/tools/salary/', .22], ['/tools/', .14], ['/blog/ko/yonsei-grad-mech-interview/', .11],
+        ['/image/compress/', .1], ['/pdf/merge/', .08], ['/tools/year-end/', .07], ['/', .06], ['/tools/bmi/', .05], ['/text/symbols/', .05], ['/baby/', .04]])
         .map(function (p) { var vv = Math.round(rangeV * p[1]); return { path: p[0], v: vv, u: Math.round(vv * 0.72) }; })
     };
   }
