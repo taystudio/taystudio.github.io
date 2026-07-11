@@ -60,8 +60,8 @@
   .selfex input{cursor:pointer;margin:0}
   .selfex .dim{color:var(--faint)}
   .selfex b{color:var(--success);font-weight:700;margin-left:2px}
-  .confbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:rgba(16,185,129,.08);
-    border:1px solid rgba(16,185,129,.28);border-radius:14px;padding:12px 18px;margin-bottom:16px;font-size:13px}
+  .confbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:rgba(16,185,129,.08);
+    border:1px solid rgba(16,185,129,.28);border-radius:14px;padding:15px 20px;margin:4px 0 22px;font-size:13px}
   .confbar .ic{width:20px;height:20px;flex:none;color:var(--success)}
   .confbar b{font-size:20px;font-weight:800;letter-spacing:-.02em;color:var(--text)}
   .confbar .lab{font-weight:700;color:var(--success)}
@@ -73,14 +73,14 @@
   .seg button{border:0;background:transparent;color:var(--muted);font-size:12.5px;font-weight:600;
     padding:6px 12px;cursor:pointer;font-family:inherit}
   .seg button.on{background:var(--primary);color:#fff}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 20px;
-    box-shadow:var(--shadow);margin-bottom:16px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 22px;
+    box-shadow:var(--shadow);margin-bottom:22px}
   .sec-title{font-size:14px;font-weight:700;margin:0 0 4px}
   .sec-note{font-size:11.5px;color:var(--faint);margin:0 0 14px}
   /* KPI */
   .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:0;
     background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);
-    overflow:hidden;margin-bottom:16px}
+    overflow:hidden;margin-bottom:22px}
   .kpi .cell{padding:16px 18px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
   .kpi .cell:nth-child(3n){border-right:0}
   .kpi .cell:nth-child(n+4){border-bottom:0}
@@ -123,6 +123,8 @@
   .chart-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
   .chart-title{font-size:14px;font-weight:700}
   .chart-segs{display:flex;gap:8px;flex-wrap:wrap}
+  .chart-legend{display:flex;gap:16px;justify-content:flex-end;font-size:12px;color:var(--muted);margin-top:8px}
+  .chart-legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
   .chartwrap{width:100%;position:relative}.chartwrap canvas{width:100%;height:auto;display:block}
   .chart-tip{position:absolute;pointer-events:none;background:var(--card);border:1px solid var(--border);
     border-radius:9px;box-shadow:var(--shadow);padding:7px 11px;font-size:12px;white-space:nowrap;z-index:5;line-height:1.5}
@@ -154,7 +156,7 @@
   .cal-legend{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--faint);justify-content:flex-end;margin-top:10px}
   .cal-legend i{width:14px;height:12px;border-radius:3px}
   /* 2col */
-  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
   @media(max-width:680px){.cols{grid-template-columns:1fr}}
   .bar-row{display:grid;grid-template-columns:82px 1fr 84px;align-items:center;gap:10px;margin:9px 0;font-size:13px}
   .bar-row.wide{grid-template-columns:132px 1fr 84px}
@@ -255,6 +257,9 @@
         <div class="chart-head">
           <span class="chart-title">추이</span>
           <div class="chart-segs">
+            <div class="seg" id="typeSeg">
+              <button data-type="bar" class="on">막대</button><button data-type="line">선</button>
+            </div>
             <div class="seg" id="metricSeg">
               <button data-metric="views" class="on">조회수</button><button data-metric="visitors">방문자</button>
             </div>
@@ -264,6 +269,7 @@
           </div>
         </div>
         <div class="chartwrap"><canvas id="chart" width="920" height="300" aria-label="추이"></canvas><div class="chart-tip" id="chartTip" hidden></div></div>
+        <div class="chart-legend" id="chartLegend" hidden><span><i style="background:var(--views)"></i>조회수</span><span><i style="background:var(--visitors)"></i>방문자</span></div>
       </div>
 
       <!-- 캘린더 -->

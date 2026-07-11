@@ -6,7 +6,7 @@
   var TKEY = 'tay_stats_token';
   var DOW = ['일', '월', '화', '수', '목', '금', '토'];
 
-  var state = { days: 30, metric: 'views', cmetric: 'views', gran: 'day', path: null, token: null, demo: false, cal: null, who: 'human' };
+  var state = { days: 30, metric: 'views', cmetric: 'views', gran: 'day', chartType: 'bar', path: null, token: null, demo: false, cal: null, who: 'human' };
   var CHAN_COL = { '검색': '#2563eb', 'SNS': '#f59e0b', '직접': '#94a3b8', '기타': '#64748b' };
   var DEV_COL = { 'mobile': '#2563eb', 'desktop': '#10b981', 'tablet': '#f59e0b', 'unknown': '#94a3b8' };
   var SRC_LABEL = {
@@ -100,6 +100,10 @@
     });
     $('granSeg').querySelectorAll('button').forEach(function (b) {
       b.onclick = function () { state.gran = b.dataset.gran; seg('granSeg', b); draw(); };
+    });
+    var ts = $('typeSeg');
+    if (ts) ts.querySelectorAll('button').forEach(function (b) {
+      b.onclick = function () { state.chartType = b.dataset.type; seg('typeSeg', b); draw(); };
     });
     bindChartHover();
     $('ctyMetricSeg').querySelectorAll('button').forEach(function (b) {
@@ -209,10 +213,14 @@
     if (!w) { $('wow').innerHTML = '<p class="muted">데이터 없음</p>'; return; }
     var rows = [['조회수', w.cur.views, w.prev.views], ['방문자', w.cur.visitors, w.prev.visitors]];
     $('wow').innerHTML = rows.map(function (r) {
-      var cur = r[1], prev = r[2], pct = prev > 0 ? Math.round((cur - prev) / prev * 100) : (cur > 0 ? 100 : 0);
-      var cls = pct > 0 ? 'up' : pct < 0 ? 'down' : 'flat';
-      var arrow = pct > 0 ? '▲' : pct < 0 ? '▼' : '–';
-      var dtxt = prev === 0 && cur === 0 ? '–' : (arrow + ' ' + Math.abs(pct) + '%');
+      var cur = r[1], prev = r[2], cls, dtxt;
+      if (prev === 0) {                                  // 지난주 0 = 비교 대상 없음 → % 무의미, "신규"
+        dtxt = cur > 0 ? '신규' : '–'; cls = cur > 0 ? 'up' : 'flat';
+      } else {
+        var pct = Math.round((cur - prev) / prev * 100);
+        cls = pct > 0 ? 'up' : pct < 0 ? 'down' : 'flat';
+        dtxt = (pct > 0 ? '▲ ' : pct < 0 ? '▼ ' : '') + Math.abs(pct) + '%';
+      }
       return '<div class="wow-row"><span class="wlab">' + r[0] + '</span>' +
         '<span><span class="wv">' + fmt(cur) + '</span><span class="wp">지난주 ' + fmt(prev) + '</span></span>' +
         '<span class="wd ' + cls + '">' + dtxt + '</span></div>';
@@ -462,15 +470,43 @@
     c.strokeStyle = 'rgba(128,128,128,.13)'; c.fillStyle = muted; c.font = '10.5px sans-serif'; c.lineWidth = 1; c.textAlign = 'left';
     for (var g = 0; g <= 4; g++) { var gv = maxV * g / 4, gy = Y(gv); c.beginPath(); c.moveTo(padL, gy); c.lineTo(cssW - padR, gy); c.stroke(); c.fillText(fmt(Math.round(gv)), 2, gy - 2); }
     var today = (cur.range && cur.range.today) || '';
-    var step = Math.max(1, Math.ceil(n / 8)), prev = 0, r = Math.min(3, barW / 2);
-    for (var i = 0; i < n; i++) {
-      var d = series[i], val = d[mk], cx = padL + slot * i + slot / 2;
-      var h = Math.max(val > 0 ? 2 : 0, (val / maxV) * plotH), y = cssH - padB - h;
-      var isToday = state.gran === 'day' && d.day === today;
-      c.fillStyle = isToday ? '#ef4444' : col;
-      roundRectTop(c, cx - barW / 2, y, barW, h, r);
-      chartBars.push({ x0: padL + slot * i, x1: padL + slot * (i + 1), cx: cx, top: y, val: val, tip: tipLabel(d.day, state.gran), delta: val - prev });
-      prev = val;
+    var step = Math.max(1, Math.ceil(n / 8)), prev = 0;
+    if (state.chartType === 'line') {
+      var pts = [];
+      for (var i = 0; i < n; i++) {
+        var d = series[i], val = d[mk], cx = padL + slot * i + slot / 2, py = Y(val);
+        pts.push({ x: cx, y: py, day: d.day, val: val });
+        chartBars.push({ x0: padL + slot * i, x1: padL + slot * (i + 1), cx: cx, top: py, val: val, tip: tipLabel(d.day, state.gran), delta: val - prev });
+        prev = val;
+      }
+      // 면적 채우기 (옅게)
+      c.beginPath(); c.moveTo(pts[0].x, cssH - padB);
+      for (var a = 0; a < pts.length; a++) c.lineTo(pts[a].x, pts[a].y);
+      c.lineTo(pts[pts.length - 1].x, cssH - padB); c.closePath();
+      c.fillStyle = hexA(col, 0.10); c.fill();
+      // 선
+      c.beginPath(); c.moveTo(pts[0].x, pts[0].y);
+      for (var b2 = 1; b2 < pts.length; b2++) c.lineTo(pts[b2].x, pts[b2].y);
+      c.strokeStyle = col; c.lineWidth = 2; c.lineJoin = 'round'; c.stroke();
+      // 점 (오늘 강조, 촘촘하면 생략)
+      var dot = n > 40 ? 0 : 2.5;
+      for (var p2 = 0; p2 < pts.length; p2++) {
+        var isT = state.gran === 'day' && pts[p2].day === today;
+        if (!isT && dot === 0) continue;
+        c.beginPath(); c.arc(pts[p2].x, pts[p2].y, isT ? 4 : dot, 0, Math.PI * 2);
+        c.fillStyle = isT ? '#ef4444' : col; c.fill();
+      }
+    } else {
+      var r = Math.min(3, barW / 2);
+      for (var i2 = 0; i2 < n; i2++) {
+        var d2 = series[i2], val2 = d2[mk], cx2 = padL + slot * i2 + slot / 2;
+        var h = Math.max(val2 > 0 ? 2 : 0, (val2 / maxV) * plotH), y = cssH - padB - h;
+        var isToday = state.gran === 'day' && d2.day === today;
+        c.fillStyle = isToday ? '#ef4444' : col;
+        roundRectTop(c, cx2 - barW / 2, y, barW, h, r);
+        chartBars.push({ x0: padL + slot * i2, x1: padL + slot * (i2 + 1), cx: cx2, top: y, val: val2, tip: tipLabel(d2.day, state.gran), delta: val2 - prev });
+        prev = val2;
+      }
     }
     // x축 날짜 라벨 (크게, 가운데 정렬)
     c.fillStyle = textc; c.font = '12.5px sans-serif'; c.textAlign = 'center';
