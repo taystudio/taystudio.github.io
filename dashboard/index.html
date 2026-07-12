@@ -150,6 +150,10 @@
   .cal-cell.future{opacity:.4}
   .cal-cell .dnum{font-size:11px;color:var(--muted);font-weight:600}
   .cal-cell.today{outline:2px solid var(--primary);outline-offset:-2px}
+  .cal-cell.has{cursor:pointer}
+  .cal-cell.has:hover{outline:2px solid var(--views);outline-offset:-2px}
+  .cal-cell.selday{outline:2px solid var(--views);outline-offset:-2px}
+  .cal-detail{margin-top:12px}
   .cal-cell .nums{display:flex;flex-direction:column;align-items:flex-end;line-height:1.15}
   .cal-cell .cv{font-size:13px;font-weight:800;letter-spacing:-.02em}
   .cal-cell .cu{font-size:10px;font-weight:600;opacity:.82}
@@ -289,7 +293,8 @@
           </div>
         </div>
         <div class="cal-grid" id="cal"></div>
-        <div class="cal-legend">적음 <i style="background:rgba(37,99,235,.15)"></i><i style="background:rgba(37,99,235,.4)"></i><i style="background:rgba(37,99,235,.7)"></i><i style="background:var(--primary)"></i> 많음 · 색 = 조회수 · 칸: 위 조회수 / 아래 방문자</div>
+        <div class="cal-legend">적음 <i style="background:rgba(37,99,235,.15)"></i><i style="background:rgba(37,99,235,.4)"></i><i style="background:rgba(37,99,235,.7)"></i><i style="background:var(--primary)"></i> 많음 · 색 = 조회수 · 칸: 위 조회수 / 아래 방문자 · <b style="color:var(--primary)">날짜 클릭 → 그날 글별</b></div>
+        <div class="cal-detail" id="calDetail" hidden></div>
       </div>
 
       <div class="cols">

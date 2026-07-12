@@ -412,6 +412,7 @@
   }
   function calendar() {
     if (!state.cal) return;
+    var _cd = $('calDetail'); if (_cd) { _cd.hidden = true; _cd.innerHTML = ''; }
     var y = state.cal.y, m = state.cal.m;
     $('calMon').textContent = y + '. ' + m;
     var today = (cur.range && cur.range.today) || '';
@@ -431,10 +432,49 @@
         cls += ' has'; style = 'background:rgba(37,99,235,' + a.toFixed(2) + ');';
         inner = '<span class="nums"><span class="cv">' + fmt(data.v) + '<i>회</i></span><span class="cu">' + fmt(data.u) + '<i>명</i></span></span>';
       }
-      var tip = ds + (data ? ' · 조회 ' + fmt(data.v) + ' · 방문자 ' + fmt(data.u) : ' · 데이터 없음');
-      html += '<div class="' + cls + '" style="' + style + '" title="' + tip + '"><span class="dnum">' + day + '</span>' + inner + '</div>';
+      var tip = ds + (data ? ' · 조회 ' + fmt(data.v) + ' · 방문자 ' + fmt(data.u) + ' · 클릭 → 글별' : ' · 데이터 없음');
+      var dsAttr = (data && data.v > 0) ? ' data-ds="' + ds + '"' : '';
+      html += '<div class="' + cls + '" style="' + style + '" title="' + tip + '"' + dsAttr + '><span class="dnum">' + day + '</span>' + inner + '</div>';
     }
     $('cal').innerHTML = html;
+    $('cal').querySelectorAll('.cal-cell.has').forEach(function (c) { c.onclick = function () { selectCalDay(c.dataset.ds, c); }; });
+  }
+  function selectCalDay(ds, cell) {
+    $('cal').querySelectorAll('.cal-cell.selday').forEach(function (c) { c.classList.remove('selday'); });
+    if (cell) cell.classList.add('selday');
+    var det = $('calDetail'); if (!det) return;
+    det.hidden = false;
+    det.innerHTML = '<div class="cty-detail"><div class="cty-detail-h">' + ds + ' 글별 · 불러오는 중…</div></div>';
+    loadDayPages(ds).then(function (pages) {
+      var vis = state.metric === 'visitors', ky = vis ? 'u' : 'v', unit = vis ? '명' : '회';
+      var scope = state.section === 'blog' ? '블로그 ' : state.section === 'tools' ? '도구 ' : '';
+      if (!pages || !pages.length) { det.innerHTML = '<div class="cty-detail"><div class="cty-detail-h">' + ds + ' · ' + scope + '데이터 없음</div></div>'; return; }
+      var top = pages.slice(0, 15);
+      var tot = pages.reduce(function (s, p) { return s + (p[ky] || 0); }, 0) || 1;
+      var maxv = Math.max.apply(null, top.map(function (p) { return p[ky] || 0; })) || 1;
+      det.innerHTML = '<div class="cty-detail"><div class="cty-detail-h">' + ds + ' · ' + scope + '글별 ' + (vis ? '방문자' : '조회수') + ' · 총 ' + fmt(tot) + unit + '</div>' +
+        top.map(function (p) {
+          var v = p[ky] || 0, pc = Math.round(v / maxv * 100);
+          return '<div class="cty-pg"><span class="pg-path">' + esc(p.path) + '</span>' +
+            '<span class="pg-bar"><span style="width:' + Math.max(3, pc) + '%"></span></span>' +
+            '<span class="pg-n"><b>' + fmt(v) + '</b>' + unit + '</span></div>';
+        }).join('') + '</div>';
+    });
+  }
+  function loadDayPages(ds) {
+    if (state.demo) return Promise.resolve(mockDayPages(ds));
+    var u = '/_stats/day?token=' + encodeURIComponent(state.token) + '&day=' + ds + '&who=' + state.who + (state.section ? '&section=' + state.section : '');
+    return fetch(u, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : { pages: [] }; })
+      .then(function (d) { return d.pages || []; }).catch(function () { return []; });
+  }
+  function mockDayPages(ds) {
+    var seed = parseInt(ds.replace(/-/g, ''), 10) % 7 + 3;
+    var pool = state.section === 'blog'
+      ? [['/blog/ko/career-samsung-dx-gcs-2026/', 9], ['/blog/ko/kaist-grad-mech-interview/', 6], ['/blog/', 4], ['/blog/ko/seo-google-sandbox-1month/', 3], ['/blog/ko/aws-cost-optimization/', 2]]
+      : state.section === 'tools'
+        ? [['/tools/salary/', 12], ['/tools/', 7], ['/image/compress/', 5], ['/pdf/merge/', 3], ['/tools/bmi/', 2]]
+        : [['/tools/salary/', 11], ['/blog/ko/career-samsung-dx-gcs-2026/', 7], ['/tools/', 6], ['/image/compress/', 4], ['/blog/', 3]];
+    return pool.map(function (p) { var v = Math.max(1, Math.round(p[1] * seed / 5)); return { path: p[0], v: v, u: Math.max(1, Math.round(v * 0.7)) }; });
   }
   function key(y, m, d) { return y + '-' + p2(m) + '-' + p2(d); }
   function p2(n) { return (n < 10 ? '0' : '') + n; }
