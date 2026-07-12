@@ -216,6 +216,32 @@
     "lang": "ko"
   },
   {
+    "slug": "career-samsung-dx-gcs-2026",
+    "title": "[경력] 삼성전자 DX G-CS 경력 채용 면접 후기 (AI Vision·데이터 최적화)",
+    "date": "2026-07-12 10:25:08",
+    "excerpt": "2025년 말~2026년 초에 겪은 삼성전자 DX부문 G-CS(Global CS센터) 경력 채용 후기입니다. 서류·전화면접·CBT·Work Sampling·직무(부서장)면접까지의 전형 과정을 기록했습니다.",
+    "category": [
+      "reviews",
+      "career"
+    ],
+    "tags": [
+      "삼성전자",
+      "삼성전자DX",
+      "G-CS",
+      "경력채용",
+      "경력이직",
+      "직무면접",
+      "Work Sampling",
+      "CBT",
+      "AI Vision",
+      "백엔드",
+      "개발자 면접",
+      "2026"
+    ],
+    "image": "assets/posts/career-samsung-dx-gcs-2026/cover.jpg",
+    "lang": "ko"
+  },
+  {
     "slug": "career-sk-ax-newgrad-2023",
     "title": "[신입 공채] SK AX (구 C&C) - 코테 및 면접 (최종 합격) 후기",
     "date": "2023-12-05",
@@ -440,7 +466,7 @@
       "대학원 입시",
       "2019"
     ],
-    "image": "assets/posts/kaist-grad-mech-interview/cover.jpg",
+    "image": "assets/posts/kaist-grad-mech-interview/cover.webp",
     "lang": "ko"
   },
   {
@@ -466,7 +492,7 @@
       "유체역학",
       "2019"
     ],
-    "image": "assets/posts/kaist-grad-mech-written-set1/cover.jpg",
+    "image": "assets/posts/kaist-grad-mech-written-set1/cover.webp",
     "lang": "ko"
   },
   {
@@ -494,7 +520,7 @@
       "Navier-Stokes",
       "2019"
     ],
-    "image": "assets/posts/kaist-grad-mech-written-set2/cover.jpg",
+    "image": "assets/posts/kaist-grad-mech-written-set2/cover.webp",
     "lang": "ko"
   },
   {
