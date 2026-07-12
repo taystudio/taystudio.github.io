@@ -166,7 +166,7 @@
   <link rel="stylesheet" href="/common/css/style.css">
   <style>
     .editor-wrap { margin-top:14px; background:#fff; border:1px solid var(--border); border-radius:8px; padding:8px; overflow:auto; max-height:70vh; display:flex; align-items:flex-start; justify-content:center; }
-    .editor-wrap canvas { max-width:100%; cursor:crosshair; touch-action:none; display:block; }
+    .editor-wrap canvas { cursor:crosshair; touch-action:none; display:block; }
     .opt-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:12px; margin-top:14px; }
     .opt-grid .field label { display:block; margin-bottom:4px; font-size:12.5px; color:var(--muted); }
     .opt-grid .field input, .opt-grid .field select { width:100%; padding:8px 10px; font-size:14px; border:1px solid var(--border); border-radius:6px; background:var(--card); color:var(--text); }
@@ -174,6 +174,9 @@
     .zoom-row { display:flex; align-items:center; gap:10px; margin-top:14px; padding:8px 12px; background:var(--bg); border:1px solid var(--border); border-radius:8px; }
     .zoom-row label { font-size:12.5px; color:var(--muted); white-space:nowrap; }
     .zoom-row input[type="range"] { flex:1; min-width:80px; }
+    #panToggle { display:inline-flex; align-items:center; gap:5px; }
+    #panToggle svg { width:14px; height:14px; }
+    #panToggle.on { background:var(--primary); color:#fff; border-color:var(--primary); }
     .zoom-row .zval { font-size:12.5px; font-weight:600; min-width:54px; text-align:right; font-variant-numeric:tabular-nums; }
     .zoom-row button { width:auto; padding:4px 10px; font-size:13px; background:var(--card); border:1px solid var(--border); border-radius:5px; cursor:pointer; color:var(--text); }
     .zoom-row button:hover { border-color:var(--primary); color:var(--primary); }
@@ -235,10 +238,11 @@
       <div class="zoom-row" id="zoomRow" hidden>
         <label>크기</label>
         <button type="button" id="zoomMinus" title="축소">−</button>
-        <input type="range" id="zoomIn" min="0.3" max="3" step="0.1" value="1">
+        <input type="range" id="zoomIn" min="0.3" max="5" step="0.1" value="1">
         <button type="button" id="zoomPlus" title="확대">+</button>
         <span class="zval" id="zoomVal">100%</span>
         <button type="button" id="zoomFit" title="기본 크기로">Fit</button>
+        <button type="button" id="panToggle" aria-pressed="false" title="켜면 드래그로 화면을 이동(팬)합니다. 끄면 드래그로 모자이크를 그립니다."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 11V6.5a1.5 1.5 0 0 0-3 0"/><path d="M15 10.5V5a1.5 1.5 0 0 0-3 0v5"/><path d="M12 10V5.5a1.5 1.5 0 0 0-3 0V12"/><path d="M9 12v-1.5a1.5 1.5 0 0 0-3 0V13c0 3.9 2.6 6.5 6 6.5h1.5A4.5 4.5 0 0 0 18 15v-4"/></svg>이동</button>
         <span class="dim" id="dimVal"></span>
       </div>
 

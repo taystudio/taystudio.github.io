@@ -22,6 +22,7 @@
   const zoomMinus = document.getElementById('zoomMinus');
   const zoomPlus = document.getElementById('zoomPlus');
   const zoomFit = document.getElementById('zoomFit');
+  const panToggle = document.getElementById('panToggle');
   const dimVal = document.getElementById('dimVal');
 
   const state = {
@@ -30,7 +31,9 @@
     boxes: [],   // { x, y, w, h, mode }  in image coords
     drawing: null,
     zoom: 1.0,   // fit-scale 위 배율 (0.3~3.0)
+    panMode: false,   // true면 드래그 = 화면 이동(팬), false면 모자이크 그리기
   };
+  let panning = null;
 
   // 드래그 frame drop 방지:
   //  - committed 박스 합성 결과는 offscreen 캐시(`bakedCanvas`)에 보관
@@ -108,12 +111,15 @@
     const maxH = Math.max(280, window.innerHeight * 0.6);
     const fitScale = Math.min(1, maxW / cv.width, maxH / cv.height);
     const finalScale = fitScale * state.zoom;
-    cv.style.width = Math.round(cv.width * finalScale) + 'px';
+    const cssW = Math.round(cv.width * finalScale);
+    cv.style.width = cssW + 'px';
     cv.style.height = Math.round(cv.height * finalScale) + 'px';
+    // 확대로 캔버스가 컨테이너보다 넓으면 좌측 정렬(스크롤로 좌측 끝까지 도달) · 작으면 가운데
+    wrap.style.justifyContent = cssW > (wrap.clientWidth - 16) ? 'flex-start' : 'center';
   }
 
   function setZoom(z, fromSlider) {
-    state.zoom = Math.max(0.3, Math.min(3, z));
+    state.zoom = Math.max(0.3, Math.min(5, z));
     if (!fromSlider) zoomIn.value = state.zoom;
     zoomVal.textContent = Math.round(state.zoom * 100) + '%';
     applyZoom();
@@ -122,6 +128,12 @@
   zoomMinus.addEventListener('click', () => setZoom(state.zoom - 0.1));
   zoomPlus.addEventListener('click', () => setZoom(state.zoom + 0.1));
   zoomFit.addEventListener('click', () => setZoom(1.0));
+  if (panToggle) panToggle.addEventListener('click', () => {
+    state.panMode = !state.panMode;
+    panToggle.classList.toggle('on', state.panMode);
+    panToggle.setAttribute('aria-pressed', state.panMode ? 'true' : 'false');
+    cv.style.cursor = state.panMode ? 'grab' : 'crosshair';
+  });
   window.addEventListener('resize', () => { if (state.bitmap) applyZoom(); });
 
   function toggleUI(has) {
@@ -160,10 +172,21 @@
     if (!state.bitmap) return;
     e.preventDefault();
     if (e.pointerId !== undefined && cv.setPointerCapture) cv.setPointerCapture(e.pointerId);
+    if (state.panMode) {   // 이동 모드: 드래그로 스크롤
+      panning = { cx: e.clientX, cy: e.clientY, sl: editorWrap.scrollLeft, st: editorWrap.scrollTop };
+      cv.style.cursor = 'grabbing';
+      return;
+    }
     const p = evtPos(e);
     state.drawing = { x: p.x, y: p.y, w: 0, h: 0 };
   }
   function moveDraw(e) {
+    if (panning) {
+      e.preventDefault();
+      editorWrap.scrollLeft = panning.sl - (e.clientX - panning.cx);
+      editorWrap.scrollTop = panning.st - (e.clientY - panning.cy);
+      return;
+    }
     if (!state.drawing) return;
     e.preventDefault();
     const p = evtPos(e);
@@ -172,6 +195,7 @@
     scheduleRedraw(true);
   }
   function endDraw(e) {
+    if (panning) { panning = null; cv.style.cursor = 'grab'; return; }
     if (!state.drawing) return;
     e.preventDefault();
     const d = state.drawing;
