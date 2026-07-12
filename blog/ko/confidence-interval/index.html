@@ -9,21 +9,21 @@
 <link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
 <link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
-<title>신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해 · Tay Blog</title>
+<title>신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해 · TayLee Tech &amp; Career Blog</title>
 <meta name="description" content="신뢰구간이 왜 등장했는지부터, 가설검정 관점, 그리고 &#39;신뢰구간 안에 있을 확률 95%&#39;라는 흔한 오해의 진실까지.">
 <link rel="canonical" href="https://taystudios.com/blog/ko/confidence-interval/">
 <link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/confidence-interval/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/confidence-interval/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/confidence-interval/">
 <meta name="robots" content="index, follow">
-<meta property="og:title" content="신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해 · Tay Blog">
+<meta property="og:title" content="신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해 · TayLee Tech &amp; Career Blog">
 <meta property="og:description" content="신뢰구간이 왜 등장했는지부터, 가설검정 관점, 그리고 &#39;신뢰구간 안에 있을 확률 95%&#39;라는 흔한 오해의 진실까지.">
 <meta property="og:url" content="https://taystudios.com/blog/ko/confidence-interval/">
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="Tay Blog">
+<meta property="og:site_name" content="TayLee Tech &amp; Career Blog">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="https://taystudios.com/blog/assets/posts/confidence-interval/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/confidence-interval/cover.webp">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해", "description": "신뢰구간이 왜 등장했는지부터, 가설검정 관점, 그리고 '신뢰구간 안에 있을 확률 95%'라는 흔한 오해의 진실까지.", "datePublished": "2024-10-13T00:00:00+09:00", "dateModified": "2024-10-13T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "Tay Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/confidence-interval/"}, "image": ["https://taystudios.com/blog/assets/posts/confidence-interval/cover.webp"], "keywords": "통계, 신뢰구간, 구간추정, 베이지안, p-value"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Tay Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/ko/category/data/"}, {"@type": "ListItem", "position": 3, "name": "신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해", "item": "https://taystudios.com/blog/ko/confidence-interval/"}]}</script><meta property="article:published_time" content="2024-10-13T00:00:00+09:00"><meta property="article:modified_time" content="2024-10-13T00:00:00+09:00"><meta property="article:tag" content="통계"><meta property="article:tag" content="신뢰구간"><meta property="article:tag" content="구간추정"><meta property="article:tag" content="베이지안"><meta property="article:tag" content="p-value">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해", "description": "신뢰구간이 왜 등장했는지부터, 가설검정 관점, 그리고 '신뢰구간 안에 있을 확률 95%'라는 흔한 오해의 진실까지.", "datePublished": "2024-10-13T00:00:00+09:00", "dateModified": "2024-10-13T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "TayLee Tech & Career Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/ko/confidence-interval/"}, "image": ["https://taystudios.com/blog/assets/posts/confidence-interval/cover.webp"], "keywords": "통계, 신뢰구간, 구간추정, 베이지안, p-value"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "TayLee Tech & Career Blog", "item": "https://taystudios.com/blog/ko/"}, {"@type": "ListItem", "position": 2, "name": "Data Analysis & Statistics", "item": "https://taystudios.com/blog/ko/category/data/"}, {"@type": "ListItem", "position": 3, "name": "신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해", "item": "https://taystudios.com/blog/ko/confidence-interval/"}]}</script><meta property="article:published_time" content="2024-10-13T00:00:00+09:00"><meta property="article:modified_time" content="2024-10-13T00:00:00+09:00"><meta property="article:tag" content="통계"><meta property="article:tag" content="신뢰구간"><meta property="article:tag" content="구간추정"><meta property="article:tag" content="베이지안"><meta property="article:tag" content="p-value">
 <link rel="stylesheet" href="assets/style.css?v=1783607388">
 <style>:root { --accent: #3f6f54; }</style>
 <script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
@@ -34,7 +34,7 @@
 
 <header class="tb-header">
   <div class="tb-header-inner">
-    <a class="tb-logo" href="/blog/ko/">Tay Blog</a>
+    <a class="tb-logo" href="/blog/ko/">TayLee Tech &amp; Career Blog</a>
     <nav class="tb-nav">
       <a class="tb-nav-hide-sm" href="/blog/ko/">Home</a><a class="tb-nav-hide-sm" href="/blog/ko/tags/">Tags</a><a class="tb-nav-hide-sm" href="/blog/admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
       <div class="tb-search" data-tb-search data-lang="ko"><input type="search" class="tb-search-input" placeholder="글 검색" autocomplete="off" aria-label="글 검색"><div class="tb-search-results" role="listbox" hidden></div></div>
@@ -53,7 +53,7 @@
     <article class="tb-content">
 
       <header class="tb-article-header">
-        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="/blog/ko/">Tay Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="/blog/ko/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해</span></nav>
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="/blog/ko/">TayLee Tech &amp; Career Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="/blog/ko/category/data/">Data Analysis &amp; Statistics</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해</span></nav>
         <h1 class="tb-article-title">신뢰구간(Confidence Interval) — 의미·직관, 그리고 흔한 오해</h1>
         <div class="tb-article-meta">
           <time>2024.10.13</time>
