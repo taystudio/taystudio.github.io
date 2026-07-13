@@ -47,7 +47,9 @@
     $('gate').style.display = 'none';
     $('app').style.display = 'block';
     document.body.classList.toggle('demo', state.demo);
-    bindControls(); initSelfExclude(); load(); startRealtime();
+    bindControls(); initSelfExclude();
+    loadTitles().then(load, load);   // 제목 먼저 채우고 렌더(실패해도 경로로 폴백)
+    startRealtime();
   }
 
   /* ── 내 방문 제외 (GoatCounter skipgc 등가 — 쿠키 기반, worker가 읽어 로깅 스킵) ── */
@@ -211,8 +213,10 @@
     $('missCard').style.display = state.path ? 'none' : '';
     if (!state.path) {
       $('pages').innerHTML = (d.topPages || []).map(function (p, i) {
+        var t = pgTitle(p.path);
+        var lab = t ? '<span class="pg-title">' + esc(t) + '</span><span class="pg-url">' + esc(p.path) + '</span>' : esc(p.path);
         return '<tr data-path="' + esc(p.path) + '"><td class="rank">' + (i + 1) + '</td>' +
-          '<td class="path">' + esc(p.path) + '</td><td class="n">' + fmt(p.v) + '</td><td class="n">' + fmt(p.u) + '</td></tr>';
+          '<td class="path">' + lab + '</td><td class="n">' + fmt(p.v) + '</td><td class="n">' + fmt(p.u) + '</td></tr>';
       }).join('') || '<tr><td colspan="4" class="muted">데이터 없음</td></tr>';
       $('pages').querySelectorAll('tr[data-path]').forEach(function (tr) {
         tr.onclick = function () { state.path = tr.dataset.path; load(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
@@ -375,7 +379,7 @@
       var html = '<div class="cty-detail-h">' + ctyFlag(cc) + ' ' + esc(ctyName(cc)) + ' 가 본 페이지 (' + (vis ? '방문자' : '조회수') + ') · 총 ' + fmt(tot) + unit + '</div>' +
         shown.map(function (p) {
           var v = p[ky] || 0, pc = Math.round(v / tot * 100);
-          return '<div class="cty-pg"><span class="pg-path">' + esc(p.path) + '</span>' +
+          return '<div class="cty-pg">' + pgLabel(p.path) +
             '<span class="pg-bar"><span style="width:' + Math.max(3, pc) + '%"></span></span>' +
             '<span class="pg-n"><b>' + fmt(v) + '</b>' + unit + '</span></div>';
         }).join('');
@@ -455,7 +459,7 @@
       det.innerHTML = '<div class="cty-detail"><div class="cty-detail-h">' + ds + ' · ' + scope + '글별 ' + (vis ? '방문자' : '조회수') + ' · 총 ' + fmt(tot) + unit + '</div>' +
         top.map(function (p) {
           var v = p[ky] || 0, pc = Math.round(v / maxv * 100);
-          return '<div class="cty-pg"><span class="pg-path">' + esc(p.path) + '</span>' +
+          return '<div class="cty-pg">' + pgLabel(p.path) +
             '<span class="pg-bar"><span style="width:' + Math.max(3, pc) + '%"></span></span>' +
             '<span class="pg-n"><b>' + fmt(v) + '</b>' + unit + '</span></div>';
         }).join('') + '</div>';
@@ -604,6 +608,51 @@
   }
   function niceMax(v) { var p = Math.pow(10, Math.floor(Math.log10(v))); return Math.ceil(v / p) * p; }
   function hexA(h, a) { h = h.replace('#', ''); if (h.length === 3) h = h.split('').map(function (x) { return x + x; }).join(''); var n = parseInt(h, 16); return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; }
+  /* ── 경로 → 이름 매핑. 블로그=posts.json(글 제목), 도구=tool-titles.json(도구명) ── */
+  var TITLES = {};
+  function loadTitles() {
+    if (state.demo) {
+      TITLES = {
+        '/blog/ko/career-samsung-dx-gcs-2026/': '[경력 공채] 삼성전자 DX부문 G-CS 경력 채용 후기',
+        '/blog/ko/kaist-grad-mech-interview/': '[입시] KAIST 기계공학과 대학원 구술면접 후기',
+        '/blog/ko/seo-google-sandbox-1month/': '구글 샌드박스 1개월 — 신규 사이트 색인 관찰기',
+        '/blog/ko/aws-cost-optimization/': 'AWS 비용 최적화 실전 정리',
+        '/tools/salary/': '연봉 실수령액', '/tools/bmi/': 'BMI 계산기', '/tools/': '전체 도구',
+        '/image/compress/': '이미지 압축', '/pdf/merge/': 'PDF 합치기'
+      };
+      return Promise.resolve();
+    }
+    // 블로그 글 제목
+    function grabPosts(u, lang) {
+      return fetch(u, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (arr) { (arr || []).forEach(function (p) { if (p && p.slug && p.title) TITLES['/blog/' + lang + '/' + p.slug + '/'] = p.title; }); })
+        .catch(function () {});
+    }
+    // 도구명 (허브 카드에서 생성한 정적 맵 {경로:이름})
+    function grabTools(u) {
+      return fetch(u, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : {}; })
+        .then(function (o) { if (o && typeof o === 'object') for (var k in o) TITLES[k] = o[k]; })
+        .catch(function () {});
+    }
+    return Promise.all([
+      grabPosts('/blog/data/posts.json', 'ko'),
+      grabPosts('/blog/data/posts.en.json', 'en'),
+      grabTools('/common/tool-titles.json')
+    ]);
+  }
+  function pgTitle(path) {
+    if (!path) return '';
+    if (TITLES[path]) return TITLES[path];
+    var alt = path.slice(-1) === '/' ? path.slice(0, -1) : path + '/';
+    return TITLES[alt] || '';
+  }
+  // 페이지 라벨 HTML: 제목 있으면 [제목 + 작은 URL], 없으면 경로만
+  function pgLabel(path) {
+    var t = pgTitle(path);
+    if (t) return '<span class="pg-lab"><span class="pg-title">' + esc(t) + '</span><span class="pg-url">' + esc(path) + '</span></span>';
+    return '<span class="pg-path">' + esc(path) + '</span>';
+  }
+
   function esc(s) { return String(s).replace(/[&<>"]/g, function (m) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]; }); }
   function fmtDate(s) { if (!s) return '-'; var p = s.split('-'); var dt = new Date(+p[0], +p[1] - 1, +p[2]); return (+p[1]) + '월 ' + (+p[2]) + '일 (' + DOW[dt.getDay()] + ')'; }
   function daysSince(a, b) { if (!a || !b) return 1; return Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000) + 1; }

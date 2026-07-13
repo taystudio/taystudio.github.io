@@ -77,6 +77,23 @@
     box-shadow:var(--shadow);margin-bottom:22px}
   .sec-title{font-size:14px;font-weight:700;margin:0 0 4px}
   .sec-note{font-size:11.5px;color:var(--faint);margin:0 0 14px}
+  /* 지표 읽는 법 패널 */
+  .guide{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);margin-bottom:22px;overflow:hidden}
+  .guide>summary{list-style:none;cursor:pointer;padding:14px 20px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;user-select:none}
+  .guide>summary::-webkit-details-marker{display:none}
+  .guide>summary::before{content:"❔";font-size:14px}
+  .guide>summary::after{content:"▾";margin-left:auto;color:var(--faint);transition:transform .2s}
+  .guide[open]>summary::after{transform:rotate(180deg)}
+  .guide>summary:hover{background:var(--hover,rgba(127,127,127,.06))}
+  .guide-body{padding:2px 20px 18px;font-size:12.5px;line-height:1.72;color:var(--muted)}
+  .guide-body h4{font-size:12.5px;font-weight:700;color:var(--fg,inherit);margin:16px 0 4px}
+  .guide-body h4:first-child{margin-top:6px}
+  .guide-body p{margin:0 0 7px}
+  .guide-body b{color:var(--fg,inherit)}
+  .guide-body .tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:6px;margin-right:5px;vertical-align:1px}
+  .guide-body ul{margin:2px 0 8px;padding-left:18px}
+  .guide-body li{margin:2px 0}
+  .guide-body code{background:var(--hover,rgba(127,127,127,.1));padding:1px 5px;border-radius:5px;font-size:11.5px}
   /* KPI */
   .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:0;
     background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);
@@ -115,6 +132,9 @@
   .cty-detail-h{font-size:11.5px;font-weight:700;color:var(--muted);margin-bottom:8px}
   .cty-pg{display:grid;grid-template-columns:1fr 70px 78px;align-items:center;gap:9px;padding:3px 0;font-size:12.5px}
   .cty-pg .pg-path{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--primary)}
+  .cty-pg .pg-lab{min-width:0;overflow:hidden}
+  .cty-pg .pg-lab .pg-title{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font-weight:600}
+  .cty-pg .pg-lab .pg-url{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--faint);font-size:10.5px;line-height:1.3;margin-top:1px}
   .cty-pg .pg-bar{height:6px;border-radius:4px;background:var(--border);overflow:hidden}
   .cty-pg .pg-bar span{display:block;height:100%;background:var(--primary);border-radius:4px}
   .cty-pg .pg-n{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
@@ -180,6 +200,8 @@
   tbody tr{cursor:pointer}
   tbody tr:hover{background:var(--track)}
   td.path{max-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--primary)}
+  td.path .pg-title{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font-weight:600}
+  td.path .pg-url{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--faint);font-size:10.5px;line-height:1.3;margin-top:1px}
   .rank{color:var(--faint);width:22px}
   .drill{display:none;align-items:center;gap:10px;margin-bottom:14px}
   body.drilled .drill{display:flex}
@@ -246,6 +268,44 @@
         </div>
       </div>
       <p class="asof" id="asof"></p>
+
+      <details class="guide">
+        <summary>이 숫자들, 어떻게 걸러진 건가요? (지표 읽는 법)</summary>
+        <div class="guide-body">
+          <p>이 대시보드는 Cloudflare Worker가 <b>서버에서 직접</b> 모든 요청을 로깅합니다(외부 스크립트·쿠키 없음). 아래 필터로 "누구를 세느냐"가 바뀝니다.</p>
+
+          <h4>① 누구 필터 — 봇을 어디까지 걸러낼지 (기본: 사람)</h4>
+          <p><span class="tag" style="background:rgba(37,99,235,.14);color:#2563eb">사람</span><b>상한선.</b> 명백한 봇만 제외한 값. 진짜 사람 + <em>못 걸러낸 위장 봇 일부</em>가 섞여 있어 실제보다 조금 많음.</p>
+          <p><span class="tag" style="background:rgba(22,163,74,.16);color:#16a34a">확인된 사람</span><b>하한선.</b> JS 실행 + 화면 렌더 + 1.2초 체류까지 통과한 <b>실제 브라우저만</b>(비콘). 순수 사람에 가장 가까움. 단 <em>애드블록 사용자는 빠져서</em> 실제보다 조금 적음. → <b>진짜 사람 수 = 확인된 사람 ~ 사람 사이.</b></p>
+          <p><span class="tag" style="background:rgba(220,38,38,.14);color:#dc2626">봇</span>봇으로 판정된 요청만.</p>
+          <p><span class="tag" style="background:rgba(107,114,128,.16);color:#6b7280">전체</span>봇·사람 구분 없이 <b>원시 전체</b> 요청.</p>
+
+          <h4>봇은 이렇게 판정합니다 (위에서 하나라도 걸리면 봇)</h4>
+          <ul>
+            <li><b>봇 UA</b> — <code>Googlebot·GPTBot·ClaudeBot·AhrefsBot·curl·python</code> 등 자기가 봇이라 밝히는 것</li>
+            <li><b>Cloudflare 검증봇</b> — 역DNS·서명으로 CF가 진짜라 확인한 봇 (위장 불가)</li>
+            <li><b>데이터센터 IP</b> — IP가 <code>AWS·Azure·GCP·OVH</code> 등 클라우드/호스팅 소속이면 봇. <em>UA는 크롬으로 위장했지만 집이 아니라 서버실에서 오는</em> 스텔스 봇을 잡음 (핵심)</li>
+            <li><b>통신사 예외</b> — SKT·KT·LG U+ 등 한국 통신사 IP는 오탐 방지를 위해 무조건 사람 처리</li>
+          </ul>
+          <p>못 잡는 것: <em>가정용 IP 프록시 + 브라우저 위장</em> 봇 → 그래서 "사람"이 상한선, "확인된 사람"으로 보완.</p>
+
+          <h4>② 구간 필터</h4>
+          <p><b>기간</b>(7·30·90일·전체) / <b>범위</b>(전체·블로그 <code>/blog/</code>·도구). 최근 365일은 원시 로그라 <b>정확</b>, 그 이전은 일별 롤업 집계.</p>
+
+          <h4>조회수 vs 방문자</h4>
+          <p><b>조회수</b> = 페이지 열린 총 횟수(항상 정확). <b>방문자</b> = <b>하루 단위 중복 제거</b> 합(person-days). 프라이버시를 위해 방문자 해시가 <em>매일 새로 바뀌므로</em>, 같은 사람이 3일 오면 방문자 3으로 셉니다(여러 날 걸친 순유일 방문자는 원리상 불가 — 의도된 트레이드오프).</p>
+
+          <h4>각 카드가 세는 기준</h4>
+          <ul>
+            <li><b>유입 채널·디바이스·국가</b> % = <b>전체 조회 대비</b> 비율</li>
+            <li><b>유입 출처</b> = referrer가 남은 유입만 (직접 방문 제외)</li>
+            <li><b>국가</b> = 방문 IP 기반(Cloudflare) · <b>404·실시간·확인된 사람은 사람만</b> 집계</li>
+            <li><b>캘린더</b> 날짜 클릭 → 그날 <b>글별</b> 조회수</li>
+          </ul>
+          <p style="margin-top:10px;color:var(--faint)">프라이버시: 쿠키 0 · 원본 IP 저장 안 함(일별 회전 해시만) · 개인 식별 정보 미저장.</p>
+        </div>
+      </details>
+
       <label class="selfex"><input type="checkbox" id="noLogChk"> 내 방문은 집계에서 제외 <span class="dim">(이 기기 · 쿠키)</span><b id="noLogState"></b></label>
 
       <div class="drill" id="drill">
