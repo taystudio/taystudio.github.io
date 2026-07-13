@@ -39,7 +39,7 @@
       "ARM",
       "RDS"
     ],
-    "image": "assets/posts/aws-cost-optimization/cover.png",
+    "image": "assets/posts/aws-cost-optimization/cover.webp",
     "lang": "en"
   },
   {
@@ -58,7 +58,7 @@
       "networking",
       "cost-optimization"
     ],
-    "image": "assets/posts/aws-nat-gateway-guide/cover.png",
+    "image": "assets/posts/aws-nat-gateway-guide/cover.webp",
     "lang": "en"
   },
   {
@@ -374,7 +374,7 @@
       "troubleshooting",
       "Linux"
     ],
-    "image": "assets/posts/ec2-ssh-unprotected-private-key/cover.png",
+    "image": "assets/posts/ec2-ssh-unprotected-private-key/cover.webp",
     "lang": "en"
   },
   {
@@ -579,7 +579,7 @@
       "networking",
       "cost-saving"
     ],
-    "image": "assets/posts/nat-instance-build-1/cover.png",
+    "image": "assets/posts/nat-instance-build-1/cover.webp",
     "lang": "en"
   },
   {
@@ -598,7 +598,7 @@
       "networking",
       "cost-saving"
     ],
-    "image": "assets/posts/nat-instance-build-2/cover.png",
+    "image": "assets/posts/nat-instance-build-2/cover.webp",
     "lang": "en"
   },
   {
