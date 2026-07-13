@@ -521,6 +521,17 @@ input::placeholder {
   gap: 12px;
 }
 
+/* 한 행(.row) 안에서 input과 라디오 그룹처럼 높이가 다른 컨트롤이 섞일 때,
+   input/select가 늘어나 바닥이 정렬되도록 (양쪽 다 input인 행은 변화 없음) */
+.row .field {
+  display: flex;
+  flex-direction: column;
+}
+.row .field > input,
+.row .field > select {
+  flex: 1 1 auto;
+}
+
 button {
   width: 100%;
   padding: 13px 20px;
