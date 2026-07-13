@@ -449,27 +449,54 @@
     var det = $('calDetail'); if (!det) return;
     det.hidden = false;
     det.innerHTML = '<div class="cty-detail"><div class="cty-detail-h">' + ds + ' 글별 · 불러오는 중…</div></div>';
-    loadDayPages(ds).then(function (pages) {
+    loadDayPages(ds).then(function (d) {
+      var pages = (d && d.pages) || [];
+      var channels = (d && d.channels) || [];
+      var sources = (d && d.sources) || [];
       var vis = state.metric === 'visitors', ky = vis ? 'u' : 'v', unit = vis ? '명' : '회';
       var scope = state.section === 'blog' ? '블로그 ' : state.section === 'tools' ? '도구 ' : '';
-      if (!pages || !pages.length) { det.innerHTML = '<div class="cty-detail"><div class="cty-detail-h">' + ds + ' · ' + scope + '데이터 없음</div></div>'; return; }
+      if (!pages.length) { det.innerHTML = '<div class="cty-detail"><div class="cty-detail-h">' + ds + ' · ' + scope + '데이터 없음</div></div>'; return; }
       var top = pages.slice(0, 15);
       var tot = pages.reduce(function (s, p) { return s + (p[ky] || 0); }, 0) || 1;
       var maxv = Math.max.apply(null, top.map(function (p) { return p[ky] || 0; })) || 1;
-      det.innerHTML = '<div class="cty-detail"><div class="cty-detail-h">' + ds + ' · ' + scope + '글별 ' + (vis ? '방문자' : '조회수') + ' · 총 ' + fmt(tot) + unit + '</div>' +
+      // 글별
+      var html = '<div class="cty-detail"><div class="cty-detail-h">' + ds + ' · ' + scope + '글별 ' + (vis ? '방문자' : '조회수') + ' · 총 ' + fmt(tot) + unit + '</div>' +
         top.map(function (p) {
           var v = p[ky] || 0, pc = Math.round(v / maxv * 100);
           return '<div class="cty-pg">' + pgLabel(p.path) +
             '<span class="pg-bar"><span style="width:' + Math.max(3, pc) + '%"></span></span>' +
             '<span class="pg-n"><b>' + fmt(v) + '</b>' + unit + '</span></div>';
-        }).join('') + '</div>';
+        }).join('');
+      // 그날 유입 출처 (조회수 기준) — 채널(검색/SNS/직접/기타) + 검색엔진·referrer
+      var chTot = channels.reduce(function (s, c) { return s + (c.v || 0); }, 0);
+      if (chTot > 0) {
+        html += '<div class="cty-detail-h" style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px">' + ds + ' · 그날 유입 출처 <span style="color:var(--faint);font-weight:400">(조회수 기준)</span></div>';
+        var chMax = Math.max.apply(null, channels.map(function (c) { return c.v || 0; })) || 1;
+        html += channels.map(function (c) {
+          var v = c.v || 0, pc = Math.round(v / chMax * 100), col = CHAN_COL[c.channel] || '#2563eb';
+          return '<div class="cty-pg"><span class="pg-path" style="color:' + col + '">' + esc(c.channel) + '</span>' +
+            '<span class="pg-bar"><span style="width:' + Math.max(3, pc) + '%;background:' + col + '"></span></span>' +
+            '<span class="pg-n"><b>' + fmt(v) + '</b>회 · ' + Math.round(v / chTot * 100) + '%</span></div>';
+        }).join('');
+        if (sources.length) {
+          var srcMax = Math.max.apply(null, sources.map(function (s) { return s.v || 0; })) || 1;
+          html += '<div class="cty-pg-rest" style="margin-top:6px"><span class="pg-path muted" style="font-size:11px">검색엔진·유입처</span></div>';
+          html += sources.slice(0, 8).map(function (s) {
+            var v = s.v || 0, pc = Math.round(v / srcMax * 100), col = CHAN_COL[s.channel] || '#2563eb';
+            return '<div class="cty-pg"><span class="pg-path" title="' + esc(s.ref_host) + '">' + esc(srcLabel(s.ref_host)) + '</span>' +
+              '<span class="pg-bar"><span style="width:' + Math.max(3, pc) + '%;background:' + col + '"></span></span>' +
+              '<span class="pg-n"><b>' + fmt(v) + '</b>회</span></div>';
+          }).join('');
+        }
+      }
+      det.innerHTML = html + '</div>';
     });
   }
   function loadDayPages(ds) {
     if (state.demo) return Promise.resolve(mockDayPages(ds));
     var u = '/_stats/day?token=' + encodeURIComponent(state.token) + '&day=' + ds + '&who=' + state.who + (state.section ? '&section=' + state.section : '');
-    return fetch(u, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : { pages: [] }; })
-      .then(function (d) { return d.pages || []; }).catch(function () { return []; });
+    return fetch(u, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (d) { return d || {}; }).catch(function () { return {}; });
   }
   function mockDayPages(ds) {
     var seed = parseInt(ds.replace(/-/g, ''), 10) % 7 + 3;
@@ -478,7 +505,22 @@
       : state.section === 'tools'
         ? [['/tools/salary/', 12], ['/tools/', 7], ['/image/compress/', 5], ['/pdf/merge/', 3], ['/tools/bmi/', 2]]
         : [['/tools/salary/', 11], ['/blog/ko/career-samsung-dx-gcs-2026/', 7], ['/tools/', 6], ['/image/compress/', 4], ['/blog/', 3]];
-    return pool.map(function (p) { var v = Math.max(1, Math.round(p[1] * seed / 5)); return { path: p[0], v: v, u: Math.max(1, Math.round(v * 0.7)) }; });
+    var pages = pool.map(function (p) { var v = Math.max(1, Math.round(p[1] * seed / 5)); return { path: p[0], v: v, u: Math.max(1, Math.round(v * 0.7)) }; });
+    var pv = pages.reduce(function (s, p) { return s + p.v; }, 0);
+    var channels = [
+      { channel: '검색', v: Math.round(pv * 0.62) },
+      { channel: '기타', v: Math.round(pv * 0.22) },
+      { channel: '직접', v: Math.round(pv * 0.11) },
+      { channel: 'SNS', v: Math.round(pv * 0.05) }
+    ].filter(function (c) { return c.v > 0; });
+    var sources = [
+      { ref_host: 'google.com', channel: '검색', v: Math.round(pv * 0.34) },
+      { ref_host: 'm.search.naver.com', channel: '검색', v: Math.round(pv * 0.20) },
+      { ref_host: 'search.naver.com', channel: '검색', v: Math.round(pv * 0.08) },
+      { ref_host: 'bing.com', channel: '검색', v: Math.round(pv * 0.03) },
+      { ref_host: 'instagram.com', channel: 'SNS', v: Math.round(pv * 0.03) }
+    ].filter(function (s) { return s.v > 0; });
+    return { pages: pages, channels: channels, sources: sources };
   }
   function key(y, m, d) { return y + '-' + p2(m) + '-' + p2(d); }
   function p2(n) { return (n < 10 ? '0' : '') + n; }
