@@ -1457,6 +1457,72 @@ button:hover {
   font-weight: 600;
 }
 
+/* ── Featured Snippet "정의·조건" 블록 (#what-is) — 미니멀 에디토리얼 ──
+   14개 계산기 상단 "○○이란? 정의문단 + 조건/세율 표". 박스·틴트 없이 타이포·여백·hairline만. */
+#what-is {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+#what-is > h2:first-child {
+  margin: 0 0 14px;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+#what-is > p {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: color-mix(in srgb, var(--text) 88%, var(--muted));
+  margin: 0 0 20px;
+  max-width: 64ch;
+}
+#what-is > p b { color: var(--text); font-weight: 600; }
+#what-is table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+#what-is thead th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--muted) 6%, var(--card));
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+}
+#what-is tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.6;
+}
+#what-is tbody tr:last-child td { border-bottom: none; }
+#what-is tbody td:first-child {
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  width: 1%;
+  padding-right: 26px;
+  border-right: 1px solid var(--border);
+  background: color-mix(in srgb, var(--muted) 3.5%, transparent);
+}
+#what-is tbody td:last-child {
+  color: color-mix(in srgb, var(--text) 82%, var(--muted));
+  font-variant-numeric: tabular-nums;
+}
+#what-is tbody td b { color: var(--text); font-weight: 700; }
+@media (max-width: 480px) {
+  #what-is table { font-size: 13px; }
+  #what-is thead th, #what-is tbody td { padding: 10px 12px; }
+  #what-is tbody td:first-child { padding-right: 14px; }
+}
+
 .formula-list {
   background: var(--card);
   border: 1px solid var(--border);

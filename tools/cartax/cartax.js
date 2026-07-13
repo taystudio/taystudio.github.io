@@ -23,7 +23,7 @@ document.getElementById("form").addEventListener("submit", (e) => {
 
   let rate, ecoDiscount = 0, name;
   if (type === "compact") { rate = 0.04; name = "경차"; }
-  else if (type === "ev") { rate = 0.04; ecoDiscount = 1400000; name = "전기·수소차"; }
+  else if (type === "ev") { rate = 0.07; ecoDiscount = 1400000; name = "전기·수소차"; }  // 승용 표준세율 7% 후 140만 공제(지특법 제66조 = 세액공제, 세율인하 아님)
   else if (type === "hybrid") { rate = 0.07; ecoDiscount = 0; name = "하이브리드차"; }  // 2024.12.31 감면 일몰
   else if (type === "van") { rate = 0.05; name = "승합·화물차"; }
   else { rate = 0.07; name = "일반 승용차"; }
