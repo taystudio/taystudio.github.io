@@ -437,7 +437,7 @@ h2 {
 }
 
 .tool-card .icon {
-  font-size: 28px;
+  font-size: 24px;
   margin-bottom: 10px;
 }
 
@@ -651,7 +651,7 @@ button:hover {
 .radio-group label {
   flex: 1;
   min-width: 100px;
-  padding: 10px 14px;
+  padding: 11px 14px;
   text-align: center;
   background: var(--bg);
   border: 1px solid var(--border);
@@ -661,6 +661,34 @@ button:hover {
   font-weight: 500;
   margin-bottom: 0;
   transition: all 0.15s;
+  line-height: 1.35;
+  word-break: keep-all; /* 한글 단어 중간 줄바꿈 방지 */
+}
+
+/* 라디오 라벨 2단 구조 — 제목 아래 작은 부가설명 */
+.radio-group .rg-sub {
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.68;
+}
+
+/* 긴 라벨 그룹용 균등 그리드 (고아 행·과다 줄바꿈 방지) */
+.radio-group.rg-grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+}
+.radio-group.rg-grid3 label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@media (max-width: 560px) {
+  .radio-group.rg-grid3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .radio-group input[type="radio"] {
@@ -1164,7 +1192,7 @@ button:hover {
 }
 
 .featured-card .icon {
-  font-size: 32px;
+  font-size: 28px;
   margin-bottom: 12px;
 }
 
