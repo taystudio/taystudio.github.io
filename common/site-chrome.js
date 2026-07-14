@@ -304,7 +304,7 @@ const I18N = {
     studioToolsDesc: '계산기·이미지·PDF·동영상',
     studioCurrent: '현재',
     studiosMore: '+ 더 추가 예정',
-    disclaimerHTML: '⚠️ 본 사이트의 모든 계산은 <b>참고용 추정치</b>입니다. 정확한 결과는 공식 기관·전문가 상담을 권장합니다 ·',
+    disclaimerHTML: '본 사이트의 모든 계산은 <b>참고용 추정치</b>입니다. 정확한 결과는 공식 기관·전문가 상담을 권장합니다 ·',
     disclaimerLink: '자세히',
     closeAriaLabel: '공지 닫기',
     closeTitle: '닫기',
@@ -361,7 +361,7 @@ const I18N = {
     studioToolsDesc: 'Calculators · Image · PDF · Video',
     studioCurrent: 'current',
     studiosMore: '+ more coming',
-    disclaimerHTML: '⚠️ All calculations on this site are <b>estimates for reference</b>. Consult official authorities or professionals for accurate results ·',
+    disclaimerHTML: 'All calculations on this site are <b>estimates for reference</b>. Consult official authorities or professionals for accurate results ·',
     disclaimerLink: 'Learn more',
     closeAriaLabel: 'Close notice',
     closeTitle: 'Close',
@@ -708,7 +708,7 @@ class SiteHeader extends HTMLElement {
     const skipLinkHTML = `<a href="#main-content" class="skip-link">${T.skipToMain}</a>`;
     const headerHTML = `
       <header class="site-header">
-        <a href="${LANG === 'en' ? BASE + '/en/' : BASE + '/'}" class="logo">TAYSTUDIO</a>
+        <a href="${LANG === 'en' ? BASE + '/en/' : BASE + '/'}" class="logo"><span class="r-logomark" aria-hidden="true">T</span>TAYSTUDIO</a>
         <nav class="site-nav">
           <a href="${LANG === 'en' ? BASE + '/en/tools/' : BASE + '/tools/'}" class="${cls('tools')}">${T.navTools}</a>
           <a href="${LANG === 'en' ? BASE + '/en/text/' : BASE + '/text/'}" class="${cls('text')}">${T.navText}</a>

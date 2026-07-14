@@ -90,3 +90,6 @@ survey/
 
 # Cloudflare Worker 소스 (애널리틱스) — wrangler로 배포, public 사이트엔 안 올림(opsec)
 workers/
+
+# 디자인 리모델링 등 로컬 백업 (커밋 안 함)
+backup/

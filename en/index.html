@@ -167,7 +167,22 @@
       100% { transform: translate3d(28px, -18px, 0) scale(1.04); }
     }
 
-    .hub-hero { padding: 84px 20px 40px; text-align: center; position: relative; }
+    .hub-hero { padding: 84px 20px 40px; text-align: center; position: relative; z-index: 0; }
+    .hub-hero::before {
+      content: ""; position: absolute; left: 50%; top: 2%; transform: translateX(-50%);
+      width: min(760px, 96%); height: 380px; z-index: -1; pointer-events: none;
+      background:
+        radial-gradient(closest-side, rgba(56,189,248,.30), transparent 72%) 30% 42% / 60% 80% no-repeat,
+        radial-gradient(closest-side, rgba(37,99,235,.26), transparent 72%) 70% 56% / 56% 74% no-repeat;
+      filter: blur(36px); opacity: .8;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .hub-hero::before { animation: heroGlow 9s ease-in-out infinite alternate; }
+    }
+    @keyframes heroGlow {
+      from { transform: translateX(-50%) scale(1); opacity: .62; }
+      to   { transform: translateX(-50%) scale(1.09); opacity: .92; }
+    }
     .hub-eyebrow {
       font-family: var(--mono); font-size: 11px; letter-spacing: .32em;
       text-transform: uppercase; color: var(--muted);
@@ -177,28 +192,84 @@
       content: ""; width: 28px; height: 1px; background: var(--border);
     }
     .hub-title {
-      font-size: clamp(56px, 12vw, 148px);
-      font-weight: 800; letter-spacing: -.035em; line-height: .96;
+      font-size: clamp(58px, 12.5vw, 152px);
+      font-weight: 800; letter-spacing: -.045em; line-height: .94;
       margin: 0;
       /* descender (g·j·p·q·y) clearance — with line-height<1 + background-clip:text, descenders that fall outside the element box get clipped to transparent. */
       padding-bottom: 0.18em;
-      background: linear-gradient(135deg, #1e293b 0%, #2563eb 32%, #6366f1 66%, #7c3aed 100%);
+      /* brand blue→cyan gradient (unified with the T logomark) */
+      background: linear-gradient(110deg, #1e293b 0%, #2563eb 30%, #3b82f6 52%, #0ea5e9 74%, #3b82f6 100%);
+      background-size: 220% auto;
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent; color: transparent;
       word-break: keep-all;
     }
-    .hub-title .punct { color: #7c3aed; -webkit-text-fill-color: #7c3aed; }
+    .hub-title .punct { color: var(--primary); -webkit-text-fill-color: var(--primary); }
+    @media (prefers-reduced-motion: no-preference) {
+      .hub-title { animation: heroShimmer 7s ease-in-out infinite alternate; }
+    }
+    @keyframes heroShimmer {
+      from { background-position: 0% center; }
+      to   { background-position: 100% center; }
+    }
     @media (prefers-color-scheme: dark) {
-      .hub-title {
-        background: linear-gradient(135deg, #cbd5e1 0%, #60a5fa 32%, #818cf8 66%, #a78bfa 100%);
+      :root:not([data-theme="light"]) .hub-title {
+        background: linear-gradient(110deg, #93c5fd 0%, #3b82f6 46%, #22d3ee 100%);
+        background-size: 220% auto;
         -webkit-background-clip: text; background-clip: text;
       }
-      .hub-title .punct { color: #a78bfa; -webkit-text-fill-color: #a78bfa; }
+      :root:not([data-theme="light"]) .hub-title .punct { color: #60a5fa; -webkit-text-fill-color: #60a5fa; }
     }
+    :root[data-theme="dark"] .hub-title {
+      background: linear-gradient(110deg, #93c5fd 0%, #3b82f6 46%, #22d3ee 100%);
+      background-size: 220% auto;
+      -webkit-background-clip: text; background-clip: text;
+    }
+    :root[data-theme="dark"] .hub-title .punct { color: #60a5fa; -webkit-text-fill-color: #60a5fa; }
     .hub-tagline {
       color: var(--muted); font-size: clamp(15px, 1.5vw, 17px);
       margin: 22px auto 0; max-width: 520px; line-height: 1.65;
     }
+
+    /* ── category section (tool preview) ── */
+    .hero-stats { display:inline-flex; gap:10px; margin-top:26px; flex-wrap:wrap; justify-content:center; }
+    .hero-stats span { font-size:12.5px; font-weight:600; color:var(--muted); border:1px solid var(--border); border-radius:999px; padding:6px 13px; background:var(--card); }
+    .hero-stats b { color:var(--primary); }
+    .tools-sec-head { display:flex; align-items:baseline; justify-content:space-between; margin:60px 0 18px; }
+    .tools-sec-head .sec-eye { font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--primary); }
+    .tools-sec-head .sec-h2 { font-size:24px; font-weight:800; letter-spacing:-.03em; margin-top:3px; }
+    .tools-sec-head .sec-cnt { color:var(--muted); font-size:13px; }
+    .hub-cardtop { display:flex; align-items:center; gap:13px; margin-bottom:16px; }
+    .hub-namewrap { display:flex; align-items:center; gap:8px; }
+    .hub-cnt { font-size:12px; font-weight:700; color:var(--primary); background:color-mix(in srgb, var(--primary) 11%, transparent); padding:2px 8px; border-radius:999px; }
+    .hub-tools { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+    .hub-tools span { font-size:12.5px; color:var(--text); background:color-mix(in srgb, var(--muted) 7%, transparent); border:1px solid var(--border); border-radius:8px; padding:5px 10px; }
+    .hub-tools .more { color:var(--muted); background:transparent; border:none; padding:6px 4px; font-weight:500; font-size:12.5px; align-self:center; opacity:.8; }
+    .hub-go { font-size:13px; font-weight:700; color:var(--primary); display:inline-flex; align-items:center; gap:5px; transition:gap .2s ease; }
+    .hub-card:hover .hub-go { gap:9px; }
+
+    /* ── fancy: icon-chip depth + hover detail ── */
+    .hub-card .hub-icon {
+      background: linear-gradient(145deg, color-mix(in srgb, var(--muted) 13%, var(--card)), color-mix(in srgb, var(--muted) 4%, var(--card))) !important;
+      box-shadow: 0 2px 7px rgba(20,30,50,.09), inset 0 1px 0 color-mix(in srgb, #fff 45%, transparent);
+      transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s;
+    }
+    :root[data-theme="dark"] .hub-card .hub-icon {
+      box-shadow: 0 2px 7px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+    }
+    .hub-card:hover .hub-icon {
+      transform: translateY(-3px) scale(1.07);
+      box-shadow: 0 9px 20px color-mix(in srgb, var(--primary) 24%, transparent);
+    }
+    .hub-card:hover {
+      box-shadow: 0 16px 38px color-mix(in srgb, var(--primary) 13%, rgba(20,30,50,.10)) !important;
+    }
+    .hub-cnt {
+      background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 18%, transparent), color-mix(in srgb, var(--primary) 8%, transparent)) !important;
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 15%, transparent);
+    }
+    .hub-tools span { transition: border-color .2s ease, color .2s ease; }
+    .hub-card:hover .hub-tools span:not(.more) { border-color: color-mix(in srgb, var(--primary) 22%, var(--border)); }
 
     .hub-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -443,6 +514,7 @@
       <p class="hub-eyebrow">TAYSTUDIO · EST. 2026</p>
       <h1 class="hub-title">Useful<br>things<span class="punct">.</span></h1>
       <p class="hub-tagline">Free everyday tools.<br>No signup, no install — your input stays in your browser.</p>
+      <div class="hero-stats"><span><b>100%</b> free</span><span>No signup</span><span>In-browser</span></div>
 
       <div class="hero-install" hidden role="region" aria-label="Install app">
         <button type="button" class="install-cta" data-install-cta hidden title="Install instantly from your browser — adds to home screen/taskbar like a native app">
@@ -544,51 +616,50 @@
       })();
     </script>
 
+    <div class="tools-sec-head">
+      <div><div class="sec-eye">Tools</div><div class="sec-h2">Tool categories</div></div>
+      <div class="sec-cnt">5 categories · 44 tools</div>
+    </div>
     <section class="hub-grid">
       <a class="hub-card fade-up d1" href="./tools/">
-        <div class="hub-meta">
-          <span class="hub-status live"><span class="live-dot" aria-hidden="true"></span>LIVE · 8 tools</span>
-          <span class="hub-arrow" aria-hidden="true">→</span>
+        <div class="hub-cardtop">
+          <div class="hub-icon">🧮</div>
+          <div class="hub-namewrap"><h2 class="hub-name">Calculators</h2><span class="hub-cnt">8</span></div>
         </div>
-        <div class="hub-icon">🧮</div>
-        <h2 class="hub-name">Calculators</h2>
-        <p class="hub-desc">Universal calculators — compound interest, BMI, calorie/TDEE, body fat, ideal weight, savings, loan, D-day.</p>
+        <div class="hub-tools"><span>Compound interest</span><span>Savings</span><span>Loan</span><span>BMI</span><span>Calorie / TDEE</span><span>D-Day</span><span class="more">+2</span></div>
+        <span class="hub-go">See all →</span>
       </a>
       <a class="hub-card fade-up d2" href="./image/">
-        <div class="hub-meta">
-          <span class="hub-status live"><span class="live-dot" aria-hidden="true"></span>LIVE · 18 tools</span>
-          <span class="hub-arrow" aria-hidden="true">→</span>
+        <div class="hub-cardtop">
+          <div class="hub-icon">📸</div>
+          <div class="hub-namewrap"><h2 class="hub-name">Image</h2><span class="hub-cnt">18</span></div>
         </div>
-        <div class="hub-icon">📸</div>
-        <h2 class="hub-name">Image</h2>
-        <p class="hub-desc">Files never leave your browser — compress · resize · HEIC→JPG · crop · ID photo · QR · OCR · background remove (AI) · WebP/AVIF · merge · watermark · mosaic · EXIF/GPS remove.</p>
+        <div class="hub-tools"><span>Compress</span><span>Background remove</span><span>ID photo</span><span>OCR</span><span>QR code</span><span>HEIC→JPG</span><span class="more">+12</span></div>
+        <span class="hub-go">See all →</span>
       </a>
       <a class="hub-card fade-up d3" href="./pdf/">
-        <div class="hub-meta">
-          <span class="hub-status live"><span class="live-dot" aria-hidden="true"></span>LIVE · 10 tools</span>
-          <span class="hub-arrow" aria-hidden="true">→</span>
+        <div class="hub-cardtop">
+          <div class="hub-icon">📑</div>
+          <div class="hub-namewrap"><h2 class="hub-name">PDF</h2><span class="hub-cnt">10</span></div>
         </div>
-        <div class="hub-icon">📑</div>
-        <h2 class="hub-name">PDF</h2>
-        <p class="hub-desc">Your PDFs never leave your browser — merge · split · edit (delete, reorder, rotate) · image↔PDF · watermark/page numbers · encrypt · unlock.</p>
+        <div class="hub-tools"><span>Merge</span><span>Split</span><span>Edit</span><span>Encrypt</span><span>Image → PDF</span><span class="more">+5</span></div>
+        <span class="hub-go">See all →</span>
       </a>
-      <a class="hub-card fade-up d4" href="./video/">
-        <div class="hub-meta">
-          <span class="hub-status live"><span class="live-dot" aria-hidden="true"></span>LIVE · 5 tools</span>
-          <span class="hub-arrow" aria-hidden="true">→</span>
+      <a class="hub-card fade-up d4" href="./text/">
+        <div class="hub-cardtop">
+          <div class="hub-icon">📝</div>
+          <div class="hub-namewrap"><h2 class="hub-name">Text</h2><span class="hub-cnt">3</span></div>
         </div>
-        <div class="hub-icon">🎬</div>
-        <h2 class="hub-name">Video</h2>
-        <p class="hub-desc">Your videos never leave your browser — ffmpeg.wasm based compress · trim · rotate · GIF · extract MP3.</p>
+        <div class="hub-tools"><span>Character counter</span><span>Special characters</span><span>ASCII art</span></div>
+        <span class="hub-go">See all →</span>
       </a>
-      <a class="hub-card fade-up d5" href="./text/">
-        <div class="hub-meta">
-          <span class="hub-status live"><span class="live-dot" aria-hidden="true"></span>LIVE · 3 tools</span>
-          <span class="hub-arrow" aria-hidden="true">→</span>
+      <a class="hub-card fade-up d5" href="./video/">
+        <div class="hub-cardtop">
+          <div class="hub-icon">🎬</div>
+          <div class="hub-namewrap"><h2 class="hub-name">Video</h2><span class="hub-cnt">5</span></div>
         </div>
-        <div class="hub-icon">📝</div>
-        <h2 class="hub-name">Text</h2>
-        <p class="hub-desc">Character counter — track length and bytes for posts, essays, SMS, and SNS limits.</p>
+        <div class="hub-tools"><span>Compress</span><span>Trim</span><span>Rotate</span><span>To GIF</span><span>Extract MP3</span></div>
+        <span class="hub-go">See all →</span>
       </a>
     </section>
 
@@ -702,51 +773,7 @@
       </details>
     </section>
 
-    <section class="quick-list fade-up d4">
-      <div class="ql-title">— Preview</div>
-      <div class="ql-row">
-        <span class="ql-label">Calculators</span>
-        <a href="./tools/compound/">Compound interest</a>
-        <a href="./tools/bmi/">BMI</a>
-        <a href="./tools/calorie/">Calorie / TDEE</a>
-        <a href="./tools/loan/">Loan</a>
-        <a href="./tools/savings/">Savings</a>
-        <a class="ql-more" href="./tools/">All →</a>
-      </div>
-      <div class="ql-row">
-        <span class="ql-label">Image</span>
-        <a href="./image/heic-to-jpg/">HEIC → JPG</a>
-        <a href="./image/crop/">Crop</a>
-        <a href="./image/id-photo/">ID photo</a>
-        <a href="./image/compress/">Compress</a>
-        <a href="./image/bg-remove/">Remove BG</a>
-        <a class="ql-more" href="./image/">All →</a>
-      </div>
-      <div class="ql-row">
-        <span class="ql-label">PDF</span>
-        <a href="./pdf/pdf-merge/">Merge PDF</a>
-        <a href="./pdf/pdf-split/">Split</a>
-        <a href="./pdf/pdf-edit/">Edit</a>
-        <a href="./pdf/pdf-to-image/">PDF → image</a>
-        <a class="ql-more" href="./pdf/">All →</a>
-      </div>
-      <div class="ql-row">
-        <span class="ql-label">Video</span>
-        <a href="./video/compress/">Compress</a>
-        <a href="./video/trim/">Trim</a>
-        <a href="./video/rotate/">Rotate</a>
-        <a href="./video/to-gif/">To GIF</a>
-        <a href="./video/to-mp3/">Extract MP3</a>
-        <a class="ql-more" href="./video/">All →</a>
-      </div>
-      <div class="ql-row">
-        <span class="ql-label">Text</span>
-        <a href="./text/counter/">Character counter</a>
-        <a class="ql-more" href="./text/">All →</a>
-      </div>
-    </section>
-
-    <section class="quick-list fade-up d4" style="margin-top:32px;border-top:1px solid var(--border);padding-top:28px">
+    <section class="quick-list fade-up d4" style="margin-top:56px;border-top:1px solid var(--border);padding-top:28px">
       <div class="ql-title">— Engineering &amp; ops notes from the maker</div>
       <p class="hub-intro-body" style="max-width:760px;margin:0 0 14px">A <a href="/blog/en/">tech blog</a> by the backend engineer who builds and runs these tools — the SEO, infrastructure, and performance lessons learned while building this very site.</p>
       <div class="ql-row">

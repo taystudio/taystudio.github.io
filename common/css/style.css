@@ -1,3 +1,4 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard-dynamic-subset.min.css');
 :root {
   --bg: #f7f8fa;
   --card: #ffffff;
@@ -2219,3 +2220,57 @@ button:hover {
   .site-nav .nav-studios-menu { min-width: 200px; }
 }
 
+/* ===== REMODEL (finance-family: Pretendard·이모지칩·로고마크·클린카드) — 병합됨 ===== */
+/* ============================================================
+   REMODEL (리뷰용, 미배포) — taystudios finance-family 톤
+   Pretendard + 파란 T 로고마크 + 라인아이콘 칩 + 클린 카드
+   다크 히어로는 제외. site-chrome.js remodel 모듈이 연결.
+   되돌리기: 이 파일 + common/remodel-icons.svg 삭제 + site-chrome.js remodel 블록 제거
+   ============================================================ */
+
+
+:root{ --r-chip:color-mix(in srgb, var(--muted) 10%, transparent); --r-cardsh:0 4px 16px rgba(20,30,50,.07); }
+:root[data-theme="dark"]{ --r-chip:color-mix(in srgb, var(--muted) 18%, transparent); --r-cardsh:none; }
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){ --r-chip:color-mix(in srgb, var(--muted) 18%, transparent); --r-cardsh:none; } }
+
+body{ font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,sans-serif !important; letter-spacing:-.011em; -webkit-font-smoothing:antialiased; }
+h1,h2{ letter-spacing:-.035em; font-weight:800; }
+.section-title,.title{ letter-spacing:-.02em; font-weight:700; }
+
+/* ===== 파란 그라데이션 T 로고마크 ===== */
+.site-header .logo{ display:inline-flex !important; align-items:center; gap:9px; }
+.r-logomark{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:30px; height:30px; border-radius:9px; flex:none;
+  background:linear-gradient(135deg,#2563eb 0%,#3b82f6 55%,#6aa8fb 100%);
+  color:#fff; font-weight:800; font-size:17px; line-height:1; letter-spacing:-.02em;
+  box-shadow:0 2px 8px color-mix(in srgb,#2563eb 40%,transparent);
+}
+
+/* ===== 카드 ===== */
+.card{ border:none !important; border-radius:20px !important; box-shadow:0 6px 22px rgba(20,30,50,.07) !important; }
+:root[data-theme="dark"] .card{ border:1px solid #20242c !important; box-shadow:0 8px 30px rgba(0,0,0,.4) !important; }
+.tool-grid{ gap:12px !important; }
+.tool-card,.featured-card{ border:none !important; border-radius:16px !important; background:var(--card) !important; box-shadow:var(--r-cardsh) !important; padding:20px !important; transition:transform .12s ease, box-shadow .12s ease; }
+:root[data-theme="dark"] .tool-card,:root[data-theme="dark"] .featured-card{ border:1px solid #20242c !important; }
+.tool-card:hover,.featured-card:hover{ transform:translateY(-3px); box-shadow:0 12px 28px rgba(20,30,50,.13) !important; }
+.tool-card .name,.featured-card .name{ font-weight:700 !important; letter-spacing:-.01em; }
+.tool-card .desc,.featured-card .desc{ color:var(--muted); }
+
+/* ===== 아이콘 칩 (라인아이콘=매핑됨, 이모지=폴백) ===== */
+.tool-card .icon,.featured-card .icon,.hub-card .hub-icon{
+  width:46px; height:46px; display:flex; align-items:center; justify-content:center;
+  border-radius:13px; margin-bottom:14px !important; font-size:22px; line-height:1;
+  background:var(--r-chip); color:var(--primary);
+}
+.tool-card .icon svg,.featured-card .icon svg,.hub-card .hub-icon svg{ width:23px; height:23px; display:block; }
+
+/* ===== 알약 / 폼 / 결과 ===== */
+.category-pills .pill{ border-radius:999px !important; font-weight:600 !important; }
+label{ font-weight:600 !important; }
+input[type="number"],input[type="text"],input[type="date"],select{ border-radius:14px !important; padding:15px 16px !important; font-size:16px !important; font-weight:600; border-width:1.5px !important; }
+button[type="submit"],form>button{ border-radius:15px !important; padding:16px 20px !important; font-weight:700 !important; font-size:16px !important; box-shadow:0 2px 10px color-mix(in srgb, var(--primary) 28%, transparent) !important; }
+.result{ border:none !important; border-radius:22px !important; background:var(--card) !important; box-shadow:0 8px 30px rgba(37,99,235,.10) !important; padding:30px 22px !important; }
+.result-value{ font-size:44px !important; font-weight:800 !important; letter-spacing:-.035em !important; }
+@media(max-width:600px){ .result-value{ font-size:38px !important; } }
+.disclaimer{ background:transparent !important; border:none !important; border-top:1px solid var(--border) !important; border-radius:0 !important; padding:16px 2px 0 !important; margin-top:26px !important; color:var(--muted) !important; font-size:12.5px !important; }

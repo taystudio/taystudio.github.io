@@ -223,7 +223,22 @@
       100% { transform: translate3d(28px, -18px, 0) scale(1.04); }
     }
 
-    .hub-hero { padding: 84px 20px 40px; text-align: center; position: relative; }
+    .hub-hero { padding: 84px 20px 40px; text-align: center; position: relative; z-index: 0; }
+    .hub-hero::before {
+      content: ""; position: absolute; left: 50%; top: 2%; transform: translateX(-50%);
+      width: min(760px, 96%); height: 380px; z-index: -1; pointer-events: none;
+      background:
+        radial-gradient(closest-side, rgba(56,189,248,.30), transparent 72%) 30% 42% / 60% 80% no-repeat,
+        radial-gradient(closest-side, rgba(37,99,235,.26), transparent 72%) 70% 56% / 56% 74% no-repeat;
+      filter: blur(36px); opacity: .8;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .hub-hero::before { animation: heroGlow 9s ease-in-out infinite alternate; }
+    }
+    @keyframes heroGlow {
+      from { transform: translateX(-50%) scale(1); opacity: .62; }
+      to   { transform: translateX(-50%) scale(1.09); opacity: .92; }
+    }
     .hub-eyebrow {
       font-family: var(--mono); font-size: 11px; letter-spacing: .32em;
       text-transform: uppercase; color: var(--muted);
@@ -233,27 +248,83 @@
       content: ""; width: 28px; height: 1px; background: var(--border);
     }
     .hub-title {
-      font-size: clamp(56px, 12vw, 148px);
-      font-weight: 800; letter-spacing: -.035em; line-height: .96;
+      font-size: clamp(58px, 12.5vw, 152px);
+      font-weight: 800; letter-spacing: -.045em; line-height: .94;
       margin: 0;
-      /* 사이트 색 컨벤션 (slate → favicon blue → indigo → PWA violet) — "쓸"자 너무 진하지 않게 #1e293b 시작 */
-      background: linear-gradient(135deg, #1e293b 0%, #2563eb 32%, #6366f1 66%, #7c3aed 100%);
+      /* 브랜드 블루→시안 그라데이션 (T 로고마크와 통일) */
+      background: linear-gradient(110deg, #1e293b 0%, #2563eb 30%, #3b82f6 52%, #0ea5e9 74%, #3b82f6 100%);
+      background-size: 220% auto;
       -webkit-background-clip: text; background-clip: text;
       -webkit-text-fill-color: transparent; color: transparent;
       word-break: keep-all;
     }
-    .hub-title .punct { color: #7c3aed; -webkit-text-fill-color: #7c3aed; }
+    .hub-title .punct { color: var(--primary); -webkit-text-fill-color: var(--primary); }
+    @media (prefers-reduced-motion: no-preference) {
+      .hub-title { animation: heroShimmer 7s ease-in-out infinite alternate; }
+    }
+    @keyframes heroShimmer {
+      from { background-position: 0% center; }
+      to   { background-position: 100% center; }
+    }
     @media (prefers-color-scheme: dark) {
-      .hub-title {
-        background: linear-gradient(135deg, #cbd5e1 0%, #60a5fa 32%, #818cf8 66%, #a78bfa 100%);
+      :root:not([data-theme="light"]) .hub-title {
+        background: linear-gradient(110deg, #93c5fd 0%, #3b82f6 46%, #22d3ee 100%);
+        background-size: 220% auto;
         -webkit-background-clip: text; background-clip: text;
       }
-      .hub-title .punct { color: #a78bfa; -webkit-text-fill-color: #a78bfa; }
+      :root:not([data-theme="light"]) .hub-title .punct { color: #60a5fa; -webkit-text-fill-color: #60a5fa; }
     }
+    :root[data-theme="dark"] .hub-title {
+      background: linear-gradient(110deg, #93c5fd 0%, #3b82f6 46%, #22d3ee 100%);
+      background-size: 220% auto;
+      -webkit-background-clip: text; background-clip: text;
+    }
+    :root[data-theme="dark"] .hub-title .punct { color: #60a5fa; -webkit-text-fill-color: #60a5fa; }
     .hub-tagline {
       color: var(--muted); font-size: clamp(15px, 1.5vw, 17px);
       margin: 22px auto 0; max-width: 520px; line-height: 1.65;
     }
+
+    /* ── 카테고리 섹션 (도구 미리보기) ── */
+    .hero-stats { display:inline-flex; gap:10px; margin-top:26px; flex-wrap:wrap; justify-content:center; }
+    .hero-stats span { font-size:12.5px; font-weight:600; color:var(--muted); border:1px solid var(--border); border-radius:999px; padding:6px 13px; background:var(--card); }
+    .hero-stats b { color:var(--primary); }
+    .tools-sec-head { display:flex; align-items:baseline; justify-content:space-between; margin:60px 0 18px; }
+    .tools-sec-head .sec-eye { font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--primary); }
+    .tools-sec-head .sec-h2 { font-size:24px; font-weight:800; letter-spacing:-.03em; margin-top:3px; }
+    .tools-sec-head .sec-cnt { color:var(--muted); font-size:13px; }
+    .hub-cardtop { display:flex; align-items:center; gap:13px; margin-bottom:16px; }
+    .hub-namewrap { display:flex; align-items:center; gap:8px; }
+    .hub-cnt { font-size:12px; font-weight:700; color:var(--primary); background:color-mix(in srgb, var(--primary) 11%, transparent); padding:2px 8px; border-radius:999px; }
+    .hub-tools { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+    .hub-tools span { font-size:12.5px; color:var(--text); background:color-mix(in srgb, var(--muted) 7%, transparent); border:1px solid var(--border); border-radius:8px; padding:5px 10px; }
+    .hub-tools .more { color:var(--muted); background:transparent; border:none; padding:6px 4px; font-weight:500; font-size:12.5px; align-self:center; opacity:.8; }
+    .hub-go { font-size:13px; font-weight:700; color:var(--primary); display:inline-flex; align-items:center; gap:5px; transition:gap .2s ease; }
+    .hub-card:hover .hub-go { gap:9px; }
+
+    /* ── fancy: 아이콘 칩 입체감 + hover 디테일 ── */
+    .hub-card .hub-icon {
+      background: linear-gradient(145deg, color-mix(in srgb, var(--muted) 13%, var(--card)), color-mix(in srgb, var(--muted) 4%, var(--card))) !important;
+      box-shadow: 0 2px 7px rgba(20,30,50,.09), inset 0 1px 0 color-mix(in srgb, #fff 45%, transparent);
+      transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s;
+    }
+    :root[data-theme="dark"] .hub-card .hub-icon {
+      box-shadow: 0 2px 7px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+    }
+    .hub-card:hover .hub-icon {
+      transform: translateY(-3px) scale(1.07);
+      box-shadow: 0 9px 20px color-mix(in srgb, var(--primary) 24%, transparent);
+    }
+    .hub-card:hover {
+      box-shadow: 0 16px 38px color-mix(in srgb, var(--primary) 13%, rgba(20,30,50,.10)) !important;
+    }
+    .hub-cnt {
+      background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 18%, transparent), color-mix(in srgb, var(--primary) 8%, transparent)) !important;
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 15%, transparent);
+    }
+    .hub-tools span { transition: border-color .2s ease, color .2s ease; }
+    .hub-card:hover .hub-tools span:not(.more) { border-color: color-mix(in srgb, var(--primary) 22%, var(--border)); }
+
 
     .hub-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -513,6 +584,7 @@
       <p class="hub-eyebrow">TAYSTUDIO · EST. 2026</p>
       <h1 class="hub-title">쓸모 있는<br>것들<span class="punct">.</span></h1>
       <p class="hub-tagline">자주 쓰는 무료 도구.<br>가입·설치 없이, 입력값은 브라우저 안에서만.</p>
+      <div class="hero-stats"><span><b>100%</b> 무료</span><span>가입 없음</span><span>브라우저 처리</span></div>
 
       <div class="hero-install" hidden role="region" aria-label="앱 설치">
         <button type="button" class="install-cta" data-install-cta hidden title="브라우저에서 바로 설치 — 홈 화면·작업표시줄에 앱처럼 추가됩니다">
@@ -530,7 +602,7 @@
         <div class="lwc-icon" aria-hidden="true">🌐</div>
         <div class="lwc-body">
           <div class="lwc-title">You're viewing the Korean version</div>
-          <div class="lwc-sub">All 40 tools are also available in English — privacy-first, no upload, no signup.</div>
+          <div class="lwc-sub">All 44 tools are also available in English — privacy-first, no upload, no signup.</div>
         </div>
         <div class="lwc-actions">
           <a href="/en/" class="lwc-cta" data-card-cta>Switch to English →</a>
@@ -618,51 +690,50 @@
       })();
     </script>
 
+        <div class="tools-sec-head">
+      <div><div class="sec-eye">Tools</div><div class="sec-h2">도구 카테고리</div></div>
+      <div class="sec-cnt">5개 카테고리 · 77개 도구</div>
+    </div>
     <section class="hub-grid">
       <a class="hub-card fade-up d1" href="./tools/">
-        <div class="hub-meta">
-          <span class="hub-status live"><span class="live-dot" aria-hidden="true"></span>LIVE · 39선</span>
-          <span class="hub-arrow" aria-hidden="true">→</span>
+        <div class="hub-cardtop">
+          <div class="hub-icon">🧮</div>
+          <div class="hub-namewrap"><h2 class="hub-name">계산기</h2><span class="hub-cnt">39</span></div>
         </div>
-        <div class="hub-icon">🧮</div>
-        <h2 class="hub-name">계산기</h2>
-        <p class="hub-desc">실생활 계산기 39선 — 연봉·세금·부동산·임신·육아·건강·자동차·저장공간·모니터까지</p>
+        <div class="hub-tools"><span>연봉 실수령액</span><span>주휴수당</span><span>4대보험</span><span>양도소득세</span><span>BMI</span><span>만 나이</span><span class="more">+33</span></div>
+        <span class="hub-go">전체 보기 →</span>
       </a>
-      <a class="hub-card fade-up d2" href="./text/">
-        <div class="hub-meta">
-          <span class="hub-status live"><span class="live-dot" aria-hidden="true"></span>LIVE · 5선</span>
-          <span class="hub-arrow" aria-hidden="true">→</span>
+      <a class="hub-card fade-up d2" href="./image/">
+        <div class="hub-cardtop">
+          <div class="hub-icon">📸</div>
+          <div class="hub-namewrap"><h2 class="hub-name">이미지 도구</h2><span class="hub-cnt">18</span></div>
         </div>
-        <div class="hub-icon">📝</div>
-        <h2 class="hub-name">텍스트 도구</h2>
-        <p class="hub-desc">자소서·인스타·블로그용 — 글자수·한↔영 변환·SNS 글 정리·특수문자/이모지 모음·아스키 배너</p>
+        <div class="hub-tools"><span>이미지 압축</span><span>배경 제거</span><span>증명사진</span><span>OCR</span><span>QR 코드</span><span>HEIC→JPG</span><span class="more">+12</span></div>
+        <span class="hub-go">전체 보기 →</span>
       </a>
-      <a class="hub-card fade-up d3" href="./image/">
-        <div class="hub-meta">
-          <span class="hub-status live"><span class="live-dot" aria-hidden="true"></span>LIVE · 18선</span>
-          <span class="hub-arrow" aria-hidden="true">→</span>
+      <a class="hub-card fade-up d3" href="./pdf/">
+        <div class="hub-cardtop">
+          <div class="hub-icon">📑</div>
+          <div class="hub-namewrap"><h2 class="hub-name">PDF 도구</h2><span class="hub-cnt">10</span></div>
         </div>
-        <div class="hub-icon">📸</div>
-        <h2 class="hub-name">이미지 도구</h2>
-        <p class="hub-desc">파일은 외부 전송 X — 압축·리사이즈·HEIC→JPG·크롭·증명사진·QR·OCR·배경 제거(AI)·EXIF 제거</p>
+        <div class="hub-tools"><span>PDF 합치기</span><span>자르기</span><span>편집</span><span>비밀번호</span><span>이미지→PDF</span><span class="more">+5</span></div>
+        <span class="hub-go">전체 보기 →</span>
       </a>
-      <a class="hub-card fade-up d4" href="./pdf/">
-        <div class="hub-meta">
-          <span class="hub-status live"><span class="live-dot" aria-hidden="true"></span>LIVE · 10선</span>
-          <span class="hub-arrow" aria-hidden="true">→</span>
+      <a class="hub-card fade-up d4" href="./text/">
+        <div class="hub-cardtop">
+          <div class="hub-icon">📝</div>
+          <div class="hub-namewrap"><h2 class="hub-name">텍스트 도구</h2><span class="hub-cnt">5</span></div>
         </div>
-        <div class="hub-icon">📑</div>
-        <h2 class="hub-name">PDF 도구</h2>
-        <p class="hub-desc">PDF가 외부 서버로 전송되지 않습니다 — 합치기·자르기·편집·이미지↔PDF·도장·비밀번호 설정·해제</p>
+        <div class="hub-tools"><span>글자수 세기</span><span>한↔영 변환</span><span>SNS 글 정리</span><span>특수문자</span><span>아스키 배너</span></div>
+        <span class="hub-go">전체 보기 →</span>
       </a>
       <a class="hub-card fade-up d5" href="./video/">
-        <div class="hub-meta">
-          <span class="hub-status live"><span class="live-dot" aria-hidden="true"></span>LIVE · 5선</span>
-          <span class="hub-arrow" aria-hidden="true">→</span>
+        <div class="hub-cardtop">
+          <div class="hub-icon">🎬</div>
+          <div class="hub-namewrap"><h2 class="hub-name">동영상 도구</h2><span class="hub-cnt">5</span></div>
         </div>
-        <div class="hub-icon">🎬</div>
-        <h2 class="hub-name">동영상 도구</h2>
-        <p class="hub-desc">영상이 외부 서버로 전송되지 않습니다 — ffmpeg.wasm 기반 압축·자르기·회전·GIF 변환·MP3 추출</p>
+        <div class="hub-tools"><span>압축</span><span>자르기</span><span>회전</span><span>GIF 변환</span><span>MP3 추출</span></div>
+        <span class="hub-go">전체 보기 →</span>
       </a>
     </section>
 
@@ -776,52 +847,6 @@
           <p class="small">사용자 데이터·파일은 외부 서버로 전송되지 않으며, 위 출처는 수치·법령 검증용 외부 링크입니다. <code>nofollow noopener</code> 적용으로 SEO 신호 분리.</p>
         </div>
       </details>
-    </section>
-
-    <section class="quick-list fade-up d4">
-      <div class="ql-title">— 미리보기</div>
-      <div class="ql-row">
-        <span class="ql-label">계산기</span>
-        <a href="./tools/salary/">연봉 실수령</a>
-        <a href="./tools/storage/">저장공간</a>
-        <a href="./tools/calorie/">기초대사량 (BMR·TDEE)</a>
-        <a href="./tools/body-fat/">체지방률</a>
-        <a href="./tools/age/">만 나이</a>
-        <a class="ql-more" href="./tools/">모두 →</a>
-      </div>
-      <div class="ql-row">
-        <span class="ql-label">텍스트</span>
-        <a href="./text/counter/">글자수 카운터</a>
-        <a href="./text/kbd-convert/">한↔영 변환</a>
-        <a href="./text/sns-format/">SNS 정리</a>
-        <a class="ql-more" href="./text/">모두 →</a>
-      </div>
-      <div class="ql-row">
-        <span class="ql-label">이미지</span>
-        <a href="./image/heic-to-jpg/">HEIC → JPG</a>
-        <a href="./image/crop/">자르기</a>
-        <a href="./image/id-photo/">증명사진</a>
-        <a href="./image/compress/">압축</a>
-        <a href="./image/bg-remove/">배경 제거</a>
-        <a class="ql-more" href="./image/">모두 →</a>
-      </div>
-      <div class="ql-row">
-        <span class="ql-label">PDF</span>
-        <a href="./pdf/pdf-merge/">PDF 합치기</a>
-        <a href="./pdf/pdf-split/">자르기</a>
-        <a href="./pdf/pdf-edit/">편집</a>
-        <a href="./pdf/pdf-to-image/">PDF → 이미지</a>
-        <a class="ql-more" href="./pdf/">모두 →</a>
-      </div>
-      <div class="ql-row">
-        <span class="ql-label">동영상</span>
-        <a href="./video/compress/">동영상 압축</a>
-        <a href="./video/trim/">자르기</a>
-        <a href="./video/rotate/">회전</a>
-        <a href="./video/to-gif/">GIF 변환</a>
-        <a href="./video/to-mp3/">MP3 추출</a>
-        <a class="ql-more" href="./video/">모두 →</a>
-      </div>
     </section>
 
     <section class="quick-list fade-up d4" style="margin-top:32px;border-top:1px solid var(--border);padding-top:28px">
