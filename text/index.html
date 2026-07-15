@@ -146,6 +146,28 @@
       </div>
     </section>
 
+    <section class="hub-guide" style="margin-top:28px">
+      <style>
+        .hub-guide h2{font-size:19px;letter-spacing:-0.01em;margin:0 0 4px}
+        .hub-guide .guide-sub{color:var(--muted);font-size:14px;margin:0 0 16px}
+        .hub-guide .guide-grid{display:grid;gap:10px}
+        .hub-guide .guide-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 16px}
+        .hub-guide .guide-row .q{font-weight:700;margin-bottom:5px;word-break:keep-all}
+        .hub-guide .guide-row .a{color:var(--muted);font-size:14px;line-height:1.7;word-break:keep-all}
+        .hub-guide .guide-row .a a{color:var(--primary);text-decoration:none;font-weight:500}
+        .hub-guide .guide-row .a a:hover{text-decoration:underline}
+      </style>
+      <h2>어떤 작업엔 어떤 도구? — 상황별 추천</h2>
+      <p class="guide-sub">“뭘 써야 할지” 헷갈릴 때, 자주 있는 상황에서 도구를 골라 보세요.</p>
+      <div class="guide-grid">
+        <div class="guide-row"><div class="q">자소서·SNS 글이 글자수 한도에 맞는지 확인하고 싶어요</div><div class="a"><a href="./counter/">글자수 카운터</a>가 공백 포함·제외, 단어·줄·바이트수와 함께 자소서·인스타·X 등 11종 한도를 progress bar로 동시에 보여줍니다.</div></div>
+        <div class="guide-row"><div class="q">한영키를 안 누르고 잘못 쳐서 글자가 깨졌어요</div><div class="a"><a href="./kbd-convert/">한↔영 키보드 변환</a>이 <code>dkssudgktpdy → 안녕하세요</code>처럼 양방향으로 자동 복원합니다(복합 자모 포함).</div></div>
+        <div class="guide-row"><div class="q">인스타 줄바꿈이 안 먹히거나 해시태그·특수 글씨를 정리하고 싶어요</div><div class="a"><a href="./sns-format/">SNS 글 정리</a>가 빈 줄 보존(U+3164), 해시태그 정리, fancy 글씨체 변환을 한 번에 처리합니다.</div></div>
+        <div class="guide-row"><div class="q">특수문자·이모지·구분선을 찾아서 복사하고 싶어요</div><div class="a"><a href="./symbols/">특수문자·이모지 모음</a>에서 한글·영어로 검색해 바로 복사하고, 구분선·조합을 바구니에 담아 쓸 수 있어요.</div></div>
+        <div class="guide-row"><div class="q">README·콘솔용 큰 아스키 글씨(배너)를 만들고 싶어요</div><div class="a"><a href="./ascii-banner/">아스키 아트 배너</a>가 텍스트를 figlet 폰트 8종의 큰 글씨로 변환합니다. GitHub README·터미널 로고에 유용해요.</div></div>
+      </div>
+    </section>
+
     <section class="disclosure-group">
       <h2>도구 사용 가이드</h2>
       <details>
@@ -219,7 +241,9 @@
     </section>
 
     <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
-      <a href="/tools/" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 38개 계산기 모두 보기</a>
+      <a href="/image/" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px;margin-right:18px">→ 이미지 도구</a>
+      <a href="/pdf/" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px;margin-right:18px">→ PDF 도구</a>
+      <a href="/tools/" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 계산기 모두 보기</a>
     </nav>
   </main>
 

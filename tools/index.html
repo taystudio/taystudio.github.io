@@ -328,6 +328,37 @@
       </div>
     </section>
 
+    <section class="hub-guide" style="margin-top:28px">
+      <style>
+        .hub-guide h2{font-size:19px;letter-spacing:-0.01em;margin:0 0 4px}
+        .hub-guide .guide-sub{color:var(--muted);font-size:14px;margin:0 0 16px}
+        .hub-guide .guide-grid{display:grid;gap:10px}
+        .hub-guide .guide-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 16px}
+        .hub-guide .guide-row .q{font-weight:700;margin-bottom:5px;word-break:keep-all}
+        .hub-guide .guide-row .a{color:var(--muted);font-size:14px;line-height:1.7;word-break:keep-all}
+        .hub-guide .guide-row .a a{color:var(--primary);text-decoration:none;font-weight:500}
+        .hub-guide .guide-row .a a:hover{text-decoration:underline}
+      </style>
+      <h2>어떤 상황엔 어떤 계산기? — 상황별 추천</h2>
+      <p class="guide-sub">인생 이벤트마다 필요한 계산기가 다릅니다. 상황에서 골라 순서대로 써 보세요.</p>
+      <div class="guide-grid">
+        <div class="guide-row"><div class="q">이직·연봉 협상 중이에요 — 실제로 손에 쥐는 돈이 궁금해요</div><div class="a"><a href="./salary/">연봉 실수령액</a>으로 세후 월급을 먼저 확인하고, <a href="./insurance/">4대보험료</a>로 공제 내역을 뜯어보세요. 연말에는 <a href="./year-end/">연말정산 환급</a>으로 돌려받을 금액을 추정할 수 있어요.</div></div>
+        <div class="guide-row"><div class="q">집을 사려고 해요 — 집값 말고 뭐가 더 드나요?</div><div class="a">계약 전 <a href="./brokerage/">중개수수료</a>(요율 상한)와 <a href="./acqtax/">취득세</a>를 먼저 계산하고, 보유 단계 비용은 <a href="./property-tax/">재산세</a>·<a href="./comp-property/">종합부동산세</a>로 미리 봐두세요.</div></div>
+        <div class="guide-row"><div class="q">집을 팔거나, 전세↔월세를 고민 중이에요</div><div class="a">매도 차익에 붙는 세금은 <a href="./capgain/">양도소득세</a>로, 전세보증금을 월세로 바꾸면 얼마가 적정한지는 <a href="./rent-convert/">전월세 전환</a>(법정 전환율 기준)으로 확인하세요.</div></div>
+        <div class="guide-row"><div class="q">대출을 받거나 목돈을 모으려고 해요</div><div class="a"><a href="./loan/">대출 이자</a>로 원리금균등·원금균등 상환액을 비교하고, 모으는 쪽은 <a href="./savings/">적금 이자</a>와 <a href="./compound/">복리 계산기</a>로 이자소득세까지 반영해 계획하세요.</div></div>
+        <div class="guide-row"><div class="q">프리랜서·사업자예요 — 5월과 부가세 신고가 두려워요</div><div class="a"><a href="./comprehensive/">종합소득세</a>로 5월 신고 세액을 추정하고, <a href="./vat/">부가가치세</a>로 매출·매입 기준 납부액을 미리 계산해두세요.</div></div>
+        <div class="guide-row"><div class="q">부모님 재산 상속·증여를 알아보고 있어요</div><div class="a">사망으로 받으면 <a href="./inheritance/">상속세</a>, 생전에 받으면 <a href="./gifttax/">증여세</a> — 공제 구조가 달라서 세액 차이가 큽니다. 둘 다 계산해 비교해 보세요.</div></div>
+        <div class="guide-row"><div class="q">알바·단기 근무 중이에요 — 주휴수당 받을 수 있나요?</div><div class="a"><a href="./hourly/">시급↔월급 환산</a>으로 최저임금 기준을 확인하고, 주 15시간 이상이면 <a href="./weekly-pay/">주휴수당</a> 지급 대상인지 계산해 보세요.</div></div>
+        <div class="guide-row"><div class="q">퇴사를 앞두고 있어요 — 받을 돈을 정리하고 싶어요</div><div class="a">순서대로: 남은 연차는 <a href="./annual-leave/">연차수당</a>, 근속 1년 이상이면 <a href="./severance/">퇴직금</a>, 비자발적 퇴사라면 <a href="./unemployment/">실업급여</a>(1일 상한·하한 반영)까지 확인하세요.</div></div>
+        <div class="guide-row"><div class="q">임신을 준비하거나 출산을 앞두고 있어요</div><div class="a"><a href="./ovulation/">배란일·가임기</a>로 시기를 잡고, 임신 후엔 <a href="./pregnancy/">출산예정일</a>을, 휴직 계획은 <a href="./parental-leave/">육아휴직 급여</a>(6+6 부모공동 포함)로 세워 보세요.</div></div>
+        <div class="guide-row"><div class="q">아기를 키우는 중이에요</div><div class="a">월령별 <a href="./baby-formula/">분유량</a>과 <a href="./baby-clothes/">아기 옷 사이즈</a>, 또래 대비 성장은 <a href="./growth/">성장 백분위</a>로 확인하세요. 이름 고민엔 <a href="./baby-names/">아기 이름 순위</a>도 있어요.</div></div>
+        <div class="guide-row"><div class="q">차를 사거나 유지비가 궁금해요</div><div class="a">구매 시엔 <a href="./cartax/">자동차 취득세</a>(전기차 감면 반영), 보유 중엔 <a href="./cartax-yearly/">연간 자동차세</a>(차령 경감 반영)로 계산하세요.</div></div>
+        <div class="guide-row"><div class="q">다이어트·운동을 시작했어요</div><div class="a"><a href="./bmi/">BMI</a>로 현재 위치를 보고, <a href="./calorie/">기초대사량(BMR·TDEE)</a>으로 하루 섭취 기준을 잡으세요. <a href="./body-fat/">체지방률(Navy)</a>은 줄자만으로 추정, 목표는 <a href="./ideal-weight/">표준체중</a>, 유산소 강도는 <a href="./heart-rate/">운동 심박존</a>으로.</div></div>
+        <div class="guide-row"><div class="q">기기 살 때 용량·모니터가 고민이에요</div><div class="a"><a href="./storage/">저장공간 계산기</a>로 사진·영상 기준 필요 용량을 추정하고, <a href="./monitor/">모니터 PPI·시야거리</a>로 해상도 대비 적정 거리를 확인하세요.</div></div>
+        <div class="guide-row"><div class="q">나이·기념일 계산이 필요해요</div><div class="a"><a href="./age/">만 나이 계산기</a>(만·연·한국식 나이 동시 표시)와 <a href="./dday/">D-day 계산기</a>로 시험·기념일·전역일을 계산하세요.</div></div>
+      </div>
+    </section>
+
     <section class="disclosure-group">
       <h2>계산 정확성·근거</h2>
       <details>

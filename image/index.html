@@ -152,7 +152,7 @@
     <section class="category-section" style="margin-top:24px">
       <div class="header" style="display:flex;align-items:baseline;gap:14px">
         <div class="title" style="font-size:14px;color:var(--muted)">PDF 도구는 별도 카테고리로 이전되었습니다 </div>
-        <a href="/pdf/" style="color:var(--primary);text-decoration:none;font-size:14px;font-weight:500">/pdf/ 도구 9선 보기</a>
+        <a href="/pdf/" style="color:var(--primary);text-decoration:none;font-size:14px;font-weight:500">/pdf/ 도구 10선 보기</a>
       </div>
     </section>
 
@@ -169,6 +169,36 @@
       </div>
     </section>
 
+    <section class="hub-guide" style="margin-top:28px">
+      <style>
+        .hub-guide h2{font-size:19px;letter-spacing:-0.01em;margin:0 0 4px}
+        .hub-guide .guide-sub{color:var(--muted);font-size:14px;margin:0 0 16px}
+        .hub-guide .guide-grid{display:grid;gap:10px}
+        .hub-guide .guide-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 16px}
+        .hub-guide .guide-row .q{font-weight:700;margin-bottom:5px;word-break:keep-all}
+        .hub-guide .guide-row .a{color:var(--muted);font-size:14px;line-height:1.7;word-break:keep-all}
+        .hub-guide .guide-row .a a{color:var(--primary);text-decoration:none;font-weight:500}
+        .hub-guide .guide-row .a a:hover{text-decoration:underline}
+      </style>
+      <h2>어떤 작업엔 어떤 도구? — 상황별 추천</h2>
+      <p class="guide-sub">“뭘 써야 할지” 헷갈릴 때, 자주 있는 상황에서 도구를 골라 보세요.</p>
+      <div class="guide-grid">
+        <div class="guide-row"><div class="q">사진 용량이 커서 카톡·이메일 첨부가 안 돼요</div><div class="a">먼저 <a href="./compress/">이미지 압축</a>으로 화질을 살짝 낮춰 용량을 줄이고, 그래도 크면 <a href="./resize/">리사이즈</a>로 픽셀 크기 자체를 줄이거나 <a href="./format-convert/">WebP 변환</a>으로 같은 화질에 더 작은 파일을 만드세요.</div></div>
+        <div class="guide-row"><div class="q">아이폰 사진(HEIC)이 PC·윈도우에서 안 열려요</div><div class="a"><a href="./heic-to-jpg/">HEIC → JPG</a>로 변환하면 윈도우·구형 갤러리에서도 열립니다. 여러 장·다중 페이지 HEIC도 한 번에 처리돼요.</div></div>
+        <div class="guide-row"><div class="q">블로그·쇼핑몰 이미지가 무거워 로딩이 느려요</div><div class="a"><a href="./format-convert/">WebP·AVIF 변환</a>으로 JPG보다 25~35% 작게 만들고, 필요하면 <a href="./compress/">압축</a>을 한 번 더 거치세요. 웹 페이지 속도에 직접 도움이 됩니다.</div></div>
+        <div class="guide-row"><div class="q">여권·이력서·민증 증명사진이 필요해요</div><div class="a"><a href="./id-photo/">증명사진 만들기</a>가 규격(여권 35×45·이력서 등)을 자동으로 맞추고 인쇄용 300DPI로 내보냅니다.</div></div>
+        <div class="guide-row"><div class="q">중고거래·SNS에 올리기 전 위치정보가 걱정돼요</div><div class="a">사진에 박힌 GPS·촬영일·기종은 <a href="./exif-remove/">EXIF·GPS 제거</a>로 지우고, 얼굴·번호판은 <a href="./mosaic/">모자이크/블러</a>로 가리면 신원 노출을 막을 수 있어요.</div></div>
+        <div class="guide-row"><div class="q">제품·인물 사진의 배경을 지우고 싶어요(누끼)</div><div class="a"><a href="./bg-remove/">배경 제거</a>가 AI로 배경을 자동 분리해 투명 PNG로 만들어줍니다. 상세페이지·프로필 사진에 유용해요.</div></div>
+        <div class="guide-row"><div class="q">여러 캡처를 하나로 붙이거나 인스타 9분할을 만들고 싶어요</div><div class="a"><a href="./merge/">이미지 합치기</a>로 가로·세로·격자 합본을 만드세요. 카톡 대화 캡처 합치기, 후기 이미지 이어붙이기에 자주 쓰입니다.</div></div>
+        <div class="guide-row"><div class="q">사진·스크린샷 속 글자를 텍스트로 옮기고 싶어요</div><div class="a"><a href="./ocr/">OCR(글자 추출)</a>이 한국어·영어(한자·일본어 옵션)를 인식합니다. 인쇄체는 정확도가 높고, 300dpi 이상 선명한 이미지일수록 잘 됩니다.</div></div>
+        <div class="guide-row"><div class="q">인스타·유튜브 규격에 맞게 잘라야 해요</div><div class="a"><a href="./crop/">자르기(크롭)</a>의 1:1·4:3·16:9·9:16 프리셋으로 비율을 맞추고 회전·반전도 함께 처리하세요.</div></div>
+        <div class="guide-row"><div class="q">사진 도용을 막고 싶어요</div><div class="a"><a href="./watermark/">워터마크</a>로 텍스트·로고를 위치·투명도·반복 설정해 넣을 수 있어요. 블로그·판매 이미지 보호에 씁니다.</div></div>
+        <div class="guide-row"><div class="q">움짤(GIF)을 만들거나, 움짤 용량을 줄이고 싶어요</div><div class="a">사진 여러 장으로 만들 땐 <a href="./photo-to-gif/">사진으로 움짤</a>, 이미 있는 GIF 용량을 줄일 땐 <a href="./gif-compress/">GIF 압축</a>(애니메이션 유지)을 쓰세요.</div></div>
+        <div class="guide-row"><div class="q">웹사이트 아이콘이나 디자인 색상 값이 필요해요</div><div class="a">사이트 아이콘은 <a href="./favicon-gen/">Favicon 생성기</a>로 다중 해상도를 한 번에, 색상은 <a href="./color-picker/">컬러 픽커·팔레트</a>로 Hex·RGB·HSL 변환과 이미지 색상 추출을 하세요.</div></div>
+        <div class="guide-row"><div class="q">QR 코드를 만들거나 읽고 싶어요</div><div class="a">만들 땐 <a href="./qr-gen/">QR 코드 생성</a>(URL·Wi-Fi → PNG·SVG), 읽을 땐 <a href="./qr-scan/">QR 코드 인식</a>(카메라·이미지)을 쓰면 됩니다.</div></div>
+      </div>
+    </section>
+
     <section class="disclosure-group">
       <h2>처리 방식·기술</h2>
       <details>
@@ -180,13 +210,13 @@
         <div class="case"><b>인스타·블로그</b>1:1·4:3·16:9·9:16 SNS 비율 프리셋 자르기, 카톡 캡처 9분할 합치기, 배경 제거(누끼)로 깔끔한 제품 사진, 워터마크로 도용 방지.</div>
         <div class="case"><b>이미지 글자 추출</b>스크린샷·사진·문서의 한국어·영어 텍스트 OCR 추출. 한자·중국어·일본어 옵션 지원. 영수증·메모·강의 노트 디지털화.</div>
         <div class="case"><b>아이폰 사용자</b>HEIC 사진을 윈도우·구형 갤러리에서 열 수 있게 JPG·PNG로 변환. 다중 페이지 HEIC도 자동 분리, 20장 이상 batch 처리 confirm.</div>
-        <div class="case"><b>디자이너·마케터</b>WebP/AVIF로 웹 페이지 이미지 용량 50%+ 감소. QR 코드 PNG·SVG 즉시 생성. 14 도구 한 곳에서.</div>
+        <div class="case"><b>디자이너·마케터</b>WebP/AVIF로 웹 페이지 이미지 용량 50%+ 감소. QR 코드 PNG·SVG 즉시 생성. 18 도구 한 곳에서.</div>
       </div>
         </div>
       </details>
 
       <details>
-        <summary>모든 14 도구의 처리 라이브러리</summary>
+        <summary>모든 18 도구의 처리 라이브러리</summary>
         <div class="body">
           <ul>
             <li><b>압축·리사이즈·자르기·합치기·증명사진·모자이크·워터마크</b> — Canvas API (브라우저 내장)</li>
