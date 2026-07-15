@@ -1679,7 +1679,7 @@ button:hover {
 .file-drop-zone {
   display: block;
   position: relative;
-  padding: 14px 20px;
+  padding: 32px 20px;
   border: 2px dashed var(--border);
   border-radius: 12px;
   background: var(--card);
@@ -1695,9 +1695,9 @@ button:hover {
 }
 
 .file-drop-zone .drop-icon {
-  font-size: 24px;
+  font-size: 32px;
   line-height: 1;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .file-drop-zone .drop-title {
