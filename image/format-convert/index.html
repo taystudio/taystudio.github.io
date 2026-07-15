@@ -259,6 +259,24 @@
     </section>
 
     <section class="tool-article">
+      <h2>어떤 포맷으로 바꿔야 하나 — 한눈 비교</h2>
+      <p>"webp가 좋다던데 무조건 webp?"는 아닙니다. 목적에 따라 정답이 갈립니다. 같은 사진을 각 포맷으로 저장했을 때의 <b>일반적인 특성</b>은 이렇습니다:</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>포맷</th><th>압축</th><th>투명</th><th>상대 용량(사진)</th><th>언제</th></tr></thead>
+          <tbody>
+            <tr><td><b>JPG</b></td><td>손실</td><td>✗</td><td>기준</td><td>사진·SNS·이메일 첨부 — 호환성 최고</td></tr>
+            <tr><td><b>PNG</b></td><td>무손실</td><td>✓</td><td>사진은 2~5배 큼</td><td>로고·아이콘·투명 배경·글자 선명해야 할 때</td></tr>
+            <tr><td><b>WebP</b></td><td>손실+무손실</td><td>✓</td><td>JPG보다 25~35%↓</td><td>웹·블로그 이미지 — 속도. 2020년 이후 전 브라우저 지원</td></tr>
+            <tr><td><b>AVIF</b></td><td>손실+무손실</td><td>✓</td><td>WebP보다 ~30%↓</td><td>최신 웹 — 최소 용량. 단 카톡·구형 뷰어 호환성 낮음</td></tr>
+            <tr><td><b>GIF</b></td><td>무손실(256색)</td><td>✓(1비트)</td><td>사진엔 부적합</td><td>간단한 애니메이션·움짤만</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small"><b>핵심 오해 3가지</b>: ① "PNG가 고화질" — PNG는 <b>무손실</b>일 뿐 사진에선 용량만 커집니다(화질이 더 좋아지는 게 아님). ② "webp로 바꾸면 항상 작아진다" — 이미 압축된 JPG를 webp로 바꾸면 <b>오히려 커질 수</b> 있습니다(단색·작은 이미지). ③ "AVIF가 최신이니 최고" — 용량은 최소지만 <b>카톡·일부 앱에서 안 열려</b> 공유용엔 위험합니다. 본 도구는 브라우저 native 인코더로 변환하므로, 변환 후 <b>용량이 실제로 줄었는지 확인</b>하고 목적에 맞는 포맷을 고르세요.</p>
+    </section>
+
+    <section class="tool-article">
       <h2>관련 도구</h2>
       <div class="related-calc">
         <a href="../compress/">이미지 압축<span class="desc">변환 후 용량 더 줄이기</span></a>
