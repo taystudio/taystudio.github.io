@@ -255,6 +255,21 @@
     </section>
 
     <section class="tool-article">
+      <h2>직접 따라 계산해보기 — 만 3세 남아, 키 95cm</h2>
+      <p>블랙박스가 아니라는 걸 보여드리기 위해, 본 계산기가 쓰는 <b>실제 CDC 도표 값</b>으로 한 번 손계산을 해보겠습니다. CDC 2000 신장 도표에서 남아 35.5개월(만 3세 무렵) 행은 이렇습니다:</p>
+      <div class="ref-table">
+        <table>
+          <thead><tr><th>L (왜도)</th><th>M (중앙값)</th><th>S (변동계수)</th></tr></thead>
+          <tbody><tr><td>−0.3039</td><td>94.65 cm</td><td>0.0407</td></tr></tbody>
+        </table>
+      </div>
+      <p>키 95cm를 위 공식에 넣으면:</p>
+      <div class="formula-box">z = ((95 / 94.65)<sup>−0.3039</sup> − 1) / (−0.3039 × 0.0407) ≈ <b>0.09</b></div>
+      <p>z-score 0.09를 정규분포 백분위로 바꾸면 <b>약 54백분위</b> — "또래 남아 100명 중 앞에서 54번째쯤"입니다. 중앙값(94.65cm)보다 겨우 3.5mm 크니 50백분위 언저리가 나오는 게 직관과도 맞죠. 계산기에 같은 값을 넣으면 동일한 결과가 나옵니다 — <b>계산 과정 전체가 이렇게 손으로 검증 가능합니다</b>.</p>
+      <p class="small">L이 음수(−0.30)라는 것 자체도 정보입니다: 이 나이대 키 분포가 왼쪽으로 살짝 치우쳐 있다는 뜻이고, 이 비대칭을 무시한 "평균±표준편차" 계산기는 극단 백분위에서 어긋나기 시작합니다.</p>
+    </section>
+
+    <section class="tool-article">
       <h2>측정 항목별로 무엇을 보나</h2>
       <div class="ref-table">
         <table class="gr-tbl meas-table">
