@@ -78,7 +78,7 @@
           "name": "PDF 파일이 외부 서버로 업로드되나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "전송되지 않습니다. PDF 처리는 브라우저 내부의 pdf-lib 라이브러리에서 모두 수행되며, 사이트 운영자도 파일 내용을 볼 수 없습니다. 계약서·이력서·민감 문서도 안심하고 사용하세요."
+            "text": "전송되지 않습니다. PDF 처리는 브라우저 내부의 pdf-lib·pdf.js 라이브러리에서 모두 수행되며, 사이트 운영자도 파일 내용을 볼 수 없습니다. 계약서·이력서·민감 문서도 안심하고 사용하세요."
           }
         },
         {
@@ -169,6 +169,35 @@
     </div>
 
     <div class="card">
+      <style>
+        .merge-tabs{display:flex;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:8px}
+        .merge-tabs .mtab{flex:1;padding:9px 12px;font-size:14px;font-weight:600;border:none;background:transparent;color:var(--muted);border-radius:7px;cursor:pointer}
+        .merge-tabs .mtab.active{background:var(--card);color:var(--primary);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+        .merge-tab-hint{font-size:12.5px;color:var(--muted);margin:0 2px 14px;line-height:1.5}
+        .file-item.pagesmode{display:block}
+        .file-item.pagesmode .fi-row{display:flex;align-items:center;gap:10px}
+        .file-item.pagesmode .fi-row .name{flex:1 1 auto;min-width:0;word-break:break-all}
+        .file-item .sel-summary{font-size:12px;color:var(--muted);white-space:nowrap;flex:0 0 auto}
+        .file-item .prev-toggle{width:auto;font-size:12.5px;font-weight:600;color:var(--primary);background:transparent;border:1px solid var(--border);border-radius:6px;padding:5px 10px;cursor:pointer;white-space:nowrap;flex:0 0 auto}
+        .file-item .prev-toggle:disabled{opacity:.5;cursor:default}
+        .thumb-strip{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border)}
+        .strip-tools{display:flex;gap:6px;margin-bottom:8px}
+        .strip-tools button{width:auto;font-size:12px;color:var(--muted);background:transparent;border:1px solid var(--border);border-radius:5px;padding:4px 9px;cursor:pointer}
+        .strip-tools button:hover{color:var(--text);background:var(--bg)}
+        .file-item .prev-toggle:hover{background:color-mix(in srgb, var(--primary) 8%, transparent)}
+        .pthumb:hover{background:var(--card);border-color:color-mix(in srgb, var(--primary) 45%, var(--border))}
+        .thumbs{display:flex;flex-wrap:wrap;gap:8px}
+        .pthumb{width:auto;position:relative;padding:0;border:2px solid var(--border);border-radius:6px;background:var(--card);cursor:pointer;line-height:0;overflow:hidden;opacity:.5;transition:opacity .12s,border-color .12s}
+        .pthumb.selected{opacity:1;border-color:var(--primary)}
+        .pthumb img{width:72px;height:auto;display:block}
+        .pthumb .pn{position:absolute;left:0;bottom:0;font-size:10px;line-height:1;color:#fff;background:rgba(0,0,0,.6);padding:2px 4px;border-top-right-radius:4px}
+        .pthumb.selected::after{content:"✓";position:absolute;top:2px;right:3px;font-size:10px;font-weight:900;color:#fff;background:var(--primary);border-radius:50%;width:15px;height:15px;line-height:15px;text-align:center}
+      </style>
+      <div class="merge-tabs" role="tablist" aria-label="합치기 방식">
+        <button type="button" class="mtab active" data-mode="all" role="tab" aria-selected="true">전체 합치기</button>
+        <button type="button" class="mtab" data-mode="pages" role="tab" aria-selected="false">페이지 선택 합치기</button>
+      </div>
+      <p class="merge-tab-hint" id="modeHint">파일 전체를 올린 순서대로 하나로 합칩니다.</p>
       <label class="file-drop-zone" id="dropZone" role="button" tabindex="0" aria-label="합칠 PDF 파일 업로드 (여러 개 가능)">
         <div class="drop-icon" aria-hidden="true">📑</div>
         <div class="drop-title" id="dropTitle" aria-live="polite">PDF 파일 여러 개를 드래그하거나 클릭해서 선택</div>
@@ -243,9 +272,9 @@
 
     <section class="disclosure-group">
       <details>
-        <summary>pdf-lib 라이브러리</summary>
+        <summary>pdf-lib · pdf.js 라이브러리</summary>
         <div class="answer">
-          <a href="https://github.com/Hopding/pdf-lib" rel="nofollow noopener" target="_blank">pdf-lib</a> (Andrew Dillon, MIT 라이선스). 약 700KB, 클라이언트 100% 동작. PDF 합치기·자르기·페이지 조작·폼 채우기 등을 지원합니다.
+          <a href="https://github.com/Hopding/pdf-lib" rel="nofollow noopener" target="_blank">pdf-lib</a> (Hopding, MIT) = 페이지 병합·복사. <a href="https://github.com/mozilla/pdf.js" rel="nofollow noopener" target="_blank">pdf.js</a> (Mozilla, Apache-2.0) = 「페이지 선택 합치기」의 페이지 썸네일 미리보기 렌더링. 둘 다 vendoring(직접 commit)이라 외부 CDN 의존이 없고, 클라이언트에서 100% 동작합니다. 썸네일은 미리보기를 열 때만 파일별로 생성돼 부하를 최소화합니다.
         </div>
       </details>
       <details>
@@ -255,9 +284,9 @@
         </div>
       </details>
       <details>
-        <summary>합친 후 페이지 순서 바꾸려면?</summary>
+        <summary>파일 안에서 원하는 페이지만 골라 합칠 수 있나요?</summary>
         <div class="answer">
-          현재 도구는 <b>파일 단위</b> 정렬만 지원합니다. 합친 후 페이지를 다시 자르고 합치는 단계가 필요하다면 PDF 자르기로 부분 추출 → 다시 합치기 순서로 진행하세요. 향후 페이지 단위 재배치 기능 검토 중.
+          네. 상단 <b>「페이지 선택 합치기」 탭</b>을 쓰면 파일마다 페이지 범위(예: <code>1-3,5,7-10</code>)를 지정해 그 페이지만 뽑아 합칩니다. 비워두면 그 파일은 전체 페이지가 들어갑니다. 실제 페이지 수를 넘는 범위는 자동으로 무시됩니다. 단, 합친 <b>후</b>의 페이지 재배치는 지원하지 않으니, 순서가 복잡하면 필요한 부분을 각 파일에서 미리 골라 순서대로 올리세요.
         </div>
       </details>
       <details>
@@ -274,7 +303,7 @@
       <details>
         <summary>PDF 파일이 외부 서버로 업로드되나요?</summary>
         <div class="answer">
-          전송되지 않습니다. PDF 처리는 <b>브라우저 내부의 pdf-lib 라이브러리</b>에서 모두 수행되며, 사이트 운영자도 파일 내용을 볼 수 없습니다.
+          전송되지 않습니다. PDF 처리는 <b>브라우저 내부의 pdf-lib·pdf.js 라이브러리</b>에서 모두 수행되며, 사이트 운영자도 파일 내용을 볼 수 없습니다.
           계약서·이력서·민감 문서도 안심하고 사용하세요.
         </div>
       </details>
@@ -338,6 +367,6 @@
 
   <site-footer></site-footer>
   <script src="/pdf/vendor/pdf-lib.min.js" defer></script>
-  <script src="./pdf-merge.js" defer></script>
+  <script src="./pdf-merge.js" type="module"></script>
 </body>
 </html>
