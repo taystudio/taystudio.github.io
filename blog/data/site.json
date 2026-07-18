@@ -65,6 +65,10 @@
           "name": "AWS"
         },
         {
+          "slug": "cloudflare",
+          "name": "Cloudflare"
+        },
+        {
           "slug": "server-setup",
           "name": "Server Setup"
         },
