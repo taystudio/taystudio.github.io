@@ -284,6 +284,53 @@
     "lang": "en"
   },
   {
+    "slug": "cloudflare-self-hosted-analytics-dashboard",
+    "title": "Build Self-Hosted Web Analytics on Cloudflare Workers + D1 — No Server, Setup to Dashboard",
+    "date": "2026-07-19",
+    "excerpt": "GA4 and GoatCounter miss half your traffic to ad blockers and bots. But standing up a whole backend just for analytics is overkill. Here's a self-hosted web analytics setup on Cloudflare Workers + D1 with zero servers — from D1 creation and wrangler deploy to fail-open, cookieless visitors, bot filtering, and a dashboard nobody else can open — all with the actual code.",
+    "category": [
+      "cloud",
+      "cloudflare"
+    ],
+    "tags": [
+      "Cloudflare Workers",
+      "cloudflare workers tutorial",
+      "D1",
+      "cloudflare workers d1",
+      "wrangler deploy",
+      "self hosted analytics",
+      "self hosted web analytics",
+      "cookieless analytics",
+      "google analytics alternative",
+      "cron"
+    ],
+    "image": "assets/posts/cloudflare-self-hosted-analytics-dashboard/cover.webp",
+    "lang": "en"
+  },
+  {
+    "slug": "cloudflare-worker-d1-analytics",
+    "title": "When to Use Cloudflare Workers — Zero-Backend Server Logic and a CORS Proxy",
+    "date": "2026-07-15",
+    "excerpt": "This site runs on zero backend servers. Yet it measures accurate traffic and pulls data from third-party APIs that block CORS. How? Building frontend-only, you hit exactly two walls — and Cloudflare Workers is what I wedge into both. When a full backend is overkill but the browser can't, here's where a Worker fits.",
+    "category": [
+      "cloud",
+      "cloudflare"
+    ],
+    "tags": [
+      "Cloudflare Workers",
+      "cloudflare workers use cases",
+      "when to use cloudflare workers",
+      "cloudflare workers cors proxy",
+      "D1",
+      "serverless",
+      "edge functions",
+      "CORS",
+      "static site"
+    ],
+    "image": "assets/posts/cloudflare-worker-d1-analytics/cover.webp",
+    "lang": "en"
+  },
+  {
     "slug": "cmd-change-drive-windows",
     "title": "How to Switch to the D Drive in Windows CMD (When cd Doesn't Work)",
     "date": "2024-10-15",

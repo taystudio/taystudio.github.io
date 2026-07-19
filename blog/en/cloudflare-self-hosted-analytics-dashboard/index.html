@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-adsense-account" content="ca-pub-3553250610781349">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>Build Self-Hosted Web Analytics on Cloudflare Workers + D1 — No Server, Setup to Dashboard · TayLee Tech &amp; Career Blog</title>
+<meta name="description" content="GA4 and GoatCounter miss half your traffic to ad blockers and bots. But standing up a whole backend just for analytics is overkill. Here&#39;s a self-hosted web analytics setup on Cloudflare Workers + D1 with zero servers — from D1 creation and wrangler deploy to fail-open, cookieless visitors, bot filtering, and a dashboard nobody else can open — all with the actual code.">
+<link rel="canonical" href="https://taystudios.com/blog/en/cloudflare-self-hosted-analytics-dashboard/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/cloudflare-self-hosted-analytics-dashboard/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/cloudflare-self-hosted-analytics-dashboard/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/cloudflare-self-hosted-analytics-dashboard/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Build Self-Hosted Web Analytics on Cloudflare Workers + D1 — No Server, Setup to Dashboard · TayLee Tech &amp; Career Blog">
+<meta property="og:description" content="GA4 and GoatCounter miss half your traffic to ad blockers and bots. But standing up a whole backend just for analytics is overkill. Here&#39;s a self-hosted web analytics setup on Cloudflare Workers + D1 with zero servers — from D1 creation and wrangler deploy to fail-open, cookieless visitors, bot filtering, and a dashboard nobody else can open — all with the actual code.">
+<meta property="og:url" content="https://taystudios.com/blog/en/cloudflare-self-hosted-analytics-dashboard/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TayLee Tech &amp; Career Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/cloudflare-self-hosted-analytics-dashboard/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/cloudflare-self-hosted-analytics-dashboard/cover.webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Build Self-Hosted Web Analytics on Cloudflare Workers + D1 — No Server, Setup to Dashboard", "description": "GA4 and GoatCounter miss half your traffic to ad blockers and bots. But standing up a whole backend just for analytics is overkill. Here's a self-hosted web analytics setup on Cloudflare Workers + D1 with zero servers — from D1 creation and wrangler deploy to fail-open, cookieless visitors, bot filtering, and a dashboard nobody else can open — all with the actual code.", "datePublished": "2026-07-19T00:00:00+09:00", "dateModified": "2026-07-19T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "TayLee Tech & Career Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/cloudflare-self-hosted-analytics-dashboard/"}, "image": ["https://taystudios.com/blog/assets/posts/cloudflare-self-hosted-analytics-dashboard/cover.webp"], "keywords": "Cloudflare Workers, cloudflare workers tutorial, D1, cloudflare workers d1, wrangler deploy, self hosted analytics, self hosted web analytics, cookieless analytics, google analytics alternative, cron"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "TayLee Tech & Career Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "Build Self-Hosted Web Analytics on Cloudflare Workers + D1 — No Server, Setup to Dashboard", "item": "https://taystudios.com/blog/en/cloudflare-self-hosted-analytics-dashboard/"}]}</script><meta property="article:published_time" content="2026-07-19T00:00:00+09:00"><meta property="article:modified_time" content="2026-07-19T00:00:00+09:00"><meta property="article:tag" content="Cloudflare Workers"><meta property="article:tag" content="cloudflare workers tutorial"><meta property="article:tag" content="D1"><meta property="article:tag" content="cloudflare workers d1"><meta property="article:tag" content="wrangler deploy"><meta property="article:tag" content="self hosted analytics"><meta property="article:tag" content="self hosted web analytics"><meta property="article:tag" content="cookieless analytics"><meta property="article:tag" content="google analytics alternative"><meta property="article:tag" content="cron">
+<link rel="stylesheet" href="assets/style.css?v=1784463238">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-79C40NJRYT"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-79C40NJRYT');</script>
+<script data-goatcounter="https://taystudios.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="/blog/en/"><span class="tb-logomark" aria-hidden="true">T</span>TayLee Tech &amp; Career Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="/blog/en/">Home</a><a class="tb-nav-hide-sm" href="/blog/en/tags/">Tags</a><a class="tb-nav-hide-sm" href="/blog/admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <div class="tb-search" data-tb-search data-lang="en"><input type="search" class="tb-search-input" placeholder="Search posts" autocomplete="off" aria-label="Search posts"><div class="tb-search-results" role="listbox" hidden></div></div>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="/blog/en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+  <script src="assets/search.js" defer></script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="/blog/en/">TayLee Tech &amp; Career Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="/blog/en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">Build Self-Hosted Web Analytics on Cloudflare Workers + D1 — No Server, Setup to Dashboard</span></nav>
+        <h1 class="tb-article-title">Build Self-Hosted Web Analytics on Cloudflare Workers + D1 — No Server, Setup to Dashboard</h1>
+        <div class="tb-article-meta">
+          <time>2026.07.19</time>
+          <span>·</span><span>#Cloudflare Workers #cloudflare workers tutorial #D1 #cloudflare workers d1 #wrangler deploy #self hosted analytics #self hosted web analytics #cookieless analytics #google analytics alternative #cron</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#why-build-it-yourself">Why build it yourself</a></li><li class="tb-toc-h2"><a href="#the-core-sequence-respond-first-log-later">The core sequence — respond first, log later</a></li><li class="tb-toc-h2"><a href="#first-the-skeleton-create-d1-and-deploy-the-worker">First, the skeleton — create D1 and deploy the Worker</a></li><li class="tb-toc-h3"><a href="#1-create-d1">1) Create D1</a></li><li class="tb-toc-h3"><a href="#2-wranglertoml-where-the-worker-attaches">2) wrangler.toml — where the Worker attaches</a></li><li class="tb-toc-h3"><a href="#3-secrets-never-put-them-in-code">3) Secrets — never put them in code</a></li><li class="tb-toc-h3"><a href="#4-apply-the-schema-deploy">4) Apply the schema + deploy</a></li><li class="tb-toc-h2"><a href="#1-observability-must-never-sit-above-the-service-fail-open">① Observability must never sit above the service (fail-open)</a></li><li class="tb-toc-h2"><a href="#2-count-visitors-without-storing-any-personal-data">② Count visitors without storing any personal data</a></li><li class="tb-toc-h2"><a href="#3-the-us-beats-korea-turned-out-to-be-bots">③ "The US beats Korea" turned out to be bots</a></li><li class="tb-toc-h2"><a href="#4-a-cron-was-enough-for-rollups">④ A cron was enough for rollups</a></li><li class="tb-toc-h2"><a href="#5-the-dashboard-is-not-for-everyone-access-control">⑤ The dashboard is not for everyone — access control</a></li><li class="tb-toc-h2"><a href="#so-the-dashboard">So, the dashboard</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<style>
+.tb-content p { line-height:1.9; letter-spacing:-0.005em; margin:28px 0; }
+.tb-content li { line-height:1.85; margin:10px 0; }
+.tb-content ul, .tb-content ol { margin:20px 0; }
+.tb-content h2 { margin:64px 0 22px; letter-spacing:-0.02em; }
+.tb-content h3 { margin:44px 0 16px; letter-spacing:-0.015em; }
+.tb-content blockquote { letter-spacing:-0.005em; line-height:1.8; margin:30px 0; padding:12px 18px; }
+.tb-content blockquote p { margin:6px 0; line-height:1.8; }
+.tb-content blockquote p:first-child { margin-top:0; }
+.tb-content blockquote p:last-child { margin-bottom:0; }
+.tb-content hr { margin:48px 0; }
+.tb-content .callout { background:#eef2f7; border-left:3px solid #3f6f54; border-radius:6px; padding:14px 18px 14px 16px; margin:24px 0; line-height:1.8; color:#2d2d2d; }
+.tb-content .callout p { margin:6px 0; line-height:1.8; }
+.tb-content .callout p:first-child { margin-top:0; }
+.tb-content .callout p:last-child { margin-bottom:0; }
+</style>
+
+<blockquote>
+<p><strong>TL;DR</strong>: The visitor analytics on this site aren't GA4 or GoatCounter — they're <strong>self-hosted</strong>, on my own domain, with <strong>zero backend servers</strong>. Just logic running on top of Cloudflare Workers + D1. This post is the whole thing, end to end — from the D1/wrangler <strong>setup</strong>, to <strong>respond-first, log-later (ctx.waitUntil)</strong>, fail-open, cookieless visitor counting, bot filtering, and a dashboard nobody else can open — all with the actual code.</p>
+</blockquote>
+<h2 id="why-build-it-yourself">Why build it yourself</h2>
+<p>Client-side analytics (GA4, GoatCounter, and friends) run JavaScript in the browser, so they quietly lose a big chunk of traffic to <strong>ad blockers, privacy browsers, and bots</strong>. You need to measure on the server to be accurate — but spinning up an EC2 box just to count page views is the tail wagging the dog. <strong>Cloudflare Workers</strong> fill exactly that gap: intercept the request at the edge, before it reaches your origin, log it to D1, and you have <strong>server-side analytics with no backend server</strong>.</p>
+<h2 id="the-core-sequence-respond-first-log-later">The core sequence — respond first, log later</h2>
+<p>The whole thing hinges on one idea: <strong>hand the visitor their response first, and record the hit afterward, asynchronously.</strong> That's why adding analytics doesn't cost the visitor a single millisecond.</p>
+<div class="cf-flow" style="max-width:680px;margin:30px auto;">
+<svg viewBox="0 0 760 372" style="width:100%;height:auto;display:block" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif" role="img" aria-label="Sequence diagram: the visitor request is proxied by the Worker to origin, the HTML response is returned first, then ctx.waitUntil writes the hit to D1 asynchronously">
+  <defs>
+    <marker id="mA" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted,#6b6b70)"/></marker>
+    <marker id="mG" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3f6f54"/></marker>
+    <marker id="mO" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#F38020"/></marker>
+  </defs>
+  <rect x="44" y="20" width="88" height="40" rx="9" fill="var(--surface,#fff)" stroke="var(--muted,#8a8a8f)" stroke-opacity="0.55" stroke-width="1.4"/>
+  <text x="88" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="var(--fg,#1c1c1e)">Visitor</text>
+  <rect x="252" y="20" width="120" height="40" rx="9" fill="rgba(243,128,32,0.07)" stroke="#F38020" stroke-width="1.5"/>
+  <text x="312" y="45" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--fg,#1c1c1e)">Worker</text>
+  <rect x="470" y="20" width="108" height="40" rx="9" fill="var(--surface,#fff)" stroke="var(--muted,#8a8a8f)" stroke-opacity="0.55" stroke-width="1.4"/>
+  <text x="524" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="var(--fg,#1c1c1e)">origin</text>
+  <rect x="650" y="20" width="88" height="40" rx="9" fill="var(--surface,#fff)" stroke="var(--muted,#8a8a8f)" stroke-opacity="0.55" stroke-width="1.4"/>
+  <text x="694" y="45" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--fg,#1c1c1e)">D1</text>
+  <line x1="88" y1="62" x2="88" y2="352" stroke="var(--muted,#8a8a8f)" stroke-width="1.4" stroke-dasharray="3 5" opacity="0.55"/>
+  <line x1="312" y1="62" x2="312" y2="352" stroke="var(--muted,#8a8a8f)" stroke-width="1.4" stroke-dasharray="3 5" opacity="0.55"/>
+  <line x1="524" y1="62" x2="524" y2="352" stroke="var(--muted,#8a8a8f)" stroke-width="1.4" stroke-dasharray="3 5" opacity="0.55"/>
+  <line x1="694" y1="62" x2="694" y2="352" stroke="var(--muted,#8a8a8f)" stroke-width="1.4" stroke-dasharray="3 5" opacity="0.55"/>
+  <text x="200" y="92" text-anchor="middle" font-size="11.5" fill="var(--muted,#6b6b70)">GET /page (request)</text>
+  <line x1="88" y1="100" x2="310" y2="100" stroke="var(--muted,#6b6b70)" stroke-width="1.7" marker-end="url(#mA)"/>
+  <text x="418" y="132" text-anchor="middle" font-size="11.5" fill="var(--muted,#6b6b70)">fetch(origin)</text>
+  <line x1="312" y1="140" x2="522" y2="140" stroke="var(--muted,#6b6b70)" stroke-width="1.7" marker-end="url(#mA)"/>
+  <text x="418" y="170" text-anchor="middle" font-size="11.5" fill="var(--muted,#6b6b70)">HTML</text>
+  <line x1="524" y1="178" x2="314" y2="178" stroke="var(--muted,#6b6b70)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#mA)"/>
+  <text x="196" y="212" text-anchor="middle" font-size="12" font-weight="700" fill="#3f6f54">HTML returned first ①</text>
+  <line x1="312" y1="220" x2="90" y2="220" stroke="#3f6f54" stroke-width="2.3" stroke-dasharray="5 4" marker-end="url(#mG)"/>
+  <text x="196" y="238" text-anchor="middle" font-size="10.5" fill="var(--muted,#6b6b70)">← visitor is already served · 0 delay</text>
+  <line x1="40" y1="262" x2="720" y2="262" stroke="var(--muted,#6b6b70)" stroke-width="1" stroke-dasharray="2 5" opacity="0.5"/>
+  <text x="380" y="258" text-anchor="middle" font-size="10.5" fill="var(--muted,#6b6b70)">— after the response · async —</text>
+  <text x="503" y="296" text-anchor="middle" font-size="12" font-weight="700" fill="#F38020">ctx.waitUntil → D1 INSERT ②</text>
+  <line x1="312" y1="304" x2="692" y2="304" stroke="#F38020" stroke-width="2.3" marker-end="url(#mO)"/>
+  <text x="503" y="322" text-anchor="middle" font-size="10.5" fill="var(--muted,#6b6b70)">human page views only · bots/assets excluded</text>
+</svg>
+<div style="text-align:center;font-size:12.5px;color:var(--muted,#8a8a8f);margin:2px auto 4px;max-width:600px;line-height:1.6;">▲ The part I found most satisfying: the response goes out first (①), and the D1 write only happens after it's done (②) — so the visitor never even knows analytics are attached.</div>
+</div>
+
+<p>In code it's just this:</p>
+<pre class="codehilite"><code class="language-js">const response = await fetch(request);   // proxy origin as-is
+// ...decide if it's a human page view...
+ctx.waitUntil(logHit(request, env, url, ua, bot, botName));  // record after responding
+return response;                          // the visitor already has their page
+</code></pre>
+
+<p><code>ctx.waitUntil</code> means "the response is sent, but keep the Worker alive until this background task finishes." So the D1 INSERT never blocks the visitor's response.</p>
+<h2 id="first-the-skeleton-create-d1-and-deploy-the-worker">First, the skeleton — create D1 and deploy the Worker</h2>
+<p>Before the logic, you need the plumbing. When I first looked at this I had no idea where to start — "Worker? D1? which one first?" — but <strong>once you have the order, it's not much.</strong> Here's exactly the path I took.</p>
+<p><strong>You'll need</strong> — a Cloudflare account (free) · a <strong>domain on Cloudflare</strong> (nameservers pointed at Cloudflare so the proxy is on — required to attach a Worker to a route) · <strong>wrangler</strong> (Cloudflare's CLI).</p>
+<pre class="codehilite"><code class="language-bash">npm install -D wrangler   # install in the project
+npx wrangler login        # authenticate in the browser
+</code></pre>
+
+<h3 id="1-create-d1">1) Create D1</h3>
+<p>D1 is Cloudflare's <strong>serverless SQLite</strong> — SQL tables without running a server.</p>
+<pre class="codehilite"><code class="language-bash">npx wrangler d1 create my_analytics
+</code></pre>
+
+<p>It prints a <code>database_id</code>. Copy it — you'll paste it into <code>wrangler.toml</code> next.</p>
+<h3 id="2-wranglertoml-where-the-worker-attaches">2) wrangler.toml — where the Worker attaches</h3>
+<p>In the project root. This is the actual file I use (swap the values):</p>
+<pre class="codehilite"><code class="language-toml">name = &quot;my-analytics&quot;
+main = &quot;src/worker.js&quot;
+compatibility_date = &quot;2024-11-01&quot;
+workers_dev = false
+
+[[routes]]
+pattern = &quot;example.com/*&quot;        # every request on this route hits the Worker first
+zone_name = &quot;example.com&quot;
+
+[triggers]
+crons = [&quot;0 19 * * *&quot;]           # daily rollup (see ④)
+
+[[d1_databases]]
+binding = &quot;DB&quot;                    # accessed as env.DB in code
+database_name = &quot;my_analytics&quot;
+database_id = &quot;xxxxxxxx-....&quot;     # from step 1
+</code></pre>
+
+<p><code>[[routes]]</code> is the key to "server-side interception" — <strong>every request to <code>example.com/*</code> runs through this Worker first.</strong> Narrow it with <code>/api/*</code> if you want.</p>
+<h3 id="3-secrets-never-put-them-in-code">3) Secrets — never put them in code</h3>
+<p>Tokens and salts do <strong>not</strong> go in your code or <code>wrangler.toml</code>. Register them separately and they're only readable at runtime via <code>env.XXX</code> (and never committed to git).</p>
+<pre class="codehilite"><code class="language-bash">npx wrangler secret put STATS_TOKEN   # dashboard read token (long, random)
+npx wrangler secret put HASH_SALT      # visitor-hash salt (long, random)
+</code></pre>
+
+<h3 id="4-apply-the-schema-deploy">4) Apply the schema + deploy</h3>
+<p>Put your <code>CREATE TABLE</code> in <code>schema.sql</code>, run it against D1, then deploy.</p>
+<pre class="codehilite"><code class="language-bash">npx wrangler d1 execute my_analytics --remote --file=schema.sql   # tables on the remote D1
+npx wrangler deploy                                               # go live
+</code></pre>
+
+<p><code>--remote</code> targets the actual deployed D1. <strong>Forget it</strong> and only your local copy changes, so you'll hit "no such table" in production. After deploying, check three things — ① the site still returns 200 (fail-open), ② <code>/_stats/query</code> without a token returns <strong>401</strong>, and ③ rows start landing in D1 after a few page views.</p>
+<div class="callout">
+<p><b>Three landmines I stepped on</b> — ① forgetting <code>--remote</code> and wondering "why is there no data?" (local only). ② the build cache shipping stale code → <code>rm -rf .wrangler node_modules/.cache</code> and redeploy. ③ a route that's too broad adding overhead → let assets pass straight through and only log human HTML views.</p>
+</div>
+
+<p>That's the <strong>skeleton</strong>: one D1, one route, two secrets, one deploy. It ate half a day the first time; the second time it was ten minutes. Now for the part that actually matters — <strong>what logic you put on top.</strong></p>
+<h2 id="1-observability-must-never-sit-above-the-service-fail-open">① Observability must never sit above the service (fail-open)</h2>
+<p>A Worker is <strong>code that sits in front of every request.</strong> If a bug in the logging path throws, worst case your whole site starts returning 500s. Taking the site down to collect stats is insane, so the very first line is a safety net.</p>
+<pre class="codehilite"><code class="language-js">async fetch(request, env, ctx) {
+  ctx.passThroughOnException();   // on any exception, serve the origin response as-is
+  ...
+}
+</code></pre>
+
+<p><code>passThroughOnException()</code> means <strong>whatever blows up, just pass the original response through.</strong> Even if logging fails entirely, the visitor gets a perfectly good page and you only lose that one hit's stat. <strong>Observability is optional; the service must stay up</strong> — that's the fail-open principle.</p>
+<h2 id="2-count-visitors-without-storing-any-personal-data">② Count visitors without storing any personal data</h2>
+<p>Server-side, you get the IP and UA in hand — but storing them raw means accumulating personal data. So I count visitors <strong>without cookies, and without storing the raw IP</strong>: hash the IP + UA together with <strong>a per-day salt</strong> and keep only the hash.</p>
+<pre class="codehilite"><code class="language-js">const salt = (env.HASH_SALT || 'salt') + '|' + day;   // mix the &quot;day&quot; into the salt
+const vh = await visitorHash(ip, ua, salt);           // keep only the first 8 bytes of SHA-256
+</code></pre>
+
+<p>Mixing the day into the salt is the trick. The same person's hash changes completely once the date flips, so you can <strong>distinguish visitors within a day</strong> but <strong>can't link yesterday to today.</strong> The raw IP is never stored anywhere (same lineage as privacy tools like Plausible). The tradeoff is you can't count "pure uniques across several days" — I define a visitor as "the sum of daily uniques" and accept that.</p>
+<h2 id="3-the-us-beats-korea-turned-out-to-be-bots">③ "The US beats Korea" turned out to be bots</h2>
+<p>A few days after launch the data looked wrong. A Korean-audience site showing <strong>US 41% &gt; Korea 31%</strong>? Datacenter bots were being counted as humans. Modern crawlers spoof a browser UA, so UA alone won't catch them. I filtered them with <code>request.cf.asOrganization</code> (the network the connection came from).</p>
+<pre class="codehilite"><code class="language-js">// UA says browser, but the connection is from a datacenter (AWS/GCP/Azure...) → spoofed bot
+const org = cf?.asOrganization || '';
+if (org &amp;&amp; !HUMAN_ASN_RE.test(org) &amp;&amp; DC_RE.test(org)) return 'datacenter: ' + org;
+</code></pre>
+
+<p>I tag each hit as human or bot and filter with a toggle in the dashboard. (I also whitelist real consumer ISPs so genuine users on those networks aren't mistaken for bots.)</p>
+<h2 id="4-a-cron-was-enough-for-rollups">④ A cron was enough for rollups</h2>
+<p>The raw <code>hits</code> table keeps growing, so once a day a <strong>rollup</strong> aggregates it into a per-day, per-path table and prunes old raw rows. A Cloudflare <strong>cron trigger</strong> handles it.</p>
+<pre class="codehilite"><code class="language-toml">[triggers]
+crons = [&quot;0 19 * * *&quot;]   # daily at 19:00 UTC
+</code></pre>
+
+<p>Cloudflare has <strong>Workflows</strong> (durable, multi-step, retryable execution) too, but I <strong>didn't use it.</strong> A rollup gets heavy because the data grows and there's more to scan — wrapping it in Workflows doesn't shrink that. At my scale (hundreds to a few thousand views a day), <strong>a cron + one SQL statement</strong> is enough and simpler.</p>
+<h2 id="5-the-dashboard-is-not-for-everyone-access-control">⑤ The dashboard is not for everyone — access control</h2>
+<p>Collecting the data is one thing; <strong>nobody but the operator should see it.</strong> Visit data is privacy-sensitive, so I locked it three ways.</p>
+<p><strong>(1) The query API returns 401 without a secret token.</strong> Every aggregation endpoint the dashboard calls (<code>/_stats/query</code>, etc.) has to pass a token check before it returns anything.</p>
+<pre class="codehilite"><code class="language-js">const token = url.searchParams.get('token') || request.headers.get('x-stats-token') || '';
+if (!env.STATS_TOKEN || token !== env.STATS_TOKEN) return json({ error: 'unauthorized' }, 401);
+</code></pre>
+
+<p>The token comes in as a query param (<code>?token=…</code>) or the <code>x-stats-token</code> header, and only passes if it <strong>matches the <code>STATS_TOKEN</code> Worker secret.</strong> The token value never appears in code or in this post (leak it and it's wide open). No token, no data — just a 401.</p>
+<p><strong>(2) The dashboard page isn't indexable.</strong> The dashboard path is <code>noindex</code> + blocked in <code>robots</code>, and the Worker <strong>skips logging</strong> that path (so the operator's own visits don't pollute the stats).</p>
+<pre class="codehilite"><code class="language-js">if (url.pathname.startsWith('/dashboard')) {
+  // always fresh (bypass edge cache) + skip logging
+  ...
+  return r;
+}
+</code></pre>
+
+<div class="callout">
+<p><b>A token in the URL is convenient but not airtight</b> — it can leak via a shared link or a referer. So that's the "first lock," and for something stronger there's <b>(3) Cloudflare Access (Zero Trust)</b>, which puts the dashboard path itself behind a <b>login gate</b> (email OTP / SSO). Only allowed people ever reach the page, so even a leaked token can't open it.</p>
+</div>
+
+<p>So: <strong>token (API) + noindex (discovery) + Cloudflare Access (page gate)</strong> — three layers. Access control is the thing people building their own analytics forget most often, and since the data <em>is</em> privacy, it's the thing to get right first.</p>
+<h2 id="so-the-dashboard">So, the dashboard</h2>
+<p>On top of all this I put a per-page stats UI — KPIs (today / yesterday / all-time), a daily bar chart, referrer channels (search / social / direct), device and country breakdowns, a live "N people right now," even 404 traffic. All of it runs <strong>on my own domain, with zero servers.</strong></p>
+<div class="callout">Measured against GA4 and GoatCounter, the server-side numbers come in <b>much higher (more accurate)</b> — the visits those tools lose to ad blockers and bots are simply caught at the server. If you need accuracy but a backend is overkill, this setup might be your answer.</div>
+
+<blockquote>
+<p>No servers, and here we are. I nearly stood up a backend just to count visits, and instead ended up with <strong>accuracy intact, servers at zero</strong> on Cloudflare Workers + D1. If you run a static site and keep hitting "do I really need a server for <em>this</em>?" — it's worth a look. It's less code than you'd think.</p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="/blog/en/cloudflare-worker-d1-analytics/">When to Use Cloudflare Workers — Zero-Backend Server Logic and a CORS Proxy</a></li><li><a href="/blog/en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="/blog/en/aws-cost-optimization/">[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration &amp; Fixed-Cost Optimization Strategy)</a></li><li><a href="/blog/en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Connection Error: How to Fix the UNPROTECTED PRIVATE KEY FILE Error (ssh pem key permission setup)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fcloudflare-self-hosted-analytics-dashboard%2F&amp;text=Build%20Self-Hosted%20Web%20Analytics%20on%20Cloudflare%20Workers%20%2B%20D1%20%E2%80%94%20No%20Server%2C%20Setup%20to%20Dashboard" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fcloudflare-self-hosted-analytics-dashboard%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::fastapi|os-settings,cloud::aws|cloudflare|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::,growth::seo|analytics|ads"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="/blog/en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="/blog/en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">9</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/cloud/cloudflare/"><span>Cloudflare</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="/blog/en/category/reviews/"><span>Reviews</span><span class="tb-side-count">11</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/reviews/career/"><span>Career</span><span class="tb-side-count">7</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">4</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="/blog/en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="/blog/en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="/blog/en/category/growth/"><span>Operations·SEO·Ads</span><span class="tb-side-count">6</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/growth/seo/"><span>SEO·Search Engines</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/growth/analytics/"><span>Analytics</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/growth/ads/"><span>Ads·AdSense</span></a></li></ul></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="/blog/en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="/blog/en/cloudflare-self-hosted-analytics-dashboard/">Build Self-Hosted Web Analytics on Cloudflare Workers + D1 — No Server, Setup to Dashboard</a></li><li><a href="/blog/en/cloudflare-worker-d1-analytics/">When to Use Cloudflare Workers — Zero-Backend Server Logic and a CORS Proxy</a></li><li><a href="/blog/en/career-samsung-dx-gcs-2026/">[Career] Samsung Electronics DX G-CS Experienced Hire Interview (AI Vision &amp; Data Optimization)</a></li><li><a href="/blog/en/kaist-grad-mech-interview/">[Admissions] KAIST Grad School Interview (Mechanical Engineering) - Oral Exam Questions &amp; Final Rejection</a></li><li><a href="/blog/en/yonsei-grad-mech-interview/">[Admissions] Yonsei Grad School Interview (Mechanical Engineering) - Oral Exam Questions &amp; Timeline</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="/blog/en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="/blog/en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="/blog/en/tags/#SEO">#SEO <span>4</span></a><a class="tb-side-tag" href="/blog/en/tags/#coding-test">#coding-test <span>4</span></a><a class="tb-side-tag" href="/blog/en/tags/#fluid mechanics">#fluid mechanics <span>4</span></a><a class="tb-side-tag" href="/blog/en/tags/#grad school">#grad school <span>4</span></a><a class="tb-side-tag" href="/blog/en/tags/#thermodynamics">#thermodynamics <span>4</span></a><a class="tb-side-tag" href="/blog/en/tags/#2019">#2019 <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#KAIST">#KAIST <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#aptitude">#aptitude <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#new-grad">#new-grad <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#review">#review <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#solid mechanics">#solid mechanics <span>3</span></a><a class="tb-side-tag tb-side-tag-more" href="/blog/en/tags/">All tags (263) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="/blog/about/">About</a><a href="/blog/privacy/">Privacy</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1783710377"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="assets/copy-code.js?v=1784405090"></script>
+<script src="assets/new-badge.js?v=1784462493"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

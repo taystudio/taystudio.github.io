@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-adsense-account" content="ca-pub-3553250610781349">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3553250610781349" crossorigin="anonymous"></script>
+<base href="../../">
+<link rel="icon" type="image/svg+xml" href="assets/blog-favicon.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/blog-favicon-96.png">
+<link rel="apple-touch-icon" href="assets/blog-favicon-180.png">
+<title>When to Use Cloudflare Workers — Zero-Backend Server Logic and a CORS Proxy · TayLee Tech &amp; Career Blog</title>
+<meta name="description" content="This site runs on zero backend servers. Yet it measures accurate traffic and pulls data from third-party APIs that block CORS. How? Building frontend-only, you hit exactly two walls — and Cloudflare Workers is what I wedge into both. When a full backend is overkill but the browser can&#39;t, here&#39;s where a Worker fits.">
+<link rel="canonical" href="https://taystudios.com/blog/en/cloudflare-worker-d1-analytics/">
+<link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/cloudflare-worker-d1-analytics/"><link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/cloudflare-worker-d1-analytics/"><link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/cloudflare-worker-d1-analytics/">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="When to Use Cloudflare Workers — Zero-Backend Server Logic and a CORS Proxy · TayLee Tech &amp; Career Blog">
+<meta property="og:description" content="This site runs on zero backend servers. Yet it measures accurate traffic and pulls data from third-party APIs that block CORS. How? Building frontend-only, you hit exactly two walls — and Cloudflare Workers is what I wedge into both. When a full backend is overkill but the browser can&#39;t, here&#39;s where a Worker fits.">
+<meta property="og:url" content="https://taystudios.com/blog/en/cloudflare-worker-d1-analytics/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TayLee Tech &amp; Career Blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://taystudios.com/blog/assets/posts/cloudflare-worker-d1-analytics/cover.webp"><meta name="twitter:image" content="https://taystudios.com/blog/assets/posts/cloudflare-worker-d1-analytics/cover.webp">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "When to Use Cloudflare Workers — Zero-Backend Server Logic and a CORS Proxy", "description": "This site runs on zero backend servers. Yet it measures accurate traffic and pulls data from third-party APIs that block CORS. How? Building frontend-only, you hit exactly two walls — and Cloudflare Workers is what I wedge into both. When a full backend is overkill but the browser can't, here's where a Worker fits.", "datePublished": "2026-07-15T00:00:00+09:00", "dateModified": "2026-07-15T00:00:00+09:00", "author": {"@type": "Person", "name": "TayLee"}, "publisher": {"@type": "Organization", "name": "TayLee Tech & Career Blog", "logo": {"@type": "ImageObject", "url": "https://taystudios.com/og-image.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://taystudios.com/blog/en/cloudflare-worker-d1-analytics/"}, "image": ["https://taystudios.com/blog/assets/posts/cloudflare-worker-d1-analytics/cover.webp"], "keywords": "Cloudflare Workers, cloudflare workers use cases, when to use cloudflare workers, cloudflare workers cors proxy, D1, serverless, edge functions, CORS, static site"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "TayLee Tech & Career Blog", "item": "https://taystudios.com/blog/en/"}, {"@type": "ListItem", "position": 2, "name": "Cloud & Architecture", "item": "https://taystudios.com/blog/en/category/cloud/"}, {"@type": "ListItem", "position": 3, "name": "When to Use Cloudflare Workers — Zero-Backend Server Logic and a CORS Proxy", "item": "https://taystudios.com/blog/en/cloudflare-worker-d1-analytics/"}]}</script><meta property="article:published_time" content="2026-07-15T00:00:00+09:00"><meta property="article:modified_time" content="2026-07-15T00:00:00+09:00"><meta property="article:tag" content="Cloudflare Workers"><meta property="article:tag" content="cloudflare workers use cases"><meta property="article:tag" content="when to use cloudflare workers"><meta property="article:tag" content="cloudflare workers cors proxy"><meta property="article:tag" content="D1"><meta property="article:tag" content="serverless"><meta property="article:tag" content="edge functions"><meta property="article:tag" content="CORS"><meta property="article:tag" content="static site">
+<link rel="stylesheet" href="assets/style.css?v=1784463238">
+<style>:root { --accent: #3f6f54; }</style>
+<script>(function(){try{var t=localStorage.getItem("taystudio.theme");var d=t?t==="dark":matchMedia("(prefers-color-scheme:dark)").matches;if(d)document.documentElement.classList.add("dark");var s=JSON.parse(localStorage.getItem("tayblog_settings")||"null");if(s&&s.themeAccent)document.documentElement.style.setProperty("--accent",s.themeAccent);}catch(e){}})();</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-79C40NJRYT"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-79C40NJRYT');</script>
+<script data-goatcounter="https://taystudios.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<header class="tb-header">
+  <div class="tb-header-inner">
+    <a class="tb-logo" href="/blog/en/"><span class="tb-logomark" aria-hidden="true">T</span>TayLee Tech &amp; Career Blog</a>
+    <nav class="tb-nav">
+      <a class="tb-nav-hide-sm" href="/blog/en/">Home</a><a class="tb-nav-hide-sm" href="/blog/en/tags/">Tags</a><a class="tb-nav-hide-sm" href="/blog/admin/" title="관리자 (외부 접근 시 403)">🔒 Admin</a>
+      <div class="tb-search" data-tb-search data-lang="en"><input type="search" class="tb-search-input" placeholder="Search posts" autocomplete="off" aria-label="Search posts"><div class="tb-search-results" role="listbox" hidden></div></div>
+      <span class="tb-studios" data-tb-studios><button type="button" class="tb-studios-trigger" aria-haspopup="true" aria-expanded="false">Studios<span class="tb-studios-caret" aria-hidden="true">▾</span></button><span class="tb-studios-menu" role="menu"><a class="tb-studios-item is-current" href="/blog/en/" role="menuitem" aria-current="page"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12.5h6"/><path d="M9 16.5h4"/></svg></span><span class="tsi-tx"><b>Blog</b><small>Tech notes · guides</small></span><span class="tsi-cur">current</span></a><a class="tb-studios-item" href="/en/" role="menuitem"><span class="tsi-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.3"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.3"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.3"/></svg></span><span class="tsi-tx"><b>Tools</b><small>Calculators · Image · PDF · Video</small></span></a><span class="tb-studios-more">+ more coming</span></span></span>
+      <a class="tb-lang-toggle" href="" data-lang-toggle aria-label="한국어">🌐 KO</a>
+      <button class="tb-theme-toggle" aria-label="toggle theme"><span class="ti-dark">☾</span><span class="ti-light">☀</span></button>
+    </nav>
+  </div>
+  <script>(function(){var a=document.querySelector('[data-lang-toggle]');if(!a)return;var isEn=/^\/blog\/en(\/|$)/.test(location.pathname);var opp=isEn?'ko':'en';var alt=document.querySelector('link[rel="alternate"][hreflang="'+opp+'"]');var target;if(alt){try{target=new URL(alt.getAttribute('href')||'',location.origin).pathname;}catch(e){target=alt.getAttribute('href');}}if(!target){target=isEn?'/blog/ko/':'/blog/en/';}a.setAttribute('href',target);})();</script>
+  <script>(function(){var s=document.querySelector('[data-tb-studios]');if(!s)return;var b=s.querySelector('.tb-studios-trigger');function o(on){s.classList.toggle('open',on);b.setAttribute('aria-expanded',on?'true':'false');}b.addEventListener('click',function(e){e.stopPropagation();o(!s.classList.contains('open'));});document.addEventListener('click',function(e){if(!s.contains(e.target))o(false);});document.addEventListener('keydown',function(e){if(e.key==='Escape')o(false);});})();</script>
+  <script src="assets/search.js" defer></script>
+</header>
+
+<main class="tb-main">
+  <div class="tb-container">
+    <article class="tb-content">
+
+      <header class="tb-article-header">
+        <nav class="tb-breadcrumb" aria-label="breadcrumb"><a href="/blog/en/">TayLee Tech &amp; Career Blog</a><span class="tb-bc-sep" aria-hidden="true">›</span><a href="/blog/en/category/cloud/">Cloud &amp; Architecture</a><span class="tb-bc-sep" aria-hidden="true">›</span><span aria-current="page">When to Use Cloudflare Workers — Zero-Backend Server Logic and a CORS Proxy</span></nav>
+        <h1 class="tb-article-title">When to Use Cloudflare Workers — Zero-Backend Server Logic and a CORS Proxy</h1>
+        <div class="tb-article-meta">
+          <time>2026.07.15</time>
+          <span>·</span><span>#Cloudflare Workers #cloudflare workers use cases #when to use cloudflare workers #cloudflare workers cors proxy #D1 #serverless #edge functions #CORS #static site</span>
+        </div>
+      </header>
+
+      <nav class="tb-toc" aria-label="Contents"><div class="tb-toc-title">Contents</div><ul><li class="tb-toc-h2"><a href="#so-what-is-a-cloudflare-worker">So what is a Cloudflare Worker</a></li><li class="tb-toc-h2"><a href="#wall-1-frontend-only-cant-measure-traffic-accurately">Wall ① Frontend-only can't measure traffic accurately</a></li><li class="tb-toc-h2"><a href="#wall-2-the-browser-blocks-a-third-party-api-with-cors">Wall ② The browser blocks a third-party API with CORS</a></li><li class="tb-toc-h3"><a href="#if-its-your-api-one-header">If it's your API — one header</a></li><li class="tb-toc-h3"><a href="#if-its-someone-elses-api-stand-up-a-proxy-worker">If it's someone else's API — stand up a proxy Worker</a></li><li class="tb-toc-h2"><a href="#summary-when-a-worker-when-a-real-backend">Summary — when a Worker, when a real backend</a></li></ul></nav>
+
+      <div class="tb-prose" data-table-style="classic">
+<style>
+.tb-content p { line-height:1.9; letter-spacing:-0.005em; margin:28px 0; }
+.tb-content li { line-height:1.85; margin:10px 0; }
+.tb-content ul, .tb-content ol { margin:20px 0; }
+.tb-content h2 { margin:64px 0 22px; letter-spacing:-0.02em; }
+.tb-content h3 { margin:44px 0 16px; letter-spacing:-0.015em; }
+.tb-content blockquote { letter-spacing:-0.005em; line-height:1.8; margin:30px 0; padding:12px 18px; }
+.tb-content blockquote p { margin:6px 0; line-height:1.8; }
+.tb-content blockquote p:first-child { margin-top:0; }
+.tb-content blockquote p:last-child { margin-bottom:0; }
+.tb-content hr { margin:48px 0; }
+.tb-content .callout { background:#eef2f7; border-left:3px solid #3f6f54; border-radius:6px; padding:14px 18px 14px 16px; margin:24px 0; line-height:1.8; color:#2d2d2d; }
+.tb-content .callout p { margin:6px 0; line-height:1.8; }
+.tb-content .callout p:first-child { margin-top:0; }
+.tb-content .callout p:last-child { margin-bottom:0; }
+</style>
+
+<blockquote>
+<p><strong>TL;DR</strong>: This site — the blog and the tools — runs on <strong>zero backend servers.</strong> No EC2, no always-on box, no deploy pipeline. Pure static frontend. And yet it <strong>measures accurate traffic</strong> and <strong>pulls data from third-party APIs that block CORS.</strong> Building frontend-only, you hit exactly two walls — a full server is overkill, but the browser alone can't — and I wedge a <strong>Cloudflare Worker</strong> into both. This is when a Worker is the right tool, with code.</p>
+</blockquote>
+<h2 id="so-what-is-a-cloudflare-worker">So what is a Cloudflare Worker</h2>
+<p>In one line: <strong>a function that runs at the edge, before the request reaches your server.</strong> You don't keep a server running (it executes only on request), deploys are one command, and the free tier alone covers 100k requests a day. Need data? Attach <strong>D1</strong> (Cloudflare's SQLite).</p>
+<p>It fits precisely here:</p>
+<div class="callout">
+<p>The middle ground where <b>a full backend is overkill, but the frontend alone can't do it.</b></p>
+<p>When you want a bit of logic in front of the request — no provisioning, no always-on box, no deploy infra.</p>
+</div>
+
+<p>Below are the two cases I hit most often building frontend-only.</p>
+<h2 id="wall-1-frontend-only-cant-measure-traffic-accurately">Wall ① Frontend-only can't measure traffic accurately</h2>
+<p>Some things a static frontend just can't do — <strong>accurate visit analytics</strong> is the classic one. Browser-side analytics (GA4, GoatCounter) lose a big chunk to ad blockers, privacy browsers, and bots. You need to measure server-side to be accurate — but standing up a backend just for stats is the tail wagging the dog.</p>
+<p>That's the Worker's spot. <strong>Intercept the request at the edge and log it to D1</strong>, and you get server-side analytics with no backend server. That's exactly what runs on this site.</p>
+<div class="cf-flow" style="max-width:660px;margin:30px auto;">
+<svg viewBox="0 0 760 440" style="width:100%;height:auto;display:block" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif" role="img" aria-label="Flow: a visitor request passes through a Cloudflare Worker that proxies the origin and asynchronously logs human HTML views to D1">
+  <defs>
+    <marker id="cfArrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--muted,#6b6b70)"/>
+    </marker>
+  </defs>
+  <rect x="18" y="176" width="112" height="76" rx="13" fill="var(--surface,#fff)" stroke="var(--muted,#8a8a8f)" stroke-opacity="0.55" stroke-width="1.5"/>
+  <text x="74" y="210" text-anchor="middle" font-size="15" font-weight="700" fill="var(--fg,#1c1c1e)">Visitor</text>
+  <text x="74" y="230" text-anchor="middle" font-size="11" fill="var(--muted,#6b6b70)">browser</text>
+  <rect x="198" y="70" width="350" height="250" rx="18" fill="rgba(243,128,32,0.06)" stroke="#F38020" stroke-width="1.6"/>
+  <text x="218" y="99" font-size="13" font-weight="700" fill="#F38020">Cloudflare edge</text>
+  <rect x="222" y="118" width="304" height="170" rx="13" fill="var(--surface,#fff)" stroke="var(--muted,#8a8a8f)" stroke-opacity="0.55" stroke-width="1.4"/>
+  <text x="242" y="149" font-size="14.5" font-weight="700" fill="var(--fg,#1c1c1e)">Worker<tspan font-size="12" font-weight="400" fill="var(--muted,#6b6b70)">  ·  example.com/*</tspan></text>
+  <text x="242" y="187" font-size="13" fill="var(--fg,#1c1c1e)">① return origin response as-is</text>
+  <text x="242" y="217" font-size="13" fill="var(--fg,#1c1c1e)">② human HTML views only</text>
+  <text x="260" y="241" font-size="11.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="var(--muted,#6b6b70)">ctx.waitUntil( async log )</text>
+  <rect x="610" y="168" width="134" height="76" rx="13" fill="var(--surface,#fff)" stroke="var(--muted,#8a8a8f)" stroke-opacity="0.55" stroke-width="1.5"/>
+  <text x="677" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="var(--fg,#1c1c1e)">origin</text>
+  <text x="677" y="220" text-anchor="middle" font-size="11" fill="var(--muted,#6b6b70)">static hosting</text>
+  <rect x="272" y="356" width="196" height="68" rx="13" fill="var(--surface,#fff)" stroke="var(--muted,#8a8a8f)" stroke-opacity="0.55" stroke-width="1.5"/>
+  <text x="370" y="386" text-anchor="middle" font-size="13.5" font-weight="700" fill="var(--fg,#1c1c1e)">D1 (SQLite)</text>
+  <text x="370" y="407" text-anchor="middle" font-size="11" fill="var(--muted,#6b6b70)">hits table · 1 row INSERT</text>
+  <line x1="130" y1="214" x2="193" y2="214" stroke="var(--muted,#6b6b70)" stroke-width="1.8" marker-end="url(#cfArrow)"/>
+  <text x="161" y="205" text-anchor="middle" font-size="11" fill="var(--muted,#6b6b70)">request</text>
+  <line x1="550" y1="202" x2="605" y2="202" stroke="var(--muted,#6b6b70)" stroke-width="1.8" marker-end="url(#cfArrow)"/>
+  <text x="578" y="192" text-anchor="middle" font-size="11" fill="var(--muted,#6b6b70)">① proxy</text>
+  <line x1="373" y1="288" x2="373" y2="353" stroke="var(--muted,#6b6b70)" stroke-width="1.8" marker-end="url(#cfArrow)"/>
+  <text x="386" y="332" font-size="11.5" fill="var(--muted,#6b6b70)">② async log</text>
+</svg>
+<div style="text-align:center;font-size:12.5px;color:var(--muted,#8a8a8f);margin:2px auto 4px;max-width:600px;line-height:1.6;">▲ The visitor gets the origin response first (①); the hit is logged afterward, out of band (②). That ordering is why analytics adds no latency.</div>
+</div>
+
+<p>The key is <strong>responding first and logging afterward, asynchronously</strong> (<code>ctx.waitUntil</code>) — the visitor doesn't feel a millisecond of it. There's a lot of detail here — fail-open so a logging bug can't take the site down, cookieless daily hashing so you count visitors without storing personal data, bot filtering by network, a cron rollup, and locking the dashboard so nobody else can open it.</p>
+<div class="callout">I broke the full build — setup, the actual Worker code, and the dashboard — into its own post: <b><a href="/blog/en/cloudflare-self-hosted-analytics-dashboard/">Build Self-Hosted Web Analytics on Cloudflare Workers + D1</a></b>. If the analytics angle is what brought you here, that's the one with all the code.</div>
+
+<p>The lesson from case ① wasn't a trick — it was <strong>asking whether I actually needed the fancy tool.</strong> Cloudflare has Workflows (durable execution); I considered it for the rollup and didn't use it, because it changes <em>how</em> something runs, not <em>how much</em> it aggregates. "There's a shiny tool, let's use it" is the wrong reflex; "does this problem need it?" is the right one.</p>
+<h2 id="wall-2-the-browser-blocks-a-third-party-api-with-cors">Wall ② The browser blocks a third-party API with CORS</h2>
+<p>Fetching an external API or resource from the frontend, you hit this wall:</p>
+<pre class="codehilite"><code>Access to fetch at 'https://api.foo.com/...' from origin 'https://mysite.com'
+has been blocked by CORS policy
+</code></pre>
+
+<p>CORS means the response is only readable from another origin's browser if the <strong>server</strong> adds a permission header (<code>Access-Control-Allow-Origin</code>). The catch: <strong>whether that header gets added is the other server's call.</strong> If they don't add it, the browser gives you no way through.</p>
+<h3 id="if-its-your-api-one-header">If it's your API — one header</h3>
+<p>If that API is <strong>your own Worker</strong>, it's trivial: add one header to the response. This site's stats dashboard calls its stats API from another origin, and the Worker opens it up like this:</p>
+<pre class="codehilite"><code class="language-js">// your stats API response
+headers: {
+  'content-type': 'application/json; charset=utf-8',
+  'access-control-allow-origin': '*',   // ← this one line is the CORS grant
+}
+</code></pre>
+
+<h3 id="if-its-someone-elses-api-stand-up-a-proxy-worker">If it's someone else's API — stand up a proxy Worker</h3>
+<p>The real problem is <strong>an API you can't change.</strong> Here you put a Worker in the <strong>middle</strong> as a proxy: browser → (your Worker) → their API, and the Worker adds CORS headers to the response on the way back. Server-to-server calls have no CORS, so it goes through.</p>
+<p>This is where <strong>most tutorials teach something dangerous.</strong> Make it an "open proxy" that fetches any URL, and you've just built <strong>a free relay for the whole internet plus an SSRF target.</strong> So I lock it down — <strong>allowlist of hosts + GET only + restrict who can call it + strip cookies:</strong></p>
+<pre class="codehilite"><code class="language-js">const ALLOW_HOSTS   = ['api.foo.com'];             // only hosts you'll proxy for
+const ALLOW_ORIGINS = ['https://mysite.com'];      // only your site may call this proxy
+
+export default {
+  async fetch(request) {
+    const origin = pickOrigin(request);
+    if (request.method === 'OPTIONS')                       // preflight
+      return new Response(null, { status: 204, headers: corsHeaders(origin) });
+    if (request.method !== 'GET' &amp;&amp; request.method !== 'HEAD')
+      return json({ error: 'method not allowed' }, 405, origin);
+
+    const t = new URL(new URL(request.url).searchParams.get('url'));
+    if (t.protocol !== 'https:')          return json({ error: 'https only' }, 400, origin);
+    if (!ALLOW_HOSTS.includes(t.hostname)) return json({ error: 'host not allowed' }, 403, origin);
+
+    const upstream = await fetch(t.toString(), {            // no cookies/auth forwarded
+      headers: { accept: request.headers.get('accept') || '*/*' },
+      cf: { cacheTtl: 300, cacheEverything: true },         // 5-min edge cache
+    });
+    const headers = new Headers(upstream.headers);
+    Object.entries(corsHeaders(origin)).forEach(([k, v]) =&gt; headers.set(k, v));
+    headers.delete('set-cookie');                            // block cookie leakage
+    return new Response(upstream.body, { status: upstream.status, headers });
+  },
+};
+</code></pre>
+
+<p>From the frontend you call it like this:</p>
+<pre class="codehilite"><code class="language-js">// what used to be blocked by CORS
+fetch('https://api.foo.com/data.json')
+// now goes through your proxy
+fetch('https://cors.mysite.com/?url=' + encodeURIComponent('https://api.foo.com/data.json'))
+</code></pre>
+
+<div class="callout">A CORS proxy is as dangerous as it is convenient. <b>Never deploy an open proxy without an allowlist.</b> Name the hosts you'll proxy, accept GET only, and don't pass through auth headers or cookies — those four are the minimum safety line.</div>
+
+<h2 id="summary-when-a-worker-when-a-real-backend">Summary — when a Worker, when a real backend</h2>
+<p>The instinct that runs through both cases:</p>
+<div class="tb-table-wrap"><table>
+<thead>
+<tr>
+<th>When you have…</th>
+<th>Reach for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Persistent state, DB transactions, complex domain logic</td>
+<td><strong>A real backend server</strong></td>
+</tr>
+<tr>
+<td>Light server-side logic in front of the request (logging, aggregation, auth checks, redirects)</td>
+<td><strong>A Worker</strong></td>
+</tr>
+<tr>
+<td>A third-party API that won't send CORS</td>
+<td><strong>A Worker proxy</strong> (allowlist)</td>
+</tr>
+<tr>
+<td>Something the frontend can do on its own</td>
+<td>Just the <strong>frontend</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>A Worker isn't a silver bullet. Heavy state or long transactions still want a real backend. But for that awkward middle — <strong>overkill for a full server, impossible for the frontend alone</strong> — one stat, one CORS wall — nothing beats it.</p>
+<blockquote>
+<p>If you run a static site and a moment comes where you think "do I really have to stand up a server for <em>this</em>?" — remember Workers. It's less code than you'd expect.</p>
+</blockquote>
+      </div>
+
+      <section class="tb-related"><h2>Related posts</h2><ul><li><a href="/blog/en/cloudflare-self-hosted-analytics-dashboard/">Build Self-Hosted Web Analytics on Cloudflare Workers + D1 — No Server, Setup to Dashboard</a></li><li><a href="/blog/en/aws-nat-gateway-guide/">[AWS] NAT Gateway How-To &amp; Setup Guide — Private Subnet Internet &amp; Cost Optimization</a></li><li><a href="/blog/en/aws-cost-optimization/">[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration &amp; Fixed-Cost Optimization Strategy)</a></li><li><a href="/blog/en/ec2-ssh-unprotected-private-key/">[AWS] EC2 SSH Connection Error: How to Fix the UNPROTECTED PRIVATE KEY FILE Error (ssh pem key permission setup)</a></li></ul></section>
+
+      <div class="tb-share"><span class="tb-share-label">Share</span><button type="button" class="tb-share-btn" data-share-copy>🔗 Copy link</button><a class="tb-share-btn" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fcloudflare-worker-d1-analytics%2F&amp;text=When%20to%20Use%20Cloudflare%20Workers%20%E2%80%94%20Zero-Backend%20Server%20Logic%20and%20a%20CORS%20Proxy" target="_blank" rel="noopener noreferrer" aria-label="X">𝕏</a><a class="tb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftaystudios.com%2Fblog%2Fen%2Fcloudflare-worker-d1-analytics%2F" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a><button type="button" class="tb-share-btn" data-share-native hidden>⋯ More</button></div>
+
+      <section class="tb-comments"><h2 class="tb-comments-title">Comments</h2><script src="https://giscus.app/client.js" data-repo="taystudio/taystudio-discussion" data-repo-id="R_kgDOSrCeQw" data-category="Announcements" data-category-id="DIC_kwDOSrCeQ84C-EGK" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></section>
+
+    </article>
+
+    <aside class="tb-sidebar">
+  <div class="tb-sidebar-sticky">
+    <section class="tb-side-card"><h3 class="tb-side-title">Categories</h3>
+          <ul class="tb-side-list" data-cat-signature="web-dev::fastapi|os-settings,cloud::aws|cloudflare|server-setup|database,reviews::career|grad-school|conferences,study::system-design,errors::java|python,data::,growth::seo|analytics|ads"><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="/blog/en/category/web-dev/"><span>Web Development</span><span class="tb-side-count">5</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/web-dev/fastapi/"><span>Python: FastAPI</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/web-dev/os-settings/"><span>OS Settings</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="/blog/en/category/cloud/"><span>Cloud &amp; Architecture</span><span class="tb-side-count">9</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/cloud/aws/"><span>AWS</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/cloud/cloudflare/"><span>Cloudflare</span><span class="tb-side-count">2</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/cloud/server-setup/"><span>Server Setup</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/cloud/database/"><span>Database</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="/blog/en/category/reviews/"><span>Reviews</span><span class="tb-side-count">11</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/reviews/career/"><span>Career</span><span class="tb-side-count">7</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/reviews/grad-school/"><span>Grad School</span><span class="tb-side-count">4</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/reviews/conferences/"><span>Conferences</span><span class="tb-side-count">2</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="/blog/en/category/study/"><span>Study</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/study/system-design/"><span>System Design Book</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="/blog/en/category/errors/"><span>Error Docs</span><span class="tb-side-count">1</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/errors/java/"><span>Java</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/errors/python/"><span>Python</span><span class="tb-side-count">1</span></a></li></ul></li><li><div class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/data/"><span>Data Analysis &amp; Statistics</span><span class="tb-side-count">7</span></a></div></li><li><div class="tb-side-row"><button type="button" class="tb-side-toggle" aria-label="하위 카테고리 접기/펼치기"><span class="tb-side-toggle-icon">▶</span></button><a href="/blog/en/category/growth/"><span>Operations·SEO·Ads</span><span class="tb-side-count">6</span></a></div><ul class="tb-side-sub"><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/growth/seo/"><span>SEO·Search Engines</span><span class="tb-side-count">5</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/growth/analytics/"><span>Analytics</span><span class="tb-side-count">1</span></a></li><li class="tb-side-row"><span class="tb-side-toggle-spacer"></span><a href="/blog/en/category/growth/ads/"><span>Ads·AdSense</span></a></li></ul></li></ul><script>(function(){try{var c=JSON.parse(localStorage.getItem("tayblog_cat_collapsed_en")||"[]");if(!c.length)return;var ul=document.currentScript.previousElementSibling;c.forEach(function(s){var a=ul.querySelector('a[href="/blog/en/category/'+s+'/"]');if(!a)return;var li=a.closest("li");if(!li)return;var sub=li.querySelector(".tb-side-sub");var tg=li.querySelector(".tb-side-toggle");if(sub){sub.classList.add("collapsed","no-anim");sub.style.maxHeight="0";}if(tg)tg.classList.add("collapsed")});requestAnimationFrame(function(){ul.querySelectorAll(".tb-side-sub.no-anim").forEach(function(s){s.classList.remove("no-anim")})});}catch(e){}})();</script>
+        </section><section class="tb-side-card"><h3 class="tb-side-title">Recent posts</h3><ul class="tb-side-recent"><li><a href="/blog/en/cloudflare-self-hosted-analytics-dashboard/">Build Self-Hosted Web Analytics on Cloudflare Workers + D1 — No Server, Setup to Dashboard</a></li><li><a href="/blog/en/cloudflare-worker-d1-analytics/">When to Use Cloudflare Workers — Zero-Backend Server Logic and a CORS Proxy</a></li><li><a href="/blog/en/career-samsung-dx-gcs-2026/">[Career] Samsung Electronics DX G-CS Experienced Hire Interview (AI Vision &amp; Data Optimization)</a></li><li><a href="/blog/en/kaist-grad-mech-interview/">[Admissions] KAIST Grad School Interview (Mechanical Engineering) - Oral Exam Questions &amp; Final Rejection</a></li><li><a href="/blog/en/yonsei-grad-mech-interview/">[Admissions] Yonsei Grad School Interview (Mechanical Engineering) - Oral Exam Questions &amp; Timeline</a></li></ul></section><section class="tb-side-card"><h3 class="tb-side-title">Tags</h3><div class="tb-side-tags"><a class="tb-side-tag" href="/blog/en/tags/#AWS">#AWS <span>7</span></a><a class="tb-side-tag" href="/blog/en/tags/#statistics">#statistics <span>7</span></a><a class="tb-side-tag" href="/blog/en/tags/#SEO">#SEO <span>4</span></a><a class="tb-side-tag" href="/blog/en/tags/#coding-test">#coding-test <span>4</span></a><a class="tb-side-tag" href="/blog/en/tags/#fluid mechanics">#fluid mechanics <span>4</span></a><a class="tb-side-tag" href="/blog/en/tags/#grad school">#grad school <span>4</span></a><a class="tb-side-tag" href="/blog/en/tags/#thermodynamics">#thermodynamics <span>4</span></a><a class="tb-side-tag" href="/blog/en/tags/#2019">#2019 <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#KAIST">#KAIST <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#Python">#Python <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#aptitude">#aptitude <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#networking">#networking <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#new-grad">#new-grad <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#review">#review <span>3</span></a><a class="tb-side-tag" href="/blog/en/tags/#solid mechanics">#solid mechanics <span>3</span></a><a class="tb-side-tag tb-side-tag-more" href="/blog/en/tags/">All tags (263) →</a></div></section>
+  </div>
+</aside>
+  </div>
+</main>
+
+<footer class="tb-footer">
+  <div class="tb-footer-inner">
+    <span>© 2026 TayLee</span>
+    <div class="tb-footer-links">
+      <a href="/blog/about/">About</a><a href="/blog/privacy/">Privacy</a>
+      <a href="mailto:thlee991@gmail.com" rel="nofollow">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js?v=1780059846"></script>
+<script src="assets/sidebar.js?v=1783710377"></script>
+<script src="assets/nav.js?v=1779678971"></script>
+<script src="assets/anchors.js?v=1779960701"></script>
+<script src="assets/copy-code.js?v=1784405090"></script>
+<script src="assets/new-badge.js?v=1784462493"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>(function(){var c=document.querySelector('[data-share-copy]');if(c)c.addEventListener('click',function(){if(navigator.clipboard)navigator.clipboard.writeText(location.href).then(function(){var o=c.textContent;c.textContent='✓ Copied';setTimeout(function(){c.textContent=o;},1500);});});var n=document.querySelector('[data-share-native]');if(n&&navigator.share){n.hidden=false;n.addEventListener('click',function(){navigator.share({title:document.title,url:location.href}).catch(function(){});});}})();</script>
+<script>(function(){function th(){return document.documentElement.classList.contains('dark')?'dark':'light';}function send(t){var f=document.querySelector('iframe.giscus-frame');if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:t}}},'https://giscus.app');}addEventListener('message',function(e){if(e.origin==='https://giscus.app'&&e.data&&e.data.giscus)send(th());});new MutationObserver(function(){send(th());}).observe(document.documentElement,{attributes:true,attributeFilter:['class']});})();</script>
+</body>
+</html>

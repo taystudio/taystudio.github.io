@@ -284,6 +284,55 @@
     "lang": "ko"
   },
   {
+    "slug": "cloudflare-self-hosted-analytics-dashboard",
+    "title": "Cloudflare Workers + D1로 방문자 통계 대시보드 만들기 — 서버 없이, 설정부터 코드까지",
+    "date": "2026-07-19",
+    "excerpt": "GA4·GoatCounter는 애드블록·봇에 절반을 놓칩니다. 그렇다고 방문자 통계 하나에 백엔드를 세우긴 과하죠. Cloudflare Workers + D1로 서버 없이·무료로 만든 방문자 통계 — D1 생성·wrangler 배포 셋업부터, fail-open·쿠키리스 방문자 구분·봇 판정·'아무나 못 보는' 대시보드까지 처음부터 끝까지 코드째 정리했습니다.",
+    "category": [
+      "cloud",
+      "cloudflare"
+    ],
+    "tags": [
+      "Cloudflare Workers",
+      "cloudflare workers 사용법",
+      "cloudflare workers 무료",
+      "D1",
+      "cloudflare workers d1",
+      "wrangler deploy",
+      "웹사이트 방문자 통계",
+      "방문자 통계",
+      "셀프호스트 애널리틱스",
+      "봇 탐지",
+      "cron"
+    ],
+    "image": "assets/posts/cloudflare-self-hosted-analytics-dashboard/cover.webp",
+    "lang": "ko"
+  },
+  {
+    "slug": "cloudflare-worker-d1-analytics",
+    "title": "백엔드 서버 0대로 만든 서비스 — 프론트엔드만으론 막히는 두 순간, Cloudflare Workers로 뚫기",
+    "date": "2026-07-15",
+    "excerpt": "이 사이트엔 백엔드 서버가 한 대도 없습니다. 그런데 정확한 방문 통계도 재고, CORS로 막힌 남의 API도 가져다 씁니다. 서버 0대로 어떻게? 프론트엔드만으로 서비스를 만들다 벽에 부딪히는 두 순간을, Cloudflare Workers + D1로 뚫은 실제 코드로 정리했습니다.",
+    "category": [
+      "cloud",
+      "cloudflare"
+    ],
+    "tags": [
+      "Cloudflare Workers",
+      "cloudflare workers 사용법",
+      "cloudflare workers 무료",
+      "cloudflare workers cron",
+      "D1",
+      "서버리스",
+      "CORS 프록시",
+      "셀프호스트 애널리틱스",
+      "엣지 함수",
+      "정적 사이트"
+    ],
+    "image": "assets/posts/cloudflare-worker-d1-analytics/cover.webp",
+    "lang": "ko"
+  },
+  {
     "slug": "cmd-change-drive-windows",
     "title": "Windows CMD에서 D드라이브로 이동하는 방법 (cd가 안 될 때)",
     "date": "2024-10-15",

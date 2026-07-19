@@ -63,6 +63,16 @@ a:hover { color: var(--accent); }
   letter-spacing: -0.01em;
   font-size: 18px;
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.tb-logomark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 9px; flex: none;
+  background: linear-gradient(135deg, #3f6f54 0%, #56906f 55%, #6aa886 100%);
+  color: #fff; font-weight: 800; font-size: 17px; line-height: 1; letter-spacing: -0.02em;
+  box-shadow: 0 2px 8px color-mix(in srgb, #3f6f54 40%, transparent);
 }
 @media (min-width: 640px) { .tb-logo { font-size: 20px; } }
 .tb-nav {
@@ -289,6 +299,36 @@ a:hover { color: var(--accent); }
   overflow: hidden;
 }
 .tb-post-card:hover .tb-post-title { color: var(--accent); }
+/* NEW 배지 (최근 14일 글 — new-badge.js 가 부착) */
+.tb-post-thumb { position: relative; }
+.tb-new {
+  position: absolute; top: 7px; left: 7px; z-index: 2;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.03em;
+  color: #fff; background: #5c9a7b;
+  padding: 3px 7px; border-radius: 6px; line-height: 1;
+  box-shadow: 0 1px 5px rgba(20,40,30,0.28);
+  animation: tbNewPulse 3.4s ease-in-out infinite;
+}
+.dark .tb-new { background: #6aa886; }
+@keyframes tbNewPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 1px 5px rgba(20,40,30,0.28), 0 0 0 0 rgba(92,154,123,0); }
+  50% { opacity: 0.72; box-shadow: 0 1px 5px rgba(20,40,30,0.28), 0 0 9px 2px rgba(92,154,123,0.6); }
+}
+@media (prefers-reduced-motion: reduce) { .tb-new { animation: none; } }
+/* 사이드바 카테고리 옆 작은 "N" 뱃지 (각 둥근 네모, 연한 초록, 아주 천천히 반짝) */
+.tb-new-cat {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 15px; height: 15px; margin-left: 6px; vertical-align: middle;
+  font-size: 9px; font-weight: 800; line-height: 1;
+  color: #fff; background: #5c9a7b; border-radius: 5px;
+  animation: tbNewTwinkle 3.4s ease-in-out infinite;
+}
+.dark .tb-new-cat { background: #6aa886; }
+@keyframes tbNewTwinkle {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(92, 154, 123, 0); }
+  50% { opacity: 0.7; box-shadow: 0 0 7px 1px rgba(92, 154, 123, 0.55); }
+}
+@media (prefers-reduced-motion: reduce) { .tb-new-cat { animation: none; } }
 .tb-post-excerpt {
   margin-top: 4px;
   font-size: 12px;
@@ -367,7 +407,17 @@ a:hover { color: var(--accent); }
   display: flex;
   flex-direction: column;
   gap: 16px;
+  /* 사이드바 전체가 뷰포트 안에서 독립 스크롤 (페이지 안 내려도 아래 카드까지 접근) */
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+  padding-right: 3px;
 }
+.tb-sidebar-sticky::-webkit-scrollbar { width: 6px; }
+.tb-sidebar-sticky::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+.tb-sidebar-sticky::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 .tb-side-card {
   border-radius: 12px;
   border: 1px solid var(--border);
@@ -387,10 +437,9 @@ a:hover { color: var(--accent); }
 /* 카테고리 위젯 — 현재 카테고리 수 (parent 7 + child 14) 다 보이는 길이.
    안전 cap: 카테고리 늘어나도 viewport 거의 안 넘게 — 그 이상은 자체 스크롤 */
 .tb-side-list[data-cat-signature] {
-  max-height: calc(100vh - 20px);
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-gutter: stable;
+  /* 스크롤은 컨테이너(.tb-sidebar-sticky)가 담당 → 여기선 내부 스크롤 없음(이중 스크롤 방지) */
+  max-height: none;
+  overflow: visible;
 }
 .tb-side-list[data-cat-signature]::-webkit-scrollbar { width: 6px; }
 .tb-side-list[data-cat-signature]::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
@@ -669,6 +718,25 @@ html.dark .tb-theme-toggle .ti-light { display: inline; }
 .tb-prose .codehilite { background: #2d2d2d; border-radius: 8px; }
 .tb-prose .codehilite pre { margin: 0; background: transparent; }
 .tb-prose .codehilite code { text-shadow: none; }
+/* 코드블록 복사 버튼 (코드블록은 항상 다크 배경 → light-on-dark) */
+.tb-prose pre.has-copy { position: relative; }
+.tb-prose .code-copy {
+  position: absolute; top: 8px; right: 8px;
+  display: inline-flex; align-items: center; gap: 5px;
+  width: auto; margin: 0; padding: 5px 9px;
+  font: 600 12px/1 inherit; letter-spacing: -0.01em;
+  color: #cbd5e1; background: rgba(255,255,255,0.09);
+  border: 1px solid rgba(255,255,255,0.16); border-radius: 6px;
+  cursor: pointer; opacity: 0;
+  transition: opacity .15s ease, background .15s ease, color .15s ease;
+}
+.tb-prose pre.has-copy:hover .code-copy,
+.tb-prose .code-copy:focus-visible { opacity: 1; }
+.tb-prose .code-copy:hover { background: rgba(255,255,255,0.18); color: #fff; }
+.tb-prose .code-copy svg { width: 14px; height: 14px; flex: none; }
+.tb-prose .code-copy.ok { opacity: 1; color: #86efac; border-color: rgba(134,239,172,0.45); background: rgba(134,239,172,0.12); }
+.tb-prose .code-copy.err { opacity: 1; color: #fca5a5; border-color: rgba(252,165,165,0.45); }
+@media (hover: none) { .tb-prose .code-copy { opacity: 0.85; } }
 .tb-prose pre .c, .tb-prose pre .c1, .tb-prose pre .cm, .tb-prose pre .cs { color: #94a3b8; font-style: italic; }  /* comment */
 .tb-prose pre .k, .tb-prose pre .kd, .tb-prose pre .kn, .tb-prose pre .kc, .tb-prose pre .kr { color: #c792ea; }  /* keyword */
 .tb-prose pre .s, .tb-prose pre .s1, .tb-prose pre .s2, .tb-prose pre .sb, .tb-prose pre .sd, .tb-prose pre .se { color: #c3e88d; }  /* string */
