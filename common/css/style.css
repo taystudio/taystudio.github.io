@@ -2119,6 +2119,9 @@ button:hover {
 /* AdSense 미승인 — 광고 placeholder 숨김.
    승인 후 이 블록 삭제하면 `.ad-slot` 위치가 다시 노출됩니다. */
 .ad-slot { display: none !important; }
+/* 광고 주입 시(.adfit-on) 노출 — AdFit 미충전이면 ins 가 숨김 유지라 자연 collapse(빈 박스 X) */
+.ad-slot.adfit-on { display: block !important; margin: 22px auto; text-align: center; }
+.ad-slot.adfit-on .kakao_ad_area { margin: 0 auto; }
 
 /* AdSense 미승인 — 쿠팡 파트너스 추천 카드 영역 임시 숨김 (tools/monitor + 향후 storage/baby/pet).
    AdSense 리뷰어가 affiliate 비중 오인할 위험 차단. 승인 후 이 블록 삭제하면 모두 재노출됩니다.

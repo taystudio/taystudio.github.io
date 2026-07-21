@@ -1150,3 +1150,27 @@ if (document.readyState === 'loading') {
     }
   } catch (_) {}
 })();
+
+/* ── 도구 페이지 광고 (AdFit) — 기존 .ad-slot 앵커에 300x250 1개.
+   광고단위 1개는 페이지당 1회라 모든 도구 페이지에서 재사용 가능(다른 URL=다른 페이지). ── */
+(function () {
+  var TOOL_AD_LIVE = true;                     // false = 도구 광고 끄기 (원클릭 kill switch)
+  var TOOL_AD_UNIT = 'DAN-80LnKknEiRptaI3r';   // AdFit 300x250 단위 (도구 전용 단위 만들면 여기 교체)
+  function initToolAd() {
+    try {
+      if (!TOOL_AD_LIVE) return;
+      var p = location.pathname;
+      if (p.indexOf('/dashboard') === 0 || p.indexOf('/admin') !== -1 || p.indexOf('/blog') === 0) return;
+      var slot = document.querySelector('.ad-slot');           // 페이지당 첫 슬롯 1개만
+      if (!slot || slot.querySelector('.kakao_ad_area')) return;
+      slot.classList.add('adfit-on');
+      slot.innerHTML = '<ins class="kakao_ad_area" style="display:none"'
+        + ' data-ad-unit="' + TOOL_AD_UNIT + '" data-ad-width="300" data-ad-height="250"></ins>';
+      var s = document.createElement('script');
+      s.async = true; s.src = '//t1.kakaocdn.net/kas/static/ba.min.js';
+      document.body.appendChild(s);
+    } catch (_) {}
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initToolAd);
+  else initToolAd();
+})();
