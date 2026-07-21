@@ -196,5 +196,14 @@
       "name": "Visitors",
       "enabled": false
     }
-  ]
+  ],
+  "ads": {
+    "live": true,
+    "post_top": true,
+    "post_middle": true,
+    "post_bottom": false,
+    "sidebar": true,
+    "list_top": false,
+    "list_bottom": false
+  }
 }

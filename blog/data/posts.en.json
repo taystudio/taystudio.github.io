@@ -3,7 +3,7 @@
     "slug": "analytics-gsc-vs-naver-vs-cloudflare",
     "title": "GSC vs Naver SearchAdvisor vs Cloudflare — Same Site, Three Datasets, Three Stories",
     "date": "2026-06-02",
-    "excerpt": "GSC: 2 clicks in 3 months. Naver: 230 clicks in 30 days. Cloudflare: 57 visits a day. Same site, 33–115× gap. Which one is the real traffic, and which one are you missing?",
+    "excerpt": "GSC, Naver, and Cloudflare reported very different numbers for one site — a 33 to 115x gap. Which analytics tool shows your real traffic, and which misses it?",
     "category": [
       "growth",
       "analytics"
@@ -27,7 +27,7 @@
     "slug": "aws-cost-optimization",
     "title": "[AWS Cost] A Guide to Cutting AWS Infrastructure Costs by 55% (Graviton Migration & Fixed-Cost Optimization Strategy)",
     "date": "2026-02-12",
-    "excerpt": "~20% from EC2 architecture (x86 → ARM/Graviton) alone, and up to 55% (about ₩2M/month) off by replacing ALB, NAT, and RDS with Nginx, a NAT instance, and an EC2 DB — real quotes and strategy.",
+    "excerpt": "Cut AWS costs up to 55% (about ₩2M/month): x86→ARM/Graviton migration and swapping ALB, NAT, and RDS for Nginx, a NAT instance, and an EC2 DB — real quotes.",
     "category": [
       "cloud",
       "aws"
@@ -46,7 +46,7 @@
     "slug": "aws-nat-gateway-guide",
     "title": "[AWS] NAT Gateway How-To & Setup Guide — Private Subnet Internet & Cost Optimization",
     "date": "2026-02-14",
-    "excerpt": "A NAT Gateway lets Private Subnet EC2s use outbound internet (apt, external APIs) while staying secure — step-by-step creation, EIP attach, routing + a cost analysis and the NAT-instance alternative.",
+    "excerpt": "A NAT Gateway gives Private Subnet EC2s secure outbound internet — step-by-step creation, EIP attach, routing, plus cost analysis and the NAT-instance option.",
     "category": [
       "cloud",
       "aws"
@@ -65,7 +65,7 @@
     "slug": "aws-summit-2024",
     "title": "[Summit] AWS Summit Review",
     "date": "2024-06-13",
-    "excerpt": "AWS Summit Seoul 2024 — walking the booths and sorting the trends into three buckets: generative-AI serving (chatbots, email, copilots, image-gen), multi-cloud CMP, and API gateway / middleware. 'Ideas converge — UX and performance is where companies actually win.'",
+    "excerpt": "Field notes from AWS Summit Seoul 2024, sorting the booth trends into three buckets — generative-AI serving, multi-cloud CMP, and API gateway middleware.",
     "category": [
       "reviews",
       "conferences"
@@ -89,7 +89,7 @@
     "slug": "career-hyundai-carcloud-newgrad-2023",
     "title": "[New Grad] Hyundai Motor — CarCloud Role — Coding Test + 1st Interview (Rejected) Recap (2023 H1)",
     "date": "2023-05-12",
-    "excerpt": "Hyundai Motor 2023 H1 new-grad recruitment for CarCloud role — aptitude + AI interview (ViewInter, 12 questions) + coding test (Softeer, Java, 3 problems) + 1st interview (30-min pre-assignment + technical 1:3). Self-graded 4/6 well-answered; still rejected at the 1st round. Keyword recap: API Gateway, WebFlux, encryption.",
+    "excerpt": "Hyundai Motor 2023 H1 new-grad CarCloud role recap — aptitude, AI interview (ViewInter), Softeer coding test (Java, 3 problems), and 1st interview. Rejected.",
     "category": [
       "reviews",
       "career"
@@ -115,7 +115,7 @@
     "slug": "career-ktds-newgrad-2021",
     "title": "[New Grad] KT DS - Coding Test & Interview (Final Offer) Recap",
     "date": "2021-12-22",
-    "excerpt": "2021 H2 KT DS new-grad recruitment, Application SW Dev/Operations role — aptitude + coding test (Programmers, Python, 3 problems: 2 algo + 1 SQL) + 1-day interview (pre-assignment PT + technical 4:1 + executive group). A muddy technical interview that somehow ended in a final offer.",
+    "excerpt": "KT DS 2021 H2 new-grad recap (Application SW Dev/Operations) — aptitude, Programmers coding test (Python, 3 problems), and a 1-day interview ending in an offer.",
     "category": [
       "reviews",
       "career"
@@ -141,7 +141,7 @@
     "slug": "career-lg-electronics-newgrad-2022",
     "title": "[New Grad] LG Electronics - Coding Test & Interview (Final Rejection) Recap",
     "date": "2022-12-15",
-    "excerpt": "2022 H2 LG Electronics new-grad recruitment (Gasan R&D Campus, H&A division) — coding test (Programmers, Java, 3 problems: full · full · partial) + aptitude + 1st interview (research presentation) + 2nd interview (executive + English OPIc) → finally rejected. A case where role misalignment shaped the outcome.",
+    "excerpt": "LG Electronics 2022 H2 new-grad recap (Gasan R&D, H&A) — Programmers coding test (Java, 3 problems), aptitude, research PT, then executive + OPIc rounds.",
     "category": [
       "reviews",
       "career"
@@ -168,7 +168,7 @@
     "slug": "career-samsung-coding-test-modules",
     "title": "Samsung Electronics Coding Test — Recurring Implementation Modules (Java)",
     "date": "2024-10-08",
-    "excerpt": "7 implementation modules (Java) that show up repeatedly in Samsung-style simulation problems — 90° rotation, Periodic Boundary Condition (PBC), reverse direction, multi-condition sort, BFS, spiral coords, concurrent List remove. Plus 3 traps I fell into. Based on codetree / Baekjoon past problems.",
+    "excerpt": "7 Java modules that recur in Samsung-style simulation coding tests — 90° rotation, periodic boundaries, reverse direction, multi-key sort, BFS, spiral coords.",
     "category": [
       "reviews",
       "career"
@@ -196,8 +196,8 @@
     "date": "2024-10-08",
     "excerpt": "5 attempts at the Samsung Research coding test — application timelines, exam environment, language restrictions, and lessons from each round.",
     "category": [
-      "career",
-      "interview"
+      "reviews",
+      "career"
     ],
     "tags": [
       "Samsung Electronics",
@@ -218,7 +218,7 @@
     "slug": "career-samsung-dx-gcs-2026",
     "title": "[Career] Samsung Electronics DX G-CS Experienced Hire Interview (AI Vision & Data Optimization)",
     "date": "2026-07-12 10:25:08",
-    "excerpt": "A first-hand review of Samsung Electronics DX division's G-CS (Global CS Center) experienced-hire process from late 2025 to early 2026: document screening, phone interview, CBT, Work Sampling, and the hiring-manager interview.",
+    "excerpt": "A first-hand review of Samsung Electronics DX's G-CS experienced-hire process: document screening, phone interview, CBT, Work Sampling, and manager interview.",
     "category": [
       "reviews",
       "career"
@@ -245,10 +245,10 @@
     "slug": "career-sk-ax-newgrad-2023",
     "title": "[New Grad] SK AX (formerly C&C) - Coding Test & Interview (Final Acceptance) Review",
     "date": "2023-12-05",
-    "excerpt": "SK Inc. AX (formerly C&C) 2023 H2 new graduate SW hiring — application, coding test (4 problems), SKCT psychological, 1-day interview (discussion + job/personality).",
+    "excerpt": "A walkthrough of SK Inc. AX (formerly C&C) 2023 second-half new graduate SW hiring: the application, coding test, SKCT aptitude exam, and full-day interview.",
     "category": [
-      "career",
-      "interview"
+      "reviews",
+      "career"
     ],
     "tags": [
       "SK",
@@ -269,7 +269,7 @@
     "slug": "central-limit-theorem",
     "title": "The Central Limit Theorem (CLT): Definition, Experiments & Uses",
     "date": "2024-11-03",
-    "excerpt": "As the sample size grows, the sample mean converges to a normal distribution for any population — verified with five distributions, plus why the CLT matters for estimation and confidence intervals.",
+    "excerpt": "As sample size grows, the sample mean converges to a normal distribution for any population — verified across five distributions, plus why the CLT matters.",
     "category": [
       "data"
     ],
@@ -287,7 +287,7 @@
     "slug": "cloudflare-self-hosted-analytics-dashboard",
     "title": "Build Self-Hosted Web Analytics on Cloudflare Workers + D1 — No Server, Setup to Dashboard",
     "date": "2026-07-19",
-    "excerpt": "GA4 and GoatCounter miss half your traffic to ad blockers and bots. But standing up a whole backend just for analytics is overkill. Here's a self-hosted web analytics setup on Cloudflare Workers + D1 with zero servers — from D1 creation and wrangler deploy to fail-open, cookieless visitors, bot filtering, and a dashboard nobody else can open — all with the actual code.",
+    "excerpt": "GA4 and GoatCounter miss traffic to ad blockers and bots. Build self-hosted web analytics on Cloudflare Workers + D1 — no servers, setup to a locked dashboard.",
     "category": [
       "cloud",
       "cloudflare"
@@ -311,7 +311,7 @@
     "slug": "cloudflare-worker-d1-analytics",
     "title": "When to Use Cloudflare Workers — Zero-Backend Server Logic and a CORS Proxy",
     "date": "2026-07-15",
-    "excerpt": "This site runs on zero backend servers. Yet it measures accurate traffic and pulls data from third-party APIs that block CORS. How? Building frontend-only, you hit exactly two walls — and Cloudflare Workers is what I wedge into both. When a full backend is overkill but the browser can't, here's where a Worker fits.",
+    "excerpt": "This site runs zero backend servers yet tracks accurate traffic and calls CORS-blocked APIs. Here's exactly when Cloudflare Workers fit — and when they don't.",
     "category": [
       "cloud",
       "cloudflare"
@@ -334,7 +334,7 @@
     "slug": "cmd-change-drive-windows",
     "title": "How to Switch to the D Drive in Windows CMD (When cd Doesn't Work)",
     "date": "2024-10-15",
-    "excerpt": "In Windows CMD, cd can't move to another drive. Why you must type 'D:' to go from C: to the D drive — the Windows filesystem with an independent root per drive vs Linux's single root (/).",
+    "excerpt": "Why Windows CMD's cd can't switch drives and you must type 'D:' to move from C: to D — Windows gives each drive its own root, unlike Linux's single root.",
     "category": [
       "web-dev",
       "os-settings"
@@ -353,7 +353,7 @@
     "slug": "command-not-found-linux-path",
     "title": "Fixing Linux 'command not found' (ls·vi·vim) — Restoring the PATH",
     "date": "2024-10-19",
-    "excerpt": "When you overwrite PATH on Linux/macOS and basic commands like ls·vi·vim stop working with 'command not found' — check with echo $PATH and restore the base paths (/bin, /usr/bin, etc.) with export PATH, plus how :$PATH preserves the existing paths.",
+    "excerpt": "When overwriting PATH on Linux or macOS breaks commands like ls, vi, and vim with 'command not found' — check echo $PATH and restore base paths via export.",
     "category": [
       "web-dev",
       "os-settings"
@@ -373,7 +373,7 @@
     "slug": "confidence-interval",
     "title": "Confidence Intervals — Meaning, Intuition, and a Common Misconception",
     "date": "2024-10-13",
-    "excerpt": "From why confidence intervals exist, to the hypothesis-testing view, to the truth behind the common misconception that 'there's a 95% probability the mean is inside the interval.'",
+    "excerpt": "Why confidence intervals exist, how they connect to hypothesis testing, and the truth behind the myth that there's a 95% chance the mean is in the interval.",
     "category": [
       "data"
     ],
@@ -391,7 +391,7 @@
     "slug": "degrees-of-freedom",
     "title": "What Are Degrees of Freedom (DOF) & Population-Variance Estimation and Degrees of Freedom (n-1)",
     "date": "2024-09-30",
-    "excerpt": "Why does the sample variance divide by n-1 instead of n? Two views — correcting underestimation (bias) and degrees of freedom — to get at the essence of variance.",
+    "excerpt": "Why does sample variance divide by n-1 instead of n? Two views — correcting bias from underestimation and degrees of freedom — reveal the essence of variance.",
     "category": [
       "data"
     ],
@@ -428,7 +428,7 @@
     "slug": "fastapi-getting-started",
     "title": "Getting Started with Python FastAPI — Concepts, Install & Running on PyCharm (feat. uvicorn)",
     "date": "2024-10-20",
-    "excerpt": "Why FastAPI (async / I/O-bound) and how it relates to Python's GIL, installing FastAPI and uvicorn with pip, the relationship between a web framework and a web application (ASGI/WSGI), and two ways to run the server with uvicorn in PyCharm plus the built-in Swagger UI.",
+    "excerpt": "Get started with Python FastAPI — why async and the GIL matter, pip install uvicorn, ASGI vs WSGI, run the server two ways in PyCharm, plus built-in Swagger UI.",
     "category": [
       "web-dev",
       "fastapi"
@@ -448,7 +448,7 @@
     "slug": "github-pages-custom-domain",
     "title": "Connecting a Custom Domain to GitHub Pages — 4 Steps (Cloudflare DNS · CNAME · HTTPS · Re-Indexing)",
     "date": "2026-06-05",
-    "excerpt": "Move from .github.io to a custom .com in 4 steps. Cloudflare DNS, repo CNAME, Let's Encrypt HTTPS auto-issued, and re-indexing across search engines — UI walkthroughs included.",
+    "excerpt": "Move from a github.io URL to a custom .com domain in four steps: Cloudflare DNS, a repo CNAME, automatic Let's Encrypt HTTPS, and search-engine re-indexing.",
     "category": [
       "growth",
       "seo"
@@ -472,7 +472,7 @@
     "slug": "hypothesis-testing",
     "title": "Understanding Hypothesis Testing: Test Statistic, Null Hypothesis, Alternative Hypothesis, p-value, Significance Level, Critical Value — Concepts (the essence)",
     "date": "2026-05-27",
-    "excerpt": "From the intuition of hypothesis testing to the meaning of the test statistic, plus null/alternative hypotheses, p-value, significance level, and critical value — all connected through a single example.",
+    "excerpt": "From hypothesis-testing intuition to the test statistic, null and alternative hypotheses, p-value, significance level, and critical value, via one example.",
     "category": [
       "data"
     ],
@@ -489,7 +489,7 @@
     "slug": "kaist-grad-mech-interview",
     "title": "[Admissions] KAIST Grad School Interview (Mechanical Engineering) - Oral Exam Questions & Final Rejection",
     "date": "2026-07-11 16:31:32",
-    "excerpt": "A first-hand review of the 2019 KAIST Mechanical Engineering grad school interview: the real oral-exam questions in the thermo-fluids and dynamics-solids rooms, and how it ended in a final rejection.",
+    "excerpt": "A first-hand review of the 2019 KAIST Mechanical Engineering grad school interview: real oral-exam questions from the thermo-fluids and dynamics-solids rooms.",
     "category": [
       "reviews",
       "grad-school"
@@ -517,7 +517,7 @@
     "slug": "kaist-grad-mech-written-set1",
     "title": "[Admissions] KAIST Graduate Written Exam (Mechanical Engineering) — Review (1)",
     "date": "2024-05-17",
-    "excerpt": "KAIST Mechanical Engineering grad school written exam (Aug 2019) — Set 1 (5 problems, 2 hours) recap. Math · Solid · Dynamics · Thermo · Fluid (one problem each). ODE, Von-Mises stress, Work & Energy, Bernoulli + Energy equation, hydrostatic force on curved surface.",
+    "excerpt": "KAIST Mechanical Engineering grad school written exam (Aug 2019), Set 1 recap — five 2-hour problems across math, solids, dynamics, thermo, and fluids.",
     "category": [
       "reviews",
       "grad-school"
@@ -542,7 +542,7 @@
     "slug": "kaist-grad-mech-written-set2",
     "title": "[Admissions] KAIST Graduate Written Exam (Mechanical Engineering) — Review (2)",
     "date": "2024-05-17",
-    "excerpt": "KAIST Mechanical Engineering grad school written exam (Aug 2019) — Set 2 (5 problems, 2 hours) recap. Eigen value/vector · Strength design procedure · rigid-body Work & Energy · max-work thermo problem · Navier-Stokes Couette flow.",
+    "excerpt": "KAIST Mechanical Engineering grad school written exam (Aug 2019), Set 2 recap — five 2-hour problems: eigenvalues, strength design, dynamics, thermo, and N-S.",
     "category": [
       "reviews",
       "grad-school"
@@ -569,7 +569,7 @@
     "slug": "ksme-pm25-cnn-prediction",
     "title": "Conference Review (past record): KSME (Korean Society of Mechanical Engineers) — Fluid Mechanics Competition Gold Award",
     "date": "2024-10-09",
-    "excerpt": "An undergraduate thesis from 2019 — using a neural network (ANN) to predict PM2.5 concentrations 6/12 hours ahead. 94,225 observations from weather + air-quality data, AIC·VIF variable selection, Window Learning. Plus the time-lag pitfall discovered two years later.",
+    "excerpt": "A 2019 undergrad thesis using a neural network (ANN) to predict PM2.5 levels 6-12h ahead — 94,225 observations, AIC/VIF selection, and a time-lag pitfall found.",
     "category": [
       "reviews",
       "conferences"
@@ -595,7 +595,7 @@
     "slug": "mssql-login-user-schema",
     "title": "MS SQL Server Login Account, DB User, and Schema Mapping (Compared with Oracle)",
     "date": "2025-10-05",
-    "excerpt": "For Oracle folks moving to MS SQL Server, the confusing 3-level Login·User·Schema structure compared with Oracle's 1-level (User=Schema=Login) model — including the sysadmin-locked-to-dbo problem and the per-task account separation fix.",
+    "excerpt": "For Oracle folks moving to MS SQL Server, the confusing three-level Login, User, and Schema model vs Oracle's one-level design, plus the sysadmin-to-dbo lock.",
     "category": [
       "cloud",
       "database"
@@ -614,7 +614,7 @@
     "slug": "nat-instance-build-1",
     "title": "[AWS Infra] Building & Configuring a NAT Instance from an AMI to Cut NAT Gateway Costs (Part 1)",
     "date": "2024-12-28",
-    "excerpt": "A NAT Gateway costs $32+/month in fixed fees. To save money, I connected a Private Subnet to the internet using an EC2 NAT Instance — Part 1 uses the AWS community AMI (amzn-ami-vpc-nat).",
+    "excerpt": "A NAT Gateway costs $32+ a month, so I connected a private subnet to the internet with an EC2 NAT instance instead — Part 1 uses the AWS community NAT AMI.",
     "category": [
       "cloud",
       "aws"
@@ -633,7 +633,7 @@
     "slug": "nat-instance-build-2",
     "title": "[AWS Infra] Building & Configuring a NAT Instance to Cut NAT Gateway Costs (Part 2)",
     "date": "2024-12-29",
-    "excerpt": "The Part 1 community AMI runs an old (EOS) OS and is hard to maintain. In Part 2 we build a NAT instance on the latest Ubuntu by configuring iptables directly (IP forwarding + MASQUERADE), and persist the rules across reboots.",
+    "excerpt": "Part 1's community AMI runs an end-of-support OS. Part 2 builds a NAT instance on modern Ubuntu with iptables (forwarding + MASQUERADE), persisted on reboots.",
     "category": [
       "cloud",
       "aws"
@@ -652,7 +652,7 @@
     "slug": "nginx-install-ubuntu-centos",
     "title": "Nginx Specific-Version & Latest Install Guide: Ubuntu / CentOS, Fully Organized",
     "date": "2026-02-08",
-    "excerpt": "Install Nginx on a cloud server like AWS EC2 — version-specific installs on Ubuntu (apt) and CentOS (yum), the /etc/nginx config structure (sites-available/enabled), and firewalls (UFW, firewalld, AWS security groups) all in one.",
+    "excerpt": "Install Nginx on a cloud server like AWS EC2 — version-specific installs on Ubuntu (apt) and CentOS (yum), the /etc/nginx config layout, and firewalls.",
     "category": [
       "cloud",
       "server-setup"
@@ -671,7 +671,7 @@
     "slug": "python-oracledb-arm-dpi-1047",
     "title": "[SQLAlchemy] Fixing the DPI-1047 Python Oracle DB Connection Error on AWS Graviton (ARM) | SQLAlchemy, oracledb",
     "date": "2026-02-10",
-    "excerpt": "Why a Python–Oracle integration that worked on x86_64 fails with DPI-1047 (can't find libclntsh.so) on AWS Graviton (ARM), and the fix using python-oracledb Thin mode — pure Python, no Instant Client (SQLAlchemy and native examples).",
+    "excerpt": "Why a Python-Oracle app that ran on x86_64 fails with DPI-1047 on AWS Graviton ARM — fixed with python-oracledb Thin mode: pure Python, no Instant Client.",
     "category": [
       "errors",
       "python"
@@ -691,7 +691,7 @@
     "slug": "python-windows-install-path",
     "title": "Installing Python on Windows + Setting the PATH — When 'python' Is Not Recognized",
     "date": "2024-10-14",
-    "excerpt": "Install Python on Windows and register the install path and the Scripts (pip) path in the system PATH so that just typing 'python' or 'pip' works in cmd. Covers the difference between user and system variables and the site-packages structure of pip-installed libraries.",
+    "excerpt": "Install Python on Windows and add the install and Scripts (pip) paths to your PATH so 'python' and 'pip' work in cmd — plus user vs system variables explained.",
     "category": [
       "web-dev",
       "fastapi"
@@ -710,7 +710,7 @@
     "slug": "seo-google-sandbox-1month",
     "title": "Google Sandbox After 30 Days — New Domain Search Recovery Patterns (GSC · Naver · Cloudflare Data)",
     "date": "2026-06-03",
-    "excerpt": "30 days after migrating to a new .com domain. Indexing gradually OK, impressions follow a spike → dip → recovery pattern. Naver and Cloudflare data carry the load while Google sandbox runs its 6–12 week course.",
+    "excerpt": "30 days after migrating to a new .com domain: indexing recovers gradually while impressions spike, dip, then rebound as Google sandbox runs its course.",
     "category": [
       "growth",
       "seo"
@@ -732,7 +732,7 @@
     "slug": "seo-llmstxt-ai-search-optimization",
     "title": "Adding llms.txt — Site Metadata for the AI-Search Era (ChatGPT · Claude · Perplexity Exposure)",
     "date": "2026-06-02",
-    "excerpt": "robots.txt is the deal with crawlers. llms.txt is the deal with LLMs. The day chatgpt.com first showed up in Cloudflare referrers, I rewrote llms.txt and explicitly allowed every LLM crawler in robots.txt. An hour's worth of notes.",
+    "excerpt": "robots.txt is your deal with crawlers; llms.txt is your deal with LLMs. When chatgpt.com first hit my referrers, I rewrote llms.txt and opened it to crawlers.",
     "category": [
       "growth",
       "seo"
@@ -757,7 +757,7 @@
     "slug": "seo-naver-webmaster-guide",
     "title": "Naver SearchAdvisor — Registration, Sitemap, and Crawl Request: The Complete Guide",
     "date": "2026-06-03",
-    "excerpt": "Naver carries 80% of Korean-site traffic, yet most operators skip Naver SearchAdvisor and let the engine find their site by accident. Registration in 5 minutes, sitemap submission, and manual crawl requests — step by step.",
+    "excerpt": "Naver carries 80% of Korean-site traffic, yet most operators skip SearchAdvisor. A step-by-step guide to registration, sitemap submission, and crawl requests.",
     "category": [
       "growth",
       "seo"
@@ -779,7 +779,7 @@
     "slug": "seo-search-engines-concepts",
     "title": "12 Core SEO·Search-Engine Concepts — sandbox · E-E-A-T · DA · CTR · AI Overview on One Page",
     "date": "2026-06-02",
-    "excerpt": "What Google sandbox is · why a fresh domain disappears from search · the real reason CTR drops · how AI Overview eats traffic. 12 concepts I bumped into the hard way after one month of running a new domain, in one page.",
+    "excerpt": "What Google sandbox is, why a fresh domain vanishes from search, why CTR drops, and how AI Overview eats traffic — 12 SEO concepts from a month on a new site.",
     "category": [
       "growth",
       "seo"
@@ -805,7 +805,7 @@
     "slug": "snowflake-id-generator",
     "title": "Designing a Distributed Unique ID Generator — Twitter Snowflake (Java Implementation)",
     "date": "2024-06-12",
-    "excerpt": "A 64-bit unique ID generator that doesn't collide even when many servers generate IDs at once — the design intent of Twitter Snowflake (Sign·TimeStamp·DataCenter·Server·Serial, 5 segments), a Java bit-operation implementation, and a 10,000 TPS test architecture (Nginx·Netty·MongoDB).",
+    "excerpt": "How Twitter Snowflake makes 64-bit unique IDs that never collide across many servers — the 5-segment layout, a Java bit-operation build, and a 10,000 TPS test.",
     "category": [
       "study",
       "system-design"
@@ -825,7 +825,7 @@
     "slug": "t-test-python-scipy",
     "title": "Implementing the t-test (t test) [One, Two, Paired Samples t-test: Python feat. SciPy & Statsmodels]",
     "date": "2024-11-05",
-    "excerpt": "Turning the t-test theory from the previous post into SciPy code — ttest_1samp, ttest_ind (equal_var toggle), ttest_rel, with axis options. Verifying the hand-computed t and p match SciPy.",
+    "excerpt": "Turning t-test theory into SciPy code — ttest_1samp, ttest_ind with the equal_var toggle, and ttest_rel — and verifying the hand-computed t and p match SciPy.",
     "category": [
       "data"
     ],
@@ -844,7 +844,7 @@
     "slug": "t-test",
     "title": "Testing Means: the t-test [One, Two (Student's & Welch's), Paired Samples t-test]",
     "date": "2024-11-03",
-    "excerpt": "Is a difference in two group means a real difference or just variability — the rationale for the t-test, its assumptions (normality, equal variance), and worked calculations for each type.",
+    "excerpt": "How to tell if a difference between two group means is real or just random variability, plus the t-test's assumptions and worked calculations for each type.",
     "category": [
       "data"
     ],
@@ -862,7 +862,7 @@
     "slug": "uncertainty-variance",
     "title": "Uncertainty, Variability, and Variance (feat. the Nature of Probability)",
     "date": "2024-09-30",
-    "excerpt": "Connecting the nature of probability through three concepts — uncertainty, variability, and variance — including the intuition for why variance is defined as 'distance from the mean.'",
+    "excerpt": "Understanding probability through three ideas — uncertainty, variability, and variance — plus the intuition for why variance measures distance from the mean.",
     "category": [
       "data"
     ],
@@ -880,7 +880,7 @@
     "slug": "web-performance-measure-curl-sips",
     "title": "Measuring Web Performance — TTFB, Page Weight, Image Audit with curl, sips, and Python",
     "date": "2026-05-31",
-    "excerpt": "You don't need Lighthouse for diagnosis. curl -w timing variables give you TTFB and total time, sips reads image dimensions and bytes, and Python aggregates per-page asset weight. A 30-line script you can drop into CI for quantitative regression checks.",
+    "excerpt": "You don't need Lighthouse to diagnose page speed — curl -w gives TTFB and total time, sips reads image bytes, and Python sums per-page weight in a CI script.",
     "category": [
       "web-dev"
     ],

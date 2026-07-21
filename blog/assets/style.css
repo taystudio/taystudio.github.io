@@ -180,6 +180,31 @@ a:hover { color: var(--accent); }
   width: 100%;
 }
 
+/* ── 광고 슬롯 (site.json ads 설정으로 위치별 on/off). 더미 = 배치 확인용, 배포 시 실제 AdFit 코드 ── */
+/* min-height = 라벨(~24) + 광고(250) → 광고 로드 전에 자리 예약 = CLS(레이아웃 밀림) 방지 */
+.tb-adfit { margin: 32px auto; text-align: center; min-height: 274px; }
+.tb-adfit .ad-label {
+  font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 10px;
+}
+.tb-adfit .ad-ph {
+  width: 300px; height: 250px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--surface-2, var(--border-2)); border: 1px solid var(--border);
+  border-radius: 6px; color: var(--muted); font-size: 12px;
+}
+/* 본문 하단 = 티스토리 글 하단: 본문 끝·관련글 앞, 위에 얇은 구분선 */
+.tb-adfit-post-bottom { margin: 44px auto 8px; padding-top: 28px; border-top: 1px solid var(--border-2); }
+.tb-adfit-post-top    { margin: 8px auto 28px; }
+.tb-adfit-post-middle { margin: 36px auto; }
+.tb-adfit-list-top    { margin: 8px auto 24px; }
+.tb-adfit-list-bottom { margin: 24px auto 8px; }
+/* 사이드바 광고 — 카드 껍데기(배경·테두리·그림자) 제거하고 광고 박스만.
+   사이드바 칸 260px 라 250x250 로 fit (300 은 삐져나감). */
+.tb-side-ad { padding: 0 !important; background: none !important; border: none !important; box-shadow: none !important; }
+.tb-side-ad .tb-adfit { margin: 0; }
+.tb-adfit-sidebar .ad-ph { width: 250px; height: 250px; max-width: 100%; }
+
 /* ── Hero ── */
 .tb-hero {
   margin-bottom: 32px;
@@ -407,17 +432,7 @@ a:hover { color: var(--accent); }
   display: flex;
   flex-direction: column;
   gap: 16px;
-  /* 사이드바 전체가 뷰포트 안에서 독립 스크롤 (페이지 안 내려도 아래 카드까지 접근) */
-  max-height: calc(100vh - 96px);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-width: thin;
-  scrollbar-gutter: stable;
-  padding-right: 3px;
 }
-.tb-sidebar-sticky::-webkit-scrollbar { width: 6px; }
-.tb-sidebar-sticky::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-.tb-sidebar-sticky::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 .tb-side-card {
   border-radius: 12px;
   border: 1px solid var(--border);
@@ -437,9 +452,10 @@ a:hover { color: var(--accent); }
 /* 카테고리 위젯 — 현재 카테고리 수 (parent 7 + child 14) 다 보이는 길이.
    안전 cap: 카테고리 늘어나도 viewport 거의 안 넘게 — 그 이상은 자체 스크롤 */
 .tb-side-list[data-cat-signature] {
-  /* 스크롤은 컨테이너(.tb-sidebar-sticky)가 담당 → 여기선 내부 스크롤 없음(이중 스크롤 방지) */
-  max-height: none;
-  overflow: visible;
+  max-height: calc(100vh - 20px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
 }
 .tb-side-list[data-cat-signature]::-webkit-scrollbar { width: 6px; }
 .tb-side-list[data-cat-signature]::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
