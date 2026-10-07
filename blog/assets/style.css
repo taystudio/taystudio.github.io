@@ -1399,11 +1399,16 @@ html.dark .tb-theme-toggle .ti-light { display: inline; }
   font-size: 13px;
   color: var(--muted);
 }
-/* 모바일 — 검색 input 우선순위 낮음 (nav-hide 대신 input 자체 좁힘) */
-@media (max-width: 640px) {
-  .tb-search-input { width: 130px; font-size: 12px; }
-  .tb-search-input:focus { width: 200px; }
-  .tb-search-results { width: 280px; max-width: 92vw; }
+/* Header controls wrap without overflowing narrow screens, including on focus. */
+@media (max-width: 1023px) {
+  .tb-header-inner { height: auto; min-height: 56px; padding: 10px 16px; flex-wrap: wrap; gap: 8px; }
+  .tb-logo { flex-basis: 100%; min-width: 0; }
+  .tb-nav { position: relative; width: 100%; min-width: 0; flex-wrap: wrap; gap: 8px; }
+  .tb-search { position: static; flex: 1 1 100px; min-width: 0; margin: 0; }
+  .tb-studios { position: static; }
+  .tb-studios-menu { min-width: 0; width: 280px; max-width: 100%; }
+  .tb-search-input, .tb-search-input:focus { width: 100%; font-size: 13px; }
+  .tb-search-results { left: 0; right: auto; width: 360px; max-width: 100%; }
 }
 
 /* Notion-style callout — 본문 내 강조 박스 (회색 + 좌측 accent bar) */

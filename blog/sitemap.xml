@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://taystudios.com/blog/ko/</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/"/>
@@ -170,35 +170,35 @@
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/growth/</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/growth/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/growth/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/growth/</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/growth/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/growth/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/growth/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/category/growth/seo/</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/growth/seo/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/growth/seo/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/growth/seo/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/category/growth/seo/</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://taystudios.com/blog/ko/category/growth/seo/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://taystudios.com/blog/en/category/growth/seo/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://taystudios.com/blog/ko/category/growth/seo/"/>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/analytics-gsc-vs-naver-vs-cloudflare/</loc>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/aws-cost-optimization/</loc>
@@ -278,7 +278,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/github-pages-custom-domain/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/hypothesis-testing/</loc>
@@ -314,7 +314,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/nginx-install-ubuntu-centos/</loc>
-    <lastmod>2026-02-08</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/python-oracledb-arm-dpi-1047/</loc>
@@ -326,19 +326,19 @@
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/seo-google-sandbox-1month/</loc>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/seo-llmstxt-ai-search-optimization/</loc>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/seo-naver-webmaster-guide/</loc>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/seo-search-engines-concepts/</loc>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/ko/snowflake-id-generator/</loc>
@@ -366,7 +366,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/analytics-gsc-vs-naver-vs-cloudflare/</loc>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/aws-cost-optimization/</loc>
@@ -446,7 +446,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/github-pages-custom-domain/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/hypothesis-testing/</loc>
@@ -482,7 +482,7 @@
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/nginx-install-ubuntu-centos/</loc>
-    <lastmod>2026-02-08</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/python-oracledb-arm-dpi-1047/</loc>
@@ -494,19 +494,19 @@
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/seo-google-sandbox-1month/</loc>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/seo-llmstxt-ai-search-optimization/</loc>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/seo-naver-webmaster-guide/</loc>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/seo-search-engines-concepts/</loc>
-    <lastmod>2026-06-02</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://taystudios.com/blog/en/snowflake-id-generator/</loc>
@@ -538,6 +538,6 @@
   </url>
   <url>
     <loc>https://taystudios.com/blog/privacy/</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-06</lastmod>
   </url>
 </urlset>

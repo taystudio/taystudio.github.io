@@ -51,7 +51,7 @@ document.getElementById("form").addEventListener("submit", (e) => {
   const rate = parseFloat(document.getElementById("rate").value);
   const years = parseFloat(document.getElementById("years").value);
   const method = document.querySelector('input[name="method"]:checked').value;
-  if (!principal || rate === undefined || isNaN(rate) || !years) { alert("Please fill in every field."); return; }
+  if (![principal, rate, years].every(Number.isFinite) || principal <= 0 || rate < 0 || years <= 0 || !Number.isInteger(years)) { alert("Enter a positive principal, a non-negative rate, and a positive whole number of years."); return; }
 
   const months = years * 12;
   document.getElementById("result").style.display = "block";

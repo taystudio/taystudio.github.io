@@ -43,7 +43,7 @@ document.getElementById("form").addEventListener("submit", (e) => {
   const rate = parseFloat(document.getElementById("rate").value);
   const years = parseFloat(document.getElementById("years").value);
   const method = document.querySelector('input[name="method"]:checked').value;
-  if (!principal || !rate || !years) { alert("값을 모두 입력하세요."); return; }
+  if (![principal, rate, years].every(Number.isFinite) || principal <= 0 || rate < 0 || years <= 0 || !Number.isInteger(years)) { alert("대출금은 0보다 크게, 금리는 0 이상, 기간은 양의 정수(년)로 입력하세요."); return; }
 
   const months = years * 12;
   document.getElementById("result").style.display = "block";

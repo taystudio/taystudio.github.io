@@ -97,7 +97,7 @@
           "name": "비과세 식대 20만원은 어떻게 적용되나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "본 계산기는 단순화를 위해 비과세를 반영하지 않습니다. 식대 20만원이 비과세로 잡히면 소득세 과세표준이 그만큼 줄어 한계세율 15% 구간에서 월 약 33,000원, 24% 구간에서 월 약 52,800원 더 받게 됩니다."
+            "text": "이 계산기는 비과세 수당을 반영하지 않습니다. 실제 급여는 비과세 적용 요건, 보험료 산정 보수, 과세표준과 추가 공제에 따라 달라집니다."
           }
         },
         {
@@ -158,7 +158,7 @@
           "@type": "HowToStep",
           "position": 2,
           "name": "부양가족·비과세 입력",
-          "text": "부양가족 수, 20세 이하 자녀, 비과세 식대 등 입력."
+          "text": "본인을 제외한 부양가족 수를 입력합니다. 비과세 수당과 자녀별 추가 공제는 지원하지 않습니다."
         },
         {
           "@type": "HowToStep",
@@ -177,7 +177,7 @@
     {
       "@type": "Dataset",
       "name": "2026년 한국 4대보험 요율 + 소득세 누진세율 + 국민연금 2026~2033 인상 일정",
-      "description": "한국 직장인의 2026년 4대보험 (국민연금 9.5%/근로자 4.75% · 건강보험 7.19%/근로자 3.595% · 장기요양 0.9448% · 고용보험 0.9%) + 소득세 누진세율 8단계 (과세표준 1,400만~10억, 6%~45%) + 2025.12.29 정부 발표에 따른 국민연금 보험료율 8년 단계적 인상 계획 (2026 9.5% → 2033 13%, 매년 0.5%p) 데이터셋. 근로자 부담 기준. 국민건강보험공단·국민연금공단·근로복지공단·국세청 공식 요율 + 근로소득세액공제 한도(74만/66만/50만) + 국민연금 월 보수 상한 637만원 포함.",
+      "description": "한국 직장인의 2026년 4대보험 (국민연금 9.5%/근로자 4.75% · 건강보험 7.19%/근로자 3.595% · 장기요양 근로자 0.4724% · 고용보험 0.9%) + 소득세 누진세율 8단계 (과세표준 1,400만~10억, 6%~45%) + 2025.12.29 정부 발표에 따른 국민연금 보험료율 8년 단계적 인상 계획 (2026 9.5% → 2033 13%, 매년 0.5%p) 데이터셋. 근로자 부담 기준. 국민건강보험공단·국민연금공단·근로복지공단·국세청 공식 요율 + 근로소득세액공제 한도(74만/66만/50만) + 국민연금 월 보수 상한 659만원 포함.",
       "url": "https://taystudios.com/tools/salary/",
       "spatialCoverage": {
         "@type": "Place",
@@ -329,7 +329,7 @@
           <span id="건강보험" class="value">0원</span>
         </div>
         <div class="breakdown-row">
-          <span class="label">장기요양 (보수월액의 0.9448%)</span>
+          <span class="label">장기요양 (근로자 부담 0.4724%)</span>
           <span id="장기요양" class="value">0원</span>
         </div>
         <div class="breakdown-row">
@@ -399,32 +399,32 @@
         <table>
           <thead><tr><th>연도</th><th>3,000만</th><th>5,000만</th><th>8,000만</th><th>1.2억<sup>*</sup></th></tr></thead>
           <tbody>
-            <tr><td>2026</td><td>118,750</td><td>197,917</td><td>302,575</td><td>302,575</td></tr>
-            <tr><td>2027</td><td>125,000</td><td>208,333</td><td>318,500</td><td>318,500</td></tr>
-            <tr><td>2028</td><td>131,250</td><td>218,750</td><td>334,425</td><td>334,425</td></tr>
-            <tr><td>2029</td><td>137,500</td><td>229,167</td><td>350,350</td><td>350,350</td></tr>
-            <tr><td>2030</td><td>143,750</td><td>239,583</td><td>366,275</td><td>366,275</td></tr>
-            <tr><td>2031</td><td>150,000</td><td>250,000</td><td>382,200</td><td>382,200</td></tr>
-            <tr><td>2032</td><td>156,250</td><td>260,417</td><td>398,125</td><td>398,125</td></tr>
-            <tr><td>2033</td><td><b class="highlight">162,500</b></td><td><b class="highlight">270,833</b></td><td><b class="highlight">414,050</b></td><td><b class="highlight">414,050</b></td></tr>
+            <tr><td>2026</td><td>118,750</td><td>197,885</td><td>313,025</td><td>313,025</td></tr>
+            <tr><td>2027</td><td>125,000</td><td>208,300</td><td>329,500</td><td>329,500</td></tr>
+            <tr><td>2028</td><td>131,250</td><td>218,715</td><td>345,975</td><td>345,975</td></tr>
+            <tr><td>2029</td><td>137,500</td><td>229,130</td><td>362,450</td><td>362,450</td></tr>
+            <tr><td>2030</td><td>143,750</td><td>239,545</td><td>378,925</td><td>378,925</td></tr>
+            <tr><td>2031</td><td>150,000</td><td>249,960</td><td>395,400</td><td>395,400</td></tr>
+            <tr><td>2032</td><td>156,250</td><td>260,375</td><td>411,875</td><td>411,875</td></tr>
+            <tr><td>2033</td><td>162,500</td><td>270,790</td><td>428,350</td><td>428,350</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="small"><sup>*</sup> 국민연금 산정 기준 <b>월 보수 상한 637만원</b> (2025.7~2026.6 적용)이 있어 월 보수가 상한을 초과하는 구간 (연봉 약 7,650만원 이상)부터는 부담액이 동일하게 절단됩니다. 8,000만·1.2억이 같은 이유. 상한은 매년 전국 평균소득 인상률 따라 조정.</p>
+      <p class="small"><sup>*</sup> 국민연금 산정 기준 <b>월 보수 상한 659만원</b> (2026.7~2027.6 적용)이 있어 월 보수가 상한을 초과하는 구간 (연봉 약 7,908만원 이상)부터는 부담액이 동일하게 절단됩니다. 8,000만·1.2억이 같은 이유. 위 미래 비교표는 현재 소득 및 상·하한을 고정한 가정이며, 실제 미래 고지액은 매년 조정되는 기준에 따라 달라집니다.</p>
 
       <h3 style="margin-top:20px;font-size:16px">연봉별 8년 누적 본인 추가 부담 (2026 → 2033)</h3>
       <div class="ref-table">
         <table>
           <thead><tr><th>연봉</th><th>8년 누적 추가</th><th>월평균 추가</th><th>2033년 월 부담</th><th>2026년 월 부담</th></tr></thead>
           <tbody>
-            <tr><td>3,000만</td><td class="highlight">2,100,000원</td><td>21,875원</td><td>162,500원</td><td>118,750원</td></tr>
-            <tr><td>5,000만</td><td class="highlight">3,500,000원</td><td>36,458원</td><td>270,833원</td><td>197,917원</td></tr>
-            <tr><td>8,000만</td><td class="highlight">5,350,800원</td><td>55,738원</td><td>414,050원</td><td>302,575원</td></tr>
-            <tr><td>1.2억<sup>*</sup></td><td class="highlight">5,350,800원</td><td>55,738원</td><td>414,050원</td><td>302,575원</td></tr>
+            <tr><td>3,000만</td><td>2,100,000원</td><td>21,875원</td><td>162,500원</td><td>118,750원</td></tr>
+            <tr><td>5,000만</td><td>3,499,440원</td><td>36,453원</td><td>270,790원</td><td>197,885원</td></tr>
+            <tr><td>8,000만</td><td>5,535,600원</td><td>57,663원</td><td>428,350원</td><td>313,025원</td></tr>
+            <tr><td>1.2억</td><td>5,535,600원</td><td>57,663원</td><td>428,350원</td><td>313,025원</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="small">평균 직장인(연봉 5천만) 기준 <b>8년간 350만원 추가 부담</b>, 월 평균 약 3.6만원 더 빠지게 됩니다. 다만 인상된 보험료는 그대로 본인의 노후 연금액 산정에 반영되어 수령액도 증가하므로 단순 손실이 아닙니다.</p>
+      <p class="small">누적 추가액은 각 연도의 월 보험료와 2026년 월 보험료의 차이를 12개월씩 합산한 가정입니다. 월평균은 누적액을 96개월로 나눈 값입니다.</p>
 
       <p class="small" style="margin-top:12px;padding:12px;background:var(--accent-bg);border-radius:6px"><b>📌 본 계산기는 이미 2026년 9.5%(근로자 4.75%) 기준으로 적용 중</b>입니다. 2027년 이후 보험료율은 연도가 바뀔 때마다 본 사이트에서도 단계적으로 반영 예정.</p>
     </section>
@@ -435,19 +435,19 @@
         <table>
           <thead><tr><th>연봉</th><th>월 급여</th><th>총 공제</th><th>월 실수령</th><th>연 실수령</th></tr></thead>
           <tbody>
-            <tr><td>3,000만원</td><td>2,500,000</td><td>299,871</td><td class="highlight">2,200,129</td><td>26,401,550</td></tr>
-            <tr><td>3,600만원</td><td>3,000,000</td><td>402,059</td><td class="highlight">2,597,941</td><td>31,175,296</td></tr>
-            <tr><td>4,000만원</td><td>3,333,333</td><td>480,104</td><td class="highlight">2,853,230</td><td>34,238,757</td></tr>
-            <tr><td>5,000만원</td><td>4,166,667</td><td>676,958</td><td class="highlight">3,489,709</td><td>41,876,509</td></tr>
-            <tr><td>6,000만원</td><td>5,000,000</td><td>878,487</td><td class="highlight">4,121,513</td><td>49,458,160</td></tr>
-            <tr><td>7,000만원</td><td>5,833,333</td><td>1,080,016</td><td class="highlight">4,753,318</td><td>57,039,812</td></tr>
-            <tr><td>8,000만원</td><td>6,666,667</td><td>1,340,275</td><td class="highlight">5,326,392</td><td>63,916,703</td></tr>
-            <tr><td>1억원</td><td>8,333,333</td><td>1,825,003</td><td class="highlight">6,508,330</td><td>78,099,965</td></tr>
-            <tr><td>1.2억원</td><td>10,000,000</td><td>2,375,277</td><td class="highlight">7,624,723</td><td>91,496,674</td></tr>
+            <tr><td>3,000만원</td><td>2,500,000</td><td>288,938</td><td>2,211,062</td><td>26,532,748</td></tr>
+            <tr><td>3,600만원</td><td>3,000,000</td><td>390,225</td><td>2,609,775</td><td>31,317,300</td></tr>
+            <tr><td>4,000만원</td><td>3,333,333</td><td>466,942</td><td>2,866,391</td><td>34,396,697</td></tr>
+            <tr><td>5,000만원</td><td>4,166,667</td><td>660,496</td><td>3,506,171</td><td>42,074,053</td></tr>
+            <tr><td>6,000만원</td><td>5,000,000</td><td>858,764</td><td>4,141,236</td><td>49,694,833</td></tr>
+            <tr><td>7,000만원</td><td>5,833,333</td><td>1,056,993</td><td>4,776,341</td><td>57,316,088</td></tr>
+            <tr><td>8,000만원</td><td>6,666,667</td><td>1,324,787</td><td>5,341,880</td><td>64,102,558</td></tr>
+            <tr><td>10,000만원</td><td>8,333,333</td><td>1,803,720</td><td>6,529,613</td><td>78,355,357</td></tr>
+            <tr><td>12,000만원</td><td>10,000,000</td><td>2,352,651</td><td>7,647,349</td><td>91,768,184</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="small">실제로는 회사 비과세 정책(식대·자가운전 등)에 따라 +1 ~ 10만원 더 받을 수 있습니다.</p>
+      <p class="small">실제 지급액은 비과세 수당, 원천징수 방식, 공제와 정산에 따라 달라질 수 있습니다.</p>
     </section>
 
     <section class="disclosure-group">
@@ -459,7 +459,7 @@
           <div class="formula-list">
             <ol>
               <li><b>월급</b> = 연봉 ÷ 12</li>
-              <li><b>4대보험 (월)</b>: 국민연금 <code>월급 × 4.75%</code> (월 상한 637만원), 건강보험 <code>월급 × 3.595%</code>, 장기요양 <code>월급 × 0.9448%</code>, 고용보험 <code>월급 × 0.9%</code></li>
+              <li><b>4대보험 (월)</b>: 국민연금 <code>월급 × 4.75%</code> (월 상한 659만원), 건강보험 <code>월급 × 3.595%</code>, 장기요양 <code>월급 × 0.4724%</code>, 고용보험 <code>월급 × 0.9%</code></li>
               <li><b>근로소득공제</b> — 연봉 구간별 차등 (소득세법 제47조)</li>
               <li><b>과세표준</b> = 연봉 − 근로소득공제 − 인적공제(150만원 × (본인+부양가족)) − 연 4대보험</li>
               <li><b>산출세액</b> — 과세표준에 6 ~ 45% 누진세율 적용 (소득세법 제55조)</li>
@@ -470,24 +470,7 @@
         </div>
       </details>
 
-      <details>
-        <summary>비과세 식대 20만원 효과</summary>
-        <div class="body">
-          <p>2024년부터 식대 비과세 한도가 월 20만원입니다. 식대는 4대보험 산정 보수에는 포함되지만 <strong>소득세 과세표준에서는 빠집니다.</strong> 한계세율 구간에 따라 월 실수령액이 다음만큼 늘어납니다.</p>
-          <div class="ref-table">
-            <table>
-              <thead><tr><th>연봉 구간</th><th>한계세율</th><th>월 추가 실수령</th></tr></thead>
-              <tbody>
-                <tr><td>1,400만 ~ 5,000만</td><td>15%</td><td class="highlight">약 33,000원</td></tr>
-                <tr><td>5,000만 ~ 8,800만</td><td>24%</td><td class="highlight">약 52,800원</td></tr>
-                <tr><td>8,800만 ~ 1.5억</td><td>35%</td><td class="highlight">약 77,000원</td></tr>
-                <tr><td>1.5억 ~ 3억</td><td>38%</td><td class="highlight">약 83,600원</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="small">계산식: 월 비과세 20만원 × 한계세율 × 1.1(지방소득세 포함)</p>
-        </div>
-      </details>
+      <details><summary>비과세 수당과 실제 급여의 차이</summary><div class="body"><p>이 계산기는 비과세 수당 0원과 연간 세액을 12개월로 나눈 금액을 가정합니다. 회사의 매월 간이세액표 원천징수액이나 연말정산 결과와 다를 수 있습니다. 비과세 수당, 추가 공제 및 감면은 반영하지 않습니다.</p></div></details>
 
       <details>
         <summary>부양가족 수에 따른 차이</summary>
@@ -496,11 +479,11 @@
             <table>
               <thead><tr><th>부양가족</th><th>연봉 5,000만 실수령월</th><th>연봉 8,000만 실수령월</th></tr></thead>
               <tbody>
-                <tr><td>0명</td><td>3,489,709</td><td>5,326,392</td></tr>
-                <tr><td>1명</td><td>3,510,334 (+20,625)</td><td>5,359,392 (+33,000)</td></tr>
-                <tr><td>2명</td><td>3,530,959 (+41,250)</td><td>5,392,392 (+66,000)</td></tr>
-                <tr><td>3명</td><td>3,551,584 (+61,875)</td><td>5,425,392 (+99,000)</td></tr>
-              </tbody>
+            <tr><td>0명</td><td>3,506,171</td><td>5,341,880</td></tr>
+            <tr><td>1명</td><td>3,526,796</td><td>5,374,880</td></tr>
+            <tr><td>2명</td><td>3,547,421</td><td>5,407,880</td></tr>
+            <tr><td>3명</td><td>3,568,046</td><td>5,440,880</td></tr>
+          </tbody>
             </table>
           </div>
           <p class="small">부양가족 1인당 인적공제 150만원이 추가되어 과세표준이 줄어듭니다. 한계세율이 높을수록(고연봉) 효과가 큽니다.</p>
@@ -511,13 +494,13 @@
         <summary>실제 급여명세서와 차이 나는 이유</summary>
         <div class="body">
           <div class="case-grid">
-            <div class="case"><b>비과세 항목</b>식대(월 20만원), 자가운전보조금(월 20만원), 보육수당(월 10만원) 등이 비과세로 잡히면 명세서 실수령액이 더 큽니다.</div>
+            <div class="case"><b>비과세 항목</b>식대·자가운전보조금·보육수당 등은 적용 요건과 한도에 따라 과세 및 보험료 산정 대상이 달라질 수 있습니다.</div>
             <div class="case"><b>회사 자체 공제</b>노조비, 사내복지기금, 단체보험료, 식대 자기부담금 등이 추가로 빠지면 명세서가 더 작아집니다.</div>
             <div class="case"><b>간이세액표 vs 정산</b>회사는 매달 간이세액표로 원천징수합니다. 본 계산기는 연 정산 기준이라 매월 명세서와 약간 다릅니다.</div>
             <div class="case"><b>건강보험 정산</b>매년 4월에 전년 보수총액 기준으로 정산되어 일시적으로 ±10 ~ 30만원 차이가 발생합니다.</div>
             <div class="case"><b>상여·성과급</b>상여 지급 월에는 누진 과세표준이 일시적으로 올라가 평월보다 세금이 많이 빠집니다.</div>
             <div class="case"><b>연말정산</b>의료비·기부금·신용카드 사용액 등 추가 공제로 2 ~ 3월에 환급(또는 추가 납부)되어 연 실수령은 본 계산값보다 ±100만원까지 차이 날 수 있습니다.</div>
-            <div class="case"><b>국민연금 상한</b>월 보수가 637만원(2026.6까지)을 넘으면 국민연금 산정 기준은 그 금액에서 멈춥니다. 즉 고연봉에서는 국민연금 비율이 감소합니다.</div>
+            <div class="case"><b>국민연금 상한</b>월 보수가 659만원(2027.6까지)을 넘으면 국민연금 산정 기준은 그 금액에서 멈춥니다. 즉 고연봉에서는 국민연금 비율이 감소합니다.</div>
             <div class="case"><b>청년·외국인 특례</b>중소기업 청년 소득세 감면(최대 5년 90%), 외국인 단일세율(19%) 등이 적용되면 본 계산값보다 훨씬 적게 빠질 수 있습니다.</div>
           </div>
         </div>
@@ -552,9 +535,7 @@
       <details>
         <summary>비과세 식대 20만원은 어떻게 적용되나요?</summary>
         <div class="answer">
-          본 계산기는 단순화를 위해 비과세를 반영하지 않습니다. 식대 20만원이 비과세로 잡히면
-          소득세 과세표준이 그만큼 줄어 한계세율 15% 구간에서 월 약 33,000원, 24% 구간에서
-          월 약 52,800원 더 받게 됩니다.
+          이 계산기는 비과세 수당을 반영하지 않습니다. 실제 급여는 비과세 적용 요건, 보험료 산정 보수, 과세표준과 추가 공제에 따라 달라집니다.
         </div>
       </details>
 
@@ -603,11 +584,12 @@
       </details>
     </section>
     <section class="sources">
+      <p class="small">국민연금 가입 대상 직장인의 월 보수를 가정한 참고용 추정입니다. 국민연금 기준소득월액은 천 원 미만을 버린 뒤 하한 41만원·상한 659만원을 적용합니다. 실제 고지액은 신고 보수·가입 자격·비과세·정산 및 원 단위 처리에 따라 다릅니다. 건강보험의 상·하한과 개별 감면은 반영하지 않습니다. <a href="https://www.nps.or.kr/pnsinfo/ntpsklg/getOHAF0038M0.do?menuId=MN24001113">국민연금공단 산정 기준</a> · <a href="https://edi.nhis.or.kr/portal/images/popup/20251204_pop01longdesc.html">건강보험공단 2026년 요율</a></p>
       <h2>적용된 법령·고시 및 출처</h2>
-      <div class="updated">최종 검증: 2026-04-29 / 적용 기준: 2026년 1월 (각 출처를 직접 확인하여 수치 갱신 완료)</div>
+      <div class="updated">국민연금 상·하한 및 장기요양 검토: 2026-10-06 / 2026년 보험료율, 국민연금 기준소득월액 2026.7~2027.6 적용</div>
       <ul>
         <li><b>국민연금 9.5%</b> (근로자 4.75%) — 2026년부터 매년 0.5%p씩 8년간 인상하여 2033년 13% 도달. 국민연금법 제88조 / <a href="https://www.korea.kr/news/policyNewsView.do?newsId=148957270" target="_blank" rel="noopener">대한민국 정책브리핑</a> · <a href="https://www.nps.or.kr/pnsinfo/ntpsklg/getOHAF0038M0.do" target="_blank" rel="noopener">국민연금공단</a></li>
-        <li><b>국민연금 기준소득월액 상한 637만원</b> (2025.7.1~2026.6.30) — <a href="https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1481895" target="_blank" rel="noopener">보건복지부 보도자료</a></li>
+        <li><b>국민연금 기준소득월액 상한 659만원</b> (2026.7.1~2027.6.30) — <a href="https://www.nps.or.kr/pnsinfo/ntpsklg/getOHAF0038M0.do?menuId=MN24001113" target="_blank" rel="noopener">국민연금공단 산정 기준</a></li>
         <li><b>건강보험 3.595%</b> (직장가입자 기준) — 2026년 시행, 합계 7.19%. <a href="https://www.nhis.or.kr/nhis/together/wbhaea01000m01.do?mode=view&articleNo=11008009" target="_blank" rel="noopener">국민건강보험공단 2026년도 보험료 기준 안내</a> · <a href="https://www.nhis.or.kr/nhis/policy/wbhada01800m01.do" target="_blank" rel="noopener">직장가입자 보수월액보험료</a></li>
         <li><b>장기요양보험 0.9448%</b> (보수월액 대비) — 2026년 시행. 산정식: 보수월액 × 0.9448% (= 건강보험료 × 13.14%)</li>
         <li><b>고용보험 0.9%</b> — 고용보험법 시행령 제12조 / <a href="https://www.ei.go.kr" target="_blank" rel="noopener">고용보험</a></li>
@@ -620,11 +602,11 @@
       </div>
     </section>
     <nav class="related-nav" style="text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border)">
-      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 38개 계산기 모두 보기</a>
+      <a href="../" style="color:var(--primary);text-decoration:none;font-weight:500;font-size:14px">→ 계산기 모두 보기</a>
     </nav>
   </main>
 
-  <script src="./salary.js" defer></script>
+  <script src="./salary.js?v=db938193" defer></script>
   <site-footer></site-footer>
 </body>
 </html>

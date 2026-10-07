@@ -708,9 +708,9 @@
   },
   {
     "slug": "seo-google-sandbox-1month",
-    "title": "Google Sandbox After 30 Days — New Domain Search Recovery Patterns (GSC · Naver · Cloudflare Data)",
+    "title": "30 Days of Search Visibility After a Domain Move — GSC, Naver and Cloudflare",
     "date": "2026-06-03",
-    "excerpt": "30 days after migrating to a new .com domain: indexing recovers gradually while impressions spike, dip, then rebound as Google sandbox runs its course.",
+    "excerpt": "A domain-move traffic record separating observations from speculation, with practical checks for indexing, canonical URLs and recrawling.",
     "category": [
       "growth",
       "seo"
@@ -779,7 +779,7 @@
     "slug": "seo-search-engines-concepts",
     "title": "12 Core SEO·Search-Engine Concepts — sandbox · E-E-A-T · DA · CTR · AI Overview on One Page",
     "date": "2026-06-02",
-    "excerpt": "What Google sandbox is, why a fresh domain vanishes from search, why CTR drops, and how AI Overview eats traffic — 12 SEO concepts from a month on a new site.",
+    "excerpt": "Twelve search concepts including indexing, visibility and CTR, separating site observations from causal claims and avoiding a fixed waiting period for new domains.",
     "category": [
       "growth",
       "seo"

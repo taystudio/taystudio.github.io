@@ -1,171 +1,47 @@
-# Google Search Console — URL Indexing 체크리스트
+# 색인 복구 체크리스트
 
-**작성일**: 2026-05-04  
-**용도**: Search Console > URL Inspection > Request Indexing 진행 상황 추적  
-**전체**: 37개 (도구 33 + 진입점 2 + 메타 2)
+갱신: 2026-10-07. 아래 상태는 2026-10-06에 저장한 자료의 2026-09-21 집계이며, 실시간 상태가 아닙니다.
 
----
+## 현재 상태
 
-## 진행 상황
+- 사이트맵 대상 255개: 색인 32개, 크롤링됨·미색인 214개, 발견됨·미색인 9개.
+- 로컬 수정과 정적 검증 완료. 배포 완료·실시간 검사·색인 요청은 아직 확인하지 못했습니다.
+- 요청 접수는 색인 완료와 다릅니다. 완료 표시는 실제 URL 검사 결과를 근거로 합니다.
 
-| 카테고리  | 완료  | 전체   |
-| --------- | ----- | ------ |
-| 진입점    | 0     | 2      |
-| 부동산    | 1     | 6      |
-| 금융·세금 | 1     | 10     |
-| 근로·고용 | 0     | 6      |
-| 임신·육아 | 0     | 5      |
-| 자동차    | 0     | 2      |
-| 건강      | 0     | 2      |
-| 생활      | 0     | 2      |
-| 메타      | 0     | 2      |
-| **합계**  | **2** | **37** |
+## 진행 순서
 
----
+1. 수정본을 기존 호스팅에 배포하고 배포 시각을 기록합니다.
+2. 아래 대표 URL에서 실제 수정 내용과 정상 응답을 확인합니다. 홈페이지·블로그 사이트맵도 확인합니다.
+3. Search Console URL 검사에서 기존 색인 상태, 마지막 크롤링 시각, Google 선택 canonical을 기록합니다.
+4. 실시간 URL 테스트로 접근·색인 허용 여부를 확인합니다. 실시간 테스트 통과만으로 색인을 확정하지 않습니다.
+5. 수정된 대표 URL에 색인 생성 요청을 한 번 접수하고 접수 시각을 기록합니다. 화면에서 할당량 초과가 나오면 중단합니다.
+6. 마지막 크롤링 시각이 배포 이후로 바뀌었는지 확인합니다. 바뀌었는데도 미색인이면 Google 선택 canonical, 티스토리 원문과의 중복, 본문 고유성과 정확성을 다시 점검합니다.
 
-## 🏠 진입점 (2) — 가장 중요
+## 우선 확인 URL
 
-도메인 권위가 모이는 핵심. 무조건 1일차 등록.
+| URL | 기존 상태 | 선정 이유 | 배포 확인 / 요청 / 후속 결과 |
+| --- | --- | --- | --- |
+| https://taystudios.com/blog/ko/nginx-install-ubuntu-centos/ | 색인 생성됨 | 새 내부 링크의 출발점. 기존 색인 페이지의 링크 재수집 확인 | 미확인 / 미요청 / 미확인 |
+| https://taystudios.com/blog/ko/snowflake-id-generator/ | 크롤링됨 - 현재 색인이 생성되지 않음 | 색인 허용 페이지에서 들어오는 링크 보강 | 미확인 / 미요청 / 미확인 |
+| https://taystudios.com/blog/ko/mssql-login-user-schema/ | 크롤링됨 - 현재 색인이 생성되지 않음 | 관련 본문 링크 보강 | 미확인 / 미요청 / 미확인 |
+| https://taystudios.com/blog/ko/python-oracledb-arm-dpi-1047/ | 크롤링됨 - 현재 색인이 생성되지 않음 | 관련 본문 링크 보강 | 미확인 / 미요청 / 미확인 |
+| https://taystudios.com/blog/ko/cloudflare-worker-d1-analytics/ | 발견됨 - 현재 색인이 생성되지 않음 | 발견됨 상태의 신규 글: 수집 여부 비교 | 미확인 / 미요청 / 미확인 |
+| https://taystudios.com/tools/salary/ | 크롤링됨 - 현재 색인이 생성되지 않음 | 계산 로직 수정 후 재수집 확인 | 미확인 / 미요청 / 미확인 |
 
-- [ ] https://taystudios.com/
-- [ ] https://taystudios.com/tools/
+## 사이트맵
 
-## 🏠 부동산 (6)
+- https://taystudios.com/sitemap.xml
+- https://taystudios.com/blog/sitemap.xml
+- 기존 제출 상태와 마지막 읽은 시각을 확인합니다. 미제출 또는 읽기 오류일 때 제출·오류 해결을 진행합니다.
 
-- [x] https://taystudios.com/tools/brokerage/ — 중개수수료
-- [x] https://taystudios.com/tools/property-tax/ — 재산세
-- [ ] https://taystudios.com/tools/comp-property/ — 종합부동산세
-- [x] https://taystudios.com/tools/capgain/ — 양도소득세 ✅
-- [ ] https://taystudios.com/tools/acqtax/ — 부동산 취득세 (신규)
-- [ ] https://taystudios.com/tools/rent-convert/ — 전월세 전환 (신규)
+## 후속 확인 기록
 
-## 💰 금융·세금 (10)
+| URL | 배포 시각 | 요청 시각 | 마지막 크롤링 | Google 선택 canonical | 색인 결과 |
+| --- | --- | --- | --- | --- | --- |
+| 미기록 | | | | | |
 
-- [x] https://taystudios.com/tools/salary/ — 연봉 실수령액 ✅
-- [ ] https://taystudios.com/tools/year-end/ — 연말정산
-- [ ] https://taystudios.com/tools/comprehensive/ — 종합소득세
-- [ ] https://taystudios.com/tools/vat/ — 부가가치세
-- [ ] https://taystudios.com/tools/inheritance/ — 상속세
-- [ ] https://taystudios.com/tools/gifttax/ — 증여세 (신규)
-- [ ] https://taystudios.com/tools/insurance/ — 4대보험
-- [ ] https://taystudios.com/tools/loan/ — 대출 이자
-- [ ] https://taystudios.com/tools/savings/ — 적금 이자
-- [ ] https://taystudios.com/tools/compound/ — 복리
+## 판단 기준과 공식 안내
 
-## 👔 근로·고용 (6)
-
-- [ ] https://taystudios.com/tools/hourly/ — 시급↔월급
-- [ ] https://taystudios.com/tools/weekly-pay/ — 주휴수당
-- [ ] https://taystudios.com/tools/annual-leave/ — 연차수당
-- [ ] https://taystudios.com/tools/severance/ — 퇴직금
-- [ ] https://taystudios.com/tools/unemployment/ — 실업급여
-- [ ] https://taystudios.com/tools/parental-leave/ — 육아휴직 급여
-
-## 👶 임신·육아 (5)
-
-- [ ] https://taystudios.com/tools/pregnancy/ — 출산예정일
-- [ ] https://taystudios.com/tools/ovulation/ — 배란일
-- [ ] https://taystudios.com/tools/baby-formula/ — 분유량
-- [ ] https://taystudios.com/tools/baby-clothes/ — 아기옷 사이즈
-- [ ] https://taystudios.com/tools/growth/ — 성장 백분위
-
-## 🚗 자동차 (2)
-
-- [ ] https://taystudios.com/tools/cartax/ — 자동차 취득세
-- [ ] https://taystudios.com/tools/cartax-yearly/ — 연간 자동차세
-
-## ⚖️ 건강 (2)
-
-- [ ] https://taystudios.com/tools/bmi/ — BMI
-- [ ] https://taystudios.com/tools/calorie/ — 칼로리(BMR/TDEE)
-
-## 📅 생활 (2)
-
-- [ ] https://taystudios.com/tools/age/ — 만 나이
-- [ ] https://taystudios.com/tools/dday/ — D-day
-
-## 📋 메타 (2) — 우선순위 낮음
-
-- [ ] https://taystudios.com/tools/privacy/ — 개인정보처리방침
-- [ ] https://taystudios.com/tools/terms/ — 이용약관
-
----
-
-## 등록 우선순위 (3일 분할)
-
-### 🔥 1일차 (10개) — 진입점 + 트래픽 큰 도구
-
-1. https://taystudios.com/
-2. https://taystudios.com/tools/
-3. https://taystudios.com/tools/age/
-4. https://taystudios.com/tools/comprehensive/
-5. https://taystudios.com/tools/year-end/
-6. https://taystudios.com/tools/bmi/
-7. https://taystudios.com/tools/pregnancy/
-8. https://taystudios.com/tools/inheritance/
-9. https://taystudios.com/tools/gifttax/
-10. https://taystudios.com/tools/acqtax/
-
-### 🔧 2일차 (10개) — 근로·고용 + 부동산 메인
-
-1. https://taystudios.com/tools/unemployment/
-2. https://taystudios.com/tools/severance/
-3. https://taystudios.com/tools/parental-leave/
-4. https://taystudios.com/tools/weekly-pay/
-5. https://taystudios.com/tools/annual-leave/
-6. https://taystudios.com/tools/hourly/
-7. https://taystudios.com/tools/property-tax/
-8. https://taystudios.com/tools/comp-property/
-9. https://taystudios.com/tools/rent-convert/
-10. https://taystudios.com/tools/brokerage/
-
-### 📦 3일차 (15개) — 나머지
-
-1. https://taystudios.com/tools/vat/
-2. https://taystudios.com/tools/insurance/
-3. https://taystudios.com/tools/loan/
-4. https://taystudios.com/tools/savings/
-5. https://taystudios.com/tools/compound/
-6. https://taystudios.com/tools/cartax/
-7. https://taystudios.com/tools/cartax-yearly/
-8. https://taystudios.com/tools/ovulation/
-9. https://taystudios.com/tools/baby-formula/
-10. https://taystudios.com/tools/baby-clothes/
-11. https://taystudios.com/tools/growth/
-12. https://taystudios.com/tools/calorie/
-13. https://taystudios.com/tools/dday/
-14. https://taystudios.com/tools/privacy/
-15. https://taystudios.com/tools/terms/
-
----
-
-## 진행 방법
-
-1. https://search.google.com/search-console 접속
-2. 좌측 상단에서 `taystudios.com` property 선택
-3. 상단 검색창(URL Inspection)에 위 리스트의 URL 1개 붙여넣기 → Enter
-4. 결과 화면에서 **"REQUEST INDEXING"** 클릭
-5. "URL is on Google" 또는 "Indexing requested" 확인 후 다음 URL로
-6. 완료한 URL은 이 문서에서 `- [ ]` → `- [x]`로 수정
-
-## ⚠️ Search Console 한도 주의
-
-- "Request Indexing" **하루 약 10~20회** 안전선
-- 초과 시 `Quota exceeded for quota metric 'Indexing requests'` 뜨고 24시간 락
-- 한도 차면 다음날까지 대기. 위 3일 분할 그대로 따라가면 안전
-- 강제 필수는 아님 — sitemap 제출만 잘 돼있으면 며칠~몇 주 내 자연 크롤링됨
-
-## 등록 후 확인 방법
-
-| 단계   | 도구                                          | 확인 내용                                    |
-| ------ | --------------------------------------------- | -------------------------------------------- |
-| 즉시   | URL Inspection 결과 화면                      | "URL is on Google" 또는 "Indexing requested" |
-| 1~3일  | URL Inspection 재조회                         | "Last crawl" 날짜 갱신 여부                  |
-| 1~7일  | `site:taystudios.com/tools/<slug>/` 검색 | SERP 노출 여부                               |
-| 1~14일 | Search Console > Performance                  | impressions·clicks 시작                      |
-
-## 참고
-
-- robots.txt: `https://taystudios.com/robots.txt`
-- sitemap: `https://taystudios.com/sitemap.xml` (37 URL)
-- 관련 문서: `tools/SEO_SETUP.md` (SEO 작업 통합 로그)
+- 반복 요청은 수집 속도를 높이지 않으며, 요청 자체가 색인을 보장하지 않습니다. 고정된 일일 안전 한도나 회복 날짜를 가정하지 않습니다.
+- https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl
+- 이전 요청 이력 원본은 history/audit/indexing-checklist-before-2026-10-07.txt에 보존했습니다. 당시 체크 표시는 현재 색인 상태로 간주하지 않습니다.
